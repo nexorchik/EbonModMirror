@@ -46,7 +46,7 @@ public class CBeam : ModProjectile
     {
         NPC owner = Main.npc[(int)Projectile.ai[2]];
 
-        if (owner.active && owner.type == ModContent.NPCType<NPCs.Conglomerate.Conglomerate>())
+        if (owner.active)// && owner.type == ModContent.NPCType<NPCs.Conglomerate.Conglomerate>())
         {
             Projectile.velocity = (owner.rotation + PiOver2).ToRotationVector2();
             Projectile.Center = owner.Center;
@@ -82,7 +82,7 @@ public class CBeam : ModProjectile
         }
         NPC owner = Main.npc[(int)Projectile.ai[2]];
 
-        if (owner.active && owner.type == ModContent.NPCType<NPCs.Conglomerate.Conglomerate>())
+        if (owner.active)// && owner.type == ModContent.NPCType<NPCs.Conglomerate.Conglomerate>())
         {
             Projectile.velocity = (owner.rotation + PiOver2 + Projectile.ai[0]).ToRotationVector2();
             Projectile.Center = owner.Center;
