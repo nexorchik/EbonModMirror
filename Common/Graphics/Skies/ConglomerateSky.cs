@@ -1,5 +1,4 @@
-﻿using EbonianMod.NPCs.Conglomerate;
-using System;
+﻿using System;
 using Terraria.Graphics.Effects;
 
 namespace EbonianMod.Common.Graphics.Skies;
