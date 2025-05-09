@@ -31,7 +31,7 @@ Projectiles: {
 	Pipebomb.DisplayName: Pipebomb
 	Mailbox.DisplayName: Mailbox
 	Garbage.DisplayName: Garbage
-	IchorFlintlockP.DisplayName: Bloodcolt
+	IchorFlintlockP.DisplayName: Fangnum
 	EbonianGunP.DisplayName: Cursed Firearm
 	BloodOrb.DisplayName: Blood Orb
 	VileBladeP.DisplayName: Vile Blade
@@ -199,9 +199,9 @@ Projectiles: {
 	GarbageLaser2.DisplayName: Flame
 	GarbageLaser3.DisplayName: Flame
 	HeatBlastVFX.DisplayName: Heat Blast
-	GarbageLaserSmall1.DisplayName: Flame
-	GarbageLaserSmall2.DisplayName: Flame
-	GarbageLaserSmall3.DisplayName: Flame
+	GarbageLaserSmall1.DisplayName: Volcanic Eruption
+	GarbageLaserSmall2.DisplayName: Volcanic Eruption
+	GarbageLaserSmall3.DisplayName: Volcanic Eruption
 	ChargeUp.DisplayName: Charge Up
 	GluttonImpact.DisplayName: Impact
 	GreenChargeUp.DisplayName: Green Charge Up
@@ -267,6 +267,52 @@ Projectiles: {
 	TerrortomeFlame.DisplayName: Terrortome Flame
 	TerrortomeWorm.DisplayName: Terrortome Worm
 	SawcitiorP.DisplayName: Sawcitior P
+	ClawSlashGreen.DisplayName: Claw Slash Green
+	CGhostCeci.DisplayName: C Ghost Ceci
+	CBeamSmall.DisplayName: C Beam Small
+	CWorm.DisplayName: C Worm
+	BlurScream.DisplayName: Blur Scream
+	Coins.DisplayName: Coins
+	SilverBasherFlash.DisplayName: Silver Basher Flash
+	SilverBasherP.DisplayName: Silver Basher P
+	terrortomaFishingRodBobber.DisplayName: terrortoma Fishing Rod Bobber
+	cecitiorFishingRodBobber.DisplayName: cecitior Fishing Rod Bobber
+	VerletBeam.DisplayName: Verlet Beam
+	CrimsonBall.DisplayName: Crimson Ball
+	BallLauncherSprite.DisplayName: Ball Launcher Sprite
+	CorruptionBalls.DisplayName: Corruption Balls
+	BallLauncherSprite2.DisplayName: Ball Launcher Sprite2
+	BallLauncherCharge.DisplayName: Ball Launcher Charge
+	Ball.DisplayName: Ball
+	LatcherSprite.DisplayName: Latcher Sprite
+	DummyProjectile.DisplayName: Dummy Projectile
+	Misery.DisplayName: Jetpack Boulder
+	CrimCannonGraphics.DisplayName: Crim Cannon Graphics
+	ToothProj.DisplayName: Tooth Proj
+	CorebreakerGraphics.DisplayName: Corebreaker Graphics
+	AImpact.DisplayName: A Impact
+	AureusLaser.DisplayName: Aureus Laser
+	AureusMine.DisplayName: Aureus Mine
+	jumpscare.DisplayName: jumpscare
+	MagnetSphere.DisplayName: Magnet Sphere
+	CorebreakerPrimary.DisplayName: Corebreaker Primary
+	CorebreakerSecondary.DisplayName: Corebreaker Secondary
+	AExplosion.DisplayName: A Explosion
+	AureusBeam.DisplayName: Aureus Beam
+	AureusGalaxy.DisplayName: Aureus Galaxy
+	AureusMissile.DisplayName: Aureus Missile
+	AureusPlanet.DisplayName: Aureus Planet
+	AureusSpawn.DisplayName: Aureus Spawn
+	AureusVortex.DisplayName: Aureus Vortex
+	ProjectileGraphics.DisplayName: Projectile Graphics
+	Ash.DisplayName: Ash
+	AshBlast.DisplayName: Ash Blast
+	CorruptionHitscan.DisplayName: Corruption Hitscan
+	CorebreakerHitscan.DisplayName: Corebreaker Hitscan
+	EbonianRocketLauncherGraphics.DisplayName: Ebonian Rocket Launcher Graphics
+	CongFisherateBobber.DisplayName: Cong Fisherate Bobber
+	TFlameThrowerSine.DisplayName: T Flame Thrower Sine
+	BatGraphics.DisplayName: Bat Graphics
 }
 
 NPCs: {
@@ -294,11 +340,13 @@ NPCs: {
 
 	Cecitior: {
 		DisplayName: Cecitior
+		BossChecklistIntegration.SpawnInfo: Kill a Massive Spectator, commonly found in Crimson.
 		Bestiary: A fleshy, haphazardly made construct. Despite looking akin to many other crimson monsters, this entity seems to have been created recently for an indiscernible purpose.
 	}
 
 	Terrortoma: {
 		DisplayName: Terrortoma
+		BossChecklistIntegration.SpawnInfo: Destroy a Giant Cocoon, commonly found in the Corruption.
 		Bestiary: An unusual conglomerate of corrupted entities with the strange capability to show emotion. It is malformed, and not the intended result of the metamorphosis.
 	}
 
@@ -406,7 +454,6 @@ NPCs: {
 	MassiveSpectator: {
 		DisplayName: Massive Spectator
 		Bestiary: These towering eyes seem to be connected to something at the very base of the Crimson. They only appeared very recently, so not much else is known about them.
-		LowTaperFade: you know what else is massive?
 	}
 
 	TerrortomaBulb.DisplayName: Giant Cocoon
@@ -535,6 +582,7 @@ NPCs: {
 	ArchmageX: {
 		DisplayName: Xareus
 		BossLogDisplayName: The Archmage
+		BossChecklistIntegration.SpawnInfo: Interact with the Archstaff in the Mysterious Shack, after unlocking the basement with a [i:LargeAmethyst].
 		Bestiary:
 			'''
 			The most magnificent and brilliant sorcerer to ever walk this earth... An unmatched master of wizardry! A true magician! The Archmage!!
@@ -543,6 +591,11 @@ NPCs: {
 			All self-proclaimed, of course.
 			'''
 	}
+
+	CoinBag.DisplayName: Possessed Bag
+	Chalice.DisplayName: Chalice
+	Sudama.DisplayName: Sudama
+	Aureus.DisplayName: Aureus
 }
 
 Items: {
@@ -578,24 +631,29 @@ Items: {
 		DisplayName: Mawzooka
 		Tooltip:
 			'''
-			Converts any rocket into a homing corrupted one
+			Converts rockets into homing corrupted ones
 			Tile-destroying rockets lose that property
 			'''
 	}
 
 	EbonianGun: {
-		Tooltip: Fires cursed bullets
-		DisplayName: Cursed Firearm
+		Tooltip: Converts any bullets into high velocity demonite bullets
+		DisplayName: Vile Musket
 	}
 
 	EbonianGatling: {
-		Tooltip: Rapidly fires cursed bullets
+		Tooltip: idk exists
 		DisplayName: Corrupt Gatling
 	}
 
 	Corebreaker: {
 		DisplayName: Corebreaker
-		Tooltip: ""
+		Tooltip:
+			'''
+			LMB to launch an explosive core
+			RMB to shoot a laser
+			"It should break... cores.... idk"
+			'''
 	}
 
 	TerrorFlail: {
@@ -634,11 +692,7 @@ Items: {
 
 	Latcher: {
 		DisplayName: Latcher
-		Tooltip:
-			'''
-			Reels you into tiles and heavy enemies, reels light enemies towards you
-			Right click to cancel
-			'''
+		Tooltip: Reels you into enemies and deals damage when you get too close
 	}
 
 	InferosVolI: {
@@ -680,12 +734,8 @@ Items: {
 	}
 
 	IchorFlintlock: {
-		Tooltip:
-			'''
-			Shoots Ichor bullets
-			The 5th consecutive bullet gets replaced with a piercing Ichor orb
-			'''
-		DisplayName: Bloodcolt
+		Tooltip: Converts bullets into teeth
+		DisplayName: Fangnum
 	}
 
 	FangSlinger: {
@@ -694,7 +744,7 @@ Items: {
 	}
 
 	CrimCannon: {
-		Tooltip: Shoots out a gory set of teeth
+		Tooltip: Launches jaws that attach to enemies and bite them
 		DisplayName: Bloodsoaked Dentures
 	}
 
@@ -882,12 +932,12 @@ Items: {
 	}
 
 	CursedToy: {
-		Tooltip: ""
+		Tooltip: Generates projectiles from the sky
 		DisplayName: Cursed Doll
 	}
 
 	CorruptionClaw: {
-		Tooltip: ""
+		Tooltip: Does a unique combo attack
 		DisplayName: Chained Claw
 	}
 
@@ -907,7 +957,11 @@ Items: {
 
 	GhizasWheel: {
 		DisplayName: Corrosive Wheel
-		Tooltip: Inflicts Cursed Inferno on hit
+		Tooltip:
+			'''
+			Inflicts Cursed Inferno on hit 
+			Ignores defense
+			'''
 	}
 
 	Equilibrium: {
@@ -1011,7 +1065,7 @@ Items: {
 
 	GarbageFlail: {
 		DisplayName: Peculiar Angle Grinder
-		Tooltip: ""
+		Tooltip: Rotates
 	}
 
 	TitteringStaff: {
@@ -1173,7 +1227,7 @@ Items: {
 
 	Sawcitior: {
 		DisplayName: Saw-citior
-		Tooltip: ""
+		Tooltip: Launches two saws that collide with each other
 	}
 
 	Shears: {
@@ -1225,6 +1279,95 @@ Items: {
 		DisplayName: Woolen Wall
 		Tooltip: ""
 	}
+
+	SilverBasher: {
+		DisplayName: Silver Basher
+		Tooltip: ""
+	}
+
+	terrortomaFishingRod: {
+		DisplayName: Blightcaster
+		Tooltip: ""
+	}
+
+	cecitiorFishingRod: {
+		DisplayName: Bloodline
+		Tooltip: ""
+	}
+
+	BallLauncher: {
+		DisplayName: Ball Launcher
+		Tooltip:
+			'''
+			Right click to charge a burst attack
+			Uses rockets as ammo
+			'''
+	}
+
+	CorruptrotI: {
+		DisplayName: Corruptrot Block
+		Tooltip: ""
+	}
+
+	FleshichorI: {
+		DisplayName: Fleshichor Block
+		Tooltip: ""
+	}
+
+	AureusSpawnItem: {
+		DisplayName: Aureus Spawn Item
+		Tooltip: ""
+	}
+
+	ExampleHeldProjectile: {
+		DisplayName: Example Held Projectile
+		Tooltip: ""
+	}
+
+	ConglomerateEnergyDrink: {
+		DisplayName: Conglomerate Energy Drink
+		Tooltip: Contains 63% Conglorine, 22% Ichor B6, 13% Natural Cursed Flames, and other misc. ingredients.
+	}
+
+	CongFisherate: {
+		DisplayName: Rotted Leechline
+		Tooltip: ""
+	}
+
+	CeciChairI: {
+		DisplayName: Fleshichor Chair
+		Tooltip: ""
+	}
+
+	CeciPlatformI: {
+		DisplayName: Fleshichor Platform
+		Tooltip: ""
+	}
+
+	CeciWallI: {
+		DisplayName: Fleshichor Wall
+		Tooltip: ""
+	}
+
+	TTomaChairI: {
+		DisplayName: Corruptrot Chair
+		Tooltip: ""
+	}
+
+	TTomaPlatformI: {
+		DisplayName: Corruptrot Platform
+		Tooltip: ""
+	}
+
+	TTomaWallI: {
+		DisplayName: Corruptrot Wall
+		Tooltip: ""
+	}
+
+	Bat: {
+		DisplayName: Bat
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -1260,7 +1403,7 @@ Buffs: {
 
 	DjungelskogB: {
 		DisplayName: Djungelskog
-		Description: En mjuk djungelkompis som g�rna f�ljer med p� �ventyr
+		Description: En mjuk djungelkompis som gärna följer med på äventyr
 	}
 
 	OstertagiB: {
@@ -1306,6 +1449,11 @@ Buffs: {
 	NastySnapperDebuff: {
 		DisplayName: Nasty Snapper Debuff
 		Description: Mods.EbonianMod.Buffs.NastySnapperDebuff.Description
+	}
+
+	ConglomerateEnergyBuff: {
+		DisplayName: Conglomerate Energy Buff
+		Description: Mods.EbonianMod.Buffs.ConglomerateEnergyBuff.Description
 	}
 }
 

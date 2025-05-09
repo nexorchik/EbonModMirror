@@ -1,39 +1,29 @@
-﻿using EbonianMod.Effects.Prims;
-using EbonianMod.Projectiles.VFXProjectiles;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+﻿using EbonianMod.Projectiles.VFXProjectiles;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-using Terraria;
-using Terraria.GameContent;
-using Terraria.ID;
-using Terraria.ModLoader;
 
-namespace EbonianMod.Projectiles.Friendly.Corruption
+namespace EbonianMod.Projectiles.Friendly.Corruption;
+
+public class EbonianRocket : ModProjectile
 {
-    public class EbonianRocket : ModProjectile
+    public override void SetStaticDefaults()
     {
-        public override void SetStaticDefaults()
+        ProjectileID.Sets.TrailCacheLength[Type] = 30;
+        ProjectileID.Sets.TrailingMode[Type] = 2;
+    }
+    public override void SetDefaults()
+    {
+        Projectile.Size = new Vector2(36, 30);
+        Projectile.friendly = true;
+        Projectile.hostile = false;
+        Projectile.timeLeft = 200;
+        Projectile.penetrate = -1;
+    }
+    float vfxOffset;
+    public override bool PreDraw(ref Color lightColor)
+    {
+        if (Projectile.ai[0] > 40)
         {
-            ProjectileID.Sets.TrailCacheLength[Type] = 20;
-            ProjectileID.Sets.TrailingMode[Type] = 2;
-        }
-        public override void SetDefaults()
-        {
-            Projectile.Size = new Vector2(36, 30);
-            Projectile.friendly = true;
-            Projectile.hostile = false;
-            Projectile.timeLeft = 400;
-            Projectile.penetrate = -1;
-        }
-        float vfxOffset;
-        public override bool PreDraw(ref Color lightColor)
-        {
-
             var fadeMult = Helper.Safe(1f / Projectile.oldPos.Length);
             vfxOffset -= 0.015f;
             if (vfxOffset <= 0)
@@ -52,7 +42,7 @@ namespace EbonianMod.Projectiles.Friendly.Corruption
 
                 if (i > 0 && Projectile.oldPos[i] != Vector2.Zero)
                 {
-                    Color col = Color.Green * mult * 5 * s;
+                    Color col = new Color(147, 255, 36, 255);
 
                     float __off = vfxOffset;
                     if (__off > 1) __off = -__off + 1;
@@ -61,97 +51,92 @@ namespace EbonianMod.Projectiles.Friendly.Corruption
                     vertices.Add(Helper.AsVertex(Projectile.oldPos[i] + Projectile.Size / 2 - Main.screenPosition + new Vector2(20 * mult, 0).RotatedBy(Helper.FromAToB(Projectile.oldPos[i - 1], Projectile.oldPos[i]).ToRotation() - MathHelper.PiOver2), col, new Vector2(_off, 1)));
                 }
             }
-            Main.spriteBatch.SaveCurrent();
+            SpritebatchParameters sbParams = Main.spriteBatch.Snapshot();
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
             if (vertices.Count > 2)
             {
-                Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, ExtraTextures.FlamesSeamless, false);
+                Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, ExtraTextures.FlamesSeamless.Value, false);
             }
-            Main.spriteBatch.ApplySaved();
+            Main.spriteBatch.ApplySaved(sbParams);
 
-            bool shouldDraw = (Projectile.ai[1] == 0);
-            return shouldDraw;
         }
-        public override bool OnTileCollide(Vector2 oldVelocity)
+        bool shouldDraw = (Projectile.ai[1] == 0);
+        return shouldDraw;
+    }
+
+    public override void OnSpawn(IEntitySource source)
+    {
+        Projectile.rotation = Projectile.velocity.ToRotation();
+        Projectile.velocity = (Projectile.rotation + Main.rand.NextFloat(-PiOver2, PiOver2)).ToRotationVector2() * Main.rand.NextFloat(6, 16);
+    }
+    public override bool OnTileCollide(Vector2 oldVelocity)
+    {
+        if (Projectile.ai[1] != 2)
+            Projectile.ai[1] = 1;
+        return false;
+    }
+    public override void OnKill(int timeLeft)
+    {
+        if (Projectile.ai[1] == 0 && Projectile.owner == Main.myPlayer)
         {
-            if (Projectile.ai[1] != 2)
-                Projectile.ai[1] = 1;
-            return false;
+            Projectile a = Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<GreenShockwave>(), Projectile.damage, 0, Projectile.owner);
+            a.hostile = false;
+            a.friendly = true;
+            a.SyncProjectile();
+            Helper.DustExplosion(Projectile.Center, Vector2.One, 0, new Color(0.576f, 1f, 0.141f, 0.02f), true, true, increment: 0.03f, MinMulti: 0.6f, MaxMulti: 1.5f);
         }
-        public override void Kill(int timeLeft)
+    }
+    public override void OnHitNPC(NPC target, NPC.HitInfo hitinfo, int damage)
+    {
+        if (Projectile.ai[1] != 2)
+            Projectile.ai[1] = 1;
+    }
+    public override void AI()
+    {
+        if (Projectile.ai[1] == 1)
         {
-            if (Projectile.ai[1] == 0)
+            Projectile.timeLeft = 45;
+            Projectile.velocity *= 0;
+            if (Main.myPlayer == Projectile.owner)
             {
                 Projectile a = Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<GreenShockwave>(), Projectile.damage, 0, Projectile.owner);
                 a.hostile = false;
                 a.friendly = true;
-                Helper.DustExplosion(Projectile.Center, Vector2.One, 0, Color.Green * 0.75f, true, true);
+                a.SyncProjectile();
             }
+            Helper.DustExplosion(Projectile.Center, Vector2.One, 0, new Color(0.576f, 1f, 0.141f, 0.02f), true, true, increment: 0.03f, MinMulti: 0.6f, MaxMulti: 1.5f);
+            Projectile.ai[1] = 2;
         }
-        public override void OnHitNPC(NPC target, NPC.HitInfo hitinfo, int damage)
+        Projectile.ai[0]++;
+        if (Projectile.ai[0] > 40)
         {
-            if (Projectile.ai[1] != 2)
-                Projectile.ai[1] = 1;
-        }
-        public override void AI()
-        {
+            if (Projectile.ai[0] == 41)
+            {
+                Projectile.velocity = Projectile.rotation.ToRotationVector2();
+            }
             Projectile.rotation = Projectile.velocity.ToRotation();
-            if (Projectile.ai[1] == 1)
-            {
-                Projectile.timeLeft = 45;
-                Projectile.velocity *= 0;
-                Projectile a = Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<GreenShockwave>(), Projectile.damage, 0, Projectile.owner);
-                a.hostile = false;
-                a.friendly = true;
-                Helper.DustExplosion(Projectile.Center, Vector2.One, 0, Color.Green * 0.75f, true, true);
-                Projectile.ai[1] = 2;
-            }
             if (Projectile.ai[1] == 2)
             {
                 Projectile.damage = 0;
                 return;
             }
-            Vector2 move = Vector2.Zero;
-            float distance = 5050f;
-            bool target = false;
-            for (int k = 0; k < Main.maxNPCs; k++)
+            else
             {
-                if (Main.npc[k].active && !Main.npc[k].friendly && !Main.npc[k].dontTakeDamage && Main.npc[k].type != NPCID.TargetDummy)
-                {
-                    Vector2 newMove = Main.npc[k].Center - Projectile.Center;
-                    float distanceTo = (float)Math.Sqrt(newMove.X * newMove.X + newMove.Y * newMove.Y);
-                    if (distanceTo < distance)
-                    {
-                        move = newMove;
-                        distance = distanceTo;
-                        target = true;
-                    }
-                }
-            }
-            if (target && Projectile.timeLeft > 45)
-            {
-                AdjustMagnitude(ref move);
-                float thing = Utils.GetLerpValue(0, 400, Projectile.timeLeft);
-                float vel = MathHelper.Lerp(25, 8, thing);
-                Projectile.velocity = (vel * Projectile.velocity + move) / vel;
-                AdjustMagnitude(ref Projectile.velocity);
+                for (int i = 0; i < 2; i++)
+                    Dust.NewDustPerfect(Projectile.Center - Projectile.rotation.ToRotationVector2() * 20, DustID.CursedTorch, (Projectile.rotation + Main.rand.NextFloat(PiOver4, -PiOver4)).ToRotationVector2() * 3, 150, Scale: Main.rand.NextFloat(1, 3)).noGravity = true;
+                if (Projectile.ai[0] < 80)
+                    Projectile.velocity *= 1.1f;
             }
             if (Projectile.timeLeft < 45)
             {
                 Projectile.velocity *= 0.9f;
             }
         }
-
-        private void AdjustMagnitude(ref Vector2 vector)
+        else
         {
-            float magnitude = (float)Math.Sqrt(vector.X * vector.X + vector.Y * vector.Y);
-            float thing = Utils.GetLerpValue(0, 400, Projectile.timeLeft);
-            float target = MathHelper.Lerp(25, 8, thing);
-            if (magnitude > target)
-            {
-                vector *= target / magnitude;
-            }
+            Projectile.velocity *= 0.86f;
+            Projectile.rotation = Helper.FromAToB(Projectile.Center, Main.MouseWorld).ToRotation();
         }
     }
 }

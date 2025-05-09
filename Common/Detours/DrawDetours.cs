@@ -1,0 +1,266 @@
+﻿using EbonianMod.Common.Graphics;
+using EbonianMod.Common.Systems.Verlets;
+using EbonianMod.Dusts;
+using System;
+using System.Linq;
+using Terraria.Graphics.Effects;
+
+namespace EbonianMod.Common.Detours;
+
+public class DrawDetours : ModSystem
+{
+    public override void Load()
+    {
+        On_FilterManager.EndCapture += FilterManager_EndCapture;
+        On_Main.DrawBG += DrawBehindTilesAndWalls;
+        On_Main.DrawNPC += DrawNPC;
+        On_Main.DrawPlayers_AfterProjectiles += PreDraw;
+    }
+    public static void DrawAdditiveDusts(SpriteBatch sb, GraphicsDevice gd)
+    {
+        sb.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+        if (Main.dust.Any())
+        {
+            foreach (Dust d in Main.dust)
+            {
+                FireDust.DrawAll(sb, d);
+                GenericAdditiveDust.DrawAll(sb, d);
+                SparkleDust.DrawAll(sb, d);
+                IntenseDustFollowPoint.DrawAll(sb, d);
+                LineDustFollowPoint.DrawAll(sb, d);
+                SmokeDustAkaFireDustButNoGlow2.DrawAll(sb, d);
+                BlurDust.DrawAll(sb, d);
+            }
+        }
+        sb.End();
+    }
+    public static void DrawGenericPostScreen(SpriteBatch sb, GraphicsDevice gd)
+    {
+
+        sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+        if (EbonianSystem.FlashAlpha > 0)
+        {
+            Main.spriteBatch.Draw(ExtraTextures.Line.Value, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White * EbonianSystem.FlashAlpha * 2);
+        }
+        foreach (Projectile projectile in Main.ActiveProjectiles)
+        {
+            if (projectile.active && (EbonianMod.projectileFinalDrawList.Contains(projectile.type)))
+            {
+                Color color = Color.White;
+                projectile.ModProjectile.PreDraw(ref color);
+            }
+        }
+        foreach (Action draw in EbonianMod.finalDrawCache)
+        {
+            draw?.Invoke();
+        }
+        EbonianMod.finalDrawCache.Clear();
+        sb.End();
+    }
+    void DrawNPC(Terraria.On_Main.orig_DrawNPC orig, global::Terraria.Main self, int iNPCIndex, bool behindTiles)
+    {
+        SpriteBatch sb = Main.spriteBatch;
+        sb.End();
+        sb.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+        SmokeDustAkaFireDustButNoGlow.DrawAll(Main.spriteBatch);
+        sb.End();
+        sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+        orig(self, iNPCIndex, behindTiles);
+    }
+
+    public void DrawBehindTilesAndWalls(Terraria.On_Main.orig_DrawBG orig, global::Terraria.Main self)
+    {
+        orig(self);
+        if (EbonianMod.sys != null)
+            EbonianMod.sys.DrawParticles();
+    }
+    public static void DrawVerlets(SpriteBatch sb)
+    {
+        for (int i = 0; i < S_VerletSystem.verlets.Count; i++)
+        {
+            if (S_VerletSystem.verlets[i].timeLeft > 0 && S_VerletSystem.verlets[i].verlet != null)
+            {
+                float alpha = Clamp(Lerp(0, 2, (float)S_VerletSystem.verlets[i].timeLeft / S_VerletSystem.verlets[i].maxTime), 0, 1);
+                VerletDrawData verletDrawData = S_VerletSystem.verlets[i].drawData;
+                verletDrawData.color = Lighting.GetColor(S_VerletSystem.verlets[i].verlet.lastP.position.ToTileCoordinates()) * alpha;
+                S_VerletSystem.verlets[i].verlet.Draw(sb, verletDrawData);
+            }
+        }
+    }
+    void FilterManager_EndCapture(On_FilterManager.orig_EndCapture orig, FilterManager self, RenderTarget2D finalTexture, RenderTarget2D screenTarget1, RenderTarget2D screenTarget2, Color clearColor)
+    {
+        orig(self, finalTexture, screenTarget1, screenTarget2, clearColor);
+
+        Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+
+        if (EbonianSystem.FlashAlpha > 0)
+        {
+            Main.spriteBatch.Draw(ExtraTextures.Line.Value, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White * EbonianSystem.FlashAlpha * 2);
+        }
+
+        if (EbonianSystem.DarkAlpha > 0)
+        {
+            Main.spriteBatch.Draw(ExtraTextures.Line.Value, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black * EbonianSystem.DarkAlpha);
+        }
+        Main.spriteBatch.End();
+    }
+
+    void PreDraw(On_Main.orig_DrawPlayers_AfterProjectiles orig, Main self)
+    {
+        GraphicsDevice gd = Main.instance.GraphicsDevice;
+        SpriteBatch sb = Main.spriteBatch;
+        if (S_VerletSystem.verlets.Any())
+        {
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            DrawVerlets(sb);
+            sb.End();
+        }
+
+        if (Main.dust.Any())
+            foreach (Dust d in Main.dust)
+            {
+                XGoopDust.DrawAll(sb, d);
+                ColoredFireDust.DrawAll(sb, d);
+            }
+        if (!Main.gameMenu && !(Lighting.Mode == Terraria.Graphics.Light.LightMode.Trippy && Lighting.Mode == Terraria.Graphics.Light.LightMode.Retro) && gd.GetRenderTargets().Contains(Main.screenTarget))
+        {
+            DrawXareusGoop(sb, gd);
+
+            if (EbonianMod.garbageFlameCache.Any())
+            {
+                RTHandler.garbageTarget.Request();
+                if (RTHandler.garbageTarget.IsReady)
+                {
+                    sb.Begin();
+                    EbonianMod.pixelationDrawCache.Add(() => { for (int i = 0; i < 3; i++) DrawGarbageFlame(RTHandler.garbageTarget, sb, gd); });
+                    sb.End();
+                }
+            }
+
+            gd.Textures[1] = null;
+            gd.Textures[2] = null;
+            gd.Textures[3] = null;
+            gd.Textures[4] = null;
+        }
+
+        sb.Begin(SpriteSortMode.Deferred, MiscDrawingMethods.Subtractive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+        ReiSmoke.DrawAll(sb);
+        sb.End();
+
+        orig(self);
+
+        if (!Main.gameMenu && !(Lighting.Mode == Terraria.Graphics.Light.LightMode.Trippy && Lighting.Mode == Terraria.Graphics.Light.LightMode.Retro) && gd.GetRenderTargets().Contains(Main.screenTarget))
+        {
+            DrawPixelatedContent(sb);
+
+            DrawInvisMasks(sb, gd);
+
+            if (EbonianMod.blurDrawCache.Any())
+                DrawBlurredContent(sb, gd);
+        }
+
+        DrawAdditiveDusts(sb, gd);
+
+        DrawGenericPostScreen(sb, gd);
+    }
+    void DrawPixelatedContent(SpriteBatch sb)
+    {
+        if (EbonianMod.pixelationDrawCache.Any() || EbonianMod.addPixelationDrawCache.Any())
+        {
+            RTHandler.pixelationTarget.Request();
+            if (RTHandler.pixelationTarget.IsReady)
+            {
+                sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise);
+                sb.Draw(RTHandler.pixelationTarget.GetTarget(), new Rectangle(0, 0, Main.screenWidth * 2, Main.screenHeight * 2), Color.White);
+                sb.End();
+            }
+        }
+    }
+    public static void DrawInvisMasks(SpriteBatch sb, GraphicsDevice gd)
+    {
+        if (EbonianMod.invisibleMaskCache.Any() || EbonianMod.affectedByInvisibleMaskCache.Any())
+        {
+            RTHandler.invisTarget.Request();
+            if (RTHandler.invisTarget.IsReady)
+            {
+                sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                EbonianMod.invisibleMask.Value.CurrentTechnique.Passes[0].Apply();
+                gd.Textures[1] = RTHandler.invisTarget.GetTarget();
+                sb.Draw(RTHandler.invisTarget._target2, Helper.ScreenRect, Color.White);
+                sb.End();
+                gd.Textures[1] = null;
+            }
+        }
+    }
+    public static void DrawGarbageFlame(GarbageTarget target, SpriteBatch sb, GraphicsDevice gd)
+    {
+        gd.Textures[1] = ExtraTextures.coherentNoise.Value;
+        EbonianMod.displacementMap.Value.CurrentTechnique.Passes[0].Apply();
+        EbonianMod.displacementMap.Value.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.75f);
+        EbonianMod.displacementMap.Value.Parameters["offsetY"].SetValue(Main.GlobalTimeWrappedHourly * 0.25f);
+        EbonianMod.displacementMap.Value.Parameters["offsetX"].SetValue(Main.GlobalTimeWrappedHourly * 0.5f);
+        EbonianMod.displacementMap.Value.Parameters["offset"].SetValue(0.0075f);
+        EbonianMod.displacementMap.Value.Parameters["alpha"].SetValue(0.1f);
+        sb.Draw(target.GetTarget(), Vector2.Zero, Color.White * 0.25f);
+        gd.Textures[1] = ExtraTextures.swirlyNoise.Value;
+        EbonianMod.displacementMap.Value.Parameters["offsetY"].SetValue(Main.GlobalTimeWrappedHourly * 0.34f);
+        sb.Draw(target.GetTarget(), Vector2.Zero, Color.White * 0.25f);
+
+        gd.Textures[1] = ExtraTextures.coherentNoise.Value;
+        EbonianMod.displacementMap.Value.Parameters["offsetY"].SetValue(0);
+        EbonianMod.displacementMap.Value.Parameters["offsetX"].SetValue(Main.GlobalTimeWrappedHourly * 0.5f);
+        EbonianMod.displacementMap.Value.Parameters["offset"].SetValue(0.0075f);
+        EbonianMod.displacementMap.Value.Parameters["alpha"].SetValue(0.1f);
+        sb.Draw(target.GetTarget(), Vector2.Zero, Color.White * 0.25f);
+        gd.Textures[1] = ExtraTextures.swirlyNoise.Value;
+        EbonianMod.displacementMap.Value.Parameters["offsetX"].SetValue(Main.GlobalTimeWrappedHourly * 0.74f);
+        sb.Draw(target.GetTarget(), Vector2.Zero, Color.White * 0.25f);
+    }
+    public static void DrawXareusGoop(SpriteBatch sb, GraphicsDevice gd)
+    {
+        if (EbonianMod.xareusGoopCache.Any())
+        {
+            RTHandler.xareusTarget.Request();
+            if (RTHandler.xareusTarget.IsReady)
+            {
+                sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                gd.Textures[1] = ExtraTextures.darkShadowflameGradient.Value;
+                gd.Textures[2] = ExtraTextures.space_full.Value;
+                gd.Textures[3] = ExtraTextures.seamlessNoiseHighContrast.Value;
+                gd.Textures[4] = ExtraTextures.alphaGradient.Value;
+                EbonianMod.metaballGradientNoiseTex.Value.CurrentTechnique.Passes[0].Apply();
+                EbonianMod.metaballGradientNoiseTex.Value.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.2f);
+                EbonianMod.metaballGradientNoiseTex.Value.Parameters["offsetX"].SetValue(1f);
+                EbonianMod.metaballGradientNoiseTex.Value.Parameters["offsetY"].SetValue(1f);
+                sb.Draw(RTHandler.xareusTarget.GetTarget(), Vector2.Zero, Color.White);
+                EbonianMod.xareusGoopCache.Clear();
+                sb.End();
+            }
+        }
+    }
+    public static void DrawBlurredContent(SpriteBatch sb, GraphicsDevice gd)
+    {
+        gd.SetRenderTarget(EbonianMod.Instance.blurrender);
+        gd.Clear(Color.Transparent);
+        sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend);
+        sb.Draw(Main.screenTarget, Vector2.Zero, Color.White);
+        sb.End();
+        gd.SetRenderTarget(Main.screenTargetSwap);
+        gd.Clear(Color.Transparent);
+        sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+        foreach (Action draw in EbonianMod.blurDrawCache)
+        {
+            draw?.Invoke();
+        }
+        EbonianMod.blurDrawCache.Clear();
+        sb.End();
+        gd.SetRenderTarget(Main.screenTarget);
+        gd.Clear(Color.Transparent);
+        sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+        EbonianMod.Test2.Value.CurrentTechnique.Passes[0].Apply();
+        EbonianMod.Test2.Value.Parameters["tex0"].SetValue(Main.screenTargetSwap);
+        EbonianMod.Test2.Value.Parameters["i"].SetValue(0.02f);
+        sb.Draw(EbonianMod.Instance.blurrender, Vector2.Zero, Color.White);
+        sb.End();
+    }
+}

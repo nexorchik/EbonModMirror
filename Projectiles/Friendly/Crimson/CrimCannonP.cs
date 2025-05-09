@@ -1,91 +1,91 @@
-﻿using EbonianMod.Common.Systems;
-using EbonianMod.Items.Accessories;
-using EbonianMod.Projectiles.VFXProjectiles;
-using Microsoft.Xna.Framework;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
-using Terraria.Audio;
-using Terraria.ID;
-using Terraria.ModLoader;
+﻿namespace EbonianMod.Projectiles.Friendly.Crimson;
 
-namespace EbonianMod.Projectiles.Friendly.Crimson
+public class CrimCannonP : ModProjectile
 {
-    public class CrimCannonP : ModProjectile
+    Vector2 PositionOffset;
+    Vector2 Scale = new Vector2(1, 1);
+    NPC Target;
+    public override void SetDefaults()
     {
-        public override void SetDefaults()
+        Projectile.width = 46;
+        Projectile.height = 34;
+        Projectile.tileCollide = true;
+        Projectile.friendly = true;
+        Projectile.hostile = false;
+        Projectile.usesLocalNPCImmunity = true;
+        Projectile.penetrate = -1;
+        Projectile.timeLeft = 290;
+        Projectile.frame = 2;
+        Projectile.localNPCHitCooldown = 23;
+    }
+
+    public override void OnSpawn(IEntitySource source)
+    {
+        Projectile.ai[1] = 0;
+        Projectile.spriteDirection = Main.player[Projectile.owner].direction;
+    }
+
+    public override void OnKill(int timeLeft)
+    {
+        SoundEngine.PlaySound(EbonianSounds.chomp1.WithPitchOffset(Main.rand.NextFloat(-0.4f, 0.2f)), Projectile.Center);
+        for (int i = 0; i < 4; i++)
         {
-            Projectile.width = 38;
-            Projectile.height = 34;
-            Projectile.aiStyle = 0;
-            Projectile.tileCollide = true;
-            Projectile.friendly = true;
-            Projectile.hostile = false;
-            Projectile.penetrate = -1;
-            Projectile.timeLeft = 290;
+            Gore.NewGore(null, Projectile.Center, Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/GoryJaw" + i).Type, 1);
         }
-        public override void OnKill(int timeLeft)
+        for (int i = 0; i < 20; i++)
         {
-            SoundEngine.PlaySound(SoundID.NPCHit1 with { PitchVariance = 0.2f }, Projectile.Center);
-            for (int i = 0; i < 19; i++)
-                Dust.NewDustPerfect(Projectile.Center, DustID.Blood, Main.rand.NextVector2Unit());
+            Dust.NewDustPerfect(Projectile.Center, DustID.Blood, Main.rand.NextFloat(-Pi, Pi).ToRotationVector2() * Main.rand.NextFloat(2, 5), Scale: 1.5f);
         }
-        public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+    }
+
+    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+    {
+        if (Projectile.ai[2] == 0)
         {
-            if (Projectile.ai[2] == 0)
+            Projectile.tileCollide = false;
+            PositionOffset = Projectile.Center - target.Center;
+            Target = target;
+            Projectile.ai[2] = 1;
+        }
+    }
+    public override void AI()
+    {
+        Player player = Main.player[Projectile.owner];
+        if (Projectile.ai[2] == 1)
+        {
+            if (Target.life <= 0)
             {
-                Projectile.ai[2] = 2;
-                Projectile.ai[1] = target.whoAmI;
-                Projectile.ai[0] = target.type;
-                Projectile.localAI[0] = Helper.FromAToB(target.Center, Projectile.Center, false).X;
-                Projectile.localAI[1] = Helper.FromAToB(target.Center, Projectile.Center, false).Y;
-                SoundEngine.PlaySound(SoundID.NPCHit1 with { PitchVariance = 0.2f }, Projectile.Center);
-                for (int i = 0; i < 7; i++)
+                Projectile.ai[2] = 0;
+                Projectile.velocity *= 0;
+                Projectile.tileCollide = true;
+            }
+            Projectile.Center = Target.Center + PositionOffset;
+            Projectile.frameCounter++;
+            if (Projectile.frameCounter > 5)
+            {
+                Projectile.frame++;
+                Projectile.frameCounter = 0;
+                if (Projectile.frame > 2)
                 {
-                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, new Vector2(Main.rand.NextFloat(5, 10), 0).RotatedBy(Projectile.velocity.RotatedByRandom(MathHelper.PiOver2).ToRotation()), ProjectileType<Gibs>(), Projectile.damage / 2, 0, Projectile.owner);
+                    Projectile.frame = 0;
                 }
             }
         }
-        public override bool? CanDamage()
+        else
         {
-            return Projectile.ai[2] == 0;
+            Projectile.rotation = Projectile.velocity.ToRotation();
+            if (Projectile.ai[1] > -0.5f)
+                Projectile.ai[1] -= 0.01f;
+            Projectile.velocity = new Vector2(Projectile.velocity.X, Projectile.velocity.Y - Projectile.ai[1]);
         }
-        public override bool OnTileCollide(Vector2 oldVelocity)
-        {
-            if (Projectile.ai[2] == 0)
-            {
-                for (int i = 0; i < 7; i++)
-                {
-                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, new Vector2(Main.rand.NextFloat(-10, 10), Main.rand.NextFloat(-10, -2)), ProjectileType<Gibs>(), Projectile.damage / 2, 0, Projectile.owner);
-                }
-                Projectile.velocity = Vector2.Zero;
-                Projectile.Center += oldVelocity;
-                Projectile.ai[2] = 1;
-                SoundEngine.PlaySound(SoundID.NPCHit1, Projectile.Center);
-            }
-            return false;
-        }
-        public override void AI()
-        {
-            Projectile.velocity.Y = MathHelper.Lerp(Projectile.velocity.Y, 15, 0.01f);
-            if (Projectile.ai[2] == 2)
-            {
-                NPC target = Main.npc[(int)Projectile.ai[1]];
-                if (target != null && target.active && target.type == Projectile.ai[0])
-                {
-                    Projectile.Center = target.Center + new Vector2(Projectile.localAI[0], Projectile.localAI[1]);
-                    if (Projectile.timeLeft % 10 == 0)
-                        target.SimpleStrikeNPC(5, 0, false);
-                }
-            }
-        }
-        public override void PostAI()
-        {
-            if (Projectile.ai[2] == 0)
-                Projectile.rotation = Projectile.velocity.ToRotation();
-        }
+        Scale = Vector2.Lerp(Scale, new Vector2(Main.rand.NextFloat(2f - Projectile.ai[0] / 120, Projectile.ai[0] / 120), Main.rand.NextFloat(2f - Projectile.ai[0] / 120, Projectile.ai[0] / 120)), Projectile.ai[0] / 800);
+        Projectile.ai[0]++;
+    }
+    public override bool PreDraw(ref Color lightColor)
+    {
+        Texture2D texture = TextureAssets.Projectile[Type].Value;
+        Rectangle frameRect = new Rectangle(0, Projectile.frame * Projectile.height, Projectile.width, Projectile.height);
+        Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, frameRect, lightColor, Projectile.rotation, new Vector2(Projectile.Size.X / 2, Projectile.Size.Y / 2), Scale, Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+        return false;
     }
 }

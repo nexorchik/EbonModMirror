@@ -1,115 +1,115 @@
-using System;
-using System.IO;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ID;
-using Terraria.DataStructures;
-using EbonianMod.Projectiles;
-using Terraria.ModLoader;
-using Terraria.GameContent.ItemDropRules;
-using Terraria.GameContent.Bestiary;
 using EbonianMod.Projectiles.Friendly.Crimson;
 
-namespace EbonianMod.Items.Weapons.Magic
-{
-    public class CrimCannon : ModItem
-    {
-        public override void SetDefaults()
-        {
-            Item.damage = 10;
-            Item.DamageType = DamageClass.Magic;
-            Item.width = 40;
-            Item.height = 20;
-            Item.useTime = 30;
-            Item.useAnimation = 30;
-            Item.useStyle = 5;
-            Item.noMelee = true;
-            Item.knockBack = 4;
-            Item.value = 0;
-            Item.rare = ItemRarityID.Green;
-            Item.mana = 5;
-            Item.value = Item.buyPrice(0, 3, 0, 0);
-            Item.UseSound = SoundID.Item11;
-            Item.autoReuse = true;
-            Item.shoot = ProjectileType<CrimCannonP>();
-            Item.shootSpeed = 20;
-        }
-        public override void AddRecipes()
-        {
-            CreateRecipe().AddIngredient(ItemID.CrimtaneBar, 20).AddIngredient(ItemID.Vertebrae, 20).AddTile(TileID.Anvils).Register();
-        }
-        public override Vector2? HoldoutOffset()
-        {
-            return (new Vector2(-3, 0));
-        }
-    }
-    public class BloodOrb : ModProjectile
-    {
-        public override string Texture => Helper.Empty;
-        public override void SetStaticDefaults()
-        {
-            ProjectileID.Sets.TrailCacheLength[Type] = 10;
-            ProjectileID.Sets.TrailingMode[Type] = 0;
-        }
-        public override bool PreDraw(ref Color lightColor)
-        {
-            Texture2D a = ExtraTextures.explosion;
-            Main.spriteBatch.Reload(BlendState.Additive);
-            var fadeMult = Helper.Safe(1f / Projectile.oldPos.Length);
-            for (int i = 0; i < Projectile.oldPos.Length; i++)
-            {
-                Main.spriteBatch.Draw(a, Projectile.oldPos[i] + Projectile.Size / 2 - Main.screenPosition, null, Color.DarkRed * alpha * (1f - fadeMult * i), 0, a.Size() / 2, 0.1f * (1f - fadeMult * i), SpriteEffects.None, 0);
-            }
-            for (int i = 0; i < 3; i++)
-                Main.spriteBatch.Draw(a, Projectile.Center - Main.screenPosition, null, Color.DarkRed * alpha, 0, a.Size() / 2, 0.1f, SpriteEffects.None, 0);
-            Main.spriteBatch.Reload(BlendState.AlphaBlend);
-            for (int i = 0; i < Projectile.oldPos.Length; i++)
-            {
-                Main.spriteBatch.Draw(a, Projectile.oldPos[i] + Projectile.Size / 2 - Main.screenPosition, null, Color.Black * alpha * 0.5f * (1f - fadeMult * i), 0, a.Size() / 2, 0.1f * (1f - fadeMult * i), SpriteEffects.None, 0);
-            }
-            for (int i = 0; i < 3; i++)
-                Main.spriteBatch.Draw(a, Projectile.Center - Main.screenPosition, null, Color.Black * alpha * 0.5f, 0, a.Size() / 2, 0.1f, SpriteEffects.None, 0);
-            return false;
-        }
-        public override void SetDefaults()
-        {
-            Projectile.width = 48;
-            Projectile.height = 48;
-            Projectile.aiStyle = -1;
-            Projectile.friendly = true;
-            Projectile.tileCollide = false;
-            Projectile.hostile = false;
-            Projectile.penetrate = -1;
-            Projectile.timeLeft = 300;
-        }
-        /*public override bool OnTileCollide(Vector2 oldVelocity)
-        {
-            if (Projectile.timeLeft > 60)
-                Projectile.velocity = -oldVelocity;
-            else
-                Projectile.velocity = Vector2.Zero;
-            return false;
-        }*/
-        Vector2 initCenter, initVel;
-        float alpha = 1;
-        public override void AI()
-        {
-            if (Projectile.timeLeft == 299)
-            {
-                initCenter = Projectile.Center;
-                initVel = Projectile.velocity;
-            }
-            if (Projectile.timeLeft < 60)
-            {
-                if (alpha > 0)
-                    alpha -= 0.025f;
-                //Projectile.velocity *= 0.5f;
-                //Projectile.aiStyle = -1;
-            }
-            if (initCenter != Vector2.Zero)
-                Projectile.SineMovement(initCenter, initVel, 0.15f, 60);
+namespace EbonianMod.Items.Weapons.Magic;
 
+public class CrimCannon : ModItem
+{
+    public override void SetDefaults()
+    {
+        Item.DamageType = DamageClass.Magic;
+        Item.damage = 11;
+        Item.useTime = 70;
+        Item.mana = 1;
+        Item.useAnimation = 25;
+        Item.shoot = ProjectileType<CrimCannonGraphics>();
+        Item.shootSpeed = 1f;
+        Item.rare = ItemRarityID.Green;
+        Item.useStyle = 5;
+        Item.value = Item.buyPrice(0, 5, 0, 0);
+        Item.autoReuse = false;
+        Item.noUseGraphic = true;
+        Item.noMelee = true;
+        Item.channel = true;
+    }
+    public override void AddRecipes()
+    {
+        CreateRecipe().AddIngredient(ItemID.CrimtaneBar, 20).AddIngredient(ItemID.Vertebrae, 20).AddTile(TileID.Anvils).Register();
+    }
+    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+    {
+        velocity.Normalize();
+        Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
+        return false;
+    }
+}
+
+public class CrimCannonGraphics : ModProjectile
+{
+    public override string Texture => "EbonianMod/Items/Weapons/Magic/CrimCannonReload";
+
+    Vector2 Scale = new Vector2(0, 1);
+
+    public override void OnSpawn(IEntitySource source)
+    {
+        Player player = Main.player[Projectile.owner];
+        Projectile.rotation = Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation();
+        Projectile.frame = 5;
+        Projectile.ai[0] = -20;
+    }
+
+    public override bool? CanDamage() => false;
+
+    public override void SetDefaults()
+    {
+        Projectile.friendly = true;
+        Projectile.tileCollide = false;
+        Projectile.ignoreWater = true;
+        Projectile.DamageType = DamageClass.Magic;
+        Projectile.penetrate = -1;
+        Projectile.usesLocalNPCImmunity = true;
+        Projectile.Size = new Vector2(56, 38);
+    }
+
+    public override void AI()
+    {
+        Projectile.ai[0]++;
+        Player player = Main.player[Projectile.owner];
+        if (!player.active || player.HeldItem.type != ItemType<CrimCannon>() || player.dead || player.CCed || player.noItems || player.channel == false)
+        {
+            Projectile.Kill();
+            return;
         }
+        Projectile.timeLeft = 10;
+        Projectile.Center = player.MountedCenter;
+
+        Scale = Vector2.Lerp(Scale, new Vector2(1, 1), 0.14f);
+
+        Projectile.rotation = Utils.AngleLerp(Projectile.rotation, Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation(), 0.08f);
+
+        player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - PiOver2);
+        player.itemTime = 2;
+        player.itemAnimation = 2;
+        if (Projectile.ai[0] > 20)
+        {
+            Projectile.frameCounter--;
+            if (Projectile.frameCounter <= 0)
+            {
+                Projectile.frameCounter += 6;
+                Projectile.frame++;
+                if (Projectile.frame > 5)
+                {
+                    Projectile.frame = 0;
+                    Scale = new Vector2(0.65f, 1.6f);
+                    SoundEngine.PlaySound(SoundID.NPCHit9.WithPitchOffset(Main.rand.NextFloat(-1f, -0.5f)), player.Center);
+                    Vector2 SpawnPosition = Projectile.Center + Projectile.rotation.ToRotationVector2() * 22;
+                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * 12, ProjectileType<CrimCannonP>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    for (int i = 0; i < 3; i++)
+                    {
+                        Dust.NewDustPerfect(SpawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(PiOver2, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(2, 6), Scale: 1.5f).noGravity = true;
+                        Dust.NewDustPerfect(SpawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(-PiOver2, -PiOver4)).ToRotationVector2() * Main.rand.NextFloat(2, 6), Scale: 1.5f).noGravity = true;
+                    }
+                    Projectile.frameCounter += 15;
+                }
+            }
+        }
+
+        player.direction = player.Center.X < Main.MouseWorld.X ? 1 : -1;
+    }
+    public override bool PreDraw(ref Color lightColor)
+    {
+        Texture2D texture = TextureAssets.Projectile[Type].Value;
+        Rectangle frameRect = new Rectangle(0, Projectile.frame * Projectile.height, Projectile.width, Projectile.height);
+        Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, frameRect, lightColor, Projectile.rotation, new Vector2(Projectile.width / 2 - 25, Projectile.height / 2), Scale, Main.player[Projectile.owner].direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+        return false;
     }
 }

@@ -1,0 +1,69 @@
+v 2.0
+## Additions
+- Implemented multiplayer compatibility!!!!!!!!!
+- Added a post-plantera bossfight, the Conglomerate
+- Added Astrum Aureus
+- Added X new weapons
+- Added Y new enemies
+- Added Cecitior and Terrortoma based tilesets and fishing rods
+
+## Changes
+- Optimized most VFX
+- Ported Structure Helper files to match the 3.0 format
+- Updated Hot Garbage's VFX
+- Hot Garbage no longer slows down in water
+- Reworked Cursed Firearm, Bloodcolt, Latcher, Bloodsoaked Dentures, Corebreaker
+- Renamed Cursed Firearm into Vile Musket
+- Renamed Bloodcolt into Fangnum
+- Resprited Sawcitior
+- Resprited the Trumpet and Rolypoly
+- Gave the Crimorrhage a telegraph before it fires ichor
+- Fixed some missing translation support and implemented russian translation (Thank you Nexorchik)
+- Fixed an issue where the Gatling bullets wouldn't hit one target
+- Gutling animation and SFX improvements
+
+## Balancing
+- Rebalanced Corrosive Wheel entirely
+- Increased Terrortoma's defense: 38 => 42
+- Increased Cecitior's Gazers' defense: 27 => 30
+- Increased the amount of potatoes found in a chest: 2-20 => 50-200
+- Increased the damage of the Spud Cannon: 5 => 13
+- Decreased the Chainsword knockback by 80%
+- Decreased the Angle Grinder damage: 25 => 21
+- Decreased the Thorn-A-Part damage: 24 => 19
+
+## Fixes
+- Fixed the Peculiar Angle Grinder hitting through walls
+- Fixed some texture scrolling issues
+- Fixed Potatoes dropping from any tile
+- Fixed Cecitior's ambience not following him
+- Fixed Cecitior despawning when butchered
+- Fixed some sword hitboxes being weird
+- Fixed deltaTime calculation issues
+- Fixed Terrortoma only having 14k HP in Master Mode
+
+
+And probably more stuff I missed.
+
+Yes you did miss a lot of stuff.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Sad I don't remember it too :sob:

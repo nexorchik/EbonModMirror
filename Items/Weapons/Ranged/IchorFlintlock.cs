@@ -1,163 +1,130 @@
-﻿using System;
-using Terraria;
-using Terraria.ModLoader;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.DataStructures;
-using Terraria.ID;
-using EbonianMod.Items.Weapons.Melee;
-using Terraria.GameContent;
-using Terraria.Audio;
-using EbonianMod.Projectiles.Friendly;
+﻿using EbonianMod.Projectiles.Friendly.Crimson;
 
-namespace EbonianMod.Items.Weapons.Ranged
+namespace EbonianMod.Items.Weapons.Ranged;
+
+public class IchorFlintlock : ModItem
 {
-    public class IchorFlintlock : ModItem
+    public override void SetDefaults()
     {
-        public override void SetDefaults()
-        {
-            Item.knockBack = 10f;
-            Item.width = 48;
-            Item.height = 66;
-            Item.crit = 15;
-            Item.damage = 45;
-            Item.useAnimation = 32;
-            Item.useTime = 32;
-            Item.noUseGraphic = true;
-            Item.noMelee = true;
-            //Item.reuseDelay = 45;
-            Item.DamageType = DamageClass.Ranged;
-            //Item.UseSound = SoundID.Item1;
-            Item.useStyle = ItemUseStyleID.Shoot;
-            Item.rare = ItemRarityID.LightRed;
-            Item.shootSpeed = 1f;
-            Item.shoot = ProjectileType<IchorFlintlockP>();
-
-            Item.value = Item.buyPrice(0, 10, 0, 0);
-            Item.channel = true;
-        }
-        public override bool CanUseItem(Player player)
-        {
-            return player.ownedProjectileCounts[Item.shoot] <= 0;
-        }
-        public override void AddRecipes()
-        {
-            CreateRecipe().AddIngredient(ItemID.TheUndertaker).AddIngredient(ItemID.TissueSample, 20).AddIngredient(ItemID.Ichor, 15).AddTile(TileID.Anvils).Register();
-        }
+        Item.knockBack = 10f;
+        Item.width = 42;
+        Item.height = 24;
+        Item.crit = 15;
+        Item.damage = 67;
+        Item.DamageType = DamageClass.Ranged;
+        Item.useStyle = ItemUseStyleID.Shoot;
+        Item.rare = ItemRarityID.LightRed;
+        Item.useAnimation = 70;
+        Item.shoot = ProjectileType<IchorFlintlockP>();
+        Item.value = Item.buyPrice(0, 10, 0, 0);
+        Item.autoReuse = false;
+        Item.noUseGraphic = true;
+        Item.channel = true;
+        Item.noMelee = true;
+        Item.useAmmo = AmmoID.Bullet;
     }
-    public class IchorFlintlockP : ModProjectile
+    public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
     {
-        public override string Texture => "EbonianMod/Items/Weapons/Ranged/IchorFlintlock";
-        public virtual float Ease(float f)
-        {
-            return 1 - (float)Math.Pow(2, 10 * f - 10);
-        }
-        public virtual float ScaleFunction(float progress)
-        {
-            return 0.7f + (float)Math.Sin(progress * Math.PI) * 0.5f;
-        }
-        public override void SetStaticDefaults()
-        {
-            ProjectileID.Sets.DontCancelChannelOnKill[Type] = true;
-        }
-        float holdOffset;
-        public override void SetDefaults()
-        {
-            Projectile.aiStyle = -1;
-            Projectile.friendly = true;
-            Projectile.tileCollide = false;
-            Projectile.Size = new(28, 24);
-            Projectile.ignoreWater = true;
-            Projectile.DamageType = DamageClass.Melee;
-            Projectile.penetrate = -1;
-            Projectile.usesLocalNPCImmunity = true;
-            Projectile.timeLeft = 16;
-            holdOffset = 22;
-        }
-        public override bool ShouldUpdatePosition()
-        {
-            return false;
-        }
-        public override void AI()
-        {
-            Player player = Main.player[Projectile.owner];
-            float progress = Ease(Utils.GetLerpValue(0f, 15, Projectile.timeLeft));
-            if (Projectile.timeLeft == 15)
-            {
-                if (Projectile.ai[2] >= 5)
-                {
-                    Projectile.ai[2] = 0;
-                    for (int i = 0; i < 15; i++)
-                        Dust.NewDustPerfect(Projectile.Center, DustID.IchorTorch, Projectile.velocity.RotatedByRandom(1) * Main.rand.NextFloat(1, 5f));
-                    SoundEngine.PlaySound(SoundID.Item92);
-                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Projectile.velocity * 10, ProjectileType<IchorBlast>(), Projectile.damage * 2, Projectile.knockBack, Projectile.owner);
-                }
-                else
-                {
-                    SoundEngine.PlaySound(SoundID.Item11);
-                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Projectile.velocity * 20, ProjectileID.IchorBullet, Projectile.damage, Projectile.knockBack, Projectile.owner);
-                }
-            }
-            if (Projectile.timeLeft > 10)
-            {
-                holdOffset--;
-                if (Projectile.direction == -1)
-                {
-                    Projectile.ai[0] += MathHelper.ToRadians(4.5f);
-                }
-                else
-                {
-                    Projectile.ai[0] -= MathHelper.ToRadians(4.5f);
-                }
-            }
-            else
-            {
-                if (Projectile.direction == -1)
-                {
-                    Projectile.ai[0] -= MathHelper.ToRadians(.9f * 1.5f);
-                }
-                else
-                {
-                    Projectile.ai[0] += MathHelper.ToRadians(.9f * 1.5f);
-                }
-            }
-            Projectile.direction = Projectile.velocity.X > 0 ? 1 : -1;
-            Vector2 pos = player.RotatedRelativePoint(player.MountedCenter);
-            player.ChangeDir(Projectile.velocity.X < 0 ? -1 : 1);
-            player.itemRotation = (Projectile.velocity.ToRotation() + Projectile.ai[0]) * player.direction;
-            pos += (Projectile.velocity.ToRotation() + Projectile.ai[0]).ToRotationVector2() * holdOffset;
-            if (player.gravDir != -1)
-                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.velocity.ToRotation() - MathHelper.PiOver2 + Projectile.ai[0]);
+        type = ProjectileType<IchorFlintlockP>();
+    }
+    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+    {
+        velocity = Vector2.Zero;
+        Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
+        return false;
+    }
+    public override void AddRecipes()
+    {
+        CreateRecipe().AddIngredient(ItemID.TheUndertaker).AddIngredient(ItemID.TissueSample, 20).AddIngredient(ItemID.Vertebrae, 15).AddTile(TileID.Anvils).Register();
+    }
+}
+public class IchorFlintlockP : ModProjectile
+{
+    public override string Texture => "EbonianMod/Items/Weapons/Ranged/IchorFlintlock";
 
-            Projectile.rotation = (pos - player.Center).ToRotation() + Projectile.ai[0] * Projectile.spriteDirection;
-            Projectile.Center = pos - Vector2.UnitY * 2;
-            player.heldProj = Projectile.whoAmI;
-        }
-        public override bool PreDraw(ref Color lightColor)
+    public override bool? CanDamage() => false;
+
+
+    public override void SetDefaults()
+    {
+        Projectile.aiStyle = -1;
+        Projectile.friendly = true;
+        Projectile.tileCollide = false;
+        Projectile.Size = new(42, 24);
+        Projectile.ignoreWater = true;
+        Projectile.penetrate = -1;
+        Projectile.usesLocalNPCImmunity = true;
+    }
+
+    public override void OnSpawn(IEntitySource source)
+    {
+        Projectile.rotation = Helper.FromAToB(Main.player[Projectile.owner].Center, Main.MouseWorld).ToRotation();
+    }
+
+    float RotationOffset, RotationSpeed = 0.2f, HoldOffset;
+
+    public override void AI()
+    {
+        Player player = Main.player[Projectile.owner];
+
+        player.itemTime = 2;
+        player.itemAnimation = 2;
+        Projectile.timeLeft = 10;
+        player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - PiOver2);
+        Projectile.Center = player.MountedCenter;
+
+        Projectile.ai[0]++;
+        if (Projectile.ai[0] == 100)
         {
-            Texture2D tex = TextureAssets.Projectile[Type].Value;
-            SpriteEffects effects = Projectile.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically;
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2, Projectile.scale, effects, 0);
-            return false;
-        }
-        public override bool PreKill(int timeLeft)
-        {
-            Player player = Main.player[Projectile.owner];
-            if (player.active && player.channel && !player.dead && !player.CCed && !player.noItems)
+            RotationOffset = 0.5f;
+            for (int j = 0; j < 58; j++)
             {
-                if (player.whoAmI == Main.myPlayer)
+                if (player.inventory[j].ammo == AmmoID.Bullet && player.inventory[j].stack > 0)
                 {
-                    Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center);
-                    Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), player.Center, dir, Projectile.type, Projectile.damage, Projectile.knockBack, player.whoAmI);
-                    proj.rotation = Projectile.rotation;
-                    proj.Center = Projectile.Center;
-                    proj.ai[2] = Projectile.ai[2] + 1;
+                    if (player.inventory[j].maxStack > 1)
+                        player.inventory[j].stack--;
+                    break;
                 }
             }
-            return base.PreKill(timeLeft);
+            SoundEngine.PlaySound(SoundID.Item38.WithPitchOffset(Main.rand.NextFloat(1f, 3f)), player.Center);
+            Vector2 SpawnPosition = Projectile.Center + new Vector2(Projectile.rotation.ToRotationVector2().X, Projectile.rotation.ToRotationVector2().Y) * 42 + (Projectile.rotation + 90 * -player.direction).ToRotationVector2() * 12;
+            Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * 20, ProjectileType<ToothProj>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+            for (int i = 0; i < 7; i++)
+            {
+                Dust.NewDustPerfect(SpawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(-PiOver4, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(2, 8), Scale: 1.5f).noGravity = true;
+            }
         }
-        public override void Kill(int timeLeft)
+        if (Projectile.ai[0] > 100)
         {
+            RotationOffset -= RotationSpeed;
+            RotationSpeed += 0.07f;
+            HoldOffset = Lerp(HoldOffset, 12, 0.4f);
+            if (RotationOffset <= 0)
+            {
+                RotationSpeed = 0.2f;
+                RotationOffset = 0;
+                Projectile.ai[0] = 0;
+            }
         }
+        else
+            HoldOffset = Lerp(HoldOffset, 27, 0.2f);
+
+        Projectile.rotation = Utils.AngleLerp(Projectile.rotation, Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation(), 0.25f) - RotationOffset * player.direction;
+
+
+
+        if (!player.active || player.HeldItem.type != ItemType<IchorFlintlock>() || player.dead || player.CCed || player.noItems || player.channel == false)
+        {
+            Projectile.Kill();
+            return;
+        }
+        player.direction = player.Center.X < Main.MouseWorld.X ? 1 : -1;
+    }
+    public override bool PreDraw(ref Color lightColor)
+    {
+        Player player = Main.player[Projectile.owner];
+        Texture2D tex = TextureAssets.Projectile[Type].Value;
+        Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(Projectile.width / 2 - HoldOffset, Projectile.height / 2 + 4 * player.direction), Projectile.scale, player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+        return false;
     }
 }

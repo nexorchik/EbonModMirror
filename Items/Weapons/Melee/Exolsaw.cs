@@ -1,89 +1,83 @@
-﻿using EbonianMod.Projectiles.VFXProjectiles;
-using Microsoft.Xna.Framework;
-using System;
+﻿using EbonianMod.Dusts;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
+using static System.Net.Mime.MediaTypeNames;
 
-namespace EbonianMod.Items.Weapons.Melee
+namespace EbonianMod.Items.Weapons.Melee;
+
+public class Exolsaw : ModItem
 {
-    public class Exolsaw : ModItem
+    public override void SetDefaults()
     {
-        public override void SetDefaults()
+        Item.useStyle = ItemUseStyleID.Swing;
+        Item.noUseGraphic = true;
+        Item.consumable = false;
+        Item.Size = new(20);
+        Item.useAnimation = 100;
+        Item.crit = 15;
+        Item.useTime = 100;
+        Item.DamageType = DamageClass.Melee;
+        Item.damage = 19;
+        Item.UseSound = SoundID.Item1;
+        Item.autoReuse = true;
+        Item.value = Item.buyPrice(0, 8, 0, 0);
+        Item.shoot = ProjectileType<ExolsawP>();
+        Item.rare = ItemRarityID.Orange;
+        Item.shootSpeed = 30;
+    }
+}
+public class ExolsawP : ModProjectile
+{
+    public override void SetStaticDefaults()
+    {
+        Main.projFrames[Type] = 2;
+    }
+    public override string Texture => "EbonianMod/Items/Weapons/Melee/ExolsawP";
+    public override void SetDefaults()
+    {
+        Projectile.width = 42;
+        Projectile.height = 42;
+        Projectile.aiStyle = -1;
+        Projectile.friendly = true;
+        Projectile.DamageType = DamageClass.Melee;
+        Projectile.penetrate = -1;
+        Projectile.tileCollide = false;
+        Projectile.localNPCHitCooldown = 5;
+        Projectile.usesLocalNPCImmunity = true;
+        Projectile.timeLeft = 500;
+
+    }
+    public override void AI()
+    {
+        Player player = Main.player[Projectile.owner];
+        Dust.NewDustPerfect(Projectile.Center + Main.rand.NextVector2Circular(21, 21), DustID.Torch, Vector2.Zero, Scale: Main.rand.NextFloat(0.9f, 2f)).noGravity = true;
+        if (Projectile.ai[0] <= 0)
         {
-            Item.useStyle = ItemUseStyleID.Swing;
-            Item.noUseGraphic = true;
-            Item.consumable = false;
-            Item.Size = new(20);
-            Item.useAnimation = 17;
-            Item.crit = 15;
-            Item.useTime = 17;
-            Item.DamageType = DamageClass.Melee;
-            Item.damage = 19;
-            Item.UseSound = SoundID.Item1;
-            Item.autoReuse = true;
-            Item.value = Item.buyPrice(0, 8, 0, 0);
-            Item.shoot = ProjectileType<ExolsawP>();
-            Item.rare = ItemRarityID.Orange;
-            Item.shootSpeed = 16f;
+            Projectile.timeLeft += 2;
+            Projectile.rotation += MathHelper.ToRadians(15);
+            Projectile.frame = 0;
+            Projectile.velocity = Vector2.Lerp(Projectile.velocity, Projectile.velocity.SafeNormalize(Vector2.UnitY) * 14f, 0.13f);
         }
-        public override bool CanUseItem(Player player)
+        else
         {
-            return player.ownedProjectileCounts[ProjectileType<ExolsawP>()] < 10;
+            Projectile.ai[0] -= 0.01f;
+            Projectile.rotation += MathHelper.ToRadians(40);
+            Projectile.frame = 1;
+            Projectile.velocity = Vector2.Lerp(Projectile.velocity, Projectile.velocity.SafeNormalize(Vector2.UnitY), 0.2f);
         }
     }
-    public class ExolsawP : ModProjectile
+    public override void OnHitNPC(NPC target, NPC.HitInfo hitinfo, int damage)
     {
-        public override string Texture => "EbonianMod/Items/Weapons/Melee/Exolsaw";
-        public override void SetDefaults()
+        Vector2 Position = Projectile.Center + new Vector2(22, 0).RotatedBy(Projectile.velocity.ToRotation());
+        for (int i = 0; i < 4; i++)
         {
-            Projectile.width = 42;
-            Projectile.height = 42;
-            Projectile.aiStyle = -1;
-            Projectile.friendly = true;
-            Projectile.DamageType = DamageClass.Melee;
-            Projectile.penetrate = -1;
-            Projectile.tileCollide = false;
-
+            Dust.NewDustPerfect(Position, DustID.Torch, Main.rand.NextFloat(-Pi, Pi).ToRotationVector2() * Main.rand.NextFloat(2, 5), Scale: Main.rand.NextFloat(0.5f, 1f));
         }
-        public override void AI()
-        {
-            Projectile.rotation += MathHelper.ToRadians(15);
-
-            //Projectile.velocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(3));
-            Player player = Main.player[Projectile.owner];
-            if (player.active)
-            {
-                Projectile.timeLeft = 2;
-                Projectile.ai[0]++;
-                if (Projectile.ai[0] < 30)
-                    Projectile.velocity *= 1.02f;
-                if (Projectile.ai[0] > 30 && Projectile.ai[0] < 50)
-                    Projectile.velocity *= 0.86f;
-                if (Projectile.ai[0] > 50)
-                    Projectile.velocity = Vector2.Lerp(Projectile.velocity, Helper.FromAToB(Projectile.Center, player.Center) * 30f, 0.1f);
-                if (Projectile.ai[0] > 50 && Projectile.Center.Distance(player.Center) < 50)
-                    Projectile.Kill();
-            }
-        }
-        public override void OnHitNPC(NPC target, NPC.HitInfo hitinfo, int damage)
-        {
-            if (hitinfo.Crit)
-            {
-                Projectile a = Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileID.DaybreakExplosion, 20, 0);
-                a.hostile = false;
-                a.friendly = true;
-            }
-            target.AddBuff(BuffID.OnFire, 150);
-        }
-        public override void Kill(int timeLeft)
-        {
-            Player player = Main.player[Projectile.owner];
-            Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
-        }
+        Projectile.ai[0] = 0.08f;
+    }
+    public override void OnKill(int timeLeft)
+    {
+        Player player = Main.player[Projectile.owner];
+        Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
     }
 }

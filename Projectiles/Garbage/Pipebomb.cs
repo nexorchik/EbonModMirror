@@ -1,81 +1,98 @@
 ﻿using EbonianMod.Projectiles.VFXProjectiles;
 using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
 
-namespace EbonianMod.Projectiles.Garbage
+namespace EbonianMod.Projectiles.Garbage;
+
+public class Pipebomb : ModProjectile
 {
-    public class Pipebomb : ModProjectile
+    public override void SetStaticDefaults()
     {
-        public override void SetStaticDefaults()
+        ProjectileID.Sets.TrailCacheLength[Type] = 25;
+        ProjectileID.Sets.TrailingMode[Type] = 2;
+    }
+    public override void SetDefaults()
+    {
+        Projectile.aiStyle = 2;
+        AIType = ProjectileID.Shuriken;
+        Projectile.width = 18;
+        Projectile.tileCollide = false;
+        Projectile.timeLeft = 100;
+        Projectile.height = 36;
+    }
+    float savedP;
+    public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
+    {
+        if (Projectile.Center.Y >= savedP - 100)
+            fallThrough = false;
+        return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
+    }
+    public override bool PreDraw(ref Color lightColor)
+    {
+        lightColor = Color.White;
+        Texture2D tex = Helper.GetTexture(Texture + "_Bloom").Value;
+        Main.spriteBatch.Reload(BlendState.Additive);
+        var fadeMult = 1f / Projectile.oldPos.Count();
+        for (int i = 0; i < Projectile.oldPos.Count(); i++)
         {
-            ProjectileID.Sets.TrailCacheLength[Type] = 25;
-            ProjectileID.Sets.TrailingMode[Type] = 2;
+            float mult = (1 - i * fadeMult);
+            Main.spriteBatch.Draw(tex, Projectile.oldPos[i] + Projectile.Size / 2 - Main.screenPosition, null, Color.Maroon * (mult * 0.8f), Projectile.oldRot[i], tex.Size() / 2, Projectile.scale * 1.1f, SpriteEffects.None, 0);
         }
-        public override void SetDefaults()
-        {
-            Projectile.aiStyle = 2;
-            AIType = ProjectileID.Shuriken;
-            Projectile.width = 18;
-            Projectile.tileCollide = false;
-            Projectile.timeLeft = 100;
-            Projectile.height = 36;
-        }
-        float savedP;
-        public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
-        {
-            if (Projectile.Center.Y >= savedP - 100)
-                fallThrough = false;
-            return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
-        }
-        public override bool PreDraw(ref Color lightColor)
-        {
-            lightColor = Color.White;
-            Texture2D tex = Helper.GetTexture(Texture + "_Bloom");
-            Main.spriteBatch.Reload(BlendState.Additive);
-            var fadeMult = 1f / Projectile.oldPos.Count();
-            for (int i = 0; i < Projectile.oldPos.Count(); i++)
-            {
-                float mult = (1 - i * fadeMult);
-                Main.spriteBatch.Draw(tex, Projectile.oldPos[i] + Projectile.Size / 2 - Main.screenPosition, null, Color.Maroon * (mult * 0.8f), Projectile.oldRot[i], tex.Size() / 2, Projectile.scale * 1.1f, SpriteEffects.None, 0);
-            }
 
-            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.Maroon * (0.5f), Projectile.rotation, tex.Size() / 2, Projectile.scale * (1 + (MathF.Sin(Main.GlobalTimeWrappedHourly * 3f) + 1) * 0.5f), SpriteEffects.None, 0);
-            Main.spriteBatch.Reload(BlendState.AlphaBlend);
-            return true;
-        }
-        public override Color? GetAlpha(Color lightColor)
+        Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.Maroon * (0.5f), Projectile.rotation, tex.Size() / 2, Projectile.scale * (1 + (MathF.Sin(Main.GlobalTimeWrappedHourly * 3f) + 1) * 0.5f), SpriteEffects.None, 0);
+        Main.spriteBatch.Reload(BlendState.AlphaBlend);
+        return true;
+    }
+    public override bool OnTileCollide(Vector2 oldVelocity)
+    {
+        Projectile.netUpdate = true;
+        Projectile.velocity = Vector2.Zero;
+        savedP = int.MaxValue;
+        Projectile.aiStyle = -1;
+        return false;
+    }
+    public override Color? GetAlpha(Color lightColor)
+    {
+        return Color.White;
+    }
+    bool shouldDie = false;
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        writer.Write(savedP);
+        writer.Write(shouldDie);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        savedP = reader.ReadSingle();
+        shouldDie = reader.ReadBoolean();
+    }
+    public override void AI()
+    {
+        if (savedP == 0)
         {
-            return Color.White;
+            Projectile.netUpdate = true;
+            savedP = Main.player[Projectile.owner].Center.Y;
+            Projectile.SyncProjectile();
         }
-        public override void AI()
+        Projectile.tileCollide = Projectile.Center.Y > savedP - 20;
+        if (savedP == int.MaxValue)
         {
-            if (savedP == 0)
-                savedP = Main.LocalPlayer.Center.Y;
-            Projectile.tileCollide = Projectile.Center.Y > savedP - 20;
-            if (Projectile.tileCollide)
-            {
-                Projectile.aiStyle = 14;
-                AIType = ProjectileID.StickyGlowstick;
-            }
-            Dust.NewDustPerfect(Projectile.Center - new Vector2(-8, 15).RotatedBy(Projectile.rotation), DustID.Torch);
-            if (Projectile.timeLeft == 30)
-            {
-                Projectile.NewProjectileDirect(NPC.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<CircleTelegraph>(), 0, 0);
-                Projectile.velocity = Vector2.Zero;
-                Projectile.aiStyle = 0;
-            }
+            Projectile.netUpdate = true;
+            Projectile.aiStyle = -1;
+            Projectile.velocity = Vector2.Zero;
         }
-        public override void Kill(int timeLeft)
+        Dust.NewDustPerfect(Projectile.Center - new Vector2(-8, 15).RotatedBy(Projectile.rotation), DustID.Torch);
+        if (Projectile.timeLeft < 30 && !shouldDie)
         {
-            Projectile a = Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<FlameExplosionWSprite>(), Projectile.damage, 0, Projectile.owner);
+            Projectile.netUpdate = true;
+            MPUtils.NewProjectile(NPC.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<CircleTelegraph>(), 0, 0);
+            Projectile.velocity = Vector2.Zero;
+            shouldDie = true;
         }
+    }
+    public override void OnKill(int timeLeft)
+    {
+        Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<FlameExplosionWSprite>(), Projectile.damage, 0, Projectile.owner);
     }
 }
