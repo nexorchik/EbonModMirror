@@ -52,7 +52,7 @@ public static class ExtraSpriteTextures
     public static Asset<Texture2D> Sheep_Naked => Helper.GetExtraTexture("Sprites/NPCs/Overworld/Sheep_Naked");
     public static Asset<Texture2D> Sheep_Wool => Helper.GetExtraTexture("Sprites/NPCs/Overworld/Sheep_Wool");
     public static Asset<Texture2D> SudamaTrail => Helper.GetExtraTexture("Sprites/NPCs/Overworld/SudamaTrail");
-    public static Asset<Texture2D> KudamaTrail => Helper.GetExtraTexture("Sprites/NPCs/Overworld/KudamaTrail");
+    public static Asset<Texture2D> KodamaTrail => Helper.GetExtraTexture("Sprites/NPCs/Overworld/KodamaTrail");
 
     public static Asset<Texture2D> Glutton_Bloom => Helper.GetExtraTexture("Sprites/NPCs/Corruption/Glutton_Bloom");
     public static Asset<Texture2D> Glutton_Glow => Helper.GetExtraTexture("Sprites/NPCs/Corruption/Glutton_Glow");

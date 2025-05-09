@@ -171,7 +171,7 @@ public class DrawDetours : ModSystem
             if (RTHandler.pixelationTarget.IsReady)
             {
                 sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise);
-                sb.Draw(RTHandler.pixelationTarget.GetTarget(), new Rectangle(0, 0, Main.screenWidth * 2, Main.screenHeight * 2), Color.White);
+                sb.Draw(RTHandler.pixelationTarget.GetTarget(), new Rectangle(0, 0, (int)(Main.screenWidth * (1 + Main.GameZoomTarget)), (int)(Main.screenHeight * (1 + Main.GameZoomTarget))), Color.White);
                 sb.End();
             }
         }

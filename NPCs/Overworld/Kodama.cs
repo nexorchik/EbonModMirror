@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace EbonianMod.NPCs.Overworld;
-
-public class Sudama : ModNPC
+public class Kodama : ModNPC
 {
     public override void SetStaticDefaults()
     {
@@ -12,7 +14,7 @@ public class Sudama : ModNPC
     }
     public override void SetDefaults()
     {
-        NPC.Size = new Vector2(46, 42);
+        NPC.Size = new Vector2(22, 26);
         NPC.knockBackResist = 0f;
         NPC.noGravity = true;
         NPC.HitSound = SoundID.NPCHit1;
@@ -32,22 +34,22 @@ public class Sudama : ModNPC
             for (int i = 0; i < NPC.oldPos.Length; i++)
             {
                 if (NPC.oldPos[i] == Vector2.Zero) continue;
-                Vector2 oldPos = NPC.oldPos[i] + new Vector2(0, MathF.Sin(i * 0.5f) * 4).RotatedBy(NPC.rotation);
+                Vector2 oldPos = NPC.oldPos[i] + new Vector2(0, MathF.Sin(i * 0.5f) * 2).RotatedBy(NPC.rotation);
                 float mult = (1 - 1f / NPC.oldPos.Length * i);
                 float rotOffset = Helper.FromAToB(oldPos, NPC.position).ToRotation();
                 if (i > 0)
                 {
-                    Vector2 oldPos2 = NPC.oldPos[i - 1] + new Vector2(0, MathF.Sin(i * 0.5f) * 4).RotatedBy(NPC.rotation);
+                    Vector2 oldPos2 = NPC.oldPos[i - 1] + new Vector2(0, MathF.Sin(i * 0.5f) * 2).RotatedBy(NPC.rotation);
                     rotOffset = Helper.FromAToB(oldPos2, oldPos).ToRotation();
                 }
                 rotOffset += MathF.Sin(Main.GlobalTimeWrappedHourly * 3) * SmoothStep(1, 0, mult);
                 Vector2 off = i <= 1 ? NPC.rotation.ToRotationVector2() * NPC.velocity.Length() * 0.5f : Vector2.Zero;
-                Vector2 pos = oldPos + NPC.Size / 2 + new Vector2(0, 4) - rotOffset.ToRotationVector2() * 10 + off - Main.screenPosition;
-                vertices.Add(Helper.AsVertex(pos + new Vector2(21 * mult, 0).RotatedBy(PiOver2 + rotOffset), Color.White * (i < 2 ? 0 : 1), new Vector2((float)i / NPC.oldPos.Length * 3 - Main.GlobalTimeWrappedHourly * 1.5f, 0)));
-                vertices.Add(Helper.AsVertex(pos + new Vector2(21 * mult, 0).RotatedBy(-PiOver2 + rotOffset), Color.White * (i < 2 ? 0 : 1), new Vector2((float)i / NPC.oldPos.Length * 3 - Main.GlobalTimeWrappedHourly * 1.5f, 1)));
+                Vector2 pos = oldPos + NPC.Size / 2 + new Vector2(0, -4).RotatedBy(NPC.rotation) - rotOffset.ToRotationVector2() * 10 + off - Main.screenPosition;
+                vertices.Add(Helper.AsVertex(pos + new Vector2(13 * Clamp(mult * 2, 0, 1), 0).RotatedBy(PiOver2 + rotOffset), Color.White * (i < 3 ? 0 : 1), new Vector2((float)i / NPC.oldPos.Length * 3 - Main.GlobalTimeWrappedHourly * 1.5f, 0)));
+                vertices.Add(Helper.AsVertex(pos + new Vector2(13 * Clamp(mult * 2, 0, 1), 0).RotatedBy(-PiOver2 + rotOffset), Color.White * (i < 3 ? 0 : 1), new Vector2((float)i / NPC.oldPos.Length * 3 - Main.GlobalTimeWrappedHourly * 1.5f, 1)));
             }
             if (vertices.Count > 2)
-                Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, ExtraSpriteTextures.SudamaTrail.Value, false, true);
+                Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, ExtraSpriteTextures.KodamaTrail.Value, false, true);
         }
         );
         EbonianMod.finalDrawCache.Add(() =>
@@ -63,7 +65,6 @@ public class Sudama : ModNPC
             Lighting.AddLight(NPC.oldPos[i] + NPC.Size / 2, 197f / 255f * (1 - 1f / NPC.oldPos.Length * i), 226f / 255f * (1 - 1f / NPC.oldPos.Length * i), 105f / 255f * (1 - 1f / NPC.oldPos.Length * i));
 
         Lighting.AddLight(NPC.Center + NPC.velocity, 197f / 255f, 226f / 255f, 105f / 255f);
-
         //NPC.direction = NPC.spriteDirection = MathF.Sign(NPC.velocity.X);
         NPC.direction = NPC.spriteDirection = -1;
         NPC.rotation = Utils.AngleLerp(NPC.rotation, NPC.velocity.ToRotation(), 0.2f);
@@ -73,14 +74,15 @@ public class Sudama : ModNPC
         Player player = Main.player[NPC.target];
 
         float dist = NPC.Distance(player.Center);
-        float off = Clamp(MathF.Sin(NPC.ai[0] * 0.025f), 0.5f, 1) * MathF.Sign(MathF.Sin(NPC.ai[0] * 0.025f));
+        float off = Clamp(MathF.Sin(NPC.ai[0] * 0.03f), 0.5f, 1) * MathF.Sign(MathF.Sin(NPC.ai[0] * 0.03f));
         if (dist > 300)
-            off = Clamp(MathF.Sin(NPC.ai[0] * 0.025f), 0.5f, 1);
+            off = Clamp(MathF.Sin(NPC.ai[0] * 0.03f), 0.5f, 1);
         else if (dist > 400)
             off = 1f;
         if (dist < 600)
-            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.Center.FromAToB(player.Center + new Vector2(new UnifiedRandom((int)NPC.ai[3]).NextFloat(180, 360)).RotatedBy(ToRadians(NPC.ai[0] * 3)) * off, false) * 0.075f, 0.1f);
+            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.Center.FromAToB(player.Center + new Vector2(new UnifiedRandom((int)NPC.ai[3]).NextFloat(80, 260)).RotatedBy(ToRadians(NPC.ai[0] * 4)) * off, false) * 0.075f, 0.1f);
         else
             NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.Center.FromAToB(player.Center) * 20, 0.1f);
     }
 }
+

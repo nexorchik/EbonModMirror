@@ -606,6 +606,7 @@ NPCs: {
 	Chalice.DisplayName: Кубок
 	// Sudama.DisplayName: Sudama
 	// Aureus.DisplayName: Aureus
+	// Kodama.DisplayName: Kodama
 }
 
 Items: {
