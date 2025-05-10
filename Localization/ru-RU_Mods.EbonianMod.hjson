@@ -313,6 +313,8 @@ Projectiles: {
 	// CongFisherateBobber.DisplayName: Cong Fisherate Bobber
 	// TFlameThrowerSine.DisplayName: T Flame Thrower Sine
 	// BatGraphics.DisplayName: Bat Graphics
+	// Kodama.DisplayName: Kodama
+	// KodamaSummoningRitual.DisplayName: Kodama Summoning Ritual
 }
 
 NPCs: {
