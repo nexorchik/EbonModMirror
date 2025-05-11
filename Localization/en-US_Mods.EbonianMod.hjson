@@ -599,6 +599,7 @@ NPCs: {
 	Sudama.DisplayName: Sudama
 	Aureus.DisplayName: Aureus
 	Kodama.DisplayName: Kodama
+	Botanist.DisplayName: Botanist
 }
 
 Items: {

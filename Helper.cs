@@ -28,6 +28,10 @@ public static class Helper
     {
         return new Rectangle((int)rect.X, (int)rect.Y, (int)rect.Width, (int)rect.Height);
     }
+    public static Color HunterPotionColor(this NPC npc, Color defaultColor)
+    {
+        return Main.LocalPlayer.HasBuff(BuffID.Hunter) ? HunterPotionColor(npc) : defaultColor;
+    }
     public static Color HunterPotionColor(this NPC npc)
     {
         return Color.Lerp(Color.OrangeRed * 0.5f, Color.Transparent, Clamp(Utils.GetLerpValue(npc.Size.Length(), 0, Main.LocalPlayer.Distance(npc.Center)), 0, 1));

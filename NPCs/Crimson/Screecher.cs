@@ -24,13 +24,9 @@ public class Screecher : ModNPC
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
         if (spawnInfo.Player.ZoneCrimson)
-        {
             return .07f;
-        }
         else
-        {
             return 0;
-        }
     }
     public override void SetDefaults()
     {
@@ -46,7 +42,6 @@ public class Screecher : ModNPC
         NPC.aiStyle = -1;
         NPC.noGravity = false;
         NPC.noTileCollide = false;
-
     }
     public override bool CheckDead()
     {
@@ -65,7 +60,6 @@ public class Screecher : ModNPC
         get => NPC.ai[0];
         set => NPC.ai[0] = value;
     }
-
     public float AITimer
     {
         get => NPC.ai[1];

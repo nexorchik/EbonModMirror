@@ -4,12 +4,12 @@ public class GarbageMissile : ModProjectile
 {
     public override void SetStaticDefaults()
     {
-        Main.projFrames[Type] = 6;
+        Main.projFrames[Type] = 5;
     }
     public override void SetDefaults()
     {
-        Projectile.width = 5;
-        Projectile.height = 5;
+        Projectile.width = 10;
+        Projectile.height = 10;
         Projectile.aiStyle = -1;
         Projectile.friendly = false;
         Projectile.tileCollide = false;
@@ -18,7 +18,7 @@ public class GarbageMissile : ModProjectile
     }
     public override void OnSpawn(IEntitySource source)
     {
-        Projectile.frame = Main.rand.Next(6);
+        Projectile.frame = Main.rand.Next(5);
         Projectile.SyncProjectile();
     }
     public override void OnKill(int timeLeft)
