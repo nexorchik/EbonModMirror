@@ -42,7 +42,7 @@ public class Kodama : ModProjectile
                     Vector2 oldPos2 = Projectile.oldPos[i - 1] + new Vector2(0, MathF.Sin(i * 0.5f) * 2).RotatedBy(Projectile.rotation);
                     rotOffset = oldPos2.FromAToB(oldPos).ToRotation();
                 }
-                rotOffset += MathF.Sin(Main.GlobalTimeWrappedHourly * 3) * SmoothStep(1, 0, mult);
+                rotOffset += MathF.Sin(Main.GlobalTimeWrappedHourly * 4 + Projectile.whoAmI * 10) * SmoothStep(1, 0, mult);
                 Vector2 off = i <= 1 ? Projectile.rotation.ToRotationVector2() * Projectile.velocity.Length() * 0.5f : Vector2.Zero;
                 Vector2 pos = oldPos + Projectile.Size / 2 + new Vector2(0, -4).RotatedBy(Projectile.rotation) - rotOffset.ToRotationVector2() * 10 + off - Main.screenPosition;
                 vertices.Add(Helper.AsVertex(pos + new Vector2(13 * Clamp(mult * 2, 0, 1), 0).RotatedBy(PiOver2 + rotOffset), Color.White * alpha * (i < 3 ? 0 : 1), new Vector2((float)i / Projectile.oldPos.Length * 3 - Main.GlobalTimeWrappedHourly * 1.5f, 0)));
