@@ -315,6 +315,7 @@ Projectiles: {
 	// BatGraphics.DisplayName: Bat Graphics
 	// Kodama.DisplayName: Kodama
 	// KodamaSummoningRitual.DisplayName: Kodama Summoning Ritual
+	// KodamaF.DisplayName: Kodama F
 }
 
 NPCs: {
@@ -1378,6 +1379,16 @@ Items: {
 
 	Bat: {
 		// DisplayName: Bat
+		// Tooltip: ""
+	}
+
+	SudamaTrident: {
+		// DisplayName: Sudama Trident
+		// Tooltip: ""
+	}
+
+	KodamaStaff: {
+		// DisplayName: Kodama Staff
 		// Tooltip: ""
 	}
 }
