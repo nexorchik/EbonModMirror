@@ -15,7 +15,6 @@ public class EbonianMod : Mod
     public static EbonianMod Instance => GetInstance<EbonianMod>();
     public static List<int> projectileFinalDrawList = new List<int>();
     public RenderTarget2D blurrender;
-    public static BGParticleSys sys;
     public EbonianMod() => MusicSkipsVolumeRemap = true;
     public override void HandlePacket(BinaryReader reader, int whoAmI) => EbonianNetCode.HandlePackets(reader);
     public override void Load()
@@ -25,7 +24,6 @@ public class EbonianMod : Mod
         LoadDrawCache();
         Main.OnResolutionChanged += (Vector2 obj) => CreateRender();
         CreateRender();
-        sys = new();
     }
     public override void Unload()
     {
@@ -38,7 +36,6 @@ public class EbonianMod : Mod
         ResetCache(ref finalDrawCache);
         ResetCache(ref garbageFlameCache);
         ResetCache(ref xareusGoopCache);
-        sys = null;
     }
     public static List<Action> invisibleMaskCache = [], affectedByInvisibleMaskCache = [],
         blurDrawCache = [], pixelationDrawCache = [], addPixelationDrawCache = [],

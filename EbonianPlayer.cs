@@ -146,7 +146,6 @@ public class EbonianPlayer : ModPlayer
             Player.accRunSpeed *= 0.7f;
             Player.moveSpeed *= 0.7f;
         }
-        EbonianMod.sys.UpdateParticles();
         Player.ManageSpecialBiomeVisuals("EbonianMod:XMartian", NPC.AnyNPCs(NPCType<ArchmageCutsceneMartian>()));
         Player.ManageSpecialBiomeVisuals("EbonianMod:Conglomerate", Player.HasBuff<ConglomerateEnergyBuff>()); // add npc here later when we add conglo
         Player.ManageSpecialBiomeVisuals("EbonianMod:Aureus", NPC.AnyNPCs(NPCType<Aureus>()));

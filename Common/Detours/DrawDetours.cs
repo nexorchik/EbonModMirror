@@ -71,8 +71,6 @@ public class DrawDetours : ModSystem
     public void DrawBehindTilesAndWalls(Terraria.On_Main.orig_DrawBG orig, global::Terraria.Main self)
     {
         orig(self);
-        if (EbonianMod.sys != null)
-            EbonianMod.sys.DrawParticles();
     }
     public static void DrawVerlets(SpriteBatch sb)
     {
