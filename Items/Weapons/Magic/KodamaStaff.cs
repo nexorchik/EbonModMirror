@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terraria.GameContent.Drawing;
 
 namespace EbonianMod.Items.Weapons.Magic;
 public class KodamaStaff : ModItem
@@ -27,7 +28,6 @@ public class KodamaStaff : ModItem
         Item.knockBack = 10;
         Item.value = 1000;
         Item.rare = ItemRarityID.LightRed;
-        Item.UseSound = SoundID.Item20;
         Item.value = Item.buyPrice(0, 30, 0, 0);
         Item.autoReuse = true;
         Item.shoot = ProjectileType<KodamaF>();
@@ -49,6 +49,7 @@ public class KodamaStaff : ModItem
         player.itemRotation = (float)Math.Atan2(vector5.Y * player.direction, vector5.X * player.direction);
         NetMessage.SendData(13, -1, -1, null, player.whoAmI);
         NetMessage.SendData(41, -1, -1, null, player.whoAmI);
+
         Vector2 vel = new Vector2(velocity.X * 0.5f * Main.rand.NextFloat(1, 2), -Item.shootSpeed).RotatedByRandom(PiOver4);
         Projectile.NewProjectile(source, position + vel * 10, vel, type, damage, knockback, player.whoAmI);
         return false;

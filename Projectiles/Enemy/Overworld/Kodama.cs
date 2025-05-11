@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terraria.GameContent.Drawing;
+using Terraria;
+using EbonianMod.Dusts;
 
 namespace EbonianMod.Projectiles.Enemy.Overworld;
 public class Kodama : ModProjectile
@@ -92,13 +95,42 @@ public class KodamaF : Kodama
         Projectile.hostile = false;
         Projectile.usesLocalNPCImmunity = true;
     }
+    public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
+    {
+        ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TrueNightsEdge, new ParticleOrchestraSettings
+        {
+            PositionInWorld = Projectile.Center + Projectile.velocity,
+            MovementVector = Vector2.One
+        });
+        for (int i = 0; i < 10; i++)
+        {
+            Vector2 _v = Main.rand.NextVector2Circular(5, 5);
+            float scale = Main.rand.NextFloat(0.01f, 0.15f);
+            Dust.NewDustPerfect(Projectile.Center + Projectile.velocity, DustType<SparkleDust>(), _v, 0, Color.LawnGreen, scale);
+            Dust.NewDustPerfect(Projectile.Center + Projectile.velocity, DustType<SparkleDust>(), _v, 0, Color.White, scale * 0.9f);
+            _v = Main.rand.NextVector2Circular(5, 5);
+            Dust.NewDustPerfect(Projectile.Center + Projectile.velocity, DustID.WoodFurniture, _v).noGravity = true;
+        }
+    }
     Vector2 pos, vel;
     public override void AI()
     {
         if (vel == Vector2.Zero)
         {
+            SoundEngine.PlaySound(SoundID.Item117 with { Pitch = 0.5f, PitchVariance = 0.2f }, Projectile.Center);
+            for (int i = 0; i < 3; i++)
+            {
+                Vector2 _v = Main.rand.NextVector2Circular(5, 5);
+                float scale = Main.rand.NextFloat(0.01f, 0.15f);
+                Dust.NewDustPerfect(Projectile.Center, DustType<SparkleDust>(), _v, 0, Color.LawnGreen, scale);
+                Dust.NewDustPerfect(Projectile.Center, DustType<SparkleDust>(), _v, 0, Color.White, scale * 0.9f);
+            }
+            ParticleOrchestrator.RequestParticleSpawn(clientOnly: true, ParticleOrchestraType.TrueNightsEdge, new ParticleOrchestraSettings
+            {
+                PositionInWorld = Projectile.Center + Projectile.velocity,
+                MovementVector = Vector2.One
+            });
             alpha = 0;
-            vel = Helper.FromAToB(Projectile.Center - new Vector2(0, 150), Main.MouseWorld);
             float rand = Main.rand.NextFloat(-0.5f, 0.5f);
             for (int i = 0; i < Projectile.oldPos.Length; i++)
                 Projectile.oldPos[i] = Projectile.position - Projectile.velocity.RotatedBy(rand) * i * 0.4f;
@@ -115,18 +147,14 @@ public class KodamaF : Kodama
         if (Projectile.ai[0] > 100)
             alpha = Lerp(alpha, 0, 0.1f);
 
-        if (Projectile.ai[0] > 20 && Projectile.ai[0] < 30)
-        {
-            pos += vel * Projectile.velocity.Length();
-            Projectile.velocity = Vector2.Lerp(Projectile.velocity, Helper.FromAToB(Projectile.Center, pos) * 20, 0.1f);
-        }
-        else if (Projectile.ai[0] <= 20)
+        pos += vel * Projectile.velocity.Length();
+        Projectile.velocity = Vector2.Lerp(Projectile.velocity, vel * 20, 0.02f);
+        if (Projectile.ai[0] <= 20)
         {
             alpha = Lerp(alpha, 1, 0.1f);
-            pos = Main.MouseWorld;
+            if (Projectile.ai[0] < 5)
+                vel = Helper.FromAToB(Projectile.Center - new Vector2(0, 150), Main.MouseWorld);
         }
-        else if (Projectile.ai[0] == 30)
-            Projectile.velocity = Helper.FromAToB(Projectile.Center, pos + Main.rand.NextVector2Circular(30, 30)) * 20;
         if (Projectile.ai[0] > 110)
             Projectile.Kill();
     }
