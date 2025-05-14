@@ -610,6 +610,23 @@ NPCs: {
 		DisplayName: Belladonna
 		Bestiary: A type of plant humanoid, resembling a well-dressed botanist. Spends the day hibernating and photosynthesising, and emerges at night to spread her saplings: healing blueberries and explosive nightshades. True to her appearance, she takes great pride in her botany and vibrant complexion.
 	}
+
+	Pebbi1: {
+		DisplayName: Slab Pebbi
+		Bestiary: Pebbies are strange pieces of living rocks of many kinds, who swarm up to fend off travelers for no good reason. This one is quite speedy.
+	}
+
+	Pebbi2: {
+		DisplayName: Chunk pebbi
+		Bestiary: Pebbies are strange pieces of living rocks of many kinds, who swarm up to fend off travelers for no good reason. This one is quite hefty.
+	}
+
+	Pebbi3: {
+		DisplayName: Geode Pebbi
+		Bestiary: Pebbies are strange pieces of living rocks of many kinds, who swarm up to fend off travelers for no good reason. This one is quite rotund.
+	}
+
+	PebbiSwarm.DisplayName: Pebbi Swarm
 }
 
 Items: {

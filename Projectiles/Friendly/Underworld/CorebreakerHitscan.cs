@@ -23,29 +23,30 @@ public class CorebreakerHitscan : ModProjectile
         Projectile.extraUpdates = 60;
         Projectile.timeLeft = 350;
     }
-    bool EmitParticles=true;
+    bool EmitParticles = true;
     public override void AI()
     {
         Projectile.rotation = Projectile.velocity.ToRotation();
-        if(EmitParticles == true)
+        if (EmitParticles == true)
         {
             Dust.NewDustPerfect(Projectile.Center, DustID.Torch, (Projectile.rotation - PiOver2).ToRotationVector2() * Main.rand.NextFloat(0.7f, 2f), Scale: (float)Projectile.timeLeft / 70).noGravity = true;
             Dust.NewDustPerfect(Projectile.Center, DustID.Torch, (Projectile.rotation + PiOver2).ToRotationVector2() * Main.rand.NextFloat(0.7f, 2f), Scale: (float)Projectile.timeLeft / 70).noGravity = true;
         }
         foreach (Projectile projectile in Main.ActiveProjectiles)
         {
-            if (Projectile.Distance(projectile.Center) < 25 && projectile.type == ProjectileType<CorebreakerP>())
-            {
-                projectile.Kill();
-                Projectile CurrentProjectile = Projectile.NewProjectileDirect(NPC.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<FlameExplosionWSprite>(), Projectile.damage * 2, 0);
-                CurrentProjectile.scale *= 1.7f;
-                CurrentProjectile.damage = (int)(CurrentProjectile.damage * 2f);
-                CurrentProjectile.CritChance = 100;
-                CurrentProjectile.friendly = true;
-                CurrentProjectile.hostile = false;
-                CurrentProjectile.SyncProjectile();
-                Freeze();
-            }
+            if (projectile.type == ProjectileType<CorebreakerP>())
+                if (Projectile.Distance(projectile.Center) < 45)
+                {
+                    projectile.Kill();
+                    Projectile CurrentProjectile = Projectile.NewProjectileDirect(NPC.InheritSource(Projectile), Projectile.Center, Vector2.Zero,
+                        ProjectileType<FlameExplosionWSprite>(), Projectile.damage * 4, 0);
+                    CurrentProjectile.scale *= 2;
+                    CurrentProjectile.CritChance = 100;
+                    CurrentProjectile.friendly = true;
+                    CurrentProjectile.hostile = false;
+                    CurrentProjectile.SyncProjectile();
+                    Freeze();
+                }
         }
     }
     public override bool PreDraw(ref Color lightColor)

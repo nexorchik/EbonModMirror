@@ -62,7 +62,7 @@ public class Bat : ModItem
     {
         if (player.altFunctionUse == 2)
         {
-            velocity = new Vector2(player.velocity.X, -5 + player.velocity.Y);
+            velocity = new Vector2(player.velocity.X, -4 + player.velocity.Y);
             position += velocity;
         }
         Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 1);
@@ -88,9 +88,6 @@ public class BatGraphics : HeldSword
         Projectile.localAI[0] = Projectile.rotation - Pi;
         Projectile.ai[2] = 36;
     }
-    public float ballCd;
-    public override void SendExtraAI(BinaryWriter writer) => writer.Write(ballCd);
-    public override void ReceiveExtraAI(BinaryReader reader) => ballCd = reader.ReadSingle();
     public override void AI()
     {
         Player player = Main.player[Projectile.owner];
@@ -101,12 +98,12 @@ public class BatGraphics : HeldSword
         Projectile.ai[1]++;
         if (Projectile.ai[1] > 0)
         {
-            if (Main.mouseRightRelease && Main.myPlayer == player.whoAmI) ballCd--;
-            if (Main.mouseRight && Main.myPlayer == player.whoAmI && ballCd < 0)
+            if (Main.mouseRightRelease && Main.myPlayer == player.whoAmI) Projectile.localAI[1]--;
+            if (Main.mouseRight && Main.myPlayer == player.whoAmI && Projectile.localAI[1] < 0)
             {
                 Vector2 v = new Vector2(player.velocity.X, -5 + player.velocity.Y);
                 Projectile.NewProjectile(Projectile.InheritSource(Projectile), player.MountedCenter + v, v, ProjectileType<Ball>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
-                ballCd = 20;
+                Projectile.localAI[1] = 20;
                 Projectile.netUpdate = true;
             }
             Projectile.rotation = Utils.AngleLerp(Projectile.rotation, Projectile.ai[0], 0.2f);

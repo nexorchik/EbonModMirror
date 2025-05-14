@@ -3,7 +3,7 @@ using System;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace EbonianMod.NPCs
+namespace EbonianMod.Common
 {
     // rest in peace Mythos of Moonlight but whoever wrote this is mentally ill, gotta rewrite at some point
     public class FighterGlobalAI : GlobalNPC
