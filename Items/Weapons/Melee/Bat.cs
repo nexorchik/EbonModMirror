@@ -4,8 +4,11 @@ using EbonianMod.Projectiles;
 using EbonianMod.Projectiles.Friendly.Generic;
 using EbonianMod.Projectiles.Friendly.Underworld;
 using EbonianMod.Projectiles.VFXProjectiles;
+using Mono.Cecil;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace EbonianMod.Items.Weapons.Melee;
 
@@ -51,10 +54,17 @@ public class Bat : ModItem
         {
             Item.shoot = ProjectileType<BatGraphics>();
         }
-        return Item.shoot == ProjectileType<BatGraphics>() || (Item.shoot == ProjectileType<Ball>() && player.ownedProjectileCounts[ProjectileType<Ball>()] < 3);
+        return Item.shoot == ProjectileType<BatGraphics>()
+            || (Item.shoot == ProjectileType<Ball>()
+            && player.ownedProjectileCounts[ProjectileType<Ball>()] < 4);
     }
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
     {
+        if (player.altFunctionUse == 2)
+        {
+            velocity = new Vector2(player.velocity.X, -5 + player.velocity.Y);
+            position += velocity;
+        }
         Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 1);
         return false;
     }
@@ -73,11 +83,14 @@ public class BatGraphics : HeldSword
     {
         Projectile.scale = 0.3f;
         Player player = Main.player[Projectile.owner];
-        Projectile.rotation = Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation()+Pi/2;
+        Projectile.rotation = Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation() + Pi / 2;
         Projectile.ai[0] = Projectile.rotation - Pi * 0.9f * player.direction;
         Projectile.localAI[0] = Projectile.rotation - Pi;
         Projectile.ai[2] = 36;
     }
+    public float ballCd;
+    public override void SendExtraAI(BinaryWriter writer) => writer.Write(ballCd);
+    public override void ReceiveExtraAI(BinaryReader reader) => ballCd = reader.ReadSingle();
     public override void AI()
     {
         Player player = Main.player[Projectile.owner];
@@ -88,14 +101,22 @@ public class BatGraphics : HeldSword
         Projectile.ai[1]++;
         if (Projectile.ai[1] > 0)
         {
+            if (Main.mouseRightRelease && Main.myPlayer == player.whoAmI) ballCd--;
+            if (Main.mouseRight && Main.myPlayer == player.whoAmI && ballCd < 0)
+            {
+                Vector2 v = new Vector2(player.velocity.X, -5 + player.velocity.Y);
+                Projectile.NewProjectile(Projectile.InheritSource(Projectile), player.MountedCenter + v, v, ProjectileType<Ball>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
+                ballCd = 20;
+                Projectile.netUpdate = true;
+            }
             Projectile.rotation = Utils.AngleLerp(Projectile.rotation, Projectile.ai[0], 0.2f);
-            if (player.channel == false && Projectile.ai[1] > 12)
+            if (!player.channel && Projectile.ai[1] > 12)
             {
                 Projectile.ai[1] = -100;
             }
             Projectile.timeLeft = 30;
         }
-        Vector2 StartRotationDirection = (Projectile.localAI[0]+Pi/2).ToRotationVector2();
+        Vector2 StartRotationDirection = (Projectile.localAI[0] + Pi / 2).ToRotationVector2();
         if (Projectile.ai[1] < 0)
         {
             if (Projectile.timeLeft == 29)
@@ -109,8 +130,10 @@ public class BatGraphics : HeldSword
                     SoundEngine.PlaySound(SoundID.Item126.WithPitchOffset(Main.rand.NextFloat(-0.9f, -0.7f)), Projectile.Center);
                     SoundEngine.PlaySound(SoundID.Item10.WithPitchOffset(Main.rand.NextFloat(1f, 2f)), Projectile.Center);
                     float BaseVelocity = projectile.velocity.Length();
-                    float VelocityPower = MathF.Pow(BaseVelocity, 2)/7;
-                    projectile.velocity = StartRotationDirection * Clamp(VelocityPower, 5, 30);
+                    float VelocityPower = MathF.Pow(BaseVelocity, 2) / 7;
+                    projectile.velocity = StartRotationDirection * Clamp(VelocityPower, 14, 30);
+                    projectile.timeLeft = 360;
+                    projectile.Opacity = 1;
                     if (Projectile.localAI[0] > -3.3f && Projectile.localAI[0] < -2.9f)
                         projectile.velocity.X = player.velocity.X;
                     projectile.ai[1] = 10;
