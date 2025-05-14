@@ -47,6 +47,10 @@ public static class ExtraSpriteTextures
     public static Asset<Texture2D> TerrortomaLaughing => Helper.GetExtraTexture("Sprites/NPCs/Terrortoma/TerrortomaLaughing");
     public static Asset<Texture2D> TerrortomaSpawn => Helper.GetExtraTexture("Sprites/NPCs/Terrortoma/TerrortomaSpawn");
 
+
+    public static Asset<Texture2D> Belladonna_Glow => Helper.GetExtraTexture("Sprites/NPCs/Overworld/Belladonna_Glow");
+    public static Asset<Texture2D> BushOverlay_0 => Helper.GetExtraTexture("Sprites/NPCs/Overworld/BushOverlay_0");
+    public static Asset<Texture2D> BushOverlay_1 => Helper.GetExtraTexture("Sprites/NPCs/Overworld/BushOverlay_1");
     public static Asset<Texture2D> BotanistHead => Helper.GetExtraTexture("Sprites/NPCs/Overworld/BotanistHead");
     public static Asset<Texture2D> BotanistNeck => Helper.GetExtraTexture("Sprites/NPCs/Overworld/BotanistNeck");
     public static Asset<Texture2D> Sheep_Naked => Helper.GetExtraTexture("Sprites/NPCs/Overworld/Sheep_Naked");

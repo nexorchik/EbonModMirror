@@ -316,6 +316,10 @@ Projectiles: {
 	Kodama.DisplayName: Kodama
 	KodamaSummoningRitual.DisplayName: Kodama Summoning Ritual
 	KodamaF.DisplayName: Kodama F
+	BelladonnaBush.DisplayName: Belladonna Bush
+	Blueberry.DisplayName: Blueberry
+	Nightshade.DisplayName: Nightshade
+	Nightshade2.DisplayName: Nightshade2
 }
 
 NPCs: {
@@ -601,6 +605,11 @@ NPCs: {
 	Aureus.DisplayName: Aureus
 	Kodama.DisplayName: Kodama
 	Botanist.DisplayName: Botanist
+
+	Belladonna: {
+		DisplayName: Belladonna
+		Bestiary: A type of plant humanoid, resembling a well-dressed botanist. Spends the day hibernating and photosynthesising, and emerges at night to spread her saplings: healing blueberries and explosive nightshades. True to her appearance, she takes great pride in her botany and vibrant complexion.
+	}
 }
 
 Items: {

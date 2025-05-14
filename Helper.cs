@@ -356,6 +356,26 @@ public static class Helper
         }
         return baseVel;
     }
+    public static void SpawnDust(Vector2 position, Vector2 size, int type, Vector2 velocity = default, int amount = 1, Action<Dust> dustModification = null)
+    {
+        for (int i = 0; i < amount; i++)
+        {
+            var dust = Main.dust[Dust.NewDust(position, (int)size.X, (int)size.Y, type, velocity.X, velocity.Y)];
+            dustModification?.Invoke(dust);
+        }
+    }
+    public static void SpawnGore(NPC NPC, string gore, int amount = 1, int type = -1, Vector2 vel = default, float scale = 1f)
+    {
+        var position = NPC.Center;
+        if (type != -1)
+        {
+            gore += type;
+        }
+        for (int i = 0; i < amount; i++)
+        {
+            Gore.NewGore(NPC.GetSource_OnHit(NPC), position + new Vector2(Main.rand.Next(-20, 20), Main.rand.Next(-20, 20)), vel, Find<ModGore>(gore).Type, scale);
+        }
+    }
     public static bool InRange(this float f, float target, float range = 1f)
     {
         return f > target - range && f < target + range;
