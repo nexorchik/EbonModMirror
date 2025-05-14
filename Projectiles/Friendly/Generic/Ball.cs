@@ -12,6 +12,7 @@ public class Ball : ModProjectile
         Projectile.friendly = true;
         Projectile.hostile = false;
         Projectile.timeLeft = 400;
+        Projectile.usesLocalNPCImmunity = true;
     }
 
     public override void OnSpawn(IEntitySource source)
@@ -58,22 +59,28 @@ public class Ball : ModProjectile
     }
     public override void OnHitNPC(NPC target, NPC.HitInfo hitinfo, int damage)
     {
+        Projectile.velocity *= 0.96f;
     }
     public override bool ShouldUpdatePosition() => true;
     public override void AI()
     {
         Projectile.damage = (int)MathF.Pow(Projectile.velocity.Length(), 2) / 9;
         if (Projectile.damage > 90)
+        {
             Projectile.CritChance = 100;
+            Projectile.penetrate = -1;
+        }
         else
+        {
+            Projectile.penetrate = 1;
             Projectile.CritChance = 0;
+        }
+
         if (Projectile.ai[1] > 0)
             Projectile.ai[1]--;
 
-        if (Projectile.timeLeft > 365)// && Main.player[Projectile.owner].velocity.Length() > Projectile.velocity.Length()
-                                      //&& MathF.Sign(Main.player[Projectile.owner].velocity.X) == MathF.Sign(Projectile.velocity.X))
+        if (Projectile.timeLeft > 365)
         {
-            //Projectile.velocity.X = Main.player[Projectile.owner].velocity.X;
             Projectile.velocity.X = Main.player[Projectile.owner].velocity.X;
             Projectile.Center = new Vector2(Main.player[Projectile.owner].MountedCenter.X, Projectile.Center.Y);
         }

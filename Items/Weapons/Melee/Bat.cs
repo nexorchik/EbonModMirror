@@ -62,8 +62,10 @@ public class Bat : ModItem
     {
         if (player.altFunctionUse == 2)
         {
-            velocity = new Vector2(player.velocity.X, -4 + player.velocity.Y);
-            position += velocity;
+            if(MathF.Abs(player.velocity.Y) < 0.03f)
+                velocity = new Vector2(player.velocity.X, -5 + player.velocity.Y);
+            else
+                velocity += new Vector2(player.velocity.X, -1.5f + player.velocity.Y);
         }
         Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, 1);
         return false;
