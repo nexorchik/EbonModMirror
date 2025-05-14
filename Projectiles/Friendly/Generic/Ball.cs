@@ -59,7 +59,7 @@ public class Ball : ModProjectile
     }
     public override void OnHitNPC(NPC target, NPC.HitInfo hitinfo, int damage)
     {
-        Projectile.velocity *= 0.96f;
+        Projectile.velocity *= 0.945f;
     }
     public override bool ShouldUpdatePosition() => true;
     public override void AI()

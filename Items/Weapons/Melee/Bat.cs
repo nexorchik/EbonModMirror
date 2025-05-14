@@ -129,8 +129,8 @@ public class BatGraphics : HeldSword
                     SoundEngine.PlaySound(SoundID.Item126.WithPitchOffset(Main.rand.NextFloat(-0.9f, -0.7f)), Projectile.Center);
                     SoundEngine.PlaySound(SoundID.Item10.WithPitchOffset(Main.rand.NextFloat(1f, 2f)), Projectile.Center);
                     float BaseVelocity = projectile.velocity.Length();
-                    float VelocityPower = MathF.Pow(BaseVelocity, 2) / 7;
-                    projectile.velocity = StartRotationDirection * Clamp(VelocityPower, 14, 30);
+                    float VelocityPower = MathF.Pow(BaseVelocity, 2) / 9;
+                    projectile.velocity = StartRotationDirection * Clamp(VelocityPower, 14, 34);
                     projectile.timeLeft = 360;
                     projectile.Opacity = 1;
                     if (Projectile.localAI[0] > -3.3f && Projectile.localAI[0] < -2.9f)
