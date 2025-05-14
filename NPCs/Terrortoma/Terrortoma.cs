@@ -517,7 +517,7 @@ public class Terrortoma : ModNPC
                     SoundEngine.PlaySound(EbonianSounds.shriek.WithPitchOffset(-0.6f).WithVolumeScale(1.6f), NPC.Center);
                 }
                 if (AITimer % 20 == 0)
-                    Helper.AddCameraModifier(new PunchCameraModifier(NPC.Center, Main.rand.NextVector2Unit(), 30, 12, 30, 1000));
+                    Helper.AddCameraModifier(new PunchCameraModifier(NPC.Center, Main.rand.NextVector2Unit(), 15, 12, 30, 1000));
                 angry = true;
                 if (AITimer % 5 == 0)
                     Projectile.NewProjectile(null, NPC.Center, Vector2.Zero, ProjectileType<TerrortomaScream>(), 0, 0);
@@ -692,7 +692,7 @@ public class Terrortoma : ModNPC
                     SoundEngine.PlaySound(EbonianSounds.shriek.WithPitchOffset(-0.6f).WithVolumeScale(1.6f), NPC.Center);
                 }
                 if (AITimer % 20 == 0)
-                    Helper.AddCameraModifier(new PunchCameraModifier(NPC.Center, Main.rand.NextVector2Unit(), 30, 12, 30, 1000));
+                    Helper.AddCameraModifier(new PunchCameraModifier(NPC.Center, Main.rand.NextVector2Unit(), 10, 12, 30, 1000));
                 angry = true;
                 if (AITimer % 5 == 0)
                     Projectile.NewProjectile(null, NPC.Center, Vector2.Zero, ProjectileType<TerrortomaScream>(), 0, 0);

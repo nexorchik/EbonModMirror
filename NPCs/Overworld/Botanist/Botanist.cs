@@ -81,7 +81,7 @@ public class Botanist : ModNPC
 
         spriteBatch.Draw(TextureAssets.Npc[Type].Value, NPC.Center + new Vector2(0, 4 + (NPC.frame.Y == 24 ? -1 : 0)) - screenPos, NPC.frame, NPC.HunterPotionColor(drawColor), NPC.rotation, NPC.Size / 2, NPC.scale, NPC.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
 
-        spriteBatch.Draw(head, NPC.Center - screenPos + headOffset + new Vector2(NPC.direction, (NPC.frame.Y == 24 ? -1 : 0)), null, NPC.HunterPotionColor(Lighting.GetColor((NPC.Center + headOffset).ToTileCoordinates())), headRotation, head.Size() / 2, NPC.scale, NPC.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+        spriteBatch.Draw(head, center - screenPos + new Vector2(NPC.direction, (NPC.frame.Y == 24 ? -1 : 0)).RotatedBy(headRotation), null, NPC.HunterPotionColor(Lighting.GetColor((NPC.Center + headOffset).ToTileCoordinates())), headRotation, head.Size() / 2, NPC.scale, NPC.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
         return false;
     }
     public override void FindFrame(int frameHeight)
@@ -102,6 +102,8 @@ public class Botanist : ModNPC
     public override void AI()
     {
         Player player = Main.player[NPC.target];
+        headOffset = NPC.Center.FromAToB(Main.MouseWorld, false);
+        headRotation = headOffset.ToRotation() + PiOver2;
         if (AIState == Idle)
         {
             headOffset = new Vector2(0, -8);

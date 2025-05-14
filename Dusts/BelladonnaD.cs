@@ -18,7 +18,7 @@ namespace EbonianMod.Dusts
             }
 
             dust.rotation += 0.1f;
-            dust.scale -= 0.05f;
+            dust.scale -= 0.025f;
             dust.position += dust.velocity;
             if (dust.scale <= 0)
                 dust.active = false;
@@ -41,7 +41,7 @@ namespace EbonianMod.Dusts
             }
 
             dust.rotation += 0.1f;
-            dust.scale -= 0.05f;
+            dust.scale -= 0.025f;
             dust.position += dust.velocity;
             if (dust.scale <= 0)
                 dust.active = false;

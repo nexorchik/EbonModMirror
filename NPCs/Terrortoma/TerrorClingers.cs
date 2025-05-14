@@ -257,7 +257,7 @@ public class TerrorClingerRanged : ModNPC
                         break;
                     case 5:
                         {
-                            Vector2 pos = player.Center - new Vector2((float)Math.Sin(AITimer * 0.05f) * 120, 250);
+                            Vector2 pos = player.Center - new Vector2((float)Math.Sin(CenterAITimer * 0.05f) * 120, 250);
                             Vector2 target = pos;
                             Vector2 moveTo = target - NPC.Center;
                             NPC.velocity = (moveTo) * 0.05f;
@@ -267,7 +267,7 @@ public class TerrorClingerRanged : ModNPC
                             if (AITimer > 100) AITimer = 0;
                             if (AITimer >= 25)
                             {
-                                if (((float)(Math.Sin(AITimer * 0.05f)) < -0.95f || (float)(Math.Sin(AITimer * 0.05f)) > 0.95f))
+                                if (((float)(Math.Sin(CenterAITimer * 0.05f)) < -0.95f || (float)(Math.Sin(CenterAITimer * 0.05f)) > 0.95f))
                                 {
                                     if (AITimer2 == 0)
                                     {

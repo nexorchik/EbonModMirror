@@ -130,7 +130,17 @@ public class DrawDetours : ModSystem
                 if (RTHandler.garbageTarget.IsReady)
                 {
                     sb.Begin();
-                    EbonianMod.pixelationDrawCache.Add(() => { for (int i = 0; i < 3; i++) DrawGarbageFlame(RTHandler.garbageTarget, sb, gd); });
+                    EbonianMod.pixelationDrawCache.Add(() =>
+                    {
+                        sb.End();
+                        sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null);
+
+                        for (int i = 0; i < 3; i++)
+                            DrawGarbageFlame(RTHandler.garbageTarget, sb, gd);
+
+                        sb.End();
+                        sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null);
+                    });
                     sb.End();
                 }
             }
