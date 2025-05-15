@@ -1,5 +1,6 @@
 ﻿using EbonianMod.Items.Materials;
 using EbonianMod.Items.Misc;
+using EbonianMod.Items.Misc.Critters;
 using Humanizer;
 using Terraria.GameContent.Bestiary;
 

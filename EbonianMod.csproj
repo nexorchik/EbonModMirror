@@ -24,8 +24,8 @@
 		<EffectFiles Include="**/*.fx" />
 	</ItemGroup>
 	<ItemGroup>
-	  <None Remove="Localization\en-US_Mods.EbonianMod.Dialogue.hjson" />
-	  <None Remove="localization\en-US_Mods.EbonianMod.Misc.hjson" />
+		<Folder Remove=".git" />
+		<Folder Remove=".vs" />
 	</ItemGroup>
 	<Target Name="BuildEffects" BeforeTargets="BuildMod" Condition="$([MSBuild]::IsOSPlatform('Windows'))">
 		<Exec Command="@(EffectFiles->'&quot;./Effects/Compiler/fxc.exe&quot; &quot;%(RecursiveDir)%(FileName)%(Extension)&quot; /T fx_2_0 /nologo /Fo &quot;%(RecursiveDir)%(FileName).fxc&quot; &#xA;&#xD;')" IgnoreExitCode="true" />
