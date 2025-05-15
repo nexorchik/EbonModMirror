@@ -13,7 +13,7 @@ public class Consumer : ModNPC
         bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
             BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheCorruption,
             new FlavorTextBestiaryInfoElement("Mods.EbonianMod.Misc.Types.Evil"),
-            new FlavorTextBestiaryInfoElement("Mods.EbonianMod.NPCs.Consumer.Bestiary"),
+            new FlavorTextBestiaryInfoElement(NPC.BestiaryKey()),
         });
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)

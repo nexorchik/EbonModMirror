@@ -33,7 +33,7 @@ public class Cecitior : ModNPC
         bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
             BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheCrimson,
             new FlavorTextBestiaryInfoElement("Mods.EbonianMod.Misc.Types.Cecitoma"),
-            new FlavorTextBestiaryInfoElement("Mods.EbonianMod.NPCs.Cecitior.Bestiary"),
+            new FlavorTextBestiaryInfoElement(NPC.BestiaryKey()),
         });
     }
     public override void SetStaticDefaults()

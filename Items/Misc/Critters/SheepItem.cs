@@ -1,6 +1,6 @@
 ﻿using EbonianMod.NPCs.Overworld.Critters;
 
-namespace EbonianMod.Items.Misc;
+namespace EbonianMod.Items.Misc.Critters;
 
 public class SheepItem : ModItem
 {

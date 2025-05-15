@@ -63,7 +63,7 @@ public class ArchmageX : ModNPC
         bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
             BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
             new FlavorTextBestiaryInfoElement("Mods.EbonianMod.Misc.Types.Xareus"),
-            new FlavorTextBestiaryInfoElement("Mods.EbonianMod.NPCs.ArchmageX.Bestiary"),
+            new FlavorTextBestiaryInfoElement(NPC.BestiaryKey()),
         });
     }
     public override void ModifyNPCLoot(NPCLoot npcLoot)

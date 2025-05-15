@@ -28,7 +28,7 @@ public class ArchmageStaffNPC : ModNPC
         bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
             BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
             new FlavorTextBestiaryInfoElement("Mods.EbonianMod.Misc.Types.Staff"),
-            new FlavorTextBestiaryInfoElement("Mods.EbonianMod.NPCs.ArchmageStaffNPC.Bestiary"),
+            new FlavorTextBestiaryInfoElement(NPC.BestiaryKey()),
         });
     }
     public override void SetDefaults()
