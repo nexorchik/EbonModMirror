@@ -24,20 +24,20 @@ public static class SpritebatchExtensions
 {
     public static SpritebatchParameters Snapshot(this SpriteBatch spriteBatch)
     {
-        SpriteSortMode sortMode = (SpriteSortMode)ReflectionSystem.sbSortMode.GetValue(spriteBatch);
-        BlendState blendState = (BlendState)ReflectionSystem.sbBlendState.GetValue(spriteBatch);
-        SamplerState samplerState = (SamplerState)ReflectionSystem.sbSamplerState.GetValue(spriteBatch);
-        DepthStencilState depthStencilState = (DepthStencilState)ReflectionSystem.sbDepthStencilState.GetValue(spriteBatch);
-        RasterizerState rasterizerState = (RasterizerState)ReflectionSystem.sbRasterizerState.GetValue(spriteBatch);
-        Effect effect = (Effect)ReflectionSystem.sbCustomEffect.GetValue(spriteBatch);
-        Matrix matrix = (Matrix)ReflectionSystem.sbTransformMatrix.GetValue(spriteBatch);
+        SpriteSortMode sortMode = spriteBatch.sortMode;
+        BlendState blendState = spriteBatch.blendState;
+        SamplerState samplerState = spriteBatch.samplerState;
+        DepthStencilState depthStencilState = spriteBatch.depthStencilState;
+        RasterizerState rasterizerState = spriteBatch.rasterizerState;
+        Effect effect = spriteBatch.customEffect;
+        Matrix matrix = spriteBatch.transformMatrix;
         SpritebatchParameters sbParams = new(sortMode, blendState, samplerState, depthStencilState, rasterizerState, effect, matrix);
         return sbParams;
     }
 
     public static void ApplySaved(this SpriteBatch spriteBatch, SpritebatchParameters sbParams)
     {
-        if ((bool)ReflectionSystem.sbBeginCalled.GetValue(spriteBatch))
+        if (spriteBatch.beginCalled)
         {
             spriteBatch.End();
         }
@@ -50,62 +50,58 @@ public static class SpritebatchExtensions
         spriteBatch.Begin(sortMode, blendState, samplerState, depthStencilState, rasterizerState, effect, sbParams.matrix);
     }
     public static void BeginDefault(this SpriteBatch spriteBatch) => spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
-    public static bool BeginCalled(this SpriteBatch spriteBatch) => (bool)ReflectionSystem.sbBeginCalled.GetValue(spriteBatch);
+    public static bool BeginCalled(this SpriteBatch spriteBatch) => spriteBatch.beginCalled;
     public static void Reload(this SpriteBatch spriteBatch, SamplerState _samplerState = default)
     {
-        if ((bool)ReflectionSystem.sbBeginCalled.GetValue(spriteBatch))
-        {
+        if (spriteBatch.beginCalled)
             spriteBatch.End();
-        }
-        SpriteSortMode sortMode = (SpriteSortMode)ReflectionSystem.sbSortMode.GetValue(spriteBatch);
+
+        SpriteSortMode sortMode = spriteBatch.sortMode;
         SamplerState samplerState = _samplerState;
-        BlendState blendState = (BlendState)ReflectionSystem.sbBlendState.GetValue(spriteBatch);
-        DepthStencilState depthStencilState = (DepthStencilState)ReflectionSystem.sbDepthStencilState.GetValue(spriteBatch);
-        RasterizerState rasterizerState = (RasterizerState)ReflectionSystem.sbRasterizerState.GetValue(spriteBatch);
-        Effect effect = (Effect)ReflectionSystem.sbCustomEffect.GetValue(spriteBatch);
-        Matrix matrix = (Matrix)ReflectionSystem.sbTransformMatrix.GetValue(spriteBatch);
+        BlendState blendState = spriteBatch.blendState;
+        DepthStencilState depthStencilState = spriteBatch.depthStencilState;
+        RasterizerState rasterizerState = spriteBatch.rasterizerState;
+        Effect effect = spriteBatch.customEffect;
+        Matrix matrix = spriteBatch.transformMatrix;
         spriteBatch.Begin(sortMode, blendState, samplerState, depthStencilState, rasterizerState, effect, matrix);
     }
     public static void Reload(this SpriteBatch spriteBatch, SpriteSortMode sortMode = SpriteSortMode.Deferred)
     {
-        if ((bool)ReflectionSystem.sbBeginCalled.GetValue(spriteBatch))
-        {
+        if (spriteBatch.beginCalled)
             spriteBatch.End();
-        }
-        BlendState blendState = (BlendState)ReflectionSystem.sbBlendState.GetValue(spriteBatch);
-        SamplerState samplerState = (SamplerState)ReflectionSystem.sbSamplerState.GetValue(spriteBatch);
-        DepthStencilState depthStencilState = (DepthStencilState)ReflectionSystem.sbDepthStencilState.GetValue(spriteBatch);
-        RasterizerState rasterizerState = (RasterizerState)ReflectionSystem.sbRasterizerState.GetValue(spriteBatch);
-        Effect effect = (Effect)ReflectionSystem.sbCustomEffect.GetValue(spriteBatch);
-        Matrix matrix = (Matrix)ReflectionSystem.sbTransformMatrix.GetValue(spriteBatch);
+
+        BlendState blendState = spriteBatch.blendState;
+        SamplerState samplerState = spriteBatch.samplerState;
+        DepthStencilState depthStencilState = spriteBatch.depthStencilState;
+        RasterizerState rasterizerState = spriteBatch.rasterizerState;
+        Effect effect = spriteBatch.customEffect;
+        Matrix matrix = spriteBatch.transformMatrix;
         spriteBatch.Begin(sortMode, blendState, samplerState, depthStencilState, rasterizerState, effect, matrix);
     }
     public static void Reload(this SpriteBatch spriteBatch, BlendState blendState = default)
     {
-        if ((bool)ReflectionSystem.sbBeginCalled.GetValue(spriteBatch))
-        {
+        if (spriteBatch.beginCalled)
             spriteBatch.End();
-        }
-        SpriteSortMode sortMode = (SpriteSortMode)ReflectionSystem.sbSortMode.GetValue(spriteBatch);
-        SamplerState samplerState = (SamplerState)ReflectionSystem.sbSamplerState.GetValue(spriteBatch);
-        DepthStencilState depthStencilState = (DepthStencilState)ReflectionSystem.sbDepthStencilState.GetValue(spriteBatch);
-        RasterizerState rasterizerState = (RasterizerState)ReflectionSystem.sbRasterizerState.GetValue(spriteBatch);
-        Effect effect = (Effect)ReflectionSystem.sbCustomEffect.GetValue(spriteBatch);
-        Matrix matrix = (Matrix)ReflectionSystem.sbTransformMatrix.GetValue(spriteBatch);
+
+        SpriteSortMode sortMode = spriteBatch.sortMode;
+        SamplerState samplerState = spriteBatch.samplerState;
+        DepthStencilState depthStencilState = spriteBatch.depthStencilState;
+        RasterizerState rasterizerState = spriteBatch.rasterizerState;
+        Effect effect = spriteBatch.customEffect;
+        Matrix matrix = spriteBatch.transformMatrix;
         spriteBatch.Begin(sortMode, blendState, samplerState, depthStencilState, rasterizerState, effect, matrix);
     }
     public static void Reload(this SpriteBatch spriteBatch, Effect effect = null)
     {
-        if ((bool)ReflectionSystem.sbBeginCalled.GetValue(spriteBatch))
-        {
+        if (spriteBatch.beginCalled)
             spriteBatch.End();
-        }
-        SpriteSortMode sortMode = (SpriteSortMode)ReflectionSystem.sbSortMode.GetValue(spriteBatch);
-        BlendState blendState = (BlendState)ReflectionSystem.sbBlendState.GetValue(spriteBatch);
-        SamplerState samplerState = (SamplerState)ReflectionSystem.sbSamplerState.GetValue(spriteBatch);
-        DepthStencilState depthStencilState = (DepthStencilState)ReflectionSystem.sbDepthStencilState.GetValue(spriteBatch);
-        RasterizerState rasterizerState = (RasterizerState)ReflectionSystem.sbRasterizerState.GetValue(spriteBatch);
-        Matrix matrix = (Matrix)ReflectionSystem.sbTransformMatrix.GetValue(spriteBatch);
+
+        SpriteSortMode sortMode = spriteBatch.sortMode;
+        BlendState blendState = spriteBatch.blendState;
+        SamplerState samplerState = spriteBatch.samplerState;
+        DepthStencilState depthStencilState = spriteBatch.depthStencilState;
+        RasterizerState rasterizerState = spriteBatch.rasterizerState;
+        Matrix matrix = spriteBatch.transformMatrix;
         spriteBatch.Begin(sortMode, blendState, samplerState, depthStencilState, rasterizerState, effect, matrix);
     }
 }
