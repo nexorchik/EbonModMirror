@@ -320,6 +320,15 @@ Projectiles: {
 	Blueberry.DisplayName: Blueberry
 	Nightshade.DisplayName: Nightshade
 	Nightshade2.DisplayName: Nightshade2
+	ShewStoneArrow.DisplayName: Shew Stone Arrow
+	ShewStoneCrystal.DisplayName: Shew Stone Crystal
+	ShewStoneRain.DisplayName: Shew Stone Rain
+	ShewExplosion.DisplayName: Shew Explosion
+	ShewRainExplosion.DisplayName: Shew Rain Explosion
+	WardingStarP.DisplayName: Warding Star P
+	WardingStarP2.DisplayName: Warding Star P2
+	Blinkroot.DisplayName: Blinkbuddy
+	LilPilg.DisplayName: "Lil' Missionary"
 }
 
 NPCs: {
@@ -1414,6 +1423,31 @@ Items: {
 		DisplayName: Kodama Staff
 		Tooltip: ""
 	}
+
+	BoxFishItem: {
+		DisplayName: Box Fish Item
+		Tooltip: ""
+	}
+
+	ShewStone: {
+		DisplayName: Shew Stone
+		Tooltip: ""
+	}
+
+	WardingStar: {
+		DisplayName: Warding Star
+		Tooltip: ""
+	}
+
+	BlinkrootI: {
+		DisplayName: Blinkbud
+		Tooltip: Summons a Blinkbuddy
+	}
+
+	LilPilgI: {
+		DisplayName: Little Memory
+		Tooltip: Summons a moonlit memory
+	}
 }
 
 Buffs: {
@@ -1501,6 +1535,16 @@ Buffs: {
 		DisplayName: Conglomerate Energy Buff
 		Description: Mods.EbonianMod.Buffs.ConglomerateEnergyBuff.Description
 	}
+
+	BlinkrootB: {
+		DisplayName: Blinkbuddy
+		Description: He's trying his best to light your way.
+	}
+
+	LilPilgB: {
+		DisplayName: "Lil' Missionary"
+		Description: She wants to teach you about the stars!
+	}
 }
 
 Keybinds: {
@@ -1544,6 +1588,7 @@ Configs: {
 		}
 	}
 }
+
 DeathMessages: {
 	NukeTP: "{0} thought they were smart."
 	OstertagiDeath: "{0} didn't mind the worms."

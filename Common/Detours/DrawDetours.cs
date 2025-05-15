@@ -241,7 +241,6 @@ public class DrawDetours : ModSystem
                 EbonianMod.metaballGradientNoiseTex.Value.Parameters["offsetX"].SetValue(1f);
                 EbonianMod.metaballGradientNoiseTex.Value.Parameters["offsetY"].SetValue(1f);
                 sb.Draw(RTHandler.xareusTarget.GetTarget(), Vector2.Zero, Color.White);
-                EbonianMod.xareusGoopCache.Clear();
                 sb.End();
             }
         }

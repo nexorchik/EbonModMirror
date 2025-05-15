@@ -149,6 +149,7 @@ public sealed class XareusTarget : ARenderTargetContentByRequest
             draw?.Invoke();
         }
         sb.End();
+        EbonianMod.xareusGoopCache.Clear();
 
         gd.SetRenderTargets(old);
         _wasPrepared = true;

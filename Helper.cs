@@ -13,7 +13,7 @@ public static class Helper
     public static Rectangle ScreenRect => new Rectangle(0, 0, Main.screenWidth, Main.screenHeight);
     public static Vector2 HalfScreen => new Vector2(Main.screenWidth, Main.screenHeight) * 0.5f;
 
-    public static string BestiaryKey(this NPC npc) => "Mods.EbonianMod.NPCs." + npc.TypeName + ".Bestiary";
+    public static string BestiaryKey(this NPC npc) => "Mods.EbonianMod.NPCs." + npc.ModNPC.Name + ".Bestiary";
 
     public static void AddCameraModifier(ICameraModifier modifier)
     {

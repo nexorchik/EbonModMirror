@@ -9,34 +9,40 @@ public class EbonianSounds : ModSystem
     };
 
 
-    public const string ebonianSoundPath = "EbonianMod/Sounds/";
+    public const string path = "EbonianMod/Sounds/";
     public static SoundStyle None;
     public static SoundStyle bloodSpit => Default with
     {
-        SoundPath = ebonianSoundPath + "bloodSpit"
+        SoundPath = path + "bloodSpit"
     };
 
     public static SoundStyle bowPull => Default with
     {
-        SoundPath = ebonianSoundPath + "bowPull",
+        SoundPath = path + "bowPull",
         Volume = GetInstance<EbonianClientConfig>().BowPullVolume
     };
 
 
     public static SoundStyle bowRelease => Default with
     {
-        SoundPath = ebonianSoundPath + "bowRelease"
+        SoundPath = path + "bowRelease"
     };
+
+    public static SoundStyle bigassstar => Default with
+    {
+        SoundPath = path + "bigassstar"
+    };
+
 
     public static SoundStyle buzz => Default with
     {
-        SoundPath = ebonianSoundPath + "buzz",
+        SoundPath = path + "buzz",
         PitchVariance = 0
     };
 
     public static SoundStyle cFlameBreath => Default with
     {
-        SoundPath = ebonianSoundPath + "Conglomerate/cFlameBreath",
+        SoundPath = path + "Conglomerate/cFlameBreath",
         MaxInstances = 1,
         IsLooped = true,
         PitchVariance = 0
@@ -44,74 +50,74 @@ public class EbonianSounds : ModSystem
 
     public static SoundStyle chargedBeam => Default with
     {
-        SoundPath = ebonianSoundPath + "chargedBeam"
+        SoundPath = path + "chargedBeam"
     };
 
 
     public static SoundStyle chargedBeamWindUp => Default with
     {
-        SoundPath = ebonianSoundPath + "chargedBeamWindUp",
+        SoundPath = path + "chargedBeamWindUp",
         PitchVariance = 0f
     };
 
 
     public static SoundStyle chargedBeamImpactOnly => Default with
     {
-        SoundPath = ebonianSoundPath + "chargedBeamImpactOnly",
+        SoundPath = path + "chargedBeamImpactOnly",
         PitchVariance = 0f
     };
 
 
     public static SoundStyle cursedToyCharge => Default with
     {
-        SoundPath = ebonianSoundPath + "cursedToyCharge",
+        SoundPath = path + "cursedToyCharge",
         PitchVariance = 0f
     };
 
 
     public static SoundStyle chomp0 => Default with
     {
-        SoundPath = ebonianSoundPath + "chomp0",
+        SoundPath = path + "chomp0",
         Volume = 1.3f
     };
 
 
     public static SoundStyle chomp1 => Default with
     {
-        SoundPath = ebonianSoundPath + "chomp1",
+        SoundPath = path + "chomp1",
         Volume = 1.3f
     };
 
 
     public static SoundStyle chomp2 => Default with
     {
-        SoundPath = ebonianSoundPath + "chomp2",
+        SoundPath = path + "chomp2",
         MaxInstances = 1
     };
 
 
     public static SoundStyle cecitiorOpen => Default with
     {
-        SoundPath = ebonianSoundPath + "Cecitior/cecitiorOpen",
+        SoundPath = path + "Cecitior/cecitiorOpen",
         MaxInstances = 1
     };
 
     public static SoundStyle cecitiorCloseShort => Default with
     {
-        SoundPath = ebonianSoundPath + "Cecitior/cecitiorCloseShort",
+        SoundPath = path + "Cecitior/cecitiorCloseShort",
         MaxInstances = 3
     };
 
 
     public static SoundStyle cecitiorClose => Default with
     {
-        SoundPath = ebonianSoundPath + "Cecitior/cecitiorClose",
+        SoundPath = path + "Cecitior/cecitiorClose",
         MaxInstances = 3
     };
 
     public static SoundStyle cecitiorIdle => Default with
     {
-        SoundPath = ebonianSoundPath + "Cecitior/cecitiorIdle",
+        SoundPath = path + "Cecitior/cecitiorIdle",
         PitchVariance = 0,
         MaxInstances = 1,
         IsLooped = true
@@ -119,35 +125,41 @@ public class EbonianSounds : ModSystem
 
     public static SoundStyle cecitiorSlam => Default with
     {
-        SoundPath = ebonianSoundPath + "Cecitior/cecitiorSlam",
+        SoundPath = path + "Cecitior/cecitiorSlam",
         MaxInstances = 3,
         Variants = [0, 1, 2]
     };
 
     public static SoundStyle cecitiorSlice => Default with
     {
-        SoundPath = ebonianSoundPath + "Cecitior/cecitiorSlice",
+        SoundPath = path + "Cecitior/cecitiorSlice",
         MaxInstances = 3,
         Variants = [0, 1, 2]
     };
 
     public static SoundStyle cecitiorSpit => Default with
     {
-        SoundPath = ebonianSoundPath + "Cecitior/cecitiorSpit",
+        SoundPath = path + "Cecitior/cecitiorSpit",
         MaxInstances = 3,
         Variants = [0, 1, 2, 3]
     };
 
+    public static SoundStyle crystalArrowForm => Default with
+    {
+        SoundPath = path + "crystalArrowForm",
+        PitchVariance = .25f,
+        MaxInstances = 3
+    };
     public static SoundStyle deathrayLoop0 => Default with
     {
-        SoundPath = ebonianSoundPath + "deathrayLoop0",
+        SoundPath = path + "deathrayLoop0",
         MaxInstances = 1,
         IsLooped = true,
         PitchVariance = 0
     };
     public static SoundStyle deathrayLoop1 => Default with
     {
-        SoundPath = ebonianSoundPath + "deathrayLoop1",
+        SoundPath = path + "deathrayLoop1",
         MaxInstances = 1,
         IsLooped = true,
         PitchVariance = 0
@@ -155,168 +167,173 @@ public class EbonianSounds : ModSystem
 
     public static SoundStyle eggplosion => Default with
     {
-        SoundPath = ebonianSoundPath + "eggplosion"
+        SoundPath = path + "eggplosion"
     };
 
 
     public static SoundStyle eruption => Default with
     {
-        SoundPath = ebonianSoundPath + "eruption"
+        SoundPath = path + "eruption"
     };
 
 
     public static SoundStyle exolDash => Default with
     {
-        SoundPath = ebonianSoundPath + "exolDash"
+        SoundPath = path + "exolDash"
     };
 
 
     public static SoundStyle exolRoar => Default with
     {
-        SoundPath = ebonianSoundPath + "exolRoar"
+        SoundPath = path + "exolRoar"
     };
 
 
     public static SoundStyle exolSummon => Default with
     {
-        SoundPath = ebonianSoundPath + "exolSummon"
+        SoundPath = path + "exolSummon"
     };
 
 
     public static SoundStyle flesh0 => Default with
     {
-        SoundPath = ebonianSoundPath + "flesh0"
+        SoundPath = path + "flesh0"
     };
 
 
     public static SoundStyle flesh1 => Default with
     {
-        SoundPath = ebonianSoundPath + "flesh1"
+        SoundPath = path + "flesh1"
     };
 
 
     public static SoundStyle flesh2 => Default with
     {
-        SoundPath = ebonianSoundPath + "flesh2"
+        SoundPath = path + "flesh2"
     };
 
 
     public static SoundStyle buildup => Default with
     {
-        SoundPath = ebonianSoundPath + "buildup",
+        SoundPath = path + "buildup",
         PitchVariance = 0
     };
 
 
     public static SoundStyle garbageAwaken => Default with
     {
-        SoundPath = ebonianSoundPath + "HotGarbage/garbageAwaken",
+        SoundPath = path + "HotGarbage/garbageAwaken",
         PitchVariance = 0
     };
 
 
     public static SoundStyle garbageSignal => Default with
     {
-        SoundPath = ebonianSoundPath + "HotGarbage/garbageSignal",
+        SoundPath = path + "HotGarbage/garbageSignal",
         PitchVariance = 0
     };
 
 
     public static SoundStyle genericExplosion => Default with
     {
-        SoundPath = ebonianSoundPath + "genericExplosion"
+        SoundPath = path + "genericExplosion"
     };
 
 
     public static SoundStyle heartbeat => Default with
     {
-        SoundPath = ebonianSoundPath + "heartbeat"
+        SoundPath = path + "heartbeat"
     };
 
 
     public static SoundStyle nuke => Default with
     {
-        SoundPath = ebonianSoundPath + "nuke"
+        SoundPath = path + "nuke"
     };
 
 
     public static SoundStyle reiFail => Default with
     {
-        SoundPath = ebonianSoundPath + "reiFail"
+        SoundPath = path + "reiFail"
     };
 
 
     public static SoundStyle reiFail2 => Default with
     {
-        SoundPath = ebonianSoundPath + "reiFail2"
+        SoundPath = path + "reiFail2"
     };
 
 
     public static SoundStyle reiTP => Default with
     {
-        SoundPath = ebonianSoundPath + "reiTP"
+        SoundPath = path + "reiTP"
     };
 
 
     public static SoundStyle rolleg => Default with
     {
-        SoundPath = ebonianSoundPath + "rolleg"
+        SoundPath = path + "rolleg"
     };
 
 
+    public static SoundStyle rustyAxe => Default with
+    {
+        SoundPath = path + "rustyAxe"
+    };
+
     public static SoundStyle terrortomaDash => Default with
     {
-        SoundPath = ebonianSoundPath + "Terrortoma/terrortomaDash"
+        SoundPath = path + "Terrortoma/terrortomaDash"
     };
 
 
     public static SoundStyle cecitiorDie => Default with
     {
-        SoundPath = ebonianSoundPath + "NPCHit/cecitiorDie"
+        SoundPath = path + "NPCHit/cecitiorDie"
     };
 
 
     public static SoundStyle fleshHit => Default with
     {
-        SoundPath = ebonianSoundPath + "NPCHit/fleshHit"
+        SoundPath = path + "NPCHit/fleshHit"
     };
 
 
     public static SoundStyle terrortomaFlesh => Default with
     {
-        SoundPath = ebonianSoundPath + "Terrortoma/terrortomaFlesh"
+        SoundPath = path + "Terrortoma/terrortomaFlesh"
     };
 
 
     public static SoundStyle cecitiorBurp => Default with
     {
-        SoundPath = ebonianSoundPath + "Cecitior/cecitiorBurp"
+        SoundPath = path + "Cecitior/cecitiorBurp"
     };
 
 
     public static SoundStyle clawSwipe => Default with
     {
-        SoundPath = ebonianSoundPath + "clawSwipe"
+        SoundPath = path + "clawSwipe"
     };
 
 
     public static SoundStyle BeamWindUp => Default with
     {
-        SoundPath = ebonianSoundPath + "BeamWindUp",
+        SoundPath = path + "BeamWindUp",
         PitchVariance = 0
     };
 
 
     public static SoundStyle garbageLaser => Default with
     {
-        SoundPath = ebonianSoundPath + "HotGarbage/garbageLaser",
+        SoundPath = path + "HotGarbage/garbageLaser",
         PitchVariance = 0
     };
 
 
     public static SoundStyle trumpet => Default with
     {
-        SoundPath = ebonianSoundPath + "trumpet",
+        SoundPath = path + "trumpet",
         PitchVariance = 0.4f,
         Variants = new int[] { 0, 1 }
     };
@@ -324,7 +341,7 @@ public class EbonianSounds : ModSystem
 
     public static SoundStyle terrortomaLaugh => Default with
     {
-        SoundPath = ebonianSoundPath + "Terrortoma/terrortomaLaugh",
+        SoundPath = path + "Terrortoma/terrortomaLaugh",
         Variants = new int[] { 0, 1 },
         PitchVariance = 0.25f,
         Volume = 1.1f
@@ -333,7 +350,7 @@ public class EbonianSounds : ModSystem
 
     public static SoundStyle HeavySwing => Default with
     {
-        SoundPath = ebonianSoundPath + "HeavySwing",
+        SoundPath = path + "HeavySwing",
         Variants = new int[] { 0, 1, 2 },
         PitchVariance = 0.25f,
         Volume = 1.1f
@@ -342,7 +359,7 @@ public class EbonianSounds : ModSystem
 
     public static SoundStyle FleshImpact => Default with
     {
-        SoundPath = ebonianSoundPath + "FleshImpact",
+        SoundPath = path + "FleshImpact",
         Variants = new int[] { 0, 1, 2 },
         PitchVariance = 0.25f,
         Volume = .7f
@@ -351,45 +368,45 @@ public class EbonianSounds : ModSystem
 
     public static SoundStyle blink => Default with
     {
-        SoundPath = ebonianSoundPath + "blink"
+        SoundPath = path + "blink"
     };
 
 
     public static SoundStyle xSpirit => Default with
     {
-        SoundPath = ebonianSoundPath + "Xareus/xSpirit",
+        SoundPath = path + "Xareus/xSpirit",
         Volume = 0.7f
     };
 
     public static SoundStyle xDeath => Default with
     {
-        SoundPath = ebonianSoundPath + "Xareus/xDeath",
+        SoundPath = path + "Xareus/xDeath",
         PitchVariance = 0.05f
     };
 
 
     public static SoundStyle helicopter => Default with
     {
-        SoundPath = ebonianSoundPath + "helicopter",
+        SoundPath = path + "helicopter",
         PitchVariance = 0f
     };
 
 
     public static SoundStyle firework => Default with
     {
-        SoundPath = ebonianSoundPath + "firework"
+        SoundPath = path + "firework"
     };
 
 
     public static SoundStyle magicSlash => Default with
     {
-        SoundPath = ebonianSoundPath + "magicSlash"
+        SoundPath = path + "magicSlash"
     };
 
 
     public static SoundStyle sheep => Default with
     {
-        SoundPath = ebonianSoundPath + "sheep",
+        SoundPath = path + "sheep",
         PitchVariance = 0.5f,
         Variants = new int[] { 0, 1, 2 }
     };
@@ -397,14 +414,14 @@ public class EbonianSounds : ModSystem
 
     public static SoundStyle shears => Default with
     {
-        SoundPath = ebonianSoundPath + "shears",
+        SoundPath = path + "shears",
         PitchVariance = 0.3f,
     };
 
 
     public static SoundStyle sheep_player => Default with
     {
-        SoundPath = ebonianSoundPath + "sheep",
+        SoundPath = path + "sheep",
         PitchVariance = 0.5f,
         Variants = new int[] { 0, 1 }
     };
@@ -412,13 +429,13 @@ public class EbonianSounds : ModSystem
 
     public static SoundStyle shriek => Default with
     {
-        SoundPath = ebonianSoundPath + "shriek"
+        SoundPath = path + "shriek"
     };
 
 
     public static SoundStyle vaccum => Default with
     {
-        SoundPath = ebonianSoundPath + "vaccum",
+        SoundPath = path + "vaccum",
         IsLooped = true,
         PitchVariance = 0f
     };
@@ -426,7 +443,7 @@ public class EbonianSounds : ModSystem
 
     public static SoundStyle ghizasWheel => Default with
     {
-        SoundPath = ebonianSoundPath + "ghizasWheel",
+        SoundPath = path + "ghizasWheel",
         IsLooped = true,
         PitchVariance = 0f
     };
@@ -434,14 +451,14 @@ public class EbonianSounds : ModSystem
 
     public static SoundStyle garbageDeath => Default with
     {
-        SoundPath = ebonianSoundPath + "NPCHit/garbageDeath",
+        SoundPath = path + "NPCHit/garbageDeath",
         PitchVariance = 0
     };
 
 
     public static SoundStyle evilOutro => Default with
     {
-        SoundPath = ebonianSoundPath + "Music/Outros/evilOutro",
+        SoundPath = path + "Music/Outros/evilOutro",
         PitchVariance = 0,
         MaxInstances = 1,
         Type = SoundType.Music
@@ -449,7 +466,7 @@ public class EbonianSounds : ModSystem
 
     public static SoundStyle xareusOutro => Default with
     {
-        SoundPath = ebonianSoundPath + "Music/Outros/xareusOutro",
+        SoundPath = path + "Music/Outros/xareusOutro",
         PitchVariance = 0,
         MaxInstances = 1,
         Type = SoundType.Music

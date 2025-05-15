@@ -93,6 +93,12 @@ public static class ExtraSpriteTextures
     public static Asset<Texture2D> FleshDice_5 => Helper.GetExtraTexture("Sprites/NPCs/Crimson/FleshDice_5");
     public static Asset<Texture2D> FleshDice_6 => Helper.GetExtraTexture("Sprites/NPCs/Crimson/FleshDice_6");
     #endregion
+    #region "Projectiles"
+    public static Asset<Texture2D> WardingStarP_Extra => Helper.GetExtraTexture("Sprites/Projectiles/WardingStarP_Extra");
+    public static Asset<Texture2D> WardingStarP2_Alt => Helper.GetExtraTexture("Sprites/Projectiles/WardingStarP2_Alt");
+    public static Asset<Texture2D> LilPilg_Glow => Helper.GetExtraTexture("Sprites/Projectiles/LilPilg_Glow");
+    public static Asset<Texture2D> LilPilg_Trail => Helper.GetExtraTexture("Sprites/Projectiles/LilPilg_Trail");
+    #endregion
     public static Asset<Texture2D> Achievements => Helper.GetExtraTexture("Sprites/Achievements");
     public static Asset<Texture2D> arrow => Helper.GetExtraTexture("Sprites/arrow");
     public static Asset<Texture2D> BottomPanel => Helper.GetExtraTexture("Sprites/BottomPanel");
