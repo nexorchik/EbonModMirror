@@ -13,6 +13,7 @@ using EbonianMod.Dusts;
 
 namespace EbonianMod.Items.Pets.LilPilg
 {
+    // TODO: OBTAINABILITYYYYYYYYYYYYYYYY
     public class LilPilgI : ModItem
     {
         public override void SetStaticDefaults()

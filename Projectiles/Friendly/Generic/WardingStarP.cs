@@ -14,6 +14,7 @@ using Terraria.Audio;
 
 namespace EbonianMod.Projectiles.Friendly.Generic
 {
+    // TODO: OBTAINABILITYYYYYYYYYYYYYYYY
     public class WardingStarP : ModProjectile
     {
         public override void SetDefaults()
