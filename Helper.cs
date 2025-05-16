@@ -33,7 +33,7 @@ public static class Helper
     }
     public static Color HunterPotionColor(this NPC npc, Color defaultColor)
     {
-        return Main.LocalPlayer.HasBuff(BuffID.Hunter) ? HunterPotionColor(npc) : defaultColor;
+        return Main.LocalPlayer.HasBuff(BuffID.Hunter) && !npc.IsABestiaryIconDummy ? HunterPotionColor(npc) : defaultColor;
     }
     public static Color HunterPotionColor(this NPC npc)
     {

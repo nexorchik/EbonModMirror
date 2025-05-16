@@ -327,8 +327,8 @@ Projectiles: {
 	// ShewRainExplosion.DisplayName: Shew Rain Explosion
 	// WardingStarP.DisplayName: Warding Star P
 	// WardingStarP2.DisplayName: Warding Star P2
-	// Blinkroot.DisplayName: Blinkroot
-	// LilPilg.DisplayName: Lil Pilg
+	// Blinkroot.DisplayName: Blinkbuddy
+	// LilPilg.DisplayName: Lil' Missionary
 }
 
 NPCs: {
@@ -1448,13 +1448,13 @@ Items: {
 	}
 
 	BlinkrootI: {
-		// DisplayName: Blinkroot I
-		// Tooltip: ""
+		// DisplayName: Blinkbud
+		// Tooltip: Summons a Blinkbuddy
 	}
 
 	LilPilgI: {
-		// DisplayName: Lil Pilg I
-		// Tooltip: ""
+		// DisplayName: Little Memory
+		// Tooltip: Summons a moonlit memory
 	}
 }
 
@@ -1545,13 +1545,13 @@ Buffs: {
 	}
 
 	BlinkrootB: {
-		// DisplayName: Blinkroot B
-		// Description: Mods.EbonianMod.Buffs.BlinkrootB.Description
+		// DisplayName: Blinkbuddy
+		// Description: He's trying his best to light your way.
 	}
 
 	LilPilgB: {
-		// DisplayName: Lil Pilg B
-		// Description: Mods.EbonianMod.Buffs.LilPilgB.Description
+		// DisplayName: Lil' Missionary
+		// Description: She wants to teach you about the stars!
 	}
 }
 

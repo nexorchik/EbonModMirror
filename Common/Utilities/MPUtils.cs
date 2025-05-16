@@ -5,6 +5,7 @@ public static class MPUtils
     public static bool NotMPClient => Main.netMode != NetmodeID.MultiplayerClient;
     /// <summary>
     /// Avoids duplicate projectiles in multiplayer.
+    /// <br/> <strong>Returns <c>null</c> on multiplayer clients</strong> 
     /// </summary>
     public static Projectile NewProjectile(IEntitySource source, Vector2 position, Vector2 velocity,
         int type, int damage, float knockback, int owner = -1, float ai0 = 0, float ai1 = 0, float ai2 = 0)

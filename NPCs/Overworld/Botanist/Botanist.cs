@@ -1,8 +1,11 @@
-﻿using System;
+﻿using EbonianMod.NPCs.Corruption;
+using EbonianMod.Projectiles.VFXProjectiles;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terraria.Graphics.CameraModifiers;
 
 namespace EbonianMod.NPCs.Overworld.Botanist;
 public class Botanist : ModNPC
@@ -102,11 +105,10 @@ public class Botanist : ModNPC
     public override void AI()
     {
         Player player = Main.player[NPC.target];
-        headOffset = NPC.Center.FromAToB(Main.MouseWorld, false);
         headRotation = headOffset.ToRotation() + PiOver2;
         if (AIState == Idle)
         {
-            headOffset = new Vector2(0, -8);
+            headOffset = new Vector2(0, -20);
             NPC.TargetClosest(true);
             if (NPC.HasValidTarget)
             {
@@ -120,7 +122,7 @@ public class Botanist : ModNPC
         else if (AIState == Walk)
         {
             headRotation = Utils.AngleLerp(headRotation, 0, 0.1f);
-            headOffset = Vector2.Lerp(headOffset, new Vector2(0, -8), 0.1f);
+            headOffset = Vector2.Lerp(headOffset, new Vector2(0, -20), 0.1f);
             NPC.damage = 0;
             AITimer2++;
             AITimer = MathHelper.Clamp(AITimer, 0, 500);
@@ -153,8 +155,43 @@ public class Botanist : ModNPC
             {
                 NPC.netUpdate = true;
                 NPC.velocity.X = 0;
-                //AIState = Attack;
+                AIState = Attack;
                 AITimer = 0;
+            }
+        }
+        else
+        {
+            AITimer++;
+
+            if (AITimer < 20)
+                headOffset.Y -= 3;
+            else if (AITimer < 50)
+            {
+                headOffset.X -= NPC.direction;
+                headOffset.Y += 0.5f;
+            }
+            else if (AITimer < 90)
+            {
+                Vector2 point = Helper.TRay.Cast(NPC.Center + new Vector2(Clamp(MathF.Abs(Helper.FromAToB(NPC.Center, player.Center, false).X), 0, 100) * NPC.direction, -40), Vector2.UnitY, 200) + new Vector2(0, 8);
+
+                headOffset = Vector2.Lerp(headOffset, Helper.FromAToB(NPC.Center, point, false), 0.5f);
+                if (Helper.FromAToB(headOffset, Helper.FromAToB(NPC.Center, point, false), false).Length() < 5)
+                {
+                    // Add a cool projectile here
+                    Helper.AddCameraModifier(new PunchCameraModifier(NPC.Center + headOffset, Vector2.UnitY, 1, 10, 30, 700));
+                    AITimer = 90;
+                    AITimer2 = 1;
+                }
+            }
+            else headOffset -= new Vector2(7 * NPC.direction, 15) * Lerp(1, 0.5f, (AITimer - 90) / 10f);
+
+            if (AITimer >= 100)
+            {
+                NPC.netUpdate = true;
+                NPC.velocity.X = 0;
+                AIState = Walk;
+                AITimer = 0;
+                AITimer2 = 0;
             }
         }
     }

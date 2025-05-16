@@ -328,7 +328,7 @@ Projectiles: {
 	WardingStarP.DisplayName: Warding Star P
 	WardingStarP2.DisplayName: Warding Star P2
 	Blinkroot.DisplayName: Blinkbuddy
-	LilPilg.DisplayName: "Lil' Missionary"
+	LilPilg.DisplayName: Lil' Missionary
 }
 
 NPCs: {
@@ -1542,7 +1542,7 @@ Buffs: {
 	}
 
 	LilPilgB: {
-		DisplayName: "Lil' Missionary"
+		DisplayName: Lil' Missionary
 		Description: She wants to teach you about the stars!
 	}
 }
