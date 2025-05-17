@@ -248,7 +248,7 @@ public class EbonianSounds : ModSystem
 
     public static SoundStyle nuke => Default with
     {
-        SoundPath = path + "nuke"
+        SoundPath = path + "Nuke"
     };
 
 

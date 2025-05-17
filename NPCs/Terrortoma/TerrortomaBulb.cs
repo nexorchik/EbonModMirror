@@ -36,7 +36,14 @@ public class TerrortomaBulb : ModNPC
     public override void OnSpawn(IEntitySource source)
     {
         int atts = 0;
-        while (Main.tile[NPC.Center.ToTileCoordinates().X, NPC.Center.ToTileCoordinates().Y].HasTile && ++atts < 300)
+        Point p = NPC.Center.ToTileCoordinates();
+        int i = 0;
+        int j = 0;
+        if (p.X > 0 && p.X < Main.maxTilesX)
+            i = p.X;
+        if (p.Y > 0 && p.Y < Main.maxTilesY)
+            j = p.Y;
+        while (Main.tile[i, j].HasTile && ++atts < 300)
             NPC.Center -= Vector2.UnitY * 16;
         NPC.Center = Helper.TRay.Cast(NPC.Center, Vector2.UnitY, 1500) - new Vector2(0, 35);
     }

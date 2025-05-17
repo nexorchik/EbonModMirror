@@ -330,6 +330,9 @@ Projectiles: {
 	// Blinkroot.DisplayName: Blinkbuddy
 	// LilPilg.DisplayName: Lil' Missionary
 	// BotanistP.DisplayName: Botanist P
+	// BorealBladeSlashP.DisplayName: Boreal Blade Slash P
+	// ThawGauntletP.DisplayName: Thaw Gauntlet P
+	// ThawGauntletP2.DisplayName: Thaw Gauntlet P2
 }
 
 NPCs: {
@@ -653,6 +656,11 @@ NPCs: {
 	BoxFish: {
 		// DisplayName: Yellow Boxfish
 		// Bestiary: A cubical fish whose entire existence is dedicated to perpetually swimming through the deep blue sea.
+	}
+
+	BorealBlade: {
+		// DisplayName: Boreal Blade
+		// Bestiary: Also known as Knights of the Boreal, Boreal Blades are ice constructs animated by magic and the many souls frozen beneath the tundra.
 	}
 
 	// PebbiSwarm.DisplayName: Pebbi Swarm
@@ -1460,6 +1468,11 @@ Items: {
 	LilPilgI: {
 		// DisplayName: Little Memory
 		// Tooltip: Summons a moonlit memory
+	}
+
+	ThawGauntlet: {
+		// DisplayName: Thaw Gauntlet
+		// Tooltip: ""
 	}
 }
 
