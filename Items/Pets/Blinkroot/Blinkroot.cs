@@ -69,7 +69,7 @@ namespace EbonianMod.Items.Pets.Blinkroot
             frames.Height = 30;
 
             Texture2D tex = TextureAssets.Projectile[Type].Value;
-            Texture2D glow = Helper.GetTexture(Texture + "_Glow").Value;
+            Texture2D glow = Assets.Items.Pets.Blinkroot.Blinkroot_Glow.Value;
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition + new Vector2(0, 2), frames, lightColor, rotation, frames.Size() / 2, Projectile.scale, Projectile.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
             Main.spriteBatch.Draw(glow, Projectile.Center - Main.screenPosition + new Vector2(0, 2), frames, Color.White * ((MathF.Sin(Main.GlobalTimeWrappedHourly * 0.75f) + 1) * 0.5f), rotation, frames.Size() / 2, Projectile.scale, Projectile.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
             return false;

@@ -95,7 +95,7 @@ public class CecitiorPetP : ModProjectile
     {
         if (Projectile.isAPreviewDummy) return;
         Player player = Main.player[Projectile.owner];
-        Texture2D a = Helper.GetTexture("NPCs/Cecitior/CecitiorChain_base").Value;
+        Texture2D a = Assets.NPCs.Cecitior.CecitiorChain_base.Value;
         Texture2D b = TextureAssets.Npc[NPCType<CecitiorEye>()].Value;
         if (verlet != null)
             Main.spriteBatch.Draw(a, verlet.firstP.position - new Vector2(0, 20).RotatedBy(Helper.FromAToB(verlet.firstP.position, verlet.points[5].position, reverse: true).ToRotation() - 1.57f) - Main.screenPosition, null, lightColor, Helper.FromAToB(verlet.firstP.position, verlet.points[5].position, reverse: true).ToRotation() - 1.57f, a.Size() / 2, 1, SpriteEffects.None, 0);
