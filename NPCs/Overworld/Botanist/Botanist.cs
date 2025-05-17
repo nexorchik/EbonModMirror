@@ -200,15 +200,18 @@ public class Botanist : ModNPC
                 headOffset.Y -= 3;
             else if (AITimer < 50)
             {
-                headOffset.X -= NPC.direction * Lerp(0.5f, 2.5f, InOutCirc.Invoke((AITimer - 20) / 30f));
+                headOffset.X -= NPC.direction * Lerp(2.5f, 0.5f, InOutCirc.Invoke((AITimer - 20) / 30f));
                 headOffset.Y += 0.5f;
             }
             else if (AITimer < 90)
             {
                 Vector2 point = Helper.TRay.Cast(NPC.Center + new Vector2(Clamp(MathF.Abs(Helper.FromAToB(NPC.Center, player.Center, false).X), 0, 100) * NPC.direction, -40), Vector2.UnitY, 200) + new Vector2(0, 8);
                 Vector2 desiredP = Helper.FromAToB(NPC.Center, point, false);
-                headOffset.X = Lerp(headOffset.X, desiredP.X, 0.7f);
-                headOffset.Y = Lerp(headOffset.Y, desiredP.Y, 0.5f);
+                headOffset.X = Lerp(headOffset.X, desiredP.X, Lerp(0, 0.7f, Clamp((AITimer - 50) / 5f, 0, 1)));
+                if (AITimer > 55)
+                    headOffset.Y = Lerp(headOffset.Y, desiredP.Y, 0.5f);
+                else
+                    headOffset.Y -= 2;
                 if (Helper.FromAToB(headOffset, Helper.FromAToB(NPC.Center, point, false), false).Length() < 5)
                 {
                     SoundEngine.PlaySound(SoundID.Item70, NPC.Center + headOffset);
