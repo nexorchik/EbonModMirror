@@ -221,7 +221,7 @@ public class Botanist : ModNPC
                     AITimer2 = 1;
                 }
             }
-            else headOffset -= new Vector2(7 * NPC.direction, 15) * Lerp(1, 0.5f, (AITimer - 90) / 10f);
+            else headOffset -= new Vector2(7 * NPC.direction, 13) * Lerp(1, 0.5f, (AITimer - 90) / 10f);
 
             if (AITimer >= 100)
             {
