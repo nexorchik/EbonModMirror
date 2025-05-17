@@ -329,6 +329,7 @@ Projectiles: {
 	// WardingStarP2.DisplayName: Warding Star P2
 	// Blinkroot.DisplayName: Blinkbuddy
 	// LilPilg.DisplayName: Lil' Missionary
+	// BotanistP.DisplayName: Botanist P
 }
 
 NPCs: {
@@ -623,7 +624,11 @@ NPCs: {
 	// Sudama.DisplayName: Sudama
 	// Aureus.DisplayName: Aureus
 	// Kodama.DisplayName: Kodama
-	// Botanist.DisplayName: Botanist
+
+	Botanist: {
+		// DisplayName: Botanist
+		// Bestiary: A strange forest monster with the ability to stretch its neck to an unnatural length before quickly slamming its head downward. Botanists tend to stalk their victims, disguised as an ordinary bush.
+	}
 
 	Belladonna: {
 		// DisplayName: Belladonna

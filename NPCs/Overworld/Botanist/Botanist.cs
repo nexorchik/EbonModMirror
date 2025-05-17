@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terraria.GameContent.Bestiary;
 using Terraria.Graphics.CameraModifiers;
 
 namespace EbonianMod.NPCs.Overworld.Botanist;
@@ -20,6 +21,14 @@ public class Botanist : ModNPC
             return .07f;
         else
             return 0;
+    }
+    public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+    {
+        bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
+        {
+                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
+                new FlavorTextBestiaryInfoElement(NPC.BestiaryKey())
+        });
     }
     public override void SetDefaults()
     {
@@ -82,9 +91,16 @@ public class Botanist : ModNPC
             spriteBatch.Draw(neck, center - Main.screenPosition, new Rectangle(0, frameY, 10, 6), NPC.HunterPotionColor(Lighting.GetColor((center).ToTileCoordinates())), distVector.ToRotation() + PiOver2, neck.Size() / 2, NPC.scale, SpriteEffects.None, 0);
         }
 
+        void DrawHead() => spriteBatch.Draw(head, center - screenPos + new Vector2(NPC.direction, (NPC.frame.Y == 24 ? -1 : 0)).RotatedBy(headRotation), null, NPC.HunterPotionColor(Lighting.GetColor((NPC.Center + headOffset).ToTileCoordinates())), headRotation, head.Size() / 2, NPC.scale, NPC.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+
+        if (AIState == Idle)
+            DrawHead();
+
         spriteBatch.Draw(TextureAssets.Npc[Type].Value, NPC.Center + new Vector2(0, 4 + (NPC.frame.Y == 24 ? -1 : 0)) - screenPos, NPC.frame, NPC.HunterPotionColor(drawColor), NPC.rotation, NPC.Size / 2, NPC.scale, NPC.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
 
-        spriteBatch.Draw(head, center - screenPos + new Vector2(NPC.direction, (NPC.frame.Y == 24 ? -1 : 0)).RotatedBy(headRotation), null, NPC.HunterPotionColor(Lighting.GetColor((NPC.Center + headOffset).ToTileCoordinates())), headRotation, head.Size() / 2, NPC.scale, NPC.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+        if (AIState != Idle)
+            DrawHead();
+
         return false;
     }
     public override void FindFrame(int frameHeight)
@@ -102,20 +118,37 @@ public class Botanist : ModNPC
         else
             NPC.frame.Y = 0;
     }
+    public override void HitEffect(NPC.HitInfo hit)
+    {
+        if (NPC.life <= 0)
+        {
+            NPC.SpawnGore("EbonianMod/BotanistHead", 1);
+            NPC.SpawnGore(GoreID.TreeLeaf_Normal, 10);
+        }
+    }
     public override void AI()
     {
         Player player = Main.player[NPC.target];
         headRotation = headOffset.ToRotation() + PiOver2;
         if (AIState == Idle)
         {
-            headOffset = new Vector2(0, -20);
             NPC.TargetClosest(true);
             if (NPC.HasValidTarget)
             {
                 if (NPC.Distance(player.Center) < 100 || NPC.life < NPC.lifeMax)
                 {
-                    AIState = Walk;
-                    AITimer = 0;
+                    if (AITimer <= 0)
+                        AITimer = 1;
+                }
+            }
+            if (AITimer > 0)
+            {
+                AITimer++;
+                headOffset.Y -= 2;
+                if (AITimer > 40)
+                {
+                    AITimer = 20;
+                    AIState = Attack;
                 }
             }
         }
@@ -148,7 +181,7 @@ public class Botanist : ModNPC
 
             if (NPC.collideY && NPC.collideX)
             {
-                NPC.velocity.Y = -3;
+                NPC.velocity.Y = -4;
             }
 
             if (AITimer >= 100)
@@ -167,17 +200,19 @@ public class Botanist : ModNPC
                 headOffset.Y -= 3;
             else if (AITimer < 50)
             {
-                headOffset.X -= NPC.direction;
+                headOffset.X -= NPC.direction * Lerp(0.5f, 2.5f, InOutCirc.Invoke((AITimer - 20) / 30f));
                 headOffset.Y += 0.5f;
             }
             else if (AITimer < 90)
             {
                 Vector2 point = Helper.TRay.Cast(NPC.Center + new Vector2(Clamp(MathF.Abs(Helper.FromAToB(NPC.Center, player.Center, false).X), 0, 100) * NPC.direction, -40), Vector2.UnitY, 200) + new Vector2(0, 8);
-
-                headOffset = Vector2.Lerp(headOffset, Helper.FromAToB(NPC.Center, point, false), 0.5f);
+                Vector2 desiredP = Helper.FromAToB(NPC.Center, point, false);
+                headOffset.X = Lerp(headOffset.X, desiredP.X, 0.7f);
+                headOffset.Y = Lerp(headOffset.Y, desiredP.Y, 0.5f);
                 if (Helper.FromAToB(headOffset, Helper.FromAToB(NPC.Center, point, false), false).Length() < 5)
                 {
-                    // Add a cool projectile here
+                    SoundEngine.PlaySound(SoundID.Item70, NPC.Center + headOffset);
+                    Projectile.NewProjectile(null, NPC.Center + headOffset, Vector2.Zero, ProjectileType<BotanistP>(), 5, 0);
                     Helper.AddCameraModifier(new PunchCameraModifier(NPC.Center + headOffset, Vector2.UnitY, 1, 10, 30, 700));
                     AITimer = 90;
                     AITimer2 = 1;
@@ -194,5 +229,24 @@ public class Botanist : ModNPC
                 AITimer2 = 0;
             }
         }
+    }
+}
+public class BotanistP : ModProjectile
+{
+    public override string Texture => Helper.Empty;
+    public override void SetDefaults()
+    {
+        Projectile.Size = new(40);
+        Projectile.penetrate = -1;
+        Projectile.tileCollide = false;
+        Projectile.aiStyle = -1;
+        Projectile.hostile = true;
+        Projectile.friendly = false;
+        Projectile.timeLeft = 5;
+    }
+    public override void OnSpawn(IEntitySource source)
+    {
+        for (int i = 0; i < 4; i++)
+            Collision.HitTiles(Projectile.position, Vector2.UnitY * -10, 60, 30);
     }
 }
