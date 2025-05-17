@@ -96,7 +96,6 @@ public static class Helper
     /// <summary>
     /// Laggy grounded check, only use this for stuff like death animations where you absolutely dont want the npc to not be able to detect the ground
     /// </summary>
-    /// 
     public static bool Grounded(this Entity entity, float offset = .5f, float offsetX = 1f)
     {
         if (entity is NPC)
