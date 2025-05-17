@@ -24,7 +24,7 @@ public class GreenShockwave : ModProjectile
     public override bool ShouldUpdatePosition() => false;
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D tex = Projectile.ai[2] == 0 ? ExtraTextures2.circle_02.Value : ExtraTextures.explosion.Value;
+        Texture2D tex = Projectile.ai[2] == 0 ? Assets.Extras.Extras2.circle_02.Value : Assets.Extras.explosion.Value;
         Main.spriteBatch.Reload(BlendState.Additive);
         float alpha = MathHelper.Lerp(1, 0, Projectile.ai[0]);
         for (int i = 0; i < 2; i++)
@@ -63,7 +63,7 @@ public class YellowShockwave : ModProjectile
     public override bool ShouldUpdatePosition() => false;
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D tex = ExtraTextures.PulseCircle.Value;
+        Texture2D tex = Assets.Extras.PulseCircle.Value;
         float alpha = MathHelper.Lerp(1, 0, Projectile.ai[0]);
         for (int i = 0; i < 2; i++)
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.Orange with { A = 0 } * alpha, Projectile.rotation, tex.Size() / 2, Projectile.ai[0] * 2, SpriteEffects.None, 0);
@@ -101,7 +101,7 @@ public class BigGrayShockwave : ModProjectile
     public override bool ShouldUpdatePosition() => false;
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D tex = ExtraTextures.PulseCircle.Value;
+        Texture2D tex = Assets.Extras.PulseCircle.Value;
         float alpha = MathHelper.Lerp(1, 0, Projectile.ai[0] / 2);
         for (int i = 0; i < 2; i++)
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.Gray with { A = 0 } * alpha, Projectile.rotation, tex.Size() / 2, Projectile.ai[0] * 2, SpriteEffects.None, 0);
@@ -139,7 +139,7 @@ public class BigGreenShockwave : ModProjectile
     public override bool ShouldUpdatePosition() => false;
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D tex = ExtraTextures.PulseCircle.Value;
+        Texture2D tex = Assets.Extras.PulseCircle.Value;
         float alpha = MathHelper.Lerp(1, 0, Projectile.ai[0] / 2);
         for (int i = 0; i < 2; i++)
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.LawnGreen with { A = 0 } * alpha, Projectile.rotation, tex.Size() / 2, Projectile.ai[0] * 2, SpriteEffects.None, 0);

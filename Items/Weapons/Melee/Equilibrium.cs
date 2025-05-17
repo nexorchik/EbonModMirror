@@ -202,7 +202,7 @@ public class EquilibriumP : HeldSword
         swingProgressInv = MathHelper.Lerp(1, 0, swingProgress);
         f = MathHelper.Clamp(MathF.Sin((Projectile.ai[1] == 1 ? swingProgress : swingProgressInv) * MathF.PI) * .5f, 0, 1) * 2;
 
-        Texture2D tex = ExtraTextures2.slash_06.Value;
+        Texture2D tex = Assets.Extras.Extras2.slash_06.Value;
 
         float rotOffset = Lerp(-1.7f, 0, MathF.Pow(MathF.Sin(swingProgress * Pi), 2));
 
@@ -302,7 +302,7 @@ public class EquilibriumP2 : HeldSword
         swingProgressInv = MathHelper.Lerp(1, 0, swingProgress);
         f = MathHelper.Clamp(MathF.Sin((Projectile.ai[1] == 1 ? swingProgress : swingProgressInv) * MathF.PI) * .5f, 0, 1) * 2;
 
-        Texture2D tex = ExtraTextures2.slash_06.Value;
+        Texture2D tex = Assets.Extras.Extras2.slash_06.Value;
 
         float rotOffset = Lerp(-1.7f, 0, MathF.Pow(MathF.Sin(swingProgress * Pi), 2));
 

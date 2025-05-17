@@ -47,7 +47,7 @@ public class Sudama : ModNPC
                 vertices.Add(Helper.AsVertex(pos + new Vector2(21 * mult, 0).RotatedBy(-PiOver2 + rotOffset), Color.White * (i < 2 ? 0 : 1), new Vector2((float)i / NPC.oldPos.Length * 3 - Main.GlobalTimeWrappedHourly * 1.5f, 1)));
             }
             if (vertices.Count > 2)
-                Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, ExtraSpriteTextures.SudamaTrail.Value, false, true);
+                Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.ExtraSprites.Overworld.SudamaTrail.Value, false, true);
         }
         );
         EbonianMod.finalDrawCache.Add(() =>

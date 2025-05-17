@@ -368,7 +368,7 @@ public class TerrorClingerRanged : ModNPC
                 new Rectangle(0, 0, 26, 20), Lighting.GetColor((int)center.X / 16, (int)center.Y / 16), projRotation,
                 new Vector2(26 * 0.5f, 20 * 0.5f), 1f, SpriteEffects.None, 0);
         }
-        Texture2D tex = ExtraSpriteTextures.TerrorClingerRanged_Bloom.Value;
+        Texture2D tex = Assets.ExtraSprites.Terrortoma.TerrorClingerRanged_Bloom.Value;
         if (bloomAlpha > 0)
         {
             spriteBatch.Reload(BlendState.Additive);
@@ -731,7 +731,7 @@ public class TerrorClingerSummoner : ModNPC
                     new Rectangle(0, 0, 26, 20), Lighting.GetColor((int)center.X / 16, (int)center.Y / 16), projRotation,
                     new Vector2(26 * 0.5f, 20 * 0.5f), 1f, SpriteEffects.None, 0);
         }
-        Texture2D tex = ExtraSpriteTextures.TerrorClingerSummoner_Bloom.Value;
+        Texture2D tex = Assets.ExtraSprites.Terrortoma.TerrorClingerSummoner_Bloom.Value;
         if (bloomAlpha > 0)
         {
             spriteBatch.Reload(BlendState.Additive);
@@ -1087,7 +1087,7 @@ public class TerrorClingerMelee : ModNPC
                     new Rectangle(0, 0, 26, 20), Lighting.GetColor((int)center.X / 16, (int)center.Y / 16), projRotation,
                     new Vector2(26 * 0.5f, 20 * 0.5f), 1f, SpriteEffects.None, 0);
         }
-        Texture2D tex = ExtraSpriteTextures.TerrorClingerMelee_Bloom.Value;
+        Texture2D tex = Assets.ExtraSprites.Terrortoma.TerrorClingerMelee_Bloom.Value;
         if (bloomAlpha > 0)
         {
             spriteBatch.Reload(BlendState.Additive);

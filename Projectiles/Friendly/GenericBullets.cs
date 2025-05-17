@@ -16,7 +16,7 @@ public class WeakCursedBullet : ModProjectile
     {
         SpriteBatch spriteBatch = Main.spriteBatch;
         spriteBatch.Reload(BlendState.Additive);
-        Texture2D tex = ExtraTextures.EbonianGatlingBullet.Value;
+        Texture2D tex = Assets.Extras.EbonianGatlingBullet.Value;
         spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.LawnGreen, Projectile.rotation, Projectile.Size / 2, Projectile.scale, SpriteEffects.None, 0);
         spriteBatch.Reload(BlendState.AlphaBlend);
         return false;
@@ -48,7 +48,7 @@ public class BloodBullet : ModProjectile
     {
         SpriteBatch spriteBatch = Main.spriteBatch;
         spriteBatch.Reload(BlendState.Additive);
-        Texture2D tex = ExtraTextures.EbonianGatlingBullet");
+        Texture2D tex = Assets.Extras.EbonianGatlingBullet");
         for (int i = 0; i < 3; i++)
             spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.DarkRed, Projectile.rotation, Projectile.Size / 2, Projectile.scale, SpriteEffects.None, 0);
         spriteBatch.Reload(BlendState.AlphaBlend);
@@ -82,7 +82,7 @@ public class IchorBlast : ModProjectile
     {
         SpriteBatch spriteBatch = Main.spriteBatch;
         spriteBatch.Reload(BlendState.Additive);
-        Texture2D tex = ExtraTextures.explosion.Value;
+        Texture2D tex = Assets.Extras.explosion.Value;
         spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.Gold, Projectile.rotation, tex.Size() / 2, Projectile.scale * 0.1f, SpriteEffects.None, 0);
         spriteBatch.Reload(BlendState.AlphaBlend);
         return false;

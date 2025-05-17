@@ -137,7 +137,7 @@ public class XLightningBolt : ModProjectile
 
         EbonianMod.xareusGoopCache.Add(() =>
         {
-            Texture2D tex = ExtraTextures2.spark_08.Value;
+            Texture2D tex = Assets.Extras.Extras2.spark_08.Value;
             float s = 0f;
             List<VertexPositionColorTexture> vertices = new();
             List<VertexPositionColorTexture> vertices2 = new();

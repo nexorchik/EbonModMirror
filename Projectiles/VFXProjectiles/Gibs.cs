@@ -51,7 +51,7 @@ public class Gibs : ModProjectile
         Main.spriteBatch.Begin(SpriteSortMode.Immediate, (Projectile.ai[2] == 0 ? BlendState.AlphaBlend : BlendState.Additive), SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         if (vertices.Count > 2)
         {
-            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, ExtraTextures.laser3_transparent.Value, false);
+            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.laser3_transparent.Value, false);
         }
         Main.spriteBatch.ApplySaved(sbParams);
         return false;
@@ -149,7 +149,7 @@ public class HostileGibs : ModProjectile
         Main.spriteBatch.Begin(SpriteSortMode.Immediate, (Projectile.ai[2] == 0 ? BlendState.AlphaBlend : BlendState.Additive), SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         if (vertices.Count > 2)
         {
-            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, ExtraTextures.laser3_transparent.Value, false);
+            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.laser3_transparent.Value, false);
         }
         Main.spriteBatch.ApplySaved(sbParams);
         return false;
@@ -244,7 +244,7 @@ public class AmbientGibs : ModProjectile
         Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         if (vertices.Count > 2)
         {
-            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, ExtraTextures.laser3_transparent.Value, false);
+            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.laser3_transparent.Value, false);
         }
         Main.spriteBatch.ApplySaved(sbParams);
         return false;

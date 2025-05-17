@@ -155,10 +155,10 @@ public class XSineLaser : ModProjectile
         Main.spriteBatch.Reload(SpriteSortMode.Immediate);
 
         float scale = Projectile.scale * (Projectile.damage == 0 ? 4 : 8);
-        Texture2D tex = ExtraTextures2.star_09.Value;
-        Texture2D bolt = ExtraTextures.laser_purple.Value;
+        Texture2D tex = Assets.Extras.Extras2.star_09.Value;
+        Texture2D bolt = Assets.Extras.laser_purple.Value;
         if (Projectile.damage == 0)
-            bolt = ExtraTextures.laser3.Value;
+            bolt = Assets.Extras.laser3.Value;
         Main.spriteBatch.Reload(BlendState.Additive);
         if (Projectile.damage != 0)
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.Indigo * Projectile.scale, Main.GameUpdateCount * -0.003f, tex.Size() / 2, 0.2f * 2, SpriteEffects.None, 0);

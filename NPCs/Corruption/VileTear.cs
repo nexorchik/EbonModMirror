@@ -60,7 +60,7 @@ public class VileTear : ModNPC
     {
         SpriteEffects effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
         Texture2D tex = TextureAssets.Npc[Type].Value;
-        Texture2D tex2 = ExtraSpriteTextures.VileTear_Glow.Value;
+        Texture2D tex2 = Assets.ExtraSprites.Corruption.VileTear_Glow.Value;
         var fadeMult = 1f / NPC.oldPos.Length;
         if (AIState == 1)
             for (int i = 0; i < NPC.oldPos.Length; i++)

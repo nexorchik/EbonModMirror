@@ -24,9 +24,9 @@ public class HeatBlastVFX : ModProjectile
     public override bool ShouldUpdatePosition() => false;
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D tex1 = ExtraTextures2.light_01.Value;
-        Texture2D tex2 = ExtraTextures2.scorch_03.Value;
-        Texture2D tex3 = ExtraTextures.circlething.Value;
+        Texture2D tex1 = Assets.Extras.Extras2.light_01.Value;
+        Texture2D tex2 = Assets.Extras.Extras2.scorch_03.Value;
+        Texture2D tex3 = Assets.Extras.circlething.Value;
         Main.spriteBatch.Reload(BlendState.Additive);
         float alpha = MathHelper.Lerp(1, 0, Projectile.ai[0]);
         Main.spriteBatch.Reload(EbonianMod.SpriteRotation.Value);

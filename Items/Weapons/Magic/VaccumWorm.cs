@@ -154,7 +154,7 @@ public class VaccumWormP : ModProjectile
     }
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D[] texture = new Texture2D[] { ExtraTextures2.slash_06.Value, ExtraTextures2.twirl_01.Value, ExtraTextures2.twirl_02.Value, ExtraTextures2.twirl_03.Value, };
+        Texture2D[] texture = new Texture2D[] { Assets.Extras.Extras2.slash_06.Value, Assets.Extras.Extras2.twirl_01.Value, Assets.Extras.Extras2.twirl_02.Value, Assets.Extras.Extras2.twirl_03.Value, };
 
         Main.spriteBatch.Reload(EbonianMod.SpriteRotation.Value);
         for (int i = 0; i < windAlpha.Length; i++)

@@ -24,7 +24,7 @@ public class FlameDust : ModDust
     {
         if (d.type == DustType<FlameDust>() && d.active)
         {
-            Texture2D tex = ExtraTextures.explosion.Value;
+            Texture2D tex = Assets.Extras.explosion.Value;
             sb.Draw(tex, d.position - Main.screenPosition, null, Color.White * Clamp(d.scale, 0, 2), 0, tex.Size() / 2, d.scale * 0.1f, SpriteEffects.None, 0);
         }
     }

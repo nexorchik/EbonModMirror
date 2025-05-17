@@ -90,9 +90,9 @@ public class HotGarbage : ModNPC
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 pos, Color lightColor)
     {
         Texture2D drawTexture = TextureAssets.Npc[Type].Value;
-        Texture2D glow = ExtraSpriteTextures.HotGarbage_Glow.Value;
-        Texture2D fire = ExtraSpriteTextures.HotGarbage_Fire.Value;
-        Texture2D fireball = ExtraTextures.fireball.Value;
+        Texture2D glow = Assets.ExtraSprites.Garbage.HotGarbage_Glow.Value;
+        Texture2D fire = Assets.ExtraSprites.Garbage.HotGarbage_Fire.Value;
+        Texture2D fireball = Assets.Extras.fireball.Value;
         Vector2 origin = new Vector2((drawTexture.Width / 3) * 0.5F, (drawTexture.Height / Main.npcFrameCount[NPC.type]) * 0.5F);
 
         Vector2 drawPos = new Vector2(
@@ -111,7 +111,7 @@ public class HotGarbage : ModNPC
     }
     public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
-        Texture2D flame = ExtraSpriteTextures.HotGarbage_FlameOverlay.Value;
+        Texture2D flame = Assets.ExtraSprites.Garbage.HotGarbage_FlameOverlay.Value;
         Vector2 origin = new Vector2((flame.Width / 3) * 0.5F, (flame.Height / Main.npcFrameCount[NPC.type]) * 0.5F);
 
         Vector2 drawPos = new Vector2(
@@ -123,7 +123,7 @@ public class HotGarbage : ModNPC
         spriteBatch.End();
         spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, EbonianMod.flame.Value, Main.GameViewMatrix.TransformationMatrix);
         EbonianMod.flame.Value.Parameters["uTime"].SetValue(-Main.GlobalTimeWrappedHourly * .4f);
-        EbonianMod.flame.Value.Parameters["tex"].SetValue(ExtraTextures.smearNoise.Value);
+        EbonianMod.flame.Value.Parameters["tex"].SetValue(Assets.Extras.smearNoise.Value);
         EbonianMod.flame.Value.Parameters["scale"].SetValue(5);
         EbonianMod.flame.Value.Parameters["wavinessMult"].SetValue(1);
         EbonianMod.flame.Value.Parameters["intensity"].SetValue(10);
@@ -1478,17 +1478,17 @@ public class HotGarbageNuke : ModProjectile
         Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         if (vertices.Count > 2)
         {
-            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, ExtraTextures.wavyLaser2.Value, false);
+            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.wavyLaser2.Value, false);
         }
         Main.spriteBatch.ApplySaved(sbParams);
-        Texture2D pulse = ExtraTextures.PulseCircle2.Value;
-        Texture2D ring = ExtraTextures.crosslight.Value;
-        Texture2D ring2 = ExtraTextures2.slash_06.Value;
-        Texture2D chevron = ExtraTextures.chevron.Value;
-        Texture2D hazard = ExtraTextures.hazardUnblurred.Value;
-        Texture2D textGlow = ExtraTextures.textGlow.Value;
-        Texture2D circle = ExtraTextures.explosion2.Value;
-        Texture2D exclamation = ExtraTextures.exclamation.Value;
+        Texture2D pulse = Assets.Extras.PulseCircle2.Value;
+        Texture2D ring = Assets.Extras.crosslight.Value;
+        Texture2D ring2 = Assets.Extras.Extras2.slash_06.Value;
+        Texture2D chevron = Assets.Extras.chevron.Value;
+        Texture2D hazard = Assets.Extras.hazardUnblurred.Value;
+        Texture2D textGlow = Assets.Extras.textGlow.Value;
+        Texture2D circle = Assets.Extras.explosion2.Value;
+        Texture2D exclamation = Assets.Extras.exclamation.Value;
         float _alpha = Utils.GetLerpValue(0, 2, waveTimer);
         float alpha2 = Clamp((float)Math.Sin(_alpha * Math.PI) * 1, 0, 1f);
 

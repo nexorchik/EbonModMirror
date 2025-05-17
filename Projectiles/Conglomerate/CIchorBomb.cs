@@ -48,11 +48,11 @@ public class CIchorBomb : ModProjectile
         for (int i = 0; i < Projectile.oldPos.Length; i++)
         {
             float mult = (1f - fadeMult * i);
-            sb.Draw(ExtraTextures.explosion.Value, Projectile.oldPos[i] + Projectile.Size / 2 - Main.screenPosition, null, Color.Lerp(Color.Maroon, Color.LawnGreen, 0.4f) * mult * 0.6f, Projectile.rotation, ExtraTextures.explosion.Value.Size() / 2, (32 / (float)ExtraTextures.explosion.Value.Size().Length() * 2 * (1 + Projectile.ai[1])) * mult, SpriteEffects.None, 0);
+            sb.Draw(Assets.Extras.explosion.Value, Projectile.oldPos[i] + Projectile.Size / 2 - Main.screenPosition, null, Color.Lerp(Color.Maroon, Color.LawnGreen, 0.4f) * mult * 0.6f, Projectile.rotation, Assets.Extras.explosion.Value.Size() / 2, (32 / (float)Assets.Extras.explosion.Value.Size().Length() * 2 * (1 + Projectile.ai[1])) * mult, SpriteEffects.None, 0);
         }
 
-        sb.Draw(ExtraTextures.explosion.Value, Projectile.Center - Main.screenPosition, null, Color.Lerp(Color.Maroon, Color.LawnGreen, 0.4f), Projectile.rotation, ExtraTextures.explosion.Value.Size() / 2, 32 / (float)ExtraTextures.explosion.Value.Size().Length() * 2.2f * (1 + Projectile.ai[1]), SpriteEffects.None, 0);
-        sb.Draw(ExtraTextures2.circle_04.Value, Projectile.Center - Main.screenPosition, null, Color.Lerp(Color.Maroon, Color.LawnGreen, 0.4f), Projectile.rotation, ExtraTextures2.circle_04.Value.Size() / 2, 32 / (float)ExtraTextures2.circle_04.Value.Size().Length() * 1.5f * (1 + Projectile.ai[1]), SpriteEffects.None, 0);
+        sb.Draw(Assets.Extras.explosion.Value, Projectile.Center - Main.screenPosition, null, Color.Lerp(Color.Maroon, Color.LawnGreen, 0.4f), Projectile.rotation, Assets.Extras.explosion.Value.Size() / 2, 32 / (float)Assets.Extras.explosion.Value.Size().Length() * 2.2f * (1 + Projectile.ai[1]), SpriteEffects.None, 0);
+        sb.Draw(Assets.Extras.Extras2.circle_04.Value, Projectile.Center - Main.screenPosition, null, Color.Lerp(Color.Maroon, Color.LawnGreen, 0.4f), Projectile.rotation, Assets.Extras.Extras2.circle_04.Value.Size() / 2, 32 / (float)Assets.Extras.Extras2.circle_04.Value.Size().Length() * 1.5f * (1 + Projectile.ai[1]), SpriteEffects.None, 0);
 
         sb.Reload(BlendState.AlphaBlend);
         return true;

@@ -181,7 +181,7 @@ public class EHeartP : ModProjectile
         Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         if (vertices.Count > 2)
         {
-            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, ExtraTextures.FlamesSeamless.Value, false);
+            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.FlamesSeamless.Value, false);
         }
         Main.spriteBatch.ApplySaved(sbParams);
         //Main.spriteBatch.Draw(TextureAssets.Projectile[ProjectileType<Gibs>()].Value, Projectile.Center - Main.screenPosition, null, Color.LawnGreen * alpha * 3, 0, TextureAssets.Projectile[ProjectileType<Gibs>()].Value.Size() / 2, 0.05f, SpriteEffects.None, 0);

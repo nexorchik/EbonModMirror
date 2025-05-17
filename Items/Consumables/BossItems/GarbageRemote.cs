@@ -236,7 +236,7 @@ public class GarbageRemoteP : ModProjectile
 
         float mult = 0.55f + (float)Math.Sin(Main.GlobalTimeWrappedHourly/* * 2*/) * 0.1f;
         float scale = Projectile.scale * 2;
-        Texture2D bolt = ExtraTextures.laser2.Value;
+        Texture2D bolt = Assets.Extras.laser2.Value;
         Main.spriteBatch.Reload(BlendState.Additive);
         Main.spriteBatch.Reload(SpriteSortMode.Immediate);
         float s = 1;

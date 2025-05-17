@@ -222,10 +222,10 @@ public class BloodHunter : ModNPC
     void DrawTail(SpriteBatch spriteBatch, Color drawColor)
     {
         Player player = Main.player[NPC.target];
-        Texture2D tail0 = ExtraSpriteTextures.BloodHunter_Tail0.Value;
-        Texture2D tail1 = ExtraSpriteTextures.BloodHunter_Tail1.Value;
-        Texture2D tail2 = ExtraSpriteTextures.BloodHunter_Tail2.Value;
-        Texture2D stinger = ExtraSpriteTextures.BloodHunter_Stinger.Value;
+        Texture2D tail0 = Assets.ExtraSprites.Crimson.BloodHunter_Tail0.Value;
+        Texture2D tail1 = Assets.ExtraSprites.Crimson.BloodHunter_Tail1.Value;
+        Texture2D tail2 = Assets.ExtraSprites.Crimson.BloodHunter_Tail2.Value;
+        Texture2D stinger = Assets.ExtraSprites.Crimson.BloodHunter_Stinger.Value;
         if (tail != null)
         {
             for (int i = 0; i < tail.points.Count - 1; i++)
@@ -258,9 +258,9 @@ public class BloodHunter : ModNPC
     }
     void DrawBGLegs(SpriteBatch spriteBatch, Color drawColor)
     {
-        Texture2D bgLeg0 = ExtraSpriteTextures.BloodHunter_BGLeg0.Value;
-        Texture2D bgLeg1 = ExtraSpriteTextures.BloodHunter_BGLeg1.Value;
-        Texture2D bgLeg2 = ExtraSpriteTextures.BloodHunter_BGLeg2.Value;
+        Texture2D bgLeg0 = Assets.ExtraSprites.Crimson.BloodHunter_BGLeg0.Value;
+        Texture2D bgLeg1 = Assets.ExtraSprites.Crimson.BloodHunter_BGLeg1.Value;
+        Texture2D bgLeg2 = Assets.ExtraSprites.Crimson.BloodHunter_BGLeg2.Value;
         SpriteEffects effect = NPC.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
         spriteBatch.Draw(bgLeg0, NPC.Center - new Vector2(2 * NPC.direction, -16) + bgLegOffsets[0] - Main.screenPosition, null, drawColor, NPC.rotation, bgLeg0.Size() / 2, NPC.scale, effect, 0);
         spriteBatch.Draw(bgLeg1, NPC.Center - new Vector2(-10 * NPC.direction, -20) + bgLegOffsets[1] * 0.7f - Main.screenPosition, null, drawColor, NPC.rotation, bgLeg1.Size() / 2, NPC.scale, effect, 0);
@@ -268,9 +268,9 @@ public class BloodHunter : ModNPC
     }
     void DrawFGLegs(SpriteBatch spriteBatch, Color drawColor)
     {
-        Texture2D fgLeg0 = ExtraSpriteTextures.BloodHunter_FGLeg0.Value;
-        Texture2D fgLeg1 = ExtraSpriteTextures.BloodHunter_FGLeg1.Value;
-        Texture2D fgLeg2 = ExtraSpriteTextures.BloodHunter_FGLeg2.Value;
+        Texture2D fgLeg0 = Assets.ExtraSprites.Crimson.BloodHunter_FGLeg0.Value;
+        Texture2D fgLeg1 = Assets.ExtraSprites.Crimson.BloodHunter_FGLeg1.Value;
+        Texture2D fgLeg2 = Assets.ExtraSprites.Crimson.BloodHunter_FGLeg2.Value;
         SpriteEffects effect = NPC.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
         spriteBatch.Draw(fgLeg0, NPC.Center - new Vector2((NPC.width / 2 - 6) * NPC.direction, -20) + fgLegOffsets[0] - Main.screenPosition, null, drawColor, NPC.rotation, fgLeg0.Size() / 2, NPC.scale, effect, 0);
         spriteBatch.Draw(fgLeg1, NPC.Center - new Vector2(30 * NPC.direction, -25) + fgLegOffsets[1] * 0.7f - Main.screenPosition, null, drawColor, NPC.rotation, fgLeg1.Size() / 2, NPC.scale, effect, 0);

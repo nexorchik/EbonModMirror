@@ -103,8 +103,8 @@ public class TBeam : ModProjectile
         visual2 = MathHelper.Clamp(visual2, float.Epsilon, 1 - float.Epsilon);
 
         startSize = MathHelper.Lerp(startSize, 0, 0.01f);
-        Texture2D texture = ExtraTextures.FlamesSeamless.Value;
-        Texture2D texture2 = ExtraTextures.trail_04.Value;
+        Texture2D texture = Assets.Extras.FlamesSeamless.Value;
+        Texture2D texture2 = Assets.Extras.trail_04.Value;
         float progress = Utils.GetLerpValue(0, 165, Projectile.timeLeft);
         float i_progress = MathHelper.Clamp(MathHelper.SmoothStep(1, 0.2f, progress) * 50, 0, 1 / MathHelper.Clamp(startSize, 1, 2));
 

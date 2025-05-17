@@ -156,7 +156,7 @@ public class PhantasmalGreatswordP : HeldSword
             float swingProgress = Ease(Utils.GetLerpValue(0f, swingTime, Projectile.timeLeft));
             if (Projectile.oldPos.Length > 2)
             {
-                Texture2D tex2 = ExtraTextures.TrailShape_LongSolidWavy.Value;
+                Texture2D tex2 = Assets.Extras.TrailShape_LongSolidWavy.Value;
                 List<VertexPositionColorTexture> vertices = new List<VertexPositionColorTexture>();
                 List<Vector2> oldPositions = new List<Vector2>(Projectile.oldPos.Length);
                 for (int i = 0; i < Projectile.oldPos.Length; i++)
@@ -249,7 +249,7 @@ public class PhantasmalGreatswordP : HeldSword
         /*Main.spriteBatch.Reload(BlendState.Additive);
         Main.spriteBatch.Draw(slash, pos - Main.screenPosition, null, Color.Indigo * (alpha * 0.5f), Projectile.velocity.ToRotation(), slash.Size() / 2, Projectile.scale * 1.75f, Projectile.ai[1] == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None, 0f);
 
-        slash = ExtraTextures2.slash_02");
+        slash = Assets.Extras.Extras2.slash_02");
         Main.spriteBatch.Draw(slash, pos - Main.screenPosition, null, Color.Indigo * (alpha * 0.5f), Projectile.velocity.ToRotation() - MathHelper.PiOver2, slash.Size() / 2, Projectile.scale * 1.25f, SpriteEffects.None, 0f);
         Main.spriteBatch.Reload(BlendState.AlphaBlend);*/
     }
@@ -338,7 +338,7 @@ public class PhantasmalGreatswordP2 : ModProjectile
             float swingProgress = Ease(Utils.GetLerpValue(0f, swingTime, Projectile.timeLeft));
             if (Projectile.oldPos.Length > 2)
             {
-                Texture2D tex2 = ExtraTextures.TrailShape_LongSolidWavy.Value;
+                Texture2D tex2 = Assets.Extras.TrailShape_LongSolidWavy.Value;
                 List<VertexPositionColorTexture> vertices = new List<VertexPositionColorTexture>();
                 List<Vector2> oldPositions = new List<Vector2>(Projectile.oldPos.Length);
                 for (int i = 0; i < Projectile.oldPos.Length; i++)
@@ -460,7 +460,7 @@ public class PhantasmalWave : ModProjectile
     public override bool PreDraw(ref Color lightColor)
     {
         if (lightColor != Color.Transparent) return false;
-        Texture2D tex = ExtraTextures2.slash_06.Value;
+        Texture2D tex = Assets.Extras.Extras2.slash_06.Value;
         Main.spriteBatch.Reload(BlendState.Additive);
         float fadeMult = Helper.Safe(1f / Projectile.oldPos.Length);
         for (int i = 0; i < Projectile.oldPos.Length; i++)

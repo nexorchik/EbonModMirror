@@ -34,9 +34,9 @@ internal class ConglomerateSky : CustomSky
                 Main.spriteBatch.End();
                 sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone);
                 EbonianMod.waterEffect.Value.CurrentTechnique.Passes[0].Apply();
-                gd.Textures[1] = ExtraTextures.swirlyNoise.Value;
-                gd.Textures[2] = ExtraTextures.waterNoise.Value;
-                gd.Textures[3] = ExtraTextures.vein.Value;
+                gd.Textures[1] = Assets.Extras.swirlyNoise.Value;
+                gd.Textures[2] = Assets.Extras.waterNoise.Value;
+                gd.Textures[3] = Assets.Extras.vein.Value;
                 EbonianMod.waterEffect.Value.Parameters["time"].SetValue(Main.GlobalTimeWrappedHourly * 0.015f);
                 EbonianMod.waterEffect.Value.Parameters["totalAlpha"].SetValue(0.5f * intensity * EbonianSystem.conglomerateSkyFlash);
 
@@ -50,16 +50,16 @@ internal class ConglomerateSky : CustomSky
                 EbonianMod.waterEffect.Value.Parameters["secondaryDirection"].SetValue(new Vector2(MathF.Sin(Main.GlobalTimeWrappedHourly * 0.025f) * 0.4f, -.45f));
                 EbonianMod.waterEffect.Value.Parameters["tertiaryDirection"].SetValue(new Vector2(-1.9f, 0));
                 //sb.Draw(Helper.GetExtraTexture("conglomerateSky2"), npc.Center - Main.screenPosition, null, Color.White * intensity * 0.5f, npc.rotation, Helper.GetExtraTexture("conglomerateSky2").Size() / 2, 2 + MathF.Sin(Main.GlobalTimeWrappedHourly * 3) * 0.1f, SpriteEffects.None, 0);
-                sb.Draw(ExtraTextures.conglomerateSky.Value, rect2, Color.White * intensity * 2);
+                sb.Draw(Assets.Extras.conglomerateSky.Value, rect2, Color.White * intensity * 2);
                 sb.ApplySaved(_sbParams);
             }
             SpritebatchParameters __sbParams = Main.spriteBatch.Snapshot();
             Main.spriteBatch.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone);
             EbonianMod.waterEffect.Value.CurrentTechnique.Passes[0].Apply();
-            gd.Textures[1] = ExtraTextures.seamlessNoise.Value;
-            gd.Textures[2] = ExtraTextures.waterNoise.Value;
-            gd.Textures[3] = ExtraTextures.swirlyNoise.Value;
+            gd.Textures[1] = Assets.Extras.seamlessNoise.Value;
+            gd.Textures[2] = Assets.Extras.waterNoise.Value;
+            gd.Textures[3] = Assets.Extras.swirlyNoise.Value;
             EbonianMod.waterEffect.Value.Parameters["time"].SetValue(Main.GlobalTimeWrappedHourly * 0.03f);
             EbonianMod.waterEffect.Value.Parameters["totalAlpha"].SetValue(intensity * (0.3f * EbonianSystem.conglomerateSkyFlash));
 
@@ -75,7 +75,7 @@ internal class ConglomerateSky : CustomSky
             EbonianMod.waterEffect.Value.Parameters["tertiaryDirection"].SetValue(new Vector2(2.9f, 0));
 
             //sb.Draw(Helper.GetExtraTexture("conglomerateSky2"), npc.Center - Main.screenPosition, null, Color.White * intensity * 0.5f, npc.rotation, Helper.GetExtraTexture("conglomerateSky2").Size() / 2, 2 + MathF.Sin(Main.GlobalTimeWrappedHourly * 3) * 0.1f, SpriteEffects.None, 0);
-            sb.Draw(ExtraTextures.conglomerateSky.Value, rect2, Color.White * intensity * 2);
+            sb.Draw(Assets.Extras.conglomerateSky.Value, rect2, Color.White * intensity * 2);
             sb.ApplySaved(__sbParams);
         }
         sb.ApplySaved(sbParams);

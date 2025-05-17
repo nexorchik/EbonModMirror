@@ -79,7 +79,7 @@ public class MassiveSpectator : ModNPC
             verlet.Draw(spriteBatch, new VerletDrawData(new VerletTextureData(Texture + "_Vein", null, Texture + "_VeinBase"), _endRot: NPC.rotation + MathHelper.PiOver2));
         Texture2D texture = Request<Texture2D>(Texture).Value;
         spriteBatch.Draw(texture, NPC.Center - Main.screenPosition, null, drawColor, NPC.rotation, texture.Size() / 2, NPC.scale, SpriteEffects.None, 0);
-        Texture2D glow = ExtraSpriteTextures.MassiveSpectator_Glow.Value;
+        Texture2D glow = Assets.ExtraSprites.Crimson.MassiveSpectator_Glow.Value;
         spriteBatch.Draw(glow, NPC.Center - Main.screenPosition, null, Color.White, NPC.rotation, texture.Size() / 2, NPC.scale, SpriteEffects.None, 0);
         return false;
     }

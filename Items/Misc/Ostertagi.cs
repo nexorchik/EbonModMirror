@@ -261,7 +261,7 @@ public class OstertagiExplosion : ModProjectile
 
         Main.EntitySpriteDraw(texture, position, sourceRectangle, color, Projectile.rotation, origin, (Projectile.scale - 0.8f), SpriteEffects.None, 0);
 
-        texture = ExtraTextures.vortex.Value;
+        texture = Assets.Extras.vortex.Value;
 
         sourceRectangle = new Rectangle(0, 0, texture.Width, texture.Height);
         origin = sourceRectangle.Size() / 2f;

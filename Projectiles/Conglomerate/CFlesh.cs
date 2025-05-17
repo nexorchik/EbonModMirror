@@ -20,7 +20,7 @@ public class CFlesh : ModProjectile
     }
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D tex = ExtraTextures.Empty.Value;
+        Texture2D tex = Assets.Extras.Empty.Value;
         switch (Projectile.ai[2])
         {
             case 1:

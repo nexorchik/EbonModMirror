@@ -76,8 +76,8 @@ public class PotatoP : ModProjectile
         {
             for (int i = 0; i < 2; i++)
             {
-                Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, ExtraTextures.LintyTrail.Value, false);
-                Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, ExtraTextures.FlamesSeamless.Value, false);
+                Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.LintyTrail.Value, false);
+                Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.FlamesSeamless.Value, false);
             }
         }
         Main.spriteBatch.ApplySaved(sbParams);
@@ -85,7 +85,7 @@ public class PotatoP : ModProjectile
     }
     public override void PostDraw(Color lightColor)
     {
-        Texture2D tex = ExtraTextures.fireball.Value;
+        Texture2D tex = Assets.Extras.fireball.Value;
         if (Projectile.extraUpdates > 1)
             Main.spriteBatch.Draw(tex, Projectile.Center - Projectile.velocity.ToRotation().ToRotationVector2() * 14 - Main.screenPosition, null, Color.OrangeRed with { A = 0 }, Projectile.rotation, tex.Size() / 2, 0.55f, SpriteEffects.None, 0);
     }

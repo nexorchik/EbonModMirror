@@ -58,7 +58,7 @@ public class ColoredFireDust : ModDust
     {
         if (d.type == DustType<ColoredFireDust>() && d.active)
         {
-            Texture2D tex = ExtraTextures2.fire_01.Value;
+            Texture2D tex = Assets.Extras.Extras2.fire_01.Value;
 
             EbonianMod.garbageFlameCache.Add(() =>
             {
@@ -106,7 +106,7 @@ public class SmokeDustAkaFireDustButNoGlow : ModDust
             if (d.type == DustType<SmokeDustAkaFireDustButNoGlow>() && d.active)
             {
                 float alpha = MathHelper.Lerp(1, 0, d.scale * 2.857142857142857f);
-                Texture2D tex = d.dustIndex % 2 == 0 ? ExtraTextures2.fire_01.Value : ExtraTextures2.fire_02.Value;
+                Texture2D tex = d.dustIndex % 2 == 0 ? Assets.Extras.Extras2.fire_01.Value : Assets.Extras.Extras2.fire_02.Value;
                 sb.Draw(tex, d.position - Main.screenPosition, null, d.color * alpha, d.rotation, tex.Size() / 2, d.scale * 2, SpriteEffects.None, 0);
             }
         }
@@ -149,7 +149,7 @@ public class SmokeDustAkaFireDustButNoGlow2 : ModDust
         if (d.type == DustType<SmokeDustAkaFireDustButNoGlow2>() && d.active)
         {
             float alpha = MathHelper.Lerp(1, 0, d.scale * 2.857142857142857f);
-            Texture2D tex = d.dustIndex % 2 == 0 ? ExtraTextures2.fire_01.Value : ExtraTextures2.fire_02.Value;
+            Texture2D tex = d.dustIndex % 2 == 0 ? Assets.Extras.Extras2.fire_01.Value : Assets.Extras.Extras2.fire_02.Value;
             sb.Draw(tex, d.position - Main.screenPosition, null, d.color * alpha, d.rotation, tex.Size() / 2, d.scale * 2, SpriteEffects.None, 0);
         }
     }

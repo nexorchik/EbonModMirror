@@ -38,8 +38,8 @@ public class XImpact : ModProjectile
     }
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D tex1 = ExtraTextures2.scratch_02.Value;
-        Texture2D tex2 = ExtraTextures.cone4.Value;
+        Texture2D tex1 = Assets.Extras.Extras2.scratch_02.Value;
+        Texture2D tex2 = Assets.Extras.cone4.Value;
         UnifiedRandom rand = new UnifiedRandom(seed);
         float max = 50;
         float alpha = MathHelper.Lerp(0.5f, 0, Projectile.ai[1]) * 2;
@@ -117,8 +117,8 @@ public class XImpact2 : ModProjectile
     }
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D tex1 = ExtraTextures2.scratch_02.Value;
-        Texture2D tex2 = ExtraTextures.cone4.Value;
+        Texture2D tex1 = Assets.Extras.Extras2.scratch_02.Value;
+        Texture2D tex2 = Assets.Extras.cone4.Value;
         UnifiedRandom rand = new UnifiedRandom(seed);
         float max = 35;
         float alpha = MathHelper.Lerp(0.5f, 0, Projectile.ai[1]) * 2;

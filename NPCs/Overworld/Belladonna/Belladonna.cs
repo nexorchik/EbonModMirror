@@ -35,7 +35,7 @@ public class Belladonna : ModNPC
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
         Texture2D tex = TextureAssets.Npc[Type].Value;
-        Texture2D glow = ExtraSpriteTextures.Belladonna_Glow.Value;
+        Texture2D glow = Assets.ExtraSprites.Overworld.Belladonna_Glow.Value;
         SpriteEffects effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
         spriteBatch.Draw(tex, NPC.Center + new Vector2(0, 2) - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.Size / 2, NPC.scale, effects, 0);
         spriteBatch.Draw(glow, NPC.Center + new Vector2(0, 2) - screenPos, NPC.frame, Color.White * ((MathF.Sin(Main.GlobalTimeWrappedHourly * 0.75f) + 1) * 0.5f), NPC.rotation, NPC.Size / 2, NPC.scale, effects, 0);
@@ -230,7 +230,7 @@ public class BelladonnaBush : ModProjectile
             if (Projectile.ai[0] == 0)
                 f = ((float)Math.Sin(Main.GlobalTimeWrappedHourly * 5) * 2);
 
-            Texture2D tex = (Projectile.ai[0] == 0 ? ExtraSpriteTextures.BushOverlay_0.Value : ExtraSpriteTextures.BushOverlay_1.Value);
+            Texture2D tex = (Projectile.ai[0] == 0 ? Assets.ExtraSprites.Overworld.BushOverlay_0.Value : Assets.ExtraSprites.Overworld.BushOverlay_1.Value);
 
             Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White * (1 + Projectile.ai[1] * f) * 0.5f, 0, tex.Size() / 2, 1, effects, 0);
         }
@@ -368,7 +368,7 @@ public class Nightshade2 : ModProjectile
     }
     public override void PostDraw(Color lightColor)
     {
-        Texture2D tex = ExtraTextures.cone4.Value;
+        Texture2D tex = Assets.Extras.cone4.Value;
         Main.spriteBatch.Reload(BlendState.Additive);
         UnifiedRandom rand = new UnifiedRandom(seed);
         float max = 40;

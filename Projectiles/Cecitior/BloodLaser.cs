@@ -27,7 +27,7 @@ internal class BloodLaser : ModProjectile
     public override bool PreDraw(ref Color lightColor)
     {
         SpriteBatch spriteBatch = Main.spriteBatch;
-        Texture2D tex = ExtraTextures.EbonianGatlingBullet.Value;
+        Texture2D tex = Assets.Extras.EbonianGatlingBullet.Value;
         var fadeMult = Helper.Safe(1f / Projectile.oldPos.Length);
         spriteBatch.Reload(BlendState.Additive);
         for (int i = 0; i < Projectile.oldPos.Length; i++)

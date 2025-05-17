@@ -61,14 +61,14 @@ public class FleshDice : ModNPC
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
         Texture2D tex = TextureAssets.Npc[Type].Value;
-        Texture2D glow = ExtraSpriteTextures.FleshDice_Glow.Value;
+        Texture2D glow = Assets.ExtraSprites.Crimson.FleshDice_Glow.Value;
 
-        Texture2D rolled1 = ExtraSpriteTextures.FleshDice_1.Value;
-        Texture2D rolled2 = ExtraSpriteTextures.FleshDice_2.Value;
-        Texture2D rolled3 = ExtraSpriteTextures.FleshDice_3.Value;
-        Texture2D rolled4 = ExtraSpriteTextures.FleshDice_4.Value;
-        Texture2D rolled5 = ExtraSpriteTextures.FleshDice_5.Value;
-        Texture2D rolled6 = ExtraSpriteTextures.FleshDice_6.Value;
+        Texture2D rolled1 = Assets.ExtraSprites.Crimson.FleshDice_1.Value;
+        Texture2D rolled2 = Assets.ExtraSprites.Crimson.FleshDice_2.Value;
+        Texture2D rolled3 = Assets.ExtraSprites.Crimson.FleshDice_3.Value;
+        Texture2D rolled4 = Assets.ExtraSprites.Crimson.FleshDice_4.Value;
+        Texture2D rolled5 = Assets.ExtraSprites.Crimson.FleshDice_5.Value;
+        Texture2D rolled6 = Assets.ExtraSprites.Crimson.FleshDice_6.Value;
 
         Vector2 origin = NPC.Size / 2;
         spriteBatch.Draw(tex, NPC.Center - Main.screenPosition, NPC.frame, drawColor, NPC.rotation, origin, NPC.scale, SpriteEffects.None, 0f);

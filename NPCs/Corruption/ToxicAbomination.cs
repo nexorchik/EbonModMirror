@@ -59,7 +59,7 @@ public class ToxicAbomination : ModNPC
     }
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
-        Texture2D tex = ExtraSpriteTextures.ToxicAbomination_Glow.Value;
+        Texture2D tex = Assets.ExtraSprites.Corruption.ToxicAbomination_Glow.Value;
         Texture2D tex2 = TextureAssets.Npc[Type].Value;
         SpriteEffects effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
         Main.EntitySpriteDraw(tex2, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.Size / 2, NPC.scale, effects, 0);

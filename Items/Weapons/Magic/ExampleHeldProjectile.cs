@@ -2,7 +2,7 @@
 
 public class ExampleHeldProjectile : ModItem
 {
-    public override string Texture => "EbonianMod/Items/Weapons/Magic/!ProjectileGraphics";
+    public override string Texture => "EbonianMod/Items/Weapons/Magic/ProjectileGraphics";
     public override bool IsLoadingEnabled(Mod mod) => false;
 
     public override void SetDefaults()
@@ -34,7 +34,7 @@ public class ExampleHeldProjectile : ModItem
 public class ProjectileGraphics : ModProjectile
 {
     public override bool IsLoadingEnabled(Mod mod) => false;
-    public override string Texture => "EbonianMod/Items/Weapons/Magic/!ProjectileGraphics";
+    public override string Texture => "EbonianMod/Items/Weapons/Magic/ProjectileGraphics";
 
     public override bool? CanDamage() => false;
 

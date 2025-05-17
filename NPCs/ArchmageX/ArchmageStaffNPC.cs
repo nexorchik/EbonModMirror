@@ -475,7 +475,7 @@ public class ArchmageStaffNPC : ModNPC
     {
         Texture2D tex = TextureAssets.Item[ItemType<StaffOfX>()].Value;
         Texture2D bloom = Helper.GetTexture("Items/Weapons/Magic/StaffOfX_Bloom").Value;
-        Texture2D streak = ExtraTextures2.scratch_02.Value;
+        Texture2D streak = Assets.Extras.Extras2.scratch_02.Value;
         if (NPC.IsABestiaryIconDummy)
         {
             NPC.rotation = PiOver4;

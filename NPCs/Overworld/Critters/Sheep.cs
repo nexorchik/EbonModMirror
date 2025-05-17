@@ -147,7 +147,7 @@ public class Sheep : ModNPC
         if (NPC.IsABestiaryIconDummy) return true;
         Texture2D tex = TextureAssets.Projectile[Type].Value;
         if (sheared)
-            tex = ExtraSpriteTextures.Sheep_Naked.Value;
+            tex = Assets.ExtraSprites.Overworld.Sheep_Naked.Value;
 
         string name = Main.LocalPlayer.name;
         name.ApplyCase(LetterCasing.LowerCase);
@@ -158,7 +158,7 @@ public class Sheep : ModNPC
     public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
         if (NPC.IsABestiaryIconDummy || sheared) return;
-        Texture2D tex = ExtraSpriteTextures.Sheep_Wool.Value;
+        Texture2D tex = Assets.ExtraSprites.Overworld.Sheep_Wool.Value;
         if (dyeId > 0 && !sheared)
         {
             string name = Main.LocalPlayer.name;

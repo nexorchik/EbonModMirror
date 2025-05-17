@@ -229,8 +229,8 @@ public class GoreBeam : ModProjectile
 
         float mult = 0.55f + (float)Math.Sin(Main.GlobalTimeWrappedHourly/* * 2*/) * 0.1f;
         float scale = Projectile.scale * 2;
-        Texture2D texture = ExtraTextures.explosion.Value;
-        Texture2D bolt = ExtraTextures.laser2.Value;
+        Texture2D texture = Assets.Extras.explosion.Value;
+        Texture2D bolt = Assets.Extras.laser2.Value;
         Main.spriteBatch.Reload(BlendState.Additive);
         float s = 1;
         if (points.Count > 2)

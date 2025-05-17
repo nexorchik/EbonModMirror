@@ -1128,8 +1128,8 @@ public class AImpact : ModProjectile
     }
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D tex1 = ExtraTextures2.scratch_02.Value;
-        Texture2D tex2 = ExtraTextures.cone4.Value;
+        Texture2D tex1 = Assets.Extras.Extras2.scratch_02.Value;
+        Texture2D tex2 = Assets.Extras.cone4.Value;
         UnifiedRandom rand = new UnifiedRandom(seed);
         float max = 30;
         float alpha = MathHelper.Lerp(0.5f, 0, Projectile.ai[1]) * 2;

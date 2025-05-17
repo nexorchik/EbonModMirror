@@ -67,7 +67,7 @@ public class ReiCapeP : ModProjectile
         for (int i = 0; i < smoke.Length; i++)
         {
             Smoke d = smoke[i];
-            Texture2D tex = ExtraTextures.explosion.Value;
+            Texture2D tex = Assets.Extras.explosion.Value;
             sb.Draw(tex, player.RotatedRelativePoint(player.MountedCenter) - d.position - Main.screenPosition, null, Color.White * d.scale * 10, 0, tex.Size() / 2, d.scale * 2, SpriteEffects.None, 0);
         }
         sb.Reload(BlendState.AlphaBlend);
@@ -216,8 +216,8 @@ public class ReiExplosion : ModProjectile
     {
         if (lightColor != Color.Transparent) return;
         if (seed == 0) seed = Main.rand.Next(9421814);
-        Texture2D tex = ExtraTextures.cone2.Value;
-        Texture2D tex2 = ExtraTextures2.trace_02.Value;
+        Texture2D tex = Assets.Extras.cone2.Value;
+        Texture2D tex2 = Assets.Extras.Extras2.trace_02.Value;
         UnifiedRandom rand = new UnifiedRandom(seed);
         Main.spriteBatch.Reload(BlendState.Additive);
         float max = 40;
@@ -248,8 +248,8 @@ public class ReiExplosion : ModProjectile
     }
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D tex = ExtraTextures.explosion.Value;
-        Texture2D tex2 = ExtraTextures2.star_09.Value;
+        Texture2D tex = Assets.Extras.explosion.Value;
+        Texture2D tex2 = Assets.Extras.Extras2.star_09.Value;
         Main.spriteBatch.Reload(BlendState.Additive);
         Texture2D texture = TextureAssets.Projectile[Type].Value;
 

@@ -88,7 +88,7 @@ public class CursedFireball : ModProjectile
 
     void DrawGlow()
     {
-        Texture2D texture = ExtraTextures.Bloom.Value;
+        Texture2D texture = Assets.Extras.Bloom.Value;
 
         Vector2 drawPosition = Projectile.Center - Main.screenPosition + new Vector2(0f, Projectile.gfxOffY);
 

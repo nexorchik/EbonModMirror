@@ -85,7 +85,7 @@ public class CecitiorEye : ModNPC
         Texture2D a = Helper.GetTexture("NPCs/Cecitior/CecitiorChain_base").Value;
         Texture2D glow = Helper.GetTexture("NPCs/Cecitior/CecitiorChain_base_Glow").Value;
         Texture2D b = TextureAssets.Npc[Type].Value;
-        Texture2D glow2 = ExtraSpriteTextures.CecitiorEye_Glow.Value;
+        Texture2D glow2 = Assets.ExtraSprites.Cecitior.CecitiorEye_Glow.Value;
         if (verlet != null)
         {
             spriteBatch.Draw(a, verlet.firstP.position - new Vector2(0, 20).RotatedBy(Helper.FromAToB(verlet.firstP.position, verlet.points[5].position, reverse: true).ToRotation() - 1.57f) - screenPos, null, drawColor, Helper.FromAToB(verlet.firstP.position, verlet.points[5].position, reverse: true).ToRotation() - 1.57f, a.Size() / 2, 1, SpriteEffects.None, 0);

@@ -27,9 +27,9 @@ public class CrimsonSpearP : HeldSword
     public override void PostDraw(Color lightColor)
     {
         Player player = Main.player[Projectile.owner];
-        Texture2D slash = ExtraTextures2.twirl_03.Value;
-        Texture2D stab = ExtraTextures2.trace_05.Value;
-        Texture2D spin = ExtraTextures2.light_02.Value;
+        Texture2D slash = Assets.Extras.Extras2.twirl_03.Value;
+        Texture2D stab = Assets.Extras.Extras2.trace_05.Value;
+        Texture2D spin = Assets.Extras.Extras2.light_02.Value;
         if (Projectile.localAI[0] != 0 && Projectile.localAI[0] <= 25)
         {
             float mult = Ease(Utils.GetLerpValue(0f, swingTime, Projectile.timeLeft));

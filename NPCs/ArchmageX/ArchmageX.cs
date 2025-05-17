@@ -90,14 +90,14 @@ public class ArchmageX : ModNPC
             headYOff = Lerp(headYOff, MathF.Sin((AITimer + headOffIncrementOffset) * 0.025f) * 2, 0.2f);
         }
         Texture2D tex = TextureAssets.Npc[Type].Value;
-        Texture2D singularArm = ExtraSpriteTextures.ArchmageX_Arm.Value;
-        Texture2D head = ExtraSpriteTextures.ArchmageX_Head.Value;
-        Texture2D headGlow = ExtraSpriteTextures.ArchmageX_HeadGlow.Value;
+        Texture2D singularArm = Assets.ExtraSprites.ArchmageX.ArchmageX_Arm.Value;
+        Texture2D head = Assets.ExtraSprites.ArchmageX.ArchmageX_Head.Value;
+        Texture2D headGlow = Assets.ExtraSprites.ArchmageX.ArchmageX_HeadGlow.Value;
         Texture2D manaPot = TextureAssets.Projectile[ProjectileType<XManaPotion>()].Value;
-        Texture2D staff = ExtraSpriteTextures.StaffOfXItem.Value;
+        Texture2D staff = Assets.ExtraSprites.ArchmageX.StaffOfXItem.Value;
         Texture2D bigStaff = TextureAssets.Item[ItemType<StaffOfX>()].Value;
-        Texture2D heli = ExtraSpriteTextures.ArchmageXHeli.Value;
-        Texture2D heliGlow = ExtraSpriteTextures.ArchmageXHeli_Glow.Value;
+        Texture2D heli = Assets.ExtraSprites.ArchmageX.ArchmageXHeli.Value;
+        Texture2D heliGlow = Assets.ExtraSprites.ArchmageX.ArchmageXHeli_Glow.Value;
 
         /*
         Vector2 staffP = NPC.Center + rightArmRot.ToRotationVector2().RotatedBy(MathHelper.Pi - MathHelper.PiOver4 * 0.8f + (MathHelper.ToRadians((headYOff + 2) * 4) * NPC.direction)) * 6;
@@ -185,7 +185,7 @@ public class ArchmageX : ModNPC
             arenaVFXOffset = 0;
         arenaVFXOffset = MathHelper.Clamp(arenaVFXOffset, float.Epsilon, 1 - float.Epsilon);
         List<VertexPositionColorTexture> verticesR = new List<VertexPositionColorTexture>();
-        Texture2D texture = ExtraTextures.wavyLaser2.Value;
+        Texture2D texture = Assets.Extras.wavyLaser2.Value;
         Vector2 startR = GetArenaRect().BottomRight() + Vector2.UnitY * 16 - Main.screenPosition;
         Vector2 offVert = (Helper.FromAToB(GetArenaRect().BottomRight() + Vector2.UnitY * 16, GetArenaRect().BottomRight() - Vector2.UnitY * 16 * 6, false));
         float rotVert = Helper.FromAToB(startR, startR + offVert).ToRotation();
@@ -224,7 +224,7 @@ public class ArchmageX : ModNPC
         Rectangle rect = new Rectangle(GetArenaRect().X - (int)Main.screenPosition.X, GetArenaRect().Y - (int)Main.screenPosition.Y, GetArenaRect().Width, GetArenaRect().Height);
 
         for (int i = 0; i < 5; i++)
-            Main.spriteBatch.Draw(ExtraTextures.pixel.Value, rect, Color.Indigo * arenaFlash);
+            Main.spriteBatch.Draw(Assets.Extras.pixel.Value, rect, Color.Indigo * arenaFlash);
         Main.spriteBatch.ApplySaved(sbParams);
 
     }

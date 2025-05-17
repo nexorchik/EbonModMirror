@@ -55,7 +55,7 @@ public class ArchmageXSpawnAnim : ModProjectile
     {
         EbonianMod.xareusGoopCache.Add(() =>
         {
-            Texture2D tex3 = ExtraTextures.crosslight.Value;
+            Texture2D tex3 = Assets.Extras.crosslight.Value;
             for (int i = 0; i < 4; i++)
             {
                 Main.spriteBatch.Draw(tex3, Projectile.Center - Main.screenPosition, null, Color.White * (glareAlpha), 0, tex3.Size() / 2, (glareAlpha) * .6f, SpriteEffects.None, 0);

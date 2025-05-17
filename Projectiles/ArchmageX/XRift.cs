@@ -60,8 +60,8 @@ public class XRift : ModProjectile
     {
         EbonianMod.finalDrawCache.Add(() =>
         {
-            Texture2D tex = ExtraTextures.vortex.Value;
-            Texture2D s_tex2 = ExtraTextures.cone7.Value;
+            Texture2D tex = Assets.Extras.vortex.Value;
+            Texture2D s_tex2 = Assets.Extras.cone7.Value;
 
             Main.spriteBatch.Reload(BlendState.Additive);
             Main.spriteBatch.Draw(s_tex2, Projectile.Center - Projectile.velocity * 30 - Main.screenPosition, null, Color.Indigo * Projectile.ai[2] * 0.5f, Projectile.velocity.ToRotation(), new Vector2(0, s_tex2.Height / 2), new Vector2(1, 2) * Projectile.ai[2] * 2, SpriteEffects.None, 0);
@@ -77,8 +77,8 @@ public class XRift : ModProjectile
                 float s = MathHelper.SmoothStep(Projectile.ai[2], 0, (float)i / 75);
                 Vector2 pos = Projectile.Center - new Vector2(i * s, 0).RotatedBy(Projectile.velocity.ToRotation());
                 /*if (i % 5 == 0)
-                    tex = ExtraTextures.vortex3");
-                else tex = ExtraTextures.vortex");*/
+                    tex = Assets.Extras.vortex3");
+                else tex = Assets.Extras.vortex");*/
                 Main.spriteBatch.Draw(tex, pos - Main.screenPosition, null, Color.White, Projectile.velocity.ToRotation() + MathHelper.PiOver2, tex.Size() / 2, /*(i % 5 == 0 ? s * 0.25f : s)*/s, i % 2 == 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0); ;
             }
             Main.spriteBatch.Reload(BlendState.AlphaBlend);
@@ -132,7 +132,7 @@ public class XRiftSmall : ModProjectile
     }
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D tex = ExtraTextures.vortex.Value;
+        Texture2D tex = Assets.Extras.vortex.Value;
         Vector2 scale = new Vector2(1f + Projectile.ai[1], 0.25f - Projectile.ai[1] * 0.5f);
         Main.spriteBatch.Reload(BlendState.Additive);
         Main.spriteBatch.Reload(EbonianMod.SpriteRotation.Value);
@@ -146,8 +146,8 @@ public class XRiftSmall : ModProjectile
             float s = MathHelper.SmoothStep(Projectile.ai[2] * 0.5f, 0, (float)i / 75);
             Vector2 pos = Projectile.Center - new Vector2(i * s, 0).RotatedBy(Projectile.velocity.ToRotation());
             /*if (i % 5 == 0)
-                tex = ExtraTextures.vortex3");
-            else tex = ExtraTextures.vortex");*/
+                tex = Assets.Extras.vortex3");
+            else tex = Assets.Extras.vortex");*/
             Main.spriteBatch.Draw(tex, pos + Main.rand.NextVector2Circular(5, 5) - Main.screenPosition, null, Color.White, Projectile.velocity.ToRotation() + MathHelper.PiOver2, tex.Size() / 2, /*(i % 5 == 0 ? s * 0.25f : s)*/s, i % 2 == 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0); ;
         }
         Main.spriteBatch.Reload(BlendState.AlphaBlend);

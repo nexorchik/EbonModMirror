@@ -81,8 +81,8 @@ public class XShadowflame : ModProjectile
     public override bool PreDraw(ref Color lightColor)
     {
         if (Projectile.timeLeft > 867) return false;
-        Texture2D tex = ExtraTextures.rune_alt.Value;
-        Texture2D bloom = ExtraTextures.rune_alt_bloom.Value;
+        Texture2D tex = Assets.Extras.rune_alt.Value;
+        Texture2D bloom = Assets.Extras.rune_alt_bloom.Value;
 
         SpritebatchParameters sbParams = Main.spriteBatch.Snapshot();
         Main.spriteBatch.End();

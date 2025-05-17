@@ -31,7 +31,7 @@ public class ReiSmoke : ModDust
         {
             if (d.type == DustType<ReiSmoke>() && d.active)
             {
-                Texture2D tex = ExtraTextures.fireball.Value;
+                Texture2D tex = Assets.Extras.fireball.Value;
                 sb.Draw(tex, d.position - Main.screenPosition, null, Color.White * d.scale * 10, 0, tex.Size() / 2, d.scale * 2, SpriteEffects.None, 0);
             }
         }

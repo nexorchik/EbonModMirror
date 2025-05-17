@@ -63,7 +63,7 @@ public class XKnife : ModProjectile
         Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         if (vertices.Count > 2)
         {
-            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, ExtraTextures.laser2.Value, false);
+            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.laser2.Value, false);
         }
         Main.spriteBatch.ApplySaved(sbParams);
         Main.EntitySpriteDraw(glow, Projectile.Center - Main.screenPosition, null, Color.Indigo with { A = 0 }, Projectile.rotation, glow.Size() / 2, Projectile.scale, SpriteEffects.None, 0);

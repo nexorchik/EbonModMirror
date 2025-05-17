@@ -116,8 +116,8 @@ public class Glutton : ModNPC
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 pos, Color lightColor)
     {
         Texture2D drawTexture = TextureAssets.Npc[Type].Value;
-        Texture2D glowTexture = ExtraSpriteTextures.Glutton_Glow.Value;
-        Texture2D bloomTexture = ExtraSpriteTextures.Glutton_Bloom.Value;
+        Texture2D glowTexture = Assets.ExtraSprites.Corruption.Glutton_Glow.Value;
+        Texture2D bloomTexture = Assets.ExtraSprites.Corruption.Glutton_Bloom.Value;
         Vector2 origin = new Vector2((drawTexture.Width / 2) * 0.5F, (drawTexture.Height / Main.npcFrameCount[NPC.type]) * 0.5F);
 
         Vector2 drawPos = new Vector2(

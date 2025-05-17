@@ -99,8 +99,8 @@ public class XLargeAmethyst : ModProjectile
         Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         if (vertices.Count > 2 && vertices2.Count > 2)
         {
-            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, ExtraTextures.wavyLaser, false);
-            Helper.DrawTexturedPrimitives(vertices2.ToArray(), PrimitiveType.TriangleStrip, ExtraTextures.wavyLaser, false);
+            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.wavyLaser, false);
+            Helper.DrawTexturedPrimitives(vertices2.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.wavyLaser, false);
         }
         Main.spriteBatch.ApplySaved(sbParams);
         for (int i = 0; i < 2; i++)
