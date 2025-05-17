@@ -5,21 +5,21 @@
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-	  <NoWarn>1701;1702;0436</NoWarn>
+		<NoWarn>1701;1702;0436</NoWarn>
 	</PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <NoWarn>1701;1702;0436</NoWarn>
+		<NoWarn>1701;1702;0436</NoWarn>
 	</PropertyGroup>
 	<ItemGroup>
 		<Folder Include="NPCs\Misc\" />
 	</ItemGroup>
 
 	<ItemGroup>
-		<Reference Include="StructureHelper">
-			<HintPath>lib\StructureHelper.dll</HintPath>
+		<Reference Include="Daybreak">
+			<HintPath>..\ModAssemblies\Daybreak_v1.2.1.dll</HintPath>
 		</Reference>
-		<Reference Include="SubworldLibrary">
-			<HintPath>lib\SubworldLibrary.dll</HintPath>
+		<Reference Include="StructureHelper">
+			<HintPath>..\ModAssemblies\StructureHelper_v3.0.1.dll</HintPath>
 		</Reference>
 	</ItemGroup>
 
