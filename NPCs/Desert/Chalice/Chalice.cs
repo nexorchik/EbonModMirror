@@ -5,8 +5,12 @@ namespace EbonianMod.NPCs.Desert;
 
 public class Chalice : ModNPC
 {
-    public override string Texture => Helper.Empty;
+    public override string Texture => "EbonianMod/NPCs/Desert/Chalice/Chalice";
 
+    public override void SetStaticDefaults()
+    {
+        Main.npcFrameCount[Type] = 5;
+    }
     public override void SetDefaults()
     {
         NPC.width = 28;
@@ -21,7 +25,7 @@ public class Chalice : ModNPC
 
     bool AimingMode, Animation;
     Vector2 Position;
-    float AttackCooldown, HoldOffset = 17, NeededRotation, Argument = 0;
+    float AttackCooldown, NeededRotation, Argument = 0;
 
     public override void OnSpawn(IEntitySource source)
     {
@@ -39,7 +43,6 @@ public class Chalice : ModNPC
         NPC.TargetClosest(true);
         NPC.velocity = Vector2.Zero;
         Player TargetPlayer = Main.player[NPC.target];
-        HoldOffset = Lerp(HoldOffset, 17, 0.1f);
         if (AimingMode == false)
         {
             Argument += 0.035f;
@@ -58,7 +61,6 @@ public class Chalice : ModNPC
                 SoundEngine.PlaySound(SoundID.Item17.WithPitchOffset(Main.rand.NextFloat(0.7f, 1.1f)), NPC.Center);
                 SoundEngine.PlaySound(SoundID.Item21.WithPitchOffset(Main.rand.NextFloat(0.2f, 0.5f)), NPC.Center);
                 MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (NPC.rotation - Pi / 2).ToRotationVector2() * 30, ProjectileType<AshBlast>(), 4, 0);
-                HoldOffset = 0;
             }
             if (Animation == true)
             {
@@ -77,22 +79,17 @@ public class Chalice : ModNPC
     public override bool CanHitPlayer(Player target, ref int cooldownSlot)
     {
         return true;
-    }
+    }   
 
-    public override void HitEffect(NPC.HitInfo hit)
+    public override void FindFrame(int frameHeight)
     {
-
-    }
-
-    public override void OnKill()
-    {
-
-    }
-
-    public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-    {
-        Texture2D texture = Helper.GetTexture("NPCs/Desert/Chalice/Chalice").Value;
-        spriteBatch.Draw(texture, NPC.Center - Main.screenPosition, null, drawColor, NPC.rotation, new Vector2(texture.Size().X / 2, HoldOffset), NPC.scale, NPC.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
-        return false;
+        NPC.frameCounter++;
+        if (NPC.frameCounter > 5)
+        {
+            NPC.frameCounter = 0;
+            NPC.frame.Y += frameHeight;
+            if (NPC.frame.Y > 4 * frameHeight)
+                NPC.frame.Y = 1;
+        }
     }
 }
