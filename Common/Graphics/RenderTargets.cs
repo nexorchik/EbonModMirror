@@ -11,68 +11,6 @@ public class RTHandler : ModSystem
     public static GarbageTarget garbageTarget => GetInstance<GarbageTarget>();
     public static XareusTarget xareusTarget => GetInstance<XareusTarget>();
 }
-public abstract class CommonRenderTarget : ARenderTargetContentByRequest, INeedRenderTargetContent, ILoadable
-{
-    public RenderTarget2D _target2;
-    public virtual ActionsCache[] Actions => null;
-    public void InvokeActions(int index)
-    {
-        if (Actions == null)
-            return;
-        if (Actions.Length > index && index >= 0)
-        {
-            Actions[index].InvokeAllAndClear();
-        }
-    }
-    public void InvokeActions(ActionsCache actions)
-    {
-        if (Actions == null)
-            return;
-        InvokeActions(Array.IndexOf(Actions, actions));
-    }
-    public void RequestAndPrepare()
-    {
-        Request();
-        PrepareRenderTarget(Main.graphics.GraphicsDevice, Main.spriteBatch);
-    }
-    public void PrepareATarget(ref RenderTarget2D rt, GraphicsDevice gd, int? width = null, int? height = null, RenderTargetUsage usage = RenderTargetUsage.PlatformContents) =>
-        PrepareARenderTarget_AndListenToEvents(ref rt, gd, width ?? Main.screenWidth, height ?? Main.screenHeight, usage);
-    public void PrepareAndSet(ref RenderTarget2D rt, GraphicsDevice gd, int? width = null, int? height = null,
-        RenderTargetUsage usage = RenderTargetUsage.PlatformContents, Color? clearColor = null)
-    {
-        PrepareATarget(ref rt, gd, width, height, usage);
-        gd.SetRenderTarget(rt);
-        gd.Clear(clearColor ?? Color.Transparent);
-    }
-    protected sealed override void HandleUseReqest(GraphicsDevice device, SpriteBatch spriteBatch)
-    {
-        var old = device.GetRenderTargets();
-
-        if (Actions?.Any() ?? false)
-        {
-            foreach (ActionsCache action in Actions)
-            {
-                if (!action.Any())
-                    return;
-            }
-        }
-        HandleUseRequest(device, spriteBatch); // Advancement. Evolution. Progress.
-
-        device.SetRenderTargets(old);
-        _wasPrepared = true;
-    }
-
-    public abstract void HandleUseRequest(GraphicsDevice device, SpriteBatch spriteBatch);
-    void ILoadable.Load(Mod mod) => Main.ContentThatNeedsRenderTargets.Add(this);
-    void ILoadable.Unload() => Main.ContentThatNeedsRenderTargets.Remove(this);
-    void INeedRenderTargetContent.Reset()
-    {
-        base.Reset();
-        _target2 = null;
-        OnReset();
-    }
-    public virtual void OnReset() { }
-}
 public class PixelationTarget : CommonRenderTarget
 {
     public override ActionsCache[] Actions => [EbonianMod.pixelationDrawCache];
