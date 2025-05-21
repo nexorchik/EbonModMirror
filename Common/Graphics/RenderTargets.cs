@@ -1,157 +1,130 @@
-﻿using System;
+﻿using EbonianMod.Common.Misc;
+using System;
 using System.Linq;
+using System.Security.Cryptography;
 
 namespace EbonianMod.Common.Graphics;
-
 public class RTHandler : ModSystem
 {
-    public static PixelationTarget pixelationTarget;
-    public static InvisibleTarget invisTarget;
-    public static GarbageTarget garbageTarget;
-    public static XareusTarget xareusTarget;
-    public override void Load()
-    {
-        Main.ContentThatNeedsRenderTargets.Add(pixelationTarget = new());
-        Main.ContentThatNeedsRenderTargets.Add(invisTarget = new());
-        Main.ContentThatNeedsRenderTargets.Add(garbageTarget = new());
-        Main.ContentThatNeedsRenderTargets.Add(xareusTarget = new());
-    }
-    public override void Unload()
-    {
-        Main.ContentThatNeedsRenderTargets.Remove(pixelationTarget);
-        Main.ContentThatNeedsRenderTargets.Remove(invisTarget);
-        Main.ContentThatNeedsRenderTargets.Remove(garbageTarget);
-        Main.ContentThatNeedsRenderTargets.Remove(xareusTarget);
-    }
+    public static PixelationTarget pixelationTarget => GetInstance<PixelationTarget>();
+    public static InvisibleTarget invisTarget => GetInstance<InvisibleTarget>();
+    public static GarbageTarget garbageTarget => GetInstance<GarbageTarget>();
+    public static XareusTarget xareusTarget => GetInstance<XareusTarget>();
 }
-public class PixelationTarget : ARenderTargetContentByRequest, INeedRenderTargetContent
+public abstract class CommonRenderTarget : ARenderTargetContentByRequest, INeedRenderTargetContent, ILoadable
 {
-    RenderTarget2D _target2;
-    private void Reset()
+    public RenderTarget2D _target2;
+    public virtual ActionsCache[] Actions => null;
+    public void InvokeActions(int index)
+    {
+        if (Actions == null)
+            return;
+        if (Actions.Length > index && index >= 0)
+        {
+            Actions[index].InvokeAllAndClear();
+        }
+    }
+    public void InvokeActions(ActionsCache actions)
+    {
+        if (Actions == null)
+            return;
+        InvokeActions(Array.IndexOf(Actions, actions));
+    }
+    public void RequestAndPrepare()
+    {
+        Request();
+        PrepareRenderTarget(Main.graphics.GraphicsDevice, Main.spriteBatch);
+    }
+    public void PrepareATarget(ref RenderTarget2D rt, GraphicsDevice gd, int? width = null, int? height = null, RenderTargetUsage usage = RenderTargetUsage.PlatformContents) =>
+        PrepareARenderTarget_AndListenToEvents(ref rt, gd, width ?? Main.screenWidth, height ?? Main.screenHeight, usage);
+    public void PrepareAndSet(ref RenderTarget2D rt, GraphicsDevice gd, int? width = null, int? height = null,
+        RenderTargetUsage usage = RenderTargetUsage.PlatformContents, Color? clearColor = null)
+    {
+        PrepareATarget(ref rt, gd, width, height, usage);
+        gd.SetRenderTarget(rt);
+        gd.Clear(clearColor ?? Color.Transparent);
+    }
+    protected sealed override void HandleUseReqest(GraphicsDevice device, SpriteBatch spriteBatch)
+    {
+        var old = device.GetRenderTargets();
+
+        if (Actions?.Any() ?? false)
+        {
+            foreach (ActionsCache action in Actions)
+            {
+                if (!action.Any())
+                    return;
+            }
+        }
+        HandleUseRequest(device, spriteBatch); // Advancement. Evolution. Progress.
+
+        device.SetRenderTargets(old);
+        _wasPrepared = true;
+    }
+
+    public abstract void HandleUseRequest(GraphicsDevice device, SpriteBatch spriteBatch);
+    void ILoadable.Load(Mod mod) => Main.ContentThatNeedsRenderTargets.Add(this);
+    void ILoadable.Unload() => Main.ContentThatNeedsRenderTargets.Remove(this);
+    void INeedRenderTargetContent.Reset()
     {
         base.Reset();
         _target2 = null;
+        OnReset();
     }
-    protected override void HandleUseReqest(GraphicsDevice gd, SpriteBatch sb)
+    public virtual void OnReset() { }
+}
+public class PixelationTarget : CommonRenderTarget
+{
+    public override ActionsCache[] Actions => [EbonianMod.pixelationDrawCache];
+    public override void HandleUseRequest(GraphicsDevice gd, SpriteBatch sb)
     {
-        if (!EbonianMod.pixelationDrawCache.Any() && !EbonianMod.addPixelationDrawCache.Any())
-            return;
-        PrepareARenderTarget_AndListenToEvents(ref _target, gd, Main.screenWidth, Main.screenHeight, RenderTargetUsage.PlatformContents);
-        PrepareARenderTarget_AndListenToEvents(ref _target2, gd, Main.screenWidth, Main.screenHeight, RenderTargetUsage.PlatformContents);
-        var old = gd.GetRenderTargets();
-        gd.SetRenderTargets(_target2);
-        gd.Clear(Color.Transparent);
-
-        sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null);
-
-        foreach (Action draw in EbonianMod.pixelationDrawCache)
-        {
-            draw?.Invoke();
-        }
+        PrepareAndSet(ref _target2, gd);
+        sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+        InvokeActions(0);
         sb.End();
 
-        sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null);
-        foreach (Action draw in EbonianMod.addPixelationDrawCache)
-        {
-            draw?.Invoke();
-        }
-        sb.End();
-        EbonianMod.addPixelationDrawCache.Clear();
-        EbonianMod.pixelationDrawCache.Clear();
-
-        gd.SetRenderTargets(_target);
-        gd.Clear(Color.Transparent);
+        PrepareAndSet(ref _target, gd);
         sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, EbonianMod.colorQuant.Value, Matrix.Identity);
         EbonianMod.colorQuant.Value.Parameters["res"].SetValue(32);
         sb.Draw(_target2, new Rectangle(0, 0, (int)(Main.screenWidth / (1 + Main.GameZoomTarget)), (int)(Main.screenHeight / (1 + Main.GameZoomTarget))), Color.White);
         sb.End();
-
-        gd.SetRenderTargets(old);
-        _wasPrepared = true;
     }
 }
-public sealed class InvisibleTarget : ARenderTargetContentByRequest, INeedRenderTargetContent // if he's invisible how did he die
+public sealed class InvisibleTarget : CommonRenderTarget// if he's invisible how did he die
 {
-    public RenderTarget2D _target2;
-    private void Reset()
+    public override ActionsCache[] Actions => [EbonianMod.affectedByInvisibleMaskCache, EbonianMod.invisibleMaskCache];
+    public override void HandleUseRequest(GraphicsDevice gd, SpriteBatch sb)
     {
-        base.Reset();
-        _target2 = null;
-    }
-    protected override void HandleUseReqest(GraphicsDevice gd, SpriteBatch sb)
-    {
-        if (!EbonianMod.affectedByInvisibleMaskCache.Any() && !EbonianMod.invisibleMaskCache.Any())
-            return;
-        PrepareARenderTarget_AndListenToEvents(ref _target, gd, Main.screenWidth, Main.screenHeight, RenderTargetUsage.PlatformContents);
-        PrepareARenderTarget_AndListenToEvents(ref _target2, gd, Main.screenWidth, Main.screenHeight, RenderTargetUsage.PlatformContents);
-        var old = gd.GetRenderTargets();
-        gd.SetRenderTargets(_target2);
-        gd.Clear(Color.Transparent);
-
-        sb.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
-        foreach (Action draw in EbonianMod.affectedByInvisibleMaskCache)
-        {
-            draw?.Invoke();
-        }
-        EbonianMod.affectedByInvisibleMaskCache.Clear();
+        PrepareAndSet(ref _target2, gd);
+        sb.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+        InvokeActions(0);
         sb.End();
 
-        gd.SetRenderTargets(_target);
-        gd.Clear(Color.Transparent);
-
-        sb.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
-        foreach (Action draw in EbonianMod.invisibleMaskCache)
-        {
-            draw?.Invoke();
-        }
-        EbonianMod.invisibleMaskCache.Clear();
+        PrepareAndSet(ref _target, gd);
+        sb.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+        InvokeActions(1);
         sb.End();
-
-        gd.SetRenderTargets(old);
-        _wasPrepared = true;
     }
 }
-public sealed class GarbageTarget : ARenderTargetContentByRequest
+public sealed class GarbageTarget : CommonRenderTarget
 {
-    protected override void HandleUseReqest(GraphicsDevice gd, SpriteBatch sb)
+    public override ActionsCache[] Actions => [EbonianMod.garbageFlameCache];
+    public override void HandleUseRequest(GraphicsDevice gd, SpriteBatch sb)
     {
-        if (!EbonianMod.garbageFlameCache.Any()) return;
-        PrepareARenderTarget_AndListenToEvents(ref _target, gd, Main.screenWidth, Main.screenHeight, RenderTargetUsage.PlatformContents);
-        var old = gd.GetRenderTargets();
-        gd.SetRenderTargets(_target);
-        gd.Clear(Color.Transparent);
-
+        PrepareAndSet(ref _target, gd);
         sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-        foreach (Action draw in EbonianMod.garbageFlameCache)
-        {
-            draw?.Invoke();
-        }
+        InvokeActions(0);
         sb.End();
-        EbonianMod.garbageFlameCache.Clear();
-
-        gd.SetRenderTargets(old);
-        _wasPrepared = true;
     }
 }
-public sealed class XareusTarget : ARenderTargetContentByRequest
+public sealed class XareusTarget : CommonRenderTarget
 {
-    protected override void HandleUseReqest(GraphicsDevice gd, SpriteBatch sb)
+    public override ActionsCache[] Actions => [EbonianMod.xareusGoopCache];
+    public override void HandleUseRequest(GraphicsDevice gd, SpriteBatch sb)
     {
-        if (!EbonianMod.xareusGoopCache.Any()) return;
-        PrepareARenderTarget_AndListenToEvents(ref _target, gd, Main.screenWidth, Main.screenHeight, RenderTargetUsage.PlatformContents);
-        var old = gd.GetRenderTargets();
-        gd.SetRenderTargets(_target);
-        gd.Clear(Color.Transparent);
-
+        PrepareAndSet(ref _target, gd);
         sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-        foreach (Action draw in EbonianMod.xareusGoopCache)
-        {
-            draw?.Invoke();
-        }
+        InvokeActions(0);
         sb.End();
-        EbonianMod.xareusGoopCache.Clear();
-
-        gd.SetRenderTargets(old);
-        _wasPrepared = true;
     }
 }

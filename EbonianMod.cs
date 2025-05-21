@@ -1,5 +1,6 @@
 using EbonianMod.Common.Graphics;
 using EbonianMod.Common.Graphics.Skies;
+using EbonianMod.Common.Misc;
 using EbonianMod.NPCs.Aureus;
 using System;
 using System.Collections.Generic;
@@ -25,38 +26,18 @@ public class EbonianMod : Mod
         Main.OnResolutionChanged += (Vector2 obj) => CreateRender();
         CreateRender();
     }
-    public override void Unload()
-    {
-        projectileFinalDrawList.Clear();
-        ResetCache(ref invisibleMaskCache);
-        ResetCache(ref affectedByInvisibleMaskCache);
-        ResetCache(ref blurDrawCache);
-        ResetCache(ref pixelationDrawCache);
-        ResetCache(ref addPixelationDrawCache);
-        ResetCache(ref finalDrawCache);
-        ResetCache(ref garbageFlameCache);
-        ResetCache(ref xareusGoopCache);
-    }
-    public static List<Action> invisibleMaskCache = [], affectedByInvisibleMaskCache = [],
-        blurDrawCache = [], pixelationDrawCache = [], addPixelationDrawCache = [],
-        finalDrawCache = [], garbageFlameCache = [], xareusGoopCache = [];
+    public static ActionsCache invisibleMaskCache = [], affectedByInvisibleMaskCache = [],
+        blurDrawCache = [], pixelationDrawCache = [], finalDrawCache = [], garbageFlameCache = [],
+        xareusGoopCache = [];
     public void LoadDrawCache()
     {
         invisibleMaskCache ??= [];
         affectedByInvisibleMaskCache ??= [];
         blurDrawCache ??= [];
         pixelationDrawCache ??= [];
-        pixelationDrawCache ??= [];
-        addPixelationDrawCache ??= [];
-        addPixelationDrawCache ??= [];
         finalDrawCache ??= [];
         garbageFlameCache ??= [];
         xareusGoopCache ??= [];
-    }
-    public void ResetCache(ref List<Action> cache)
-    {
-        cache.Clear();
-        cache = [];
     }
 
 

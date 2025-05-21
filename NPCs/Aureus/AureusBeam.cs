@@ -78,7 +78,7 @@ public class AureusBeam : ModProjectile
         float progress = Utils.GetLerpValue(0, 165, Projectile.timeLeft);
         float i_progress = MathHelper.Clamp(MathHelper.SmoothStep(1, 0.2f, progress) * 50, 0, 1 / MathHelper.Clamp(startSize, 1, 2));
 
-        EbonianMod.addPixelationDrawCache.Add(() =>
+        EbonianMod.pixelationDrawCache.Add(() =>
         DrawVertices(Projectile.velocity.ToRotation(), texture, texture2, i_progress, 3));
         return false;
     }
@@ -109,13 +109,13 @@ public class AureusBeam : ModProjectile
             float _off2 = __off + i;
 
             Color col = Color.Teal * (s * s * 2f * alphaOffset);
-            vertices.Add(Helper.AsVertex(start + off * i + new Vector2(100, 0).RotatedBy(rot + MathHelper.PiOver2) * i_progress, new Vector2(_off, 1), col * Projectile.scale));
+            vertices.Add(Helper.AsVertex(start + off * i + new Vector2(100, 0).RotatedBy(rot + MathHelper.PiOver2) * i_progress, new Vector2(_off, 1), col with { A = 0 } * Projectile.scale));
             col = Color.OrangeRed * (s * s * 2f * alphaOffset);
-            vertices.Add(Helper.AsVertex(start + off * i + new Vector2(100, 0).RotatedBy(rot - MathHelper.PiOver2) * i_progress, new Vector2(_off, 0), col * Projectile.scale));
+            vertices.Add(Helper.AsVertex(start + off * i + new Vector2(100, 0).RotatedBy(rot - MathHelper.PiOver2) * i_progress, new Vector2(_off, 0), col with { A = 0 } * Projectile.scale));
 
             col = Color.White * 0.1f * (s * s);
-            vertices2.Add(Helper.AsVertex(start + off * i + new Vector2(100, 0).RotatedBy(rot + MathHelper.PiOver2) * i_progress, new Vector2(_off2, 1), col * Projectile.scale));
-            vertices2.Add(Helper.AsVertex(start + off * i + new Vector2(100, 0).RotatedBy(rot - MathHelper.PiOver2) * i_progress, new Vector2(_off2, 0), col * Projectile.scale));
+            vertices2.Add(Helper.AsVertex(start + off * i + new Vector2(100, 0).RotatedBy(rot + MathHelper.PiOver2) * i_progress, new Vector2(_off2, 1), col with { A = 0 } * Projectile.scale));
+            vertices2.Add(Helper.AsVertex(start + off * i + new Vector2(100, 0).RotatedBy(rot - MathHelper.PiOver2) * i_progress, new Vector2(_off2, 0), col with { A = 0 } * Projectile.scale));
         }
 
         Main.spriteBatch.End();

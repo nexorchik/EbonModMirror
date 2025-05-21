@@ -101,6 +101,9 @@ public class DrawDetours : ModSystem
             Main.spriteBatch.Draw(Assets.Extras.Line.Value, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black * EbonianSystem.DarkAlpha);
         }
         Main.spriteBatch.End();
+
+        if (!Main.gameMenu && !(Lighting.Mode == Terraria.Graphics.Light.LightMode.Trippy && Lighting.Mode == Terraria.Graphics.Light.LightMode.Retro))
+            DrawPixelatedContent(Main.spriteBatch);
     }
 
     void PreDraw(On_Main.orig_DrawPlayers_AfterProjectiles orig, Main self)
@@ -126,7 +129,7 @@ public class DrawDetours : ModSystem
 
             if (EbonianMod.garbageFlameCache.Any())
             {
-                RTHandler.garbageTarget.Request();
+                RTHandler.garbageTarget.RequestAndPrepare();
                 if (RTHandler.garbageTarget.IsReady)
                 {
                     sb.Begin();
@@ -159,8 +162,6 @@ public class DrawDetours : ModSystem
 
         if (!Main.gameMenu && !(Lighting.Mode == Terraria.Graphics.Light.LightMode.Trippy && Lighting.Mode == Terraria.Graphics.Light.LightMode.Retro) && gd.GetRenderTargets().Contains(Main.screenTarget))
         {
-            DrawPixelatedContent(sb);
-
             DrawInvisMasks(sb, gd);
 
             if (EbonianMod.blurDrawCache.Any())
@@ -173,9 +174,9 @@ public class DrawDetours : ModSystem
     }
     void DrawPixelatedContent(SpriteBatch sb)
     {
-        if (EbonianMod.pixelationDrawCache.Any() || EbonianMod.addPixelationDrawCache.Any())
+        if (EbonianMod.pixelationDrawCache.Any())
         {
-            RTHandler.pixelationTarget.Request();
+            RTHandler.pixelationTarget.RequestAndPrepare();
             if (RTHandler.pixelationTarget.IsReady)
             {
                 sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise);
@@ -188,7 +189,7 @@ public class DrawDetours : ModSystem
     {
         if (EbonianMod.invisibleMaskCache.Any() || EbonianMod.affectedByInvisibleMaskCache.Any())
         {
-            RTHandler.invisTarget.Request();
+            RTHandler.invisTarget.RequestAndPrepare();
             if (RTHandler.invisTarget.IsReady)
             {
                 sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
@@ -228,7 +229,7 @@ public class DrawDetours : ModSystem
     {
         if (EbonianMod.xareusGoopCache.Any())
         {
-            RTHandler.xareusTarget.Request();
+            RTHandler.xareusTarget.RequestAndPrepare();
             if (RTHandler.xareusTarget.IsReady)
             {
                 sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);

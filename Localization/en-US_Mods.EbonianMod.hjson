@@ -333,6 +333,8 @@ Projectiles: {
 	BorealBladeSlashP.DisplayName: Boreal Blade Slash P
 	ThawGauntletP.DisplayName: Thaw Gauntlet P
 	ThawGauntletP2.DisplayName: Thaw Gauntlet P2
+	CenturySpewerSpore.DisplayName: Century Spewer Spore
+	CenturyFlowerSpore.DisplayName: Century Flower Spore
 }
 
 NPCs: {
@@ -651,6 +653,11 @@ NPCs: {
 	BorealBlade: {
 		DisplayName: Boreal Blade
 		Bestiary: Also known as Knights of the Boreal, Boreal Blades are ice constructs animated by magic and the many souls frozen beneath the tundra.
+	}
+
+	CenturyFlower: {
+		DisplayName: Century Flower
+		Bestiary: These unique plants are capable of spewing large clouds of spores, dangerous to much of the wildlife. Their age makes them extremely irrational and ill-tempered, spewing their suffocating spores at anything they deem to be less wise.
 	}
 
 	PebbiSwarm.DisplayName: Pebbi Swarm
@@ -1467,6 +1474,11 @@ Items: {
 		DisplayName: Cold Touch
 		Tooltip: ""
 	}
+
+	CenturySprayer: {
+		DisplayName: Century Sprayer
+		Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -1563,6 +1575,11 @@ Buffs: {
 	LilPilgB: {
 		DisplayName: Lil' Missionary
 		Description: She wants to teach you about the stars!
+	}
+
+	NPCSuffocating: {
+		DisplayName: N P C Suffocating
+		Description: Mods.EbonianMod.Buffs.NPCSuffocating.Description
 	}
 }
 

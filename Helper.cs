@@ -15,6 +15,8 @@ public static class Helper
 
     public static string BestiaryKey(this NPC npc) => "Mods.EbonianMod.NPCs." + npc.ModNPC.Name + ".Bestiary";
 
+    public static int HostileProjDmg(int normal, int expert, int master) => Main.masterMode ? master / 6 : (Main.expertMode ? expert / 4 : normal / 2);
+
     public static void AddCameraModifier(ICameraModifier modifier)
     {
         if (!Main.dedServ)
@@ -107,7 +109,6 @@ public static class Helper
             return true;
         for (int i = 0; i < entity.width * offsetX; i += (int)(1 / (offsetX == 0 ? 1 : offsetX))) //full sprite check
         {
-
             bool a = TRay.CastLength(entity.BottomLeft + Vector2.UnitX * i, Vector2.UnitY, entity.height * offset * 2) < entity.height * offset;
             if (!a)
                 continue;
@@ -138,26 +139,8 @@ public static class Helper
     {
         return new VertexPositionColorTexture(position, color, texCoord);
     }
-    private static int width;
-    private static int height;
-    private static Vector2 zoom;
     private static Matrix view;
     private static Matrix projection;
-    private static bool CheckGraphicsChanged()
-    {
-        var device = Main.graphics.GraphicsDevice;
-        bool changed = device.Viewport.Width != width
-                       || device.Viewport.Height != height
-                       || Main.GameViewMatrix.Zoom != zoom;
-
-        if (!changed) return false;
-
-        width = device.Viewport.Width;
-        height = device.Viewport.Height;
-        zoom = Main.GameViewMatrix.Zoom;
-
-        return true;
-    }
 
     /// <summary>
     /// used for uuhhhhh evenly distrubuted velocity or sum shit i forgor
@@ -323,18 +306,6 @@ public static class Helper
     {
         return EbonianMod.Instance.Assets.Request<Texture2D>(path, assetRequestMode);
     }
-    public static Vector4 ColorToVector4(Color color)
-    {
-        return new Vector4(color.R / 255f, color.G / 255f, color.B / 255f, color.A / 255f);
-    }
-    public static Vector4 ColorToVector4(Vector4 color)
-    {
-        return new Vector4(color.X / 255f, color.Y / 255f, color.Z / 255f, color.W / 255f);
-    }
-    public static Vector4 ColorToVector4(Vector3 color)
-    {
-        return new Vector4(color.X / 255f, color.Y / 255f, color.Z / 255f, 1);
-    }
     public static void SineMovement(this Projectile projectile, Vector2 initialCenter, Vector2 initialVel, float frequencyMultiplier, float amplitude)
     {
         projectile.ai[1]++;
@@ -389,10 +360,9 @@ public static class Helper
             Gore.NewGore(NPC.GetSource_OnHit(NPC), position + new Vector2(Main.rand.Next(-20, 20), Main.rand.Next(-20, 20)), vel, gore, scale);
         }
     }
-    public static bool InRange(this float f, float target, float range = 1f)
-    {
-        return f > target - range && f < target + range;
-    }
+    public static bool InRange(this float f, float target, float range = 1f) => f > target - range && f < target + range;
+    public static bool InRange(this int f, int target, int range = 1) => f > target - range && f < target + range;
+    public static bool InRange(this double f, double target, double range = 1.0) => f > target - range && f < target + range;
     public static void DustExplosion(Vector2 pos, Vector2 size = default, int type = 0, Color color = default, bool sound = true, bool smoke = true, float scaleFactor = 1, float increment = 0.125f, Vector2 _vel = default, float MinMulti = 1, float MaxMulti = 1)
     {
         int dustType = DustType<Dusts.ColoredFireDust>();
