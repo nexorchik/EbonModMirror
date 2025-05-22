@@ -20,10 +20,10 @@ public class ReiCapeP : ModProjectile
     public override void OnSpawn(IEntitySource source)
     {
         Player player = Main.player[Projectile.owner];
-        v = new(player.RotatedRelativePoint(player.MountedCenter) - new Vector2(0, 14), 1, 40, -0.2f, true, false, 25, false);
+        v = new(player.RotatedRelativePoint(player.MountedCenter) - new Vector2(0, 14 * player.gravDir), 1, 40, -0.2f, true, false, 25, false);
         for (int i = 0; i < 80; i++)
         {
-            v.Update(player.RotatedRelativePoint(player.MountedCenter) - new Vector2(0, 14), Projectile.Center);
+            v.Update(player.RotatedRelativePoint(player.MountedCenter) - new Vector2(0, 14 * player.gravDir), Projectile.Center);
             v.lastP.position -= Vector2.UnitX * player.direction * (10f + (MathF.Sin(Main.GlobalTimeWrappedHourly) + 1) * 2);
         }
 
@@ -99,7 +99,7 @@ public class ReiCapeP : ModProjectile
         {
             for (int i = 0; i < 5; i++)
             {
-                v.Update(player.RotatedRelativePoint(player.MountedCenter) - new Vector2(0, 14), Projectile.Center);
+                v.Update(player.RotatedRelativePoint(player.MountedCenter) - new Vector2(0, 14 * player.gravDir), Projectile.Center);
                 v.lastP.position -= Vector2.Lerp(Vector2.UnitX * player.direction * (10f + (MathF.Sin(Main.GlobalTimeWrappedHourly) + 1) * 2),
                     player.velocity, Clamp(player.velocity.Length() / 15f, 0, 1));
             }
@@ -110,7 +110,7 @@ public class ReiCapeP : ModProjectile
         Player player = Main.player[Projectile.owner];
         if (v != null)
         {
-            v.firstP.position = player.RotatedRelativePoint(player.MountedCenter) - new Vector2(0, 14);
+            v.firstP.position = player.RotatedRelativePoint(player.MountedCenter) - new Vector2(0, 14 * player.gravDir);
         }
         return true;
     }
@@ -119,7 +119,7 @@ public class ReiCapeP : ModProjectile
         Player player = Main.player[Projectile.owner];
         if (v != null)
         {
-            v.firstP.position = player.RotatedRelativePoint(player.MountedCenter) - new Vector2(0, 14);
+            v.firstP.position = player.RotatedRelativePoint(player.MountedCenter) - new Vector2(0, 14 * player.gravDir);
         }
     }
     public override bool PreDraw(ref Color lightColor)
