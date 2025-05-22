@@ -34,20 +34,25 @@ public static class SpritebatchExtensions
         SpritebatchParameters sbParams = new(sortMode, blendState, samplerState, depthStencilState, rasterizerState, effect, matrix);
         return sbParams;
     }
-
-    public static void ApplySaved(this SpriteBatch spriteBatch, SpritebatchParameters sbParams)
+    public static SpritebatchParameters Snapshot(this SpriteBatch spriteBatch, out SpritebatchParameters sbParams)
     {
-        if (spriteBatch.beginCalled)
-        {
-            spriteBatch.End();
-        }
+        sbParams = spriteBatch.Snapshot();
+        return sbParams;
+    }
+
+    public static void ApplySaved(this SpriteBatch spriteBatch, in SpritebatchParameters sbParams)
+    {
         SpriteSortMode sortMode = sbParams.sortMode;
         BlendState blendState = sbParams.blendState;
         SamplerState samplerState = sbParams.samplerState;
         DepthStencilState depthStencilState = sbParams.depthStencilState;
         RasterizerState rasterizerState = sbParams.rasterizerState;
         Effect effect = sbParams.effect;
-        spriteBatch.Begin(sortMode, blendState, samplerState, depthStencilState, rasterizerState, effect, sbParams.matrix);
+        Matrix matrix = sbParams.matrix;
+
+        if (spriteBatch.beginCalled)
+            spriteBatch.End();
+        spriteBatch.Begin(sortMode, blendState, samplerState, depthStencilState, rasterizerState, effect, matrix);
     }
     public static void BeginDefault(this SpriteBatch spriteBatch) => spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
     public static bool BeginCalled(this SpriteBatch spriteBatch) => spriteBatch.beginCalled;

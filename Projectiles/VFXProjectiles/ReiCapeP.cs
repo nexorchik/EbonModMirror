@@ -66,13 +66,13 @@ public class ReiCapeP : ModProjectile
                 smoke[i].velocity *= 0.85f;
             if (smoke[i].scale <= 0)
             {
-                smoke[i].position = new Vector2(0, player.height / 2 - 10);
                 Vector2 vel = new Vector2(-player.velocity.X * Main.rand.NextFloat(0, 0.2f) + Main.rand.NextFloat(0, 2f) * -player.direction, Main.rand.NextFloat(-2f, -0.25f) + MathHelper.Lerp(0, 1f, MathHelper.Clamp(player.velocity.X * (player.velocity.X < 0 ? -1 : 1) * 0.1f, 0, 1f)));
                 if (v != null && !Main.rand.NextBool(5))
                     smoke[i].velocity = Helper.FromAToB(player.Center, v.lastP.position).RotatedByRandom(PiOver4) * vel.Length();
                 else
                     smoke[i].velocity = vel;
-                smoke[i].scale = Main.rand.NextFloat(0.01f, 0.05f);
+                smoke[i].position = new Vector2(0, player.height / 2 - 10) + vel;
+                smoke[i].scale = Main.rand.NextFloat(0.01f, 0.045f);
             }
         }
     }
@@ -83,7 +83,7 @@ public class ReiCapeP : ModProjectile
         {
             Smoke d = smoke[i];
             Texture2D tex = Assets.Extras.explosion.Value;
-            sb.Draw(tex, player.RotatedRelativePoint(player.MountedCenter) - d.position - Main.screenPosition, null, Color.White * d.scale * 7, 0, tex.Size() / 2, d.scale * 2, SpriteEffects.None, 0);
+            sb.Draw(tex, player.RotatedRelativePoint(player.MountedCenter) - d.position - Main.screenPosition, null, Color.White * d.scale * 10, 0, tex.Size() / 2, d.scale * 2, SpriteEffects.None, 0);
         }
     }
     public override void AI()
@@ -103,7 +103,8 @@ public class ReiCapeP : ModProjectile
             for (int i = 0; i < 5; i++)
             {
                 v.Update(player.RotatedRelativePoint(player.MountedCenter) - new Vector2(0, 14), Projectile.Center);
-                v.lastP.position -= Vector2.UnitX * player.direction * (10f + (MathF.Sin(Main.GlobalTimeWrappedHourly) + 1) * 2);
+                v.lastP.position -= Vector2.Lerp(Vector2.UnitX * player.direction * (10f + (MathF.Sin(Main.GlobalTimeWrappedHourly) + 1) * 2),
+                    player.velocity, Clamp(player.velocity.Length() / 15f, 0, 1));
             }
         }
     }
@@ -126,9 +127,6 @@ public class ReiCapeP : ModProjectile
     }
     public override bool PreDraw(ref Color lightColor)
     {
-        Player player = Main.player[Projectile.owner];
-        if (Main.gameInactive || Main.gamePaused)
-            return true;
         return true;
     }
     public override bool PreDrawExtras()
@@ -140,14 +138,10 @@ public class ReiCapeP : ModProjectile
     public override void PostDraw(Color lightColor)
     {
         Player player = Main.player[Projectile.owner];
+        SpritebatchParameters sbParams = Main.spriteBatch.Snapshot();
         if (v != null)
         {
-            List<VertexPositionColorTexture>[] vertex = new List<VertexPositionColorTexture>[3]
-            {
-                new(),
-                new(),
-                new()
-            };
+            List<VertexPositionColorTexture>[] vertex = new List<VertexPositionColorTexture>[3] { new(), new(), new() };
             for (int i = 0; i < v.points.Count; i++)
             {
                 if (i != 1 && (i == 0 || i % 3 > 1)) continue;
@@ -168,22 +162,21 @@ public class ReiCapeP : ModProjectile
                 for (int j = -1; j < 2; j++)
                 {
                     float _rot = j * 0.1f;
-                    float off = mult + Main.GlobalTimeWrappedHourly * (-1 - (j == 0 ? 2 : 0));
+                    float off = mult + Main.GlobalTimeWrappedHourly * (-0.5f - (j == 0 ? 0.5f : 0));
                     vertex[j + 1].Add(Helper.AsVertex(basePos + Helper.FromAToB(basePos, pos, false).RotatedBy(_rot) + new Vector2(10, 0).RotatedBy(rot + PiOver2 + _rot), col, new Vector2(off, 0)));
                     vertex[j + 1].Add(Helper.AsVertex(basePos + Helper.FromAToB(basePos, pos, false).RotatedBy(_rot) + new Vector2(10, 0).RotatedBy(rot - PiOver2 + _rot), col, new Vector2(off, 1)));
                 }
             }
             if (vertex[0].Count > 2)
             {
-                SpritebatchParameters sbParams = Main.spriteBatch.Snapshot();
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, MiscDrawingMethods.Subtractive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
                 DrawSmoke(Main.spriteBatch);
                 for (int j = 0; j < 3; j++)
                     Helper.DrawTexturedPrimitives(vertex[j].ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.wavyLaser2, false);
-                Main.spriteBatch.ApplySaved(sbParams);
             }
         }
+        Main.spriteBatch.ApplySaved(sbParams);
     }
 }
 public class ReiCapeTrail : ModProjectile
