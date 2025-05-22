@@ -1,5 +1,10 @@
 ﻿using EbonianMod.Common.Systems.Verlets;
 using EbonianMod.Effects.Prims;
+using System;
+using System.Collections.Generic;
+using Terraria.Chat;
+using Terraria.UI.Chat;
+using Terraria.Utilities.Terraria.Utilities;
 
 namespace EbonianMod.Projectiles.VFXProjectiles;
 
@@ -7,16 +12,23 @@ public class ReiCapeP : ModProjectile
 {
     public override string Texture => Helper.Empty;
     Verlet[] verlet = new Verlet[9];
+    Verlet v;
     public override void SetStaticDefaults()
     {
-        ProjectileID.Sets.TrailCacheLength[Type] = 40;
+        ProjectileID.Sets.TrailCacheLength[Type] = 5;
         ProjectileID.Sets.TrailingMode[Type] = 2;
     }
     public override void OnSpawn(IEntitySource source)
     {
         Player player = Main.player[Projectile.owner];
         for (int i = 0; i < 9; i++)
-            verlet[i] = new Verlet(player.RotatedRelativePoint(player.MountedCenter) - new Vector2(0, 5), 1, 20, 0.5f, true, false, 20, false);
+            verlet[i] = new Verlet(player.RotatedRelativePoint(player.MountedCenter) - new Vector2(0, 14), 1, 20, 0.5f, true, false, 20, false);
+        v = new(player.RotatedRelativePoint(player.MountedCenter) - new Vector2(0, 14), 1, 40, -0.2f, true, false, 25, false);
+        for (int i = 0; i < 80; i++)
+        {
+            v.Update(player.RotatedRelativePoint(player.MountedCenter) - new Vector2(0, 14), Projectile.Center);
+            v.lastP.position -= Vector2.UnitX * player.direction * (10f + (MathF.Sin(Main.GlobalTimeWrappedHourly) + 1) * 2);
+        }
 
         for (int i = 0; i < smoke.Length; i++)
         {
@@ -48,14 +60,18 @@ public class ReiCapeP : ModProjectile
         for (int i = 0; i < smoke.Length; i++)
         {
             smoke[i].position -= smoke[i].velocity;
-            smoke[i].scale -= 0.0005f;
+            smoke[i].scale -= 0.0015f;
             smoke[i].velocity *= 0.95f;
             if (smoke[i].scale < 0.005f)
                 smoke[i].velocity *= 0.85f;
             if (smoke[i].scale <= 0)
             {
                 smoke[i].position = new Vector2(0, player.height / 2 - 10);
-                smoke[i].velocity = new Vector2(-player.velocity.X * Main.rand.NextFloat(0, 0.2f) + Main.rand.NextFloat(0, 2f) * -player.direction, Main.rand.NextFloat(-2f, -0.25f) + MathHelper.Lerp(0, 1f, MathHelper.Clamp(player.velocity.X * (player.velocity.X < 0 ? -1 : 1) * 0.1f, 0, 1f)));
+                Vector2 vel = new Vector2(-player.velocity.X * Main.rand.NextFloat(0, 0.2f) + Main.rand.NextFloat(0, 2f) * -player.direction, Main.rand.NextFloat(-2f, -0.25f) + MathHelper.Lerp(0, 1f, MathHelper.Clamp(player.velocity.X * (player.velocity.X < 0 ? -1 : 1) * 0.1f, 0, 1f)));
+                if (v != null && !Main.rand.NextBool(5))
+                    smoke[i].velocity = Helper.FromAToB(player.Center, v.lastP.position).RotatedByRandom(PiOver4) * vel.Length();
+                else
+                    smoke[i].velocity = vel;
                 smoke[i].scale = Main.rand.NextFloat(0.01f, 0.05f);
             }
         }
@@ -63,14 +79,12 @@ public class ReiCapeP : ModProjectile
     void DrawSmoke(SpriteBatch sb)
     {
         Player player = Main.player[Projectile.owner];
-        sb.Reload(MiscDrawingMethods.Subtractive);
         for (int i = 0; i < smoke.Length; i++)
         {
             Smoke d = smoke[i];
             Texture2D tex = Assets.Extras.explosion.Value;
-            sb.Draw(tex, player.RotatedRelativePoint(player.MountedCenter) - d.position - Main.screenPosition, null, Color.White * d.scale * 10, 0, tex.Size() / 2, d.scale * 2, SpriteEffects.None, 0);
+            sb.Draw(tex, player.RotatedRelativePoint(player.MountedCenter) - d.position - Main.screenPosition, null, Color.White * d.scale * 7, 0, tex.Size() / 2, d.scale * 2, SpriteEffects.None, 0);
         }
-        sb.Reload(BlendState.AlphaBlend);
     }
     public override void AI()
     {
@@ -84,38 +98,30 @@ public class ReiCapeP : ModProjectile
         //    Dust.NewDustPerfect(player.RotatedRelativePoint(player.MountedCenter) - new Vector2(0, player.height / 2 - 10), DustType<ReiSmoke>(), new Vector2(-player.velocity.X * Main.rand.NextFloat(-0.1f, 0.1f) + Main.rand.NextFloat(-0.5f, 2f) * -player.direction, Main.rand.NextFloat(-2f, -0.25f))).scale = Main.rand.NextFloat(0.01f, 0.05f);
         Projectile.Center = player.RotatedRelativePoint(player.MountedCenter) + new Vector2(-5, 19);
         Projectile.rotation = player.velocity.ToRotation();
-        if (verlet[0] != null)
+        if (v != null)
         {
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 5; i++)
             {
-                for (int j = 0; j < 2; j++)
-                    verlet[i].Update(player.RotatedRelativePoint(player.MountedCenter) - new Vector2((i - 4) * 1.5f, 5), Projectile.Center);
-                verlet[i].lastP.position -= Vector2.UnitX * (i - 4) * 1.1f;
-                verlet[i].firstP.position = player.RotatedRelativePoint(player.MountedCenter) - new Vector2((i - 4) * 1.5f, 5);
+                v.Update(player.RotatedRelativePoint(player.MountedCenter) - new Vector2(0, 14), Projectile.Center);
+                v.lastP.position -= Vector2.UnitX * player.direction * (10f + (MathF.Sin(Main.GlobalTimeWrappedHourly) + 1) * 2);
             }
         }
     }
     public override bool PreAI()
     {
         Player player = Main.player[Projectile.owner];
-        if (verlet[0] != null)
+        if (v != null)
         {
-            for (int i = 0; i < 9; i++)
-            {
-                verlet[i].firstP.position = player.RotatedRelativePoint(player.MountedCenter) - new Vector2((i - 4) * 1.5f, 5);
-            }
+            v.firstP.position = player.RotatedRelativePoint(player.MountedCenter) - new Vector2(0, 14);
         }
         return true;
     }
     public override void PostAI()
     {
         Player player = Main.player[Projectile.owner];
-        if (verlet[0] != null)
+        if (v != null)
         {
-            for (int i = 0; i < 9; i++)
-            {
-                verlet[i].firstP.position = player.RotatedRelativePoint(player.MountedCenter) - new Vector2((i - 4) * 1.5f, 5);
-            }
+            v.firstP.position = player.RotatedRelativePoint(player.MountedCenter) - new Vector2(0, 14);
         }
     }
     public override bool PreDraw(ref Color lightColor)
@@ -123,37 +129,61 @@ public class ReiCapeP : ModProjectile
         Player player = Main.player[Projectile.owner];
         if (Main.gameInactive || Main.gamePaused)
             return true;
-        if (verlet[0] != null)
-        {
-            for (int k = 0; k < 9; k++)
-            {
-                float len = new Vector2(player.velocity.X, 0).Length();
-                verlet[k].Draw(Main.spriteBatch, new VerletDrawData(new VerletTextureData("Extras/Line", null, "Extras/Empty"), _scale: MathHelper.Lerp(2.5f, 0.9f, MathHelper.Clamp(len * 0.2f, 0, 1f))));
-            }
-        }
         return true;
     }
     public override bool PreDrawExtras()
     {
         Player player = Main.player[Projectile.owner];
         Lighting.AddLight(player.Center, TorchID.Purple);
-
-        //if (Main.gamePaused || Main.gameInactive)
-        //  return true;
-        if (verlet[0] != null)
-        {
-            for (int k = 0; k < 9; k++)
-            {
-                float len = new Vector2(player.velocity.X, 0).Length();
-                verlet[k].Draw(Main.spriteBatch, new VerletDrawData(new VerletTextureData("Extras/Line", null, "Extras/Empty"), _color: Color.Black, _scale: MathHelper.Lerp(2.5f, 0.85f, MathHelper.Clamp(len * 0.2f, 0, 1f)) + 1));
-            }
-        }
         return true;
     }
     public override void PostDraw(Color lightColor)
     {
-        if (lightColor == Color.Transparent)
-            DrawSmoke(Main.spriteBatch);
+        Player player = Main.player[Projectile.owner];
+        if (v != null)
+        {
+            List<VertexPositionColorTexture>[] vertex = new List<VertexPositionColorTexture>[3]
+            {
+                new(),
+                new(),
+                new()
+            };
+            for (int i = 0; i < v.points.Count; i++)
+            {
+                if (i != 1 && (i == 0 || i % 3 > 1)) continue;
+                Vector2 basePos = v.startPos - Main.screenPosition;
+                Vector2 pos = v.points[i - 1].position - Main.screenPosition;
+                float mult = (float)i / v.points.Count;
+
+                float rot = Helper.FromAToB(v.points[i - 1].position, v.points[i].position).ToRotation();
+                if (i >= 2)
+                {
+                    float lastRot = Helper.FromAToB(v.points[i - 2].position, v.points[i - 1].position).ToRotation();
+                    float curRot = Helper.FromAToB(v.points[i - 1].position, v.points[i].position).ToRotation();
+                    rot = Clamp(Utils.AngleLerp(lastRot, curRot, 0.5f), MathF.Min(curRot % TwoPi, lastRot % TwoPi) - PiOver4 * 0.05f, MathF.Max(curRot % TwoPi, lastRot % TwoPi) + PiOver4 * 0.05f);
+                    pos = v.points[i - 1].position + lastRot.ToRotationVector2() * 5 + rot.ToRotationVector2() * 5 - Main.screenPosition;
+                }
+                Color col = Color.White * Lerp(1, 0, mult);
+
+                for (int j = -1; j < 2; j++)
+                {
+                    float _rot = j * 0.1f;
+                    float off = mult + Main.GlobalTimeWrappedHourly * (-1 - (j == 0 ? 2 : 0));
+                    vertex[j + 1].Add(Helper.AsVertex(basePos + Helper.FromAToB(basePos, pos, false).RotatedBy(_rot) + new Vector2(10, 0).RotatedBy(rot + PiOver2 + _rot), col, new Vector2(off, 0)));
+                    vertex[j + 1].Add(Helper.AsVertex(basePos + Helper.FromAToB(basePos, pos, false).RotatedBy(_rot) + new Vector2(10, 0).RotatedBy(rot - PiOver2 + _rot), col, new Vector2(off, 1)));
+                }
+            }
+            if (vertex[0].Count > 2)
+            {
+                SpritebatchParameters sbParams = Main.spriteBatch.Snapshot();
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, MiscDrawingMethods.Subtractive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                DrawSmoke(Main.spriteBatch);
+                for (int j = 0; j < 3; j++)
+                    Helper.DrawTexturedPrimitives(vertex[j].ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.wavyLaser2, false);
+                Main.spriteBatch.ApplySaved(sbParams);
+            }
+        }
     }
 }
 public class ReiCapeTrail : ModProjectile
@@ -161,7 +191,7 @@ public class ReiCapeTrail : ModProjectile
     public override string Texture => Helper.Empty;
     public override void SetStaticDefaults()
     {
-        ProjectileID.Sets.TrailCacheLength[Type] = 40;
+        ProjectileID.Sets.TrailCacheLength[Type] = 9;
         ProjectileID.Sets.TrailingMode[Type] = 2;
     }
     public override void SetDefaults()

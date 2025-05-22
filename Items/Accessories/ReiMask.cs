@@ -10,7 +10,6 @@ public class ReiMask : ModItem
 {
     public override void SetStaticDefaults()
     {
-        ArmorIDs.Face.Sets.DrawInFaceHeadLayer[Item.faceSlot] = true;
         ArmorIDs.Face.Sets.PreventHairDraw[Item.faceSlot] = true;
     }
     public override void SetDefaults()
@@ -40,14 +39,6 @@ public class ReiMask : ModItem
         {
             Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ProjectileType<ReiCapeP>(), 0, 0, player.whoAmI);
         }
-        if (player.ownedProjectileCounts[ProjectileType<ReiCapeTrail>()] < 2 && !modPlayer.sheep)
-        {
-            for (int i = -1; i < 2; i++)
-            {
-                if (i == 0) continue;
-                Projectile.NewProjectileDirect(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ProjectileType<ReiCapeTrail>(), 0, 0, player.whoAmI, i).ai[0] = i;
-            }
-        }
     }
     public override void UpdateAccessory(Player player, bool hideVisual)
     {
@@ -58,14 +49,6 @@ public class ReiMask : ModItem
         if (player.ownedProjectileCounts[ProjectileType<ReiCapeP>()] < 1)
         {
             Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ProjectileType<ReiCapeP>(), 0, 0, player.whoAmI);
-        }
-        if (player.ownedProjectileCounts[ProjectileType<ReiCapeTrail>()] < 2)
-        {
-            for (int i = -1; i < 2; i++)
-            {
-                if (i == 0) continue;
-                Projectile.NewProjectileDirect(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ProjectileType<ReiCapeTrail>(), 0, 0, player.whoAmI, i).ai[0] = i;
-            }
         }
         if (EbonianKeybinds.ReiDash.JustReleased && modPlayer.reiBoostCool <= 0)
         {

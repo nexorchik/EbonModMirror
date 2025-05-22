@@ -151,19 +151,16 @@ public static class Helper
     }
     public static Matrix GetMatrix()
     {
-        //if (CheckGraphicsChanged())
-        {
-            var device = Main.graphics.GraphicsDevice;
-            int width = device.Viewport.Width;
-            int height = device.Viewport.Height;
-            Vector2 zoom = Main.GameViewMatrix.Zoom;
-            view =
-                Matrix.CreateLookAt(Vector3.Zero, Vector3.UnitZ, Vector3.Up)
-                * Matrix.CreateTranslation(width / 2, height / -2, 0)
-                * Matrix.CreateRotationZ(Pi)
-                * Matrix.CreateScale(zoom.X, zoom.Y, 1f);
-            projection = Matrix.CreateOrthographic(width, height * Main.LocalPlayer.gravDir, 0, 1000);
-        }
+        var device = Main.graphics.GraphicsDevice;
+        int width = device.Viewport.Width;
+        int height = device.Viewport.Height;
+        Vector2 zoom = Main.GameViewMatrix.Zoom;
+        view =
+            Matrix.CreateLookAt(Vector3.Zero, Vector3.UnitZ, Vector3.Up)
+            * Matrix.CreateTranslation(width / 2, height / -2, 0)
+            * Matrix.CreateRotationZ(Pi)
+            * Matrix.CreateScale(zoom.X, zoom.Y, 1f);
+        projection = Matrix.CreateOrthographic(width, height * Main.LocalPlayer.gravDir, 0, 1000);
 
         return view * projection;
     }

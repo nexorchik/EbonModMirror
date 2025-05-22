@@ -100,16 +100,12 @@ public class DrawDetours : ModSystem
         {
             TextureCollection oldTex = Main.graphics.GraphicsDevice.Textures;
 
-            RTHandler.garbageTarget.RequestAndPrepare();
             DrawGarbageFlames();
             DrawInvisMasks(Main.spriteBatch, Main.graphics.GraphicsDevice);
             DrawXareusGoop(Main.spriteBatch, Main.graphics.GraphicsDevice);
             DrawPixelatedContent(Main.spriteBatch);
 
-            Main.graphics.GraphicsDevice.Textures[1] = oldTex[1];
-            Main.graphics.GraphicsDevice.Textures[2] = oldTex[2];
-            Main.graphics.GraphicsDevice.Textures[3] = oldTex[3];
-            Main.graphics.GraphicsDevice.Textures[4] = oldTex[4];
+            Main.graphics.GraphicsDevice.Textures = oldTex;
         }
     }
 
@@ -173,6 +169,7 @@ public class DrawDetours : ModSystem
     }
     public static void DrawGarbageFlames()
     {
+        RTHandler.garbageTarget.RequestAndPrepare();
         if (RTHandler.garbageTarget.IsReady)
         {
             EbonianMod.pixelationDrawCache.Add(() =>
