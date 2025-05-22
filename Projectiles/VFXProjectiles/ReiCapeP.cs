@@ -11,7 +11,6 @@ namespace EbonianMod.Projectiles.VFXProjectiles;
 public class ReiCapeP : ModProjectile
 {
     public override string Texture => Helper.Empty;
-    Verlet[] verlet = new Verlet[9];
     Verlet v;
     public override void SetStaticDefaults()
     {
@@ -21,8 +20,6 @@ public class ReiCapeP : ModProjectile
     public override void OnSpawn(IEntitySource source)
     {
         Player player = Main.player[Projectile.owner];
-        for (int i = 0; i < 9; i++)
-            verlet[i] = new Verlet(player.RotatedRelativePoint(player.MountedCenter) - new Vector2(0, 14), 1, 20, 0.5f, true, false, 20, false);
         v = new(player.RotatedRelativePoint(player.MountedCenter) - new Vector2(0, 14), 1, 40, -0.2f, true, false, 25, false);
         for (int i = 0; i < 80; i++)
         {
@@ -176,7 +173,8 @@ public class ReiCapeP : ModProjectile
                     Helper.DrawTexturedPrimitives(vertex[j].ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.wavyLaser2, false);
             }
         }
-        Main.spriteBatch.ApplySaved(sbParams);
+        for (int i = 0; i < 2; i++) // Big SpriteBatch is hiding this from you: WHY DO I HAVE TO RESET THIS TWICE FOR THE ZENITH TO WORK ??
+            Main.spriteBatch.ApplySaved(sbParams);
     }
 }
 public class ReiCapeTrail : ModProjectile
