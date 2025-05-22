@@ -9,7 +9,7 @@ namespace EbonianMod.Common.Misc;
 public abstract class CommonRenderTarget : ARenderTargetContentByRequest, INeedRenderTargetContent, ILoadable
 {
     public RenderTarget2D _target2;
-    public virtual ActionsCache[] Actions => null;
+    public virtual List<Action>[] Actions => null;
     public void InvokeActions(int index)
     {
         if (Actions == null)
@@ -19,12 +19,8 @@ public abstract class CommonRenderTarget : ARenderTargetContentByRequest, INeedR
             Actions[index].InvokeAllAndClear();
         }
     }
-    public void InvokeActions(ActionsCache actions)
-    {
-        if (Actions == null)
-            return;
-        InvokeActions(Array.IndexOf(Actions, actions));
-    }
+    public void InvokeActions(List<Action> actions) =>
+        actions.InvokeAllAndClear();
     public void RequestAndPrepare()
     {
         Request();
@@ -45,7 +41,7 @@ public abstract class CommonRenderTarget : ARenderTargetContentByRequest, INeedR
 
         if (Actions?.Any() ?? false)
         {
-            foreach (ActionsCache action in Actions)
+            foreach (List<Action> action in Actions)
             {
                 if (!action.Any())
                     return;

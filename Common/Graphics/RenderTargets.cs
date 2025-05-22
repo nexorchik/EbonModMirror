@@ -1,10 +1,11 @@
 ﻿using EbonianMod.Common.Misc;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography;
 
 namespace EbonianMod.Common.Graphics;
-public class RTHandler : ModSystem
+public static class RTHandler
 {
     public static PixelationTarget pixelationTarget => GetInstance<PixelationTarget>();
     public static InvisibleTarget invisTarget => GetInstance<InvisibleTarget>();
@@ -13,7 +14,7 @@ public class RTHandler : ModSystem
 }
 public class PixelationTarget : CommonRenderTarget
 {
-    public override ActionsCache[] Actions => [EbonianMod.pixelationDrawCache];
+    public override List<Action>[] Actions => [EbonianMod.pixelationDrawCache];
     public override void HandleUseRequest(GraphicsDevice gd, SpriteBatch sb)
     {
         PrepareAndSet(ref _target2, gd);
@@ -30,7 +31,7 @@ public class PixelationTarget : CommonRenderTarget
 }
 public sealed class InvisibleTarget : CommonRenderTarget// if he's invisible how did he die
 {
-    public override ActionsCache[] Actions => [EbonianMod.affectedByInvisibleMaskCache, EbonianMod.invisibleMaskCache];
+    public override List<Action>[] Actions => [EbonianMod.affectedByInvisibleMaskCache, EbonianMod.invisibleMaskCache];
     public override void HandleUseRequest(GraphicsDevice gd, SpriteBatch sb)
     {
         PrepareAndSet(ref _target2, gd);
@@ -46,7 +47,7 @@ public sealed class InvisibleTarget : CommonRenderTarget// if he's invisible how
 }
 public sealed class GarbageTarget : CommonRenderTarget
 {
-    public override ActionsCache[] Actions => [EbonianMod.garbageFlameCache];
+    public override List<Action>[] Actions => [EbonianMod.garbageFlameCache];
     public override void HandleUseRequest(GraphicsDevice gd, SpriteBatch sb)
     {
         PrepareAndSet(ref _target, gd);
@@ -57,7 +58,7 @@ public sealed class GarbageTarget : CommonRenderTarget
 }
 public sealed class XareusTarget : CommonRenderTarget
 {
-    public override ActionsCache[] Actions => [EbonianMod.xareusGoopCache];
+    public override List<Action>[] Actions => [EbonianMod.xareusGoopCache];
     public override void HandleUseRequest(GraphicsDevice gd, SpriteBatch sb)
     {
         PrepareAndSet(ref _target, gd);
