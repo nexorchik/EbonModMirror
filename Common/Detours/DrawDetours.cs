@@ -40,15 +40,6 @@ public class DrawDetours : ModSystem
         sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         if (EbonianSystem.FlashAlpha > 0)
             Main.spriteBatch.Draw(Assets.Extras.Line.Value, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White * EbonianSystem.FlashAlpha * 2);
-        foreach (Projectile projectile in Main.ActiveProjectiles)
-        {
-            if (projectile.active && (EbonianMod.projectileFinalDrawList.Contains(projectile.type)))
-            {
-                Color color = Color.White;
-                projectile.ModProjectile.PreDraw(ref color);
-            }
-        }
-        EbonianMod.finalDrawCache.InvokeAllAndClear();
         sb.End();
     }
     void DrawNPC(Terraria.On_Main.orig_DrawNPC orig, global::Terraria.Main self, int iNPCIndex, bool behindTiles)
@@ -107,6 +98,18 @@ public class DrawDetours : ModSystem
 
             Main.graphics.GraphicsDevice.Textures = oldTex;
         }
+
+        Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+        foreach (Projectile projectile in Main.ActiveProjectiles)
+        {
+            if (projectile.active && (EbonianMod.projectileFinalDrawList.Contains(projectile.type)))
+            {
+                Color color = Color.White;
+                projectile.ModProjectile.PreDraw(ref color);
+            }
+        }
+        EbonianMod.finalDrawCache.InvokeAllAndClear();
+        Main.spriteBatch.End();
     }
 
     void PreDraw(On_Main.orig_DrawPlayers_AfterProjectiles orig, Main self)
