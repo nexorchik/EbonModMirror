@@ -46,7 +46,7 @@ public class ReiMask : ModItem
         modPlayer.rei = true;
         player.nightVision = true;
         if (player.whoAmI != Main.myPlayer) return;
-        if (player.ownedProjectileCounts[ProjectileType<ReiCapeP>()] < 1)
+        if (player.ownedProjectileCounts[ProjectileType<ReiCapeP>()] < 1 && !hideVisual)
         {
             Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ProjectileType<ReiCapeP>(), 0, 0, player.whoAmI);
         }
