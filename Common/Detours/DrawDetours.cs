@@ -39,9 +39,7 @@ public class DrawDetours : ModSystem
 
         sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         if (EbonianSystem.FlashAlpha > 0)
-        {
             Main.spriteBatch.Draw(Assets.Extras.Line.Value, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White * EbonianSystem.FlashAlpha * 2);
-        }
         foreach (Projectile projectile in Main.ActiveProjectiles)
         {
             if (projectile.active && (EbonianMod.projectileFinalDrawList.Contains(projectile.type)))
@@ -50,11 +48,7 @@ public class DrawDetours : ModSystem
                 projectile.ModProjectile.PreDraw(ref color);
             }
         }
-        foreach (Action draw in EbonianMod.finalDrawCache)
-        {
-            draw?.Invoke();
-        }
-        EbonianMod.finalDrawCache.Clear();
+        EbonianMod.finalDrawCache.InvokeAllAndClear();
         sb.End();
     }
     void DrawNPC(Terraria.On_Main.orig_DrawNPC orig, global::Terraria.Main self, int iNPCIndex, bool behindTiles)
@@ -102,8 +96,21 @@ public class DrawDetours : ModSystem
         }
         Main.spriteBatch.End();
 
-        if (!Main.gameMenu && !(Lighting.Mode == Terraria.Graphics.Light.LightMode.Trippy && Lighting.Mode == Terraria.Graphics.Light.LightMode.Retro))
+        if (!Main.gameMenu && Lighting.NotRetro)
+        {
+            TextureCollection oldTex = Main.graphics.GraphicsDevice.Textures;
+
+            RTHandler.garbageTarget.RequestAndPrepare();
+            DrawGarbageFlames();
+            DrawInvisMasks(Main.spriteBatch, Main.graphics.GraphicsDevice);
+            DrawXareusGoop(Main.spriteBatch, Main.graphics.GraphicsDevice);
             DrawPixelatedContent(Main.spriteBatch);
+
+            Main.graphics.GraphicsDevice.Textures[1] = oldTex[1];
+            Main.graphics.GraphicsDevice.Textures[2] = oldTex[2];
+            Main.graphics.GraphicsDevice.Textures[3] = oldTex[3];
+            Main.graphics.GraphicsDevice.Textures[4] = oldTex[4];
+        }
     }
 
     void PreDraw(On_Main.orig_DrawPlayers_AfterProjectiles orig, Main self)
@@ -123,36 +130,6 @@ public class DrawDetours : ModSystem
                 XGoopDust.DrawAll(sb, d);
                 ColoredFireDust.DrawAll(sb, d);
             }
-        if (!Main.gameMenu && !(Lighting.Mode == Terraria.Graphics.Light.LightMode.Trippy && Lighting.Mode == Terraria.Graphics.Light.LightMode.Retro) && gd.GetRenderTargets().Contains(Main.screenTarget))
-        {
-            DrawXareusGoop(sb, gd);
-
-            if (EbonianMod.garbageFlameCache.Any())
-            {
-                RTHandler.garbageTarget.RequestAndPrepare();
-                if (RTHandler.garbageTarget.IsReady)
-                {
-                    sb.Begin();
-                    EbonianMod.pixelationDrawCache.Add(() =>
-                    {
-                        sb.End();
-                        sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null);
-
-                        for (int i = 0; i < 3; i++)
-                            DrawGarbageFlame(RTHandler.garbageTarget, sb, gd);
-
-                        sb.End();
-                        sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null);
-                    });
-                    sb.End();
-                }
-            }
-
-            gd.Textures[1] = null;
-            gd.Textures[2] = null;
-            gd.Textures[3] = null;
-            gd.Textures[4] = null;
-        }
 
         sb.Begin(SpriteSortMode.Deferred, MiscDrawingMethods.Subtractive, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         ReiSmoke.DrawAll(sb);
@@ -160,9 +137,8 @@ public class DrawDetours : ModSystem
 
         orig(self);
 
-        if (!Main.gameMenu && !(Lighting.Mode == Terraria.Graphics.Light.LightMode.Trippy && Lighting.Mode == Terraria.Graphics.Light.LightMode.Retro) && gd.GetRenderTargets().Contains(Main.screenTarget))
+        if (!Main.gameMenu && Lighting.NotRetro && gd.GetRenderTargets().Contains(Main.screenTarget))
         {
-            DrawInvisMasks(sb, gd);
 
             if (EbonianMod.blurDrawCache.Any())
                 DrawBlurredContent(sb, gd);
@@ -193,6 +169,23 @@ public class DrawDetours : ModSystem
             sb.Draw(RTHandler.invisTarget._target2, Helper.ScreenRect, Color.White);
             sb.End();
             gd.Textures[1] = null;
+        }
+    }
+    public static void DrawGarbageFlames()
+    {
+        if (RTHandler.garbageTarget.IsReady)
+        {
+            EbonianMod.pixelationDrawCache.Add(() =>
+            {
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null);
+
+                for (int i = 0; i < 3; i++)
+                    DrawGarbageFlame(RTHandler.garbageTarget, Main.spriteBatch, Main.graphics.GraphicsDevice);
+
+                Main.spriteBatch.End();
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+            });
         }
     }
     public static void DrawGarbageFlame(GarbageTarget target, SpriteBatch sb, GraphicsDevice gd)
@@ -247,11 +240,7 @@ public class DrawDetours : ModSystem
         gd.SetRenderTarget(Main.screenTargetSwap);
         gd.Clear(Color.Transparent);
         sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-        foreach (Action draw in EbonianMod.blurDrawCache)
-        {
-            draw?.Invoke();
-        }
-        EbonianMod.blurDrawCache.Clear();
+        EbonianMod.blurDrawCache.InvokeAllAndClear();
         sb.End();
         gd.SetRenderTarget(Main.screenTarget);
         gd.Clear(Color.Transparent);

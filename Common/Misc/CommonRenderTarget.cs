@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Threading.Tasks.Dataflow;
 
 namespace EbonianMod.Common.Misc;
 
@@ -23,8 +24,17 @@ public abstract class CommonRenderTarget : ARenderTargetContentByRequest, INeedR
         actions.InvokeAllAndClear();
     public void RequestAndPrepare(bool checkForActionAvailability = true)
     {
-        if (checkForActionAvailability && Actions?.Count() == 0)
-            return;
+        if (checkForActionAvailability && Actions != null)
+        {
+            if (Actions.Count() == 0)
+                return;
+            foreach (List<Action> action in Actions)
+            {
+                if (action.Count() == 0)
+                    return;
+            }
+        }
+
         Request();
         PrepareRenderTarget(Main.graphics.GraphicsDevice, Main.spriteBatch);
     }
@@ -41,14 +51,6 @@ public abstract class CommonRenderTarget : ARenderTargetContentByRequest, INeedR
     {
         var old = device.GetRenderTargets();
 
-        if (Actions?.Count() == 0)
-        {
-            foreach (List<Action> action in Actions)
-            {
-                if (action.Count() == 0)
-                    return;
-            }
-        }
         HandleUseRequest(device, spriteBatch); // Advancement. Evolution. Progress.
 
         device.SetRenderTargets(old);
