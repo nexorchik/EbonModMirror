@@ -26,7 +26,7 @@ public class EbonianMod : Mod
         Main.OnResolutionChanged += (Vector2 obj) => CreateRender();
         CreateRender();
     }
-    public static ActionsCache invisibleMaskCache = [], affectedByInvisibleMaskCache = [],
+    public static List<Action> invisibleMaskCache = [], affectedByInvisibleMaskCache = [],
         blurDrawCache = [], pixelationDrawCache = [], finalDrawCache = [], garbageFlameCache = [],
         xareusGoopCache = [];
     public void LoadDrawCache()

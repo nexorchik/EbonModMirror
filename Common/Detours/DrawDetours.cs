@@ -174,31 +174,25 @@ public class DrawDetours : ModSystem
     }
     void DrawPixelatedContent(SpriteBatch sb)
     {
-        if (EbonianMod.pixelationDrawCache.Any())
+        RTHandler.pixelationTarget.RequestAndPrepare();
+        if (RTHandler.pixelationTarget.IsReady)
         {
-            RTHandler.pixelationTarget.RequestAndPrepare();
-            if (RTHandler.pixelationTarget.IsReady)
-            {
-                sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise);
-                sb.Draw(RTHandler.pixelationTarget.GetTarget(), new Rectangle(0, 0, (int)(Main.screenWidth * (1 + Main.GameZoomTarget)), (int)(Main.screenHeight * (1 + Main.GameZoomTarget))), Color.White);
-                sb.End();
-            }
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise);
+            sb.Draw(RTHandler.pixelationTarget.GetTarget(), new Rectangle(0, 0, (int)(Main.screenWidth * (1 + Main.GameZoomTarget)), (int)(Main.screenHeight * (1 + Main.GameZoomTarget))), Color.White);
+            sb.End();
         }
     }
     public static void DrawInvisMasks(SpriteBatch sb, GraphicsDevice gd)
     {
-        if (EbonianMod.invisibleMaskCache.Any() || EbonianMod.affectedByInvisibleMaskCache.Any())
+        RTHandler.invisTarget.RequestAndPrepare();
+        if (RTHandler.invisTarget.IsReady)
         {
-            RTHandler.invisTarget.RequestAndPrepare();
-            if (RTHandler.invisTarget.IsReady)
-            {
-                sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-                EbonianMod.invisibleMask.Value.CurrentTechnique.Passes[0].Apply();
-                gd.Textures[1] = RTHandler.invisTarget.GetTarget();
-                sb.Draw(RTHandler.invisTarget._target2, Helper.ScreenRect, Color.White);
-                sb.End();
-                gd.Textures[1] = null;
-            }
+            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            EbonianMod.invisibleMask.Value.CurrentTechnique.Passes[0].Apply();
+            gd.Textures[1] = RTHandler.invisTarget.GetTarget();
+            sb.Draw(RTHandler.invisTarget._target2, Helper.ScreenRect, Color.White);
+            sb.End();
+            gd.Textures[1] = null;
         }
     }
     public static void DrawGarbageFlame(GarbageTarget target, SpriteBatch sb, GraphicsDevice gd)
@@ -227,23 +221,20 @@ public class DrawDetours : ModSystem
     }
     public static void DrawXareusGoop(SpriteBatch sb, GraphicsDevice gd)
     {
-        if (EbonianMod.xareusGoopCache.Any())
+        RTHandler.xareusTarget.RequestAndPrepare();
+        if (RTHandler.xareusTarget.IsReady)
         {
-            RTHandler.xareusTarget.RequestAndPrepare();
-            if (RTHandler.xareusTarget.IsReady)
-            {
-                sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-                gd.Textures[1] = Assets.Extras.darkShadowflameGradient.Value;
-                gd.Textures[2] = Assets.Extras.space_full.Value;
-                gd.Textures[3] = Assets.Extras.seamlessNoiseHighContrast.Value;
-                gd.Textures[4] = Assets.Extras.alphaGradient.Value;
-                EbonianMod.metaballGradientNoiseTex.Value.CurrentTechnique.Passes[0].Apply();
-                EbonianMod.metaballGradientNoiseTex.Value.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.2f);
-                EbonianMod.metaballGradientNoiseTex.Value.Parameters["offsetX"].SetValue(1f);
-                EbonianMod.metaballGradientNoiseTex.Value.Parameters["offsetY"].SetValue(1f);
-                sb.Draw(RTHandler.xareusTarget.GetTarget(), Vector2.Zero, Color.White);
-                sb.End();
-            }
+            sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+            gd.Textures[1] = Assets.Extras.darkShadowflameGradient.Value;
+            gd.Textures[2] = Assets.Extras.space_full.Value;
+            gd.Textures[3] = Assets.Extras.seamlessNoiseHighContrast.Value;
+            gd.Textures[4] = Assets.Extras.alphaGradient.Value;
+            EbonianMod.metaballGradientNoiseTex.Value.CurrentTechnique.Passes[0].Apply();
+            EbonianMod.metaballGradientNoiseTex.Value.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.2f);
+            EbonianMod.metaballGradientNoiseTex.Value.Parameters["offsetX"].SetValue(1f);
+            EbonianMod.metaballGradientNoiseTex.Value.Parameters["offsetY"].SetValue(1f);
+            sb.Draw(RTHandler.xareusTarget.GetTarget(), Vector2.Zero, Color.White);
+            sb.End();
         }
     }
     public static void DrawBlurredContent(SpriteBatch sb, GraphicsDevice gd)

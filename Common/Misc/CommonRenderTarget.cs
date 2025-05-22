@@ -21,8 +21,10 @@ public abstract class CommonRenderTarget : ARenderTargetContentByRequest, INeedR
     }
     public void InvokeActions(List<Action> actions) =>
         actions.InvokeAllAndClear();
-    public void RequestAndPrepare()
+    public void RequestAndPrepare(bool checkForActionAvailability = true)
     {
+        if (checkForActionAvailability && Actions?.Count() == 0)
+            return;
         Request();
         PrepareRenderTarget(Main.graphics.GraphicsDevice, Main.spriteBatch);
     }
@@ -39,11 +41,11 @@ public abstract class CommonRenderTarget : ARenderTargetContentByRequest, INeedR
     {
         var old = device.GetRenderTargets();
 
-        if (Actions?.Any() ?? false)
+        if (Actions?.Count() == 0)
         {
             foreach (List<Action> action in Actions)
             {
-                if (!action.Any())
+                if (action.Count() == 0)
                     return;
             }
         }
