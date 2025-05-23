@@ -1,4 +1,6 @@
-﻿namespace EbonianMod.Items.Accessories;
+﻿using EbonianMod.Common.Players;
+
+namespace EbonianMod.Items.Accessories;
 
 public class XTentacleAcc : ModItem
 {
@@ -12,6 +14,6 @@ public class XTentacleAcc : ModItem
     public override void UpdateAccessory(Player player, bool hideVisual)
     {
         player.statManaMax += 60;
-        player.GetModPlayer<EbonianPlayer>().xTent = true;
+        player.GetModPlayer<AccessoryPlayer>().xTent = true;
     }
 }

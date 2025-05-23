@@ -8,6 +8,7 @@ using EbonianMod.NPCs.Crimson.Fleshformator;
 using EbonianMod.Projectiles;
 using EbonianMod.Projectiles.ArchmageX;
 using System;
+using Terraria;
 using Terraria.Graphics.Effects;
 
 
@@ -15,25 +16,11 @@ namespace EbonianMod;
 
 public class EbonianPlayer : ModPlayer
 {
-    public int timeSlowProgress, timeSlowMax, fleshformators;
+    public int timeSlowProgress, timeSlowMax, fleshformators, consistentTimer;
     public static EbonianPlayer Instance;
     public Vector2 stabDirection;
-    public int reiBoostCool, reiBoostT, xTentCool, consistentTimer;
-    public bool rolleg, brainAcc, heartAcc, ToxicGland, hotShield, rei, reiV, sheep, xTent;
+    public bool rolleg, ToxicGland, sheep;
     public bool doomMinion, xMinion, cClawMinion, titteringMinion;
-    public override bool Shoot(Item item, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-    {
-        if (item.DamageType == DamageClass.Magic && xTent && xTentCool <= 0 && Main.myPlayer == Player.whoAmI)
-        {
-            Projectile p = Projectile.NewProjectileDirect(source, position, Helper.FromAToB(position, Main.MouseWorld) * 8, ProjectileType<XAmethyst>(), 50, 0);
-            p.DamageType = DamageClass.Magic;
-            p.friendly = true;
-            p.hostile = false;
-            xTentCool = 60;
-            p.SyncProjectile();
-        }
-        return base.Shoot(item, source, position, velocity, type, damage, knockback);
-    }
     public override void HideDrawLayers(PlayerDrawSet drawInfo)
     {
         if (sheep)
@@ -45,21 +32,11 @@ public class EbonianPlayer : ModPlayer
 
         if (NPC.AnyNPCs(NPCType<ArchmageX>()) || Player.ownedProjectileCounts[ProjectileType<ArchmageXSpawnAnim>()] > 0)
             Player.noBuilding = true;
-        reiBoostCool--;
-        xTentCool--;
-        if (reiBoostCool > 0)
-            reiBoostT--;
-        rei = false;
-        reiV = false;
         rolleg = false;
-        hotShield = false;
         doomMinion = false;
         xMinion = false;
         titteringMinion = false;
         cClawMinion = false;
-        brainAcc = false;
-        xTent = false;
-        heartAcc = false;
         if (!NPC.AnyNPCs(NPCType<Fleshformator>()))
             fleshformators = 0;
         ToxicGland = false;
@@ -67,25 +44,6 @@ public class EbonianPlayer : ModPlayer
     }
     public override void ModifyHurt(ref Player.HurtModifiers modifiers)
     {
-        if (reiBoostCool > 20)
-        {
-            modifiers.Cancel();
-            Player.AddImmuneTime(ImmunityCooldownID.General, 40);
-            Player.AddImmuneTime(ImmunityCooldownID.Bosses, 40);
-            Player.AddImmuneTime(ImmunityCooldownID.DD2OgreKnockback, 40);
-        }
-        if (NPC.AnyNPCs(NPCType<TinyBrain>()))
-        {
-            foreach (NPC npc in Main.ActiveNPCs)
-            {
-                if (npc.active && npc.type == NPCType<TinyBrain>())
-                {
-                    npc.life = 0;
-                    npc.checkDead();
-                    break;
-                }
-            }
-        }
         if (Player.HasBuff<Sheepened>())
         {
             modifiers.DisableSound();
@@ -100,11 +58,6 @@ public class EbonianPlayer : ModPlayer
         {
             Player.maxRunSpeed += 2;
             Player.accRunSpeed += 2;
-        }
-        if (rei)
-        {
-            Player.maxRunSpeed += .5f;
-            Player.accRunSpeed += .5f;
         }
         if (sheep)
         {
@@ -122,8 +75,6 @@ public class EbonianPlayer : ModPlayer
             Player.channel = false;
             Player.blockExtraJumps = true;
         }
-        if (hotShield)
-            Player.CancelAllBootRunVisualEffects();
     }
     public override bool CanStartExtraJump(ExtraJump jump)
     {
@@ -140,12 +91,6 @@ public class EbonianPlayer : ModPlayer
     public override void PostUpdateMiscEffects()
     {
         consistentTimer++;
-        if (hotShield)
-        {
-            Player.CancelAllBootRunVisualEffects();
-            Player.accRunSpeed *= 0.7f;
-            Player.moveSpeed *= 0.7f;
-        }
         Player.ManageSpecialBiomeVisuals("EbonianMod:XMartian", NPC.AnyNPCs(NPCType<ArchmageCutsceneMartian>()));
         Player.ManageSpecialBiomeVisuals("EbonianMod:Conglomerate", Player.HasBuff<ConglomerateEnergyBuff>()); // add npc here later when we add conglo
         Player.ManageSpecialBiomeVisuals("EbonianMod:Aureus", NPC.AnyNPCs(NPCType<Aureus>()));
@@ -157,12 +102,6 @@ public class EbonianPlayer : ModPlayer
     public override void OnEnterWorld()
     {
         Instance = Player.GetModPlayer<EbonianPlayer>();
-    }
-    public override void UpdateLifeRegen()
-    {
-        if (brainAcc)
-            Player.lifeRegen += 5;
-
     }
     public override void PostUpdateBuffs()
     {
@@ -189,10 +128,6 @@ public class EbonianPlayer : ModPlayer
     }
     public override void PostUpdate()
     {
-        if (hotShield)
-        {
-            Player.CancelAllBootRunVisualEffects();
-        }
         if (NPC.AnyNPCs(NPCType<ArchmageX>()) || Player.ownedProjectileCounts[ProjectileType<ArchmageXSpawnAnim>()] > 0)
             Player.noBuilding = true;
     }

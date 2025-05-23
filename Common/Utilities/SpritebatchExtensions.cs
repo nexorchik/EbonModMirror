@@ -39,6 +39,11 @@ public static class SpritebatchExtensions
         sbParams = spriteBatch.Snapshot();
         return sbParams;
     }
+    public static void End(this SpriteBatch spriteBatch, out SpritebatchParameters sbParams)
+    {
+        sbParams = spriteBatch.Snapshot();
+        spriteBatch.End();
+    }
 
     public static void ApplySaved(this SpriteBatch spriteBatch, in SpritebatchParameters sbParams)
     {

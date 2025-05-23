@@ -14,12 +14,12 @@ public static class RTHandler
 }
 public class PixelationTarget : CommonRenderTarget
 {
-    public override List<Action>[] Actions => [EbonianMod.pixelationDrawCache];
     public override void HandleUseRequest(GraphicsDevice gd, SpriteBatch sb)
     {
         PrepareAndSet(ref _target2, gd);
         sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-        InvokeActions(0);
+        EbonianMod.pixelationDrawCache.InvokeAllAndClear();
+        EbonianMod.primitivePixelationDrawCache.InvokeAllAndClear();
         sb.End();
 
         PrepareAndSet(ref _target, gd);
@@ -31,39 +31,36 @@ public class PixelationTarget : CommonRenderTarget
 }
 public sealed class InvisibleTarget : CommonRenderTarget// if he's invisible how did he die
 {
-    public override List<Action>[] Actions => [EbonianMod.affectedByInvisibleMaskCache, EbonianMod.invisibleMaskCache];
     public override void HandleUseRequest(GraphicsDevice gd, SpriteBatch sb)
     {
         PrepareAndSet(ref _target2, gd);
         sb.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-        InvokeActions(0);
+        EbonianMod.affectedByInvisibleMaskCache.InvokeAllAndClear();
         sb.End();
 
         PrepareAndSet(ref _target, gd);
         sb.Begin(SpriteSortMode.Deferred, BlendState.Additive, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-        InvokeActions(1);
+        EbonianMod.invisibleMaskCache.InvokeAllAndClear();
         sb.End();
     }
 }
 public sealed class GarbageTarget : CommonRenderTarget
 {
-    public override List<Action>[] Actions => [EbonianMod.garbageFlameCache];
     public override void HandleUseRequest(GraphicsDevice gd, SpriteBatch sb)
     {
         PrepareAndSet(ref _target, gd);
         sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-        InvokeActions(0);
+        EbonianMod.garbageFlameCache.InvokeAllAndClear();
         sb.End();
     }
 }
 public sealed class XareusTarget : CommonRenderTarget
 {
-    public override List<Action>[] Actions => [EbonianMod.xareusGoopCache];
     public override void HandleUseRequest(GraphicsDevice gd, SpriteBatch sb)
     {
         PrepareAndSet(ref _target, gd);
         sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-        InvokeActions(0);
+        EbonianMod.xareusGoopCache.InvokeAllAndClear();
         sb.End();
     }
 }

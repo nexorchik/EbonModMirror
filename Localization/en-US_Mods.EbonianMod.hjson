@@ -335,6 +335,11 @@ Projectiles: {
 	ThawGauntletP2.DisplayName: Thaw Gauntlet P2
 	CenturySpewerSpore.DisplayName: Century Spewer Spore
 	CenturyFlowerSpore.DisplayName: Century Flower Spore
+	WardenSigil.DisplayName: Warden Sigil
+	WardenStar.DisplayName: Warden Star
+	GoldTippedArrow.DisplayName: Gold Tipped Arrow
+	StarBitBlue.DisplayName: Star Bit Blue
+	MagicChargeUp.DisplayName: Magic Charge Up
 }
 
 NPCs: {
@@ -658,6 +663,11 @@ NPCs: {
 	CenturyFlower: {
 		DisplayName: Century Flower
 		Bestiary: These unique plants are capable of spewing large clouds of spores, dangerous to much of the wildlife. Their age makes them extremely irrational and ill-tempered, spewing their suffocating spores at anything they deem to be less wise.
+	}
+
+	AsteroidWarden: {
+		DisplayName: Asteroid Warden
+		Bestiary: These cosmic watchers come down from space wherever they sense a high amount of arcane star energy, such as the flowing river of starlight above the skies during meteor showers.
 	}
 
 	PebbiSwarm.DisplayName: Pebbi Swarm
@@ -1477,6 +1487,16 @@ Items: {
 
 	CenturySprayer: {
 		DisplayName: Century Sprayer
+		Tooltip: ""
+	}
+
+	GoldenTip: {
+		DisplayName: Golden Tip
+		Tooltip: ""
+	}
+
+	StarBit: {
+		DisplayName: Star Bit
 		Tooltip: ""
 	}
 }

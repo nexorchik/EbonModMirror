@@ -1,4 +1,5 @@
-﻿using EbonianMod.Projectiles.VFXProjectiles;
+﻿using EbonianMod.Common.Players;
+using EbonianMod.Projectiles.VFXProjectiles;
 using System.Collections.Generic;
 using System.Linq;
 using Terraria.Graphics.CameraModifiers;
@@ -32,17 +33,17 @@ public class ReiMask : ModItem
     }
     public override void UpdateVanity(Player player)
     {
-        EbonianPlayer modPlayer = player.GetModPlayer<EbonianPlayer>();
+        AccessoryPlayer modPlayer = player.GetModPlayer<AccessoryPlayer>();
         modPlayer.reiV = true;
         if (player.whoAmI != Main.myPlayer) return;
-        if (player.ownedProjectileCounts[ProjectileType<ReiCapeP>()] < 1 && !modPlayer.sheep)
+        if (player.ownedProjectileCounts[ProjectileType<ReiCapeP>()] < 1 && !player.GetModPlayer<EbonianPlayer>().sheep)
         {
             Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ProjectileType<ReiCapeP>(), 0, 0, player.whoAmI);
         }
     }
     public override void UpdateAccessory(Player player, bool hideVisual)
     {
-        EbonianPlayer modPlayer = player.GetModPlayer<EbonianPlayer>();
+        AccessoryPlayer modPlayer = player.GetModPlayer<AccessoryPlayer>();
         modPlayer.rei = true;
         player.nightVision = true;
         if (player.whoAmI != Main.myPlayer) return;

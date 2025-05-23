@@ -1,3 +1,4 @@
+using EbonianMod.Common.Players;
 using Terraria.GameContent.Creative;
 namespace EbonianMod.Items.Accessories;
 
@@ -25,7 +26,7 @@ public class EbonianHeart : ModItem
         }
         player.GetDamage(DamageClass.Summon) += 0.05f;
         player.maxMinions += 1;
-        EbonianPlayer modPlayer = player.GetModPlayer<EbonianPlayer>();
+        AccessoryPlayer modPlayer = player.GetModPlayer<AccessoryPlayer>();
         modPlayer.heartAcc = true;
     }
 }

@@ -28,7 +28,7 @@ public class Kodama : ModProjectile
     public override Color? GetAlpha(Color drawColor) => Color.White;
     public override bool PreDraw(ref Color drawColor)
     {
-        EbonianMod.pixelationDrawCache.Add(() =>
+        EbonianMod.primitivePixelationDrawCache.Add(() =>
         {
             List<VertexPositionColorTexture> vertices = new();
             for (int i = 0; i < Projectile.oldPos.Length; i++)

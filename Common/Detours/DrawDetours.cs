@@ -89,14 +89,10 @@ public class DrawDetours : ModSystem
 
         if (!Main.gameMenu && Lighting.NotRetro)
         {
-            TextureCollection oldTex = Main.graphics.GraphicsDevice.Textures;
-
             DrawGarbageFlames();
             DrawInvisMasks(Main.spriteBatch, Main.graphics.GraphicsDevice);
             DrawXareusGoop(Main.spriteBatch, Main.graphics.GraphicsDevice);
             DrawPixelatedContent(Main.spriteBatch);
-
-            Main.graphics.GraphicsDevice.Textures = oldTex;
         }
 
         Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
@@ -149,7 +145,7 @@ public class DrawDetours : ModSystem
     }
     void DrawPixelatedContent(SpriteBatch sb)
     {
-        RTHandler.pixelationTarget.RequestAndPrepare();
+        RTHandler.pixelationTarget.RequestAndPrepare(EbonianMod.pixelationDrawCache.Any() || EbonianMod.primitivePixelationDrawCache.Any());
         if (RTHandler.pixelationTarget.IsReady)
         {
             sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise);
@@ -159,7 +155,7 @@ public class DrawDetours : ModSystem
     }
     public static void DrawInvisMasks(SpriteBatch sb, GraphicsDevice gd)
     {
-        RTHandler.invisTarget.RequestAndPrepare();
+        RTHandler.invisTarget.RequestAndPrepare(EbonianMod.affectedByInvisibleMaskCache.Any() || EbonianMod.invisibleMaskCache.Any());
         if (RTHandler.invisTarget.IsReady)
         {
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
@@ -172,10 +168,10 @@ public class DrawDetours : ModSystem
     }
     public static void DrawGarbageFlames()
     {
-        RTHandler.garbageTarget.RequestAndPrepare();
+        RTHandler.garbageTarget.RequestAndPrepare(EbonianMod.garbageFlameCache.Any());
         if (RTHandler.garbageTarget.IsReady)
         {
-            EbonianMod.pixelationDrawCache.Add(() =>
+            EbonianMod.primitivePixelationDrawCache.Add(() =>
             {
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.Default, RasterizerState.CullNone, null);
@@ -214,7 +210,7 @@ public class DrawDetours : ModSystem
     }
     public static void DrawXareusGoop(SpriteBatch sb, GraphicsDevice gd)
     {
-        RTHandler.xareusTarget.RequestAndPrepare();
+        RTHandler.xareusTarget.RequestAndPrepare(EbonianMod.xareusGoopCache.Any());
         if (RTHandler.xareusTarget.IsReady)
         {
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);

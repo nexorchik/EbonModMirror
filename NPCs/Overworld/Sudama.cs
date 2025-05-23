@@ -26,7 +26,8 @@ public class Sudama : ModNPC
     public override Color? GetAlpha(Color drawColor) => Color.White;
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
-        EbonianMod.pixelationDrawCache.Add(() =>
+        if (NPC.IsABestiaryIconDummy) return true;
+        EbonianMod.primitivePixelationDrawCache.Add(() =>
         {
             List<VertexPositionColorTexture> vertices = new();
             for (int i = 0; i < NPC.oldPos.Length; i++)

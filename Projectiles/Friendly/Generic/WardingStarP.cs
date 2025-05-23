@@ -91,10 +91,8 @@ namespace EbonianMod.Projectiles.Friendly.Generic
         public override void PostDraw(Color lightColor)
         {
             Main.spriteBatch.Draw(Assets.ExtraSprites.Projectiles.WardingStarP_Extra.Value, Projectile.Center - Main.screenPosition, null, Color.White, -Projectile.rotation, Assets.ExtraSprites.Projectiles.WardingStarP_Extra.Value.Size() / 2, 1, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
-            Main.spriteBatch.Reload(BlendState.Additive);
-            Main.spriteBatch.Draw(Assets.ExtraSprites.Projectiles.WardingStarP_Extra.Value, Projectile.Center - Main.screenPosition, null, Color.White * Projectile.ai[2], -Projectile.rotation, Assets.ExtraSprites.Projectiles.WardingStarP_Extra.Value.Size() / 2, 1, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(TextureAssets.Projectile[Type].Value, Projectile.Center - Main.screenPosition, null, Color.White * Projectile.ai[2], Projectile.rotation, TextureAssets.Projectile[Type].Value.Size() / 2, 1, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
-            Main.spriteBatch.Reload(BlendState.AlphaBlend);
+            Main.spriteBatch.Draw(Assets.ExtraSprites.Projectiles.WardingStarP_Extra.Value, Projectile.Center - Main.screenPosition, null, Color.White with { A = 0 } * Projectile.ai[2], -Projectile.rotation, Assets.ExtraSprites.Projectiles.WardingStarP_Extra.Value.Size() / 2, 1, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(TextureAssets.Projectile[Type].Value, Projectile.Center - Main.screenPosition, null, Color.White with { A = 0 } * Projectile.ai[2], Projectile.rotation, TextureAssets.Projectile[Type].Value.Size() / 2, 1, Microsoft.Xna.Framework.Graphics.SpriteEffects.None, 0);
         }
     }
     public class WardingStarP2 : ModProjectile
@@ -126,14 +124,12 @@ namespace EbonianMod.Projectiles.Friendly.Generic
             Texture2D baseTex = TextureAssets.Projectile[Type].Value;
             Texture2D baseTex2 = Assets.ExtraSprites.Projectiles.WardingStarP2_Alt.Value;
             Texture2D tex = Projectile.ai[0] < 0 ? baseTex : baseTex2;
-            Main.spriteBatch.Reload(BlendState.Additive);
             var fadeMult = 1f / ProjectileID.Sets.TrailCacheLength[Projectile.type];
             for (int i = 0; i < Projectile.oldPos.Length; i++)
             {
                 float mult = (1f - fadeMult * i);
-                Main.spriteBatch.Draw(tex, Projectile.oldPos[i] + Projectile.Size / 2 - Main.screenPosition, null, Color.White * mult, Projectile.rotation, Projectile.Size / 2, Projectile.scale * mult, SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(tex, Projectile.oldPos[i] + Projectile.Size / 2 - Main.screenPosition, null, Color.White with { A = 0 } * mult, Projectile.rotation, Projectile.Size / 2, Projectile.scale * mult, SpriteEffects.None, 0);
             }
-            Main.spriteBatch.Reload(BlendState.AlphaBlend);
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, Projectile.Size / 2, Projectile.scale, SpriteEffects.None, 0);
             return false;
         }

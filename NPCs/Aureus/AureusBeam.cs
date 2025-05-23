@@ -78,7 +78,7 @@ public class AureusBeam : ModProjectile
         float progress = Utils.GetLerpValue(0, 165, Projectile.timeLeft);
         float i_progress = MathHelper.Clamp(MathHelper.SmoothStep(1, 0.2f, progress) * 50, 0, 1 / MathHelper.Clamp(startSize, 1, 2));
 
-        EbonianMod.pixelationDrawCache.Add(() =>
+        EbonianMod.primitivePixelationDrawCache.Add(() =>
         DrawVertices(Projectile.velocity.ToRotation(), texture, texture2, i_progress, 3));
         return false;
     }

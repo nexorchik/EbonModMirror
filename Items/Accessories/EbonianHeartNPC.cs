@@ -1,3 +1,4 @@
+using EbonianMod.Common.Players;
 using EbonianMod.Common.Systems.Verlets;
 using System;
 using System.Collections.Generic;
@@ -73,7 +74,7 @@ public class EbonianHeartNPC : ModNPC
             }
         NPC.ai[1] = 0;
 
-        EbonianPlayer modPlayer = player.GetModPlayer<EbonianPlayer>();
+        AccessoryPlayer modPlayer = player.GetModPlayer<AccessoryPlayer>();
         if (!modPlayer.heartAcc || player.dead || !player.active)
         {
             NPC.life = 0;

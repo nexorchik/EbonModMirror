@@ -1,4 +1,6 @@
-﻿namespace EbonianMod.Items.Accessories;
+﻿using EbonianMod.Common.Players;
+
+namespace EbonianMod.Items.Accessories;
 
 [AutoloadEquip(EquipType.Shield)]
 public class HotShield : ModItem
@@ -14,6 +16,6 @@ public class HotShield : ModItem
     }
     public override void UpdateAccessory(Player player, bool hideVisual)
     {
-        player.GetModPlayer<EbonianPlayer>().hotShield = true;
+        player.GetModPlayer<AccessoryPlayer>().hotShield = true;
     }
 }

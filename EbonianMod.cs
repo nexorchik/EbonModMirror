@@ -27,7 +27,7 @@ public class EbonianMod : Mod
         CreateRender();
     }
     public static List<Action> invisibleMaskCache = [], affectedByInvisibleMaskCache = [],
-        blurDrawCache = [], pixelationDrawCache = [], finalDrawCache = [], garbageFlameCache = [],
+        blurDrawCache = [], pixelationDrawCache = [], primitivePixelationDrawCache = [], finalDrawCache = [], garbageFlameCache = [],
         xareusGoopCache = [];
     public void LoadDrawCache()
     {
@@ -35,6 +35,7 @@ public class EbonianMod : Mod
         affectedByInvisibleMaskCache ??= [];
         blurDrawCache ??= [];
         pixelationDrawCache ??= [];
+        primitivePixelationDrawCache ??= [];
         finalDrawCache ??= [];
         garbageFlameCache ??= [];
         xareusGoopCache ??= [];

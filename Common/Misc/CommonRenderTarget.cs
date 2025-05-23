@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EbonianMod.Common.Graphics;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,31 +11,10 @@ namespace EbonianMod.Common.Misc;
 public abstract class CommonRenderTarget : ARenderTargetContentByRequest, INeedRenderTargetContent, ILoadable
 {
     public RenderTarget2D _target2;
-    public virtual List<Action>[] Actions => null;
-    public void InvokeActions(int index)
+    public void RequestAndPrepare(bool? conditional = null)
     {
-        if (Actions == null)
+        if (!conditional ?? false)
             return;
-        if (Actions.Length > index && index >= 0)
-        {
-            Actions[index].InvokeAllAndClear();
-        }
-    }
-    public void InvokeActions(List<Action> actions) =>
-        actions.InvokeAllAndClear();
-    public void RequestAndPrepare(bool checkForActionAvailability = true)
-    {
-        if (checkForActionAvailability && Actions != null)
-        {
-            if (Actions.Count() == 0)
-                return;
-            foreach (List<Action> action in Actions)
-            {
-                if (action.Count() == 0)
-                    return;
-            }
-        }
-
         Request();
         PrepareRenderTarget(Main.graphics.GraphicsDevice, Main.spriteBatch);
     }

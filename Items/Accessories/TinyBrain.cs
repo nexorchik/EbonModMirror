@@ -1,3 +1,4 @@
+using EbonianMod.Common.Players;
 using EbonianMod.Common.Systems.Verlets;
 using System;
 using System.IO;
@@ -67,7 +68,7 @@ public class TinyBrain : ModNPC //the class name is a reference to my brain.
         NPC.ai[0] += 4;
         NPC.ai[3] = MathHelper.Lerp(NPC.ai[3], 1, 0.1f);
         NPC.Center = player.Center + new Vector2(90 + MathF.Sin(NPC.ai[0] * 0.01f) * 20, 0).RotatedBy(Helper.CircleDividedEqually(NPC.localAI[0], 8) + MathHelper.ToRadians(NPC.ai[0] + MathF.Sin(NPC.ai[0])) * 0.7f) * NPC.ai[3];
-        EbonianPlayer modPlayer = player.GetModPlayer<EbonianPlayer>();
+        AccessoryPlayer modPlayer = player.GetModPlayer<AccessoryPlayer>();
         if (!modPlayer.brainAcc)
         {
             NPC.life = 0;

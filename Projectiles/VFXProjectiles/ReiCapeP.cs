@@ -1,4 +1,5 @@
-﻿using EbonianMod.Common.Systems.Verlets;
+﻿using EbonianMod.Common.Players;
+using EbonianMod.Common.Systems.Verlets;
 using EbonianMod.Effects.Prims;
 using System;
 using System.Collections.Generic;
@@ -24,13 +25,13 @@ public class ReiCapeP : ModProjectile
         for (int i = 0; i < 80; i++)
         {
             v.Update(player.RotatedRelativePoint(player.MountedCenter) - new Vector2(0, 14 * player.gravDir), Projectile.Center);
-            v.lastP.position -= Vector2.UnitX * player.direction * (10f + (MathF.Sin(Main.GlobalTimeWrappedHourly) + 1) * 2);
+            v.lastP.position -= Vector2.UnitX * (MathF.Sign(player.velocity.X) == 0 ? player.direction : MathF.Sign(player.velocity.X)) * (10f + (MathF.Sin(Main.GlobalTimeWrappedHourly) + 1) * 2);
         }
 
         for (int i = 0; i < smoke.Length; i++)
         {
             Smoke dust = smoke[i];
-            dust.position = new Vector2(0, player.height / 2 - 10);
+            dust.offset = new Vector2(0, player.height / 2 - 10);
             dust.velocity = new Vector2(-player.velocity.X * Main.rand.NextFloat(0, 0.1f) + Main.rand.NextFloat(0, 2f) * -player.direction, Main.rand.NextFloat(-2f, -0.25f));
             dust.scale = Main.rand.NextFloat(0.01f, 0.05f);
         }
@@ -45,7 +46,7 @@ public class ReiCapeP : ModProjectile
     public struct Smoke
     {
         public float scale;
-        public Vector2 position; //is actually offset
+        public Vector2 offset;
         public Vector2 velocity;
     }
     public Smoke[] smoke = new Smoke[250];
@@ -56,7 +57,7 @@ public class ReiCapeP : ModProjectile
         Player player = Main.player[Projectile.owner];
         for (int i = 0; i < smoke.Length; i++)
         {
-            smoke[i].position -= smoke[i].velocity;
+            smoke[i].offset -= smoke[i].velocity;
             smoke[i].scale -= 0.0015f;
             smoke[i].velocity *= 0.95f;
             if (smoke[i].scale < 0.005f)
@@ -68,7 +69,7 @@ public class ReiCapeP : ModProjectile
                     smoke[i].velocity = Helper.FromAToB(player.Center, v.lastP.position).RotatedByRandom(PiOver4) * vel.Length();
                 else
                     smoke[i].velocity = vel;
-                smoke[i].position = new Vector2(0, player.height / 2 - 10) + vel;
+                smoke[i].offset = new Vector2(0, player.height / 2 - 10) + vel;
                 smoke[i].scale = Main.rand.NextFloat(0.01f, 0.045f);
             }
         }
@@ -80,13 +81,13 @@ public class ReiCapeP : ModProjectile
         {
             Smoke d = smoke[i];
             Texture2D tex = Assets.Extras.explosion.Value;
-            sb.Draw(tex, player.RotatedRelativePoint(player.MountedCenter) - d.position - Main.screenPosition, null, Color.White * d.scale * 10, 0, tex.Size() / 2, d.scale * 2, SpriteEffects.None, 0);
+            sb.Draw(tex, player.RotatedRelativePoint(player.MountedCenter) - d.offset - Main.screenPosition, null, Color.White * d.scale * 10, 0, tex.Size() / 2, d.scale * 2, SpriteEffects.None, 0);
         }
     }
     public override void AI()
     {
         Player player = Main.player[Projectile.owner];
-        if (Main.player[Projectile.owner].GetModPlayer<EbonianPlayer>().rei || Main.player[Projectile.owner].GetModPlayer<EbonianPlayer>().reiV)
+        if (Main.player[Projectile.owner].GetModPlayer<AccessoryPlayer>().rei || Main.player[Projectile.owner].GetModPlayer<AccessoryPlayer>().reiV)
             Projectile.timeLeft = 10;
         if (Main.player[Projectile.owner].GetModPlayer<EbonianPlayer>().sheep)
             Projectile.Kill();
@@ -100,7 +101,7 @@ public class ReiCapeP : ModProjectile
             for (int i = 0; i < 5; i++)
             {
                 v.Update(player.RotatedRelativePoint(player.MountedCenter) - new Vector2(0, 14 * player.gravDir), Projectile.Center);
-                v.lastP.position -= Vector2.Lerp(Vector2.UnitX * player.direction * (10f + (MathF.Sin(Main.GlobalTimeWrappedHourly) + 1) * 2),
+                v.lastP.position -= Vector2.Lerp(Vector2.UnitX * (MathF.Sign(player.velocity.X) == 0 ? player.direction : MathF.Sign(player.velocity.X)) * (10f + (MathF.Sin(Main.GlobalTimeWrappedHourly) + 1) * 2),
                     player.velocity, Clamp(player.velocity.Length() / 15f, 0, 1));
             }
         }
@@ -197,14 +198,14 @@ public class ReiCapeTrail : ModProjectile
     public override void AI()
     {
         Player player = Main.player[Projectile.owner];
-        if (Main.player[Projectile.owner].GetModPlayer<EbonianPlayer>().rei || Main.player[Projectile.owner].GetModPlayer<EbonianPlayer>().reiV)
+        if (Main.player[Projectile.owner].GetModPlayer<AccessoryPlayer>().rei || Main.player[Projectile.owner].GetModPlayer<AccessoryPlayer>().reiV)
             Projectile.timeLeft = 10;
         else Projectile.Kill();
         if (Main.player[Projectile.owner].GetModPlayer<EbonianPlayer>().sheep)
             Projectile.Kill();
         Projectile.Center = player.RotatedRelativePoint(player.MountedCenter) + new Vector2(5 * Projectile.ai[0], 19);
         Projectile.rotation = player.velocity.ToRotation();
-        if (player.GetModPlayer<EbonianPlayer>().reiBoostCool == 59)
+        if (player.GetModPlayer<AccessoryPlayer>().reiBoostCool == 59)
             for (int i = 0; i < Projectile.oldPos.Length; i++)
                 Projectile.oldPos[i] = Projectile.Center;
     }

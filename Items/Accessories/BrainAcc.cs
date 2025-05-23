@@ -1,3 +1,4 @@
+using EbonianMod.Common.Players;
 using System;
 using System.Collections.Generic;
 using Terraria.GameContent.Creative;
@@ -48,7 +49,7 @@ public class BrainAcc : ModItem
         {
             timer = 0;
         }
-        EbonianPlayer modPlayer = player.GetModPlayer<EbonianPlayer>();
+        AccessoryPlayer modPlayer = player.GetModPlayer<AccessoryPlayer>();
         modPlayer.brainAcc = true;
     }
 }

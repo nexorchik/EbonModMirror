@@ -1,4 +1,5 @@
-﻿using EbonianMod.Items.Consumables.BossItems;
+﻿using EbonianMod.Items.Accessories;
+using EbonianMod.Items.Consumables.BossItems;
 using EbonianMod.Items.Consumables.Food;
 using EbonianMod.Items.Pets;
 using EbonianMod.Items.Pets.Blinkroot;
@@ -17,6 +18,7 @@ public class ChestSpawnSystem : ModSystem
         WeightedRandom<int> goldChestMainLoot = new();
         goldChestMainLoot.Add(ItemType<GarbageRemote>(), 3);
         goldChestMainLoot.Add(ItemType<SpudCannon>());
+        goldChestMainLoot.Add(ItemType<GoldenTip>());
 
         WeightedRandom<int> goldChestSecondaryLoot = new();
         goldChestSecondaryLoot.Add(ItemType<WaspPaintingI>(), 0.5f);
