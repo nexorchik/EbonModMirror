@@ -118,6 +118,17 @@ public class MassiveSpectator : ModNPC
     bool found = false;
     public override void AI()
     {
+        NPC.dontTakeDamage = true;
+        foreach (Player _player in Main.ActivePlayers)
+        {
+            if (_player.Distance(NPC.Center) < 200)
+            {
+                if (_player.whoAmI == Main.myPlayer && Main.MouseWorld.Distance(NPC.Center) < NPC.Size.Length() * 1.5f)
+                {
+                    NPC.dontTakeDamage = false;
+                }
+            }
+        }
         NPC.timeLeft = 10;
         NPC.despawnEncouraged = false;
         NPC.chaseable = false;

@@ -85,6 +85,17 @@ public class TerrortomaBulb : ModNPC
     }
     public override void AI()
     {
+        NPC.dontTakeDamage = true;
+        foreach (Player player in Main.ActivePlayers)
+        {
+            if (player.Distance(NPC.Center) < 200)
+            {
+                if (player.whoAmI == Main.myPlayer && Main.MouseWorld.Distance(NPC.Center) < NPC.Size.Length() * 1.5f)
+                {
+                    NPC.dontTakeDamage = false;
+                }
+            }
+        }
         NPC.chaseable = false;
         NPC.timeLeft = 10;
         NPC.despawnEncouraged = false;

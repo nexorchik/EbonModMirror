@@ -32,11 +32,6 @@ public class GarbageRemote : ModItem
         Item.consumable = false;
         Item.useTurn = false;
     }
-    public override void ModifyTooltips(List<TooltipLine> tooltips)
-    {
-        int index = tooltips.IndexOf(tooltips.FirstOrDefault(x => x.Text == Language.GetTextValue("Mods.EbonianMod.Items.GarbageRemote.Warning")));
-        tooltips[index].OverrideColor = Color.Red;
-    }
     public override void AddRecipes()
     {
         CreateRecipe().AddIngredient(ItemType<Potato>(), 5).AddRecipeGroup(RecipeGroupSystem.SilverBars, 5).AddIngredient(ItemID.Glass, 10).AddTile(TileID.Anvils).Register();

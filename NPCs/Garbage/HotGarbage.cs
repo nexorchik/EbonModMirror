@@ -507,7 +507,9 @@ public class HotGarbage : ModNPC
 
         if (AIState == Death)
         {
-            NPC.rotation = Lerp(NPC.rotation, 0, 0.1f);
+            NPC.rotation = Utils.AngleLerp(NPC.rotation, 0, 0.1f);
+            NPC.noTileCollide = false;
+            NPC.noGravity = false;
             if (NPC.Grounded())
             {
                 AITimer++;
@@ -571,7 +573,12 @@ public class HotGarbage : ModNPC
                     }
                 }
             }
-            if (AITimer == 20)
+            bool nukeExist = false;
+            foreach (Projectile proj in Main.ActiveProjectiles)
+            {
+                if (proj.type == ProjectileType<HotGarbageNuke>()) nukeExist = true;
+            }
+            if (AITimer == 20 && !nukeExist)
             {
                 for (int i = 0; i < 40; i++)
                 {

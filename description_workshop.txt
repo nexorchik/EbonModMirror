@@ -22,19 +22,19 @@ is [b]WIP[/b] Mod that plans on adding random nonsense with an unsurprising focu
 [/list]
 
 [h2]Credits:[/h2] [list]
-[*] Programmers: [url=https://www.youtube.com/@Ebon1]Ebonfly[/url], Darkmango, Quarzz, Ralken
+[*] Programmers: [url=https://www.youtube.com/@Ebon1]Ebonfly[/url], Darkmango, Ralken, Quarzz
 
-[*] Artists: Max 1287, Roll'eG, Endexyz, Mjoonlight, YoguTheYogurt, fg, Vade, The Possum, AstroWyrm, pil, Decrypt, Ralken, Rati
+[*] Artists: Max 1287, Roll'eG, Endexyz, Mjoonlight, YoguTheYogurt, fg, Vade, The Possum, AstroWyrm, pil, Decrypt, Ralken, Rati, Sulph, funk.it, Maskano, Lambsauce, niker
 
-[*] Ideas and Concepts: Sten, Nicola, Theonetruedog, Taco, mano amim, Dennis (Mystic Giant), Uncon Arts and most people listed in the other categories 
+[*] Ideas and Concepts: Sten, Nicola, Theonetruedog, Taco, Dennis (Mystic Giant), Uncon Arts, Riflezen and most people listed in the other categories 
 
-[*] Music: [url=https://www.youtube.com/@yurio_music]Yuri O[/url]
+[*] Music: [url=https://www.youtube.com/@yurio_music]Yuri O[/url], TYESKI/Universe (Aureus theme), HBDeus (River of Starlight theme)
 
-[*] Sound Design: It'sYeBoi (dronnor)
+[*] Sound Design: It'sYeBoi (dronnor), Moonburn
 
-[*] Past / Misc Contributions: TCHNuke, Moonburn, Riflezen, naka, Magma, Sulph, funk.it
+[*] Misc Contributions: TCHNuke, mano amim, Magma, xrsexem
 
-[*] Testers: The Isopod Maniac (EggsBenedict624), Mr.Gerd26, Lacalidot, WokrThe, GamerFizzy, Chox
+[*] Testers: The Isopod Maniac (EggsBenedict624), Mr.Gerd26, Lacalidot, WokrThe, GamerFizzy, Chox, naka
 [/list]
 
 [img]https://i.imgur.com/U8iUlza.png[/img]

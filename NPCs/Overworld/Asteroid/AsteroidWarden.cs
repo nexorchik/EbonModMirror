@@ -61,16 +61,10 @@ public class AsteroidWarden : ModNPC
     int next = 1;
     public override void SendExtraAI(BinaryWriter writer)
     {
-        writer.WriteVector2(handOffset);
-        writer.Write(headRot);
-        writer.Write(handFrameY);
         writer.Write(next);
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
-        handOffset = reader.ReadVector2();
-        headRot = reader.ReadSingle();
-        handFrameY = reader.Read();
         next = reader.Read();
     }
     public override void FindFrame(int frameHeight)
@@ -85,7 +79,7 @@ public class AsteroidWarden : ModNPC
     }
     public override void ModifyNPCLoot(NPCLoot npcLoot)
     {
-        npcLoot.Add(ItemDropRule.OneFromOptions(15, ItemType<WardingStar>(), ItemType<StarBit>()));
+        npcLoot.Add(ItemDropRule.Common(15, ItemType<WardingStar>()));
     }
     public override void HitEffect(NPC.HitInfo hit)
     {
@@ -189,11 +183,17 @@ public class AsteroidWarden : ModNPC
             else
             {
                 NPC.velocity.Y -= 0.5f;
-                if (++AITimer > 37)
+                if (++AITimer > 35)
                 {
-                    NPC.Opacity = Lerp(NPC.Opacity, 0, 0.3f);
-                    if (AITimer == 42)
-                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + NPC.velocity * 3, Vector2.Zero, ProjectileType<WardenSigil>(), 0, 0);
+                    NPC.velocity *= 0.8f;
+                    NPC.Opacity = Lerp(NPC.Opacity, 0, 0.2f);
+                    if (AITimer == 36)
+                    {
+                        SoundStyle style = SoundID.AbigailSummon;
+                        style.Volume = 0.5f;
+                        SoundEngine.PlaySound(style, NPC.Center);
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + NPC.velocity * 4, Vector2.Zero, ProjectileType<WardenSigil>(), 0, 0);
+                    }
                     if (AITimer >= 45)
                         NPC.active = false;
                 }
@@ -249,7 +249,7 @@ public class AsteroidWarden : ModNPC
             {
                 NPC.velocity = Vector2.Zero;
                 AITimer = -100;
-                AIState = 0;//Main.rand.Next(1, 3);
+                AIState = 0;
                 next = 2;
             }
         }

@@ -340,6 +340,8 @@ Projectiles: {
 	GoldTippedArrow.DisplayName: Gold Tipped Arrow
 	StarBitBlue.DisplayName: Star Bit Blue
 	MagicChargeUp.DisplayName: Magic Charge Up
+	FallingStarBig.DisplayName: Falling Star Big
+	FallingStarTiny.DisplayName: Falling Star Tiny
 }
 
 NPCs: {
@@ -672,6 +674,8 @@ NPCs: {
 
 	PebbiSwarm.DisplayName: Pebbi Swarm
 	BorealDancer.DisplayName: Boreal Dancer
+	FallingStar.DisplayName: Falling Star
+	AsteroidHerder.DisplayName: Asteroid Herder
 }
 
 Items: {
@@ -869,12 +873,7 @@ Items: {
 	}
 
 	GarbageRemote: {
-		Tooltip:
-			'''
-			Allows communication with the only AI to ever reach singularity 
-			Be warned.
-			'''
-		Warning: Be warned.
+		Tooltip: "Allows communication with the only AI to ever reach singularity "
 		DisplayName: Dusty Quantum Computer
 		NoteForTranslators: The 'Be warned.' HAS to match in both the Warning and Tooltip
 	}
@@ -1395,11 +1394,6 @@ Items: {
 		Tooltip: ""
 	}
 
-	ExampleHeldProjectile: {
-		DisplayName: Example Held Projectile
-		Tooltip: ""
-	}
-
 	ConglomerateEnergyDrink: {
 		DisplayName: Conglomerate Energy Drink
 		Tooltip: Contains 63% Conglorine, 22% Ichor B6, 13% Natural Cursed Flames, and other misc. ingredients.
@@ -1456,13 +1450,13 @@ Items: {
 	}
 
 	BoxFishItem: {
-		DisplayName: Box Fish Item
+		DisplayName: Yellow Boxfish
 		Tooltip: ""
 	}
 
 	ShewStone: {
 		DisplayName: Shew Stone
-		Tooltip: ""
+		Tooltip: Right click to prematurely set an active crystal cluster off
 	}
 
 	WardingStar: {
@@ -1487,16 +1481,26 @@ Items: {
 
 	CenturySprayer: {
 		DisplayName: Century Sprayer
-		Tooltip: ""
+		Tooltip: Suffocates enemies
 	}
 
 	GoldenTip: {
 		DisplayName: Golden Tip
-		Tooltip: ""
+		Tooltip: Occasionally converts any arrow into a gold-tipped one that increases the value of the enemy it hits
 	}
 
 	StarBit: {
-		DisplayName: Star Bit
+		DisplayName: Starbit
+		Tooltip:
+			'''
+			3% increased critical strike chance
+			Shoot a star bit on critical strikes
+			A delicacy among the stars!
+			'''
+	}
+
+	RoSTest: {
+		DisplayName: This Item Deletes the Ebonian Mod Do Not Use This
 		Tooltip: ""
 	}
 }

@@ -84,6 +84,9 @@ public class EbonianMod : Mod
     }
     public void LoadFilters()
     {
+        Filters.Scene["Asteroid"] = new Filter(new ScreenShaderData("FilterMiniTower").UseColor(0f, 0f, 0f).UseOpacity(0f), EffectPriority.VeryHigh);
+        SkyManager.Instance["Asteroid"] = new RiverOfStarlightSky();
+
         Filters.Scene["EbonianMod:CorruptTint"] = new Filter(new BasicScreenTint("FilterMiniTower").UseColor(.68f, .56f, .73f).UseOpacity(0.35f), EffectPriority.Medium);
         SkyManager.Instance["EbonianMod:CorruptTint"] = new BasicTint();
 
