@@ -46,7 +46,7 @@ public class EbonianMod : Mod
         SpriteRotation, TextGradient, TextGradient2, TextGradientY, BeamShader, Lens, Test1,
         Test2, LavaRT, Galaxy, CrystalShine, HorizBlur, TrailShader, RTAlpha, Crack, Blur,
         RTOutline, metaballGradient, metaballGradientNoiseTex, invisibleMask, PullingForce,
-        displacementMap, waterEffect, spherize, flame;
+        displacementMap, waterEffect, spherize, flame, starlightRiver;
     public static void LoadEffects()
     {
         static Asset<Effect> LoadEffect(string path) => Request<Effect>("EbonianMod/Effects/" + path); // line of code STOLEN *DIRECTLY* from ONE OF ZEN'S MODS. THANKS, IDIOT!
@@ -81,6 +81,7 @@ public class EbonianMod : Mod
         waterEffect = LoadEffect("waterEffect");
         spherize = LoadEffect("spherize");
         flame = LoadEffect("flameEffect");
+        starlightRiver = LoadEffect("starlightRiver");
     }
     public void LoadFilters()
     {

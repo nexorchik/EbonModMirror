@@ -74,9 +74,12 @@ public class RiverOfStarlightSky : CustomSky
     {
         if (maxDepth >= 3.40282347E+38f && minDepth < 3.40282347E+38f)
         {
-            spriteBatch.Reload(BlendState.Additive);
+            spriteBatch.Snapshot(out var sbParams);
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, sbParams.depthStencilState, sbParams.rasterizerState, null, sbParams.matrix);
             Texture2D Tex = Assets.Extras.gradation3.Value;
-            Texture2D Tex2 = Assets.Extras.gradation2.Value;
+            Texture2D Tex2 = Assets.Extras.swirlyNoise.Value;
+            Texture2D Tex3 = Assets.Extras.gradation2.Value;
             Vector2 Pos = new(Main.screenWidth / 2, Main.screenHeight / 2);
 
             for (int i = 0; i < stars.Length; i++)
@@ -103,11 +106,19 @@ public class RiverOfStarlightSky : CustomSky
                 spriteBatch.Draw(stars[i].texture.Value, stars[i].pos, null, Color.White * Intensity * 2 * stars[i].depth, Main.GameUpdateCount * 0.01f * stars[i].depth, stars[i].texture.Value.Size() / 2, stars[i].depth, SpriteEffects.None, 0);
 
             }
+            int yOff = (int)Lerp(20, -70, Clamp(Main.LocalPlayer.Center.Y / 6000f, 0, 1));
 
             spriteBatch.Draw(Tex, new Rectangle(0, 0 - (int)Main.screenPosition.Y, Main.screenWidth, 3500), null, Color.DodgerBlue * Intensity * 0.65f, 0, Vector2.Zero, SpriteEffects.None, 0);
             for (int i = 0; i < 2; i++)
-                spriteBatch.Draw(Tex2, new Rectangle(0, -50, Main.screenWidth, Main.screenHeight), null, Color.DodgerBlue * Intensity * 0.7f, 0, Vector2.Zero, SpriteEffects.None, 0);
-            spriteBatch.Reload(BlendState.AlphaBlend);
+                spriteBatch.Draw(Tex3, new Rectangle(0, -50, Main.screenWidth, Main.screenHeight + 200), null, Color.DodgerBlue * Intensity * 0.8f, 0, Vector2.Zero, SpriteEffects.None, 0);
+
+            EbonianMod.starlightRiver.Value.CurrentTechnique.Passes[0].Apply();
+            EbonianMod.starlightRiver.Value.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly);
+            EbonianMod.starlightRiver.Value.Parameters["colMult"].SetValue(3);
+            for (int i = 0; i < 2; i++)
+                spriteBatch.Draw(Tex2, new Rectangle(0, -50 + yOff, Main.screenWidth, Main.screenHeight + 300), null, Color.DodgerBlue * Intensity * 0.4f, 0, Vector2.Zero, SpriteEffects.FlipVertically, 0);
+            spriteBatch.End();
+            spriteBatch.ApplySaved(sbParams);
         }
     }
 

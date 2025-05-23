@@ -19,7 +19,7 @@ public class AsteroidWarden : ModNPC
         NPC.noTileCollide = true;
         NPC.damage = 0;
         NPC.defense = 5;
-        NPC.lifeMax = 400;
+        NPC.lifeMax = 350;
         NPC.value = Item.buyPrice(0, 0, 5, 15);
         NPC.aiStyle = -1;
         NPC.knockBackResist = 0.6f;
@@ -201,7 +201,7 @@ public class AsteroidWarden : ModNPC
             }
 
             if (player.Center.Distance(NPC.Center) < 200)
-                NPC.velocity = Vector2.Lerp(NPC.velocity, Helper.FromAToB(NPC.Center, player.Center + new Vector2(100, 0).RotatedBy(Helper.FromAToB(NPC.Center, player.Center, true, true).ToRotation()), false) / 55, 0.05f);
+                NPC.velocity = Vector2.Lerp(NPC.velocity, Helper.FromAToB(NPC.Center, player.Center + new Vector2(100, 0).RotatedBy(Helper.FromAToB(NPC.Center, player.Center, true, true).ToRotation()), false) / 100, 0.05f);
             else
                 NPC.velocity = Vector2.Lerp(NPC.velocity, Helper.FromAToB(NPC.Center, player.Center + new Vector2(100, 0).RotatedBy(Helper.FromAToB(NPC.Center, player.Center, true, true).ToRotation()), true) * 10, 0.05f);
 
@@ -256,7 +256,7 @@ public class AsteroidWarden : ModNPC
         else
         {
             NPC.velocity *= 0.98f;
-            headRot = Lerp(headRot, Main.GameUpdateCount * 0.005f, 0.1f);
+            headRot = Lerp(headRot, Main.GameUpdateCount * 0.005f, 0.05f);
             AITimer++;
             if (AITimer < 11)
                 AITimer2 += 0.1f;
@@ -265,8 +265,8 @@ public class AsteroidWarden : ModNPC
             starRot += MathHelper.ToRadians(NPC.localAI[0] * 0.075f);
             NPC.localAI[0] += 1.5f;
 
-            handOffset = Vector2.Lerp(handOffset, new Vector2(20 * NPC.direction, 15), 0.1f);
-            handRot = Lerp(handRot, PiOver2 * NPC.direction, 0.2f);
+            handOffset = Vector2.Lerp(handOffset, new Vector2(20 * NPC.direction, 15), 0.05f);
+            handRot = Lerp(handRot, PiOver2 * NPC.direction, 0.1f);
             handFrameY = 1;
             if (AITimer >= 40 && AITimer < 150)
             {
@@ -316,7 +316,7 @@ public class WardenStar : ModProjectile
     public override void AI()
     {
         Lighting.AddLight(Projectile.Center, new Vector3(195, 169, 13) / 255 * 0.35f);
-        if (Projectile.velocity.Length() < 25f)
+        if (Projectile.velocity.Length() < 20f)
             Projectile.velocity *= 1.1f;
         Projectile.rotation = Projectile.velocity.ToRotation() + PiOver2;
         float progress = Utils.GetLerpValue(0, 500, Projectile.timeLeft);
@@ -415,10 +415,13 @@ public class WardenSigil : ModProjectile
             Projectile.NewProjectile(null, Projectile.Center, Vector2.Zero, ProjectileType<MagicChargeUp>(), 0, 0, -1, 13, 0.5f);
         if (++Projectile.ai[0] == 50 || Projectile.ai[0] == 65 || Projectile.ai[0] == 80)
         {
+            SoundStyle style = SoundID.Item82;
+            style.Volume = 0.5f;
+            SoundEngine.PlaySound(style, Projectile.Center);
             for (int i = 0; i < 5; i++)
             {
                 Projectile.ai[1] += Pi / 2.5f;
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, new Vector2(0.15f, 0).RotatedBy(Projectile.ai[1]), ProjectileType<WardenStar>(), 10, 0);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center, new Vector2(0.05f, 0).RotatedBy(Projectile.ai[1]), ProjectileType<WardenStar>(), 10, 0);
             }
             Projectile.ai[1] += PiOver4 * 0.8f;
         }
