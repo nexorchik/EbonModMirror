@@ -270,14 +270,14 @@ public class AsteroidWarden : ModNPC
             handFrameY = 1;
             if (AITimer >= 40 && AITimer < 150)
             {
-                if (AITimer % 50 == 40)
+                if (AITimer % 30 == 25)
                 {
                     SoundStyle style = SoundID.Item82;
                     style.Volume = 0.5f;
                     SoundEngine.PlaySound(style, NPC.Center);
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + new Vector2(20 * NPC.direction, 0), Helper.FromAToB(NPC.Center, player.Center) * 0.1f, ProjectileType<WardenStar>(), 10, 0);
+                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + new Vector2(20 * NPC.direction, 0), Helper.FromAToB(NPC.Center, player.Center) * 0.1f, ProjectileType<WardenStar>(), 10, 0, ai2: 1);
                 }
-                if (AITimer % 50 == 45)
+                if (AITimer % 30 == 20)
                 {
                     NPC.localAI[0] = 0;
                     starScale = 1.25f;
@@ -289,7 +289,7 @@ public class AsteroidWarden : ModNPC
                 AITimer2 = 0;
                 NPC.localAI[0] = 0;
                 AIState = 0;
-                next = 1;
+                next = Main.rand.NextBool(3) ? 1 : 2;
             }
         }
     }
@@ -316,11 +316,12 @@ public class WardenStar : ModProjectile
     public override void AI()
     {
         Lighting.AddLight(Projectile.Center, new Vector3(195, 169, 13) / 255 * 0.35f);
-        if (Projectile.velocity.Length() < 20f)
-            Projectile.velocity *= 1.1f;
         Projectile.rotation = Projectile.velocity.ToRotation() + PiOver2;
         float progress = Utils.GetLerpValue(0, 500, Projectile.timeLeft);
         Projectile.scale = Clamp((float)Math.Sin(progress * Math.PI) * 5, 0, 1);
+
+        if (Projectile.velocity.Length() < 20f)
+            Projectile.velocity *= 1.1f;
     }
 
     public override bool PreDraw(ref Color lightColor)

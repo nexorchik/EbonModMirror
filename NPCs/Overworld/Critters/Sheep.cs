@@ -145,7 +145,7 @@ public class Sheep : ModNPC
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
         if (NPC.IsABestiaryIconDummy) return true;
-        Texture2D tex = TextureAssets.Projectile[Type].Value;
+        Texture2D tex = TextureAssets.Npc[Type].Value;
         if (sheared)
             tex = Assets.ExtraSprites.Overworld.Sheep_Naked.Value;
 

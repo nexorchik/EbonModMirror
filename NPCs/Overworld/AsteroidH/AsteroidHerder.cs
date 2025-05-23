@@ -96,6 +96,8 @@ public class AsteroidHerder : ModNPC
                         AITimer++;
                     else
                         NPC.velocity.Y -= 0.5f;
+
+                    NPC.velocity *= 0.9f;
                 }
                 break;
         }
