@@ -42,6 +42,10 @@ public class ReiCapeP : ModProjectile
         Projectile.tileCollide = false;
         Projectile.ignoreWater = true;
         Projectile.penetrate = -1;
+        Projectile.netImportant = true;
+        Projectile.netUpdate = true;
+        Projectile.netUpdate2 = true;
+        Projectile.originalDamage = 0;
     }
     public struct Smoke
     {
@@ -81,7 +85,7 @@ public class ReiCapeP : ModProjectile
         {
             Smoke d = smoke[i];
             Texture2D tex = Assets.Extras.explosion.Value;
-            sb.Draw(tex, player.RotatedRelativePoint(player.MountedCenter) - d.offset - Main.screenPosition, null, Color.White * d.scale * 10, 0, tex.Size() / 2, d.scale * 2, SpriteEffects.None, 0);
+            sb.Draw(tex, player.RotatedRelativePoint(player.MountedCenter) - d.offset - Main.screenPosition, null, Color.White * d.scale * 10 * playerAlpha, 0, tex.Size() / 2, d.scale * 2, SpriteEffects.None, 0);
         }
     }
     public override void AI()
@@ -133,10 +137,12 @@ public class ReiCapeP : ModProjectile
         Lighting.AddLight(player.Center, TorchID.Purple);
         return true;
     }
+    float playerAlpha = 1f;
     public override void PostDraw(Color lightColor)
     {
         Player player = Main.player[Projectile.owner];
         SpritebatchParameters sbParams = Main.spriteBatch.Snapshot();
+        playerAlpha = Lerp(playerAlpha, (1f - player.immuneAlpha / 255f) * (!player.ShouldNotDraw).ToInt() * (player.vortexStealthActive ? 0.2f : 1), player.ShouldNotDraw ? 0.4f : 0.15f);
         if (v != null)
         {
             List<VertexPositionColorTexture>[] vertex = new List<VertexPositionColorTexture>[3] { new(), new(), new() };
@@ -155,7 +161,7 @@ public class ReiCapeP : ModProjectile
                     rot = Clamp(Utils.AngleLerp(lastRot, curRot, 0.5f), MathF.Min(curRot % TwoPi, lastRot % TwoPi) - PiOver4 * 0.05f, MathF.Max(curRot % TwoPi, lastRot % TwoPi) + PiOver4 * 0.05f);
                     pos = v.points[i - 1].position + lastRot.ToRotationVector2() * 5 + rot.ToRotationVector2() * 5 - Main.screenPosition;
                 }
-                Color col = Color.White * Lerp(1, 0, mult);
+                Color col = Color.White * Lerp(1, 0, mult) * playerAlpha;
 
                 for (int j = -1; j < 2; j++)
                 {
