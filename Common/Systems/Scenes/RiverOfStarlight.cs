@@ -44,7 +44,7 @@ public class RiverOfStarlightPlayer : ModPlayer
 {
     public override void PostUpdate()
     {
-        if (Main.rand.NextBool(Star.starfallBoost >= 2 ? 8500 : 20000) && !Main.dayTime)
+        if (Star.starfallBoost >= 2 ? Main.rand.NextBool(8500) : false && !Main.dayTime)
         {
             Projectile.NewProjectile(Player.GetSource_FromThis(), Player.Center + new Vector2(1920 * Main.rand.NextFloat() - 960, -3000), new Vector2(Main.rand.NextFloat(-1, 1), 20f), ModContent.ProjectileType<FallingStarBig>(), 2000, 0);
         }

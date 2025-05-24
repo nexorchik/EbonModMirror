@@ -112,6 +112,11 @@ public class AsteroidWarden : ModNPC
     }
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
+        if (NPC.IsABestiaryIconDummy)
+        {
+            handOffset = new Vector2(-25, 0);
+            handRot = Pi;
+        }
         Player player = Main.player[NPC.target];
         Texture2D tex = TextureAssets.Npc[Type].Value; // https://cdn.discordapp.com/attachments/795335225034670100/1114973113281675367/u23t27yzz0y21.png
         Texture2D head = Assets.NPCs.Overworld.Asteroid.AsteroidWardenHead.Value;

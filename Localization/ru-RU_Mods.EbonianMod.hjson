@@ -342,6 +342,8 @@ Projectiles: {
 	// MagicChargeUp.DisplayName: Magic Charge Up
 	// FallingStarBig.DisplayName: Falling Star Big
 	// FallingStarTiny.DisplayName: Falling Star Tiny
+	// FlyladStarBomb.DisplayName: Flylad Star Bomb
+	// FlyladDeath.DisplayName: Flylad Death
 }
 
 NPCs: {
@@ -682,10 +684,32 @@ NPCs: {
 		// Bestiary: These cosmic watchers come down from space wherever they sense a high amount of arcane star energy, such as the flowing river of starlight above the skies during meteor showers.
 	}
 
-	// PebbiSwarm.DisplayName: Pebbi Swarm
-	// BorealDancer.DisplayName: Boreal Dancer
-	// FallingStar.DisplayName: Falling Star
-	// AsteroidHerder.DisplayName: Asteroid Herder
+	// FallingStar.DisplayName: Fallen Star
+	// Starlad.DisplayName: Starlad
+
+	BorealDancer: {
+		// DisplayName: Boreal Dancer
+		// Bestiary: Brought to life by souls claimed by the low temperatures of the tundra, Boreal Dancers enjoy an endlessly frigid dance.
+	}
+
+	AsteroidHerder: {
+		// DisplayName: Asteroid Herder
+		// Bestiary: Guardians of the river of starlight, they feed off of its endless supply of mana and use it to herd a flock of stars.
+	}
+
+	// Flylad.DisplayName: Flylad
+
+	Minilad: {
+		// DisplayName: Minilad
+		// Bestiary: Contrary to popular belief, the Minilad is not actually a juvenile Starlad, but a smaller, more agile branch of the species that specializes in consuming stellar energy from the air.
+	}
+
+	Obeselad: {
+		// DisplayName: Fatlad
+		// Bestiary: With it's wobbly legs and aloof face, the Fatlad would be the perfect tool to entertain children, if not for its brutal way of feeding by crushing small critters under its rotund body.
+	}
+
+	// PebbiSwarm.DisplayName: Terrifying Pebbi Swarm Approaches Your Way
 }
 
 Items: {

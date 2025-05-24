@@ -6,8 +6,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria.GameContent.Bestiary;
+using Terraria.ModLoader.UI;
 
-namespace EbonianMod.NPCs.Overworld.AsteroidH;
+namespace EbonianMod.NPCs.Overworld.Asteroid;
 public class AsteroidHerder : ModNPC
 {
     public override void SetDefaults()
@@ -57,12 +58,12 @@ public class AsteroidHerder : ModNPC
                     Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, Main.rand.NextVector2CircularEdge(0.5f, 0.5f) * NPC.velocity.Length(), Utils.SelectRandom(Main.rand, 16, 17, 17, 17, 17, 17, 17, 17));
                 }
             }
-            Helper.SpawnGore(NPC, "EbonianMod/Warden", vel: -Vector2.UnitY * 3);
+            NPC.SpawnGore("EbonianMod/Warden", vel: -Vector2.UnitY * 3);
         }
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
-        return (Star.starfallBoost > 2 && !Main.dayTime && spawnInfo.Player.ZoneNormalSpace) ? 0.02f : 0;
+        return Star.starfallBoost > 2 && !Main.dayTime && spawnInfo.Player.ZoneNormalSpace ? 0.02f : 0;
     }
     public override void ModifyNPCLoot(NPCLoot npcLoot)
     {
@@ -70,12 +71,35 @@ public class AsteroidHerder : ModNPC
     }
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
+        void DrawStars(bool after, float rotOff, float scaleMult = 1.25f)
+        {
+            Texture2D star = Assets.NPCs.Overworld.Asteroid.AsteroidHerder_Star.Value;
+            Texture2D star2 = Assets.NPCs.Overworld.Asteroid.AsteroidHerder_StarSmall.Value;
+            int max = 8;
+            for (int i = after ? max : 0; after ? i > 0 : i < max; i += (after ? -1 : 1))
+            {
+                Texture2D chosenStar = i % 2 == 0 ? star : star2;
+                float angle = Helper.CircleDividedEqually(i, max) + rotOff;
+                float progresso = (MathF.Sin(rotOff * 0.1f) + 1) * 0.5f;
+                float distscale = Lerp(0.5f, 0.65f, progresso) * scaleMult;
+                Vector2 angleVec = angle.ToRotationVector2() * 50;
+                float perspectiveScale = MathF.Sin(rotOff * .23f);
+                Vector2 offset = new Vector2(angleVec.X, angleVec.Y * (0.25f + perspectiveScale * 1f)) * distscale;
+                float scale = Lerp(0.5f + MathF.Abs(perspectiveScale * 0.25f), 1, Clamp(MathF.Sin(angle), 0, 1f));
+                bool shouldDraw = after ? scale > 0.725f : scale <= 0.725f;
+
+                if (shouldDraw)
+                    Main.spriteBatch.Draw(chosenStar, NPC.Center + offset.RotatedBy(rotOff * 0.05f) - screenPos, null, Color.White, angle, chosenStar.Size() / 2, scale, SpriteEffects.None, 0f);
+            }
+        }
         Texture2D tex = TextureAssets.Npc[Type].Value;
-        Texture2D glow = Assets.NPCs.Overworld.AsteroidH.AsteroidHerder_Glow.Value;
-        Texture2D star = Assets.NPCs.Overworld.AsteroidH.AsteroidHerder_Star.Value;
-        Texture2D star2 = Assets.NPCs.Overworld.AsteroidH.AsteroidHerder_StarSmall.Value;
+        Texture2D glow = Assets.NPCs.Overworld.Asteroid.AsteroidHerder_Glow.Value;
+
+        DrawStars(false, Main.GlobalTimeWrappedHourly + NPC.whoAmI * 14);
         Main.spriteBatch.Draw(tex, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.Size / 2, NPC.scale, NPC.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
         Main.spriteBatch.Draw(glow, NPC.Center - screenPos, NPC.frame, Color.White, NPC.rotation, NPC.Size / 2, NPC.scale, NPC.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+        DrawStars(true, Main.GlobalTimeWrappedHourly + NPC.whoAmI * 14);
+
         return false;
     }
     public float AIState { get => NPC.ai[0]; set => NPC.ai[0] = value; }
@@ -85,7 +109,7 @@ public class AsteroidHerder : ModNPC
     {
         Lighting.AddLight(NPC.Center, new Vector3(195, 169, 13) / 255 * 0.5f);
         Player player = Main.player[NPC.target];
-        NPC.direction = player.Center.X < NPC.Center.X ? 1 : -1;
+        NPC.direction = player.Center.X > NPC.Center.X ? 1 : -1;
         NPC.spriteDirection = NPC.direction;
         switch (AIState)
         {

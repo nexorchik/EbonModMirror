@@ -12,7 +12,7 @@ public class Potato : ModItem
 
         ItemID.Sets.DrinkParticleColors[Type] = new Color[2] {
             new Color(149, 97, 37),
-            new Color(116, 61, 7 ),
+            new Color(116, 61, 7),
         };
         ItemID.Sets.IsFood[Type] = true;
     }

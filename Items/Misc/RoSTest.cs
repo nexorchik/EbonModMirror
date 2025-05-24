@@ -25,7 +25,10 @@ public class RoSTest : ModItem
     }
     public override bool? UseItem(Player player)
     {
-        Star.starfallBoost = 3;
+        if (Main.mouseRight)
+            Star.starfallBoost = 3;
+        else
+            Star.starfallBoost = 0;
         return base.UseItem(player);
     }
 }

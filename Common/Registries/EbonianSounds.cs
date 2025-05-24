@@ -175,6 +175,18 @@ public class EbonianSounds : ModSystem
     {
         SoundPath = path + "eruption"
     };
+    public static SoundStyle ObeseladBounce => Default with
+    {
+        SoundPath = path + "ObeseladBounce"
+    };
+    public static SoundStyle LuminaryConjure => Default with
+    {
+        SoundPath = path + "LuminaryConjure"
+    };
+    public static SoundStyle FlyladGroundSlam => Default with
+    {
+        SoundPath = path + "FlyladGroundSlam"
+    };
 
 
     public static SoundStyle exolDash => Default with

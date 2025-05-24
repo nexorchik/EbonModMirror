@@ -114,7 +114,7 @@ public class RiverOfStarlightSky : CustomSky
 
             EbonianMod.starlightRiver.Value.CurrentTechnique.Passes[0].Apply();
             EbonianMod.starlightRiver.Value.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly);
-            EbonianMod.starlightRiver.Value.Parameters["colMult"].SetValue(3);
+            EbonianMod.starlightRiver.Value.Parameters["colMult"].SetValue(3 * Intensity);
             for (int i = 0; i < 2; i++)
                 spriteBatch.Draw(Tex2, new Rectangle(0, -50 + yOff, Main.screenWidth, Main.screenHeight + 300), null, Color.DodgerBlue * Intensity * 0.4f, 0, Vector2.Zero, SpriteEffects.FlipVertically, 0);
             spriteBatch.End();
