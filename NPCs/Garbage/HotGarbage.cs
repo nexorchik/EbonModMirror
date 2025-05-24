@@ -128,7 +128,7 @@ public class HotGarbage : ModNPC
         EbonianMod.flame.Value.Parameters["wavinessMult"].SetValue(1);
         EbonianMod.flame.Value.Parameters["intensity"].SetValue(10);
         EbonianMod.flame.Value.Parameters["colOverride"].SetValue(new Vector4(1, 0.25f, 0, 1));
-        spriteBatch.Draw(flame, NPC.Center - Main.screenPosition + new Vector2(0, 2), NPC.frame, Color.White, NPC.rotation, origin, NPC.scale, effects, 0);
+        spriteBatch.Draw(flame, NPC.Center - Main.screenPosition + new Vector2(0, 2 + NPC.gfxOffY), NPC.frame, Color.White, NPC.rotation, origin, NPC.scale, effects, 0);
         spriteBatch.End();
         spriteBatch.ApplySaved(sbParams);
     }

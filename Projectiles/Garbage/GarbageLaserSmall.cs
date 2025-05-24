@@ -39,7 +39,11 @@ public class GarbageLaserSmall1 : ModProjectile
         NPC npc = Main.npc[(int)Projectile.ai[0]];
         if (npc != null)
             if (npc.active && npc.type == NPCType<HotGarbage>())
+            {
                 Projectile.Center = npc.Center + new Vector2(-7 * npc.direction, npc.height * 0.4f);
+                if (npc.ai[0] == HotGarbage.Death || npc.ai[0] == HotGarbage.ActualDeath)
+                    Projectile.Kill();
+            }
         float progress = Utils.GetLerpValue(0, maxTime, Projectile.timeLeft);
         Projectile.scale = MathHelper.Clamp(MathF.Sin(progress * MathHelper.Pi) * 5, 0, 1);
         Projectile.ai[2] += 0.025f;
@@ -155,7 +159,11 @@ public class GarbageLaserSmall2 : ModProjectile
         NPC npc = Main.npc[(int)Projectile.ai[0]];
         if (npc != null)
             if (npc.active && npc.type == NPCType<HotGarbage>())
+            {
                 Projectile.Center = npc.Center + new Vector2(-7 * npc.direction, npc.height * 0.4f);
+                if (npc.ai[0] == HotGarbage.Death || npc.ai[0] == HotGarbage.ActualDeath)
+                    Projectile.Kill();
+            }
         float progress = Utils.GetLerpValue(0, maxTime, Projectile.timeLeft);
         Projectile.scale = MathHelper.Clamp(MathF.Sin(progress * MathHelper.Pi) * 5, 0, 1);
         Projectile.ai[2] += 0.025f;
@@ -262,7 +270,11 @@ public class GarbageLaserSmall3 : ModProjectile
         NPC npc = Main.npc[(int)Projectile.ai[0]];
         if (npc != null)
             if (npc.active && npc.type == NPCType<HotGarbage>())
+            {
                 Projectile.Center = npc.Center + new Vector2(-7 * npc.direction, npc.height * 0.4f);
+                if (npc.ai[0] == HotGarbage.Death || npc.ai[0] == HotGarbage.ActualDeath)
+                    Projectile.Kill();
+            }
         float progress = Utils.GetLerpValue(0, maxTime, Projectile.timeLeft);
         Projectile.scale = MathHelper.Clamp(MathF.Sin(progress * MathHelper.Pi) * 5, 0, 1);
         Projectile.ai[2] += 0.05f;
