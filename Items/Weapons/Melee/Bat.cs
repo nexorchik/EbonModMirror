@@ -85,6 +85,7 @@ public class BatGraphics : HeldSword
     {
         Projectile.scale = 0.3f;
         Player player = Main.player[Projectile.owner];
+        Projectile.spriteDirection = Main.MouseWorld.X > player.Center.X ? 1 : -1;
         Projectile.rotation = Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation() + Pi / 2;
         Projectile.ai[0] = Projectile.rotation - Pi * 0.9f * player.direction;
         Projectile.localAI[0] = Projectile.rotation - Pi;

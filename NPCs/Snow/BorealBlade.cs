@@ -69,7 +69,7 @@ namespace EbonianMod.NPCs.Snow
         {
             if (NPC.life <= 0)
             {
-                Helper.SpawnDust(NPC.Center, NPC.Size, DustID.Ice, new Vector2(Main.rand.NextFloat(0.1f, 2.5f) * hit.HitDirection, Main.rand.NextFloat(-2, 2)), 25, new Action<Dust>((target) => { target.noGravity = true; target.scale = Main.rand.NextFloat(0.6f, 0.9f); }
+                Helper.SpawnDust(NPC.Center, NPC.Size, DustID.Snow, new Vector2(Main.rand.NextFloat(0.1f, 2.5f) * hit.HitDirection, Main.rand.NextFloat(-2, 2)), 25, new Action<Dust>((target) => { target.noGravity = true; target.scale = Main.rand.NextFloat(0.6f, 0.9f); }
                 ));
                 Helper.SpawnGore(NPC, "EbonianMod/BorealBladeG");
                 Helper.SpawnGore(NPC, "EbonianMod/BorealBladeG2");

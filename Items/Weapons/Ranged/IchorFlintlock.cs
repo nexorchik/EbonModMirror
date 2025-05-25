@@ -9,8 +9,8 @@ public class IchorFlintlock : ModItem
         Item.knockBack = 10f;
         Item.width = 42;
         Item.height = 24;
-        Item.crit = 15;
-        Item.damage = 67;
+        Item.crit = 6;
+        Item.damage = 63;
         Item.DamageType = DamageClass.Ranged;
         Item.useStyle = ItemUseStyleID.Shoot;
         Item.rare = ItemRarityID.LightRed;
@@ -74,7 +74,7 @@ public class IchorFlintlockP : ModProjectile
         Projectile.Center = player.MountedCenter;
 
         Projectile.ai[0]++;
-        if (Projectile.ai[0] == 100)
+        if (Projectile.ai[0] == 125)
         {
             RotationOffset = 0.5f;
             for (int j = 0; j < 58; j++)
@@ -94,7 +94,7 @@ public class IchorFlintlockP : ModProjectile
                 Dust.NewDustPerfect(SpawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(-PiOver4, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(2, 8), Scale: 1.5f).noGravity = true;
             }
         }
-        if (Projectile.ai[0] > 100)
+        if (Projectile.ai[0] > 125)
         {
             RotationOffset -= RotationSpeed;
             RotationSpeed += 0.07f;

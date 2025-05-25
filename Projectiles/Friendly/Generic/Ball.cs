@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Collections.Generic;
 using System.Threading;
 using Terraria;
 
@@ -14,15 +15,18 @@ public class Ball : ModProjectile
         Projectile.timeLeft = 400;
         Projectile.usesLocalNPCImmunity = true;
     }
+    public override void SetStaticDefaults()
+    {
+        ProjectileID.Sets.TrailCacheLength[Type] = 15;
+        ProjectileID.Sets.TrailingMode[Type] = 2;
+    }
 
     public override void OnSpawn(IEntitySource source)
     {
         Player player = Main.player[Projectile.owner];
         Projectile.ai[0] = 0;
         Projectile.ai[2] = player.direction;
-        //Projectile.velocity = -Vector2.UnitY + player.velocity;
     }
-
     public override void OnKill(int timeLeft)
     {
 
