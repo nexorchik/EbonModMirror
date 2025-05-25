@@ -1,4 +1,6 @@
-﻿namespace EbonianMod.Common.Utilities;
+﻿using Daybreak.Common.Rendering;
+
+namespace EbonianMod.Common.Utilities;
 
 public readonly struct SpritebatchParameters
 {
@@ -44,8 +46,13 @@ public static class SpritebatchExtensions
         sbParams = spriteBatch.Snapshot();
         spriteBatch.End();
     }
-
     public static void ApplySaved(this SpriteBatch spriteBatch, in SpritebatchParameters sbParams)
+    {
+        if (spriteBatch.beginCalled)
+            spriteBatch.End();
+        spriteBatch.Begin(sbParams);
+    }
+    public static void Begin(this SpriteBatch spriteBatch, in SpritebatchParameters sbParams)
     {
         SpriteSortMode sortMode = sbParams.sortMode;
         BlendState blendState = sbParams.blendState;
@@ -54,9 +61,6 @@ public static class SpritebatchExtensions
         RasterizerState rasterizerState = sbParams.rasterizerState;
         Effect effect = sbParams.effect;
         Matrix matrix = sbParams.matrix;
-
-        if (spriteBatch.beginCalled)
-            spriteBatch.End();
         spriteBatch.Begin(sortMode, blendState, samplerState, depthStencilState, rasterizerState, effect, matrix);
     }
     public static void BeginDefault(this SpriteBatch spriteBatch) => spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
