@@ -79,6 +79,15 @@ public class Obeselad : ModNPC
             state = StateID.Bounced;
             SoundEngine.PlaySound(EbonianSounds.ObeseladBounce, NPC.Center);
 
+            Color newColor7 = Color.CornflowerBlue;
+            for (float num614 = 0f; num614 < 1f; num614 += 0.25f)
+            {
+                Dust.NewDustPerfect(NPC.Bottom, 278, -Vector2.UnitY.RotatedByRandom(PiOver2) * (4f + Main.rand.NextFloat() * 4f), 150, newColor7).noGravity = true;
+            }
+            for (float num615 = 0f; num615 < 1f; num615 += 0.25f)
+            {
+                Dust.NewDustPerfect(NPC.Bottom, 278, -Vector2.UnitY.RotatedByRandom(PiOver2) * (2f + Main.rand.NextFloat() * 3f), 150, Color.Gold).noGravity = true;
+            }
             player.velocity.Y = -10f;
         }
 

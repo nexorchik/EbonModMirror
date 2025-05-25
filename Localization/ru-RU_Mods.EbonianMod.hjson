@@ -707,8 +707,8 @@ NPCs: {
 	}
 
 	Minilad: {
-		// DisplayName: Minilad
-		// Bestiary: Contrary to popular belief, the Minilad is not actually a juvenile Starlad, but a smaller, more agile branch of the species that specializes in consuming stellar energy from the air.
+		// DisplayName: Laddie
+		// Bestiary: Contrary to popular belief, the Laddie is not actually a juvenile Starlad, but a smaller, more agile branch of the species that specializes in consuming stellar energy from the air.
 	}
 
 	Obeselad: {
