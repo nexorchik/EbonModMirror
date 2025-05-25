@@ -60,7 +60,12 @@ public class Starlad : ModNPC
         NPC.frameCounter++;
         if (AIState == Idle)
         {
-            if (NPC.frameCounter % 5 == 0)
+            if (Main.rand.NextBool(500) && NPC.frameCounter > 300)
+            {
+                NPC.frame.Y = 0;
+                NPC.frameCounter = -400;
+            }
+            if (NPC.frameCounter % 5 == 0 && NPC.frameCounter > 0)
             {
                 if (NPC.frame.Y < 4 * frameHeight)
                     NPC.frame.Y += frameHeight;
@@ -156,7 +161,7 @@ public class Starlad : ModNPC
             AITimer++;
             if (AITimer > 70)
             {
-                AITimer = 0;
+                AITimer = Main.rand.Next(-60, 0);
                 AIState = Attack;
                 NPC.damage = 15;
                 NPC.frameCounter = 0;
@@ -167,11 +172,25 @@ public class Starlad : ModNPC
         }
         else if (AIState == Attack)
         {
+            foreach (NPC npc in Main.ActiveNPCs)
+            {
+                if (npc.active && npc.whoAmI != NPC.whoAmI)
+                {
+                    if (npc.Center.Distance(NPC.Center) < npc.width * npc.scale)
+                    {
+                        NPC.Center += NPC.Center.FromAToB(npc.Center, true, true);
+                    }
+                    if (npc.Center == NPC.Center)
+                    {
+                        NPC.velocity = Main.rand.NextVector2Unit() * 5;
+                    }
+                }
+            }
             if (AITimer >= 60 || player.Distance(NPC.Center) < 400)
                 AITimer++;
             if (AITimer < 60)
             {
-                NPC.velocity = Vector2.Lerp(NPC.velocity, Helper.FromAToB(NPC.Center, player.Center + new Vector2(100 * MathF.Sign(NPC.Center.X - player.Center.X), (MathF.Sin(AITimer * 0.1f) + 1) * -10), false) / 15f, 0.7f);
+                NPC.velocity = Helper.FromAToB(NPC.Center, player.Center + new Vector2(100 * MathF.Sign(NPC.Center.X - player.Center.X), (MathF.Sin(AITimer * 0.1f) + 1) * -20), false) / 15f;
             }
             if (NPC.velocity.Length() > 10f)
             {
@@ -211,14 +230,14 @@ public class Starlad : ModNPC
             {
                 SoundEngine.PlaySound(SoundID.Item9, NPC.Center);
                 Vector2 vel = Helper.FromAToB(NPC.Center, player.Center);
-                NPC.velocity = new Vector2(MathF.Sign(vel.X) * 28f, vel.Y);
+                NPC.velocity = new Vector2(MathF.Sign(vel.X) * Main.rand.NextFloat(20, 30), vel.Y);
             }
             if (AITimer >= 165)
             {
                 NPC.velocity *= 0.97f;
             }
             if (AITimer >= 175)
-                AITimer = 0;
+                AITimer = Main.rand.Next(-30, 0);
         }
     }
 }

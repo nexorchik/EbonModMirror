@@ -671,10 +671,11 @@ NPCs: {
 
 	AsteroidWarden: {
 		DisplayName: Asteroid Warden
-		Bestiary: These cosmic watchers thrive in the arcane star energy of the flowing river of starlight, and act as its first defenders from certain extraplanetary invaders. 
+		Bestiary: These cosmic watchers thrive in the arcane star energy of the flowing river of starlight, and act as its first defenders from certain extraplanetary invaders.
 	}
 
 	FallingStar.DisplayName: Fallen Star
+
 	Starlad: {
 		DisplayName: Starlad
 		Bestiary: Possessing astral energy strong enough to pierce through the night, the Starlads are both the prodigal backbone of this invasive species, and the first signs of the Witch's arrival.
@@ -696,8 +697,8 @@ NPCs: {
 	}
 
 	Minilad: {
-		DisplayName: Minilad
-		Bestiary: Contrary to popular belief, the Minilad is not actually a juvenile Starlad, but a smaller, more agile branch of the species that specializes in consuming stellar energy from the air.
+		DisplayName: Laddie
+		Bestiary: Contrary to popular belief, the Laddie is not actually a juvenile Starlad, but a smaller, more agile branch of the species that specializes in consuming stellar energy from the air.
 	}
 
 	Obeselad: {

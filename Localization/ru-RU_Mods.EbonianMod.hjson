@@ -681,11 +681,15 @@ NPCs: {
 
 	AsteroidWarden: {
 		// DisplayName: Asteroid Warden
-		// Bestiary: These cosmic watchers come down from space wherever they sense a high amount of arcane star energy, such as the flowing river of starlight above the skies during meteor showers.
+		// Bestiary: These cosmic watchers thrive in the arcane star energy of the flowing river of starlight, and act as its first defenders from certain extraplanetary invaders.
 	}
 
 	// FallingStar.DisplayName: Fallen Star
-	// Starlad.DisplayName: Starlad
+
+	Starlad: {
+		// DisplayName: Starlad
+		// Bestiary: Possessing astral energy strong enough to pierce through the night, the Starlads are both the prodigal backbone of this invasive species, and the first signs of the Witch's arrival.
+	}
 
 	BorealDancer: {
 		// DisplayName: Boreal Dancer
@@ -697,7 +701,10 @@ NPCs: {
 		// Bestiary: Guardians of the river of starlight, they feed off of its endless supply of mana and use it to herd a flock of stars.
 	}
 
-	// Flylad.DisplayName: Flylad
+	Flylad: {
+		// DisplayName: Flylad
+		// Bestiary: Winged threat coming from galaxies far away. It specializes in firing out small star projectiles, and it sometimes slams its own body down to ensure its survival and the success of the invasion.
+	}
 
 	Minilad: {
 		// DisplayName: Minilad

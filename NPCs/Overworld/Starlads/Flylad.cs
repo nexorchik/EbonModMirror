@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EbonianMod.Gores;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -417,6 +418,10 @@ public class FlyladStarBomb : ModProjectile
         return false;
     }
 
+    List<int> GoreTypes = new List<int>()
+        {
+            GoreType<StarG0>(),GoreType<StarG1>(),GoreType<StarG2>(),GoreType<StarG3>(),GoreType<StarG4>(),GoreType<StarG5>(),GoreType<StarG6>(),
+        };
     public override void Kill(int timeLeft)
     {
         SoundEngine.PlaySound(SoundID.DD2_WitherBeastDeath);
@@ -425,7 +430,7 @@ public class FlyladStarBomb : ModProjectile
         {
             if (Main.netMode != NetmodeID.Server)
             {
-                Gore.NewGore(Projectile.GetSource_Death(), Projectile.position, Main.rand.NextVector2CircularEdge(0.5f, 0.5f) * Projectile.velocity.Length(), 16, 1f);
+                Gore.NewGore(Projectile.GetSource_Death(), Projectile.position, Main.rand.NextVector2CircularEdge(0.5f, 0.5f) * Projectile.velocity.Length(), Main.rand.NextFromList(GoreTypes.ToArray()), 1f);
             }
         }
 
