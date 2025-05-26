@@ -152,12 +152,13 @@ public abstract class HeldSword : ModProjectile
         float swingProgress = Ease(Utils.GetLerpValue(0f, swingTime, Projectile.timeLeft));
         Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
         Vector2 orig = texture.Size() / 2;
-        Main.EntitySpriteDraw(texture, Projectile.Center + visualOffset - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height), lightColor, Projectile.rotation + (Projectile.ai[1] == -1 ? 0 : MathHelper.PiOver2 * 3), orig, Projectile.scale, Projectile.ai[1] == -1 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
+        Vector2 off = new Vector2(0, Main.player[Projectile.owner].gfxOffY);
+        Main.EntitySpriteDraw(texture, Projectile.Center + visualOffset + off - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height), lightColor, Projectile.rotation + (Projectile.ai[1] == -1 ? 0 : MathHelper.PiOver2 * 3), orig, Projectile.scale, Projectile.ai[1] == -1 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
         if (glowAlpha > 0 && glowBlend != null)
         {
             Texture2D glow = Helper.GetTexture(GlowTexture).Value;
             Main.spriteBatch.Reload(glowBlend);
-            Main.EntitySpriteDraw(glow, Projectile.Center + visualOffset - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height), Color.White * glowAlpha, Projectile.rotation + (Projectile.ai[1] == -1 ? 0 : MathHelper.PiOver2 * 3), orig, Projectile.scale, Projectile.ai[1] == -1 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
+            Main.EntitySpriteDraw(glow, Projectile.Center + visualOffset + off - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height), Color.White * glowAlpha, Projectile.rotation + (Projectile.ai[1] == -1 ? 0 : MathHelper.PiOver2 * 3), orig, Projectile.scale, Projectile.ai[1] == -1 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
             Main.spriteBatch.Reload(BlendState.AlphaBlend);
         }
         return false;

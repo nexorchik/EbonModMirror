@@ -344,6 +344,7 @@ Projectiles: {
 	// FallingStarTiny.DisplayName: Falling Star Tiny
 	// FlyladStarBomb.DisplayName: Flylad Star Bomb
 	// FlyladDeath.DisplayName: Flylad Death
+	// RustyWaraxeP.DisplayName: Rusty Waraxe P
 }
 
 NPCs: {
@@ -1546,6 +1547,11 @@ Items: {
 		// DisplayName: This Item Deletes the Ebonian Mod Do Not Use This
 		// Tooltip: ""
 	}
+
+	RustyWaraxe: {
+		// DisplayName: Rusty Waraxe
+		// Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -1647,6 +1653,11 @@ Buffs: {
 	NPCSuffocating: {
 		// DisplayName: N P C Suffocating
 		// Description: Mods.EbonianMod.Buffs.NPCSuffocating.Description
+	}
+
+	RustyCut: {
+		// DisplayName: Rusty Cut
+		// Description: Mods.EbonianMod.Buffs.RustyCut.Description
 	}
 }
 
