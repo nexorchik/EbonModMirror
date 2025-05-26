@@ -3,7 +3,7 @@ using Terraria.GameContent.Bestiary;
 
 namespace EbonianMod.NPCs.Corruption.Ebonflies;
 
-public class EbonFly : ModNPC
+public class Ebonfly : ModNPC
 {
     public override void ModifyNPCLoot(NPCLoot npcLoot)
     {
@@ -19,13 +19,13 @@ public class EbonFly : ModNPC
         bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
             BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.TheCorruption,
             new FlavorTextBestiaryInfoElement("Mods.EbonianMod.Misc.Types.Evil"),
-            new FlavorTextBestiaryInfoElement("Mods.EbonianMod.NPCs.EbonFly.Bestiary"),
+            new FlavorTextBestiaryInfoElement("Mods.EbonianMod.NPCs.Ebonfly.Bestiary"),
         });
     }
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
 
-        Texture2D tex = Assets.ExtraSprites.Corruption.EbonFly_Glow.Value;
+        Texture2D tex = Assets.ExtraSprites.Corruption.Ebonfly_Glow.Value;
         Texture2D tex2 = TextureAssets.Npc[Type].Value;
         SpriteEffects effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
         Main.EntitySpriteDraw(tex2, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.Size / 2, NPC.scale, effects, 0);
@@ -110,9 +110,9 @@ public class EbonFly : ModNPC
     }
     public override bool CheckDead()
     {
-        Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/EbonFlyGore").Type, NPC.scale);
-        Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/EbonFlyGore2").Type, NPC.scale);
-        Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/EbonFlyGore3").Type, NPC.scale);
+        Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/EbonflyGore").Type, NPC.scale);
+        Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/EbonflyGore2").Type, NPC.scale);
+        Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/EbonflyGore3").Type, NPC.scale);
         return true;
     }
 }

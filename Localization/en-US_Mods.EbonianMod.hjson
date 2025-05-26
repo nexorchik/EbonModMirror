@@ -422,7 +422,7 @@ NPCs: {
 	RottenSpineBody.DisplayName: Rotten Spine
 	EbonianStrider.DisplayName: Regurgitator
 
-	EbonFly: {
+	Ebonfly: {
 		DisplayName: Ebonfly
 		Bestiary: An insect that prefers to fly in groups. They feed by eating dead flesh off of other surfaces. Some say that one day they will grow too big for their wings and become the worms their homeland is known for. Whether this is true or not is debatable.
 	}
