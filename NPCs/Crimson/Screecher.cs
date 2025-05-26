@@ -45,10 +45,8 @@ public class Screecher : ModNPC
     }
     public override bool CheckDead()
     {
-        Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/WalkerGore").Type, NPC.scale);
-        Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/WalkerGore2").Type, NPC.scale);
-        Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/WalkerGore3").Type, NPC.scale);
-        Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/WalkerGore4").Type, NPC.scale);
+        for(int i=1; i<5; i++)
+            Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/WalkerGore" + i).Type, NPC.scale);
         return true;
     }
 
