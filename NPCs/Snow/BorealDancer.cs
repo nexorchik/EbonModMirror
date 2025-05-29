@@ -8,13 +8,13 @@ public class BorealDancer : ModNPC
 {
     public override void SetDefaults()
     {
-        NPC.width = 48;
+        NPC.width = 20;
         NPC.height = 50;
         NPC.HitSound = SoundID.Item49;
         NPC.DeathSound = SoundID.Item27;
-        NPC.damage = 30;
+        NPC.damage = 1;
         NPC.defense = 0;
-        NPC.lifeMax = 60;
+        NPC.lifeMax = 20;
     }
 
     public override void SetStaticDefaults()
@@ -28,7 +28,7 @@ public class BorealDancer : ModNPC
         Player player = Main.player[NPC.target];
 
         Vector2 VectorDistance = player.Center - NPC.Center;
-        bool SeesAPlayer = Helper.TRay.CastLength(NPC.Center, VectorDistance, VectorDistance.Length(), false) >= VectorDistance.Length()-0.4f;
+        bool SeesAPlayer = Helper.TRay.CastLength(NPC.Center - Vector2.UnitY*9, VectorDistance, VectorDistance.Length(), false) >= VectorDistance.Length()-0.4f;
         NPC.ai[1] = 2;
         if (SeesAPlayer)
         {
@@ -53,18 +53,24 @@ public class BorealDancer : ModNPC
                 NPC.spriteDirection = player.Center.X > NPC.Center.X ? 1 : -1;
             }
         }
-        if(NPC.ai[0] != 1)
+        float XVelocityModule = MathF.Abs(NPC.velocity.X);
+        if (NPC.ai[0] != 1)
         {
             NPC.ai[1] = 2;
         }
         else
         {
-            NPC.ai[1] = Clamp((int)MathF.Abs(NPC.velocity.X * 0.8f), 1, 3);
+            NPC.ai[1] = Clamp((int)(XVelocityModule*0.8f), 1, 3);
         }
-        if (Helper.TRay.CastLength(NPC.Center, new Vector2(NPC.velocity.X, 0), 45, false) < 26)
+        if (Helper.TRay.CastLength(NPC.Center - Vector2.UnitY*12, new Vector2(NPC.velocity.X, 0), 45, false) < 12 && XVelocityModule > 0.4f)
         {
+            for (int u = 0; u < 15; u++)
+            {
+                Dust.NewDustPerfect(NPC.Center, DustID.Snow, -NPC.velocity.X/4 * Main.rand.NextFloat(-Pi/3, Pi/3).ToRotationVector2() * Main.rand.NextFloat(2, 7), Scale: Main.rand.NextFloat(0.7f, 1.3f)).noGravity = true;
+            }
             NPC.velocity.X *= -0.6f;
         }
+        Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY, 1, false, 0);
     }
 
     public override bool CheckDead()
@@ -94,6 +100,7 @@ public class BorealDancer : ModNPC
             }
             if (NPC.ai[0] == 2)
             {
+                SoundEngine.PlaySound(SoundID.Item1.WithPitchOffset(Main.rand.NextFloat(0f, 1f)), NPC.Center);
                 NPC.frame.Y = 8 * frameHeight;
                 NPC.ai[0] = -1;
             }

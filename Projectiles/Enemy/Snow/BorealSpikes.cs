@@ -19,6 +19,7 @@ public class BorealSpike : ModProjectile
     public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI) => behindNPCsAndTiles.Add(index);
     public override void OnSpawn(IEntitySource source)
     {
+        SoundEngine.PlaySound(SoundID.Item28.WithPitchOffset(Main.rand.NextFloat(0.7f, 0.9f)), Projectile.Center);
         Projectile.rotation = Main.rand.NextFloat(-Pi / 12, Pi / 12);
         for (int i = 0; i < 12; i++)
         {

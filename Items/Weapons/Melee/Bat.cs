@@ -97,6 +97,8 @@ public class BatGraphics : HeldSword
 
         Projectile.scale = Lerp(Projectile.scale, 1, 0.45f);
 
+        Projectile.velocity = new Vector2(0);
+
         player.heldProj = Projectile.whoAmI;
         Projectile.ai[1]++;
         if (Projectile.ai[1] > 0)
