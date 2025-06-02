@@ -1,5 +1,9 @@
 ﻿using EbonianMod.Common.Systems.Verlets;
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Terraria.GameContent.Bestiary;
 
 namespace EbonianMod.NPCs.Crimson.Fleshformator;
@@ -213,6 +217,7 @@ public class Fleshformator : ModNPC
         Player player = Main.player[NPC.target];
         NPC.TargetClosest(false);
         if (verlet[0] != null)
+        {
             for (int i = 0; i < 3; i++)
             {
                 if (verlet[i].lastP.position.Distance(player.Center) < 20 && AITimer2 <= -50)
@@ -224,7 +229,7 @@ public class Fleshformator : ModNPC
                     AITimer2 = 100;
                 }
 
-                if (endPos[i].Distance(startPos[i]) < 139 && player.Center.Distance(startPos[i]) < 150 && AITimer2 <= 0)
+                if (endPos[i].Distance(startPos[i]) < 159 && player.Center.Distance(startPos[i] + NPC.Center.FromAToB(startPos[i]) * 50) < 150 && AITimer2 <= 0)
                     endPos[i] += endPos[i].FromAToB(player.Center).RotatedByRandom(0.5f) * 0.75f;
                 else
                 {
@@ -235,7 +240,6 @@ public class Fleshformator : ModNPC
                     }
                     else
                         endPos[i] += endPos[i].FromAToB(ogEndPos[i], false).RotatedByRandom(0.5f) / 30;
-
                 }
                 for (int j = 0; j < 3; j++)
                 {
@@ -244,6 +248,7 @@ public class Fleshformator : ModNPC
                         endPos[i] += endPos[i].FromAToB(ogEndPos[i], true);
                 }
             }
+        }
         if (AITimer2 > 50)
         {
             if (NPC.rotation == MathHelper.ToRadians(90))

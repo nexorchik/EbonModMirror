@@ -329,6 +329,9 @@ public static class Helper
         }
         return baseVel;
     }
+    public static Vector2 FromAToB(this Entity a, Entity b, bool normalize = true, bool reverse = false) => FromAToB(a.Center, b.Center, normalize, reverse);
+    public static Vector2 FromAToB(this Vector2 a, Entity b, bool normalize = true, bool reverse = false) => FromAToB(a, b.Center, normalize, reverse);
+    public static Vector2 FromAToB(this Entity a, Vector2 b, bool normalize = true, bool reverse = false) => FromAToB(a.Center, b, normalize, reverse);
     public static void SpawnDust(Vector2 position, Vector2 size, int type, Vector2 velocity = default, int amount = 1, Action<Dust> dustModification = null)
     {
         for (int i = 0; i < amount; i++)
