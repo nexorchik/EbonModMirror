@@ -1,4 +1,5 @@
-﻿using EbonianMod.Items.Accessories;
+﻿using EbonianMod.Common.Misc;
+using EbonianMod.Items.Accessories;
 using EbonianMod.Items.Weapons.Magic;
 using EbonianMod.Projectiles.VFXProjectiles;
 using System;
@@ -6,7 +7,7 @@ using System.IO;
 using Terraria.GameContent.Bestiary;
 
 namespace EbonianMod.NPCs.Overworld.Asteroid;
-public class AsteroidWarden : ModNPC
+public class AsteroidWarden : CommonNPC
 {
     public override void SetStaticDefaults()
     {
@@ -32,26 +33,6 @@ public class AsteroidWarden : ModNPC
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
                 new FlavorTextBestiaryInfoElement(NPC.BestiaryKey())
         });
-    }
-    public float AIState
-    {
-        get => NPC.ai[0];
-        set => NPC.ai[0] = value;
-    }
-    public float AITimer
-    {
-        get => NPC.ai[1];
-        set => NPC.ai[1] = value;
-    }
-    public float AITimer2
-    {
-        get => NPC.ai[2];
-        set => NPC.ai[2] = value;
-    }
-    public float handRot
-    {
-        get => NPC.ai[3];
-        set => NPC.ai[3] = value;
     }
     public Vector2 handOffset;
     public Vector2 leftHandOff, rightHandOff;
@@ -115,7 +96,7 @@ public class AsteroidWarden : ModNPC
         if (NPC.IsABestiaryIconDummy)
         {
             handOffset = new Vector2(-25, 0);
-            handRot = Pi;
+            AITimer3 = Pi;
         }
         Player player = Main.player[NPC.target];
         Texture2D tex = TextureAssets.Npc[Type].Value; // https://cdn.discordapp.com/attachments/795335225034670100/1114973113281675367/u23t27yzz0y21.png
@@ -126,12 +107,12 @@ public class AsteroidWarden : ModNPC
         Texture2D glow = Assets.NPCs.Overworld.Asteroid.AsteroidWarden_Glow.Value;
 
         Vector2 handOrig = new Vector2(18 / 2, 20);
-        Vector2 finalHandOff = new Vector2(0, 10).RotatedBy(handRot + Pi);
+        Vector2 finalHandOff = new Vector2(0, 10).RotatedBy(AITimer3 + Pi);
         spriteBatch.Draw(hand, NPC.Center - screenPos + new Vector2(AIState == 2 ? handOffset.X : -handOffset.X, -handOffset.Y) + leftHandOff - finalHandOff, new Rectangle(0, handFrameY * 24, 18, 24),
-            drawColor * NPC.Opacity, handRot + leftHandRot, handOrig, NPC.scale, handRot < 0 && handFrameY != 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+            drawColor * NPC.Opacity, AITimer3 + leftHandRot, handOrig, NPC.scale, AITimer3 < 0 && handFrameY != 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
 
         spriteBatch.Draw(handGlow, NPC.Center - screenPos + new Vector2(AIState == 2 ? handOffset.X : -handOffset.X, -handOffset.Y) + leftHandOff - finalHandOff, new Rectangle(0, handFrameY * 24, 18, 24),
-            Color.White * NPC.Opacity, handRot + leftHandRot, handOrig, NPC.scale, handRot < 0 && handFrameY != 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+            Color.White * NPC.Opacity, AITimer3 + leftHandRot, handOrig, NPC.scale, AITimer3 < 0 && handFrameY != 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
 
         spriteBatch.Draw(tex, NPC.Center - screenPos, NPC.frame, drawColor * NPC.Opacity, NPC.rotation, NPC.Size / 2, NPC.scale, NPC.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
         spriteBatch.Draw(glow, NPC.Center - screenPos, NPC.frame, Color.White * NPC.Opacity, NPC.rotation, NPC.Size / 2, NPC.scale, NPC.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
@@ -139,10 +120,10 @@ public class AsteroidWarden : ModNPC
         spriteBatch.Draw(headGlow, NPC.Center - new Vector2(0, 25) - screenPos, null, Color.White * NPC.Opacity, headRot, head.Size() / 2, NPC.scale, SpriteEffects.None, 0);
 
         spriteBatch.Draw(hand, NPC.Center - screenPos + new Vector2(handOffset.X, handOffset.Y) + rightHandOff - finalHandOff, new Rectangle(0, handFrameY * 24, 18, 24),
-            drawColor * NPC.Opacity, handRot + rightHandRot, handOrig, NPC.scale, handRot < 0 && handFrameY != 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+            drawColor * NPC.Opacity, AITimer3 + rightHandRot, handOrig, NPC.scale, AITimer3 < 0 && handFrameY != 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
 
         spriteBatch.Draw(handGlow, NPC.Center - screenPos + new Vector2(handOffset.X, handOffset.Y) + rightHandOff - finalHandOff, new Rectangle(0, handFrameY * 24, 18, 24),
-            Color.White * NPC.Opacity, handRot + rightHandRot, handOrig, NPC.scale, handRot < 0 && handFrameY != 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+            Color.White * NPC.Opacity, AITimer3 + rightHandRot, handOrig, NPC.scale, AITimer3 < 0 && handFrameY != 0 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
         return false;
     }
     public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
@@ -176,7 +157,7 @@ public class AsteroidWarden : ModNPC
             leftHandOff = Vector2.Lerp(leftHandOff, Vector2.Zero, 0.1f);
             rightHandRot = Utils.AngleLerp(rightHandRot, 0, 0.1f);
             leftHandRot = Utils.AngleLerp(leftHandRot, 0, 0.1f);
-            handRot = Utils.AngleLerp(handRot, Pi, 0.1f);
+            AITimer3 = Utils.AngleLerp(AITimer3, Pi, 0.1f);
             headRot = Utils.AngleLerp(headRot, Helper.FromAToB(NPC.Center - new Vector2(0, 25), player.Center).ToRotation() - Pi, 0.1f);
             if (AITimer > 15 || (AITimer < 0 && AITimer > -80))
                 handFrameY = 0;
@@ -233,7 +214,7 @@ public class AsteroidWarden : ModNPC
             }
             if (AITimer > 80)
             {
-                handRot = Utils.AngleLerp(handRot, -Pi, 0.1f);
+                AITimer3 = Utils.AngleLerp(AITimer3, -Pi, 0.1f);
                 leftHandRot = Utils.AngleLerp(leftHandRot, 4, 0.02f);
                 rightHandRot = Utils.AngleLerp(rightHandRot, -4, 0.02f);
                 rightHandOff = Vector2.Lerp(rightHandOff, Vector2.UnitY.RotatedBy(.7f) * -50 - Vector2.UnitY * 30, 0.01f);
@@ -271,7 +252,7 @@ public class AsteroidWarden : ModNPC
             NPC.localAI[0] += 1.5f;
 
             handOffset = Vector2.Lerp(handOffset, new Vector2(20 * NPC.direction, 15), 0.05f);
-            handRot = Lerp(handRot, PiOver2 * NPC.direction, 0.1f);
+            AITimer3 = Lerp(AITimer3, PiOver2 * NPC.direction, 0.1f);
             handFrameY = 1;
             if (AITimer >= 40 && AITimer < 150)
             {

@@ -1,5 +1,6 @@
 ﻿using EbonianMod.Bossbars;
 using EbonianMod.Buffs;
+using EbonianMod.Common.Misc;
 using EbonianMod.Common.UI.Dialogue;
 
 using EbonianMod.Dusts;
@@ -23,7 +24,7 @@ using Terraria.Graphics.CameraModifiers;
 namespace EbonianMod.NPCs.ArchmageX;
 
 [AutoloadBossHead]
-public class ArchmageX : ModNPC
+public class ArchmageX : CommonNPC
 {
     public override void SetStaticDefaults()
     {
@@ -254,26 +255,6 @@ public class ArchmageX : ModNPC
         VeryShockedFace = 7 * 42,
         BlinkingFace = 8 * 42,
         AssholeFace = 9 * 42;
-    public float AIState
-    {
-        get => NPC.ai[0];
-        set => NPC.ai[0] = value;
-    }
-    public float AITimer
-    {
-        get => NPC.ai[1];
-        set => NPC.ai[1] = value;
-    }
-    public float AITimer2
-    {
-        get => NPC.ai[2];
-        set => NPC.ai[2] = value;
-    }
-    public float AITimer3
-    {
-        get => NPC.ai[3];
-        set => NPC.ai[3] = value;
-    }
     public const int Phase2Transition = -5, Taunt = -4, Despawn = -3, Death = -2, Idle = -1, Spawn = 0,
         PhantasmalSpirit = 1, ShadowflamePuddles = 2, SpectralOrbs = 3, MagnificentFireballs = 4, SineLaser = 5, AmethystCloseIn = 6,
         HelicopterBlades = 7, GiantAmethyst = 8, Micolash = 9, TheSheepening = 10, ManaPotion = 11, PhantasmalBlast = 12, ShadowflameRift = 13,
@@ -2715,7 +2696,7 @@ public class ArchmageX : ModNPC
         Player player = Main.player[NPC.target];
         return (player.Center.Y > NPC.Center.Y + 50 && (AIState == Idle || (AIState == BONK && AITimer < 130) || AIState == Spawn || (AIState == Micolash && AITimer < 130))) || NPC.noGravity;
     }
-    void Reset()
+    public override void Reset()
     {
         bool phase2 = phaseMult >= 2;
         NPC.netUpdate = true;

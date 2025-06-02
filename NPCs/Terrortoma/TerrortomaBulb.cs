@@ -17,7 +17,7 @@ public class TerrortomaBulb : ModNPC
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
-        return (spawnInfo.Player.ZoneCorrupt && spawnInfo.Player.ZoneOverworldHeight && Main.hardMode && !NPC.AnyNPCs(Type) && !NPC.AnyNPCs(NPCType<Terrortoma>())) ? 0.5f : 0;
+        return (spawnInfo.Player.ZoneCorrupt && spawnInfo.Player.ZoneOverworldHeight && Main.hardMode && !NPC.AnyNPCs(Type) && !NPC.AnyNPCs(NPCType<Terrortoma>())) ? (GetInstance<DownedBossSystem>().downedTerrortoma ? 0.09f : 0.5f) : 0;
     }
     public override void SetDefaults()
     {

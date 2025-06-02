@@ -1,4 +1,5 @@
-﻿using EbonianMod.Items.Accessories;
+﻿using EbonianMod.Common.Misc;
+using EbonianMod.Items.Accessories;
 using EbonianMod.Items.Weapons.Magic;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using Terraria.GameContent.Bestiary;
 using Terraria.ModLoader.UI;
 
 namespace EbonianMod.NPCs.Overworld.Asteroid;
-public class AsteroidHerder : ModNPC
+public class AsteroidHerder : CommonNPC
 {
     public override void SetDefaults()
     {
@@ -102,9 +103,6 @@ public class AsteroidHerder : ModNPC
 
         return false;
     }
-    public float AIState { get => NPC.ai[0]; set => NPC.ai[0] = value; }
-    public float AITimer { get => NPC.ai[1]; set => NPC.ai[1] = value; }
-    public float AITimer2 { get => NPC.ai[2]; set => NPC.ai[2] = value; }
     public override void AI()
     {
         Lighting.AddLight(NPC.Center, new Vector3(195, 169, 13) / 255 * 0.5f);
