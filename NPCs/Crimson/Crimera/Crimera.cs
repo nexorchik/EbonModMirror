@@ -39,14 +39,7 @@ public class CrimeraHead : WormHead
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
-        if (spawnInfo.Player.ZoneCrimson && Main.hardMode)
-        {
-            return .1f;
-        }
-        else
-        {
-            return 0;
-        }
+        return spawnInfo.Player.ZoneCrimson && spawnInfo.Player.ZoneOverworldHeight && Main.hardMode ? 0.1f : 0;
     }
     public override bool useNormalMovement => !(NPC.ai[2] > 300 && NPC.ai[2] < 650);
     float offset;
