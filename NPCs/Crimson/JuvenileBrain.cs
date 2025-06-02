@@ -82,7 +82,7 @@ public class JuvenileBrain : ModNPC
 
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
-        return spawnInfo.Player.ZoneCrimson && NPC.downedBoss2 ? 0.05f : 0;
+        return spawnInfo.Player.ZoneCrimson && spawnInfo.Player.ZoneOverworldHeight && NPC.downedBoss2 ? 0.05f : 0;
     }
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 pos, Color drawColor)
     {

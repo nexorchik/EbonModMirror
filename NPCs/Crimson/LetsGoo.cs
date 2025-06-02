@@ -28,7 +28,7 @@ public class LetsGoo : ModNPC
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
-        return spawnInfo.Player.ZoneCrimson ? 0.05f : 0;
+        return spawnInfo.Player.ZoneCrimson && spawnInfo.Player.ZoneOverworldHeight ? 0.05f : 0;
     }
     public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
     {
