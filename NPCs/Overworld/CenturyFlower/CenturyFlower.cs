@@ -143,7 +143,8 @@ namespace EbonianMod.NPCs.Overworld.CenturyFlower
 
         void ManageMovementAnimation()
         {
-            RealFrame++;
+            if (++NPC.frameCounter % 2 == 0)
+                RealFrame++;
             if (NPC.velocity.Y != 0 || NPC.oldVelocity == Vector2.Zero || GetFrame() > 4 || GetFrame() < 0)
             {
                 RealFrame = 3;
@@ -156,7 +157,7 @@ namespace EbonianMod.NPCs.Overworld.CenturyFlower
             if (timer == 1)
                 NPC.velocity.X = 0;
             else if (timer < 50 && timer % 20 == 0)
-                Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center - new Vector2(1, 16), Main.rand.NextVector2Unit() * 0.1f, ModContent.ProjectileType<CenturyFlowerSpore.CenturyFlowerSpore>(), 0, 0);
+                Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Center - new Vector2(1, 16), Main.rand.NextVector2Unit() * Main.rand.NextFloat(1, 2) * Lerp(0, 1, timer / 50f), ModContent.ProjectileType<CenturyFlowerSpore.CenturyFlowerSpore>(), 0, 0);
             else if (timer > 75 && timer % 5 == 0)
             {
                 if (timer >= 150)
