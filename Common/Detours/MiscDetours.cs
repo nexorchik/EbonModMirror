@@ -1,4 +1,5 @@
 ﻿using EbonianMod.NPCs.ArchmageX;
+using Terraria.Graphics.Effects;
 
 namespace EbonianMod.Common.Detours;
 
@@ -8,6 +9,7 @@ public class MiscDetours : ModSystem
     {
         On_NPC.SetEventFlagCleared += EventClear;
         On_Main.Update += UpdateDeltaTime;
+        On_FilterManager.CanCapture += (On_FilterManager.orig_CanCapture orig, FilterManager self) => true;
     }
     void UpdateDeltaTime(On_Main.orig_Update orig, Main self, GameTime gameTime)
     {

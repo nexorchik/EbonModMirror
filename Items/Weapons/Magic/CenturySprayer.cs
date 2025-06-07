@@ -6,6 +6,7 @@ using static Terraria.ModLoader.ModContent;
 using Terraria.GameContent.Creative;
 using EbonianMod.Buffs;
 using System;
+using System.Collections.Generic;
 
 namespace EbonianMod.Items.Weapons.Magic
 {
@@ -20,7 +21,7 @@ namespace EbonianMod.Items.Weapons.Magic
         {
             Item.width = 40;
             Item.height = 40;
-            Item.damage = 0;
+            Item.damage = 5;
             Item.DamageType = DamageClass.Magic;
             Item.noMelee = true;
             Item.useTime = 5;
@@ -31,12 +32,24 @@ namespace EbonianMod.Items.Weapons.Magic
             Item.UseSound = SoundID.Item34;
             Item.autoReuse = true;
             Item.mana = 5;
+            Item.crit = 0;
             Item.shoot = ProjectileType<CenturySpewerSpore>();
             Item.shootSpeed = 6f;
+        }
+        public override bool CanReforge() => false;
+        public override void ModifyTooltips(List<TooltipLine> tooltips)
+        {
+            int damg = tooltips.FindIndex(x => x.Mod == "Terraria" && x.Name == "Damage");
+            int knoc = tooltips.FindIndex(x => x.Mod == "Terraria" && x.Name == "Knockback");
+            int crit = tooltips.FindIndex(x => x.Mod == "Terraria" && x.Name == "CritChance");
+            tooltips[damg].Hide();
+            tooltips[knoc].Hide();
+            tooltips[crit].Hide();
         }
         public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
         {
             velocity = velocity.RotatedByRandom(MathHelper.ToRadians(10));
+            damage = 0;
         }
     }
     public class CenturySpewerSpore : ModProjectile

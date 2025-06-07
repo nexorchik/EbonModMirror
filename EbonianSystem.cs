@@ -101,11 +101,11 @@ public class EbonianSystem : ModSystem
         else
             Main.musicVolume = Lerp(savedMusicVol, 0, setMusicBackTimer / setMusicBackTimerMax);
 
-        if (Main.WaveQuality == 0)
+        /*if (Main.WaveQuality == 0)
         {
             Main.NewText("Ebonian Mod doesn't currently work properly when the Wave Quality is set to Off.", Main.errorColor);
             Main.WaveQuality = 1;
-        }
+        }*/
     }
     public override void OnWorldLoad()
     {
