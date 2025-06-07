@@ -106,12 +106,6 @@ public class EbonianSystem : ModSystem
             Main.NewText("Ebonian Mod doesn't currently work properly when the Wave Quality is set to Off.", Main.errorColor);
             Main.WaveQuality = 1;
         }
-
-        if (Lighting.Mode == Terraria.Graphics.Light.LightMode.Trippy || Lighting.Mode == Terraria.Graphics.Light.LightMode.Retro)
-        {
-            Main.NewText("Ebonian Mod doesn't currently work properly with Trippy or Retro lights.", Main.errorColor);
-            Lighting.Mode = Terraria.Graphics.Light.LightMode.Color;
-        }
     }
     public override void OnWorldLoad()
     {

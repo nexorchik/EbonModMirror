@@ -345,6 +345,7 @@ Projectiles: {
 	// FlyladStarBomb.DisplayName: Flylad Star Bomb
 	// FlyladDeath.DisplayName: Flylad Death
 	// RustyWaraxeP.DisplayName: Rusty Waraxe P
+	// BorealSpike.DisplayName: Boreal Spike
 }
 
 NPCs: {

@@ -87,7 +87,7 @@ public class DrawDetours : ModSystem
         }
         Main.spriteBatch.End();
 
-        if (!Main.gameMenu && Lighting.NotRetro)
+        if (!Main.gameMenu)
         {
             DrawGarbageFlames();
             DrawInvisMasks(Main.spriteBatch, Main.graphics.GraphicsDevice);
@@ -132,7 +132,7 @@ public class DrawDetours : ModSystem
 
         orig(self);
 
-        if (!Main.gameMenu && Lighting.NotRetro && gd.GetRenderTargets().Contains(Main.screenTarget))
+        if (!Main.gameMenu && gd.GetRenderTargets().Contains(Main.screenTarget))
         {
 
             if (EbonianMod.blurDrawCache.Any())
