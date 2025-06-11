@@ -6,27 +6,30 @@ v 2.0
 - Added Y new enemies
 - Added an ambient event, the River of Starlight, replacing highly intense meteor showers.
 - Added Cecitior and Terrortoma based tilesets and fishing rods
+- Yellow Boxfish.
 
 ## Changes
 - Optimized most VFX
 - Ported Structure Helper files to match the 3.0 format
 - Updated Hot Garbage's VFX
-- Hot Garbage no longer slows down in water
+- Updated the Voidrunner Mask's VFX
 - Reworked Cursed Firearm, Bloodcolt, Latcher, Bloodsoaked Dentures, Corebreaker
 - Renamed Cursed Firearm into Vile Musket
 - Renamed Bloodcolt into Fangnum
 - Resprited Sawcitior
 - Resprited the Trumpet and Rolypoly
 - Gave the Crimorrhage a telegraph before it fires ichor
-- Fixed some missing translation support and implemented russian translation (Thank you Nexorchik)
-- Fixed an issue where the Gatling bullets wouldn't hit one target
 - Gutling animation and SFX improvements
+- Fixed some missing translation support and implemented russian translation (Thank you Nexorchik)
 - So many more undocumented changes :broken_heart:
 
 ## Balancing
 - Practically every weapon got rebalanced, redundant to list them.
 
 ## Fixes
+- Retro Lighting can now be used without issues
+- Wave quality can now be set to off without issues
+- Hot Garbage no longer slows down in water
 - Fixed the Peculiar Angle Grinder hitting through walls
 - Fixed some texture scrolling issues
 - Fixed Potatoes dropping from any tile
