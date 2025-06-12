@@ -1,9 +1,9 @@
 Projectiles: {
-	GreenShockwave.DisplayName: Удавная волна
+	GreenShockwave.DisplayName: Ударная волна
 	GenericExplosion.DisplayName: Взрыв
 	EyeVFX.DisplayName: Глаз
-	CircleTelegraph.DisplayName: Удавная волна
-	BloodShockwave.DisplayName: Удавная волна
+	CircleTelegraph.DisplayName: Ударная волна
+	BloodShockwave.DisplayName: Ударная волна
 	TSpike.DisplayName: Шип
 	TFlameThrower3.DisplayName: Проклятые огни
 	TFlameThrower2.DisplayName: Проклятые огни
@@ -26,10 +26,10 @@ Projectiles: {
 	EFireBreath.DisplayName: Огонь
 	EFire.DisplayName: Огонь
 	Rolleg.DisplayName: Роллег
-	CecitiorEyeP.DisplayName: Призрачнчый смотрящий
+	CecitiorEyeP.DisplayName: Призрачный смотрящий
 	BloodLaser.DisplayName: Кровавый взрыв
 	Pipebomb.DisplayName: Бомба из трубы
-	Mailbox.DisplayName: Почтовый ящие
+	Mailbox.DisplayName: Почтовый ящик
 	Garbage.DisplayName: Помойка
 	IchorFlintlockP.DisplayName: Сгусток крови
 	EbonianGunP.DisplayName: Проклятый огнестрел
@@ -174,7 +174,7 @@ Projectiles: {
 	XManaPotion.DisplayName: Зелье Ксаеруса
 	XSpiritNoHome.DisplayName: Призрычный взрыв
 	XRift.DisplayName: Разлом
-	XKnife.DisplayName: Аметсит
+	XKnife.DisplayName: Аметист
 	XCloud.DisplayName: Облако теневого пламени
 	XLightningBolt.DisplayName: Выстрел молнией теневого пламени
 	XTelegraphLine.DisplayName: Линия телеграфа
@@ -199,17 +199,17 @@ Projectiles: {
 	GarbageLaser2.DisplayName: Пламя
 	GarbageLaser3.DisplayName: Пламя
 	HeatBlastVFX.DisplayName: Сердечный выстрел
-	GarbageLaserSmall1.DisplayName: Вулканические извержение
-	GarbageLaserSmall2.DisplayName: Вулканические извержение
-	GarbageLaserSmall3.DisplayName: Вулканические извержение
-	ChargeUp.DisplayName: Заряжяйтесь
+	GarbageLaserSmall1.DisplayName: Вулканическое извержение
+	GarbageLaserSmall2.DisplayName: Вулканическое извержение
+	GarbageLaserSmall3.DisplayName: Вулканическое извержение
+	ChargeUp.DisplayName: Зарядка
 	GluttonImpact.DisplayName: Удар
 	GreenChargeUp.DisplayName: Зелёная зарядка
 	ArchmageHead.DisplayName: Голова Ксареуса
 	ArchmageArm.DisplayName: Туловище Ксареуса
 	ArchmageDeath.DisplayName: Смерть Архимага
 	ArchmageXSpawnAnim.DisplayName: Анимация появления Архимага
-	ArchmageChargeUp.DisplayName: Зарядка ПРхимага
+	ArchmageChargeUp.DisplayName: Зарядка Архимага
 	FangSlingerP.DisplayName: Клыкометатель
 	ThornBowP.DisplayName: Колючий лук
 	ChainswordP.DisplayName: Свалочный бензомеч
@@ -257,7 +257,7 @@ Projectiles: {
 	MailboxSentry.DisplayName: Почтовыйы ящик-страж
 	PipebombPSentry.DisplayName: Бомба из трубы
 	SalvagedThrusterP.DisplayName: Б/У-шный двигатель
-	NastySnapperPro.DisplayName: Nasty Snapper Pro
+	// NastySnapperPro.DisplayName: Nasty Snapper Pro
 	XBoltFriendly2.DisplayName: Выстрел
 	RedMistVFX.DisplayName: Красный туман V F X
 	PhantasmalWave.DisplayName: Фантомный взмах
@@ -273,17 +273,17 @@ Projectiles: {
 	CWorm.DisplayName: C Червь
 	BlurScream.DisplayName: Заблюреный крик
 	Coins.DisplayName: Монеты
-	SilverBasherFlash.DisplayName: Впышка серебрянного молота
+	SilverBasherFlash.DisplayName: Впышка серебряного молота
 	SilverBasherP.DisplayName: Серебрянный отбойник P
 	terrortomaFishingRodBobber.DisplayName: Поплавок мрачнолова
-	cecitiorFishingRodBobber.DisplayName: Попалвок кровотока
-	VerletBeam.DisplayName: Луч Варле
+	cecitiorFishingRodBobber.DisplayName: Поплавок кровотока
+	VerletBeam.DisplayName: Луч Варлет
 	CrimsonBall.DisplayName: Багряный шар
 	BallLauncherSprite.DisplayName: Спрайт шаромёта
 	CorruptionBalls.DisplayName: Искажённый шар
 	BallLauncherSprite2.DisplayName: Спрайт шаромёта2
 	BallLauncherCharge.DisplayName: Зарядка шаромёта
-	// Ball.DisplayName: Ball
+	Ball.DisplayName: Шар
 	LatcherSprite.DisplayName: Спрайт шаромёта
 	// DummyProjectile.DisplayName: Dummy Projectile
 	// Misery.DisplayName: Jetpack Boulder
@@ -359,28 +359,28 @@ NPCs: {
 
 		Bestiary:
 			'''
-			Тяжёловооружённый и бронированный мусорный бак, возможно, предназначенный для боевых целей, но почему-то горящая самого момента своего создания.
+			Тяжёловооружённый и бронированный мусорный бак, предположительно предназначенный для боевых целей. По неизвестной причине горит с самого момента своего создания.
 
 
-			Надпись на боку мелким шрифтом гласит: «Пожалуйста, верните его в штаб-квартиру GenCorp, если нашли».
+			Надпись на боку мелким шрифтом гласит: «Пожалуйста, верните его в штаб-квартиру GenCorp, если вы его нашли».
 			'''
 	}
 
 	Glutton: {
 		DisplayName: Чревоугодник
-		Bestiary: Огромный зверь с необычными для искажённого существа чертами — формой и выражением лица. Похоже, когда-то он был намного проще. Причина такой эволюции неизвестна.
+		Bestiary: Огромный зверь с нетипичными для искажённого существа чертами — формой и выражением лица. Похоже, когда-то он был намного проще. Причина такой эволюции неизвестна.
 	}
 
 	Cecitior: {
 		DisplayName: Амавроз
-		BossChecklistIntegration.SpawnInfo: Убейте большого наблюдателя, часто появляющегося в багрянце.
-		Bestiary: Мясистый, безобразно созданный конструкт. Несмотря на сходство со многими порождениями багрянца, это существо, похоже, было создано совсем недавно и с неизвестной целью.
+		BossChecklistIntegration.SpawnInfo: Убейте смотрителя, часто появляющегося в багрянце.
+		Bestiary: Мясистый, безобразно созданая констуркция. Несмотря на всё сходство со многими порождениями багрянца, это существо, похоже, было создано совсем недавно с неизвестной целью.
 	}
 
 	Terrortoma: {
 		DisplayName: Террортома
 		BossChecklistIntegration.SpawnInfo: Уничтожьте гигантский кокон, часто появляющийся в искажении.
-		Bestiary: Необычный конгломерат искаженных сущностей, обладающий странной способностью проявлять эмоции. Оно сформировалось неестественным образом и не является предполагаемым результатом эволюции.
+		Bestiary: Необычный конгломерат искаженных сущностей, обладающий странной способностью проявлять эмоции. Она сформировалось неестественным образом и не является предполагаемым результатом эволюции.
 	}
 
 	TerrorClingerSummoner.DisplayName: Цеплятель
@@ -403,7 +403,7 @@ NPCs: {
 
 	CrimeraHead: {
 		DisplayName: Презреющая
-		Bestiary: Кримера, начавшая эволюционировать во времена распространения багрянца. Её конечности теперь могут создавать туннели, а она сама может выплёвывать часть мёртвых клеток крови, которые её тело вырабатывает с головокружительной скоростью.
+		Bestiary: Кримера, начавшая эволюционировать во времена распространения багрянца. Её конечности теперь могут создавать туннели, а она сама может выплёвывать часть мёртвых клеток крови, которые её тело вырабатывает с сумашедшей скоростью.
 	}
 
 	CrimeraBody.DisplayName: Презреющая
@@ -486,7 +486,7 @@ NPCs: {
 	}
 
 	MassiveSpectator: {
-		DisplayName: Большой наблюдатель
+		DisplayName: Смотритель
 		Bestiary: Эти выпуклые глаза, похоже, связаны с чем-то в самом корне багрянца. Они появились совсем недавно, поэтому о них пока мало что известно.
 	}
 
@@ -509,19 +509,19 @@ NPCs: {
 
 	FleshBrickBig: {
 		DisplayName: Осадочник
-		Bestiary: Предполагается, что осадочники формируют стены ульев искажения на ранней стадии развития. Они, как и все остальное в искажении, даже грязь и камни, по которым вы ходите, являются частью ульевого организма.
+		Bestiary: Предполагается, что осадочники формируют стены ульев искажения на ранней стадии развития. Они, как и всё остальное в искажении, даже грязь и камни, по которым вы ходите, являются частью ульевого организма.
 	}
 
 	FleshBrickMedium.DisplayName: Осадочник
 	FleshBrickSmall.DisplayName: Осадочник
-	TrumpetTail.DisplayName: Трубач
+	TrumpetTail.DisplayName: Трубочник
 
 	TrumpetHead: {
-		DisplayName: Трубач
-		Bestiary: Задача трубача в заражённом макроорганизме — заботиться о фауне под ним. В отличие от большинства искажённых существ, их, похоже, совершенно не беспокоит ваше присутствие.
+		DisplayName: Трубочник
+		Bestiary: Задача трубочника в заражённом макроорганизме — заботиться о фауне под ним. В отличие от большинства искажённых существ, их, похоже, совершенно не беспокоит ваше присутствие.
 	}
 
-	TrumpetBody.DisplayName: Трубач
+	TrumpetBody.DisplayName: Трубочник
 
 	Rolypoly: {
 		DisplayName: Перекати-червь
@@ -637,88 +637,88 @@ NPCs: {
 
 	CoinBag.DisplayName: Одержимый мешок
 	Chalice.DisplayName: Кубок
-	// Sudama.DisplayName: Sudama
-	// Aureus.DisplayName: Aureus
-	// Kodama.DisplayName: Kodama
+	Sudama.DisplayName: Судама
+	Aureus.DisplayName: Ауреус
+	Kodama.DisplayName: Кодама
 
 	Botanist: {
-		// DisplayName: Botanist
-		// Bestiary: A strange forest monster with the ability to stretch its neck to an unnatural length before quickly slamming its head downward. Botanists tend to stalk their victims, disguised as an ordinary bush.
+		DisplayName: Ботаник
+		Bestiary: Странное лесное существо с возможностью растягивать свою шею до неестественной длины, а затем резко обрушивать голову вниз. Ботаники, как правило, подкрадываются к жертвам, маскируясь под обычный куст.
 	}
 
 	Belladonna: {
-		// DisplayName: Belladonna
-		// Bestiary: A type of plant humanoid, resembling a well-dressed botanist. Spends the day hibernating and photosynthesising, and emerges at night to spread her saplings: healing blueberries and explosive nightshades. True to her appearance, she takes great pride in her botany and vibrant complexion.
+		DisplayName: Белладонна
+		Bestiary: Гуманоидное растение, напоминающее элегантно одетого ботаника. Днём спит и занимается фотосинтезом, а ночью выходит, чтобы распространять свои побеги — целебные черники и взрывоопасные паслены. Соответственно своей внешности, она чрезвычайно гордится ботаникой и яркой внешностью.
 	}
 
 	Pebbi1: {
-		// DisplayName: Slab Pebbi
-		// Bestiary: Pebbies are strange pieces of living rocks of many kinds, who swarm up to fend off travelers for no good reason. This one is quite speedy.
+		DisplayName: Галёк-плита
+		Bestiary: Гальки — странные живые куски камня самых разных форм, которые сбиваются в стаи и без причины нападают на исследователей. Этот довольно проворен.
 	}
 
 	Pebbi2: {
-		// DisplayName: Chunk pebbi
-		// Bestiary: Pebbies are strange pieces of living rocks of many kinds, who swarm up to fend off travelers for no good reason. This one is quite hefty.
+		DisplayName: Галёк-глыба
+		Bestiary: Гальки — странные живые куски камня самых разных форм, которые сбиваются в стаи и без причины нападают на исследователей. Этот довольно тяжёлый.
 	}
 
 	Pebbi3: {
-		// DisplayName: Geode Pebbi
-		// Bestiary: Pebbies are strange pieces of living rocks of many kinds, who swarm up to fend off travelers for no good reason. This one is quite rotund.
+		DisplayName: Галёк-жеода
+		Bestiary: Гальки — странные живые куски камня самых разных форм, которые сбиваются в стаи и без причины нападают на исследователей. Этот довольно округлый.
 	}
 
 	BoxFish: {
-		// DisplayName: Yellow Boxfish
-		// Bestiary: A cubical fish whose entire existence is dedicated to perpetually swimming through the deep blue sea.
+		DisplayName: Кузовок-кубик
+		Bestiary: Кубическая рыбы, вся жизнь которой посвящена бесконечному плаванию по глубинам синего океана.
 	}
 
 	BorealBlade: {
-		// DisplayName: Boreal Blade
-		// Bestiary: Also known as Knights of the Boreal, Boreal Blades are ice constructs animated by magic and the many souls frozen beneath the tundra.
+		DisplayName: Северный кинжал
+		Bestiary: Также известны как Рыцари Севера — ледяные конструкции, оживлённые магией и душами, замёрзшими под толщами снегов.
 	}
 
 	CenturyFlower: {
-		// DisplayName: Century Flower
-		// Bestiary: These unique plants are capable of spewing large clouds of spores, dangerous to much of the wildlife. Their age makes them extremely irrational and ill-tempered, spewing their suffocating spores at anything they deem to be less wise.
+		DisplayName: Вековой цветок
+		Bestiary: Эти уникальные растения способны извергать плотные облака спор, опасных для многих форм жизни. Из-за преклонного возраста ведут себя крайне нерационально и вспыльчиво, осыпая удушающими спорами всех, кого считают менее мудрыми.
 	}
 
 	AsteroidWarden: {
-		// DisplayName: Asteroid Warden
-		// Bestiary: These cosmic watchers thrive in the arcane star energy of the flowing river of starlight, and act as its first defenders from certain extraplanetary invaders.
+		DisplayName: Астероидный страж
+		Bestiary: Эти космические наблюдатели процветают в арканной энергии звёздного потока и первыми встают на его защиту от внеземных захватчиков.
 	}
 
-	// FallingStar.DisplayName: Fallen Star
+	FallingStar.DisplayName: Упавшая звезда
 
 	Starlad: {
-		// DisplayName: Starlad
-		// Bestiary: Possessing astral energy strong enough to pierce through the night, the Starlads are both the prodigal backbone of this invasive species, and the first signs of the Witch's arrival.
+		DisplayName: Звёздопарниша
+		Bestiary: Обладая астральной энергией, способной пронзать ночь, старлады являются как основой этой инвазивной расы, так и первыми предвестниками прибытия Ведьмы.
 	}
 
 	BorealDancer: {
-		// DisplayName: Boreal Dancer
-		// Bestiary: Brought to life by souls claimed by the low temperatures of the tundra, Boreal Dancers enjoy an endlessly frigid dance.
+		DisplayName: Северный танцор
+		Bestiary: Оживлённый душами, отнятыми холодами снегов, этот танцор вечно кружится в леденящем танце.
 	}
 
 	AsteroidHerder: {
-		// DisplayName: Asteroid Herder
-		// Bestiary: Guardians of the river of starlight, they feed off of its endless supply of mana and use it to herd a flock of stars.
+		DisplayName: Астероидный пастух
+		Bestiary: Стражи звёздной реки, питающиеся её бесконечным потоком маны, которую они используют для выпаса стада звёзд.
 	}
 
 	Flylad: {
-		// DisplayName: Flylad
-		// Bestiary: Winged threat coming from galaxies far away. It specializes in firing out small star projectiles, and it sometimes slams its own body down to ensure its survival and the success of the invasion.
+		DisplayName: Лётопарниша
+		Bestiary: Крылатая угроза из далёких галактик. Специализируется на стрельбе звёздными снарядами, а порой бросается вниз всем телом, чтобы выжить и обеспечить успех вторжения.
 	}
 
 	Minilad: {
-		// DisplayName: Laddie
-		// Bestiary: Contrary to popular belief, the Laddie is not actually a juvenile Starlad, but a smaller, more agile branch of the species that specializes in consuming stellar energy from the air.
+		DisplayName: Паренёк
+		Bestiary: Вопреки расхожему мнению, паренёк — это не юный звёздопарниша, а меньшая и более подвижная ветвь расы, питающаяся звёздной энергией прямо из воздуха.
 	}
 
 	Obeselad: {
-		// DisplayName: Fatlad
-		// Bestiary: With it's wobbly legs and aloof face, the Fatlad would be the perfect tool to entertain children, if not for its brutal way of feeding by crushing small critters under its rotund body.
+		DisplayName: Тучнопарниша
+		Bestiary: С дрожащими ногами и рассеянным выражением лица, тучнопарниша мог бы стать идеальной игрушкой для детей, если бы не его ужасающий способ кормления — раздавливание мелких тварей своим телом.
 	}
 
-	// PebbiSwarm.DisplayName: Terrifying Pebbi Swarm Approaches Your Way
+	PebbiSwarm.DisplayName: Ужасающие стадо гальков
 }
 
 Items: {
@@ -760,18 +760,23 @@ Items: {
 	}
 
 	EbonianGun: {
-		Tooltip: Стреляет проклятыми пулями
-		DisplayName: Проклятый огнестрел
+		Tooltip: Превращает любые пули в высокоскоростные демонические пули
+		DisplayName: Мерзкий мушкет
 	}
 
 	EbonianGatling: {
-		Tooltip: Быстро стреляет проклятыми пулями
-		DisplayName: Проклятый гатлинг
+		Tooltip: хз
+		DisplayName: Искажённый гатлинг
 	}
 
 	Corebreaker: {
 		DisplayName: Ядролом
-		Tooltip: ""
+		Tooltip:
+			'''
+			Удерживайте ЛКМ, чтобы выстрелить взрывающися ядром
+			Нажмите ПКМ, чтобы выстрелить лазером
+			«Он типа... ломает ядра.... эээ»
+			'''
 	}
 
 	TerrorFlail: {
@@ -805,18 +810,12 @@ Items: {
 			'''
 			Призывает вздутых эбоновых мух, которые взрываются рядом с ближайшими врагами
 			Не занимает слоты миньонов
-			 	
 			'''
 	}
 
 	Latcher: {
 		DisplayName: Притягиватель
-		Tooltip:
-			'''
-			Притягивает вас к тяжёлым врагам и притягивает к вам лёгких
-			Нажмите ПКМ, чтобы отменить использование
-			       
-			'''
+		Tooltip: Притягивает вас к врагам и наносит урон, когда вы находитесь к ним достаточно близко
 	}
 
 	InferosVolI: {
@@ -853,27 +852,22 @@ Items: {
 		Tooltip:
 			'''
 			Вызывает дрона атаковать в место вашего курсора
-			Один из многих, предположительно неудачных, экспериментов GenCorp
+			Один из многих неудачных(?), экспериментов GenCorp
 			'''
 	}
 
 	IchorFlintlock: {
-		Tooltip:
-			'''
-			       Стреляет ихорными пулями
-			       Каждая пятая пуля заменяется пронзающим ихорным шаром
-			       
-			'''
-		DisplayName: Сгусток крови
+		Tooltip: Превращает пули в зубы
+		DisplayName: Клыкомагнум
 	}
 
 	FangSlinger: {
-		DisplayName: Клыкомёт
+		DisplayName: Клыкострел
 		Tooltip: ""
 	}
 
 	CrimCannon: {
-		Tooltip: Выстреливает кровавыми зубами
+		Tooltip: Запускает целюсти, которые атакуют и кусают врагов
 		DisplayName: Кровавые челюсти
 	}
 
@@ -890,7 +884,7 @@ Items: {
 	WaspPaintingI: {
 		Tooltip:
 			'''
-			       «Посвящается давно вымершим видам»
+			«Посвящается давно вымершим видам»
 			«E. Fly»
 			'''
 		DisplayName: Картина «Оса»
@@ -942,7 +936,7 @@ Items: {
 			Снижает защиту на {0} ед.
 			Увеличивает максимальное количество миньонов на {1}
 			Увеличивает урон призывателя на {2}%
-			Призывает искажённое сердце, которое следует за вами и стреляет проклятым пламенем в ближайших врагов.
+			Призывает искажённое сердце, которое следует за вами и стреляет проклятым пламенем в ближайших врагов
 			'''
 		DisplayName: Гнилое сердце
 	}
@@ -950,7 +944,7 @@ Items: {
 	BrainAcc: {
 		Tooltip:
 			'''
-			Увеличивает регенерацию здоровья
+			Ускоряет регенерацию здоровья
 			Призывает несколько мозгов, которые служат щитом от непробивающих атак
 			'''
 		DisplayName: Сочащийся мозг
@@ -972,7 +966,7 @@ Items: {
 
 	CorruptionStaff: {
 		Tooltip: Вызывает самонаводящиеся злобные колючки
-		DisplayName: Рвин-ачасти
+		DisplayName: Колющий разрыватель
 	}
 
 	CrimsonSpear: {
@@ -981,12 +975,12 @@ Items: {
 	}
 
 	Spinax: {
-		DisplayName: Спинотопор
+		DisplayName: Позвонокоруб
 		Tooltip: Позвоночник древнего динозавра, пропитанный силой багрянца
 	}
 
 	SelfStab: {
-		DisplayName: Кинжал жертвоприношений
+		DisplayName: Кинжал жертвоприношения
 		Tooltip: Значительно увеличивает ваш урон за определённую плату
 	}
 
@@ -1000,7 +994,7 @@ Items: {
 		Tooltip:
 			'''
 			Немного увеличивает скорость передвижения
-			Нажмите {ReiM_Keybind}, чтобы телепортироваться, пока вы зависаете над врагом
+			Нажмите клавишу «{ReiM_Keybind}», чтобы телепортироваться, пока вы зависаете над врагом
 			'''
 	}
 
@@ -1060,12 +1054,12 @@ Items: {
 	}
 
 	CursedToy: {
-		Tooltip: ""
+		Tooltip: Обрушивает копья с неба
 		DisplayName: Проклятая кукла
 	}
 
 	CorruptionClaw: {
-		Tooltip: ""
+		Tooltip: Совершает уникальную серию атак
 		DisplayName: Цепной клык
 	}
 
@@ -1079,13 +1073,17 @@ Items: {
 		Tooltip:
 			'''
 			Создаёт теневопламенные копии меча при попадании
-			Создан архимагом Ксареусом... в качестве настенного украшения.
+			Создан архимагом Ксареусом... в качестве настенного украшения
 			'''
 	}
 
 	GhizasWheel: {
 		DisplayName: Короззийный нож
-		Tooltip: Накладывает дебафф «{$BuffName.CursedInferno}» при попадании
+		Tooltip:
+			'''
+			Накладывает дебафф «{$BuffName.CursedInferno}» при попадании
+			Игнорирует защиту врага
+			'''
 	}
 
 	Equilibrium: {
@@ -1189,7 +1187,7 @@ Items: {
 
 	GarbageFlail: {
 		DisplayName: Специфичная углошлифовочная машина
-		Tooltip: ""
+		Tooltip: Вращается
 	}
 
 	TitteringStaff: {
@@ -1290,8 +1288,8 @@ Items: {
 		DisplayName: Шерстяные сапоги
 		Tooltip:
 			'''
-			Увеличиваает урон хлыстов на {0}%
-			Увеличивает скорость хлыстов на {1}%
+			Увеличиваает урон хлыста на {0}%
+			Увеличивает скорость хлыста на {1}%
 			'''
 	}
 
@@ -1351,7 +1349,7 @@ Items: {
 
 	Sawcitior: {
 		DisplayName: Пиловроз
-		Tooltip: ""
+		Tooltip: Запускает две пилы, которые сталкиваются друг с другом
 	}
 
 	Shears: {
@@ -1405,7 +1403,7 @@ Items: {
 	}
 
 	SilverBasher: {
-		DisplayName: Серебрянный отбойник
+		DisplayName: Серебрянный крушитель
 		Tooltip: ""
 	}
 
@@ -1421,7 +1419,11 @@ Items: {
 
 	BallLauncher: {
 		DisplayName: Шаромёт
-		Tooltip: ""
+		Tooltip:
+			'''
+			Зажмите ПКМ для атаки
+			ИСпользует ракеты в качестве боеприпасов
+			'''
 	}
 
 	CorruptrotI: {
@@ -1435,123 +1437,127 @@ Items: {
 	}
 
 	AureusSpawnItem: {
-		// DisplayName: Aureus Spawn Item
-		// Tooltip: ""
+		DisplayName: Предмет призыва Ауреуса
+		Tooltip: ""
 	}
 
 	ConglomerateEnergyDrink: {
-		// DisplayName: Conglomerate Energy Drink
-		// Tooltip: Contains 63% Conglorine, 22% Ichor B6, 13% Natural Cursed Flames, and other misc. ingredients.
+		DisplayName: Энергетик Конгломерата
+		Tooltip: Содержит 63% конглорина, 22% ихора B6, 13% натурального проклятого пламени и др. ингридиенты.
 	}
 
 	CongFisherate: {
-		// DisplayName: Rotted Leechline
-		// Tooltip: ""
+		DisplayName: Сгнившая прожилина
+		Tooltip: ""
 	}
 
 	CeciChairI: {
-		// DisplayName: Fleshichor Chair
-		// Tooltip: ""
+		DisplayName: Мясоихорный стул
+		Tooltip: ""
 	}
 
 	CeciPlatformI: {
-		// DisplayName: Fleshichor Platform
-		// Tooltip: ""
+		DisplayName: Мясоихорная платформа
+		Tooltip: ""
 	}
 
 	CeciWallI: {
-		// DisplayName: Fleshichor Wall
-		// Tooltip: ""
+		DisplayName: Мясоихорная стена
+		Tooltip: ""
 	}
 
 	TTomaChairI: {
-		// DisplayName: Corruptrot Chair
-		// Tooltip: ""
+		DisplayName: Искажённогнилой стул
+		Tooltip: ""
 	}
 
 	TTomaPlatformI: {
-		// DisplayName: Corruptrot Platform
-		// Tooltip: ""
+		DisplayName: Искажённогнилая платформа
+		Tooltip: ""
 	}
 
 	TTomaWallI: {
-		// DisplayName: Corruptrot Wall
-		// Tooltip: ""
+		DisplayName: Искажённогнилая стена
+		Tooltip: ""
 	}
 
 	Bat: {
-		// DisplayName: Bat
-		// Tooltip: ""
+		DisplayName: Бита
+		Tooltip: ""
 	}
 
 	SudamaTrident: {
-		// DisplayName: Sudama Trident
-		// Tooltip: ""
+		DisplayName: Трезубец Судамы
+		Tooltip: ""
 	}
 
 	KodamaStaff: {
-		// DisplayName: Kodama Staff
-		// Tooltip: ""
+		DisplayName: Посох Кодамы
+		Tooltip: ""
 	}
 
 	BoxFishItem: {
-		// DisplayName: Yellow Boxfish
-		// Tooltip: ""
+		DisplayName: Кузовок-кубик
+		Tooltip: ""
 	}
 
 	ShewStone: {
-		// DisplayName: Shew Stone
-		// Tooltip: Right click to prematurely set an active crystal cluster off
+		DisplayName: Камень провидения
+		Tooltip: Нажмите ПКМ, чтобы вызывать преждевременный взрыв кристалла
 	}
 
 	WardingStar: {
-		// DisplayName: Warding Star
-		// Tooltip: ""
+		DisplayName: Охранная звезда
+		Tooltip: ""
 	}
 
 	BlinkrootI: {
-		// DisplayName: Blinkbud
-		// Tooltip: Summons a Blinkbuddy
+		DisplayName: Мерцающий бутон
+		Tooltip: Призывает мерцающего дружка
 	}
 
 	LilPilgI: {
-		// DisplayName: Little Memory
-		// Tooltip: Summons a moonlit memory
+		DisplayName: Мимолётное воспоминание
+		Tooltip: Призывает воспоминание, освещённое лунным светом
 	}
 
 	ThawGauntlet: {
-		// DisplayName: Cold Touch
-		// Tooltip: ""
+		DisplayName: Холодное косание
+		Tooltip: ""
 	}
 
 	CenturySprayer: {
-		// DisplayName: Century Sprayer
-		// Tooltip: Suffocates enemies
+		DisplayName: Вековой рыспылитель
+		Tooltip: Удушает врагов
 	}
 
 	GoldenTip: {
-		// DisplayName: Golden Tip
-		// Tooltip: Occasionally converts any arrow into a gold-tipped one that increases the value of the enemy it hits
+		DisplayName: Золотой наконечник
+		Tooltip:
+			'''
+			С некоторым шансом, любая выпущенная стрела будет заменена стрелой с золотым наконечником
+			С поражённых такой стрелой врагов будет выпадать больше монет
+			'''
 	}
 
 	StarBit: {
-		// DisplayName: Starbit
-		/* Tooltip:
+		DisplayName: Кусочек звезды
+		Tooltip:
 			'''
-			3% increased critical strike chance
-			Shoot a star bit on critical strikes
-			A delicacy among the stars!
-			''' */
+			Увеличивает шанс критического удара на 3%
+			Вы будете выпускть кусочек звезды при критических ударах
+			Деликатес среди звёзд!
+			'''
 	}
 
 	RoSTest: {
-		// DisplayName: This Item Deletes the Ebonian Mod Do Not Use This
-		// Tooltip: ""
+		DisplayName: Этот предмет удаляет Ebonian Mod, не используйте его
+		Tooltip: ""
 	}
 
 	RustyWaraxe: {
-		// DisplayName: Rusty Waraxe
-		// Tooltip: ""
+		DisplayName: Ржавый боевой топор
+		Tooltip: ""
 	}
 }
 
@@ -1632,74 +1638,78 @@ Buffs: {
 	}
 
 	NastySnapperDebuff: {
-		DisplayName: Nasty Snapper Debuff
-		Description: Mods.EbonianMod.Buffs.NastySnapperDebuff.Description
+		DisplayName: Метка противного окуня
+		Description: ""
 	}
 
 	ConglomerateEnergyBuff: {
-		// DisplayName: Conglomerate Energy Buff
-		// Description: Mods.EbonianMod.Buffs.ConglomerateEnergyBuff.Description
+		DisplayName: Энергетик Конгломерата
+		escription: ""
 	}
 
 	BlinkrootB: {
-		// DisplayName: Blinkbuddy
-		// Description: He's trying his best to light your way.
+		DisplayName: Мерцающий дружок
+		Description: Он из-зо всех сил пытается осветит вам путь.
 	}
 
 	LilPilgB: {
-		// DisplayName: Lil' Missionary
-		// Description: She wants to teach you about the stars!
+		DisplayName: Миллионерочка
+		Description: Она хочет рассказать вам о звёздах!
 	}
 
 	NPCSuffocating: {
-		// DisplayName: N P C Suffocating
-		// Description: Mods.EbonianMod.Buffs.NPCSuffocating.Description
+		DisplayName: Удушье
+		Description: ""
 	}
 
 	RustyCut: {
-		// DisplayName: Rusty Cut
-		// Description: Mods.EbonianMod.Buffs.RustyCut.Description
+		DisplayName: Ржавый порез
+		Description: ""
 	}
 }
 
 Keybinds: {
-	// "Rei Dash.DisplayName": Timeslip (Voidrunner Mask Ability)
-	// "Time Slip.DisplayName": Timeslip (Voidrunner Mask Ability)
+	"Rei Dash.DisplayName": Временной сдвиг
+	"Time Slip.DisplayName": Временной сдвиг
 }
 
 Biomes: {
 	SpawnAnimMusic: {
-		// DisplayName: Spawn Anim Music
-		// TownNPCDialogueName: lol
+		DisplayName: Музыка анимации появления
+		TownNPCDialogueName: лол
 	}
 
 	ShackMusic: {
-		// DisplayName: Shack Music
-		// TownNPCDialogueName: the Shack Music
+		DisplayName: Музыка хижины
+		TownNPCDialogueName: Музыка хижины
 	}
 }
 
 Configs: {
 	EbonianClientConfig: {
-		// DisplayName: Client Config
+		DisplayName: Клиентская конфигурация
 
 		MuteBowPull: {
-			// Label: Mute the Bow Pull SFX
-			// Tooltip: Mutes the sound when using some bows added by the Ebonian Mod.
+			Label: Заглушить эффект натягивания тетевы
+			Tooltip: Заглушает звуковой эффект натягивания тетевы, присутствующих у некоторых луков в Ebonian Mod.
 		}
 
 		BowPullVolume: {
-			// Label: Bow Pull Volume
-			// Tooltip: ""
+			Label: Громкость натягивания тетевы
+			Tooltip: ""
 		}
 	}
 
 	EbonianServerConfig: {
-		// DisplayName: Server Config
+		DisplayName: Серверная конфигурация
 
 		XareusDelay: {
-			// Label: Xareus Delay in frames (60 frames = 1 second)
-			// Tooltip: The delay before Xareus can be summoned again
+			Label: Перезаряжка призыва Ксаеруса
+			Tooltip: 
+				'''
+				Определяет количество кадров, которое должно пройти перед тем, как Ксаеруса можно будет призвать повторно.
+				60 кадров равняется 1 секунде
+				'''
 		}
 	}
 }
