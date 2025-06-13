@@ -28,9 +28,13 @@ public class BorealDancer : ModNPC
         Player player = Main.player[NPC.target];
 
         Vector2 VectorDistance = player.Center - NPC.Center;
-        bool SeesAPlayer = Helper.TRay.CastLength(NPC.Center - Vector2.UnitY*9, VectorDistance, VectorDistance.Length(), false) >= VectorDistance.Length()-0.4f;
+
+        if (Helper.TRay.CastLength(NPC.Center - Vector2.UnitY * 6, VectorDistance, VectorDistance.Length(), false) >= VectorDistance.Length() - 0.4f)
+            NPC.ai[2] = 180;
+        NPC.ai[2]--;
+
         NPC.ai[1] = 2;
-        if (SeesAPlayer)
+        if (NPC.ai[2] > 0)
         {
             if (NPC.ai[0] == 0)
             {
@@ -38,8 +42,8 @@ public class BorealDancer : ModNPC
             }
             if (NPC.ai[0] == 1)
             {
-                NPC.velocity.X += NPC.direction * 0.08f;
-                NPC.velocity.X = Clamp(NPC.velocity.X, -11, 11);
+                NPC.velocity.X += NPC.direction * 0.05f;
+                NPC.velocity.X = Clamp(NPC.velocity.X, -7, 7);
                 if (MathF.Abs(player.Center.X - NPC.Center.X) < 62 && MathF.Abs(player.Center.Y - NPC.Center.Y) < 30)
                 {
                     MPUtils.NewProjectile(NPC.GetSource_FromThis(), Helper.TRay.Cast(NPC.Center - new Vector2(-NPC.direction * 15, 35), Vector2.UnitY, 5000, true) + new Vector2(0, 3), Vector2.Zero, ProjectileType<BorealSpike>(), NPC.damage, 0).ai[1] = NPC.direction;
