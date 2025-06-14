@@ -38,8 +38,8 @@ public class Belladonna : ModNPC
         Texture2D tex = TextureAssets.Npc[Type].Value;
         Texture2D glow = Assets.ExtraSprites.Overworld.Belladonna_Glow.Value;
         SpriteEffects effects = NPC.direction == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-        spriteBatch.Draw(tex, NPC.Center + new Vector2(0, 2) - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.Size / 2, NPC.scale, effects, 0);
-        spriteBatch.Draw(glow, NPC.Center + new Vector2(0, 2) - screenPos, NPC.frame, Color.White * ((MathF.Sin(Main.GlobalTimeWrappedHourly * 0.75f) + 1) * 0.5f), NPC.rotation, NPC.Size / 2, NPC.scale, effects, 0);
+        spriteBatch.Draw(tex, NPC.Center + NPC.GFX() + new Vector2(0, 2) - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.Size / 2, NPC.scale, effects, 0);
+        spriteBatch.Draw(glow, NPC.Center + NPC.GFX() + new Vector2(0, 2) - screenPos, NPC.frame, Color.White * ((MathF.Sin(Main.GlobalTimeWrappedHourly * 0.75f) + 1) * 0.5f), NPC.rotation, NPC.Size / 2, NPC.scale, effects, 0);
         return false;
     }
     public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

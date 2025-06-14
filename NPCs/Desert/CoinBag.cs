@@ -176,7 +176,7 @@ public class CoinBag : ModNPC
 
         Rectangle sourceRect = new Rectangle(0, frame, 64, 64);
 
-        Main.EntitySpriteDraw(tex, NPC.Center - Main.screenPosition, sourceRect, drawColor, NPC.rotation, sourceRect.Size() / 2f, NPC.scale, NPC.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
+        Main.EntitySpriteDraw(tex, NPC.Center + NPC.GFX() - Main.screenPosition, sourceRect, drawColor, NPC.rotation, sourceRect.Size() / 2f, NPC.scale, NPC.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
 
         return false;
     }

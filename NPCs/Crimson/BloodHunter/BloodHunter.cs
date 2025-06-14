@@ -200,7 +200,7 @@ public class BloodHunter : ModNPC
         DrawBGLegs(spriteBatch, drawColor);
 
         DrawTail(spriteBatch, drawColor);
-        spriteBatch.Draw(tex, NPC.Center + bodyOffset + new Vector2(0, 8) - Main.screenPosition, null, drawColor, NPC.rotation, tex.Size() / 2, NPC.scale, effect, 0);
+        spriteBatch.Draw(tex, NPC.Center + bodyOffset + new Vector2(0, 8) + NPC.GFX() - Main.screenPosition, null, drawColor, NPC.rotation, tex.Size() / 2, NPC.scale, effect, 0);
 
 
         DrawFGLegs(spriteBatch, drawColor);
@@ -238,7 +238,7 @@ public class BloodHunter : ModNPC
                     tex = tail1;
                 if (i == tail.points.Count - 2)
                     tex = tail2;
-                spriteBatch.Draw(tex, tail.points[i].position - Main.screenPosition, null, drawColor, rot, tex.Size() / 2, NPC.scale, SpriteEffects.None, 0);
+                spriteBatch.Draw(tex, tail.points[i].position + NPC.GFX() - Main.screenPosition, null, drawColor, rot, tex.Size() / 2, NPC.scale, SpriteEffects.None, 0);
             }
             if (NPC.ai[0] >= 80 && NPC.Distance(player.Center) < 100)
                 for (int i = 1; i < oldStingerPos.Length; i++)
@@ -248,11 +248,11 @@ public class BloodHunter : ModNPC
                     for (float j = 0; j < 5; j++)
                     {
                         Vector2 pos = Vector2.Lerp(oldStingerPos[i - 1], oldStingerPos[i], j / 5);
-                        spriteBatch.Draw(stinger, pos - Main.screenPosition, null, Color.Gold * mult * 0.2f, 0, stinger.Size() / 2, NPC.scale * mult, SpriteEffects.None, 0);
+                        spriteBatch.Draw(stinger, pos + NPC.GFX() - Main.screenPosition, null, Color.Gold * mult * 0.2f, 0, stinger.Size() / 2, NPC.scale * mult, SpriteEffects.None, 0);
                     }
                 }
 
-            spriteBatch.Draw(stinger, tail.points[tail.points.Count - 1].position - Main.screenPosition, null, drawColor, 0, stinger.Size() / 2, NPC.scale, SpriteEffects.None, 0);
+            spriteBatch.Draw(stinger, tail.points[tail.points.Count - 1].position + NPC.GFX() - Main.screenPosition, null, drawColor, 0, stinger.Size() / 2, NPC.scale, SpriteEffects.None, 0);
 
         }
     }
@@ -262,9 +262,9 @@ public class BloodHunter : ModNPC
         Texture2D bgLeg1 = Assets.ExtraSprites.Crimson.BloodHunter_BGLeg1.Value;
         Texture2D bgLeg2 = Assets.ExtraSprites.Crimson.BloodHunter_BGLeg2.Value;
         SpriteEffects effect = NPC.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-        spriteBatch.Draw(bgLeg0, NPC.Center - new Vector2(2 * NPC.direction, -16) + bgLegOffsets[0] - Main.screenPosition, null, drawColor, NPC.rotation, bgLeg0.Size() / 2, NPC.scale, effect, 0);
-        spriteBatch.Draw(bgLeg1, NPC.Center - new Vector2(-10 * NPC.direction, -20) + bgLegOffsets[1] * 0.7f - Main.screenPosition, null, drawColor, NPC.rotation, bgLeg1.Size() / 2, NPC.scale, effect, 0);
-        spriteBatch.Draw(bgLeg2, NPC.Center - new Vector2(-18 * NPC.direction, -22) + bgLegOffsets[0] * 0.5f - Main.screenPosition, null, drawColor, NPC.rotation, bgLeg2.Size() / 2, NPC.scale, effect, 0);
+        spriteBatch.Draw(bgLeg0, NPC.Center + NPC.GFX() - new Vector2(2 * NPC.direction, -16) + bgLegOffsets[0] - Main.screenPosition, null, drawColor, NPC.rotation, bgLeg0.Size() / 2, NPC.scale, effect, 0);
+        spriteBatch.Draw(bgLeg1, NPC.Center + NPC.GFX() - new Vector2(-10 * NPC.direction, -20) + bgLegOffsets[1] * 0.7f - Main.screenPosition, null, drawColor, NPC.rotation, bgLeg1.Size() / 2, NPC.scale, effect, 0);
+        spriteBatch.Draw(bgLeg2, NPC.Center + NPC.GFX() - new Vector2(-18 * NPC.direction, -22) + bgLegOffsets[0] * 0.5f - Main.screenPosition, null, drawColor, NPC.rotation, bgLeg2.Size() / 2, NPC.scale, effect, 0);
     }
     void DrawFGLegs(SpriteBatch spriteBatch, Color drawColor)
     {
@@ -272,8 +272,8 @@ public class BloodHunter : ModNPC
         Texture2D fgLeg1 = Assets.ExtraSprites.Crimson.BloodHunter_FGLeg1.Value;
         Texture2D fgLeg2 = Assets.ExtraSprites.Crimson.BloodHunter_FGLeg2.Value;
         SpriteEffects effect = NPC.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-        spriteBatch.Draw(fgLeg0, NPC.Center - new Vector2((NPC.width / 2 - 6) * NPC.direction, -20) + fgLegOffsets[0] - Main.screenPosition, null, drawColor, NPC.rotation, fgLeg0.Size() / 2, NPC.scale, effect, 0);
-        spriteBatch.Draw(fgLeg1, NPC.Center - new Vector2(30 * NPC.direction, -25) + fgLegOffsets[1] * 0.7f - Main.screenPosition, null, drawColor, NPC.rotation, fgLeg1.Size() / 2, NPC.scale, effect, 0);
-        spriteBatch.Draw(fgLeg2, NPC.Center - new Vector2(18 * NPC.direction, -29) + fgLegOffsets[0] * 0.5f - Main.screenPosition, null, drawColor, NPC.rotation, fgLeg2.Size() / 2, NPC.scale, effect, 0);
+        spriteBatch.Draw(fgLeg0, NPC.Center + NPC.GFX() - new Vector2((NPC.width / 2 - 6) * NPC.direction, -20) + fgLegOffsets[0] - Main.screenPosition, null, drawColor, NPC.rotation, fgLeg0.Size() / 2, NPC.scale, effect, 0);
+        spriteBatch.Draw(fgLeg1, NPC.Center + NPC.GFX() - new Vector2(30 * NPC.direction, -25) + fgLegOffsets[1] * 0.7f - Main.screenPosition, null, drawColor, NPC.rotation, fgLeg1.Size() / 2, NPC.scale, effect, 0);
+        spriteBatch.Draw(fgLeg2, NPC.Center + NPC.GFX() - new Vector2(18 * NPC.direction, -29) + fgLegOffsets[0] * 0.5f - Main.screenPosition, null, drawColor, NPC.rotation, fgLeg2.Size() / 2, NPC.scale, effect, 0);
     }
 }

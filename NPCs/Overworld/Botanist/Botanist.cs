@@ -89,15 +89,15 @@ public class Botanist : ModNPC
             distVector = baseC + headOffset - center;
             distance = distVector.Length();
             int frameY = 6 * (attempts % 3);
-            spriteBatch.Draw(neck, center - Main.screenPosition, new Rectangle(0, frameY, 10, 6), NPC.HunterPotionColor(Lighting.GetColor((center).ToTileCoordinates())), distVector.ToRotation() + PiOver2, neck.Size() / 2, NPC.scale, SpriteEffects.None, 0);
+            spriteBatch.Draw(neck, center + NPC.GFX() - Main.screenPosition, new Rectangle(0, frameY, 10, 6), NPC.HunterPotionColor(Lighting.GetColor((center).ToTileCoordinates())), distVector.ToRotation() + PiOver2, neck.Size() / 2, NPC.scale, SpriteEffects.None, 0);
         }
 
-        void DrawHead() => spriteBatch.Draw(head, center - screenPos + new Vector2(NPC.direction, (NPC.frame.Y == 24 ? -1 : 0)).RotatedBy(headRotation), null, NPC.HunterPotionColor(Lighting.GetColor((NPC.Center + headOffset).ToTileCoordinates())), headRotation, head.Size() / 2, NPC.scale, NPC.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+        void DrawHead() => spriteBatch.Draw(head, center + NPC.GFX() - screenPos + new Vector2(NPC.direction, (NPC.frame.Y == 24 ? -1 : 0)).RotatedBy(headRotation), null, NPC.HunterPotionColor(Lighting.GetColor((NPC.Center + headOffset).ToTileCoordinates())), headRotation, head.Size() / 2, NPC.scale, NPC.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
 
         if (AIState == Idle)
             DrawHead();
 
-        spriteBatch.Draw(TextureAssets.Npc[Type].Value, NPC.Center + new Vector2(0, 4 + (NPC.frame.Y == 24 ? -1 : 0)) - screenPos, NPC.frame, NPC.HunterPotionColor(drawColor), NPC.rotation, NPC.Size / 2, NPC.scale, NPC.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
+        spriteBatch.Draw(TextureAssets.Npc[Type].Value, NPC.Center + NPC.GFX() + new Vector2(0, 4 + (NPC.frame.Y == 24 ? -1 : 0)) - screenPos, NPC.frame, NPC.HunterPotionColor(drawColor), NPC.rotation, NPC.Size / 2, NPC.scale, NPC.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
 
         if (AIState != Idle)
             DrawHead();

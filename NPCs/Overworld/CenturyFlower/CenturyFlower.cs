@@ -49,7 +49,7 @@ namespace EbonianMod.NPCs.Overworld.CenturyFlower
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
             Color clr = Color.White; // full white
-            Vector2 drawPos = NPC.Center - screenPos;
+            Vector2 drawPos = NPC.Center + NPC.GFX() - screenPos;
             Texture2D texture = Assets.NPCs.Overworld.CenturyFlower.CenturyFlower_Glow.Value;
             Texture2D origTexture = TextureAssets.Npc[NPC.type].Value;
             Rectangle frame = new Rectangle(0, NPC.frame.Y, NPC.width, NPC.height);
