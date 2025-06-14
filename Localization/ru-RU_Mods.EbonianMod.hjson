@@ -1669,8 +1669,8 @@ Buffs: {
 	}
 
 	SudamaBuff: {
-		// DisplayName: Sudama
-		// Description: Sudamas fight for you.
+		// DisplayName: Sudama Buff
+		// Description: Mods.EbonianMod.Buffs.SudamaBuff.Description
 	}
 }
 
