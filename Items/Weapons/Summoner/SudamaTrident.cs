@@ -82,19 +82,20 @@ public class SudamaF : ModProjectile
             for (int i = 0; i < Projectile.oldPos.Length; i++)
             {
                 if (Projectile.oldPos[i] == Vector2.Zero) continue;
-                Vector2 oldPos = Projectile.oldPos[i] + new Vector2(0, MathF.Sin(i * 0.5f) * 4).RotatedBy(Projectile.rotation);
+                Vector2 oldPos = Projectile.oldPos[i];
                 float mult = (1 - 1f / Projectile.oldPos.Length * i);
                 float rotOffset = Helper.FromAToB(oldPos, Projectile.position).ToRotation();
                 if (i > 0)
                 {
-                    Vector2 oldPos2 = Projectile.oldPos[i - 1] + new Vector2(0, MathF.Sin(i * 0.5f) * 4).RotatedBy(Projectile.rotation);
+                    Vector2 oldPos2 = Projectile.oldPos[i - 1];
                     rotOffset = Helper.FromAToB(oldPos2, oldPos).ToRotation();
                 }
-                rotOffset += MathF.Sin(Main.GlobalTimeWrappedHourly * 4 + Projectile.whoAmI * 10) * SmoothStep(1, 0, mult);
+                float size = 21 + (MathF.Sin(Main.GlobalTimeWrappedHourly * 10 + Projectile.whoAmI * 10) + 1) * SmoothStep(10, 0, MathF.Pow(mult, 2));
                 Vector2 off = i <= 1 ? Projectile.rotation.ToRotationVector2() * Projectile.velocity.Length() * 0.5f : Vector2.Zero;
                 Vector2 pos = oldPos + Projectile.Size / 2 + new Vector2(0, 4) - rotOffset.ToRotationVector2() * 10 + off - Main.screenPosition;
-                vertices.Add(Helper.AsVertex(pos + new Vector2(21 * mult, 0).RotatedBy(PiOver2 + rotOffset), Color.White * (i < 2 ? 0 : 1), new Vector2((float)i / Projectile.oldPos.Length * 3 - Main.GlobalTimeWrappedHourly * 1.5f, 0)));
-                vertices.Add(Helper.AsVertex(pos + new Vector2(21 * mult, 0).RotatedBy(-PiOver2 + rotOffset), Color.White * (i < 2 ? 0 : 1), new Vector2((float)i / Projectile.oldPos.Length * 3 - Main.GlobalTimeWrappedHourly * 1.5f, 1)));
+                pos += Projectile.rotation.ToRotationVector2().RotatedBy(PiOver2) * (MathF.Sin(Main.GlobalTimeWrappedHourly * 10 + Projectile.whoAmI * 10)) * SmoothStep(20, 0, MathF.Pow(mult, 2));
+                vertices.Add(Helper.AsVertex(pos + new Vector2(size * mult, 0).RotatedBy(PiOver2 + rotOffset), Color.White * (i < 2 ? 0 : 1), new Vector2((float)i / Projectile.oldPos.Length * 3 - Main.GlobalTimeWrappedHourly * 1.5f, 0)));
+                vertices.Add(Helper.AsVertex(pos + new Vector2(size * mult, 0).RotatedBy(-PiOver2 + rotOffset), Color.White * (i < 2 ? 0 : 1), new Vector2((float)i / Projectile.oldPos.Length * 3 - Main.GlobalTimeWrappedHourly * 1.5f, 1)));
             }
             if (vertices.Count > 2)
                 Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.ExtraSprites.Overworld.SudamaTrail.Value, false, true);
@@ -174,7 +175,7 @@ public class SudamaF : ModProjectile
             Projectile.Center = player.Center;
         float off = 0;
         if (player.ownedProjectileCounts[Type] > 1)
-            off = Helper.CircleDividedEqually(Projectile.minionPos, player.ownedProjectileCounts[Type]);
+            off = Helper.CircleDividedEqually(Projectile.minionPos, player.ownedProjectileCounts[Type]) + MathF.Sin(Projectile.ai[0] * 0.1f) * 0.3f;
         if (target && targetDist < 1000)
         {
             if (targetDist < 100)
