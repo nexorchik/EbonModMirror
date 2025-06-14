@@ -1,4 +1,5 @@
 using System;
+using EbonianMod.Common.Globals;
 using EbonianMod.NPCs;
 using Terraria;
 using Terraria.Audio;

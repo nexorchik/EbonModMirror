@@ -9,6 +9,6 @@ public class ExolStun : ModBuff
     }
     public override void Update(NPC npc, ref int buffIndex)
     {
-        npc.GetGlobalNPC<NPCs.EbonGlobalNPC>().stunned = true;
+        npc.GetGlobalNPC<EbonianMod.Common.Globals.EbonGlobalNPC>().stunned = true;
     }
 }

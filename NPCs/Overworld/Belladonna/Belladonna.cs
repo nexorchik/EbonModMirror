@@ -11,6 +11,7 @@ using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
 using Terraria.Utilities;
 using Ionic.Zip;
+using EbonianMod.Common.Globals;
 
 namespace EbonianMod.NPCs.Overworld.Belladonna;
 public class Belladonna : ModNPC

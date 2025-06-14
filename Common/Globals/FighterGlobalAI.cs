@@ -3,7 +3,7 @@ using System;
 using Terraria;
 using Terraria.ModLoader;
 
-namespace EbonianMod.Common
+namespace EbonianMod.Common.Globals
 {
     // rest in peace Mythos of Moonlight but whoever wrote this is mentally ill, gotta rewrite at some point
     public class FighterGlobalAI : GlobalNPC
@@ -28,7 +28,7 @@ namespace EbonianMod.Common
                 }
                 if (Main.rand.NextBool())
                 {
-                    int num2 = Dust.NewDust(npc.position, npc.width, npc.height, num, 0f, 0f, 254, default(Color), 0.25f);
+                    int num2 = Dust.NewDust(npc.position, npc.width, npc.height, num, 0f, 0f, 254, default, 0.25f);
                     Main.dust[num2].velocity *= 0.2f;
                 }
             }
@@ -91,7 +91,7 @@ namespace EbonianMod.Common
             }
             NPC.spriteDirection = NPC.direction;
         }
-        void FitVelocityXToTarget(NPC NPC, float newX) => NPC.velocity.X = MathHelper.Lerp(NPC.velocity.X, newX, 0.1f);
+        void FitVelocityXToTarget(NPC NPC, float newX) => NPC.velocity.X = Lerp(NPC.velocity.X, newX, 0.1f);
         public void FighterAIOLD(NPC NPC, float jumpHeight, float strideSpeed, bool canJump, int jumpFrame = 1, int jumpOffset = 4, float turningVel = .06f)
         {
             NPC.TargetClosest(false);

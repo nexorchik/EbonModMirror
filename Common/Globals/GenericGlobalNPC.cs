@@ -1,33 +1,11 @@
 using EbonianMod.Items.Armor.Vanity;
 using EbonianMod.NPCs.ArchmageX;
+using EbonianMod.NPCs.Cecitior;
 using EbonianMod.NPCs.Garbage;
+using EbonianMod.NPCs.Terrortoma;
 
-namespace EbonianMod.NPCs;
-
-public class EbonGlobalNPC : GlobalNPC
-{
-    public override bool InstancePerEntity => true;
-    public bool stunned;
-    public override void ResetEffects(NPC npc)
-    {
-        stunned = false;
-    }
-
-    public override void UpdateLifeRegen(NPC npc, ref int damage)
-    {
-        if (stunned)
-        {
-            npc.velocity = Vector2.Zero;
-        }
-    }
-    /*public override bool PreAI(NPC npc) {
-        if (stunned) {
-        return false;
-        }
-        return base.PreAI(npc);
-    }*/
-}
-public class NonInstancedGlobalNPC : GlobalNPC
+namespace EbonianMod.Common.Globals;
+public class GenericGlobalNPC : GlobalNPC
 {
     public override void GetChat(NPC npc, ref string chat)
     {
@@ -64,11 +42,10 @@ public class NonInstancedGlobalNPC : GlobalNPC
     }
     public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
     {
-        if (NPC.AnyNPCs(NPCType<Terrortoma.Terrortoma>()) || NPC.AnyNPCs(NPCType<Cecitior.Cecitior>()) || NPC.AnyNPCs(NPCType<ArchmageX.ArchmageX>()) || NPC.AnyNPCs(NPCType<HotGarbage>()))
+        if (NPC.AnyDanger())
         {
             maxSpawns = 0;
             spawnRate = 0;
-
         }
     }
 }

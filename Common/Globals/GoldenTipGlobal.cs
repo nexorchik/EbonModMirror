@@ -1,9 +1,9 @@
 ﻿using EbonianMod.Common.Players;
 using EbonianMod.Projectiles.Friendly.Generic;
 
-namespace EbonianMod.Items;
+namespace EbonianMod.Common.Globals;
 
-public class EbonGlobalItem : GlobalItem
+public class GoldenTipGlobal : GlobalItem
 {
     public override void ModifyShootStats(Item item, Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
     {
