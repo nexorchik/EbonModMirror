@@ -21,10 +21,6 @@ public class Corebreaker : ModItem
         Item.channel = true;
         Item.noMelee = true;
     }
-    public override void AddRecipes()
-    {
-        CreateRecipe().AddIngredient(ItemID.HellstoneBar, 35).AddTile(TileID.Anvils).Register();
-    }
     public override bool AltFunctionUse(Player player)
     {
         if (player.altFunctionUse == 2)
@@ -68,7 +64,7 @@ public class CorebreakerGraphics : ModProjectile
     }
 
     float RotationOffset, RotationSpeed, HoldOffset;
-    bool AltAttack=true;
+    bool AltAttack = true;
 
     public override void AI()
     {

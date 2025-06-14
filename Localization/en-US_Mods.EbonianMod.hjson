@@ -346,6 +346,7 @@ Projectiles: {
 	FlyladDeath.DisplayName: Flylad Death
 	RustyWaraxeP.DisplayName: Rusty Waraxe P
 	BorealSpike.DisplayName: Boreal Spike
+	SudamaF.DisplayName: Sudama F
 }
 
 NPCs: {
@@ -1641,6 +1642,16 @@ Buffs: {
 	RustyCut: {
 		DisplayName: Rusty Cut
 		Description: Mods.EbonianMod.Buffs.RustyCut.Description
+	}
+
+	DoomsdayBuff: {
+		DisplayName: Doomsday Buff
+		Description: Mods.EbonianMod.Buffs.DoomsdayBuff.Description
+	}
+
+	SudamaBuff: {
+		DisplayName: Sudama
+		Description: Sudamas fight for you.
 	}
 }
 

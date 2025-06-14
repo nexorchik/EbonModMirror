@@ -346,6 +346,7 @@ Projectiles: {
 	// FlyladDeath.DisplayName: Flylad Death
 	// RustyWaraxeP.DisplayName: Rusty Waraxe P
 	// BorealSpike.DisplayName: Boreal Spike
+	// SudamaF.DisplayName: Sudama F
 }
 
 NPCs: {
@@ -1582,11 +1583,6 @@ Buffs: {
 		DisplayName: Оаоаоаоа ммм))
 	}
 
-	DoomsdayBuff: {
-		Description: .
-		DisplayName: Дрон судного дня
-	}
-
 	SelfStabB: {
 		DisplayName: Принесённый в жертву
 		Description: Урон значительно увеличен
@@ -1644,7 +1640,7 @@ Buffs: {
 
 	ConglomerateEnergyBuff: {
 		DisplayName: Энергетик Конгломерата
-		// Description: Mods.EbonianMod.Buffs.ConglomerateEnergyBuff.Description
+		// Description: You really should drink less of this.
 	}
 
 	BlinkrootB: {
@@ -1665,6 +1661,16 @@ Buffs: {
 	RustyCut: {
 		DisplayName: Ржавый порез
 		Description: ""
+	}
+
+	DoomsdayBuff: {
+		DisplayName: Дрон судного дня
+		Description: .
+	}
+
+	SudamaBuff: {
+		// DisplayName: Sudama Buff
+		// Description: Mods.EbonianMod.Buffs.SudamaBuff.Description
 	}
 }
 

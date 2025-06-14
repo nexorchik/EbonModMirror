@@ -75,8 +75,8 @@ public abstract class MinionAI2 : MinionAI //this code is pretty horrible, ill r
             NPC npc = Main.npc[player.MinionAttackTargetNPC];
             if (Collision.CanHitLine(Projectile.position, Projectile.width, Projectile.height, npc.position, npc.width, npc.height))
             {
-                targetDist = Vector2.Distance(Projectile.Center, targetPos);
                 targetPos = npc.Center;
+                targetDist = Vector2.Distance(Projectile.Center, targetPos);
                 target = true;
             }
         }

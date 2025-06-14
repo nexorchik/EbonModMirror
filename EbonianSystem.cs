@@ -13,6 +13,7 @@ public class EbonianSystem : ModSystem
 
     public bool downedXareus = false, gotTheStaff = false, xareusFuckingDies = false;
     public int constantTimer;
+    public static int ConstantTimer => GetInstance<EbonianSystem>().constantTimer;
 
     public static float conglomerateSkyFlash;
     public Color conglomerateSkyColorOverride;

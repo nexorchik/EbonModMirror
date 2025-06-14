@@ -39,6 +39,7 @@ v 2.0
 - Fixed deltaTime calculation issues
 - Fixed Terrortoma only having 14k HP in Master Mode
 - Fixed Hot Garbage endlessly firing his nuke under certain conditions
+- Fixed minions not correctly targeting enemies when right clicking
 - Other fixes I forgot
 
 And probably more stuff I missed.

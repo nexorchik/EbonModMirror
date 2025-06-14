@@ -20,7 +20,7 @@ public class EbonianPlayer : ModPlayer
     public static EbonianPlayer Instance;
     public Vector2 stabDirection;
     public bool rolleg, ToxicGland, sheep;
-    public bool doomMinion, xMinion, cClawMinion, titteringMinion;
+    public bool doomMinion, xMinion, cClawMinion, titteringMinion, sudamaMinion;
     public override void HideDrawLayers(PlayerDrawSet drawInfo)
     {
         if (sheep)
@@ -35,6 +35,7 @@ public class EbonianPlayer : ModPlayer
         rolleg = false;
         doomMinion = false;
         xMinion = false;
+        sudamaMinion = false;
         titteringMinion = false;
         cClawMinion = false;
         if (!NPC.AnyNPCs(NPCType<Fleshformator>()))
