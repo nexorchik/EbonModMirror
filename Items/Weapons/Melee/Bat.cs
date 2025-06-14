@@ -1,6 +1,6 @@
 ﻿
 using EbonianMod.Items.Materials;
-using EbonianMod.Projectiles;
+using EbonianMod.Projectiles.Bases;
 using EbonianMod.Projectiles.Friendly.Generic;
 using EbonianMod.Projectiles.Friendly.Underworld;
 using EbonianMod.Projectiles.VFXProjectiles;
@@ -62,7 +62,7 @@ public class Bat : ModItem
     {
         if (player.altFunctionUse == 2)
         {
-            if(MathF.Abs(player.velocity.Y) < 0.03f)
+            if (MathF.Abs(player.velocity.Y) < 0.03f)
                 velocity = new Vector2(player.velocity.X, -5 + player.velocity.Y);
             else
                 velocity += new Vector2(player.velocity.X, -1.5f + player.velocity.Y);
@@ -103,7 +103,9 @@ public class BatGraphics : HeldSword
         Projectile.ai[1]++;
         if (Projectile.ai[1] > 0)
         {
-            if (Main.mouseRightRelease && Main.myPlayer == player.whoAmI) Projectile.localAI[1]--;
+            if (Main.mouseRightRelease && Main.myPlayer == player.whoAmI)
+                Projectile.localAI[1]--;
+
             if (Main.mouseRight && Main.myPlayer == player.whoAmI && Projectile.localAI[1] < 0)
             {
                 Vector2 v = new Vector2(player.velocity.X, -5 + player.velocity.Y);

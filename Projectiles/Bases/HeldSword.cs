@@ -1,15 +1,15 @@
 ﻿using System;
 using System.IO;
 
-namespace EbonianMod.Projectiles;
+namespace EbonianMod.Projectiles.Bases;
 
 public abstract class HeldSword : ModProjectile
 {
     public int swingTime = 20;
     public int minSwingTime = 5;
-    public bool modifyCooldown;
     public float holdOffset = 50f;
     public float baseHoldOffset = 50f;
+    public bool modifyCooldown;
     public override void SetStaticDefaults()
     {
         ProjectileID.Sets.DontCancelChannelOnKill[Type] = true;
@@ -33,11 +33,11 @@ public abstract class HeldSword : ModProjectile
         Projectile.usesLocalNPCImmunity = true;
         SetExtraDefaults();
 
-        swingTime = (int)MathHelper.Clamp((swingTime / (1 + (Main.LocalPlayer.GetAttackSpeed(DamageClass.Melee) - 1) / 3)), minSwingTime, int.MaxValue);
+        swingTime = (int)Clamp(swingTime / (1 + (Main.LocalPlayer.GetAttackSpeed(DamageClass.Melee) - 1) / 3), minSwingTime, int.MaxValue);
         if (!modifyCooldown)
             Projectile.localNPCHitCooldown = swingTime;
         Projectile.timeLeft = swingTime;
-        baseHoldOffset = holdOffset;//* Main.LocalPlayer.GetAdjustedItemScale(Main.LocalPlayer.HeldItem);
+        baseHoldOffset = holdOffset;
     }
     public virtual float Ease(float f)
     {
@@ -96,20 +96,20 @@ public abstract class HeldSword : ModProjectile
             int direction = (int)Projectile.ai[1];
             float swingProgress = Ease(Utils.GetLerpValue(0f, swingTime, Projectile.timeLeft));
             float defRot = Projectile.velocity.ToRotation();
-            float start = defRot - (MathHelper.PiOver2 + MathHelper.PiOver4);
-            float end = defRot + (MathHelper.PiOver2 + MathHelper.PiOver4);
-            float rotation = direction == 1 ? start + MathHelper.Pi * 3 / 2 * swingProgress : end - MathHelper.Pi * 3 / 2 * swingProgress;
-            Vector2 position = player.GetFrontHandPosition(stretch, rotation - MathHelper.PiOver2) +
+            float start = defRot - (PiOver2 + PiOver4);
+            float end = defRot + (PiOver2 + PiOver4);
+            float rotation = direction == 1 ? start + Pi * 3 / 2 * swingProgress : end - Pi * 3 / 2 * swingProgress;
+            Vector2 position = player.GetFrontHandPosition(stretch, rotation - PiOver2) +
                 rotation.ToRotationVector2() * holdOffset * ScaleFunction(swingProgress);
             Projectile.Center = position;
-            Projectile.rotation = (position - player.Center).ToRotation() + MathHelper.PiOver4;
+            Projectile.rotation = (position - player.Center).ToRotation() + PiOver4;
             if (player.direction != (Projectile.velocity.X < 0 ? -1 : 1))
             {
                 player.ChangeDir(Projectile.velocity.X < 0 ? -1 : 1);
                 NetMessage.SendData(MessageID.PlayerControls, number: player.whoAmI);
             }
             if (player.gravDir != -1)
-                player.SetCompositeArmFront(true, stretch, rotation - MathHelper.PiOver2);
+                player.SetCompositeArmFront(true, stretch, rotation - PiOver2);
         }
         else
         {
@@ -120,8 +120,8 @@ public abstract class HeldSword : ModProjectile
             player.itemRotation = Projectile.velocity.ToRotation() * player.direction;
             pos += Projectile.velocity.ToRotation().ToRotationVector2() * holdOffset;
             if (player.gravDir != -1)
-                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.velocity.ToRotation() - MathHelper.PiOver2);
-            Projectile.rotation = (pos - player.Center).ToRotation() + MathHelper.PiOver2 - MathHelper.PiOver4 * Projectile.spriteDirection;
+                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.velocity.ToRotation() - PiOver2);
+            Projectile.rotation = (pos - player.Center).ToRotation() + PiOver2 - PiOver4 * Projectile.spriteDirection;
             Projectile.Center = pos;
             player.itemTime = 2;
             player.itemAnimation = 2;
@@ -136,7 +136,7 @@ public abstract class HeldSword : ModProjectile
             if (player.whoAmI == Main.myPlayer)
             {
                 Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center);
-                Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), player.Center, dir, Projectile.type, Projectile.damage, Projectile.knockBack, player.whoAmI, 0, (-Projectile.ai[1]));
+                Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), player.Center, dir, Projectile.type, Projectile.damage, Projectile.knockBack, player.whoAmI, 0, -Projectile.ai[1]);
                 proj.rotation = Projectile.rotation;
                 proj.Center = Projectile.Center;
                 proj.SyncProjectile();
@@ -153,12 +153,12 @@ public abstract class HeldSword : ModProjectile
         Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
         Vector2 orig = texture.Size() / 2;
         Vector2 off = new Vector2(0, Main.player[Projectile.owner].gfxOffY);
-        Main.EntitySpriteDraw(texture, Projectile.Center + visualOffset + off - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height), lightColor, Projectile.rotation + (Projectile.ai[1] == -1 ? 0 : MathHelper.PiOver2 * 3), orig, Projectile.scale, Projectile.ai[1] == -1 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
+        Main.EntitySpriteDraw(texture, Projectile.Center + visualOffset + off - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height), lightColor, Projectile.rotation + (Projectile.ai[1] == -1 ? 0 : PiOver2 * 3), orig, Projectile.scale, Projectile.ai[1] == -1 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
         if (glowAlpha > 0 && glowBlend != null)
         {
             Texture2D glow = Helper.GetTexture(GlowTexture).Value;
             Main.spriteBatch.Reload(glowBlend);
-            Main.EntitySpriteDraw(glow, Projectile.Center + visualOffset + off - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height), Color.White * glowAlpha, Projectile.rotation + (Projectile.ai[1] == -1 ? 0 : MathHelper.PiOver2 * 3), orig, Projectile.scale, Projectile.ai[1] == -1 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
+            Main.EntitySpriteDraw(glow, Projectile.Center + visualOffset + off - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height), Color.White * glowAlpha, Projectile.rotation + (Projectile.ai[1] == -1 ? 0 : PiOver2 * 3), orig, Projectile.scale, Projectile.ai[1] == -1 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
             Main.spriteBatch.Reload(BlendState.AlphaBlend);
         }
         return false;
@@ -166,10 +166,10 @@ public abstract class HeldSword : ModProjectile
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
     {
         Player player = Main.player[Projectile.owner];
-        float rot = Projectile.rotation - MathHelper.PiOver4;
+        float rot = Projectile.rotation - PiOver4;
         Vector2 start = player.Center;
         Vector2 end = player.Center + rot.ToRotationVector2() * (Projectile.height + holdOffset * 0.8f);
         float a = 0;
-        return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), start, end, projHitbox.Width, ref a) && Collision.CanHitLine(Projectile.Center + Helper.FromAToB(Projectile.Center, end) * 20, 5, 5, targetHitbox.TopLeft(), targetHitbox.Width, targetHitbox.Height);
+        return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), start, end, projHitbox.Width, ref a) && Collision.CanHitLine(Projectile.Center + Projectile.Center.FromAToB(end) * 20, 5, 5, targetHitbox.TopLeft(), targetHitbox.Width, targetHitbox.Height);
     }
 }

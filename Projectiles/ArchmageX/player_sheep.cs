@@ -43,7 +43,7 @@ public class player_sheep : ModProjectile
         if (player.TryGetModPlayer<EbonianPlayer>(out var p))
             if (!p.sheep || player.dead || !player.active) Projectile.Kill();
             else Projectile.timeLeft = Projectile.extraUpdates * 2;
-        Projectile.Center = player.Bottom + new Vector2(0, -Projectile.height / 2);
+        Projectile.Center = player.Bottom + new Vector2(0, -Projectile.height / 2 + player.gfxOffY);
         Projectile.direction = Projectile.spriteDirection = player.direction;
         if (Helper.TRay.CastLength(Projectile.Bottom, Vector2.UnitY, 50, true) > 1 || player.velocity.Y < 0)
         {

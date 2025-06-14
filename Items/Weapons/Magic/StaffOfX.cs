@@ -1,6 +1,6 @@
 ﻿using EbonianMod.Common.UI.Dialogue;
-using EbonianMod.Projectiles;
 using EbonianMod.Projectiles.ArchmageX;
+using EbonianMod.Projectiles.Bases;
 using EbonianMod.Projectiles.VFXProjectiles;
 using System;
 using Terraria.Graphics.CameraModifiers;

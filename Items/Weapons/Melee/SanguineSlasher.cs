@@ -1,4 +1,4 @@
-﻿using EbonianMod.Projectiles;
+﻿using EbonianMod.Projectiles.Bases;
 using System;
 using System.Collections.Generic;
 

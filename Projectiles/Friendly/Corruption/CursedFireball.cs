@@ -1,4 +1,4 @@
-﻿namespace EbonianMod.Projectiles;
+﻿namespace EbonianMod.Projectiles.Friendly.Corruption;
 
 public class CursedFireball : ModProjectile
 {
@@ -117,7 +117,7 @@ public class CursedFireball : ModProjectile
 
         for (int k = Projectile.oldPos.Length - 1; k > 0; k--)
         {
-            Vector2 drawPosition = (Projectile.oldPos[k] - Main.screenPosition) + (drawOrigin / 2) + new Vector2(0f, Projectile.gfxOffY);
+            Vector2 drawPosition = Projectile.oldPos[k] - Main.screenPosition + drawOrigin / 2 + new Vector2(0f, Projectile.gfxOffY);
             Color color = Projectile.GetAlpha(Color.Lerp(new Color(255, 255, 255, 128), new Color(0, 0, 0, 0), k / (float)Projectile.oldPos.Length));
 
             Main.EntitySpriteDraw(texture, drawPosition, sourceRectangle, color, Projectile.rotation, drawOrigin, Projectile.scale, spriteEffects, 0);

@@ -1,4 +1,4 @@
-﻿namespace EbonianMod.Projectiles;
+﻿namespace EbonianMod.Projectiles.VFXProjectiles;
 
 class Ripple : ModProjectile
 {

@@ -1,5 +1,5 @@
 ﻿using EbonianMod.Items.Misc;
-using EbonianMod.Projectiles;
+using EbonianMod.Projectiles.Bases;
 using EbonianMod.Projectiles.VFXProjectiles;
 using System;
 using System.Collections.Generic;

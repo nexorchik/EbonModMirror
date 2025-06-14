@@ -1,5 +1,5 @@
 ﻿using EbonianMod.Items.Materials;
-using EbonianMod.Projectiles;
+using EbonianMod.Projectiles.Bases;
 using EbonianMod.Projectiles.Friendly.Crimson;
 using System;
 using Terraria.Graphics.CameraModifiers;

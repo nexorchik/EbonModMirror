@@ -9,9 +9,9 @@ using Terraria.ModLoader;
 using Terraria;
 using Microsoft.Xna.Framework;
 using rail;
-using EbonianMod.Projectiles;
 using Terraria.Audio;
 using EbonianMod.Buffs;
+using EbonianMod.Projectiles.Bases;
 
 namespace EbonianMod.Items.Weapons.Melee;
 public class RustyWaraxe : ModItem

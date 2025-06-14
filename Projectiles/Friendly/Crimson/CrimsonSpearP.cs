@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EbonianMod.Projectiles.Bases;
+using System;
 
 namespace EbonianMod.Projectiles.Friendly.Crimson;
 

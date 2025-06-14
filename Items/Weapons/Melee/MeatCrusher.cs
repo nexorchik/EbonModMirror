@@ -1,5 +1,5 @@
 ﻿using EbonianMod.Items.Materials;
-using EbonianMod.Projectiles;
+using EbonianMod.Projectiles.Bases;
 using EbonianMod.Projectiles.Friendly.Corruption;
 using System;
 using Terraria.Graphics.CameraModifiers;
