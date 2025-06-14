@@ -36,7 +36,7 @@ public class Bat : ModItem
 
     public override void AddRecipes()
     {
-        CreateRecipe().AddIngredient(ItemID.WoodenBoomerang, 2).AddIngredient(ItemType<CecitiorMaterial>(), 20).AddTile(TileID.MythrilAnvil).Register();
+        CreateRecipe().AddIngredient(ItemID.Wood, 10).AddIngredient(RecipeGroupID.IronBar, 20).AddTile(TileID.Anvils).Register();
     }
 
     public override bool AltFunctionUse(Player player)

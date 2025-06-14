@@ -1644,7 +1644,7 @@ Buffs: {
 
 	ConglomerateEnergyBuff: {
 		DisplayName: Энергетик Конгломерата
-		escription: ""
+		// Description: Mods.EbonianMod.Buffs.ConglomerateEnergyBuff.Description
 	}
 
 	BlinkrootB: {
@@ -1705,7 +1705,7 @@ Configs: {
 
 		XareusDelay: {
 			Label: Перезаряжка призыва Ксаеруса
-			Tooltip: 
+			Tooltip:
 				'''
 				Определяет количество кадров, которое должно пройти перед тем, как Ксаеруса можно будет призвать повторно.
 				60 кадров равняется 1 секунде

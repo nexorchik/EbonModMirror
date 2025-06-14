@@ -1,11 +1,10 @@
-﻿namespace EbonianMod.Projectiles;
+﻿namespace EbonianMod.Projectiles.ArchmageX;
 
 public class player_sheep : ModProjectile
 {
     public override void SetStaticDefaults()
     {
         Main.projFrames[Type] = 5;
-        //EbonianMod.projectileFinalDrawList.Add(Type);
     }
     public override void SetDefaults()
     {
@@ -42,7 +41,8 @@ public class player_sheep : ModProjectile
         Player player = Main.player[Projectile.owner];
         if (player.TryGetModPlayer<EbonianPlayer>(out var p))
             if (!p.sheep || player.dead || !player.active) Projectile.Kill();
-            else Projectile.timeLeft = Projectile.extraUpdates * 2;
+
+        Projectile.timeLeft = Projectile.extraUpdates * 2;
         Projectile.Center = player.Bottom + new Vector2(0, -Projectile.height / 2 + player.gfxOffY);
         Projectile.direction = Projectile.spriteDirection = player.direction;
         if (Helper.TRay.CastLength(Projectile.Bottom, Vector2.UnitY, 50, true) > 1 || player.velocity.Y < 0)

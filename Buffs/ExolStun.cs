@@ -7,8 +7,4 @@ public class ExolStun : ModBuff
 
         Main.buffNoTimeDisplay[Type] = false;
     }
-    public override void Update(NPC npc, ref int buffIndex)
-    {
-        npc.GetGlobalNPC<EbonianMod.Common.Globals.EbonGlobalNPC>().stunned = true;
-    }
 }

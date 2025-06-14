@@ -55,7 +55,7 @@ public class BallLauncher : ModItem
 
     public override void AddRecipes()
     {
-        CreateRecipe().AddIngredient(ItemID.RocketLauncher).AddIngredient(ItemType<CecitiorMaterial>(), 20).AddTile(TileID.MythrilAnvil).Register();
+        CreateRecipe().AddIngredient(ItemID.GrenadeLauncher).AddIngredient(ItemType<CecitiorMaterial>(), 10).AddIngredient(ItemType<TerrortomaMaterial>(), 10).AddTile(TileID.MythrilAnvil).Register();
     }
     public override bool CanConsumeAmmo(Item ammo, Player player) => false;
 }

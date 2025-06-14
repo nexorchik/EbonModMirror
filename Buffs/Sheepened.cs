@@ -1,4 +1,5 @@
 ﻿using EbonianMod.Projectiles;
+using EbonianMod.Projectiles.ArchmageX;
 
 namespace EbonianMod.Buffs;
 

@@ -763,9 +763,8 @@ Items: {
 		DisplayName: Corebreaker
 		Tooltip:
 			'''
-			LMB to launch an explosive core
-			RMB to shoot a laser
-			"It should break... cores.... idk"
+			Launches an explosive core
+			Right click to shoot a laser
 			'''
 	}
 
@@ -1404,7 +1403,7 @@ Items: {
 	}
 
 	BallLauncher: {
-		DisplayName: Ball Launcher
+		DisplayName: Lobber
 		Tooltip:
 			'''
 			Right click to charge a burst attack
@@ -1539,7 +1538,7 @@ Items: {
 
 	RustyWaraxe: {
 		DisplayName: Rusty Waraxe
-		Tooltip: ""
+		Tooltip: Critical hits cause deep cuts
 	}
 }
 
@@ -1564,24 +1563,19 @@ Buffs: {
 		DisplayName: Ooaoaaoa mmm))
 	}
 
-	DoomsdayBuff: {
-		Description: .
-		DisplayName: Doomsday Drone
-	}
-
 	SelfStabB: {
 		DisplayName: Sacrificed
-		Description: Massively boosted damage
+		Description: Massively boosted damage.
 	}
 
 	DjungelskogB: {
 		DisplayName: Djungelskog
-		Description: En mjuk djungelkompis som gärna följer med på äventyr
+		Description: En mjuk djungelkompis som gärna följer med på äventyr.
 	}
 
 	OstertagiB: {
 		DisplayName: Infected
-		Description: Boosted damage and attacking speed
+		Description: Boosted damage and attacking speed.
 	}
 
 	Sheepened: {
@@ -1591,32 +1585,32 @@ Buffs: {
 
 	XTomeBuff: {
 		DisplayName: Phantasmal Spirits
-		Description: You radiate amethyst energy that will fight for you
+		Description: You radiate amethyst energy that will fight for you.
 	}
 
 	CecitiorClawBuff: {
 		DisplayName: Backscratcher
-		Description: Crimson Claws sprout out of your back and fight for you
+		Description: Crimson Claws sprout out of your back and fight for you.
 	}
 
 	TitteringB: {
 		DisplayName: Titterings
-		Description: Small titterings fight for you
+		Description: Small titterings fight for you.
 	}
 
 	CecitiorPetB: {
 		DisplayName: Cecitior's Eye
-		Description: It sees
+		Description: Claws not included!
 	}
 
 	GarbagePetB: {
 		DisplayName: Garbage Bag
-		Description: Smells foul
+		Description: Smells foul.
 	}
 
 	SheepPetB: {
 		DisplayName: Sheep
-		Description: May have been a victim of Sheepening
+		Description: May have been a victim of the Sheepening.
 	}
 
 	NastySnapperDebuff: {
@@ -1625,8 +1619,8 @@ Buffs: {
 	}
 
 	ConglomerateEnergyBuff: {
-		DisplayName: Conglomerate Energy Buff
-		Description: Mods.EbonianMod.Buffs.ConglomerateEnergyBuff.Description
+		DisplayName: Conglomerate Overdose
+		Description: You really should drink less of this.
 	}
 
 	BlinkrootB: {

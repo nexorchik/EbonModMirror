@@ -568,6 +568,6 @@ public class ShackMusic : ModBiome
     public override int Music => MusicLoader.GetMusicSlot(Mod, "Sounds/Music/ambience2");
     public override bool IsBiomeActive(Player player)
     {
-        return CameraSystem.stickZoomLerpVal > 0.1f;
+        return CameraSystem.stickZoomLerpVal > 0.2f;
     }
 }
