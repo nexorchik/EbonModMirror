@@ -90,7 +90,7 @@ public class SudamaF : ModProjectile
                     Vector2 oldPos2 = Projectile.oldPos[i - 1] + new Vector2(0, MathF.Sin(i * 0.5f) * 4).RotatedBy(Projectile.rotation);
                     rotOffset = Helper.FromAToB(oldPos2, oldPos).ToRotation();
                 }
-                rotOffset += MathF.Sin(Main.GlobalTimeWrappedHourly * 4 + Projectile.whoAmI * 10) * SmoothStep(1, 0, mult);
+                rotOffset += MathF.Sin(Main.GlobalTimeWrappedHourly * 6 + Projectile.whoAmI * 10) * SmoothStep(1, 0, mult);
                 Vector2 off = i <= 1 ? Projectile.rotation.ToRotationVector2() * Projectile.velocity.Length() * 0.5f : Vector2.Zero;
                 Vector2 pos = oldPos + Projectile.Size / 2 + new Vector2(0, 4) - rotOffset.ToRotationVector2() * 10 + off - Main.screenPosition;
                 vertices.Add(Helper.AsVertex(pos + new Vector2(21 * mult, 0).RotatedBy(PiOver2 + rotOffset), Color.White * (i < 2 ? 0 : 1), new Vector2((float)i / Projectile.oldPos.Length * 3 - Main.GlobalTimeWrappedHourly * 1.5f, 0)));
