@@ -32,23 +32,23 @@ public class BotanistHeadStaff : ModItem
     }
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
     {
-        Vector2 mouse = Main.MouseWorld - player.RotatedRelativePoint(player.MountedCenter, reverseRotation: true) - new Vector2(0, 1000);
+        float dist = 300 - Helper.TRay.CastLength(Main.MouseWorld, Vector2.UnitY, 300);
+        Vector2 target = Helper.TRay.Cast(player.Center, player.FromAToB(Main.MouseWorld), player.Distance(Main.MouseWorld)) - new Vector2(0, dist);
+        Vector2 mouse = Vector2.Lerp(Main.MouseWorld, target, 0.5f) - player.RotatedRelativePoint(player.MountedCenter, reverseRotation: true);
         player.itemRotation = MathF.Atan2(mouse.Y * player.direction, mouse.X * player.direction);
         NetMessage.SendData(MessageID.PlayerControls, number: player.whoAmI);
         NetMessage.SendData(MessageID.ShotAnimationAndSound, number: player.whoAmI);
 
-        float dist = 300 - Helper.TRay.CastLength(Main.MouseWorld, Vector2.UnitY, 300);
-        Vector2 target = Helper.TRay.Cast(player.Center, player.FromAToB(Main.MouseWorld), player.Distance(Main.MouseWorld)) - new Vector2(0, dist);
 
-        for (float i = 0; i < 1f; i += 0.02f)
+        for (float i = 0; i < 1f; i += 0.025f)
         {
             float iSq = MathF.Pow(i, 2);
-            Vector2 pos = Vector2.Lerp(Vector2.Lerp(position - new Vector2(0, 40), Main.MouseWorld, iSq), Vector2.Lerp(Main.MouseWorld, target, iSq), i);
-            Dust.NewDustPerfect(pos + Main.rand.NextVector2Circular(2, 2), DustID.GrassBlades, Main.rand.NextVector2Circular(2, 2), Scale: Lerp(0, 1, Clamp(i * 5, 0, 1)));
+            Vector2 pos = Vector2.Lerp(Vector2.Lerp(position - new Vector2(0, 30), Main.MouseWorld, iSq), Vector2.Lerp(Main.MouseWorld, target, iSq), i);
+            Dust.NewDustPerfect(pos + Main.rand.NextVector2Circular(2, 2), DustID.GrassBlades, Main.rand.NextVector2Circular(2, 2), Alpha: (int)Clamp((1f - i) * 320, 0, 225), Scale: SmoothStep(0, 1, Clamp(i * 5, 0, 0.8f)));
         }
 
         for (int i = 0; i < 30; i++)
-            Dust.NewDustPerfect(target + Main.rand.NextVector2Circular(20, 20), DustID.GrassBlades, Main.rand.NextVector2Circular(6, 6));
+            Dust.NewDustPerfect(target + Main.rand.NextVector2Circular(20, 20), DustID.GrassBlades, Main.rand.NextVector2Circular(16, 16)).noGravity = true;
 
         for (int i = 0; i < Main.rand.Next(1, 5); i++)
             Projectile.NewProjectile(null, target, Vector2.UnitY.RotatedBy(Lerp(0, -PiOver2, i / 4f) + i + Main.rand.NextFloat(-.1f, .1f)) * velocity.Length() * Main.rand.NextFloat(0.5f, 1.5f), type, damage, knockback, player.whoAmI);
@@ -104,12 +104,12 @@ public class BotanistHeadProjectile : ModProjectile
             Projectile.localAI[2] = 1;
         }
 
-        Projectile.velocity.X = Lerp(Projectile.velocity.X, 0, 0.05f);
+        Projectile.velocity.X = Lerp(Projectile.velocity.X, 0, 0.025f);
         Player p = Main.player[Projectile.owner];
         if (savedP == 0)
             savedP = p.Center.Y;
         if (Projectile.velocity.Length() < 25f && Projectile.velocity.Y > 0)
-            Projectile.velocity.Y *= 1.05f;
+            Projectile.velocity.Y *= 1.01f;
         if (Projectile.localAI[2] == 1)
         {
             Projectile.velocity.Y = 0;
