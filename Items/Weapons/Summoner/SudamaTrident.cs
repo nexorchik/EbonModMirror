@@ -27,7 +27,7 @@ public class SudamaTrident : ModItem
         Item.useStyle = ItemUseStyleID.Shoot;
         Item.knockBack = 10;
         Item.value = 1000;
-        Item.rare = ItemRarityID.LightRed;
+        Item.rare = ItemRarityID.Green;
         Item.value = Item.buyPrice(0, 30, 0, 0);
         Item.UseSound = SoundID.Item8;
         Item.autoReuse = true;
