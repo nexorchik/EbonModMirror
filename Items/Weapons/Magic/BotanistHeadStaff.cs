@@ -71,9 +71,6 @@ public class BotanistHeadProjectile : ModProjectile
         Projectile.DamageType = DamageClass.Magic;
         Projectile.timeLeft = 240;
     }
-    public override void OnSpawn(IEntitySource source)
-    {
-    }
     public override bool OnTileCollide(Vector2 oldVelocity)
     {
         if (Projectile.localAI[2] == 0)
@@ -85,12 +82,6 @@ public class BotanistHeadProjectile : ModProjectile
             Projectile.localAI[2] = 1;
         }
         return base.OnTileCollide(oldVelocity);
-    }
-    public override bool TileCollideStyle(ref int width, ref int height, ref bool fallThrough, ref Vector2 hitboxCenterFrac)
-    {
-        if (Projectile.Center.Y >= savedP - 100)
-            fallThrough = false;
-        return base.TileCollideStyle(ref width, ref height, ref fallThrough, ref hitboxCenterFrac);
     }
     float savedP;
     public override void AI()
