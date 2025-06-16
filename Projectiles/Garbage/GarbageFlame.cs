@@ -80,22 +80,10 @@ public class GarbageFlame : ModProjectile
         Projectile.timeLeft--;
         Lighting.AddLight(Projectile.Center, TorchID.Torch);
         if (savedP == 0)
-            savedP = Main.LocalPlayer.Center.Y;
+            savedP = Main.player[Projectile.owner].Center.Y;
         if (Projectile.velocity.Y > 2.8f && Projectile.ai[0] == 0)
         {
             Projectile.velocity *= 0.87f;
-        }
-        if (Main.rand.Next(2) == 0)
-        {
-            /*for (int dustNumber = 0; dustNumber < 5; dustNumber++)
-            {
-                Dust dust = Main.dust[Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, 6, 0, 0, 0, default(Color), 1f)];
-                dust.position = Projectile.Center + Vector2.UnitY.RotatedByRandom(4.1887903213500977) * new Vector2(Projectile.width / 2, Projectile.height / 2) * 0.8f * (0.8f + Main.rand.NextFloat() * 0.2f);
-                dust.velocity.X = Main.rand.NextFloat(-0.5f, 0.5f);
-                dust.velocity.Y = -2f;
-                dust.noGravity = true;
-                dust.scale = Main.rand.NextFloat(0.65f, 1.25f);
-            }*/
         }
     }
 }

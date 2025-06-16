@@ -347,6 +347,7 @@ Projectiles: {
 	// RustyWaraxeP.DisplayName: Rusty Waraxe P
 	// BorealSpike.DisplayName: Boreal Spike
 	// SudamaF.DisplayName: Sudama F
+	// BotanistHeadProjectile.DisplayName: Botanist Head
 }
 
 NPCs: {
@@ -1559,6 +1560,11 @@ Items: {
 	RustyWaraxe: {
 		DisplayName: Ржавый боевой топор
 		Tooltip: ""
+	}
+
+	BotanistHeadStaff: {
+		// DisplayName: Botanist Head
+		// Tooltip: ""
 	}
 }
 

@@ -347,6 +347,7 @@ Projectiles: {
 	RustyWaraxeP.DisplayName: Rusty Waraxe P
 	BorealSpike.DisplayName: Boreal Spike
 	SudamaF.DisplayName: Sudama F
+	BotanistHeadProjectile.DisplayName: Botanist Head
 }
 
 NPCs: {
@@ -1540,6 +1541,11 @@ Items: {
 	RustyWaraxe: {
 		DisplayName: Rusty Waraxe
 		Tooltip: Critical hits cause deep cuts
+	}
+
+	BotanistHeadStaff: {
+		DisplayName: Botanist Head
+		Tooltip: ""
 	}
 }
 
