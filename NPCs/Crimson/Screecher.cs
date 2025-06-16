@@ -6,7 +6,7 @@ public class Screecher : ModNPC
 {
     public override void SetStaticDefaults()
     {
-        Main.npcFrameCount[NPC.type] = 11;
+        Main.npcFrameCount[NPC.type] = 10;
     }
     public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
     {
@@ -30,8 +30,8 @@ public class Screecher : ModNPC
     }
     public override void SetDefaults()
     {
-        NPC.width = 44;
-        NPC.height = 72;
+        NPC.width = 64;
+        NPC.height = 70;
         NPC.damage = 10;
         NPC.defense = 8;
         NPC.lifeMax = 75;
@@ -45,7 +45,7 @@ public class Screecher : ModNPC
     }
     public override bool CheckDead()
     {
-        for(int i=1; i<5; i++)
+        for (int i = 1; i < 5; i++)
             Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/WalkerGore" + i).Type, NPC.scale);
         return true;
     }
@@ -77,28 +77,27 @@ public class Screecher : ModNPC
             {
                 if (NPC.frameCounter % 5 == 0)
                 {
-                    if (NPC.frame.Y < 7 * frameHeight)
+                    if (NPC.frame.Y < 5 * frameHeight)
                         NPC.frame.Y += frameHeight;
                     else
                         NPC.frame.Y = 0;
                 }
             }
             else
-                NPC.frame.Y = 7 * frameHeight;
+                NPC.frame.Y = 6 * frameHeight;
         }
         else
         {
             if (AITimer < 100)
             {
-                if (NPC.frame.Y < 7 * frameHeight)
-                    NPC.frame.Y = 7 * frameHeight;
+                if (NPC.frame.Y < 6 * frameHeight)
+                    NPC.frame.Y = 6 * frameHeight;
                 if (NPC.frameCounter % 5 == 0)
                 {
-
-                    if (NPC.frame.Y < 10 * frameHeight)
+                    if (NPC.frame.Y < 9 * frameHeight)
                         NPC.frame.Y += frameHeight;
                     else
-                        NPC.frame.Y = 9 * frameHeight;
+                        NPC.frame.Y = 8 * frameHeight;
                 }
             }
             else
@@ -106,7 +105,7 @@ public class Screecher : ModNPC
                 if (NPC.frameCounter % 5 == 0)
                 {
 
-                    if (NPC.frame.Y > 7 * frameHeight)
+                    if (NPC.frame.Y > 6 * frameHeight)
                         NPC.frame.Y -= frameHeight;
                 }
             }
@@ -135,13 +134,13 @@ public class Screecher : ModNPC
             NPC.spriteDirection = NPC.direction;
 
             if (player.Center.Distance(NPC.Center) > 100 && (player.Center.Y - NPC.Center.Y < 100 || player.Center.Y - NPC.Center.Y > -100))
-                NPC.velocity.X = MathHelper.Lerp(NPC.velocity.X, NPC.direction * 1.7f, 0.1f);
+                NPC.velocity.X = MathHelper.Lerp(NPC.velocity.X, NPC.direction * 3f, 0.1f);
             if (player.Center.Distance(NPC.Center) < 100)
             {
                 NPC.netUpdate = true;
                 AITimer += 4;
                 NPC.velocity.X *= 0.9f;
-                NPC.frame.Y = 7 * 72;
+                NPC.frame.Y = 6 * 72;
                 NPC.frameCounter = 1;
             }
             if ((player.Center.Y - NPC.Center.Y > 100 || player.Center.Y - NPC.Center.Y < -100))
@@ -168,13 +167,13 @@ public class Screecher : ModNPC
         else if (AIState == Attack)
         {
             AITimer++;
-            if (AITimer == 15)
+            if (AITimer == 10)
             {
                 SoundEngine.PlaySound(EbonianSounds.shriek, NPC.Center);
             }
-            if (AITimer % 5 == 0 && AITimer > 15 && AITimer < 100)
+            if (AITimer % 5 == 0 && AITimer > 35 && AITimer < 100)
             {
-                Projectile.NewProjectileDirect(null, NPC.Center - new Vector2(NPC.direction * -10, 8), new Vector2(NPC.direction * Main.rand.NextFloat(2, 6), 0).RotatedByRandom(MathHelper.PiOver4), ProjectileID.BloodNautilusShot, 13, 0).tileCollide = true;
+                Projectile.NewProjectileDirect(null, NPC.Center - new Vector2(NPC.direction * -13, 4), new Vector2(NPC.direction * Main.rand.NextFloat(2, 6), 0).RotatedByRandom(MathHelper.PiOver4), ProjectileID.BloodNautilusShot, 13, 0).tileCollide = true;
             }
             if (player.Center.Distance(NPC.Center) > 100 && AITimer < 100)
                 AITimer += 2;
