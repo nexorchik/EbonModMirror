@@ -14,7 +14,7 @@ public class BotanistHeadStaff : ModItem
     }
     public override void SetDefaults()
     {
-        Item.damage = 5;
+        Item.damage = 4;
         Item.width = 40;
         Item.height = 40;
         Item.mana = 5;
