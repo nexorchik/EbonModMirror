@@ -26,6 +26,7 @@ public class TerrorStaff : ModItem
         Item.value = Item.buyPrice(0, 30, 0, 0);
         Item.rare = ItemRarityID.LightRed;
         Item.UseSound = SoundID.Item1;
+        Item.noMelee = true;
         Item.autoReuse = true;
         Item.shoot = ProjectileType<TerrorStaffP>();
         Item.shootSpeed = 14;

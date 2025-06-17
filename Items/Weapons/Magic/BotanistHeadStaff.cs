@@ -14,7 +14,7 @@ public class BotanistHeadStaff : ModItem
     }
     public override void SetDefaults()
     {
-        Item.damage = 20;
+        Item.damage = 5;
         Item.width = 40;
         Item.height = 40;
         Item.mana = 5;
@@ -25,6 +25,7 @@ public class BotanistHeadStaff : ModItem
         Item.knockBack = 10;
         Item.rare = ItemRarityID.Green;
         Item.UseSound = SoundID.Item8;
+        Item.noMelee = true;
         Item.value = Item.buyPrice(0, 20, 0, 0);
         Item.autoReuse = true;
         Item.shoot = ProjectileType<BotanistHeadProjectile>();
@@ -50,8 +51,8 @@ public class BotanistHeadStaff : ModItem
         for (int i = 0; i < 30; i++)
             Dust.NewDustPerfect(target + Main.rand.NextVector2Circular(20, 20), DustID.GrassBlades, Main.rand.NextVector2Circular(16, 16)).noGravity = true;
 
-        for (int i = 0; i < Main.rand.Next(1, 5); i++)
-            Projectile.NewProjectile(null, target, Vector2.UnitY.RotatedBy(Lerp(0, -PiOver2, i / 4f) + i + Main.rand.NextFloat(-.1f, .1f)) * velocity.Length() * Main.rand.NextFloat(0.5f, 1.5f), type, damage, knockback, player.whoAmI);
+        for (int i = 0; i < 7; i++)
+            Projectile.NewProjectile(null, target, new Vector2(i - 4, velocity.Length() * Main.rand.NextFloat(0.5f, 1.5f)), type, damage, knockback, player.whoAmI);
         return false;
     }
 }

@@ -27,6 +27,7 @@ public class KodamaStaff : ModItem
         Item.useStyle = ItemUseStyleID.Shoot;
         Item.knockBack = 10;
         Item.rare = ItemRarityID.Green;
+        Item.noMelee = true;
         Item.value = Item.buyPrice(0, 20, 0, 0);
         Item.autoReuse = true;
         Item.shoot = ProjectileType<KodamaF>();

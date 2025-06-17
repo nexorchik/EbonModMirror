@@ -171,12 +171,12 @@ public class Screecher : ModNPC
             {
                 SoundEngine.PlaySound(EbonianSounds.shriek, NPC.Center);
             }
-            if (AITimer % 5 == 0 && AITimer > 35 && AITimer < 100)
+            if (AITimer % (AITimer < 50 ? 10 : 5) == 0 && AITimer > 15 && AITimer < 90)
             {
                 Projectile.NewProjectileDirect(null, NPC.Center - new Vector2(NPC.direction * -13, 4), new Vector2(NPC.direction * Main.rand.NextFloat(2, 6), 0).RotatedByRandom(MathHelper.PiOver4), ProjectileID.BloodNautilusShot, 13, 0).tileCollide = true;
             }
             if (player.Center.Distance(NPC.Center) > 100 && AITimer < 100)
-                AITimer += 2;
+                AITimer++;
 
             if (AITimer >= 120)
             {

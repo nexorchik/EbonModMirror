@@ -8,7 +8,7 @@ public class EbonGlobalTile : GlobalTile
 {
     public override void KillTile(int i, int j, int type, ref bool fail, ref bool effectOnly, ref bool noItem)
     {
-        if (type == TileID.Dirt && fail)
+        if (type == TileID.Dirt && !fail)
         {
             if (Main.rand.NextBool(70))
                 Item.NewItem(Item.GetSource_NaturalSpawn(), new Vector2(i * 16, j * 16), ItemType<Potato>(), Main.rand.Next(1, 10));
