@@ -348,6 +348,7 @@ Projectiles: {
 	// BorealSpike.DisplayName: Boreal Spike
 	// SudamaF.DisplayName: Sudama F
 	// BotanistHeadProjectile.DisplayName: Botanist Head
+	// BaseballBatP.DisplayName: Baseball Bat P
 }
 
 NPCs: {
@@ -1564,6 +1565,11 @@ Items: {
 
 	BotanistHeadStaff: {
 		// DisplayName: Botanist Head
+		// Tooltip: ""
+	}
+
+	BaseballBat: {
+		// DisplayName: Baseball Bat
 		// Tooltip: ""
 	}
 }
