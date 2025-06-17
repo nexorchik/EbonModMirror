@@ -2,17 +2,11 @@
 using EbonianMod.Items.Materials;
 using EbonianMod.Projectiles.Bases;
 using EbonianMod.Projectiles.Friendly.Generic;
-using EbonianMod.Projectiles.Friendly.Underworld;
-using EbonianMod.Projectiles.VFXProjectiles;
-using Mono.Cecil;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace EbonianMod.Items.Weapons.Melee;
 
-public class Bat : ModItem
+public class BaseballBat : ModItem
 {
     public override void SetDefaults()
     {
@@ -31,7 +25,7 @@ public class Bat : ModItem
         Item.DamageType = DamageClass.Melee;
         Item.useStyle = ItemUseStyleID.Swing;
         Item.rare = ItemRarityID.Green;
-        Item.shoot = ProjectileType<BatGraphics>();
+        Item.shoot = ProjectileType<BaseballBatP>();
     }
 
     public override void AddRecipes()
@@ -52,9 +46,9 @@ public class Bat : ModItem
         }
         else
         {
-            Item.shoot = ProjectileType<BatGraphics>();
+            Item.shoot = ProjectileType<BaseballBatP>();
         }
-        return Item.shoot == ProjectileType<BatGraphics>()
+        return Item.shoot == ProjectileType<BaseballBatP>()
             || (Item.shoot == ProjectileType<Ball>()
             && player.ownedProjectileCounts[ProjectileType<Ball>()] < 4);
     }
@@ -71,7 +65,7 @@ public class Bat : ModItem
         return false;
     }
 }
-public class BatGraphics : HeldSword
+public class BaseballBatP : HeldSword
 {
     public override string Texture => Helper.Empty;
 
@@ -168,7 +162,7 @@ public class BatGraphics : HeldSword
 
         player.itemTime = 2;
 
-        if (player.HeldItem.type != ItemType<Bat>() && !player.active || player.dead || player.CCed || player.noItems)
+        if (player.HeldItem.type != ItemType<BaseballBat>() && !player.active || player.dead || player.CCed || player.noItems)
         {
             Projectile.Kill();
         }
@@ -176,7 +170,7 @@ public class BatGraphics : HeldSword
     public override bool PreDraw(ref Color lightColor)
     {
         Player player = Main.player[Projectile.owner];
-        Texture2D tex = Helper.GetTexture("EbonianMod/Items/Weapons/Melee/Bat").Value;
+        Texture2D tex = Helper.GetTexture("EbonianMod/Items/Weapons/Melee/BaseballBat").Value;
         Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor * Projectile.Opacity, Projectile.rotation, new Vector2(Projectile.width / 2, Projectile.height / 2 + 41), Projectile.scale, Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
         return false;
     }
