@@ -40,8 +40,7 @@ namespace EbonianMod.NPCs.Underground.Pebbi
             NPC.knockBackResist = 1f;
             NPC.HitSound = SoundID.NPCHit7;
             SoundStyle sound = SoundID.NPCDeath43;
-            sound.Pitch = 0.3f;
-            sound.PitchRange = new(0.5f, 1f);
+            sound.PitchRange = new(1.5f, 3f);
             NPC.DeathSound = sound;
             NPC.aiStyle = -1;
             NPC.netAlways = true;
@@ -110,8 +109,7 @@ namespace EbonianMod.NPCs.Underground.Pebbi
             NPC.defense = 6;
             NPC.HitSound = SoundID.NPCHit7;
             SoundStyle sound = SoundID.NPCDeath43;
-            sound.Pitch = 0.4f;
-            sound.PitchRange = new(0.5f, 1f);
+            sound.PitchRange = new(1.5f, 3f);
             NPC.DeathSound = sound;
             NPC.knockBackResist = .6f;
             NPC.aiStyle = -1;
@@ -183,8 +181,7 @@ namespace EbonianMod.NPCs.Underground.Pebbi
             NPC.knockBackResist = 2f;
             NPC.HitSound = SoundID.NPCHit7;
             SoundStyle sound = SoundID.NPCDeath43;
-            sound.Pitch = 0.1f;
-            sound.PitchRange = new(0.5f, 1f);
+            sound.PitchRange = new(1.5f, 3f);
             NPC.DeathSound = sound;
             NPC.buffImmune[BuffID.Confused] = true;
             NPC.buffImmune[BuffID.Poisoned] = true;
