@@ -257,6 +257,12 @@ public class EbonianSounds : ModSystem
         SoundPath = path + "heartbeat"
     };
 
+    public static SoundStyle herderDying => Default with
+    {
+        SoundPath = path + "herderDying",
+        PitchVariance = 0,
+        IsLooped = true
+    };
 
     public static SoundStyle nuke => Default with
     {

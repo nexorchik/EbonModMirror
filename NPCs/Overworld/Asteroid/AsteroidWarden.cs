@@ -5,6 +5,7 @@ using EbonianMod.Projectiles.VFXProjectiles;
 using System;
 using System.IO;
 using Terraria.GameContent.Bestiary;
+using Terraria.Map;
 
 namespace EbonianMod.NPCs.Overworld.Asteroid;
 public class AsteroidWarden : CommonNPC
@@ -339,7 +340,7 @@ public class WardenStar : ModProjectile
         return false;
     }
 }
-public class WardenSigil : ModProjectile
+public class WardenSigil : ModProjectile // Hell torture
 {
     public override void SetDefaults()
     {
@@ -354,53 +355,98 @@ public class WardenSigil : ModProjectile
     }
     public override bool ShouldUpdatePosition()
     {
-        return false;
+        return Projectile.ai[2] >= 4;
     }
     public override bool PreDraw(ref Color lightColor)
     {
         Texture2D vortex = Assets.Extras.vortex3.Value;
         Texture2D tex = TextureAssets.Projectile[Type].Value;
-        //Main.spriteBatch.Draw(vortex, Projectile.Center - Main.screenPosition, null, Color.Gold with { A = 0 } * 0.5f, -Main.GlobalTimeWrappedHourly * 0.09f, vortex.Size() / 2, 0.5f * Projectile.scale, SpriteEffects.None, 0);
-        Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.Lerp(Color.White, Color.Gold, 0.5f) with { A = 0 } * 0.5f, -Main.GlobalTimeWrappedHourly * -0.1f, tex.Size() / 2, 0.2f * Projectile.scale, SpriteEffects.None, 0);
-        Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.Lerp(Color.White, Color.Gold, 0.5f) with { A = 0 } * 0.5f, -Main.GlobalTimeWrappedHourly * 0.09f, tex.Size() / 2, 0.3f * Projectile.scale, SpriteEffects.None, 0);
+        Color col = Color.Lerp(Color.White, Color.Gold, 0.5f) with { A = 0 } * 0.5f;
+        if (Projectile.ai[2] < 2)
+        {
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, col, -Main.GlobalTimeWrappedHourly * -1.5f, tex.Size() / 2, 0.2f * Projectile.scale, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, col, -Main.GlobalTimeWrappedHourly * 0.29f, tex.Size() / 2, 0.3f * Projectile.scale, SpriteEffects.None, 0);
+        }
+
+        float alpha = MathF.Sin(sigilStartup * Pi);
+        if (Projectile.ai[2] >= 3)
+        {
+            Main.spriteBatch.Reload(BlendState.Additive);
+            Main.spriteBatch.Reload(EbonianMod.SpriteRotation.Value);
+            EbonianMod.SpriteRotation.Value.Parameters["rotation"].SetValue(Main.GlobalTimeWrappedHourly * (Projectile.whoAmI % 2 == 0 ? -2 : 2) + Projectile.whoAmI * 7);
+            EbonianMod.SpriteRotation.Value.Parameters["scale"].SetValue(new Vector2(1, 0.25f) * Projectile.ai[1]);
+            col = Color.Lerp(Color.White, Color.Gold, 0.5f);
+            if (Projectile.ai[2] == 5)
+                col = Color.Lerp(Color.White, Color.Crimson, 0.5f);
+            EbonianMod.SpriteRotation.Value.Parameters["uColor"].SetValue(col.ToVector4() * alpha);
+        }
+        Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, col * alpha, 0, tex.Size() / 2, Projectile.ai[2] >= 4 ? 0.6f : 0.3f * Projectile.scale + (Projectile.ai[2] >= 4 ? 0 : (sigilStartup * .4f * (Projectile.ai[2] == 2 ? Projectile.ai[1] : 1))), SpriteEffects.None, 0);
+        if (Projectile.ai[2] >= 3)
+        {
+            Main.spriteBatch.Reload(effect: null);
+            Main.spriteBatch.Reload(BlendState.AlphaBlend);
+        }
         return false;
     }
     public override void OnKill(int timeLeft)
     {
-        SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
+        if (Projectile.ai[2] < 1)
+            SoundEngine.PlaySound(SoundID.Item10, Projectile.Center);
     }
+    int maxTime = 0;
+    float sigilStartup = 0;
     public override void AI()
     {
-        Lighting.AddLight(Projectile.Center, new Vector3(195, 169, 13) / 255 * 0.35f);
-        float progress = Utils.GetLerpValue(0, 121, Projectile.timeLeft);
-        Projectile.scale = Clamp((float)Math.Sin(progress * Math.PI) * 3, 0, 1);
-        if (Projectile.ai[0] == 25)
+        if (maxTime == 0)
         {
-            Color newColor7 = Color.CornflowerBlue;
-            for (int num613 = 0; num613 < 7; num613++)
+            if (Projectile.ai[2] < 2)
+                SoundEngine.PlaySound(EbonianSounds.reiTP.WithPitchOffset(-0.7f), Projectile.Center);
+            Projectile.scale = Projectile.ai[2] == 4 ? 1 : 0;
+            maxTime = Projectile.timeLeft;
+        }
+        else
+        {
+            sigilStartup = Lerp(sigilStartup, 1, 0.12f * (Projectile.ai[2] >= 4 ? Projectile.ai[1] * 0.5f : 1));
+            if (Projectile.ai[2] < 4)
             {
-                Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Enchanted_Pink, Projectile.velocity.X * 0.1f, Projectile.velocity.Y * 0.1f, 150, default, 0.8f);
+                float progress = Utils.GetLerpValue(0, maxTime, Projectile.timeLeft);
+                Projectile.scale = Clamp((float)Math.Sin(progress * Math.PI) * (maxTime < 200 ? 3 : 5), 0, InOutElastic.Invoke(progress * 2));
             }
-            for (float num614 = 0f; num614 < 1f; num614 += 0.125f)
+            else
+                Projectile.velocity *= 0.94f;
+        }
+        Lighting.AddLight(Projectile.Center, new Vector3(195, 169, 13) / 255 * 0.35f);
+        if (Projectile.ai[2] < 2)
+        {
+            if (Projectile.ai[0] == 25)
             {
-                Dust.NewDustPerfect(Projectile.Center, 278, Vector2.UnitY.RotatedBy(num614 * ((float)Math.PI * 2f) + Main.rand.NextFloat() * 0.5f) * (4f + Main.rand.NextFloat() * 4f), 150, newColor7).noGravity = true;
-            }
-            for (float num615 = 0f; num615 < 1f; num615 += 0.25f)
-            {
-                Dust.NewDustPerfect(Projectile.Center, 278, Vector2.UnitY.RotatedBy(num615 * ((float)Math.PI * 2f) + Main.rand.NextFloat() * 0.5f) * (2f + Main.rand.NextFloat() * 3f), 150, Color.Gold).noGravity = true;
-            }
-            Vector2 vector52 = new Vector2(Main.screenWidth, Main.screenHeight);
-            if (Projectile.Hitbox.Intersects(Utils.CenteredRectangle(Main.screenPosition + vector52 / 2f, vector52 + new Vector2(400f))))
-            {
-                for (int num616 = 0; num616 < 7; num616++)
+                Color newColor7 = Color.CornflowerBlue;
+                for (int num613 = 0; num613 < 7; num613++)
                 {
-                    Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position, Main.rand.NextVector2CircularEdge(0.5f, 0.5f) * Projectile.velocity.Length(), Utils.SelectRandom(Main.rand, 16, 17, 17, 17, 17, 17, 17, 17));
+                    Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Enchanted_Pink, Projectile.velocity.X * 0.1f, Projectile.velocity.Y * 0.1f, 150, default, 0.8f);
+                }
+                for (float num614 = 0f; num614 < 1f; num614 += 0.125f)
+                {
+                    Dust.NewDustPerfect(Projectile.Center, 278, Vector2.UnitY.RotatedBy(num614 * ((float)Math.PI * 2f) + Main.rand.NextFloat() * 0.5f) * (4f + Main.rand.NextFloat() * 4f), 150, newColor7).noGravity = true;
+                }
+                for (float num615 = 0f; num615 < 1f; num615 += 0.25f)
+                {
+                    Dust.NewDustPerfect(Projectile.Center, 278, Vector2.UnitY.RotatedBy(num615 * ((float)Math.PI * 2f) + Main.rand.NextFloat() * 0.5f) * (2f + Main.rand.NextFloat() * 3f), 150, Color.Gold).noGravity = true;
+                }
+                Vector2 vector52 = new Vector2(Main.screenWidth, Main.screenHeight);
+                if (Projectile.Hitbox.Intersects(Utils.CenteredRectangle(Main.screenPosition + vector52 / 2f, vector52 + new Vector2(400f))))
+                {
+                    for (int num616 = 0; num616 < 7; num616++)
+                    {
+                        Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position, Main.rand.NextVector2CircularEdge(0.5f, 0.5f) * Projectile.velocity.Length(), Utils.SelectRandom(Main.rand, 16, 17, 17, 17, 17, 17, 17, 17));
+                    }
                 }
             }
+            if (Projectile.ai[0] % (Projectile.ai[2] == 1 ? 15 : 5) == 0 && Projectile.ai[0] < (maxTime < 200 ? maxTime - 40 : maxTime - 120))
+                Projectile.NewProjectile(null, Projectile.Center, Vector2.Zero, ProjectileType<MagicChargeUp>(), 0, 0, -1, 13, 0.5f);
         }
-        if (Projectile.ai[0] % 5 == 0 && Projectile.ai[0] < 80)
-            Projectile.NewProjectile(null, Projectile.Center, Vector2.Zero, ProjectileType<MagicChargeUp>(), 0, 0, -1, 13, 0.5f);
-        if (++Projectile.ai[0] == 50 || Projectile.ai[0] == 65 || Projectile.ai[0] == 80)
+
+        if ((++Projectile.ai[0] == 50 || Projectile.ai[0] == 65 || Projectile.ai[0] == 80) && Projectile.ai[2] == 0)
         {
             SoundStyle style = SoundID.Item82;
             style.Volume = 0.5f;

@@ -18,3 +18,11 @@ public class StarG3 : GlowGore { }
 public class StarG4 : GlowGore { }
 public class StarG5 : GlowGore { }
 public class StarG6 : GlowGore { }
+public class HerderStarGore : GlowGore
+{
+    public override string Texture => "EbonianMod/NPCs/Overworld/Asteroid/AsteroidHerder_Star";
+}
+public class HerderStarGore2 : GlowGore
+{
+    public override string Texture => "EbonianMod/NPCs/Overworld/Asteroid/AsteroidHerder_StarSmall";
+}

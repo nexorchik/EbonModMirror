@@ -27,6 +27,7 @@ public class MagicChargeUp : ModProjectile
     {
         Color col = Projectile.ai[2] switch
         {
+            2 => Color.Gold, // 2 = No Inner Rings
             1 => Color.HotPink,
             _ => Color.Gold,
         };
@@ -37,7 +38,7 @@ public class MagicChargeUp : ModProjectile
         UnifiedRandom rand = new UnifiedRandom(seed);
         rand = new UnifiedRandom(seed + 1);
         float ringScale = MathHelper.Clamp(MathF.Sin(Projectile.localAI[1] * 4 * MathHelper.Pi) * 0.5f, 0, 0.3f);
-        if (ringScale > 0.01f)
+        if (ringScale > 0.01f && Projectile.ai[2] != 2)
         {
             for (float i = 0; i < max; i++)
             {
@@ -56,13 +57,15 @@ public class MagicChargeUp : ModProjectile
         ringScale = MathHelper.Lerp(1.2f, 0, MathHelper.Clamp(Projectile.localAI[0] * 3.5f, 0, 1));
         if (ringScale > 0.01f)
         {
+            float additionalMult = Projectile.ai[2] == 2 ? 0.5f : 1;
             for (float i = 0; i < max - 5; i++)
             {
                 UnifiedRandom rand2 = new UnifiedRandom(seed + (int)i);
                 float angle = Helper.CircleDividedEqually(i, max - 5) + Main.GameUpdateCount * 0.02f * rand.NextFloat(-2f, 2f);
                 float scale = rand.NextFloat(0.1f, .7f) * (2 + Projectile.ai[1]);
-                Vector2 offset = new Vector2(rand2.NextFloat(250, 400) * (ringScale + rand2.NextFloat(-0.2f, 0.5f)) * (scale / 4), 0).RotatedBy(angle);
-                Main.spriteBatch.Draw(tex, Projectile.Center + offset - Main.screenPosition, null, Color.Lerp(Color.White, col, Projectile.localAI[1] * 2) with { A = 0 } * ringScale * 0.5f, angle, tex.Size() / 2, new Vector2(MathHelper.Clamp(Projectile.localAI[0] * 6.5f, 0, 1.2f), ringScale) * scale * 0.6f, SpriteEffects.None, 0);
+                Vector2 offset = new Vector2(rand2.NextFloat(250, 400) * (ringScale + rand2.NextFloat(-0.2f, 0.5f)) * (scale / 4), 0).RotatedBy(angle) * additionalMult;
+
+                Main.spriteBatch.Draw(tex, Projectile.Center + offset - Main.screenPosition, null, Color.Lerp(Color.White, col, Projectile.localAI[1] * 2) with { A = 0 } * ringScale * 0.5f, angle, tex.Size() / 2, new Vector2(Clamp(Projectile.localAI[0] * 6.5f, 0, 1.2f * additionalMult * additionalMult), ringScale * additionalMult) * scale * 0.6f, SpriteEffects.None, 0);
             }
         }
         return true;

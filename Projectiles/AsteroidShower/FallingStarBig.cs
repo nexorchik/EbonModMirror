@@ -9,7 +9,6 @@ namespace EbonianMod.Projectiles.AsteroidShower;
 
 public class FallingStarBig : ModProjectile
 {
-
     public override void SetDefaults()
     {
         Projectile.width = 50;
@@ -97,8 +96,8 @@ public class FallingStarBig : ModProjectile
             Projectile.Center += Projectile.velocity * 0.5f;
             NPC.NewNPCDirect(Projectile.GetSource_FromThis(), Projectile.Center, NPCType<FallingStar>(), ai0: Projectile.whoAmI);
             CameraSystem.ScreenShakeAmount = 6.5f;
-            Projectile.velocity *= 0.35f;
             SoundEngine.PlaySound(EbonianSounds.bigassstar with { PitchVariance = 0.15f }, Projectile.Center);
+            Projectile.velocity *= 0.35f;
             for (int num905 = 0; num905 < 10; num905++)
             {
                 Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
@@ -179,18 +178,23 @@ public class FallingStarBig : ModProjectile
             }
         }
         Item.NewItem(Projectile.GetSource_Loot(), Projectile.getRect(), ItemID.FallenStar, Stack: Main.rand.Next(10, 20));
-        switch (Main.rand.Next(2))
+        if (true)
         {
-            case 0:
-                Item.NewItem(Projectile.GetSource_Loot(), Projectile.getRect(), ItemType<WardingStar>());
-                break;
-            case 1:
-                Item.NewItem(Projectile.GetSource_Loot(), Projectile.getRect(), ItemType<StarBit>());
-                break;
+            NPC.NewNPCDirect(null, Projectile.Center, NPCType<AsteroidHerder>());
+            SoundEngine.PlaySound(EbonianSounds.reiTP.WithPitchOffset(-0.7f), Projectile.Center);
+            MPUtils.NewProjectile(null, Projectile.Center, Vector2.Zero, ProjectileType<WardenSigil>(), 0, 0, ai1: 1, ai2: 2);
         }
-        if (Main.rand.NextBool(8))
+        else
         {
-            NPC.NewNPCDirect(null, Projectile.Center - new Vector2(0, 1000), NPCType<AsteroidWarden>());
+            switch (Main.rand.Next(2))
+            {
+                case 0:
+                    Item.NewItem(Projectile.GetSource_Loot(), Projectile.getRect(), ItemType<WardingStar>());
+                    break;
+                case 1:
+                    Item.NewItem(Projectile.GetSource_Loot(), Projectile.getRect(), ItemType<StarBit>());
+                    break;
+            }
         }
     }
     public override bool OnTileCollide(Vector2 oldVelocity)
@@ -260,5 +264,118 @@ public class FallingStar : ModNPC
 
         NPC.timeLeft = 2;
         NPC.Center = projectile.Center;
+    }
+}
+
+
+public class FallingStarBigHostile : ModProjectile
+{
+    public override string Texture => "EbonianMod/Projectiles/AsteroidShower/FallingStarBig";
+    public override void SetDefaults()
+    {
+        Projectile.width = 50;
+        Projectile.height = 50;
+        Projectile.aiStyle = -1;
+        Projectile.tileCollide = true;
+        Projectile.ignoreWater = true;
+        Projectile.timeLeft = 400;
+        Projectile.light = 1f;
+        Projectile.penetrate = -1;
+        Projectile.friendly = false;
+        Projectile.hostile = true;
+    }
+    public override Color? GetAlpha(Color lightColor)
+    {
+        return Color.White;
+    }
+    public override void PostDraw(Color lightColor)
+    {
+        Texture2D tex = TextureAssets.Extra[ExtrasID.FallingStar].Value;
+        if (Projectile.ai[0] == 0)
+        {
+            Main.spriteBatch.Reload(BlendState.Additive);
+            float alpha = Clamp(Projectile.velocity.Length(), 0, 1f);
+            Main.spriteBatch.Draw(tex, Projectile.Center + new Vector2(3).RotatedBy(Projectile.rotation * 3) - Main.screenPosition, null, Color.Crimson * 0.5f * alpha, Projectile.velocity.ToRotation() + PiOver2, new Vector2(tex.Width / 2, tex.Height / 4), 2f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Projectile.Center + new Vector2(3).RotatedBy(-Projectile.rotation * 3) - Main.screenPosition, null, Color.CornflowerBlue * 0.5f * alpha, Projectile.velocity.ToRotation() + PiOver2, new Vector2(tex.Width / 2, tex.Height / 4), 2f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.Crimson * ((Projectile.ai[2] - 0.5f) * 0.5f * alpha), Projectile.velocity.ToRotation() + PiOver2, new Vector2(tex.Width / 2, tex.Height / 4), Projectile.ai[2], SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.Crimson * 0.25f * alpha, Projectile.velocity.ToRotation() + PiOver2, new Vector2(tex.Width / 2, tex.Height / 4), 1.5f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Projectile.Center + new Vector2(10).RotatedBy(Projectile.rotation) - Main.screenPosition, null, Color.Crimson * 0.5f * alpha, Projectile.velocity.ToRotation() + PiOver2, new Vector2(tex.Width / 2, tex.Height / 4), 1f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(tex, Projectile.Center + new Vector2(10).RotatedBy(-Projectile.rotation) - Main.screenPosition, null, Color.CornflowerBlue * 0.5f * alpha, Projectile.velocity.ToRotation() + PiOver2, new Vector2(tex.Width / 2, tex.Height / 4), 1f, SpriteEffects.None, 0);
+            Main.spriteBatch.Reload(BlendState.AlphaBlend);
+        }
+        Main.spriteBatch.Reload(BlendState.Additive);
+        Texture2D tex2 = TextureAssets.Projectile[Type].Value;
+        Main.spriteBatch.Draw(tex2, Projectile.Center - Main.screenPosition, null, Color.White * ((MathF.Sin(Main.GlobalTimeWrappedHourly * 1.5f) + 1) / 2), Projectile.rotation, tex2.Size() / 2, 1f, SpriteEffects.None, 0);
+
+        Main.spriteBatch.Reload(BlendState.AlphaBlend);
+    }
+    public override bool PreDraw(ref Color lightColor)
+    {
+        Texture2D tex = TextureAssets.Projectile[Type].Value;
+        Main.spriteBatch.Reload(BlendState.Additive);
+        for (int i = 0; i < 4; i++)
+        {
+            float angle = Helper.CircleDividedEqually(i, 4) + Main.GlobalTimeWrappedHourly * 3;
+            Vector2 pos = Projectile.Center + new Vector2(MathF.Sin(Main.GlobalTimeWrappedHourly * 1.5f) * 6).RotatedBy(angle);
+            Main.spriteBatch.Draw(tex, pos - Main.screenPosition, null, Color.CornflowerBlue * 0.6f, Projectile.rotation, tex.Size() / 2, 1f, SpriteEffects.None, 0);
+        }
+        for (int i = 0; i < 4; i++)
+        {
+            float angle = Helper.CircleDividedEqually(i, 4) - Main.GlobalTimeWrappedHourly * 3;
+            Vector2 pos = Projectile.Center - new Vector2(MathF.Sin(Main.GlobalTimeWrappedHourly * 1.5f) * 6).RotatedBy(angle);
+            Main.spriteBatch.Draw(tex, pos - Main.screenPosition, null, Color.Crimson * 0.6f, Projectile.rotation, tex.Size() / 2, 1f, SpriteEffects.None, 0);
+        }
+        Main.spriteBatch.Reload(BlendState.AlphaBlend);
+        return true;
+    }
+    public override void AI()
+    {
+        if (Projectile.ai[1]++ % 30 == 0 && Projectile.ai[0] == 0)
+            SoundEngine.PlaySound(SoundID.Item9.WithPitchOffset(Main.rand.NextFloat(-0.2f, -0.15f)), Projectile.Center);
+        Projectile.ai[2] = Clamp(Projectile.ai[2] + 0.05f, 1f, 1.5f);
+        if (Projectile.ai[2] > 1.49f)
+            Projectile.ai[2] = 1f;
+        Projectile.timeLeft = 10;
+        Projectile.rotation += ToRadians(Math.Clamp(Projectile.velocity.Length(), 0, 5));
+    }
+    public override void OnKill(int timeLeft)
+    {
+        Projectile.Center += Projectile.velocity;
+        CameraSystem.ScreenShakeAmount = 5f;
+        SoundEngine.PlaySound(EbonianSounds.bigassstar with { PitchVariance = 0.15f }, Projectile.Center);
+        for (int num905 = 0; num905 < 10; num905++)
+        {
+            int num906 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), (int)Projectile.Size.X, (int)Projectile.Size.Y, 31, 0f, 0f, 0, default(Color), 2.5f);
+            Main.dust[num906].position = Projectile.position + Vector2.UnitX.RotatedByRandom(3.1415927410125732) * Projectile.Size.X / 2f;
+            Main.dust[num906].noGravity = true;
+            Dust dust2 = Main.dust[num906];
+            dust2.velocity *= 3f;
+        }
+        for (int num899 = 0; num899 < 4; num899++)
+        {
+            int num900 = Dust.NewDust(new Vector2(Projectile.position.X, Projectile.position.Y), (int)Projectile.Size.X, (int)Projectile.Size.Y, 31, 0f, 0f, 100, default(Color), 1.5f);
+            Main.dust[num900].position = Projectile.position + Vector2.UnitY.RotatedByRandom(3.1415927410125732) * (float)Main.rand.NextDouble() * Projectile.Size.X / 2f;
+        }
+        Color newColor7 = Color.CornflowerBlue;
+        for (int num613 = 0; num613 < 15; num613++)
+        {
+            Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 58, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f, 150, default, 0.8f);
+        }
+        for (float num614 = 0f; num614 < 2; num614 += 0.125f)
+        {
+            Dust.NewDustPerfect(Projectile.Center, 278, Vector2.UnitY.RotatedBy(num614 * ((float)Math.PI * 2f) + Main.rand.NextFloat() * 0.5f) * (9f + Main.rand.NextFloat() * 4f), 150, newColor7).noGravity = true;
+        }
+        for (float num615 = 0f; num615 < 2f; num615 += 0.25f)
+        {
+            Dust.NewDustPerfect(Projectile.Center, 278, Vector2.UnitY.RotatedBy(num615 * ((float)Math.PI * 2f) + Main.rand.NextFloat() * 0.5f) * (6f + Main.rand.NextFloat() * 3f), 150, Color.Gold).noGravity = true;
+        }
+        Vector2 vector52 = new Vector2(Main.screenWidth, Main.screenHeight);
+        if (Projectile.Hitbox.Intersects(Utils.CenteredRectangle(Main.screenPosition + vector52 / 2f, vector52 + new Vector2(400f))))
+        {
+            for (int num616 = 0; num616 < 10; num616++)
+            {
+                Gore.NewGore(Projectile.GetSource_FromThis(), Projectile.position, Main.rand.NextVector2CircularEdge(0.5f, 0.5f) * Projectile.velocity.Length(), Utils.SelectRandom(Main.rand, 16, 17, 17, 17, 17, 17, 17, 17));
+            }
+        }
     }
 }

@@ -349,6 +349,8 @@ Projectiles: {
 	// SudamaF.DisplayName: Sudama F
 	// BotanistHeadProjectile.DisplayName: Botanist Head
 	// BaseballBatP.DisplayName: Baseball Bat P
+	// FallingStarTinyHostile.DisplayName: Falling Star Tiny Hostile
+	// FallingStarBigHostile.DisplayName: Falling Star Big Hostile
 }
 
 NPCs: {

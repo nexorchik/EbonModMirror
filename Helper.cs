@@ -22,6 +22,12 @@ public static class Helper
         if (!Main.dedServ)
             Main.instance.CameraModifiers.Add(modifier);
     }
+
+    /// <summary>
+    /// Clamps the value between 0-1
+    /// </summary>
+    public static float Saturate(this float f) => Clamp(f, 0, 1);
+
     /// <summary>
     /// Avoids division by zero 
     /// </summary>
