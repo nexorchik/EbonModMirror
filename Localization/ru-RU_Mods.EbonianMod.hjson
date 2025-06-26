@@ -351,6 +351,8 @@ Projectiles: {
 	// BaseballBatP.DisplayName: Baseball Bat P
 	// FallingStarTinyHostile.DisplayName: Falling Star Tiny Hostile
 	// FallingStarBigHostile.DisplayName: Falling Star Big Hostile
+	// IchorArmorExplosion.DisplayName: Ichor Armor Explosion
+	// TerrorArmorRay.DisplayName: Terror Armor Ray
 }
 
 NPCs: {
@@ -1573,6 +1575,38 @@ Items: {
 	BaseballBat: {
 		// DisplayName: Baseball Bat
 		// Tooltip: ""
+	}
+
+	Cecibody: {
+		// DisplayName: Sightless Hood
+		// Tooltip: Increases melee damage by {0}% and melee speed by {1}%
+	}
+
+	Cecihead: {
+		// DisplayName: Sightless Breastplate
+		// Tooltip: Increases melee damage by {0}% and melee speed by {1}%
+		// SetBonus: Killing enemies has a 1/4 chance to trigger an ichor explosion
+	}
+
+	Cecilegs: {
+		// DisplayName: Sightless Leggings
+		// Tooltip: Increases melee damage by {0}% and melee critical strike chance by {1}%
+	}
+
+	Terrorbody: {
+		// DisplayName: Tumorous Helmet
+		// Tooltip: Increases magic damage by {0}% and maximum mana by {1}
+	}
+
+	Terrorhead: {
+		// DisplayName: Tumorous Breastplate
+		// Tooltip: Increases magic damage by {0}% and magic critical strike chance by {1}%
+		// SetBonus: Dealing enough damage unleashes a burst of cursed flame onto the target
+	}
+
+	Terrorlegs: {
+		// DisplayName: Tumorous Leggings
+		// Tooltip: Increases magic damage by {0}%
 	}
 }
 

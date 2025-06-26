@@ -48,7 +48,7 @@ public class ConglomerateScream : ModProjectile
             if (Projectile.velocity.LengthSquared() > 0)
                 angle = Projectile.velocity.RotatedBy(rand.NextFloat(PiOver4 * -0.8f, PiOver4 * 0.8f)).RotatedByRandom(PiOver4 * 0.1f).ToRotation();
 
-            float scale = rand.NextFloat(0.2f, 1f);
+            float scale = rand.NextFloat(0.2f, 1f) * Projectile.ai[0] == 0 ? 1 : Projectile.ai[0];
             Vector2 offset = new Vector2(rand.NextFloat(150, 300) * Main.rand.NextFloat(0.9f, 1.1f) * Projectile.ai[1] * scale, 0).RotatedBy(angle);
             for (float j = 0; j < 2; j++)
                 Main.spriteBatch.Draw(tex, Projectile.Center + offset - Main.screenPosition, null, col with { A = 0 } * alpha * 0.5f, angle, new Vector2(0, tex.Height / 2), new Vector2(Projectile.ai[1], alpha) * scale * 2, SpriteEffects.None, 0);

@@ -9,8 +9,8 @@ public class InfernoHeadgear : ModItem
         Item.width = 18;
         Item.height = 18;
         Item.value = 10000;
-        Item.rare = ItemRarityID.Yellow;
         Item.defense = 16;
+        Item.rare = ItemRarityID.Yellow;
     }
     public override bool IsLoadingEnabled(Mod mod) => false;
 

@@ -1,6 +1,7 @@
 ﻿using EbonianMod.Dusts;
 using System;
 using System.Collections.Generic;
+using System.IO;
 namespace EbonianMod.Projectiles.Terrortoma;
 
 public class TFlameThrower : ModProjectile //BREATH
@@ -304,7 +305,9 @@ public class TFlameThrowerHoming : ModProjectile //HOME
         Projectile.timeLeft = 200;
     }
     public override bool ShouldUpdatePosition() => false;
-    Vector2 target;
+    public Vector2 target;
+    public override void SendExtraAI(BinaryWriter writer) => writer.WriteVector2(target);
+    public override void ReceiveExtraAI(BinaryReader reader) => target = reader.ReadVector2();
     public override void AI()
     {
         if (Projectile.timeLeft > 150)
@@ -316,6 +319,8 @@ public class TFlameThrowerHoming : ModProjectile //HOME
                 Projectile.velocity *= 0.9f;
             Projectile.velocity *= 0.99f;
             target = Main.player[Projectile.owner].Center;
+            if (Projectile.timeLeft == 151)
+                Projectile.netUpdate = true;
         }
         else if (Projectile.timeLeft > 130)
         {
