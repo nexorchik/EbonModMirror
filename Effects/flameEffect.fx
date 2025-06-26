@@ -9,7 +9,7 @@ sampler2D uImage1 = sampler_state
     AddressU = Wrap;
     AddressV = Wrap;
 };
-bool wavinessMult = 1;
+float wavinessMult = 1;
 float scale = 2;
 float intensity = 10;
 float4 colOverride = float4(1, 0.25, 0, 1);
