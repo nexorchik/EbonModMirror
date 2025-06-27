@@ -11,7 +11,7 @@ public class TerrorArmorRay : ModProjectile
     public override void SetStaticDefaults()
     {
         ProjectileID.Sets.DrawScreenCheckFluff[Type] = 1000;
-        ProjectileID.Sets.TrailCacheLength[Type] = 30;
+        ProjectileID.Sets.TrailCacheLength[Type] = 20;
         ProjectileID.Sets.TrailingMode[Type] = 2;
     }
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -42,13 +42,13 @@ public class TerrorArmorRay : ModProjectile
 
             if (i > 0 && Projectile.oldPos[i] != Vector2.Zero)
             {
-                Color col = Color.LawnGreen * mult * 2 * s;
+                Color col = Color.LawnGreen * MathF.Pow(mult, 2) * 2 * s;
 
                 float __off = vfxOffset;
                 if (__off > 1) __off = -__off + 1;
                 float _off = __off + mult;
-                vertices.Add(Helper.AsVertex(Projectile.oldPos[i] + Projectile.Size / 2 - Main.screenPosition + new Vector2(50 * mult, 0).RotatedBy(Helper.FromAToB(Projectile.oldPos[i - 1], Projectile.oldPos[i]).ToRotation() + PiOver2), col, new Vector2(_off, 0)));
-                vertices.Add(Helper.AsVertex(Projectile.oldPos[i] + Projectile.Size / 2 - Main.screenPosition + new Vector2(50 * mult, 0).RotatedBy(Helper.FromAToB(Projectile.oldPos[i - 1], Projectile.oldPos[i]).ToRotation() - PiOver2), col, new Vector2(_off, 1)));
+                vertices.Add(Helper.AsVertex(Projectile.oldPos[i] + Projectile.Size / 2 - Main.screenPosition + new Vector2(50, 0).RotatedBy(Helper.FromAToB(Projectile.oldPos[i - 1], Projectile.oldPos[i]).ToRotation() + PiOver2), col, new Vector2(_off, 0)));
+                vertices.Add(Helper.AsVertex(Projectile.oldPos[i] + Projectile.Size / 2 - Main.screenPosition + new Vector2(50, 0).RotatedBy(Helper.FromAToB(Projectile.oldPos[i - 1], Projectile.oldPos[i]).ToRotation() - PiOver2), col, new Vector2(_off, 1)));
             }
         }
         SpritebatchParameters sbParams = Main.spriteBatch.Snapshot();
@@ -75,30 +75,9 @@ public class TerrorArmorRay : ModProjectile
         Projectile.aiStyle = -1;
         Projectile.timeLeft = 200;
     }
-    public override bool ShouldUpdatePosition() => false;
-    public Vector2 target;
-    public override void SendExtraAI(BinaryWriter writer) => writer.WriteVector2(target);
-    public override void ReceiveExtraAI(BinaryReader reader) => target = reader.ReadVector2();
     public override void AI()
     {
-        if (Projectile.timeLeft == 199)
-        {
-            if (Main.myPlayer == Projectile.owner)
-            {
-                Vector2 pos = Main.MouseWorld + Main.rand.NextVector2Circular(20, 20);
-                Dust.NewDustPerfect(pos, DustID.CursedTorch, pos.FromAToB(Main.MouseWorld) * Main.rand.NextFloat(0.5f, 2), Scale: 2).noGravity = true;
-                target = Main.MouseWorld + Projectile.FromAToB(Main.MouseWorld) * 2000;
-            }
-            Projectile.netUpdate = true;
-        }
-        else if (Projectile.timeLeft > 130 && Projectile.velocity.Length() < 20)
-        {
-            Projectile.velocity += Helper.FromAToB(Projectile.Center, target).RotatedByRandom(0.5f) * 1.5f;
-        }
-        else if (Projectile.velocity.Length() < 15 && Projectile.timeLeft < 130)
+        if (Projectile.velocity.Length() < 25 && Projectile.timeLeft < 160)
             Projectile.velocity *= 1.05f;
-
-        Projectile.ai[2]++;
-        Projectile.Center += Projectile.velocity.RotatedBy(MathF.Sin(Projectile.ai[2] * 3) * 0.1f);
     }
 }
