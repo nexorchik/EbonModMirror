@@ -43,7 +43,7 @@ public class BlindeyeBow : ModItem
 }
 public class BlindeyeBowP : ModProjectile
 {
-    const float holdOffset = 20;
+    const float holdOffset = 10;
     const int maxTime = 45;
     public override void SetDefaults()
     {
@@ -90,7 +90,7 @@ public class BlindeyeBowP : ModProjectile
     float alpha;
     SoundStyle pull = EbonianSounds.bowPull with
     {
-        PitchVariance = 0.25f,
+        PitchVariance = 0.35f,
     };
     SoundStyle release = EbonianSounds.bowRelease with
     {
@@ -124,14 +124,15 @@ public class BlindeyeBowP : ModProjectile
         Vector2 pos = player.RotatedRelativePoint(player.MountedCenter);
         player.ChangeDir(Projectile.velocity.X < 0 ? -1 : 1);
         player.itemRotation = (Projectile.velocity.ToRotation() + Projectile.ai[0]) * player.direction;
+        player.heldProj = Projectile.whoAmI;
         Projectile.direction = Projectile.spriteDirection = player.direction;
         pos += (Projectile.velocity.ToRotation()).ToRotationVector2() * holdOffset;
         Projectile.Center = pos;
         Projectile.rotation = Projectile.velocity.ToRotation();
         if (player.gravDir != -1)
-            player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.velocity.ToRotation() - MathHelper.PiOver2);
+            player.SetCompositeArmFront(true, Projectile.timeLeft > 40 || Projectile.timeLeft < 25 ? Player.CompositeArmStretchAmount.Quarter : Player.CompositeArmStretchAmount.None, Projectile.velocity.ToRotation() - MathHelper.PiOver2);
         if (player.gravDir != -1)
-            player.SetCompositeArmBack(true, Projectile.timeLeft > 50 || Projectile.timeLeft < 5 ? Player.CompositeArmStretchAmount.Quarter : Player.CompositeArmStretchAmount.None, Projectile.velocity.ToRotation() - MathHelper.PiOver2);
+            player.SetCompositeArmBack(true, Player.CompositeArmStretchAmount.Full, Projectile.velocity.ToRotation() - MathHelper.PiOver2);
         if (Projectile.timeLeft > 25)
         {
             if (Projectile.timeLeft == maxTime - 1)
@@ -158,7 +159,7 @@ public class BlindeyeBowP : ModProjectile
             float progress = Ease(Utils.GetLerpValue(0f, maxTime - 25, Projectile.timeLeft));
             alpha = MathHelper.Lerp(alpha, 1f, 0.1f);
             if (Projectile.timeLeft > 20 && Projectile.timeLeft < maxTime - 1)
-                Projectile.ai[2] += 1;
+                Projectile.ai[2] += 0.4f;
             Projectile.velocity = Vector2.Lerp(Projectile.velocity, Helper.FromAToB(player.Center, Main.MouseWorld), 0.8f - MathHelper.Lerp(0, 0.2f, Projectile.timeLeft / 30)).SafeNormalize(Vector2.UnitX);
         }
         else

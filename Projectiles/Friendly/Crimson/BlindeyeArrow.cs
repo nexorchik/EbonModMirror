@@ -12,26 +12,23 @@ public class BlindeyeArrow : ModProjectile
         ProjectileID.Sets.TrailCacheLength[Type] = 5;
         ProjectileID.Sets.TrailingMode[Type] = 0;
     }
-    public override bool PreDraw(ref Color lightColor)
-    {
-        Texture2D a = TextureAssets.Projectile[Type].Value;
-        var fadeMult = Helper.Safe(1f / Projectile.oldPos.Length);
-        for (int i = 0; i < Projectile.oldPos.Length; i++)
-        {
-            Main.spriteBatch.Draw(a, Projectile.oldPos[i] + Projectile.Size / 2 - Main.screenPosition, null, lightColor * (1f - fadeMult * i), Projectile.rotation, a.Size() / 2, Projectile.scale * (1f - fadeMult * i), SpriteEffects.None, 0);
-        }
-        return true;
-    }
     public override void SetDefaults()
     {
         Projectile.CloneDefaults(ProjectileID.IchorArrow);
         Projectile.width = 18;
-        Projectile.height = 42;
+        Projectile.height = 18;
         Projectile.extraUpdates = 1;
     }
     public override void AI()
     {
-        Dust.NewDustPerfect(Projectile.Center + Main.rand.NextVector2Circular(10, 10), DustID.IchorTorch, Projectile.velocity * 0.3f, Scale: 2).noGravity = true;
+        if (Main.rand.NextBool(6))
+            Dust.NewDustPerfect(Projectile.Center + Projectile.velocity * 2, DustID.Ichor, Projectile.velocity.RotatedByRandom(0.2f) * 0.3f, Scale: 0.8f);
+    }
+    public override void OnKill(int timeLeft)
+    {
+        for (int i = 0; i < 4; i++)
+            Dust.NewDustPerfect(Projectile.Center + Projectile.velocity * 2, DustID.Ichor, Projectile.velocity.RotatedByRandom(0.2f) * Main.rand.NextFloat(0.1f, 0.5f), Scale: 0.8f);
+        Collision.HitTiles(Projectile.position, Projectile.velocity, Projectile.width, Projectile.height);
     }
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {

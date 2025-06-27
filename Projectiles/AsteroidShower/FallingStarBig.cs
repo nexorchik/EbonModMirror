@@ -205,6 +205,10 @@ public class FallingStarBig : ModProjectile
 public class FallingStar : ModNPC
 {
     public override string Texture => Helper.Empty;
+    public override void SetStaticDefaults()
+    {
+        NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, new NPCID.Sets.NPCBestiaryDrawModifiers() { Hide = true });
+    }
     public override void SetDefaults()
     {
         NPC.width = 50;

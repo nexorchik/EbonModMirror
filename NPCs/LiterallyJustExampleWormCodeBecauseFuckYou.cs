@@ -316,7 +316,6 @@ public abstract class WormHead : Worm
         int minTilePosY = (int)(NPC.Top.Y / 16) - 1;
         int maxTilePosY = (int)(NPC.Bottom.Y / 16) + 2;
 
-        // Ensure that the tile range is within the world bounds
         if (minTilePosX < 0)
             minTilePosX = 0;
         if (maxTilePosX > Main.maxTilesX)
@@ -328,21 +327,18 @@ public abstract class WormHead : Worm
 
         bool collision = false;
 
-        // This is the initial check for collision with tiles.
         for (int i = minTilePosX; i < maxTilePosX; ++i)
         {
             for (int j = minTilePosY; j < maxTilePosY; ++j)
             {
                 Tile tile = Main.tile[i, j];
 
-                // If the tile is solid or is considered a platform, then there's valid collision
                 if (tile.HasUnactuatedTile && (Main.tileSolid[tile.TileType] || Main.tileSolidTop[tile.TileType] && tile.TileFrameY == 0) || tile.LiquidAmount > 64)
                 {
                     Vector2 tileWorld = new Point16(i, j).ToWorldCoordinates(0, 0);
 
                     if (NPC.Right.X > tileWorld.X && NPC.Left.X < tileWorld.X + 16 && NPC.Bottom.Y > tileWorld.Y && NPC.Top.Y < tileWorld.Y + 16)
                     {
-                        // Collision found
                         collision = true;
 
                         if (Main.rand.NextBool(100))
@@ -448,7 +444,6 @@ public abstract class WormHead : Worm
         // The following behaviour mimicks vanilla worm movement
         if (Math.Abs(NPC.velocity.X) + Math.Abs(NPC.velocity.Y) < speed * 0.4f)
         {
-            // Velocity is sufficiently fast, but not too fast
             if (NPC.velocity.X < 0.0f)
                 NPC.velocity.X -= acceleration * 1.1f;
             else
@@ -456,7 +451,6 @@ public abstract class WormHead : Worm
         }
         else if (NPC.velocity.Y == speed)
         {
-            // NPC has reached terminal velocity
             if (NPC.velocity.X < dirX)
                 NPC.velocity.X += acceleration;
             else if (NPC.velocity.X > dirX)
@@ -500,7 +494,6 @@ public abstract class WormHead : Worm
 
         if ((NPC.velocity.X > 0 && dirX > 0) || (NPC.velocity.X < 0 && dirX < 0) || (NPC.velocity.Y > 0 && dirY > 0) || (NPC.velocity.Y < 0 && dirY < 0))
         {
-            // The NPC is moving towards the target location
             if (NPC.velocity.X < dirX)
                 NPC.velocity.X += acceleration;
             else if (NPC.velocity.X > dirX)
@@ -511,7 +504,6 @@ public abstract class WormHead : Worm
             else if (NPC.velocity.Y > dirY)
                 NPC.velocity.Y -= acceleration;
 
-            // The intended Y-velocity is small AND the NPC is moving to the left and the target is to the right of the NPC or vice versa
             if (Math.Abs(dirY) < speed * 0.2 && ((NPC.velocity.X > 0 && dirX < 0) || (NPC.velocity.X < 0 && dirX > 0)))
             {
                 if (NPC.velocity.Y > 0)
@@ -520,7 +512,6 @@ public abstract class WormHead : Worm
                     NPC.velocity.Y -= acceleration * 2f;
             }
 
-            // The intended X-velocity is small AND the NPC is moving up/down and the target is below/above the NPC
             if (Math.Abs(dirX) < speed * 0.2 && ((NPC.velocity.Y > 0 && dirY < 0) || (NPC.velocity.Y < 0 && dirY > 0)))
             {
                 if (NPC.velocity.X > 0)
@@ -531,7 +522,6 @@ public abstract class WormHead : Worm
         }
         else if (absDirX > absDirY)
         {
-            // The X distance is larger than the Y distance.  Force movement along the X-axis to be stronger
             if (NPC.velocity.X < dirX)
                 NPC.velocity.X += acceleration * 1.1f;
             else if (NPC.velocity.X > dirX)
@@ -547,7 +537,6 @@ public abstract class WormHead : Worm
         }
         else
         {
-            // The X distance is larger than the Y distance.  Force movement along the X-axis to be stronger
             if (NPC.velocity.Y < dirY)
                 NPC.velocity.Y += acceleration * 1.1f;
             else if (NPC.velocity.Y > dirY)

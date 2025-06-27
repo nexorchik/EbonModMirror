@@ -728,6 +728,7 @@ NPCs: {
 	}
 
 	PebbiSwarm.DisplayName: Ужасающие стадо гальков
+	// Hookworm.DisplayName: Hookworm
 }
 
 Items: {

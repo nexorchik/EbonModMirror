@@ -248,7 +248,7 @@ public class EbonianSounds : ModSystem
 
     public static SoundStyle genericExplosion => Default with
     {
-        SoundPath = path + "genericExplosion"
+        SoundPath = path + "GenericExplosion"
     };
 
 
