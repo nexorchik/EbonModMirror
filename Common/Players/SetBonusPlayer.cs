@@ -41,7 +41,7 @@ public class SetBonusPlayer : ModPlayer
                 SoundEngine.PlaySound(SoundID.Item20, Player.Center);
                 for (int i = 0; i < 10; i++)
                 {
-                    MPUtils.NewProjectile(null, Player.Center, Player.FromAToB(target.Center).RotatedByRandom(i * 0.1f) * Main.rand.NextFloat(1, 5), ProjectileType<TerrorArmorRay>(), 50, 0);
+                    MPUtils.NewProjectile(null, Player.Center, Player.FromAToB(target.Center).RotatedByRandom(i * 0.1f) * Main.rand.NextFloat(15, 25), ProjectileType<TerrorArmorRay>(), 50, 0);
                 }
                 MPUtils.NewProjectile(null, Player.Center - Player.FromAToB(target.Center) * 40, Player.FromAToB(target.Center), ProjectileType<ConglomerateScream>(), 0, 0, ai0: 0.3f, ai2: 1);
                 terrortomaCharge = -1000;

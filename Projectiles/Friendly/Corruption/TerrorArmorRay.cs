@@ -42,7 +42,7 @@ public class TerrorArmorRay : ModProjectile
 
             if (i > 0 && Projectile.oldPos[i] != Vector2.Zero)
             {
-                Color col = Color.LawnGreen * MathF.Pow(mult, 2) * 2 * s;
+                Color col = Color.LawnGreen * MathF.Pow(mult, 2) * 2 * s * Projectile.velocity.Length().Saturate();
 
                 float __off = vfxOffset;
                 if (__off > 1) __off = -__off + 1;
@@ -77,7 +77,7 @@ public class TerrorArmorRay : ModProjectile
     }
     public override void AI()
     {
-        if (Projectile.velocity.Length() < 25 && Projectile.timeLeft < 160)
-            Projectile.velocity *= 1.05f;
+        if (Projectile.timeLeft < 170)
+            Projectile.velocity *= 0.99f;
     }
 }

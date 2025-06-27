@@ -353,6 +353,8 @@ Projectiles: {
 	FallingStarBigHostile.DisplayName: Falling Star Big Hostile
 	IchorArmorExplosion.DisplayName: Ichor Armor Explosion
 	TerrorArmorRay.DisplayName: Terror Armor Ray
+	BlindeyeBowP.DisplayName: Blindeye Bow P
+	BlindeyeArrow.DisplayName: Blindeye Arrow
 }
 
 NPCs: {
@@ -1588,6 +1590,11 @@ Items: {
 	Terrorlegs: {
 		DisplayName: Tumorous Leggings
 		Tooltip: Increases magic damage by {0}%
+	}
+
+	BlindeyeBow: {
+		DisplayName: Blindeye Bow
+		Tooltip: ""
 	}
 }
 

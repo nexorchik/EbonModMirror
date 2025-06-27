@@ -4,8 +4,8 @@ v 2.0
 - Added Astrum Aureus
 - Added X new weapons
 - Added Y new enemies
-- Added an ambient event, the River of Starlight, replacing highly intense meteor showers.
-- Added Cecitior and Terrortoma based tilesets and fishing rods
+- Added an ambient event, the River of Starlight, replacing highly intense meteor showers
+- Added Cecitior and Terrortoma based tilesets, armorsets, and fishing rods
 - Yellow Boxfish.
 
 ## Changes
