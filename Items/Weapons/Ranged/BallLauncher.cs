@@ -73,7 +73,6 @@ public class BallLauncherSprite : ModProjectile
         Projectile.ignoreWater = true;
         Projectile.DamageType = DamageClass.Ranged;
         Projectile.penetrate = -1;
-        Projectile.usesLocalNPCImmunity = true;
         Projectile.Size = new Vector2(56, 48);
     }
     public override bool? CanDamage() => false;
