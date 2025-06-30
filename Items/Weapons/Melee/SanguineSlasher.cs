@@ -58,9 +58,9 @@ public class SanguineSlasherP : HeldSword
         }
         player.itemTime = 2;
         player.itemAnimation = 2;
-        if (player.HeldItem.type != ItemType<SanguineSlasher>() && !player.active || player.dead || player.CCed || player.noItems) 
-        { 
-            Projectile.Kill(); 
+        if (player.HeldItem.type != ItemType<SanguineSlasher>() && !player.active || player.dead || player.CCed || player.noItems)
+        {
+            Projectile.Kill();
         }
         if (Projectile.ai[1] != 0) // AI1 being -1 or 1 = Slash
         {
@@ -72,19 +72,19 @@ public class SanguineSlasherP : HeldSword
             float start = defRot - Pi * 0.75f;
             float end = defRot + Pi * 0.75f;
             float rotation = (direction == 1 ? start + Pi * 1.5f * swingProgress : end - Pi * 1.5f * swingProgress);
-            Vector2 position = player.GetFrontHandPosition(stretch, rotation - PiOver2) + rotation.ToRotationVector2() * holdOffset * ScaleFunction(swingProgress) - (rotation+Pi*1.02f).ToRotationVector2()*20;
+            Vector2 position = player.GetFrontHandPosition(stretch, rotation - PiOver2) + rotation.ToRotationVector2() * holdOffset * ScaleFunction(swingProgress) - (rotation + Pi * 1.02f).ToRotationVector2() * 20;
             Projectile.Center = position;
             Projectile.rotation = (position - player.Center).ToRotation() + PiOver2;
             player.ChangeDir(Projectile.velocity.X < 0 ? -1 : 1);
             player.SetCompositeArmFront(true, stretch, rotation - (player.direction == -1 ? -PiOver4 + Pi : PiOver2));
-            if (Projectile.ai[2] == 0)
+            if (Projectile.timeLeft == swingTime - 1)
             {
                 SoundEngine.PlaySound(SoundID.Item1);
-                Projectile.ai[2] = 1;
             }
         }
         else // AI1 being 0 = Thrust (or well, bite here)
         {
+            Projectile.ai[2] = Lerp(Projectile.ai[2], 0, 0.2f);
             Projectile.spriteDirection = player.direction;
             visualOffset = new Vector2(-18, 14).RotatedBy(Projectile.velocity.ToRotation()) * Projectile.scale;
             if (Projectile.frameCounter < 9)
@@ -99,27 +99,28 @@ public class SanguineSlasherP : HeldSword
             if (player.gravDir != -1)
             {
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.velocity.ToRotation() - MathHelper.PiOver2);
-                Projectile.rotation = Projectile.velocity.ToRotation() + Pi/2;
+                Projectile.rotation = Projectile.velocity.ToRotation() + Pi / 2;
             }
             Projectile.Center = pos;
             Projectile.frameCounter++;
             if (Projectile.frameCounter > 4 && Projectile.frameCounter < 9)
             {
-                if(Projectile.frame == 2)
+                if (Projectile.frame == 2)
                 {
                     SoundEngine.PlaySound(EbonianSounds.chomp0, player.Center);
                     for (int i = 0; i < 30; i++)
                     {
-                        Dust.NewDustPerfect(Projectile.Center - (Projectile.rotation+Pi).ToRotationVector2()*21 * player.direction + Projectile.velocity.ToRotation().ToRotationVector2() * 25, DustID.Blood, (Projectile.rotation+Main.rand.NextFloat(-Pi/2, Pi/2)).ToRotationVector2() * player.direction * Main.rand.NextFloat(2, 4), Scale: Main.rand.NextFloat(1f, 1.7f));
+                        Dust.NewDustPerfect(Projectile.Center - (Projectile.rotation + Pi).ToRotationVector2() * 21 * player.direction + Projectile.velocity.ToRotation().ToRotationVector2() * 25, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(-Pi / 2, Pi / 2)).ToRotationVector2() * player.direction * Main.rand.NextFloat(2, 4), Scale: Main.rand.NextFloat(1f, 1.7f));
                     }
                 }
                 Projectile.frameCounter = 0;
                 Projectile.frame++;
                 if (Projectile.frame > 3)
                 {
+                    Projectile.ai[2] = 1;
                     Projectile.frame = 0;
                     Projectile.frameCounter = 10;
-                    Projectile.timeLeft = 9;
+                    Projectile.timeLeft = 15;
                 }
             }
         }
@@ -157,9 +158,10 @@ public class SanguineSlasherP : HeldSword
         Player player = Main.player[Projectile.owner];
         Texture2D tex = Helper.GetTexture("EbonianMod/Items/Weapons/Melee/SanguineSlasherAnimation").Value;
         Rectangle frameRect = new Rectangle(0, Projectile.frame * Projectile.height, Projectile.width, Projectile.height);
-        Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, frameRect, lightColor, Projectile.rotation, new Vector2(Projectile.width / 2, Projectile.height / 2), Projectile.scale, Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
+        Vector2 scale = Vector2.Lerp(Vector2.One * Projectile.scale, new Vector2(0.8f, 1.2f) * Projectile.scale, Projectile.ai[2]);
+        Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, frameRect, lightColor, Projectile.rotation, new Vector2(Projectile.width / 2, Projectile.height / 2), scale, Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
 
-        if(Projectile.ai[1] != 0)
+        if (Projectile.ai[1] != 0)
         {
             Texture2D slash = Assets.Extras.Extras2.slash_06.Value;
             float mult = Ease(Utils.GetLerpValue(0f, swingTime, Projectile.timeLeft));

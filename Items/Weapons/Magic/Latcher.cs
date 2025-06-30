@@ -79,19 +79,19 @@ public class LatcherSprite : ModProjectile
         Projectile.timeLeft = 10;
         Projectile.Center = player.MountedCenter;
 
-        if ((player.ownedProjectileCounts[ProjectileType<LatcherP>()] < 1 && CanShoot == false) || !player.active || player.dead || player.CCed || player.noItems)
+        if ((player.ownedProjectileCounts[ProjectileType<LatcherP>()] < 1 && !CanShoot) || !player.active || player.dead || player.CCed || player.noItems)
         {
             Projectile.Kill();
         }
 
-        if (CanShoot == false)
+        if (!CanShoot)
         {
             Projectile.rotation = Utils.AngleLerp(Projectile.rotation, Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation(), 0.02f);
         }
         else
         {
             Projectile.rotation = Utils.AngleLerp(Projectile.rotation, Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation(), 0.08f);
-            if (player.channel == false)
+            if (!player.channel && Projectile.ai[0]++ > 40)
             {
                 CanShoot = false;
                 Scale = new Vector2(0.65f, 1.6f);

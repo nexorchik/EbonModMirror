@@ -728,7 +728,11 @@ NPCs: {
 	}
 
 	PebbiSwarm.DisplayName: Ужасающие стадо гальков
-	// Hookworm.DisplayName: Hookworm
+
+	Hookworm: {
+		// DisplayName: Hookworm
+		// Bestiary: An abnormal evolution of the giant worm with a gigantic set of mandibles, gotten from crushing the metals of the deep in their jaws. This allows them to tunnel at the same speed, but the lesser nutrients from eating stone has caused their flesh to become stringy and fragile.
+	}
 }
 
 Items: {

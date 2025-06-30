@@ -60,7 +60,7 @@ public class CorebreakerGraphics : ModProjectile
     {
         Projectile.rotation = Helper.FromAToB(Main.player[Projectile.owner].Center, Main.MouseWorld).ToRotation();
         Projectile.ai[1] = 40;
-        Projectile.ai[0] = 70;
+        Projectile.ai[0] = 50;
     }
 
     float RotationOffset, RotationSpeed, HoldOffset;
@@ -77,7 +77,7 @@ public class CorebreakerGraphics : ModProjectile
         Projectile.Center = player.Center;
 
         HoldOffset = Lerp(HoldOffset, 24, 0.13f);
-        if (AltAttack == false)
+        if (!AltAttack)
         {
             Projectile.ai[0]++;
             if (Projectile.ai[0] == 120)
@@ -89,7 +89,7 @@ public class CorebreakerGraphics : ModProjectile
                 {
                     Dust.NewDustPerfect(SpawnPosition, DustID.Torch, (Projectile.rotation + Main.rand.NextFloat(-PiOver4, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(0.3f, 8), Scale: Main.rand.NextFloat(1f, 4f)).noGravity = true;
                 }
-                Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * Vector2.Distance(Main.MouseWorld, Projectile.Center) / 35, ProjectileType<CorebreakerP>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                MPUtils.NewProjectile(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * Vector2.Distance(Main.MouseWorld, Projectile.Center) / 35, ProjectileType<CorebreakerP>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
             if (Projectile.ai[0] > 120)
             {
@@ -101,10 +101,10 @@ public class CorebreakerGraphics : ModProjectile
                 {
                     RotationSpeed = 0;
                     RotationOffset = 0;
-                    Projectile.ai[0] = 0;
+                    Projectile.ai[0] = 30;
                 }
             }
-            if (RotationOffset <= 0.1f && Main.mouseRight)
+            if (RotationOffset <= 0.1f && Main.mouseRight && Main.myPlayer == Projectile.owner)
             {
                 HoldOffset = 0;
                 Vector2 SpawnPosition = Projectile.Center + new Vector2(Projectile.rotation.ToRotationVector2().X, Projectile.rotation.ToRotationVector2().Y) * 45;
@@ -115,14 +115,14 @@ public class CorebreakerGraphics : ModProjectile
                     Dust.NewDustPerfect(SpawnPosition, DustID.Smoke, (Projectile.rotation + Main.rand.NextFloat(PiOver2, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(1, 8), Scale: Main.rand.NextFloat(0.5f, 3f)).noGravity = true;
                     Dust.NewDustPerfect(SpawnPosition, DustID.Smoke, (Projectile.rotation + Main.rand.NextFloat(-PiOver2, -PiOver4)).ToRotationVector2() * Main.rand.NextFloat(1, 8), Scale: Main.rand.NextFloat(0.5f, 3f)).noGravity = true;
                 }
-                Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * 4, ProjectileType<CorebreakerHitscan>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                MPUtils.NewProjectile(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * 4, ProjectileType<CorebreakerHitscan>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 AltAttack = true;
             }
         }
         else
         {
             Projectile.ai[1]++;
-            if (Projectile.ai[1] == 80)
+            if (Projectile.ai[1] >= 30)
             {
                 AltAttack = false;
                 Projectile.ai[1] = 0;
@@ -131,7 +131,7 @@ public class CorebreakerGraphics : ModProjectile
 
         Projectile.rotation = Utils.AngleLerp(Projectile.rotation, Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation(), 0.25f) - RotationOffset * player.direction;
 
-        if (!player.active || player.HeldItem.type != ItemType<Corebreaker>() || player.dead || player.CCed || player.noItems || player.channel == false)
+        if (!player.active || player.HeldItem.type != ItemType<Corebreaker>() || player.dead || player.CCed || player.noItems || !player.channel)
         {
             Projectile.Kill();
             return;

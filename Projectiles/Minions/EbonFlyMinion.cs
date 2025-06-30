@@ -208,7 +208,7 @@ public class EbonFlyMinion : ModProjectile //this is literally ExampleMinion and
             }
         }
 
-        Lighting.AddLight(Projectile.Center, Color.White.ToVector3() * 0.78f);
+        Lighting.AddLight(Projectile.Center, TorchID.Cursed);
         #endregion
     }
 }

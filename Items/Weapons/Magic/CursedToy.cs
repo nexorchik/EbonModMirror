@@ -102,9 +102,12 @@ public class CursedToyP : ModProjectile
     }
     public override bool OnTileCollide(Vector2 oldVelocity)
     {
+        if (Projectile.timeLeft > 100 * 4)
+        {
+            Projectile.timeLeft = 100 * 4;
+            Projectile.ai[2]++;
+        }
         if (Projectile.Center.Y > Main.player[Projectile.owner].Center.Y) return false;
-        if (Projectile.ai[2]++ == 0)
-            Projectile.timeLeft = 40 * 4;
         Projectile.velocity *= 0.5f;
         Projectile.tileCollide = false;
         return false;
@@ -115,7 +118,6 @@ public class CursedToyP : ModProjectile
         if (Projectile.ai[2] > 0)
         {
             Projectile.velocity *= 0.98f;
-            Projectile.ai[1] = MathHelper.Lerp(Projectile.ai[1], 1, 0.001f);
         }
         else if (Projectile.velocity.Length() > 0)
         {
@@ -123,8 +125,5 @@ public class CursedToyP : ModProjectile
             if (Projectile.timeLeft % 5 == 0 && Projectile.velocity.Length() > 0)
                 Dust.NewDustPerfect(Projectile.Center, DustID.CursedTorch, Projectile.velocity * Main.rand.NextFloat(), Scale: 2).noGravity = true;
         }
-        Projectile.ai[0]++;
-        if (Projectile.ai[0] > 550)
-            Projectile.ai[0] = 0;
     }
 }

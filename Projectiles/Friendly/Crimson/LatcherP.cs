@@ -41,7 +41,7 @@ public class LatcherP : ModProjectile
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hitinfo, int damage)
     {
-        if (IsAttached == false)
+        if (!IsAttached)
         {
             PositionOffset = Projectile.Center - target.Center;
             Projectile.velocity = Vector2.Zero;
@@ -60,7 +60,7 @@ public class LatcherP : ModProjectile
         Player player = Main.player[Projectile.owner];
         Rotation = Utils.AngleLerp(Rotation, Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation(), 0.02f);
         Projectile.ai[0]++;
-        if (IsAttached == true)
+        if (IsAttached)
         {
             Speed *= 1.08f;
             Speed = Clamp(Speed, 0, 23);
@@ -87,7 +87,9 @@ public class LatcherP : ModProjectile
         else if (Projectile.ai[0] > 10)
         {
             Projectile.ai[1]++;
-            Projectile.velocity += Helper.FromAToB(Projectile.Center, player.Center) * (float)Projectile.ai[1] / 2;
+            Projectile.velocity *= 0.97f;
+            if (Projectile.ai[0] > 40)
+                Projectile.Center = Vector2.Lerp(Projectile.Center, player.Center, 0.3f);
             if (Vector2.Distance(player.Center, Projectile.Center) < 100)
             {
                 Projectile.Kill();
@@ -111,18 +113,11 @@ public class LatcherP : ModProjectile
             distance = distToProj.Length();
 
             //Draw chain
-            Main.spriteBatch.Draw(Mod.Assets.Request<Texture2D>("Projectiles/Friendly/Crimson/LatcherP_Chain").Value, center - Main.screenPosition,
-                null, Lighting.GetColor((int)center.X / 16, (int)center.Y / 16), projRotation,
-                Mod.Assets.Request<Texture2D>("Projectiles/Friendly/Crimson/LatcherP_Chain").Value.Size() / 2, 1f, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(Assets.Projectiles.Friendly.Crimson.LatcherP_Chain.Value, center - Main.screenPosition,
+                null, new Color(Lighting.GetSubLight(center)), projRotation,
+                Assets.Projectiles.Friendly.Crimson.LatcherP_Chain.Value.Size() / 2, 1f, SpriteEffects.None, 0);
         }
-        Main.spriteBatch.Draw(Mod.Assets.Request<Texture2D>("Projectiles/Friendly/Crimson/LatcherP_Chain").Value, Projectile.Center - Main.screenPosition,
-            null, lightColor, projRotation,
-            Mod.Assets.Request<Texture2D>("Projectiles/Friendly/Crimson/LatcherP_Chain").Value.Size() / 2, 1f, SpriteEffects.None, 0);
-        /*if (verlet != null)
-        {
-            verlet.Update(Projectile.Center, Main.player[Projectile.owner].Center);
-            verlet.Draw(Main.spriteBatch, "Projectiles/Friendly/Crimson/LatcherP_Chain");
-        }*/
+        Main.spriteBatch.Draw(Assets.Projectiles.Friendly.Crimson.LatcherP_Chain.Value, Projectile.Center - Main.screenPosition, null, new Color(Lighting.GetSubLight(Projectile.Center)), projRotation, Assets.Projectiles.Friendly.Crimson.LatcherP_Chain.Value.Size() / 2, 1f, SpriteEffects.None, 0);
         return false;
     }
 }
@@ -252,9 +247,9 @@ public class LatcherPCecitior : ModProjectile
             distance = distToProj.Length();
 
             //Draw chain
-            Main.spriteBatch.Draw(Mod.Assets.Request<Texture2D>("Projectiles/Friendly/Crimson/LatcherP_Chain").Value, center - Main.screenPosition,
+            Main.spriteBatch.Draw(Assets.Projectiles.Friendly.Crimson.LatcherP_Chain.Value, center - Main.screenPosition,
                 null, Lighting.GetColor((int)center.X / 16, (int)center.Y / 16), projRotation,
-                Mod.Assets.Request<Texture2D>("Projectiles/Friendly/Crimson/LatcherP_Chain").Value.Size() / 2, 1f, SpriteEffects.None, 0);
+                Assets.Projectiles.Friendly.Crimson.LatcherP_Chain.Value.Size() / 2, 1f, SpriteEffects.None, 0);
         }
         return true;
     }

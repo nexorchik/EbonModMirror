@@ -39,7 +39,7 @@ public class CorebreakerHitscan : ModProjectile
                 {
                     projectile.Kill();
                     Projectile CurrentProjectile = Projectile.NewProjectileDirect(NPC.InheritSource(Projectile), Projectile.Center, Vector2.Zero,
-                        ProjectileType<FlameExplosionWSprite>(), Projectile.damage * 4, 0);
+                        ProjectileType<FlameExplosionWSprite>(), Projectile.damage * 5, 0);
                     CurrentProjectile.scale *= 2;
                     CurrentProjectile.CritChance = 100;
                     CurrentProjectile.friendly = true;
