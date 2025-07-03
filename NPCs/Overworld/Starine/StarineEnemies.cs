@@ -49,7 +49,7 @@ public class Starine_Skipper : ModNPC
         var trailLength = NPCID.Sets.TrailCacheLength[NPC.type];
         for (int i = 1; i < trailLength; i++)
         {
-            float scale = MathHelper.Lerp(1f, 0.95f, (float)(trailLength - i) / trailLength);
+            float scale = Lerp(1f, 0.95f, (float)(trailLength - i) / trailLength);
             var fadeMult = 1f / trailLength;
             SpriteEffects flipType = NPC.spriteDirection == -1 /* or 1, idfk */ ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             spriteBatch.Draw(texture, NPC.oldPos[i] - screenPos + off, frame, clr * (1f - fadeMult * i), NPC.oldRot[i], orig, scale, flipType, 0f);
@@ -130,10 +130,10 @@ public class Starine_Skipper : ModNPC
             }
         NPC.frame.Y = f * frameHeight;
     }
-    public bool HasStarineEnemies = NPC.AnyNPCs(ModContent.NPCType<Starine_Scatterer>()) || NPC.AnyNPCs(ModContent.NPCType<Starine_Skipper>());
+    public bool HasStarineEnemies = NPC.AnyNPCs(ModContent.NPCType<Starine_Skipper>());
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
-        return HasStarineEnemies ? 0 : SpawnCondition.OverworldNight.Chance * .05f;
+        return HasStarineEnemies ? 0 : SpawnCondition.OverworldNight.Chance * .05f * Star.starfallBoost;
     }
     public override void HitEffect(NPC.HitInfo hit)
     {
@@ -250,7 +250,7 @@ public class Starine_Sightseer : ModNPC
 
         for (int i = 1; i < trailLength; i++)
         {
-            float scale = MathHelper.Lerp(0.9f, 1f, (float)(trailLength - i) / trailLength);
+            float scale = Lerp(0.9f, 1f, (float)(trailLength - i) / trailLength);
             var fadeMult = 1f / (trailLength * 2);
             SpriteEffects flipType = NPC.spriteDirection == -1 /* or 1, idfk */ ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
             Main.spriteBatch.Draw(texture, NPC.oldPos[i] - screenPos + off, frame, clr * (1f - fadeMult * i) * 0.05f, NPC.rotation, orig, scale, flipType, 0f);
@@ -263,12 +263,12 @@ public class Starine_Sightseer : ModNPC
         spriteBatch.Reload(BlendState.Additive);
         for (int i = -1; i < 2; i++)
         {
-            float scale = MathHelper.SmoothStep(0.7f, 1, SolidConeAlpha);
-            float offset = MathHelper.SmoothStep(-20, 30, SolidConeAlpha);
-            float angle = (MathHelper.PiOver4 + i * (0.35f)) * NPC.direction;
+            float scale = SmoothStep(0.7f, 1, SolidConeAlpha);
+            float offset = SmoothStep(-20, 30, SolidConeAlpha);
+            float angle = (PiOver4 + i * (0.35f)) * NPC.direction;
             Vector2 off = new Vector2(0, -NPC.height + offset).RotatedBy(angle);
             for (int j = 0; j < 4; j++)
-                spriteBatch.Draw(tex, NPC.Center + off - Main.screenPosition, null, new Color(0, 230, 230) * SolidConeAlpha, angle + MathHelper.PiOver2 * NPC.direction, new Vector2(0, tex.Height / 2), new Vector2(scale * 0.35f, 0.2f), NPC.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
+                spriteBatch.Draw(tex, NPC.Center + off - Main.screenPosition, null, new Color(0, 230, 230) * SolidConeAlpha, angle + PiOver2 * NPC.direction, new Vector2(0, tex.Height / 2), new Vector2(scale * 0.35f, 0.2f), NPC.direction == 1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
         }
         spriteBatch.Reload(BlendState.AlphaBlend);
     }
@@ -276,11 +276,13 @@ public class Starine_Sightseer : ModNPC
     {
         for (int i = 0; i < AITimer.Length; i++)
             writer.Write(AITimer[i]);
+        writer.WriteVector2(savedP);
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
         for (int i = 0; i < AITimer.Length; i++)
             AITimer[i] = reader.ReadSingle();
+        savedP = reader.ReadVector2();
     }
     public float AIState
     {
@@ -306,7 +308,7 @@ public class Starine_Sightseer : ModNPC
         Player player = Main.player[NPC.target];
         Lighting.AddLight(NPC.Center, new Vector3(.25f, .3f, .4f));
         if (player.Distance(NPC.Center) < 400)
-            InterestMeter += MathHelper.SmoothStep(7, 1.5f, player.Distance(NPC.Center) / 400f) + MathHelper.Clamp(MathHelper.Lerp(0, 5, player.velocity.Length() / 15), 0, 1);
+            InterestMeter += SmoothStep(7, 1.5f, player.Distance(NPC.Center) / 400f) + Clamp(Lerp(0, 5, player.velocity.Length() / 15), 0, 1);
 
         if (InterestMeter > 0)
         {
@@ -329,13 +331,13 @@ public class Starine_Sightseer : ModNPC
             AIState = Angry;
         }
         if (SolidConeAlpha > 0)
-            SolidConeAlpha = MathHelper.Lerp(SolidConeAlpha, 0, 0.1f);
+            SolidConeAlpha = Lerp(SolidConeAlpha, 0, 0.1f);
 
 
         switch (AIState)
         {
             case WanderAround:
-                NPC.rotation = Utils.AngleLerp(NPC.rotation, NPC.velocity.ToRotation() + (NPC.direction == -1 ? MathHelper.Pi : 0), 0.025f);
+                NPC.rotation = Utils.AngleLerp(NPC.rotation, NPC.velocity.ToRotation() + (NPC.direction == -1 ? Pi : 0), 0.025f);
                 if (NPC.direction == 0)
                 {
                     NPC.direction = Main.rand.NextBool(2) ? 1 : -1;
@@ -360,9 +362,9 @@ public class Starine_Sightseer : ModNPC
                 else
                 {
                     NPC.spriteDirection = NPC.direction;
-                    NPC.velocity.X = MathHelper.Lerp(NPC.velocity.X, NPC.direction * 1.5f, 0.05f);
+                    NPC.velocity.X = Lerp(NPC.velocity.X, NPC.direction * 1.5f, 0.05f);
                     Vector2 Target = Helper.TRay.Cast(NPC.Center, Vector2.UnitY, 400) - new Vector2(0, 220);
-                    NPC.velocity.Y = MathHelper.Lerp(NPC.velocity.Y, NPC.Center.FromAToB(new Vector2(NPC.Center.X, (float)(Target.Y + Math.Cos(AITimer[2] / rand.NextFloat(50, 100)) * rand.NextFloat(5, 10)))).Y, rand.NextFloat(0.005f, 0.02f));
+                    NPC.velocity.Y = Lerp(NPC.velocity.Y, NPC.Center.FromAToB(new Vector2(NPC.Center.X, (float)(Target.Y + Math.Cos(AITimer[2] / rand.NextFloat(50, 100)) * rand.NextFloat(5, 10)))).Y, rand.NextFloat(0.005f, 0.02f));
                 }
 
                 if (InterestMeter > 300)
@@ -378,7 +380,7 @@ public class Starine_Sightseer : ModNPC
                 break;
             case Interested:
                 {
-                    int fac = rand.Next(60, 200) + (int)MathHelper.Clamp(MathF.Floor(InterestMeter), 100, 1000);
+                    int fac = rand.Next(60, 200) + (int)Clamp(MathF.Floor(InterestMeter), 100, 1000);
                     if (AITimer[2] < fac)
                     {
                         if (NPC.Center.X > player.Center.X)
@@ -386,8 +388,8 @@ public class Starine_Sightseer : ModNPC
                         else if (NPC.Center.X < player.Center.X)
                             NPC.direction = 1;
                         NPC.spriteDirection = NPC.direction;
-                        NPC.rotation = Utils.AngleLerp(NPC.rotation, NPC.FromAToB(player).ToRotation() + (NPC.direction == -1 ? MathHelper.Pi : 0), 0.025f);
-                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.Center.FromAToB(player.Center - new Vector2(0, 85) + new Vector2(100 * -player.direction, 0)).RotatedBy(MathHelper.ToRadians(MathF.Sin(AITimer[2] / rand.NextFloat(15, 30)) * rand.NextFloat(40, 60)) * player.direction) * 1.5f, 0.02f);
+                        NPC.rotation = Utils.AngleLerp(NPC.rotation, NPC.FromAToB(player).ToRotation() + (NPC.direction == -1 ? Pi : 0), 0.025f);
+                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.Center.FromAToB(player.Center - new Vector2(0, 85) + new Vector2(100 * -player.direction, 0)).RotatedBy(ToRadians(MathF.Sin(AITimer[2] / rand.NextFloat(15, 30)) * rand.NextFloat(40, 60)) * player.direction) * 1.5f, 0.02f);
                     }
                     else
                     {
@@ -413,7 +415,7 @@ public class Starine_Sightseer : ModNPC
                                 else if (NPC.Center.X < player.Center.X)
                                     NPC.direction = 1;
                                 NPC.spriteDirection = NPC.direction;
-                                NPC.rotation = Utils.AngleLerp(NPC.rotation, NPC.FromAToB(player).ToRotation() + (NPC.direction == -1 ? MathHelper.Pi : 0), 0.025f);
+                                NPC.rotation = Utils.AngleLerp(NPC.rotation, NPC.FromAToB(player).ToRotation() + (NPC.direction == -1 ? Pi : 0), 0.025f);
                                 Vector2 pos = player.Center + new Vector2(rand.NextFloat(175, 300) * (int)(rand.NextFloatDirection() > 0 ? 1 : -1), -rand.NextFloat(-50, 100));
 
                                 NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.Center.FromAToB(pos) * 4.5f, 0.02f);
@@ -447,7 +449,7 @@ public class Starine_Sightseer : ModNPC
                                 else if (NPC.Center.X < player.Center.X)
                                     NPC.direction = 1;
                                 NPC.spriteDirection = NPC.direction;
-                                NPC.rotation = Utils.AngleLerp(NPC.rotation, Helper.FromAToB(NPC.Center, savedP).ToRotation() + (NPC.direction == -1 ? MathHelper.Pi : 0), 0.5f);
+                                NPC.rotation = Utils.AngleLerp(NPC.rotation, Helper.FromAToB(NPC.Center, savedP).ToRotation() + (NPC.direction == -1 ? Pi : 0), 0.5f);
                             }
                             if (AITimer[3] == 10)
                                 NPC.velocity = Helper.FromAToB(NPC.Center, player.Center) * 28;
@@ -464,8 +466,8 @@ public class Starine_Sightseer : ModNPC
                             else if (NPC.Center.X < player.Center.X)
                                 NPC.direction = 1;
                             NPC.spriteDirection = NPC.direction;
-                            NPC.rotation = Utils.AngleLerp(NPC.rotation, Helper.FromAToB(NPC.Center, player.Center).ToRotation() + (NPC.direction == -1 ? MathHelper.Pi : 0), 0.05f);
-                            NPC.velocity = NPC.velocity.RotatedBy(MathHelper.ToRadians(2.5f)) * 0.95f;
+                            NPC.rotation = Utils.AngleLerp(NPC.rotation, Helper.FromAToB(NPC.Center, player.Center).ToRotation() + (NPC.direction == -1 ? Pi : 0), 0.05f);
+                            NPC.velocity = NPC.velocity.RotatedBy(ToRadians(2.5f)) * 0.95f;
                             AITimer[3]++;
                             if (AITimer[3] > 60)
                             {
@@ -527,7 +529,7 @@ public class Starine_Sightseer : ModNPC
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
-        return SpawnCondition.OverworldNight.Chance * .05f;
+        return SpawnCondition.OverworldNight.Chance * .05f * Star.starfallBoost;
     }
     public override void DrawEffects(ref Color drawColor)
     {
