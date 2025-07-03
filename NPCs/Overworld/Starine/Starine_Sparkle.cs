@@ -18,7 +18,6 @@ namespace EbonianMod.NPCs.Overworld.Starine
             ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
             ProjectileID.Sets.TrailCacheLength[Projectile.type] = 8;
         }
-        public const int MAX_TIMELEFT = 240;
         public override void SetDefaults()
         {
             Projectile.height = Projectile.width = 18;
@@ -27,7 +26,7 @@ namespace EbonianMod.NPCs.Overworld.Starine
             Projectile.friendly = false;
             Projectile.damage = 30;
             Projectile.tileCollide = true;
-            Projectile.timeLeft = MAX_TIMELEFT;
+            Projectile.timeLeft = 150;
             Projectile.penetrate = -1;
         }
         Vector2 basePos;

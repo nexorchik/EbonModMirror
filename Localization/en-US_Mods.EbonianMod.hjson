@@ -729,6 +729,7 @@ NPCs: {
 		DisplayName: Starine Sightseer
 		Bestiary: Brilliant and peaceful. Hovering around certain spots, they seem to study the environment. Although they may seem helpless, they will defend themselves if necessary.
 	}
+
 	Starine_Skipper: {
 		DisplayName: Starine Skipper
 		Bestiary: Powered by magic derived from the stars, it uses its well-developed back legs to hop and skip about the night, usually kicking off unsuspecting prey to cripple them.

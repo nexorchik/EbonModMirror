@@ -1,14 +1,14 @@
+using EbonianMod.Dusts;
+using EbonianMod.NPCs.Overworld.Starine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using System;
+using System.IO;
 using Terraria;
+using Terraria.GameContent.Bestiary;
 using Terraria.ID;
 using Terraria.ModLoader;
-using EbonianMod.Dusts;
 using Terraria.ModLoader.Utilities;
-using Terraria.GameContent.Bestiary;
-using EbonianMod.NPCs.Overworld.Starine;
-using System.IO;
 
 //this code is so fucking evil
 namespace EbonianMod.NPCs.Overworld.Starine;
@@ -41,7 +41,7 @@ public class Starine_Skipper : ModNPC
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
         //3hi31mg
-        var off = new Vector2(NPC.width / 2, NPC.height / 2 + 2);
+        var off = new Vector2(NPC.width / 2, NPC.height / 2 + 4 + NPC.gfxOffY);
         var clr = new Color(255, 255, 255, 255); // full white
         Texture2D texture = Assets.NPCs.Overworld.Starine.Starine_Skipper_Trail.Value;
         var frame = new Rectangle(0, NPC.frame.Y, NPC.width, NPC.height);
@@ -88,27 +88,34 @@ public class Starine_Skipper : ModNPC
             switch (NPC.ai[0])
             {
                 case 0:
-                    /*if (Timer % 5 == 0)
+                    if (NPC.Grounded())
                     {
-                        if (f < 7)
-                            f++;
-                    }*/
-                    if (NPC.velocity.Y > -1)
-                    {
-                        if (NPC.frameCounter % 5 == 0) f++;
-                        if (f > 3)
-                            f = 0;
-                    }
-                    else
-                    {
-                        if (NPC.frameCounter % 5 == 0)
+                        int speed = 5;
+                        if (NPC.ai[1] > 80)
+                            speed = 2;
+                        else if (NPC.ai[1] > 60)
+                            speed = 3;
+                        else if (NPC.ai[1] > 40)
+                            speed = 4;
+                        if (NPC.frameCounter % speed == 0)
                         {
-                            if (f < 4)
-                                f = 4;
-
-                            else if (f < 7)
+                            if (f < 3 && NPC.ai[1] > NPC.ai[2] + 25)
                                 f++;
+                            else
+                                f = 0;
                         }
+                    }
+                    else if (NPC.velocity.Y > 0)
+                    {
+                        f = 0;
+                    }
+                    else if (NPC.frameCounter % 5 == 0)
+                    {
+                        if (f < 4)
+                            f = 4;
+
+                        else if (f < 7)
+                            f++;
                     }
                     break;
                 case 1:
@@ -119,11 +126,6 @@ public class Starine_Skipper : ModNPC
                         if (f < 4)
                             f = 4;
                     }
-                    break;
-                case 2:
-                    if (NPC.frameCounter % 5 == 0) f++;
-                    if (f > 3)
-                        f = 0;
                     break;
             }
         NPC.frame.Y = f * frameHeight;
@@ -157,60 +159,40 @@ public class Starine_Skipper : ModNPC
     }
     public override void AI()
     {
-        //NPC.frameCounter++;
-        //if (NPC.frameCounter >= 39) NPC.frameCounter = 0;
         Lighting.AddLight(NPC.Center, new Vector3(.25f, .3f, .4f));
         Player target = Main.player[NPC.target];
         NPC.TargetClosest(false);
+        Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY);
         if (NPC.Grounded())
         {
-            switch (NPC.ai[0])
+            NPC.spriteDirection = NPC.direction = target.Center.X > NPC.Center.X ? 1 : -1;
+            NPC.ai[1]++;
+            if (NPC.ai[1] > 100)
             {
-                //Falling waiting to be grounded
-                case 0:
+                if (NPC.ai[0] == 0)
+                {
+                    NPC.velocity = new Vector2(Clamp(NPC.FromAToB(target, false).X / 30, -5, 5), -6f);
+                    for (int i = 0; i < 3; i++)
+                        Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, NPC.velocity.RotatedBy(ToRadians(i - 1) * 5) * Main.rand.NextFloat(0.5F, 1), ModContent.ProjectileType<Starine_Sparkle>(), 10, 1f);
+                    for (int i = 0; i < 15; i++)
                     {
-                        NPC.ai[2]++;
-                        NPC.ai[0] = NPC.ai[1] % 4f == 0 ? 2f : 1f;
-                        if (NPC.ai[1] % 4f != 0)
-                            f = 3;
-                        NPC.ai[2] = NPC.ai[1] % 4f == 0 ? 100f : 8f * (NPC.life < NPC.lifeMax / 2 ? NPC.life / NPC.lifeMax : 1f);
-                        NPC.velocity.X *= NPC.ai[1] % 4f == 0 ? 0f : 0.9f;
-                        if (NPC.ai[1] % 4f == 0)
-                            NPC.velocity.Y = 0;
-                        NPC.netUpdate = true;
-                        break;
+                        Dust.NewDustPerfect(NPC.Center + new Vector2(-NPC.direction * 10, NPC.height / 2), DustType<StarineDust>(), -NPC.velocity.RotatedByRandom(1) * Main.rand.NextFloat(0.25f));
                     }
-                //Jumping for joy
-                case 1:
-                    {
-                        NPC.ai[2]--;
-                        if (NPC.ai[2] <= 0)
-                        {
-                            NPC.netUpdate = true;
-                            NPC.direction = NPC.spriteDirection = target.position.X > NPC.position.X ? 1 : -1;
-                            NPC.velocity = new Vector2(4 * NPC.direction, -7f);
-                            NPC.ai[1]++;
-                            NPC.ai[0] = 0;
-                        }
-                        break;
-                    }
-                case 2:
-                    {
-                        NPC.ai[2]--;
-                        if (NPC.ai[2] <= 0)
-                        {
-                            NPC.netUpdate = true;
-                            NPC.velocity.X = 0;
-                            NPC.ai[1]++;
-                            NPC.ai[0] = 1;
-                            f = 4;
-                        }
-                        break;
-                    }
+                    NPC.netUpdate = true;
+                    NPC.ai[0] = 1;
+                }
+            }
+            else
+            {
+                NPC.velocity.X *= 0.9f;
+                NPC.ai[0] = 0;
             }
         }
-        else
-            NPC.velocity.X = 4 * NPC.direction;
+        else if (NPC.ai[0] == 1)
+        {
+            NPC.ai[1] = NPC.ai[2] = Main.rand.NextFloat(50);
+            NPC.netUpdate = true;
+        }
 
     }
 }
@@ -222,7 +204,6 @@ public class Starine_Sightseer : ModNPC
     }
     public override void SetStaticDefaults()
     {
-        // DisplayName.SetDefault("Starine Sightseer");
         Main.npcFrameCount[NPC.type] = 4;
         NPCID.Sets.TrailCacheLength[NPC.type] = 25;
         NPCID.Sets.TrailingMode[NPC.type] = 1;
@@ -337,7 +318,10 @@ public class Starine_Sightseer : ModNPC
         }
         AITimer[0]++;
         if (AITimer[1] == 0 || AITimer[2] == 0)
+        {
             AITimer[1] = Main.rand.Next(int.MaxValue);
+            NPC.netUpdate = true;
+        }
         UnifiedRandom rand = new UnifiedRandom((int)AITimer[1]);
         AITimer[2]++;
         if (NPC.life < NPC.lifeMax)
@@ -371,6 +355,7 @@ public class Starine_Sightseer : ModNPC
                         AITimer[1] = Main.rand.Next(int.MaxValue);
                         AITimer[0] = 0;
                     }
+                    NPC.netUpdate = true;
                 }
                 else
                 {
@@ -388,6 +373,7 @@ public class Starine_Sightseer : ModNPC
                     InterestMeter = 0;
                     AITimer[2] = 0;
                     AITimer[3] = 0;
+                    NPC.netUpdate = true;
                 }
                 break;
             case Interested:
@@ -409,6 +395,7 @@ public class Starine_Sightseer : ModNPC
                         AITimer[1] = Main.rand.Next(int.MaxValue);
                         InterestMeter = -300;
                         AITimer[2] = 0;
+                        NPC.netUpdate = true;
                     }
                 }
                 break;
@@ -441,6 +428,7 @@ public class Starine_Sightseer : ModNPC
                                 AITimer[3] = 0;
                                 AITimer[1] = Main.rand.Next(int.MaxValue);
                                 AITimer[5]++;
+                                NPC.netUpdate = true;
                             }
                             break;
                         case 1:
@@ -450,6 +438,7 @@ public class Starine_Sightseer : ModNPC
                             {
                                 savedP = player.Center;
                                 NPC.velocity = Helper.FromAToB(NPC.Center, player.Center) * 5;
+                                NPC.netUpdate = true;
                             }
                             if (AITimer[3] < 10)
                             {
@@ -466,6 +455,7 @@ public class Starine_Sightseer : ModNPC
                             {
                                 AITimer[3] = 0;
                                 AITimer[5]++;
+                                NPC.netUpdate = true;
                             }
                             break;
                         case 2:
@@ -486,6 +476,7 @@ public class Starine_Sightseer : ModNPC
                                     AITimer[5] = 0;
                                 AITimer[3] = 0;
                                 AITimer[1] = Main.rand.Next(int.MaxValue);
+                                NPC.netUpdate = true;
                             }
                             break;
                     }
@@ -505,12 +496,14 @@ public class Starine_Sightseer : ModNPC
             InterestMeter = 0;
             AITimer[2] = 0;
             AITimer[3] = 0;
+            NPC.netUpdate = true;
         }
         else
         {
             NPC.damage = 0;
             AITimer[5] = 0;
             AITimer[1] = Main.rand.Next(int.MaxValue);
+            NPC.netUpdate = true;
         }
         for (int i = 0; i < 4; i++)
         {
@@ -543,8 +536,6 @@ public class Starine_Sightseer : ModNPC
     public override void FindFrame(int frameHeight)
     {
         NPC.frameCounter++;
-        /*if (NPC.frameCounter >= (NPC.life >= NPC.lifeMax / 2 ? 17 : 11)) NPC.frameCounter = 0;
-        NPC.frame.Y = (int)(NPC.frameCounter / (NPC.life >= NPC.lifeMax / 2 ? 6 : 4)) * frameHeight;*/
         if (NPC.frameCounter % (6 - AIState) == 0)
         {
             if (NPC.frame.Y < 3 * frameHeight)
@@ -553,131 +544,5 @@ public class Starine_Sightseer : ModNPC
                 NPC.frame.Y = 0;
 
         }
-    }
-}
-public class Starine_Scatterer : ModNPC
-{
-    public override bool IsLoadingEnabled(Mod mod) => false;
-    public override void ApplyDifficultyAndPlayerScaling(int numPlayers, float balance, float bossAdjustment)
-    {
-        NPC.lifeMax = (int)(NPC.lifeMax * bossAdjustment * balance);
-    }
-    public override void SetStaticDefaults()
-    {
-        // DisplayName.SetDefault("Starine Scatterer");
-        Main.npcFrameCount[NPC.type] = 12;
-        NPCID.Sets.TrailCacheLength[NPC.type] = 10;
-        NPCID.Sets.TrailingMode[NPC.type] = 3;
-        NPCID.Sets.NPCBestiaryDrawModifiers value = new(0) { Velocity = 1f };
-        NPCID.Sets.NPCBestiaryDrawOffset.Add(Type, value);
-    }
-    public override void SetDefaults()
-    {
-        NPC.width = 36;
-        NPC.height = 30;
-        NPC.aiStyle = NPCAIStyleID.Snail;
-        NPC.defense = 4;
-        NPC.lifeMax = 135;
-        NPC.knockBackResist = .5f;
-        NPC.HitSound = SoundID.NPCHit19;
-        NPC.DeathSound = SoundID.NPCDeath1;
-    }
-    public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
-    {
-        bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
-        {
-                BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
-                new FlavorTextBestiaryInfoElement("All three of its legs are made up of a strange, jelly-like substance, which gives it grippy, sticky capabilities, climbing over most obstacles.")
-        });
-    }
-    public override void DrawEffects(ref Color drawColor)
-    {
-        drawColor = Color.White;
-    }
-    public override void FindFrame(int frameHeight)
-    {
-        frame.Width = NPC.width;
-        frame.Height = frameHeight;
-        switch (AIState)
-        {
-            case 0:
-                if (++frameCounter % 5 == 0)
-                {
-                    if (frame.Y < frameHeight * 5)
-                        frame.Y += frameHeight;
-                    else
-                        frame.Y = 0;
-                }
-                break;
-            case 1:
-                if (++frameCounter % 5 == 0)
-                {
-                    if (frame.Y < frameHeight * 5)
-                        frame.Y = frameHeight * 5;
-                    else if (frame.Y < frameHeight * 11)
-                        frame.Y += frameHeight;
-                    else
-                        frame.Y = frameHeight * 5;
-                }
-                break;
-        }
-    }
-    public float AIState;
-    public float AITimer;
-    const int Walk = 0, Shoot = 1;
-    float targetRotation;
-    int frameCounter;
-    Rectangle frame;
-    public override void AI()
-    {
-        Player player = Main.player[NPC.target];
-        NPC.TargetClosest(false);
-        if (AIState == Walk)
-        {
-            AITimer++;
-            if (NPC.collideX || NPC.collideY)
-                NPC.velocity *= 6;
-            if (AITimer >= 300)
-            {
-                AITimer = 0;
-                AIState = Shoot;
-            }
-        }
-        else
-        {
-            NPC.velocity *= 0.1f;
-            AITimer++;
-            if (AITimer == 15)
-            {
-                for (int i = 0; i < 3; i++)
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, Helper.FromAToB(NPC.Center, player.Center) * 5, ModContent.ProjectileType<Starine_Sparkle>(), 10, 1f);
-
-            }
-            if (AITimer >= 30)
-            {
-                AIState = 0;
-                AITimer = 0;
-            }
-        }
-    }
-    public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
-    {
-        //3hi31mg
-        var off = new Vector2(NPC.width / 2, NPC.height / 2 + 2);
-        var clr = new Color(255, 255, 255, 255); // full white
-        Texture2D texture = Assets.NPCs.Overworld.Starine.Starine_Scatterer_Trail.Value;
-        var framee = new Rectangle(0, frame.Y, NPC.width, NPC.height);
-        var orig = frame.Size() / 2f;
-        var trailLength = NPCID.Sets.TrailCacheLength[NPC.type];
-
-        for (int i = 1; i < trailLength; i++)
-        {
-            float scale = MathHelper.Lerp(1f, 0.95f, (float)(trailLength - i) / trailLength);
-            var fadeMult = 1f / trailLength;
-            SpriteEffects flipType = NPC.spriteDirection == -1 /* or 1, idfk */ ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-            Main.spriteBatch.Draw(texture, NPC.oldPos[i] - screenPos + off, framee, clr * (1f - fadeMult * i), NPC.oldRot[i], orig, scale, flipType, 0f);
-        }
-        NPC.frame = framee;
-        return true;
     }
 }
