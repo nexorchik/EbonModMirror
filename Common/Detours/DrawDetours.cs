@@ -12,7 +12,6 @@ public class DrawDetours : ModSystem
     public override void Load()
     {
         On_FilterManager.EndCapture += FilterManager_EndCapture;
-        On_Main.DrawBG += DrawBehindTilesAndWalls;
         On_Main.DrawNPC += DrawNPC;
         On_Main.DrawPlayers_AfterProjectiles += PreDraw;
     }
@@ -53,10 +52,6 @@ public class DrawDetours : ModSystem
         orig(self, iNPCIndex, behindTiles);
     }
 
-    public void DrawBehindTilesAndWalls(Terraria.On_Main.orig_DrawBG orig, global::Terraria.Main self)
-    {
-        orig(self);
-    }
     public static void DrawVerlets(SpriteBatch sb)
     {
         for (int i = 0; i < S_VerletSystem.verlets.Count; i++)
