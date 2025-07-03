@@ -355,6 +355,7 @@ Projectiles: {
 	TerrorArmorRay.DisplayName: Terror Armor Ray
 	BlindeyeBowP.DisplayName: Blindeye Bow P
 	BlindeyeArrow.DisplayName: Blindeye Arrow
+	Starine_Sparkle.DisplayName: Starine Sparkle
 }
 
 NPCs: {
@@ -722,6 +723,15 @@ NPCs: {
 	Hookworm: {
 		DisplayName: Hookworm
 		Bestiary: An abnormal evolution of the giant worm with a gigantic set of mandibles, gotten from crushing the metals of the deep in their jaws. This allows them to tunnel at the same speed, but the lesser nutrients from eating stone has caused their flesh to become stringy and fragile.
+	}
+
+	Starine_Sightseer: {
+		DisplayName: Starine Sightseer
+		Bestiary: Brilliant and peaceful. Hovering around certain spots, they seem to study the environment. Although they may seem helpless, they will defend themselves if necessary.
+	}
+	Starine_Skipper: {
+		DisplayName: Starine Skipper
+		Bestiary: Powered by magic derived from the stars, it uses its well-developed back legs to hop and skip about the night, usually kicking off unsuspecting prey to cripple them.
 	}
 }
 
