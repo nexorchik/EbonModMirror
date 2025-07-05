@@ -11,7 +11,7 @@ public class EbonianGun : ModItem
         Item.width = 72;
         Item.height = 24;
         Item.crit = 15;
-        Item.damage = 33;
+        Item.damage = 44;
         Item.DamageType = DamageClass.Ranged;
         Item.useStyle = ItemUseStyleID.Shoot;
         Item.rare = ItemRarityID.LightRed;

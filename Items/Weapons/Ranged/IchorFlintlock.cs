@@ -11,7 +11,7 @@ public class IchorFlintlock : ModItem
         Item.width = 42;
         Item.height = 24;
         Item.crit = 6;
-        Item.damage = 65;
+        Item.damage = 36;
         Item.DamageType = DamageClass.Ranged;
         Item.useStyle = ItemUseStyleID.Shoot;
         Item.rare = ItemRarityID.LightRed;
@@ -68,7 +68,7 @@ public class IchorFlintlockP : HeldProjectileGun
         Player player = Main.player[Projectile.owner];
 
         Projectile.ai[0]++;
-        if (Projectile.ai[0] == 110)
+        if (Projectile.ai[0] == 38)
         {
             AnimationRotation = -0.3f * player.direction;
             Projectile.UseAmmo(AmmoID.Bullet);
