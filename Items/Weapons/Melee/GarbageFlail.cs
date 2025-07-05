@@ -83,11 +83,8 @@ public class GarbageFlailP : ModProjectile
             Projectile.Kill();
             return;
         }
-        if (player.itemTime < 2)
-        {
-            player.itemTime = 2;
-            player.itemAnimation = 2;
-        }
+        player.itemTime = 2;
+        player.itemAnimation = 2;
         if (player.HeldItem.type != ItemType<GarbageFlail>()) { player.itemTime = 0; player.itemAnimation = 0; Projectile.Kill(); }
         if (SoundEngine.TryGetActiveSound(slot, out var _sound))
         {

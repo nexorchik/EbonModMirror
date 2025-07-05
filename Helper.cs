@@ -17,6 +17,24 @@ public static class Helper
 
     public static int HostileProjDmg(int normal, int expert, int master) => Main.masterMode ? master / 6 : (Main.expertMode ? expert / 4 : normal / 2);
 
+    public static bool UseAmmo(this Projectile projectile, int AmmoType)
+    {
+        bool UsedAnything = false;
+        Player player = Main.player[projectile.owner];
+        for (int j = 0; j < 58; j++)
+        {
+            if (player.inventory[j].ammo == AmmoType && player.inventory[j].stack > 0)
+            {
+                if (player.inventory[j].maxStack > 1)
+                {
+                    player.inventory[j].stack--;
+                    UsedAnything = true;
+                }
+                break;
+            }
+        }
+        return UsedAnything;
+    }
     public static void AddCameraModifier(ICameraModifier modifier)
     {
         if (!Main.dedServ)

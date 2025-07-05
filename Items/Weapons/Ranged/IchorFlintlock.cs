@@ -46,15 +46,12 @@ public class IchorFlintlockP : HeldProjectileGun
     public override bool? CanDamage() => false;
     public override void SetDefaults()
     {
+        base.SetDefaults();
         RotationSpeed = 0.23f;
+        AnimationRotationSpeed = 0.3f;
         ItemType = ItemType<IchorFlintlock>();
         Projectile.aiStyle = -1;
-        Projectile.friendly = true;
-        Projectile.tileCollide = false;
         Projectile.Size = new(42, 24);
-        Projectile.ignoreWater = true;
-        Projectile.penetrate = -1;
-        Projectile.usesLocalNPCImmunity = true;
     }
 
     public override void OnSpawn(IEntitySource source)
@@ -73,15 +70,15 @@ public class IchorFlintlockP : HeldProjectileGun
         Projectile.ai[0]++;
         if (Projectile.ai[0] == 110)
         {
-            AnimationRotation = -0.5f * player.direction;
-            UseAmmo(AmmoID.Bullet);
+            AnimationRotation = -0.3f * player.direction;
+            Projectile.UseAmmo(AmmoID.Bullet);
             SoundEngine.PlaySound(SoundID.Item38.WithPitchOffset(Main.rand.NextFloat(1f, 3f)), player.Center);
             Vector2 SpawnPosition = Projectile.Center + new Vector2(Projectile.rotation.ToRotationVector2().X, Projectile.rotation.ToRotationVector2().Y) * 42 + (Projectile.rotation + 90 * -player.direction).ToRotationVector2() * 12;
             Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * 20, ProjectileType<ToothProj>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             for (int i = 0; i < 7; i++)
                 Dust.NewDustPerfect(SpawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(-PiOver4, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(2, 8), Scale: 1.5f).noGravity = true;
             Projectile.ai[0] = 0;
-            HoldOffset = 0;
+            HoldOffset = 6;
         }
 
         HoldOffset = Lerp(HoldOffset, 27, 0.2f);

@@ -18,17 +18,4 @@ public abstract class HeldProjectileGun : HeldProjectile
 
         AnimationRotation = Lerp(AnimationRotation, 0, AnimationRotationSpeed);
     }
-    public void UseAmmo(int AmmoType)
-    {
-        Player player = Main.player[Projectile.owner];
-        for (int j = 0; j < 58; j++)
-        {
-            if (player.inventory[j].ammo == AmmoType && player.inventory[j].stack > 0)
-            {
-                if (player.inventory[j].maxStack > 1)
-                    player.inventory[j].stack--;
-                break;
-            }
-        }
-    }
 }

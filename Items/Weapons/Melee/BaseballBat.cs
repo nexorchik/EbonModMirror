@@ -147,17 +147,15 @@ public class BaseballBatP : HeldSword
         {
             player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation + Pi);
             player.itemAnimation = 2;
+            player.itemTime = 2;
         }
 
         Projectile.Center = player.MountedCenter;
-
-
-
-        player.itemTime = 2;
-
-        if (player.HeldItem.type != ItemType<BaseballBat>() && !player.active || player.dead || player.CCed || player.noItems)
+        if (player.HeldItem.type != ItemType<BaseballBat>() && !player.active || player.dead || player.CCed || player.noItems || Projectile.Opacity < 0.05f)
         {
             Projectile.Kill();
+            player.itemAnimation = 0;
+            player.itemTime = 0;
         }
     }
     public override bool PreDraw(ref Color lightColor)

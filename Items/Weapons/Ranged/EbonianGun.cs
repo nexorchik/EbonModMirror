@@ -1,4 +1,5 @@
-﻿using EbonianMod.Projectiles.Friendly.Corruption;
+﻿using EbonianMod.Projectiles.Bases;
+using EbonianMod.Projectiles.Friendly.Corruption;
 
 namespace EbonianMod.Items.Weapons.Ranged;
 
@@ -38,7 +39,7 @@ public class EbonianGun : ModItem
         CreateRecipe().AddIngredient(ItemID.ShadowScale, 15).AddIngredient(ItemID.RottenChunk, 20).AddIngredient(ItemID.Musket).AddTile(TileID.Anvils).Register();
     }
 }
-public class EbonianGunP : ModProjectile
+public class EbonianGunP : HeldProjectileGun
 {
     public override string Texture => "EbonianMod/Items/Weapons/Ranged/EbonianGun";
 
@@ -47,14 +48,10 @@ public class EbonianGunP : ModProjectile
 
     public override void SetDefaults()
     {
-        Projectile.aiStyle = -1;
-        Projectile.friendly = true;
-        Projectile.tileCollide = false;
+        base.SetDefaults();
+        ItemType = ItemType<EbonianGun>();
+        RotationSpeed = 0.25f;
         Projectile.Size = new(72, 24);
-        Projectile.ignoreWater = true;
-        Projectile.DamageType = DamageClass.Melee;
-        Projectile.penetrate = -1;
-        HoldOffset = 7;
     }
 
     public override void OnSpawn(IEntitySource source)
@@ -62,60 +59,29 @@ public class EbonianGunP : ModProjectile
         Projectile.rotation = Helper.FromAToB(Main.player[Projectile.owner].Center, Main.MouseWorld).ToRotation();
     }
 
-    float RotationOffset, RotationSpeed = 0.12f, HoldOffset;
+    float HoldOffset;
     public override void AI()
     {
+        base.AI();
+
         Player player = Main.player[Projectile.owner];
 
-        player.itemTime = 2;
-        player.itemAnimation = 2;
-        player.heldProj = Projectile.whoAmI;
-        Projectile.timeLeft = 10;
-        player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - PiOver2);
-        Projectile.Center = player.MountedCenter;
+        HoldOffset = Lerp(HoldOffset, 26, 0.2f);
 
         Projectile.ai[0]++;
         if (Projectile.ai[0] == 30)
         {
-            RotationOffset = 0.22f;
-            for (int j = 0; j < 58; j++)
-            {
-                if (player.inventory[j].ammo == AmmoID.Bullet && player.inventory[j].stack > 0)
-                {
-                    if (player.inventory[j].maxStack > 1)
-                        player.inventory[j].stack--;
-                    break;
-                }
-            }
+            Projectile.UseAmmo(AmmoID.Bullet);
+            AnimationRotation = -0.2f * player.direction;
             SoundEngine.PlaySound(SoundID.Item11.WithPitchOffset(Main.rand.NextFloat(-1f, -0.5f)), player.Center);
             SoundEngine.PlaySound(SoundID.Item17.WithPitchOffset(Main.rand.NextFloat(-0.5f, -0.2f)), player.Center);
             Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Projectile.Center + Projectile.rotation.ToRotationVector2() * 45 + (Projectile.rotation + 90 * -player.direction).ToRotationVector2() * 12, Projectile.rotation.ToRotationVector2() * 10, ProjectileType<CorruptionHitscan>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+            HoldOffset = 6;
+            Projectile.ai[0] = 0;
         }
-        if (Projectile.ai[0] > 30)
-        {
-            RotationOffset -= RotationSpeed;
-            RotationSpeed += 0.12f;
-            HoldOffset = Lerp(HoldOffset, 16, 0.4f);
-            if (RotationOffset <= 0)
-            {
-                RotationSpeed = 0.12f;
-                RotationOffset = 0;
-                Projectile.ai[0] = 0;
-            }
-        }
-        else
-            HoldOffset = Lerp(HoldOffset, 26, 0.2f);
 
-        Projectile.rotation = Utils.AngleLerp(Projectile.rotation, Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation(), 0.25f) - RotationOffset * player.direction;
-
-
-
-        if (!player.active || player.HeldItem.type != ItemType<EbonianGun>() || player.dead || player.CCed || player.noItems || player.channel == false)
-        {
+        if (!player.channel)
             Projectile.Kill();
-            return;
-        }
-        player.direction = player.Center.X < Main.MouseWorld.X ? 1 : -1;
     }
     public override bool PreDraw(ref Color lightColor)
     {

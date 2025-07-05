@@ -356,6 +356,9 @@ Projectiles: {
 	BlindeyeBowP.DisplayName: Blindeye Bow P
 	BlindeyeArrow.DisplayName: Blindeye Arrow
 	Starine_Sparkle.DisplayName: Starine Sparkle
+	LatcherGraphics.DisplayName: Latcher Graphics
+	BallLauncherPrimary.DisplayName: Ball Launcher Primary
+	SpudCannonP.DisplayName: Spud Cannon P
 }
 
 NPCs: {

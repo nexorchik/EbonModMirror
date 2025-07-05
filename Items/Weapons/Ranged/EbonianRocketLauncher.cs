@@ -45,6 +45,7 @@ public class EbonianRocketLauncherGraphics : HeldProjectileGun
     public override string Texture => "EbonianMod/Items/Weapons/Ranged/EbonianRocketLauncher";
     public override void SetDefaults()
     {
+        base.SetDefaults();
         ItemType = ItemType<EbonianRocketLauncher>();
         RotationSpeed = 0.25f;
         Projectile.Size = new(50, 40);
@@ -87,7 +88,7 @@ public class EbonianRocketLauncherGraphics : HeldProjectileGun
     void Shoot()
     {
         Player player = Main.player[Projectile.owner];
-        UseAmmo(AmmoID.Rocket);
+        Projectile.UseAmmo(AmmoID.Rocket);
         SoundEngine.PlaySound(SoundID.NPCDeath13.WithPitchOffset(Main.rand.NextFloat(-1, -0.5f)), Projectile.Center);
         HoldOffset = 5;
         Vector2 SpawnPosition = Projectile.Center + new Vector2(Projectile.rotation.ToRotationVector2().X, Projectile.rotation.ToRotationVector2().Y) * 42 + (Projectile.rotation + 90 * -Main.player[Projectile.owner].direction).ToRotationVector2() * 20;

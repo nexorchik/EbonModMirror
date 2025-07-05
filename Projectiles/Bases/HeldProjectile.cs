@@ -19,7 +19,7 @@ public abstract class HeldProjectile : ModProjectile
         player.itemTime = 2;
         player.itemAnimation = 2;
         if (Projectile.timeLeft == 0)
-            Projectile.timeLeft = 10;
+            Projectile.timeLeft = 100;
 
         if (!player.active || player.dead || player.CCed || player.HeldItem.type != ItemType)
             Projectile.Kill();

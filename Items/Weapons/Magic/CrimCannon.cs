@@ -64,11 +64,9 @@ public class CrimCannonGraphics : HeldProjectileGun
 
         Player player = Main.player[Projectile.owner];
 
-        Projectile.ai[0]++;
-
         Scale = Vector2.Lerp(Scale, new Vector2(1, 1), 0.14f);
 
-        if (Projectile.ai[0] > 20)
+        if (Projectile.ai[0]++ > 14)
         {
             Projectile.frameCounter--;
             if (Projectile.frameCounter <= 0)
