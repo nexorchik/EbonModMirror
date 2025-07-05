@@ -64,7 +64,7 @@ public class LatcherP : ModProjectile
         {
             Speed *= 1.08f;
             Speed = Clamp(Speed, 0, 23);
-            Projectile.timeLeft = 2;
+            Projectile.timeLeft = 10;
             player.velocity += Helper.FromAToB(player.Center, Projectile.Center, true) * Speed;
             Projectile.Center = Target.Center + PositionOffset;
             if (Vector2.Distance(player.Center, Target.Center) < 100)
@@ -80,20 +80,14 @@ public class LatcherP : ModProjectile
                 Projectile.Kill();
             }
             if (Target.life <= 0)
-            {
                 Projectile.Kill();
-            }
         }
         else if (Projectile.ai[0] > 10)
         {
             Projectile.ai[1]++;
-            Projectile.velocity *= 0.97f;
-            if (Projectile.ai[0] > 40)
-                Projectile.Center = Vector2.Lerp(Projectile.Center, player.Center, 0.3f);
-            if (Vector2.Distance(player.Center, Projectile.Center) < 100)
-            {
+            Projectile.Center += Helper.FromAToB(Projectile.Center, player.Center) * Projectile.ai[1]*3;
+            if (Vector2.Distance(player.Center, Projectile.Center) < 35)
                 Projectile.Kill();
-            }
         }
     }
     public override bool PreDraw(ref Color lightColor)

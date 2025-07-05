@@ -1,4 +1,5 @@
 ﻿
+using EbonianMod.Projectiles.Bases;
 using EbonianMod.Projectiles.Friendly.Underworld;
 
 namespace EbonianMod.Items.Weapons.Ranged;
@@ -37,7 +38,7 @@ public class Corebreaker : ModItem
         return false;
     }
 }
-public class CorebreakerGraphics : ModProjectile
+public class CorebreakerGraphics : HeldProjectileGun
 {
     public override string Texture => "EbonianMod/Items/Weapons/Ranged/Corebreaker";
 
@@ -45,15 +46,11 @@ public class CorebreakerGraphics : ModProjectile
 
     public override void SetDefaults()
     {
-        Projectile.aiStyle = -1;
-        Projectile.friendly = true;
-        Projectile.tileCollide = false;
+        base.SetDefaults();
+        ItemType = ItemType<Corebreaker>();
+        RotationSpeed = 0.25f;
         Projectile.width = 62;
         Projectile.height = 38;
-        Projectile.ignoreWater = true;
-        Projectile.DamageType = DamageClass.Melee;
-        Projectile.penetrate = -1;
-        Projectile.usesLocalNPCImmunity = true;
     }
 
     public override void OnSpawn(IEntitySource source)
@@ -62,20 +59,14 @@ public class CorebreakerGraphics : ModProjectile
         Projectile.ai[1] = 40;
         Projectile.ai[0] = 50;
     }
-
-    float RotationOffset, RotationSpeed, HoldOffset;
     bool AltAttack = true;
+    float HoldOffset;
 
     public override void AI()
     {
+        base.AI();
+
         Player player = Main.player[Projectile.owner];
-
-        player.itemTime = 2;
-        player.itemAnimation = 2;
-        Projectile.timeLeft = 10;
-        player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - PiOver2);
-        Projectile.Center = player.Center;
-
         HoldOffset = Lerp(HoldOffset, 24, 0.13f);
         if (!AltAttack)
         {
@@ -86,25 +77,13 @@ public class CorebreakerGraphics : ModProjectile
                 SoundEngine.PlaySound(SoundID.Item40.WithPitchOffset(Main.rand.NextFloat(-4f, -2f)), player.Center);
                 SoundEngine.PlaySound(SoundID.Item38.WithPitchOffset(Main.rand.NextFloat(-0.8f, -0.4f)), player.Center);
                 for (int i = 0; i < 30; i++)
-                {
                     Dust.NewDustPerfect(SpawnPosition, DustID.Torch, (Projectile.rotation + Main.rand.NextFloat(-PiOver4, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(0.3f, 8), Scale: Main.rand.NextFloat(1f, 4f)).noGravity = true;
-                }
                 MPUtils.NewProjectile(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * Vector2.Distance(Main.MouseWorld, Projectile.Center) / 35, ProjectileType<CorebreakerP>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                AnimationRotation = -0.4f * player.direction;
+                HoldOffset = 0;
+                Projectile.ai[0] = 0;
             }
-            if (Projectile.ai[0] > 120)
-            {
-                RotationOffset += 0.8f;
-                RotationSpeed += 0.4f;
-                RotationOffset = Lerp(RotationOffset, 0, RotationSpeed);
-                HoldOffset = Lerp(HoldOffset, 0, 0.5f);
-                if (RotationOffset <= 0.1f)
-                {
-                    RotationSpeed = 0;
-                    RotationOffset = 0;
-                    Projectile.ai[0] = 30;
-                }
-            }
-            if (RotationOffset <= 0.1f && Main.mouseRight && Main.myPlayer == Projectile.owner)
+            if (Main.mouseRight && Main.myPlayer == Projectile.owner)
             {
                 HoldOffset = 0;
                 Vector2 SpawnPosition = Projectile.Center + new Vector2(Projectile.rotation.ToRotationVector2().X, Projectile.rotation.ToRotationVector2().Y) * 45;
@@ -122,22 +101,16 @@ public class CorebreakerGraphics : ModProjectile
         else
         {
             Projectile.ai[1]++;
-            if (Projectile.ai[1] >= 30)
+            if (Projectile.ai[1] >= 60)
             {
                 AltAttack = false;
                 Projectile.ai[1] = 0;
             }
         }
-
-        Projectile.rotation = Utils.AngleLerp(Projectile.rotation, Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation(), 0.25f) - RotationOffset * player.direction;
-
-        if (!player.active || player.HeldItem.type != ItemType<Corebreaker>() || player.dead || player.CCed || player.noItems || !player.channel)
-        {
+        if (!Main.player[Projectile.owner].channel)
             Projectile.Kill();
-            return;
-        }
-        player.direction = player.Center.X < Main.MouseWorld.X ? 1 : -1;
     }
+
     public override bool PreDraw(ref Color lightColor)
     {
         Player player = Main.player[Projectile.owner];

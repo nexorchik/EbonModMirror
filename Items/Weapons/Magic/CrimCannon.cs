@@ -1,3 +1,4 @@
+using EbonianMod.Projectiles.Bases;
 using EbonianMod.Projectiles.Friendly.Crimson;
 
 namespace EbonianMod.Items.Weapons.Magic;
@@ -33,7 +34,7 @@ public class CrimCannon : ModItem
     }
 }
 
-public class CrimCannonGraphics : ModProjectile
+public class CrimCannonGraphics : HeldProjectileGun
 {
     public override string Texture => "EbonianMod/Items/Weapons/Magic/CrimCannonReload";
 
@@ -51,34 +52,22 @@ public class CrimCannonGraphics : ModProjectile
 
     public override void SetDefaults()
     {
-        Projectile.friendly = true;
-        Projectile.tileCollide = false;
-        Projectile.ignoreWater = true;
-        Projectile.DamageType = DamageClass.Magic;
-        Projectile.penetrate = -1;
-        Projectile.usesLocalNPCImmunity = true;
+        base.SetDefaults();
+        ItemType = ItemType<CrimCannon>();
+        RotationSpeed = 0.08f;
         Projectile.Size = new Vector2(56, 38);
     }
 
     public override void AI()
     {
-        Projectile.ai[0]++;
+        base.AI();
+
         Player player = Main.player[Projectile.owner];
-        if (!player.active || player.HeldItem.type != ItemType<CrimCannon>() || player.dead || player.CCed || player.noItems || player.channel == false)
-        {
-            Projectile.Kill();
-            return;
-        }
-        Projectile.timeLeft = 10;
-        Projectile.Center = player.MountedCenter;
+
+        Projectile.ai[0]++;
 
         Scale = Vector2.Lerp(Scale, new Vector2(1, 1), 0.14f);
 
-        Projectile.rotation = Utils.AngleLerp(Projectile.rotation, Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation(), 0.08f);
-
-        player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - PiOver2);
-        player.itemTime = 2;
-        player.itemAnimation = 2;
         if (Projectile.ai[0] > 20)
         {
             Projectile.frameCounter--;
@@ -102,8 +91,8 @@ public class CrimCannonGraphics : ModProjectile
                 }
             }
         }
-
-        player.direction = player.Center.X < Main.MouseWorld.X ? 1 : -1;
+        if (!Main.player[Projectile.owner].channel)
+            Projectile.Kill();
     }
     public override bool PreDraw(ref Color lightColor)
     {

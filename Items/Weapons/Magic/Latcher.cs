@@ -1,4 +1,5 @@
-﻿using EbonianMod.Projectiles.Friendly.Crimson;
+﻿using EbonianMod.Projectiles.Bases;
+using EbonianMod.Projectiles.Friendly.Crimson;
 
 namespace EbonianMod.Items.Weapons.Magic;
 
@@ -11,7 +12,7 @@ public class Latcher : ModItem
         Item.useTime = 1;
         Item.mana = 1;
         Item.useAnimation = 100;
-        Item.shoot = ProjectileType<LatcherSprite>();
+        Item.shoot = ProjectileType<LatcherGraphics>();
         Item.shootSpeed = 1f;
         Item.rare = ItemRarityID.Green;
         Item.useStyle = 5;
@@ -27,7 +28,7 @@ public class Latcher : ModItem
     }
     public override bool CanUseItem(Player player)
     {
-        return player.ownedProjectileCounts[ProjectileType<LatcherP>()] < 1;
+        return player.ownedProjectileCounts[ProjectileType<Projectiles.Friendly.Crimson.LatcherP>()] < 1;
     }
     public override bool? CanAutoReuseItem(Player player) => false;
 
@@ -38,12 +39,11 @@ public class Latcher : ModItem
         return false;
     }
 }
-public class LatcherSprite : ModProjectile
+public class LatcherGraphics : HeldProjectileGun
 {
     public override string Texture => "EbonianMod/Items/Weapons/Magic/Latcher";
 
     Vector2 Scale = new Vector2(0, 0);
-
     public override void OnSpawn(IEntitySource source)
     {
         Player player = Main.player[Projectile.owner];
@@ -54,12 +54,8 @@ public class LatcherSprite : ModProjectile
 
     public override void SetDefaults()
     {
-        Projectile.friendly = true;
-        Projectile.tileCollide = false;
-        Projectile.ignoreWater = true;
-        Projectile.DamageType = DamageClass.Magic;
-        Projectile.penetrate = -1;
-        Projectile.usesLocalNPCImmunity = true;
+        base.SetDefaults();
+        ItemType = ItemType<Latcher>();
         Projectile.Size = new Vector2(60, 38);
     }
 
@@ -67,38 +63,27 @@ public class LatcherSprite : ModProjectile
 
     public override void AI()
     {
-        Scale = Vector2.Lerp(Scale, new Vector2(1, 1), 0.14f);
+        base.AI();
 
         Player player = Main.player[Projectile.owner];
-        player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - PiOver2);
-        if (player.itemTime < 2)
-        {
-            player.itemTime = 2;
-            player.itemAnimation = 2;
-        }
-        Projectile.timeLeft = 10;
-        Projectile.Center = player.MountedCenter;
 
-        if ((player.ownedProjectileCounts[ProjectileType<LatcherP>()] < 1 && !CanShoot) || !player.active || player.dead || player.CCed || player.noItems)
-        {
+        if (player.ownedProjectileCounts[ProjectileType<LatcherP>()] < 1 && !CanShoot)
             Projectile.Kill();
-        }
 
+        Projectile.ai[0]++;
         if (!CanShoot)
-        {
-            Projectile.rotation = Utils.AngleLerp(Projectile.rotation, Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation(), 0.02f);
-        }
+            RotationSpeed = 0.02f;
         else
         {
-            Projectile.rotation = Utils.AngleLerp(Projectile.rotation, Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation(), 0.08f);
-            if (!player.channel && Projectile.ai[0]++ > 40)
+            RotationSpeed = 0.08f;
+            if (!player.channel && Projectile.ai[0] > 40)
             {
                 CanShoot = false;
                 Scale = new Vector2(0.65f, 1.6f);
-                Projectile.NewProjectile(Projectile.InheritSource(Projectile), new Vector2(Projectile.Center.X, Projectile.Center.Y) + Projectile.rotation.ToRotationVector2() * 30, Projectile.rotation.ToRotationVector2() * 37, ProjectileType<LatcherP>(), 1, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center + Projectile.rotation.ToRotationVector2() * 30, Projectile.rotation.ToRotationVector2() * 37, ProjectileType<Projectiles.Friendly.Crimson.LatcherP>(), 1, Projectile.knockBack, Projectile.owner);
             }
         }
-        player.direction = player.Center.X - Main.MouseWorld.X < 0 ? 1 : -1;
+        Scale = Vector2.Lerp(Scale, new Vector2(1, 1), 0.14f);
     }
     public override bool PreDraw(ref Color lightColor)
     {

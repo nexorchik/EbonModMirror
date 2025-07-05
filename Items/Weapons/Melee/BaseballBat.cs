@@ -40,14 +40,7 @@ public class BaseballBat : ModItem
 
     public override bool CanUseItem(Player player)
     {
-        if (player.altFunctionUse == 2)
-        {
-            Item.shoot = ProjectileType<Ball>();
-        }
-        else
-        {
-            Item.shoot = ProjectileType<BaseballBatP>();
-        }
+        Item.shoot = player.altFunctionUse == 2 ? ProjectileType<Ball>() : ProjectileType<BaseballBatP>();
         return Item.shoot == ProjectileType<BaseballBatP>()
             || (Item.shoot == ProjectileType<Ball>()
             && player.ownedProjectileCounts[ProjectileType<Ball>()] < 4);

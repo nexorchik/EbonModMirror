@@ -1,4 +1,5 @@
-﻿using EbonianMod.Projectiles.Friendly.Crimson;
+﻿using EbonianMod.Projectiles.Bases;
+using EbonianMod.Projectiles.Friendly.Crimson;
 
 namespace EbonianMod.Items.Weapons.Ranged;
 
@@ -10,7 +11,7 @@ public class IchorFlintlock : ModItem
         Item.width = 42;
         Item.height = 24;
         Item.crit = 6;
-        Item.damage = 45;
+        Item.damage = 65;
         Item.DamageType = DamageClass.Ranged;
         Item.useStyle = ItemUseStyleID.Shoot;
         Item.rare = ItemRarityID.LightRed;
@@ -37,16 +38,16 @@ public class IchorFlintlock : ModItem
     {
         CreateRecipe().AddIngredient(ItemID.TheUndertaker).AddIngredient(ItemID.TissueSample, 20).AddIngredient(ItemID.Vertebrae, 15).AddTile(TileID.Anvils).Register();
     }
+    public override bool CanConsumeAmmo(Item ammo, Player player) => false;
 }
-public class IchorFlintlockP : ModProjectile
+public class IchorFlintlockP : HeldProjectileGun
 {
     public override string Texture => "EbonianMod/Items/Weapons/Ranged/IchorFlintlock";
-
     public override bool? CanDamage() => false;
-
-
     public override void SetDefaults()
     {
+        RotationSpeed = 0.23f;
+        ItemType = ItemType<IchorFlintlock>();
         Projectile.aiStyle = -1;
         Projectile.friendly = true;
         Projectile.tileCollide = false;
@@ -61,64 +62,31 @@ public class IchorFlintlockP : ModProjectile
         Projectile.rotation = Helper.FromAToB(Main.player[Projectile.owner].Center, Main.MouseWorld).ToRotation();
     }
 
-    float RotationOffset, RotationSpeed = 0.2f, HoldOffset;
+    float HoldOffset;
 
     public override void AI()
     {
+        base.AI();
+
         Player player = Main.player[Projectile.owner];
 
-        player.itemTime = 2;
-        player.itemAnimation = 2;
-        Projectile.timeLeft = 10;
-        player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - PiOver2);
-        Projectile.Center = player.MountedCenter;
-
         Projectile.ai[0]++;
-        if (Projectile.ai[0] == 80)
+        if (Projectile.ai[0] == 110)
         {
-            RotationOffset = 0.5f;
-            for (int j = 0; j < 58; j++)
-            {
-                if (player.inventory[j].ammo == AmmoID.Bullet && player.inventory[j].stack > 0)
-                {
-                    if (player.inventory[j].maxStack > 1)
-                        player.inventory[j].stack--;
-                    break;
-                }
-            }
+            AnimationRotation = -0.5f * player.direction;
+            UseAmmo(AmmoID.Bullet);
             SoundEngine.PlaySound(SoundID.Item38.WithPitchOffset(Main.rand.NextFloat(1f, 3f)), player.Center);
             Vector2 SpawnPosition = Projectile.Center + new Vector2(Projectile.rotation.ToRotationVector2().X, Projectile.rotation.ToRotationVector2().Y) * 42 + (Projectile.rotation + 90 * -player.direction).ToRotationVector2() * 12;
             Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * 20, ProjectileType<ToothProj>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             for (int i = 0; i < 7; i++)
-            {
                 Dust.NewDustPerfect(SpawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(-PiOver4, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(2, 8), Scale: 1.5f).noGravity = true;
-            }
+            Projectile.ai[0] = 0;
+            HoldOffset = 0;
         }
-        if (Projectile.ai[0] > 80)
-        {
-            RotationOffset -= RotationSpeed;
-            RotationSpeed += 0.07f;
-            HoldOffset = Lerp(HoldOffset, 12, 0.4f);
-            if (RotationOffset <= 0)
-            {
-                RotationSpeed = 0.2f;
-                RotationOffset = 0;
-                Projectile.ai[0] = 0;
-            }
-        }
-        else
-            HoldOffset = Lerp(HoldOffset, 27, 0.2f);
 
-        Projectile.rotation = Utils.AngleLerp(Projectile.rotation, Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation(), 0.25f) - RotationOffset * player.direction;
-
-
-
-        if (!player.active || player.HeldItem.type != ItemType<IchorFlintlock>() || player.dead || player.CCed || player.noItems || player.channel == false)
-        {
+        HoldOffset = Lerp(HoldOffset, 27, 0.2f);
+        if (!Main.player[Projectile.owner].channel)
             Projectile.Kill();
-            return;
-        }
-        player.direction = player.Center.X < Main.MouseWorld.X ? 1 : -1;
     }
     public override bool PreDraw(ref Color lightColor)
     {

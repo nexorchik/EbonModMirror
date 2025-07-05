@@ -79,11 +79,10 @@ public abstract class HeldSword : ModProjectile
         {
             return;
         }
-        if (player.itemTime < 2)
-        {
-            player.itemTime = 2;
-            player.itemAnimation = 2;
-        }
+
+        player.itemTime = 2;
+        player.itemAnimation = 2;
+
         if (Projectile.ai[2] != 0)
         {
             ExtraAI();

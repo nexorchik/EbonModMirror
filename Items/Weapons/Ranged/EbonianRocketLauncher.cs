@@ -1,4 +1,5 @@
 ﻿using EbonianMod.Items.Materials;
+using EbonianMod.Projectiles.Bases;
 using EbonianMod.Projectiles.Friendly.Corruption;
 
 namespace EbonianMod.Items.Weapons.Ranged;
@@ -36,7 +37,7 @@ public class EbonianRocketLauncher : ModItem
     }
 }
 
-public class EbonianRocketLauncherGraphics : ModProjectile
+public class EbonianRocketLauncherGraphics : HeldProjectileGun
 {
     float HoldOffset;
     Vector2 Scale = new Vector2(0.2f, 0.4f);
@@ -44,13 +45,9 @@ public class EbonianRocketLauncherGraphics : ModProjectile
     public override string Texture => "EbonianMod/Items/Weapons/Ranged/EbonianRocketLauncher";
     public override void SetDefaults()
     {
-        Projectile.aiStyle = -1;
-        Projectile.friendly = true;
-        Projectile.tileCollide = false;
-        Projectile.ignoreWater = true;
+        ItemType = ItemType<EbonianRocketLauncher>();
+        RotationSpeed = 0.25f;
         Projectile.Size = new(50, 40);
-        Projectile.DamageType = DamageClass.Ranged;
-        Projectile.penetrate = -1;
     }
 
     public override void OnSpawn(IEntitySource source)
@@ -60,18 +57,10 @@ public class EbonianRocketLauncherGraphics : ModProjectile
 
     public override void AI()
     {
+        base.AI();
         Player player = Main.player[Projectile.owner];
 
         Scale = Vector2.Lerp(Scale, new Vector2(1, 1), 0.14f);
-
-        player.itemTime = 2;
-        player.itemAnimation = 2;
-        Projectile.timeLeft = 10;
-
-        player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - PiOver2);
-        Projectile.Center = player.MountedCenter;
-
-        Projectile.rotation = Utils.AngleLerp(Projectile.rotation, Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation(), 0.25f);
 
         HoldOffset = Lerp(HoldOffset, 24, 0.1f);
 
@@ -92,28 +81,13 @@ public class EbonianRocketLauncherGraphics : ModProjectile
                 Projectile.ai[1]--;
             }
         }
-
-        player.direction = player.Center.X < Main.MouseWorld.X ? 1 : -1;
-
-        if (!player.active || player.HeldItem.type != ItemType<EbonianRocketLauncher>() || player.dead || player.CCed || player.noItems || player.channel == false)
-        {
+        if (!Main.player[Projectile.owner].channel)
             Projectile.Kill();
-            return;
-        }
     }
-
     void Shoot()
     {
         Player player = Main.player[Projectile.owner];
-        for (int j = 0; j < 58; j++)
-        {
-            if (player.inventory[j].ammo == AmmoID.Rocket && player.inventory[j].stack > 0)
-            {
-                if (player.inventory[j].maxStack > 1)
-                    player.inventory[j].stack--;
-                break;
-            }
-        }
+        UseAmmo(AmmoID.Rocket);
         SoundEngine.PlaySound(SoundID.NPCDeath13.WithPitchOffset(Main.rand.NextFloat(-1, -0.5f)), Projectile.Center);
         HoldOffset = 5;
         Vector2 SpawnPosition = Projectile.Center + new Vector2(Projectile.rotation.ToRotationVector2().X, Projectile.rotation.ToRotationVector2().Y) * 42 + (Projectile.rotation + 90 * -Main.player[Projectile.owner].direction).ToRotationVector2() * 20;

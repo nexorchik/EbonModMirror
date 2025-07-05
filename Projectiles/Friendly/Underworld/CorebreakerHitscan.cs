@@ -38,9 +38,8 @@ public class CorebreakerHitscan : ModProjectile
                 if (Projectile.Distance(projectile.Center) < 45)
                 {
                     projectile.Kill();
-                    Projectile CurrentProjectile = Projectile.NewProjectileDirect(NPC.InheritSource(Projectile), Projectile.Center, Vector2.Zero,
-                        ProjectileType<FlameExplosionWSprite>(), Projectile.damage * 5, 0);
-                    CurrentProjectile.scale *= 2;
+                    Projectile CurrentProjectile = Projectile.NewProjectileDirect(NPC.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<FlameExplosionWSprite>(), Projectile.damage * 5, 0);
+                    CurrentProjectile.scale *= 1.6f;
                     CurrentProjectile.CritChance = 100;
                     CurrentProjectile.friendly = true;
                     CurrentProjectile.hostile = false;

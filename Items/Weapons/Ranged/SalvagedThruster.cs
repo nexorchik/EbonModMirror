@@ -5,7 +5,7 @@ public class SalvagedThruster : ModItem
     public override void SetDefaults()
     {
         Item.DamageType = DamageClass.Ranged;
-        Item.damage = 12;
+        Item.damage = 5;
         Item.knockBack = 0;
         Item.useTime = 5;
         Item.useAnimation = 5;
@@ -45,7 +45,7 @@ public class SalvagedThrusterP : ModProjectile
         Projectile.DamageType = DamageClass.Ranged;
         Projectile.penetrate = -1;
         Projectile.usesLocalNPCImmunity = true;
-        Projectile.localNPCHitCooldown = 25;
+        Projectile.localNPCHitCooldown = 5;
         Projectile.Size = new Vector2(44, 28);
     }
     public override void SetStaticDefaults()
@@ -67,29 +67,16 @@ public class SalvagedThrusterP : ModProjectile
     }
     public override void AI()
     {
-
         Player player = Main.player[Projectile.owner];
-        if (!player.active || player.dead || player.CCed || player.noItems || !player.channel || !player.channel)
-        {
+
+        if (!player.active || player.dead || player.CCed|| !player.channel || !player.channel || player.HeldItem.type != ItemType<SalvagedThruster>())
             Projectile.Kill();
-            return;
-        }
-        if (player.itemTime < 2)
-        {
-            player.itemTime = 2;
-            player.itemAnimation = 2;
-        }
-        if (player.HeldItem.type != ItemType<SalvagedThruster>()) { player.itemTime = 0; player.itemAnimation = 0; Projectile.Kill(); }
-        if (Projectile.frame == 1)
-            for (float j = 1; j < Projectile.oldPos.Length; j++)
-                for (float i = 0; i < 1; i += (j == 1 ? 0.15f : 0.05f))
-                {
-                    for (float k = 0; k < 1; k += (j == 1 ? 1 : 0.5f))
-                    {
-                        Vector2 vel = Vector2.Lerp(Projectile.oldRot[(int)j - 1].ToRotationVector2(), Projectile.oldRot[(int)j].ToRotationVector2(), k);
-                        Dust.NewDustPerfect(Projectile.Center - new Vector2(0, 2 * Projectile.direction).RotatedBy(Projectile.rotation) + player.velocity + Main.rand.NextVector2Circular(5 + 10 * i * 1.5f, 5 + 10 * i * 1.5f) + vel * Lerp(Projectile.width / 2, Helper.TRay.CastLength(Projectile.Center, Projectile.velocity, 200), i), DustID.Torch, vel.RotatedByRandom(PiOver4 * Clamp(i * 2, 0.8f, 2) + PiOver4 * i) * Main.rand.NextFloat(2, 7) + player.velocity * 0.1f, Scale: Main.rand.NextFloat(2, 3) * Clamp(k, 0.75f, 1) * (j == 1 ? 0.75f : 1) + i).noGravity = j != 1;
-                    }
-                }
+
+        player.itemTime = 2;
+        player.itemAnimation = 2;
+
+        for(int i = 0; i < 6; i++)
+            Dust.NewDustPerfect(Projectile.Center, DustID.Torch, (Main.rand.NextFloat(0, Pi * 2)).ToRotationVector2() * Main.rand.NextFloat(0.7f, 2f), Scale: Main.rand.NextFloat(0.7f, 1.3f));
 
         Projectile.timeLeft = 10;
         Projectile.direction = Projectile.velocity.X > 0 ? 1 : -1;
@@ -129,8 +116,6 @@ public class SalvagedThrusterP : ModProjectile
                 Projectile.frame = 1;
 
             SoundEngine.PlaySound(SoundID.Item34, Projectile.Center);
-            Dust.NewDustPerfect(pos + Projectile.velocity * Main.rand.NextFloat(50), DustID.Torch, Projectile.velocity.RotatedByRandom(PiOver4 * 0.4f) * Main.rand.NextFloat(5, 10));
-
         }
     }
     public override bool PreDraw(ref Color lightColor)
