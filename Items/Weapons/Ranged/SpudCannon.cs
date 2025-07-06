@@ -13,6 +13,7 @@ public class SpudCannon : ModItem
         Item.DamageType = DamageClass.Ranged;
         Item.useStyle = ItemUseStyleID.Shoot;
         Item.rare = ItemRarityID.Blue;
+        Item.knockBack = 5;
         Item.damage = 13;
         Item.useTime = 40;
         Item.useAnimation = 40;
@@ -65,21 +66,21 @@ public class SpudCannon : ModItem
 
             Scale = Vector2.Lerp(Scale, Vector2.One, 0.21f);
 
-            if (player.channel || Projectile.ai[0] < 0.4f)
+            if (player.channel || Projectile.ai[0] < 14)
             {
-                if (Projectile.ai[0] < 100)
+                if (Projectile.ai[0] < 70)
                     Projectile.ai[0]++;
-                if(Projectile.ai[0] == 99)
+                if(Projectile.ai[0] == 69)
                     Projectile.ai[1] = 0.7f;
-                Charge = Projectile.ai[0] / 50;
+                Charge = Projectile.ai[0] / 35;
                 if (Projectile.timeLeft % 2 == 0)
-                    SoundEngine.PlaySound(SoundID.Item98.WithPitchOffset(Main.rand.NextFloat(Charge - 4, Charge - 3)) with { Volume = Charge/10 }, player.Center);
+                    SoundEngine.PlaySound(SoundID.Item98.WithPitchOffset(Main.rand.NextFloat(Charge - 4, Charge - 3)) with { Volume = Charge / 10 }, player.Center);
                 Projectile.Center = player.MountedCenter + PositionOffset + new Vector2(Main.rand.NextFloat(-Charge, Charge), Main.rand.NextFloat(-Charge, Charge));
             }
             else
             {
                 Projectile.Center = player.MountedCenter + PositionOffset;
-                if (Projectile.ai[0] != 3)
+                if (Projectile.ai[0] != 105)
                 {
                     Projectile.UseAmmo(ItemType<Potato>());
 
@@ -91,7 +92,7 @@ public class SpudCannon : ModItem
                     for (int i = 0; i < Clamp(10 * Charge, 8, 100); i++)
                         Dust.NewDustPerfect(SpawnPosition, DustID.Smoke, (Projectile.rotation + Main.rand.NextFloat(-Pi / (Charge * 6), Pi / (Charge * 6))).ToRotationVector2() * Main.rand.NextFloat(0, 8) * Charge, Scale: 1.5f).noGravity = true;
 
-                    Projectile CurrentProjectile = Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * Charge * 8, ProjectileType<PotatoP>(), (int)(Projectile.damage * MathF.Sqrt(Charge*7f)), Projectile.knockBack, Projectile.owner);
+                    Projectile CurrentProjectile = Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * Charge * 8, ProjectileType<PotatoP>(), (int)(Projectile.damage * MathF.Sqrt(Charge * 4.1f)), Projectile.knockBack * Charge, Projectile.owner);
                     if (Charge == 2)
                     {
                         SoundEngine.PlaySound(SoundID.Item40.WithPitchOffset(Main.rand.NextFloat(0.5f, 1)) with { Volume = 0.8f }, player.Center);
@@ -101,7 +102,7 @@ public class SpudCannon : ModItem
                     }
 
                     Scale = new Vector2(1 - Charge / 5, 1 + Charge * 0.4f);
-                    Projectile.ai[0] = 3;
+                    Projectile.ai[0] = 105;
                 }
                 if(Scale.Length() < 1.416f)
                     Projectile.Kill();
@@ -118,7 +119,7 @@ public class SpudCannon : ModItem
         {
             Player player = Main.player[Projectile.owner];
             Rectangle frameRect = new Rectangle(0, 0, Projectile.width, Projectile.height);
-            ColorModifier = Charge != 3 ? 1 - Charge / 7 : Lerp(ColorModifier, 1, 0.1f);
+            ColorModifier = Projectile.ai[0] == 105 ? Lerp(ColorModifier, 1, 0.03f) : 1 - Charge / 7;
             Main.EntitySpriteDraw(Helper.GetTexture("Items/Weapons/Ranged/SpudCannon").Value, Projectile.Center - Main.screenPosition, frameRect, new Color(1, ColorModifier, ColorModifier, 1), Projectile.rotation, new Vector2(Projectile.width / 2 - 25, Projectile.height / 2 - 2 * player.direction), Scale, player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
             Main.EntitySpriteDraw(Helper.GetTexture("Items/Weapons/Ranged/SpudCannonFlash").Value, Projectile.Center + new Vector2(25, 0).RotatedBy(Projectile.rotation) - Main.screenPosition, frameRect, lightColor * Projectile.ai[1], Projectile.rotation, new Vector2(Projectile.width / 2, Projectile.height / 2), new Vector2(Projectile.ai[2], Projectile.ai[2]*1.2f) * Scale, player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
             return false;

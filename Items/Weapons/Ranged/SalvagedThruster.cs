@@ -7,7 +7,7 @@ public class SalvagedThruster : ModItem
     public override void SetDefaults()
     {
         Item.DamageType = DamageClass.Ranged;
-        Item.damage = 12;
+        Item.damage = 4;
         Item.shoot = ProjectileType<SalvagedThrusterP>();
         Item.shootSpeed = 1f;
         Item.rare = ItemRarityID.Green;
@@ -39,8 +39,9 @@ public class SalvagedThrusterP : HeldProjectileGun
         Projectile.Size = new Vector2(44, 30);
         Projectile.penetrate = -1;
         Projectile.usesLocalNPCImmunity = true;
-        Projectile.localNPCHitCooldown = 6;
+        Projectile.localNPCHitCooldown = 4;
         Projectile.frame = 0;
+        Projectile.ArmorPenetration = 100;
     }
 
     public override void OnSpawn(IEntitySource source)
@@ -83,12 +84,9 @@ public class SalvagedThrusterP : HeldProjectileGun
             RayLength = Helper.TRay.CastLength(Projectile.Center, Projectile.rotation.ToRotationVector2(), Charge);
             Dust.NewDustPerfect(Projectile.Center + Projectile.rotation.ToRotationVector2() * 47, DustID.Smoke, (Projectile.rotation).ToRotationVector2().RotatedByRandom(Pi / 4) * Main.rand.NextFloat(0.1f, 2), Scale: Main.rand.NextFloat(1.1f, 2));
             for (int i = 0; i < Charge / 12; i++)
-                for (int u = 0; u < i / 3 + 1; u++)
-                    Dust.NewDustPerfect(player.MountedCenter + Projectile.rotation.ToRotationVector2() * (47 + ((RayLength - 47) / 20) * i), DustID.Torch, (Main.rand.NextFloat(0, Pi * 2)).ToRotationVector2() * Main.rand.NextFloat(1f, 2f) * Clamp(i * Charge / 1500, 0.5f, 5), Scale: Main.rand.NextFloat(1.8f, 2.6f)).noGravity = true;
-        }
+                for (int u = 0; u < i / 4 + 1; u++)
+                    Dust.NewDustPerfect(player.MountedCenter + Projectile.rotation.ToRotationVector2() * (47 + ((RayLength - 47) / 20) * i), DustID.Torch, (Main.rand.NextFloat(0, Pi * 2)).ToRotationVector2() * Main.rand.NextFloat(1.5f, 2) * Clamp(i * Charge / 1500, 0.5f, 5), Scale: Main.rand.NextFloat(1.9f, 2.5f)).noGravity = true;
 
-        if (IsReady)
-        {
             Projectile.frame = 1;
             float ScaleMultiplier = Charge / 225;
             Projectile.ai[1]++;
@@ -102,9 +100,7 @@ public class SalvagedThrusterP : HeldProjectileGun
             }
         }
         else
-        {
             Scale = Vector2.Lerp(Scale, Vector2.One, 0.2f);
-        }
 
         if (!player.channel)
             Projectile.Kill();

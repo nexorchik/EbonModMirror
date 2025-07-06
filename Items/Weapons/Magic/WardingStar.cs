@@ -22,11 +22,11 @@ namespace EbonianMod.Items.Weapons.Magic
             Item.channel = true;
             Item.value = Item.buyPrice(0, 0, 0, 1);
             Item.rare = ItemRarityID.Green;
-            Item.shoot = ModContent.ProjectileType<WardingStarP>();
+            Item.shoot = ProjectileType<WardingStarP>();
         }
         public override bool CanShoot(Player player)
         {
-            return player.ownedProjectileCounts[ModContent.ProjectileType<WardingStarP>()] < 1 && player.statMana > 5;
+            return player.ownedProjectileCounts[ProjectileType<WardingStarP>()] < 1 && player.statMana > 5;
         }
     }
 }

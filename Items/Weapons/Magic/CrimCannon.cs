@@ -21,6 +21,7 @@ public class CrimCannon : ModItem
         Item.noUseGraphic = true;
         Item.noMelee = true;
         Item.channel = true;
+        Item.mana = 25;
     }
     public override void AddRecipes()
     {
@@ -37,8 +38,6 @@ public class CrimCannon : ModItem
 public class CrimCannonGraphics : HeldProjectileGun
 {
     public override string Texture => "EbonianMod/Items/Weapons/Magic/CrimCannonReload";
-
-    Vector2 Scale = new Vector2(0, 1);
 
     public override void OnSpawn(IEntitySource source)
     {
@@ -57,7 +56,8 @@ public class CrimCannonGraphics : HeldProjectileGun
         RotationSpeed = 0.08f;
         Projectile.Size = new Vector2(56, 38);
     }
-
+    Vector2 Scale = new Vector2(0, 1);
+    bool ManaLeft = true;
     public override void AI()
     {
         base.AI();
@@ -65,6 +65,9 @@ public class CrimCannonGraphics : HeldProjectileGun
         Player player = Main.player[Projectile.owner];
 
         Scale = Vector2.Lerp(Scale, new Vector2(1, 1), 0.14f);
+
+        if (!Main.player[Projectile.owner].channel || !ManaLeft)
+            Projectile.Kill();
 
         if (Projectile.ai[0]++ > 14)
         {
@@ -78,6 +81,7 @@ public class CrimCannonGraphics : HeldProjectileGun
                     Projectile.frame = 0;
                     Scale = new Vector2(0.65f, 1.6f);
                     SoundEngine.PlaySound(SoundID.NPCHit9.WithPitchOffset(Main.rand.NextFloat(-1f, -0.5f)), player.Center);
+                    ManaLeft = player.CheckMana(player.HeldItem.mana, true, true);
                     Vector2 SpawnPosition = Projectile.Center + Projectile.rotation.ToRotationVector2() * 22;
                     Projectile.NewProjectile(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * 12, ProjectileType<CrimCannonP>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     for (int i = 0; i < 3; i++)
@@ -89,8 +93,6 @@ public class CrimCannonGraphics : HeldProjectileGun
                 }
             }
         }
-        if (!Main.player[Projectile.owner].channel)
-            Projectile.Kill();
     }
     public override bool PreDraw(ref Color lightColor)
     {

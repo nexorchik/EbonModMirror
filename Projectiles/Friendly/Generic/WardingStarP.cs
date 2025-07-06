@@ -1,16 +1,6 @@
-﻿using Microsoft.Xna.Framework;
+﻿
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria;
-using Microsoft.Xna.Framework;
-using Terraria.ID;
-using Terraria.ModLoader;
-using EbonianMod.Items.Weapons;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria.Audio;
 
 namespace EbonianMod.Projectiles.Friendly.Generic
 {

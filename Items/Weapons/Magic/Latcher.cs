@@ -21,6 +21,7 @@ public class Latcher : ModItem
         Item.noUseGraphic = true;
         Item.noMelee = true;
         Item.channel = true;
+        Item.mana = 24;
     }
     public override void AddRecipes()
     {
@@ -44,9 +45,11 @@ public class LatcherGraphics : HeldProjectileGun
     public override string Texture => "EbonianMod/Items/Weapons/Magic/Latcher";
 
     Vector2 Scale = new Vector2(0, 0);
+    bool ManaLeft;
     public override void OnSpawn(IEntitySource source)
     {
         Player player = Main.player[Projectile.owner];
+        ManaLeft = player.CheckMana(player.HeldItem.mana, true, true);
         Projectile.rotation = Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation() + player.direction * Pi;
     }
 
@@ -84,6 +87,8 @@ public class LatcherGraphics : HeldProjectileGun
             }
         }
         Scale = Vector2.Lerp(Scale, new Vector2(1, 1), 0.14f);
+        if (!ManaLeft)
+            Projectile.Kill();
     }
     public override bool PreDraw(ref Color lightColor)
     {

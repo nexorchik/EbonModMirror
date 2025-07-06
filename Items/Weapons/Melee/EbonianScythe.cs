@@ -7,7 +7,7 @@ public class EbonianScythe : ModItem
 {
     public override void SetDefaults()
     {
-        Item.knockBack = 10f;
+        Item.knockBack = 2;
         Item.width = 32;
         Item.height = 34;
         Item.crit = 15;
@@ -60,7 +60,7 @@ public class EbonianScytheP : HeldSword
         float end = defRot + (MathHelper.PiOver2 + MathHelper.PiOver4);
         float rotation = direction == 1 ? start + MathHelper.Pi * 3 / 2 * swingProgress : end - MathHelper.Pi * 3 / 2 * swingProgress;
         Vector2 position = player.GetFrontHandPosition(stretch, rotation - MathHelper.PiOver2) +
-            rotation.ToRotationVector2() * holdOffset * ScaleFunction(swingProgress);
+            rotation.ToRotationVector2() * 15 * ScaleFunction(swingProgress);
         Projectile.Center = position;
         Projectile.rotation = (position - player.Center).ToRotation() + MathHelper.PiOver4;
         player.ChangeDir(Projectile.velocity.X < 0 ? -1 : 1);
