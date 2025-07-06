@@ -70,8 +70,11 @@ public class SpudCannon : ModItem
             {
                 if (Projectile.ai[0] < 70)
                     Projectile.ai[0]++;
-                if(Projectile.ai[0] == 69)
+                if (Projectile.ai[0] == 69)
+                {
+                    SoundEngine.PlaySound(SoundID.MaxMana.WithPitchOffset(-0.3f), Projectile.Center);
                     Projectile.ai[1] = 0.7f;
+                }
                 Charge = Projectile.ai[0] / 35;
                 if (Projectile.timeLeft % 2 == 0)
                     SoundEngine.PlaySound(SoundID.Item98.WithPitchOffset(Main.rand.NextFloat(Charge - 4, Charge - 3)) with { Volume = Charge / 10 }, player.Center);
@@ -92,19 +95,20 @@ public class SpudCannon : ModItem
                     for (int i = 0; i < Clamp(10 * Charge, 8, 100); i++)
                         Dust.NewDustPerfect(SpawnPosition, DustID.Smoke, (Projectile.rotation + Main.rand.NextFloat(-Pi / (Charge * 6), Pi / (Charge * 6))).ToRotationVector2() * Main.rand.NextFloat(0, 8) * Charge, Scale: 1.5f).noGravity = true;
 
-                    Projectile CurrentProjectile = Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * Charge * 8, ProjectileType<PotatoP>(), (int)(Projectile.damage * MathF.Sqrt(Charge * 4.1f)), Projectile.knockBack * Charge, Projectile.owner);
+                    Projectile CurrentProjectile = MPUtils.NewProjectile(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * Charge * 8, ProjectileType<PotatoP>(), (int)(Projectile.damage * MathF.Sqrt(Charge * 4.1f)), Projectile.knockBack * Charge, Projectile.owner);
                     if (Charge == 2)
                     {
                         SoundEngine.PlaySound(SoundID.Item40.WithPitchOffset(Main.rand.NextFloat(0.5f, 1)) with { Volume = 0.8f }, player.Center);
                         for (int i = 0; i < Clamp(8 * Charge, 8, 100); i++)
                             Dust.NewDustPerfect(SpawnPosition, DustID.Torch, (Projectile.rotation + Main.rand.NextFloat(-Pi / (Charge * 6), Pi / (Charge * 6))).ToRotationVector2() * Main.rand.NextFloat(0, 5) * Charge, Scale: Main.rand.NextFloat(0.4f, 3)).noGravity = true;
-                        CurrentProjectile.CritChance = 100;
+                        if (CurrentProjectile != null)
+                            CurrentProjectile.CritChance = 100;
                     }
 
                     Scale = new Vector2(1 - Charge / 5, 1 + Charge * 0.4f);
                     Projectile.ai[0] = 105;
                 }
-                if(Scale.Length() < 1.416f)
+                if (Scale.Length() < 1.416f)
                     Projectile.Kill();
             }
             if (Projectile.ai[1] > 0)
@@ -120,8 +124,8 @@ public class SpudCannon : ModItem
             Player player = Main.player[Projectile.owner];
             Rectangle frameRect = new Rectangle(0, 0, Projectile.width, Projectile.height);
             ColorModifier = Projectile.ai[0] == 105 ? Lerp(ColorModifier, 1, 0.03f) : 1 - Charge / 7;
-            Main.EntitySpriteDraw(Helper.GetTexture("Items/Weapons/Ranged/SpudCannon").Value, Projectile.Center - Main.screenPosition, frameRect, new Color(1, ColorModifier, ColorModifier, 1), Projectile.rotation, new Vector2(Projectile.width / 2 - 25, Projectile.height / 2 - 2 * player.direction), Scale, player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
-            Main.EntitySpriteDraw(Helper.GetTexture("Items/Weapons/Ranged/SpudCannonFlash").Value, Projectile.Center + new Vector2(25, 0).RotatedBy(Projectile.rotation) - Main.screenPosition, frameRect, lightColor * Projectile.ai[1], Projectile.rotation, new Vector2(Projectile.width / 2, Projectile.height / 2), new Vector2(Projectile.ai[2], Projectile.ai[2]*1.2f) * Scale, player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+            Main.EntitySpriteDraw(Helper.GetTexture("Items/Weapons/Ranged/SpudCannon").Value, Projectile.Center - Main.screenPosition + player.GFX(), frameRect, new Color(1, ColorModifier, ColorModifier, 1), Projectile.rotation, new Vector2(Projectile.width / 2 - 25, Projectile.height / 2 - 2 * player.direction), Scale, player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+            Main.EntitySpriteDraw(Helper.GetTexture("Items/Weapons/Ranged/SpudCannonFlash").Value, Projectile.Center + player.GFX() + new Vector2(25, 0).RotatedBy(Projectile.rotation) - Main.screenPosition, frameRect, lightColor * Projectile.ai[1], Projectile.rotation, new Vector2(Projectile.width / 2, Projectile.height / 2), new Vector2(Projectile.ai[2], Projectile.ai[2] * 1.2f) * Scale, player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
             return false;
         }
     }

@@ -17,6 +17,7 @@ public class RustyAxeT : ModTile
         TileObjectData.newTile.Width = 4;
         TileObjectData.newTile.CoordinateWidth = 16;
         TileObjectData.newTile.CoordinatePadding = 2;
+        TileObjectData.newTile.Origin = Point16.Zero;
         TileObjectData.addTile(Type);
         Main.tileMerge[TileID.Sand][Type] = true;
 
@@ -24,7 +25,16 @@ public class RustyAxeT : ModTile
 
         RegisterItemDrop(ItemType<RustyWaraxe>());
 
-        AddMapEntry(Color.LawnGreen);
+        AddMapEntry(Color.Cyan);
+    }
+    public override void RandomUpdate(int i, int j)
+    {
+        Main.NewText("I exist");
+        Main.NewText(i + " " + j);
+        Main.NewText(TileObjectData.GetTileData(Main.tile[i, j]).Origin);
+        Main.NewText(Main.LocalPlayer.Center.ToTileCoordinates().X + " " + Main.LocalPlayer.Center.ToTileCoordinates().Y);
+        if (Main.mouseRight)
+            Main.LocalPlayer.Center = new Vector2(i, j) * 16;
     }
     public override IEnumerable<Item> GetItemDrops(int i, int j)
     {

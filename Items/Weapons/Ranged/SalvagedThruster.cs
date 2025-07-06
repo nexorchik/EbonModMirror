@@ -89,15 +89,6 @@ public class SalvagedThrusterP : HeldProjectileGun
 
             Projectile.frame = 1;
             float ScaleMultiplier = Charge / 225;
-            Projectile.ai[1]++;
-            if (Projectile.ai[1] < 10)
-                Scale = Vector2.Lerp(Scale, new Vector2(1.13f, 0.85f), 0.2f * Charge / 225);
-            else
-            {
-                Scale = Vector2.Lerp(Scale, new Vector2(0.9f, 1.14f), 0.2f * Charge / 225);
-                if (Projectile.ai[1] == 20)
-                    Projectile.ai[1] = 0;
-            }
         }
         else
             Scale = Vector2.Lerp(Scale, Vector2.One, 0.2f);
@@ -114,7 +105,7 @@ public class SalvagedThrusterP : HeldProjectileGun
     public override bool PreDraw(ref Color lightColor)
     {
         Player player = Main.player[Projectile.owner];
-        Main.EntitySpriteDraw(TextureAssets.Projectile[Type].Value, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.height * Projectile.frame, Projectile.width, Projectile.height), lightColor, Projectile.rotation, new Vector2(Projectile.width / 2 - 20, Projectile.height / 2 - 4 * player.direction), Scale, player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+        Main.EntitySpriteDraw(TextureAssets.Projectile[Type].Value, Projectile.Center + player.GFX() + Main.rand.NextVector2Circular(Charge * 0.01f, Charge * 0.01f) - Main.screenPosition, new Rectangle(0, Projectile.height * Projectile.frame, Projectile.width, Projectile.height), lightColor, Projectile.rotation, new Vector2(Projectile.width / 2 - 20, Projectile.height / 2 - 4 * player.direction), Scale, player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
         return false;
     }
 }

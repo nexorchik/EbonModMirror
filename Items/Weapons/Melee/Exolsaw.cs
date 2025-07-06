@@ -13,9 +13,9 @@ public class Exolsaw : ModItem
         Item.noUseGraphic = true;
         Item.consumable = false;
         Item.Size = new(20);
-        Item.useAnimation = 100;
+        Item.useAnimation = 17;
         Item.crit = 15;
-        Item.useTime = 100;
+        Item.useTime = 17;
         Item.DamageType = DamageClass.Melee;
         Item.damage = 19;
         Item.UseSound = SoundID.Item1;
@@ -23,7 +23,7 @@ public class Exolsaw : ModItem
         Item.value = Item.buyPrice(0, 8, 0, 0);
         Item.shoot = ProjectileType<ExolsawP>();
         Item.rare = ItemRarityID.Orange;
-        Item.shootSpeed = 30;
+        Item.shootSpeed = 10;
     }
 }
 public class ExolsawP : ModProjectile
@@ -35,36 +35,40 @@ public class ExolsawP : ModProjectile
     public override string Texture => "EbonianMod/Items/Weapons/Melee/ExolsawP";
     public override void SetDefaults()
     {
-        Projectile.width = 42;
-        Projectile.height = 42;
+        Projectile.width = 10;
+        Projectile.height = 10;
         Projectile.aiStyle = -1;
         Projectile.friendly = true;
         Projectile.DamageType = DamageClass.Melee;
         Projectile.penetrate = -1;
-        Projectile.tileCollide = false;
+        Projectile.tileCollide = true;
         Projectile.localNPCHitCooldown = 5;
         Projectile.usesLocalNPCImmunity = true;
         Projectile.timeLeft = 500;
-
+    }
+    public override bool PreDraw(ref Color lightColor)
+    {
+        Texture2D tex = TextureAssets.Projectile[Type].Value;
+        Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, new Rectangle(0, 42 * Projectile.frame, 42, 42), lightColor, Projectile.rotation, new Vector2(21), Projectile.scale, SpriteEffects.None);
+        return false;
     }
     public override void AI()
     {
         Player player = Main.player[Projectile.owner];
         Dust.NewDustPerfect(Projectile.Center + Main.rand.NextVector2Circular(21, 21), DustID.Torch, Vector2.Zero, Scale: Main.rand.NextFloat(0.9f, 2f)).noGravity = true;
-        if (Projectile.ai[0] <= 0)
-        {
-            Projectile.timeLeft += 2;
-            Projectile.rotation += MathHelper.ToRadians(15);
-            Projectile.frame = 0;
-            Projectile.velocity = Vector2.Lerp(Projectile.velocity, Projectile.velocity.SafeNormalize(Vector2.UnitY) * 14f, 0.13f);
-        }
-        else
-        {
-            Projectile.ai[0] -= 0.01f;
-            Projectile.rotation += MathHelper.ToRadians(40);
-            Projectile.frame = 1;
-            Projectile.velocity = Vector2.Lerp(Projectile.velocity, Projectile.velocity.SafeNormalize(Vector2.UnitY), 0.2f);
-        }
+
+        Projectile.rotation += MathHelper.ToRadians(25);
+        Projectile.timeLeft = 2;
+        Projectile.ai[0]++;
+        if (Projectile.ai[0] < 30)
+            Projectile.velocity *= 1.02f;
+        if (Projectile.ai[0] > 30 && Projectile.ai[0] < 50)
+            Projectile.velocity *= 0.86f;
+        if (Projectile.ai[0] > 50)
+            Projectile.velocity = Vector2.Lerp(Projectile.velocity, Helper.FromAToB(Projectile.Center, player.Center) * 30f, 0.1f);
+
+        if (Projectile.ai[0] > 50 && Projectile.Center.Distance(player.Center) < 50)
+            Projectile.Kill();
     }
     public override void OnHitNPC(NPC target, NPC.HitInfo hitinfo, int damage)
     {
@@ -73,11 +77,12 @@ public class ExolsawP : ModProjectile
         {
             Dust.NewDustPerfect(Position, DustID.Torch, Main.rand.NextFloat(-Pi, Pi).ToRotationVector2() * Main.rand.NextFloat(2, 5), Scale: Main.rand.NextFloat(0.5f, 1f));
         }
-        Projectile.ai[0] = 0.08f;
     }
     public override void OnKill(int timeLeft)
     {
         Player player = Main.player[Projectile.owner];
+        for (int i = 0; i < 40; i++)
+            Dust.NewDustPerfect(Projectile.Center + Main.rand.NextVector2Circular(41, 41), DustID.Torch, Projectile.velocity * Main.rand.NextFloat(), Scale: Main.rand.NextFloat(0.9f, 2f)).noGravity = true;
         Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
     }
 }
