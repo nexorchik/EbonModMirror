@@ -66,7 +66,9 @@ public class SalvagedThrusterP : HeldProjectileGun
 
         if (Projectile.timeLeft % 10 == 0)
         {
-            CanAttack = Projectile.UseAmmo(AmmoID.Gel);
+            if(IsReady)
+                CanAttack = Projectile.UseAmmo(AmmoID.Gel);
+
             if (!CanAttack)
             {
                 Dust.NewDustPerfect(Projectile.Center + Projectile.rotation.ToRotationVector2() * 47, DustID.Smoke, Projectile.rotation.ToRotationVector2().RotatedByRandom(PiOver4 / 3) * Main.rand.NextFloat(0.1f, 3));
@@ -85,7 +87,7 @@ public class SalvagedThrusterP : HeldProjectileGun
             Dust.NewDustPerfect(Projectile.Center + Projectile.rotation.ToRotationVector2() * 47, DustID.Smoke, (Projectile.rotation).ToRotationVector2().RotatedByRandom(Pi / 4) * Main.rand.NextFloat(0.1f, 2), Scale: Main.rand.NextFloat(1.1f, 2));
             for (int i = 0; i < Charge / 12; i++)
                 for (int u = 0; u < i / 4 + 1; u++)
-                    Dust.NewDustPerfect(player.MountedCenter + Projectile.rotation.ToRotationVector2() * (47 + ((RayLength - 47) / 20) * i), DustID.Torch, (Main.rand.NextFloat(0, Pi * 2)).ToRotationVector2() * Main.rand.NextFloat(1.5f, 2) * Clamp(i * Charge / 1500, 0.5f, 5), Scale: Main.rand.NextFloat(1.9f, 2.5f)).noGravity = true;
+                    Dust.NewDustPerfect(player.MountedCenter + Projectile.rotation.ToRotationVector2() * (47 + ((RayLength - 47) / 20) * i), DustID.Torch, (Main.rand.NextFloat(0, Pi * 2)).ToRotationVector2() * Main.rand.NextFloat(1.2f, 2) * Clamp(i * Charge / 1800, 0.5f, 5), Scale: Main.rand.NextFloat(1.9f, 2.5f)).noGravity = true;
 
             Projectile.frame = 1;
             float ScaleMultiplier = Charge / 225;
