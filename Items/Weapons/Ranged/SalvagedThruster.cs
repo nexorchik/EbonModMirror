@@ -62,8 +62,9 @@ public class SalvagedThrusterP : HeldProjectileGun
 
         Player player = Main.player[Projectile.owner];
 
-        IsReady = Scale.Length() > 1.4f;
+        player.heldProj = Projectile.whoAmI;
 
+        IsReady = Scale.Length() > 1.4f;
         if (Projectile.timeLeft % 10 == 0)
         {
             if(IsReady)

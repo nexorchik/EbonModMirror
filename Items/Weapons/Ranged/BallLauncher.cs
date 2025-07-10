@@ -78,7 +78,10 @@ public class BallLauncherPrimary : HeldProjectileGun
     public override void AI()
     {
         base.AI();
+
         Player player = Main.player[Projectile.owner];
+
+        player.heldProj = Projectile.whoAmI;
 
         Projectile.ai[0]++;
 
@@ -93,12 +96,10 @@ public class BallLauncherPrimary : HeldProjectileGun
                     if (player.whoAmI == Main.myPlayer)
                     {
                         AnimationRotation = -0.2f * player.direction;
-                        Vector2 SpawnPosition = Projectile.Center + new Vector2(30, -12 * player.direction).RotatedBy(Projectile.rotation);
+                        Vector2 SpawnPosition = Projectile.Center + new Vector2(14, -15 * player.direction).RotatedBy(Projectile.rotation);
                         Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * 16, ProjectileType<CrimsonBall>(), (int)(Projectile.damage * 0.8f), Projectile.knockBack, Projectile.owner);
                         for (int i = 0; i < 14; i++)
-                        {
                             Dust.NewDustPerfect(SpawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(-PiOver4, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(2, 8), Scale: 1.5f).noGravity = true;
-                        }
                     }
                     SoundEngine.PlaySound(SoundID.NPCDeath13.WithPitchOffset(Main.rand.NextFloat(0, 0.3f)), player.Center);
                     Projectile.UseAmmo(AmmoID.Rocket);
@@ -117,9 +118,7 @@ public class BallLauncherPrimary : HeldProjectileGun
     }
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D texture = Helper.GetTexture("Items/Weapons/Ranged/BallLauncherPrimary").Value;
-        Rectangle frameRect = new Rectangle(0, Projectile.frame * Projectile.height, Projectile.width, Projectile.height);
-        Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, frameRect, lightColor, Projectile.rotation, new Vector2(Projectile.Size.X / 2 - 25, Projectile.Size.Y / 2), Scale, Main.player[Projectile.owner].direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+        Main.EntitySpriteDraw(Helper.GetTexture("Items/Weapons/Ranged/BallLauncherPrimary").Value, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * Projectile.height, Projectile.width, Projectile.height), lightColor, Projectile.rotation, new Vector2(Projectile.Size.X / 2 - 15, Projectile.Size.Y / 2), Scale, Main.player[Projectile.owner].direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
         return false;
     }
 }
@@ -128,7 +127,6 @@ public class BallLauncherCharge : HeldProjectileGun
 {
 
     Vector2 Scale = new Vector2(0, 0);
-
     public override bool? CanDamage() => false;
 
     public override void SetDefaults()
@@ -136,7 +134,6 @@ public class BallLauncherCharge : HeldProjectileGun
         base.SetDefaults();
         ItemType = ItemType<BallLauncher>();
         RotationSpeed = 0.13f;
-        PositionOffset = new Vector2(0, -10);
         Projectile.Size = new Vector2(58, 50);
     }
 
@@ -152,12 +149,13 @@ public class BallLauncherCharge : HeldProjectileGun
 
         Player player = Main.player[Projectile.owner];
 
+        player.heldProj = Projectile.whoAmI;
+
         if (Projectile.frame < 6)
         {
             if (Projectile.ai[0] < 120)
             {
                 Projectile.ai[0]++;
-                Projectile.localAI[0] += 0.012f;
                 Projectile.frameCounter++;
                 if (Projectile.frameCounter > 20)
                 {
@@ -166,15 +164,15 @@ public class BallLauncherCharge : HeldProjectileGun
                 }
             }
             if (Projectile.ai[0] == 119)
-                Projectile.ai[1] = 0.7f;
-            float ScaleNoise = Projectile.localAI[0];
+                Projectile.ai[1] = 1;
             float Charge = Projectile.ai[0];
+            float ScaleNoise = Charge / 82;
             Scale = Vector2.Lerp(Scale, new Vector2(Main.rand.NextFloat(2f - ScaleNoise, ScaleNoise), Main.rand.NextFloat(2f - ScaleNoise, ScaleNoise)), ScaleNoise / 10);
             if (!Main.mouseRight && player.whoAmI == Main.myPlayer)
             {
                 Projectile.frame = 6;
                 AnimationRotation = -Charge / 240f * player.direction;
-                Vector2 SpawnPosition = Projectile.Center + new Vector2(30, -12 * player.direction).RotatedBy(Projectile.rotation);
+                Vector2 SpawnPosition = Projectile.Center + new Vector2(14, -15 * player.direction).RotatedBy(Projectile.rotation);
                 for (int u = 0; u < 14; u++)
                     Dust.NewDustPerfect(SpawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(-PiOver4, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(2, 8), Scale: 1.5f).noGravity = true;
                 for (int i = 0; i < Charge / 15; i++)
@@ -201,14 +199,15 @@ public class BallLauncherCharge : HeldProjectileGun
         Scale = Vector2.Lerp(Scale, new Vector2(1, 1), 0.17f);
         if (Projectile.ai[1] > 0)
         {
-            Projectile.ai[1] -= 0.02f;
+            Projectile.ai[1] -= 0.04f;
             Projectile.ai[2] += 0.01f;
         }
     }
     public override bool PreDraw(ref Color lightColor)
     {
-        Main.EntitySpriteDraw(Helper.GetTexture("Items/Weapons/Ranged/BallLauncherCharge").Value, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * Projectile.height, Projectile.width, Projectile.height), lightColor, Projectile.rotation, new Vector2(Projectile.Size.X / 2 - 25, Projectile.Size.Y / 2), Scale, Main.player[Projectile.owner].direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
-        Main.EntitySpriteDraw(Helper.GetTexture("Items/Weapons/Ranged/BallLauncherFlash").Value, Projectile.Center + new Vector2(25, 0).RotatedBy(Projectile.rotation) - Main.screenPosition, new Rectangle(0, 0, Projectile.width, Projectile.height), lightColor * Projectile.ai[1], Projectile.rotation, new Vector2(Projectile.Size.X / 2, Projectile.Size.Y / 2), Scale * Projectile.ai[2], Main.player[Projectile.owner].direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+        int Direction = Main.player[Projectile.owner].direction;
+        Main.EntitySpriteDraw(Helper.GetTexture("Items/Weapons/Ranged/BallLauncherCharge").Value, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * Projectile.height, Projectile.width, Projectile.height), lightColor, Projectile.rotation, new Vector2(Projectile.Size.X / 2 - 17, Projectile.Size.Y / 2 + 9 * Direction), Scale, Main.player[Projectile.owner].direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+        Main.EntitySpriteDraw(Helper.GetTexture("Items/Weapons/Ranged/BallLauncherFlash").Value, Projectile.Center + new Vector2(17, -9 * Direction).RotatedBy(Projectile.rotation) - Main.screenPosition, new Rectangle(0, 0, Projectile.width, Projectile.height), lightColor * Projectile.ai[1], Projectile.rotation, new Vector2(Projectile.Size.X / 2, Projectile.Size.Y / 2), new Vector2(Projectile.ai[2], Projectile.ai[2] * 1.1f) * Scale, Main.player[Projectile.owner].direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
         return false;
     }
 }

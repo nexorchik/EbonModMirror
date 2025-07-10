@@ -18,6 +18,7 @@ public class EbonianRocket : ModProjectile
         Projectile.hostile = false;
         Projectile.timeLeft = 200;
         Projectile.penetrate = -1;
+        Projectile.usesLocalNPCImmunity = true;
     }
     float vfxOffset;
     public override bool PreDraw(ref Color lightColor)

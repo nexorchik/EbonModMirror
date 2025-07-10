@@ -22,15 +22,6 @@ public class Corebreaker : ModItem
         Item.channel = true;
         Item.noMelee = true;
     }
-    public override bool AltFunctionUse(Player player)
-    {
-        if (player.altFunctionUse == 2)
-        {
-            Item.shoot = ProjectileType<CorebreakerGraphics>();
-        }
-        return base.AltFunctionUse(player);
-    }
-
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
     {
         velocity = Vector2.Zero;

@@ -42,6 +42,7 @@ public class CrimCannonGraphics : HeldProjectileGun
     public override void OnSpawn(IEntitySource source)
     {
         Player player = Main.player[Projectile.owner];
+        player.CheckMana(-player.HeldItem.mana, true);
         Projectile.rotation = Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation();
         Projectile.frame = 5;
         Projectile.ai[0] = -20;
@@ -57,17 +58,17 @@ public class CrimCannonGraphics : HeldProjectileGun
         Projectile.Size = new Vector2(56, 38);
     }
     Vector2 Scale = new Vector2(0, 1);
-    bool ManaLeft = true;
     public override void AI()
     {
         base.AI();
 
         Player player = Main.player[Projectile.owner];
 
+        if (!Main.player[Projectile.owner].channel || !player.CheckMana(player.HeldItem.mana))
+            Projectile.Kill();
+
         Scale = Vector2.Lerp(Scale, new Vector2(1, 1), 0.14f);
 
-        if (!Main.player[Projectile.owner].channel || !ManaLeft)
-            Projectile.Kill();
 
         if (Projectile.ai[0]++ > 14)
         {
@@ -79,9 +80,10 @@ public class CrimCannonGraphics : HeldProjectileGun
                 if (Projectile.frame > 5)
                 {
                     Projectile.frame = 0;
+                    AnimationRotation = -0.3f * player.direction;
                     Scale = new Vector2(0.65f, 1.6f);
                     SoundEngine.PlaySound(SoundID.NPCHit9.WithPitchOffset(Main.rand.NextFloat(-1f, -0.5f)), player.Center);
-                    ManaLeft = player.CheckMana(player.HeldItem.mana, true, true);
+                    player.CheckMana(player.HeldItem.mana, true, true);
                     Vector2 SpawnPosition = Projectile.Center + Projectile.rotation.ToRotationVector2() * 22;
                     Projectile.NewProjectile(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * 12, ProjectileType<CrimCannonP>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     for (int i = 0; i < 3; i++)

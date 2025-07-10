@@ -64,11 +64,11 @@ public class StaffOfXP : HeldSword
     public override float Ease(float x)
     {
         return x == 0
-? 0
-: x == 1
-? 1
-: x < 0.5 ? MathF.Pow(2, 20 * x - 10) / 2
-: (2 - MathF.Pow(2, -20 * x + 10)) / 2;
+        ? 0
+        : x == 1
+        ? 1
+        : x < 0.5 ? MathF.Pow(2, 20 * x - 10) / 2
+        : (2 - MathF.Pow(2, -20 * x + 10)) / 2;
     }
     public override Color? GetAlpha(Color lightColor) => Color.White;
     float visualOff;
