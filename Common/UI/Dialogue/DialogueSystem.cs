@@ -44,7 +44,7 @@ public class DialogueSystem : ModSystem
         int i = 0;
         while (DialogueBox[i].timeLeft > 0 && i < DialogueBox.Length - 1)
         {
-            if (DialogueBox[i] == null)
+            if (DialogueBox[i] is null)
                 DialogueBox[i] = new FloatingDialogueBox(-1, Vector2.Zero, "", Color.White);
             i++;
         }
@@ -60,7 +60,7 @@ public class DialogueSystem : ModSystem
         if (Main.dedServ) return;
         for (int i = 0; i < DialogueBox.Length; i++)
         {
-            if (DialogueBox[i] == null)
+            if (DialogueBox[i] is null)
                 DialogueBox[i] = new FloatingDialogueBox(-1, Vector2.Zero, "", Color.White);
             if (DialogueBox[i].timeLeft > 0)
             {

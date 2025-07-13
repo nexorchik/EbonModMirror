@@ -14,6 +14,25 @@ public static class MPUtils
 
         return Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, owner, ai0, ai1, ai2);
     }
+    public static void SetAsHostile(this Projectile projectile)
+    {
+        if (projectile is not null)
+        {
+            projectile.hostile = true;
+            projectile.friendly = false;
+            projectile.netUpdate = true;
+        }
+    }
+    public static void SetAsFriendly(this Projectile projectile, DamageClass damageClass = null)
+    {
+        if (projectile is not null)
+        {
+            projectile.hostile = false;
+            projectile.friendly = true;
+            projectile.DamageType = damageClass ?? DamageClass.Default;
+            projectile.netUpdate = true;
+        }
+    }
     public static void NewNPC(Vector2 position, int type, bool noDupes = false, float ai0 = 0, float ai1 = 0, float ai2 = 0, float ai3 = 0)
     {
         if (!NotMPClient)

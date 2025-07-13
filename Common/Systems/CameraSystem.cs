@@ -85,7 +85,7 @@ public class CameraSystem : ModSystem
     public static void ChangeCameraPos(Vector2 pos, int length, ZoomInfo? zoom = null, float lerpMult = 2, Func<float, float> easingFunction = null, float snappingRate = 1)
     {
         if (Main.dedServ) return;
-        if (zoom != null)
+        if (zoom is not null)
         {
             ChangeZoom(length, zoom.Value);
         }
@@ -101,10 +101,10 @@ public class CameraSystem : ModSystem
         if (zoomChangeLength > 0 && zoomAmount > 0)
         {
             float lerpT = Clamp(MathF.Sin(Pi * Utils.GetLerpValue(zoomChangeLengthMax, 0, zoomChangeLength)) * zoomLerpMult, 0, 1);
-            if (zoomFunctionIn != null && zoomChangeLength > zoomChangeLengthMax / 2)
+            if (zoomFunctionIn is not null && zoomChangeLength > zoomChangeLengthMax / 2)
                 lerpT = zoomFunctionIn.Invoke(Clamp(MathF.Sin(Pi * Utils.GetLerpValue(zoomChangeLengthMax, 0, zoomChangeLength)) * zoomLerpMult, 0, 1));
 
-            if (zoomFunctionOut != null && zoomChangeLength <= zoomChangeLengthMax / 2)
+            if (zoomFunctionOut is not null && zoomChangeLength <= zoomChangeLengthMax / 2)
                 lerpT = zoomFunctionOut.Invoke(Clamp(MathF.Sin(Pi * Utils.GetLerpValue(zoomChangeLengthMax, 0, zoomChangeLength)) * zoomLerpMult, 0, 1));
 
             Vector2 pos = currentZoomForChangedZoom;

@@ -368,7 +368,7 @@ public class Aureus : ModNPC
                     {
                         SoundEngine.PlaySound(missileSound, NPC.Center);
                         Projectile a = MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(Main.rand.NextFloat(-2.5f, 2.5f), Main.rand.NextFloat(-15, -7)) * 0.5f, ProjectileType<AureusMissile>(), 15, 0, player.whoAmI);
-                        if (a != null)
+                        if (a is not null)
                         {
                             a.timeLeft = 200;
                             a.SyncProjectile();
@@ -1229,7 +1229,7 @@ public class AureusDust : ModDust
     {
         dust.noGravity = true;
         dust.frame = new Rectangle(0, 0, 191, 176);
-        if (dust.customData == null)
+        if (dust.customData is null)
             dust.scale = 0.2f;
     }
 

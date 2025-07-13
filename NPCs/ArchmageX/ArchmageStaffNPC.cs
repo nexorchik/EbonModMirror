@@ -133,7 +133,7 @@ public class ArchmageStaffNPC : ModNPC
         NPC.shimmering = false;
         NPC.buffImmune[BuffID.Shimmer] = true;
         rantFactor = Lerp(rantFactor, 0, 0.01f);
-        if (d != null && d.timeLeft > 0 && d.Center != Vector2.Zero)
+        if (d is not null && d.timeLeft > 0 && d.Center != Vector2.Zero)
         {
 
             for (int i = 0; i < d.visibleText.Length; i++)

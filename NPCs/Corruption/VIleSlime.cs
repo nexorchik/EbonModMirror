@@ -276,7 +276,7 @@ public class VileSlime : ModNPC //this is literally exampleslime but i honestly 
                 {
                     Projectile p = MPUtils.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, velocity, ProjectileType<TFlameThrower>(), 20, 0, 0, 1);
 
-                    if (p != null)
+                    if (p is not null)
                     {
                         p.tileCollide = false;
                         p.friendly = false;

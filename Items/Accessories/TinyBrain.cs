@@ -58,7 +58,6 @@ public class TinyBrain : ModNPC //the class name is a reference to my brain.
     {
         Player player = Main.player[NPC.target];
         NPC.TargetClosest(false);
-        verlet = new Verlet(NPC.Center, 8, 14, stiffness: 70);
     }
     public override void AI()
     {
@@ -103,7 +102,9 @@ public class TinyBrain : ModNPC //the class name is a reference to my brain.
     Verlet verlet;
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 pos, Color drawColor)
     {
-        if (verlet != null)
+        if (verlet is null)
+            verlet = new Verlet(NPC.Center, 8, 14, stiffness: 70);
+        else
         {
             verlet.Update(Main.player[NPC.target].Center, NPC.Center);
             verlet.Draw(spriteBatch, new VerletDrawData(new VerletTextureData("Items/Accessories/BrainAcc_Chain")));

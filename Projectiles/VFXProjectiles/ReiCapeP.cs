@@ -19,7 +19,7 @@ public class ReiCapeP : ModProjectile
         ProjectileID.Sets.TrailCacheLength[Type] = 5;
         ProjectileID.Sets.TrailingMode[Type] = 2;
     }
-    public override void OnSpawn(IEntitySource source)
+    public void InitVerlet()
     {
         Player player = Main.player[Projectile.owner];
         v = new(player.RotatedRelativePoint(player.MountedCenter - new Vector2(0, 14 * player.gravDir)), 1, 40, -0.2f, true, false, 25, false);
@@ -51,7 +51,7 @@ public class ReiCapeP : ModProjectile
             Projectile.Kill();
         Projectile.Center = player.RotatedRelativePoint(player.MountedCenter) + new Vector2(-5, 19);
         Projectile.rotation = player.velocity.ToRotation();
-        if (v != null)
+        if (v is not null)
         {
             for (int i = 0; i < 5; i++)
             {
@@ -64,7 +64,7 @@ public class ReiCapeP : ModProjectile
     public override bool PreAI()
     {
         Player player = Main.player[Projectile.owner];
-        if (v != null)
+        if (v is not null)
         {
             v.firstP.position = player.RotatedRelativePoint(player.MountedCenter - new Vector2(0, 14 * player.gravDir));
         }
@@ -73,7 +73,7 @@ public class ReiCapeP : ModProjectile
     public override void PostAI()
     {
         Player player = Main.player[Projectile.owner];
-        if (v != null)
+        if (v is not null)
         {
             v.firstP.position = player.RotatedRelativePoint(player.MountedCenter - new Vector2(0, 14 * player.gravDir));
         }
@@ -94,7 +94,9 @@ public class ReiCapeP : ModProjectile
         Player player = Main.player[Projectile.owner];
         SpritebatchParameters sbParams = Main.spriteBatch.Snapshot();
         playerAlpha = Lerp(playerAlpha, (1f - player.immuneAlpha / 255f) * (!player.ShouldNotDraw).ToInt() * (player.vortexStealthActive ? 0.2f : 1), player.ShouldNotDraw ? 0.4f : 0.15f);
-        if (v != null)
+        if (v is null)
+            InitVerlet();
+        else
         {
             List<VertexPositionColorTexture>[] vertex = new List<VertexPositionColorTexture>[3] { new(), new(), new() };
             List<VertexPositionColorTexture>[] vertex2 = new List<VertexPositionColorTexture>[3] { new(), new(), new() };

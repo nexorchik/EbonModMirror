@@ -74,7 +74,9 @@ public class WormKing : ModNPC
     }
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
-        if (verlet != null)
+        if (verlet is null)
+            verlet = new Verlet(NPC.Center, 15, 24, 2.25f, true, true, 15);
+        else
             verlet.Draw(spriteBatch, Texture + "_Chain");
         Texture2D texture = Request<Texture2D>(Texture).Value;
         spriteBatch.Draw(texture, NPC.Center - Main.screenPosition, NPC.frame, drawColor, NPC.rotation, NPC.Size / 2, new Vector2(scaleX, scaleY), SpriteEffects.None, 0);
@@ -82,7 +84,7 @@ public class WormKing : ModNPC
 
         if (Main.LocalPlayer.HasBuff(BuffID.Hunter) && !NPC.IsABestiaryIconDummy)
         {
-            //if (verlet != null)
+            //if (verlet is not null)
             //  verlet.Draw(spriteBatch, Texture + "_Chain", useColor: true, color: NPC.HunterPotionColor());
 
             spriteBatch.Draw(texture, NPC.Center - Main.screenPosition, NPC.frame, NPC.HunterPotionColor(), NPC.rotation, NPC.Size / 2, new Vector2(scaleX, scaleY), SpriteEffects.None, 0);
@@ -97,10 +99,6 @@ public class WormKing : ModNPC
     {
         Main.instance.DrawCacheNPCsBehindNonSolidTiles.Add(index);
     }
-    public override void OnSpawn(IEntitySource source)
-    {
-        verlet = new Verlet(NPC.Center, 15, 24, 2.25f, true, true, 15);
-    }
     public override void HitEffect(NPC.HitInfo hitinfo)
     {
         if (hitinfo.Damage > NPC.life && NPC.life <= 0)
@@ -111,7 +109,7 @@ public class WormKing : ModNPC
             Gore.NewGore(NPC.GetSource_Death(), Main.rand.NextVector2FromRectangle(NPC.getRect()), Main.rand.NextVector2Circular(3, 3), Find<ModGore>("EbonianMod/CorruptionBrickGibs4").Type, NPC.scale);
             Gore.NewGore(NPC.GetSource_Death(), Main.rand.NextVector2FromRectangle(NPC.getRect()), Main.rand.NextVector2Circular(3, 3), Find<ModGore>("EbonianMod/CorruptionBrickGibs0").Type, NPC.scale);
 
-            if (verlet != null)
+            if (verlet is not null)
             {
                 for (int i = 0; i < verlet.points.Count; i++)
                 {
@@ -164,7 +162,7 @@ public class WormKing : ModNPC
         }
 
         if (player.Distance(NPC.Center) > 1800) return;
-        if (verlet != null)
+        if (verlet is not null)
             verlet.Update(stalkBase, NPC.Center);
 
         scaleX = MathHelper.Lerp(scaleX, 1, 0.1f);
@@ -220,7 +218,7 @@ public class WormKing : ModNPC
                             float angle = Helper.CircleDividedEqually(i, 10);
                             Projectile a = MPUtils.NewProjectile(NPC.GetSource_Death(), NPC.Center, angle.ToRotationVector2().RotatedByRandom(0.5f) * Main.rand.NextFloat(5, 7), ProjectileType<OstertagiWorm>(), 30, 0, 0);
 
-                            if (a != null)
+                            if (a is not null)
                             {
                                 a.friendly = false;
                                 a.hostile = true;

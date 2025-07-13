@@ -56,7 +56,7 @@ public class DrawDetours : ModSystem
     {
         for (int i = 0; i < S_VerletSystem.verlets.Count; i++)
         {
-            if (S_VerletSystem.verlets[i].timeLeft > 0 && S_VerletSystem.verlets[i].verlet != null)
+            if (S_VerletSystem.verlets[i].timeLeft > 0 && S_VerletSystem.verlets[i].verlet is not null)
             {
                 float alpha = Clamp(Lerp(0, 2, (float)S_VerletSystem.verlets[i].timeLeft / S_VerletSystem.verlets[i].maxTime), 0, 1);
                 VerletDrawData verletDrawData = S_VerletSystem.verlets[i].drawData;

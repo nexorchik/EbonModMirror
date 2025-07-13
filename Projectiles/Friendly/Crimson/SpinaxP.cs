@@ -27,7 +27,7 @@ public class SpinaxP : ModProjectile
     }
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
     {
-        if (verlet != null)
+        if (verlet is not null)
             foreach (VerletPoint pos in verlet.points)
             {
                 if (new Rectangle((int)pos.position.X, (int)pos.position.Y, 8, 8).Intersects(targetHitbox))
@@ -56,7 +56,9 @@ public class SpinaxP : ModProjectile
         float off = 20 * ScaleFunction(swingProgress);
         if (Projectile.ai[1] != 1 && Projectile.ai[1] != 0)
             off = 20;
-        if (verlet != null)
+        if (verlet is null)
+            verlet = new Verlet(player.Center, 8, 10);
+        else
         {
             verlet.Update(player.Center + Helper.FromAToB(player.Center, Projectile.Center) * off, Projectile.Center);
             verlet.Draw(Main.spriteBatch, "Projectiles/Friendly/Crimson/SpinaxP_Chain");
@@ -87,11 +89,6 @@ public class SpinaxP : ModProjectile
         Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height), lightColor, Projectile.rotation + MathHelper.PiOver4 + (Projectile.ai[1] == 0 ? 0 : MathHelper.PiOver2 * 3), orig, Projectile.scale, Projectile.ai[1] == 0 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
         return false;
     }
-    public override void OnSpawn(IEntitySource source)
-    {
-        Player player = Main.player[Projectile.owner];
-        verlet = new Verlet(player.Center, 8, 10);
-    }
     Vector2 lastPos;
     public override void OnKill(int timeLeft)
     {
@@ -118,7 +115,7 @@ public class SpinaxP : ModProjectile
             Projectile.Kill();
             return;
         }
-        if (verlet != null)
+        if (verlet is not null)
             foreach (VerletPoint pos in verlet.points)
             {
                 foreach (NPC npc in Main.ActiveNPCs)

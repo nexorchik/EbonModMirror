@@ -242,7 +242,7 @@ public class RingOfFireP2 : ModProjectile // shout out to vanilla code
     {
         Projectile.CritChance = 0;
         proj = Main.projectile[(int)Projectile.ai[2]];
-        if (proj != null)
+        if (proj is not null)
             if (proj.active && proj.type == ProjectileType<RingOfFireP>() && proj.whoAmI == Projectile.ai[2])
                 Projectile.Center = Main.projectile[(int)Projectile.ai[2]].Center;
         if (Projectile.ai[1] != 0)

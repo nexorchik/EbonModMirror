@@ -117,7 +117,7 @@ public class BloatedEbonfly : ModNPC
                 {
                     Main.BestiaryTracker.Kills.RegisterKill(NPC);
                     Projectile a = MPUtils.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ProjectileType<OstertagiExplosion>(), 50, 0);
-                    if (a != null)
+                    if (a is not null)
                     {
                         a.friendly = true;
                         a.hostile = true;

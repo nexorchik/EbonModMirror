@@ -52,6 +52,7 @@ public class ArchmageX : CommonNPC
         NPC.DeathSound = SoundID.NPCDeath1;
         NPC.buffImmune[BuffID.Confused] = true;
         NPC.BossBar = GetInstance<XBar>();
+        NPC.netAlways = true;
         NPC.value = Item.buyPrice(0, 30);
         Music = 0;
     }
@@ -476,7 +477,7 @@ public class ArchmageX : CommonNPC
     public override void AI()
     {
         bool phase2 = phaseMult >= 2;
-        if (currentDialogue != null)
+        if (currentDialogue is not null)
         {
             currentDialogue.Center = NPC.Center - new Vector2(0, 80);
             currentDialogue.VisibleCenter = NPC.Center - new Vector2(0, 80);
@@ -971,7 +972,7 @@ public class ArchmageX : CommonNPC
                             chat.Add(Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XTaunt29").Value);
                             chat.Add(Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XTaunt30").Value);
                         }
-                        if (player.HeldItem != null)
+                        if (player.HeldItem is not null)
                         {
                             if (player.HeldItem.DamageType == DamageClass.Magic)
                             {
@@ -1253,7 +1254,7 @@ public class ArchmageX : CommonNPC
                         {
                             float angle = Helper.CircleDividedEqually(i, 3 + (AITimer / 60)) + off;
                             Projectile a = MPUtils.NewProjectile(null, staffTip, Vector2.UnitX.RotatedBy(angle), ProjectileType<XAmethyst>(), 15, 0);
-                            if (a != null)
+                            if (a is not null)
                             {
                                 a.timeLeft = 100;
                                 a.SyncProjectile();
@@ -1268,7 +1269,7 @@ public class ArchmageX : CommonNPC
                         {
                             float angle = Helper.CircleDividedEqually(i, 3 + (AITimer / 60)) + off;
                             Projectile a = MPUtils.NewProjectile(null, staffTip, Vector2.UnitX.RotatedBy(angle), ProjectileType<XAmethyst>(), 15, 0);
-                            if (a != null)
+                            if (a is not null)
                             {
                                 a.timeLeft = 100;
                                 a.SyncProjectile();
@@ -1704,7 +1705,7 @@ public class ArchmageX : CommonNPC
                             for (int i = 0; i < 5; i++)
                             {
                                 Projectile a = MPUtils.NewProjectile(null, staffTip, Helper.FromAToB(staffTip, player.Center).RotatedBy(Helper.CircleDividedEqually(i, 5) + off) * 0.25f, ProjectileType<XBolt>(), 15, 0);
-                                if (a != null)
+                                if (a is not null)
                                 {
                                     a.tileCollide = false;
                                     a.SyncProjectile();
@@ -1876,7 +1877,7 @@ public class ArchmageX : CommonNPC
                             {
                                 if (i == 0) continue;
                                 Projectile a = MPUtils.NewProjectile(null, NPC.Center, Helper.FromAToB(NPC.Center, player.Center + player.velocity).RotatedBy(i * 0.75f), ProjectileType<SheepeningOrb>(), 1, 0, -1);
-                                if (a != null)
+                                if (a is not null)
                                 {
                                     a.localAI[0] = 1;
                                     a.SyncProjectile();
@@ -1889,7 +1890,7 @@ public class ArchmageX : CommonNPC
                         for (int i = -2; i < 4; i++)
                         {
                             Projectile a = MPUtils.NewProjectile(null, NPC.Center, Helper.FromAToB(NPC.Center, player.Center + player.velocity).RotatedBy(i * 0.35f), ProjectileType<SheepeningOrb>(), 1, 0, -1);
-                            if (a != null)
+                            if (a is not null)
                             {
                                 a.localAI[0] = 1;
                                 a.SyncProjectile();
@@ -2080,12 +2081,12 @@ public class ArchmageX : CommonNPC
                         Projectile a = MPUtils.NewProjectile(null, NPC.Center + vel * 15, vel, ProjectileType<XSineLaser>(), 15, 0, ai1: 7.5f);
                         Projectile b = MPUtils.NewProjectile(null, NPC.Center + vel * 15, vel, ProjectileType<XSineLaser>(), 15, 0, ai1: -7.5f);
 
-                        if (a != null)
+                        if (a is not null)
                         {
                             a.localAI[0] = 1;
                             a.SyncProjectile();
                         }
-                        if (a != null)
+                        if (a is not null)
                         {
                             a.localAI[0] = 1;
                             a.SyncProjectile();
@@ -2602,7 +2603,7 @@ public class ArchmageX : CommonNPC
                                 chat.Add(Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XAttack17.Staff4").Value);
                                 DialogueSystem.NewDialogueBox(40, position - new Vector2(-40 * NPC.direction, 70), chat, Color.White, -1, 0.6f, Color.Magenta * 0.6f, 8f, true, DialogueAnimationIDs.BopDown | DialogueAnimationIDs.ColorWhite, SoundID.DD2_CrystalCartImpact.WithPitchOffset(0.9f), 2);
                                 Projectile p = MPUtils.NewProjectile(null, Helper.TRay.Cast(position - new Vector2(0, 20), Vector2.UnitY, 80), Vector2.Zero, ProjectileType<XImpact>(), 20, 0);
-                                if (p != null)
+                                if (p is not null)
                                 {
                                     p.friendly = false;
                                     p.hostile = true;

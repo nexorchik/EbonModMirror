@@ -101,7 +101,7 @@ public class SpudCannon : ModItem
                         SoundEngine.PlaySound(SoundID.Item40.WithPitchOffset(Main.rand.NextFloat(0.5f, 1)) with { Volume = 0.8f }, player.Center);
                         for (int i = 0; i < Clamp(8 * Charge, 8, 100); i++)
                             Dust.NewDustPerfect(SpawnPosition, DustID.Torch, (Projectile.rotation + Main.rand.NextFloat(-Pi / (Charge * 6), Pi / (Charge * 6))).ToRotationVector2() * Main.rand.NextFloat(0, 5) * Charge, Scale: Main.rand.NextFloat(0.4f, 3)).noGravity = true;
-                        if (CurrentProjectile != null)
+                        if (CurrentProjectile is not null)
                             CurrentProjectile.CritChance = 100;
                     }
 

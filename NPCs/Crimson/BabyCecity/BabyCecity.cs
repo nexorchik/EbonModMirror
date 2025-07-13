@@ -60,14 +60,24 @@ public class BabyCecity : ModNPC
     }
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
-        if (!NPC.IsABestiaryIconDummy && verlet[0] != null)
-            for (int i = 0; i < 2; i++)
+        if (!NPC.IsABestiaryIconDummy)
+        {
+            if (verlet[0] is null)
             {
-                if (!Main.gamePaused)
-                    for (int j = 0; j < 2; j++)
-                        verlet[i].Update(NPC.Center, ogPos[i]);
-                verlet[i].Draw(spriteBatch, new VerletDrawData(new VerletTextureData("NPCs/Crimson/BabyCecity/BabyCecity_Hook0", _endTex: "NPCs/Crimson/BabyCecity/BabyCecity_Hook2")));
+                for (int i = 0; i < 2; i++)
+                    verlet[i] = new Verlet(NPC.Center, 10, 42, gravity: -5f, lastPointLocked: true, stiffness: 50);
             }
+            else
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    if (!Main.gamePaused)
+                        for (int j = 0; j < 2; j++)
+                            verlet[i].Update(NPC.Center, ogPos[i]);
+                    verlet[i].Draw(spriteBatch, new VerletDrawData(new VerletTextureData("NPCs/Crimson/BabyCecity/BabyCecity_Hook0", _endTex: "NPCs/Crimson/BabyCecity/BabyCecity_Hook2")));
+                }
+            }
+        }
         return true;
     }
     public float AIState
@@ -91,7 +101,6 @@ public class BabyCecity : ModNPC
     Vector2 savedP;
     Vector2 savedP2;
     int seed = 55;
-    //float[] len = new float[3];
     public override void SendExtraAI(BinaryWriter writer)
     {
         writer.Write(seed);
@@ -119,7 +128,6 @@ public class BabyCecity : ModNPC
         NPC.Center = Helper.TRay.Cast(NPC.Center, Vector2.UnitY, 1000) - Vector2.UnitY * Main.rand.NextFloat(200, 300);
         for (int i = 0; i < 2; i++)
         {
-            verlet[i] = new Verlet(NPC.Center, 10, 42, gravity: -5f, lastPointLocked: true, stiffness: 50);
             dir[i] = -Helper.CircleDividedEqually(i + 1, 6).ToRotationVector2().RotatedBy(MathHelper.Pi);
             ogPos[i] = Helper.TRay.Cast(NPC.Center, dir[i], 350) + Vector2.UnitY * 30;
         }
@@ -145,7 +153,7 @@ public class BabyCecity : ModNPC
         NPC.TargetClosest(false);
         if (player.Distance(NPC.Center) > 1800) return;
         NPC.direction = NPC.velocity.X < 0 ? -1 : 1;
-        if (verlet[0] == null)
+        if (verlet[0] is null)
             return;
         if (Helper.TRay.CastLength(NPC.Center, Vector2.UnitY, 600) >= 580)
         {
@@ -293,7 +301,7 @@ public class BabyCecity : ModNPC
                         }
                         Projectile a = MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel * Main.rand.NextFloat(10, 15), ProjectileType<CIchor>(), 20, 0);
 
-                        if (a != null)
+                        if (a is not null)
                         {
                             a.friendly = false;
                             a.hostile = true;

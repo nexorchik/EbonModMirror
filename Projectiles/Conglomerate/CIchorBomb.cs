@@ -28,7 +28,7 @@ public class CIchorBomb : ModProjectile
             float angle = Helper.CircleDividedEqually(i, 5 + Projectile.ai[2] * 2) + Main.rand.NextFloat(Pi);
             Projectile a = MPUtils.NewProjectile(null, Projectile.Center, angle.ToRotationVector2() * Main.rand.NextFloat(5, 7), ModContent.ProjectileType<CecitiorTeeth>(), 30, 0, 0);
 
-            if (a != null)
+            if (a is not null)
             {
                 a.friendly = false;
                 a.hostile = true;

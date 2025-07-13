@@ -113,7 +113,7 @@ public class EbonianMod : Mod
         if (Main.netMode != NetmodeID.Server)
             Main.QueueMainThreadAction(() =>
             {
-                if (Instance.blurrender != null)
+                if (Instance.blurrender is not null)
                     if (!Instance.blurrender.IsDisposed)
                         Instance.blurrender.Dispose();
                 Instance.blurrender = new RenderTarget2D(Main.graphics.GraphicsDevice, Main.screenWidth, Main.screenHeight);

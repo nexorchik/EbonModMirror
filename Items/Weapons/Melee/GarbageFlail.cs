@@ -59,7 +59,6 @@ public class GarbageFlailP : ModProjectile
     SlotId slot;
     public override void OnSpawn(IEntitySource source)
     {
-        verlet = new Verlet(Projectile.Center, 2, 15, stiffness: 40);
         SoundEngine.PlaySound(SoundID.Item23.WithPitchOffset(0.5f));
 
         slot = SoundEngine.PlaySound(EbonianSounds.ghizasWheel.WithPitchOffset(-0.35f));
@@ -110,14 +109,14 @@ public class GarbageFlailP : ModProjectile
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
     {
         Vector2 headPos = Projectile.Center + new Vector2(80, 0).RotatedBy(Projectile.ai[1]);
-        if (verlet != null)
-            for (int i = 0; i < verlet.points.Count; i++)
-            {
-                if (!Collision.CanHitLine(Main.player[Projectile.owner].Center, Main.player[Projectile.owner].width, Main.player[Projectile.owner].head, verlet.points[i].position, 5, 5))
-                    return false;
-                if (targetHitbox.Intersects(new Rectangle((int)verlet.points[i].position.X, (int)verlet.points[i].position.Y, 5, 5)))
-                    return true;
-            }
+        for (float i = 0; i < 1; i += 0.1f)
+        {
+            Vector2 pos = Vector2.Lerp(Projectile.Center, headPos, i);
+            if (!Collision.CanHitLine(Main.player[Projectile.owner].position, Main.player[Projectile.owner].width, Main.player[Projectile.owner].height, pos, 5, 5))
+                return false;
+            if (targetHitbox.Intersects(new Rectangle((int)pos.X, (int)pos.Y, 5, 5)))
+                return true;
+        }
         return targetHitbox.Intersects(new Rectangle((int)headPos.X - 17, (int)headPos.Y - 17, 34, 34));
     }
     public override bool PreDraw(ref Color lightColor)
@@ -125,7 +124,9 @@ public class GarbageFlailP : ModProjectile
         Texture2D head = Helper.GetTexture("Items/Weapons/Melee/GarbageFlailHead").Value;
 
         Vector2 headPos = Projectile.Center + new Vector2(80, 0).RotatedBy(Projectile.ai[1]);
-        if (verlet != null)
+        if (verlet is null)
+            verlet = new Verlet(Projectile.Center, 2, 15, stiffness: 40);
+        else
         {
             if (!Main.gamePaused)
                 verlet.Update(Projectile.Center, headPos);

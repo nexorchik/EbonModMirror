@@ -233,7 +233,7 @@ public class PhantasmalGreatswordP : HeldSword
             Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
             Vector2 orig = texture.Size() / 2;
             Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height), Color.White, Projectile.rotation + (Projectile.ai[1] == -1 ? 0 : MathHelper.PiOver2 * 3), orig, Projectile.scale, Projectile.ai[1] == -1 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
-            if (glowAlpha > 0 && glowBlend != null)
+            if (glowAlpha > 0 && glowBlend is not null)
             {
                 Texture2D glow = Helper.GetTexture(GlowTexture).Value;
                 Main.spriteBatch.Reload(glowBlend);

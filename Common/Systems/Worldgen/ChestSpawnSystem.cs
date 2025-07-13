@@ -34,7 +34,7 @@ public class ChestSpawnSystem : ModSystem
         for (int chestIndex = 0; chestIndex < 1000; chestIndex++)
         {
             Chest chest = Main.chest[chestIndex];
-            if (chest != null && Main.tile[chest.x, chest.y].TileType == TileID.Containers)
+            if (chest is not null && Main.tile[chest.x, chest.y].TileType == TileID.Containers)
             {
                 if (Main.tile[chest.x, chest.y].TileFrameX == 1 * 36)
                 {

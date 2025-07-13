@@ -88,7 +88,7 @@ public class SmokeDustAkaFireDustButNoGlow : ModDust
         dust.scale += 0.01f;
         dust.velocity *= 0.95f;
 
-        if (dust.customData != null && dust.customData.GetType() == typeof(Vector2))
+        if (dust.customData is not null && dust.customData.GetType() == typeof(Vector2))
         {
             dust.velocity = Vector2.Lerp(dust.velocity, Helper.FromAToB(dust.position, (Vector2)dust.customData, false) / 25, 0.05f + dust.scale * new UnifiedRandom(dust.dustIndex).NextFloat(0.9f, 1.2f));
             if (dust.position.Distance((Vector2)dust.customData) < 100)
@@ -133,7 +133,7 @@ public class SmokeDustAkaFireDustButNoGlow2 : ModDust
         dust.velocity *= 0.95f;
         dust.rotation += new UnifiedRandom(dust.dustIndex).NextFloat(ToRadians(-10), ToRadians(10));
 
-        if (dust.customData != null && dust.customData.GetType() == typeof(Vector2))
+        if (dust.customData is not null && dust.customData.GetType() == typeof(Vector2))
         {
             dust.velocity = Vector2.Lerp(dust.velocity, Helper.FromAToB(dust.position, (Vector2)dust.customData, false) / 25, 0.05f + dust.scale * new UnifiedRandom(dust.dustIndex).NextFloat(0.9f, 1.2f));
             if (dust.position.Distance((Vector2)dust.customData) < 100)

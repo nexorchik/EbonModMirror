@@ -55,6 +55,7 @@ public class HotGarbage : ModNPC
         NPC.BossBar = GetInstance<GarbageBar>();
         NPC.noTileCollide = false;
         NPC.boss = true;
+        NPC.netAlways = true;
         if (!Main.dedServ)
         {
             Music = MusicLoader.GetMusicSlot(Mod, "Sounds/Music/Garbage");
@@ -566,7 +567,7 @@ public class HotGarbage : ModNPC
                 for (int i = -1; i < 1; i++)
                 {
                     Projectile a = MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + new Vector2(Main.rand.NextFloat(2, 4) * i, NPC.height / 2 - 8), new Vector2(-NPC.direction * Main.rand.NextFloat(1, 3), Main.rand.NextFloat(-5, -1)), ProjectileType<GarbageFlame>(), 15, 0);
-                    if (a != null)
+                    if (a is not null)
                     {
                         a.timeLeft = 170;
                         a.SyncProjectile();
@@ -767,7 +768,7 @@ public class HotGarbage : ModNPC
                 {
                     Projectile a = MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + new Vector2(Main.rand.NextFloat(2, 4) * i, NPC.height / 2 - 8), new Vector2(-NPC.direction * Main.rand.NextFloat(1, 3), Main.rand.NextFloat(-5, -1)), ProjectileType<GarbageFlame>(), 15, 0);
 
-                    if (a != null)
+                    if (a is not null)
                     {
                         a.timeLeft = 170;
                         a.SyncProjectile();
@@ -1094,7 +1095,7 @@ public class HotGarbage : ModNPC
             if (AITimer <= 60 && AITimer % 5 == 0)
             {
                 Projectile a = MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(Main.rand.NextFloat(-2.5f, 2.5f), Main.rand.NextFloat(-15, -7)) * 0.5f, ProjectileType<GarbageBag>(), 15, 0, player.whoAmI);
-                if (a != null)
+                if (a is not null)
                 {
                     a.timeLeft = 200;
                     a.SyncProjectile();
@@ -1321,7 +1322,7 @@ public class HotGarbage : ModNPC
                     for (int i = 0; i < 4; i++)
                         MPUtils.NewProjectile(NPC.InheritSource(NPC), NPC.Center + Main.rand.NextVector2Circular(15, 15), Vector2.Zero, ProjectileType<FlameExplosionWSprite>(), 0, 0);
                     Projectile a = MPUtils.NewProjectile(NPC.InheritSource(NPC), NPC.Center, Vector2.Zero, ProjectileType<FatSmash>(), 0, 0);
-                    if (a != null)
+                    if (a is not null)
                     {
                         a.scale = Main.rand.NextFloat(0.4f, 0.7f);
                         a.SyncProjectile();

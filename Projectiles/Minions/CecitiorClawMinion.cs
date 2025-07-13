@@ -27,10 +27,6 @@ public class CecitiorClawMinion : ModProjectile
     Verlet verlet;
     public override bool? CanCutTiles() => false;
     public override bool ShouldUpdatePosition() => false;
-    public override void OnSpawn(IEntitySource source)
-    {
-        verlet = new Verlet(Projectile.Center, 6, 40, -1, stiffness: 60);
-    }
     public override bool? CanDamage() => false;
     public override void AI()
     {
@@ -118,7 +114,9 @@ public class CecitiorClawMinion : ModProjectile
     public override bool PreDraw(ref Color lightColor)
     {
         Player player = Main.player[Projectile.owner];
-        if (verlet != null)
+        if (verlet is null)
+            verlet = new Verlet(Projectile.Center, 6, 40, -1, stiffness: 60);
+        else
         {
             verlet.Update(player.Center, Projectile.Center);
             VerletDrawData data = new VerletDrawData(

@@ -63,7 +63,7 @@ public class EbonianHeartNPC : ModNPC
                         break;
                     }
                     Projectile p = MPUtils.NewProjectile(NPC.InheritSource(NPC), NPC.Center, Helper.FromAToB(NPC.Center, npc.Center) * 10, ProjectileType<EHeartP>(), 26, 0, player.whoAmI);
-                    if (p != null)
+                    if (p is not null)
                     {
                         p.friendly = true;
                         p.hostile = false;
@@ -103,10 +103,6 @@ public class EbonianHeartNPC : ModNPC
         }
     }
     Verlet verlet;
-    public override void OnSpawn(IEntitySource source)
-    {
-        verlet = new(NPC.Center, 10, 10, 1, true, true, 10);
-    }
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 pos, Color drawColor)
     {
         if (NPC.ai[0] != -1)
@@ -131,7 +127,9 @@ public class EbonianHeartNPC : ModNPC
                     null, Lighting.GetColor((int)center.X / 16, (int)center.Y / 16), projRotation,
                     new Vector2(12 * 0.5f, 6 * 0.5f), 1f, SpriteEffects.None, 0);
             }*/
-            if (verlet != null)
+            if (verlet is null)
+                verlet = new(NPC.Center, 10, 10, 1, true, true, 10);
+            else
             {
                 verlet.Update(NPC.Center, player.Center);
                 verlet.Draw(spriteBatch, "Items/Accessories/HeartChain");

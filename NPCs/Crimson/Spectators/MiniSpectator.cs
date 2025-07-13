@@ -57,11 +57,10 @@ public class MiniSpectator : ModNPC
     }
     public override void OnSpawn(IEntitySource source)
     {
-        verlet = new Verlet(NPC.Center, 10, Main.rand.Next(15, 25), Main.rand.NextFloat(-1, -0.5f), true, true, 4);
-
         NPC.ai[1] = Main.rand.NextFloat(20, 100);
         NPC.ai[2] = Main.rand.NextFloat(30, 100);
         NPC.ai[3] = Main.rand.NextFloatDirection();
+        NPC.netUpdate = true;
     }
     public override void SendExtraAI(BinaryWriter writer)
     {
@@ -73,7 +72,9 @@ public class MiniSpectator : ModNPC
     }
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
-        if (verlet != null)
+        if (verlet is null)
+            verlet = new Verlet(NPC.Center, 10, Main.rand.Next(15, 25), Main.rand.NextFloat(-1, -0.5f), true, true, 4);
+        else
             verlet.Draw(spriteBatch, new VerletDrawData(new VerletTextureData(Texture + "_Vein"), _endRot: NPC.rotation + MathHelper.PiOver2));
         Texture2D texture = Request<Texture2D>(Texture).Value;
         spriteBatch.Draw(texture, NPC.Center - Main.screenPosition, null, drawColor, NPC.rotation, texture.Size() / 2, NPC.scale, SpriteEffects.None, 0);
@@ -134,7 +135,7 @@ public class MiniSpectator : ModNPC
             NPC.ai[2] = Main.rand.NextFloat(30, 100);
             NPC.ai[3] = Main.rand.NextFloatDirection();
         }
-        if (verlet != null)
+        if (verlet is not null)
             verlet.Update(stalkBase, NPC.Center + new Vector2(4, 0).RotatedBy(NPC.rotation));
     }
 }

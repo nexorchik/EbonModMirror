@@ -27,13 +27,17 @@ public class CorruptionClawP : ModProjectile
     }
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
     {
-        if (verlet != null)
-            foreach (VerletPoint pos in verlet.points)
+        bool hit = false;
+        for (float i = 0; i < 1; i += 0.1f)
+        {
+            Vector2 pos = Vector2.Lerp(Main.player[Projectile.owner].Center, Projectile.Center, i);
+            if (Collision.CheckAABBvAABBCollision(pos - Vector2.One * 15, Vector2.One * 30, targetHitbox.TopLeft(), targetHitbox.Size()))
             {
-                if (new Rectangle((int)pos.position.X, (int)pos.position.Y, 8, 8).Intersects(targetHitbox))
-                    return true;
+                hit = true;
+                break;
             }
-        return projHitbox.Intersects(targetHitbox);
+        }
+        return hit || projHitbox.Intersects(targetHitbox);
     }
     public virtual float Ease(float x)
     {
@@ -56,7 +60,9 @@ public class CorruptionClawP : ModProjectile
         float off = 20 * ScaleFunction(swingProgress);
         if (Projectile.ai[1] != 1 && Projectile.ai[1] != 0)
             off = 20;
-        if (verlet != null)
+        if (verlet is null)
+            verlet = new Verlet(player.Center, 8, 10);
+        else
         {
             verlet.Update(player.Center + Helper.FromAToB(player.Center, Projectile.Center) * off, Projectile.Center);
             verlet.Draw(Main.spriteBatch, "Projectiles/Friendly/Corruption/CorruptionClawP_Rope");
@@ -90,7 +96,6 @@ public class CorruptionClawP : ModProjectile
     public override void OnSpawn(IEntitySource source)
     {
         Player player = Main.player[Projectile.owner];
-        verlet = new Verlet(player.Center, 8, 10);
     }
     Vector2 lastPos;
     public override void OnKill(int timeLeft)

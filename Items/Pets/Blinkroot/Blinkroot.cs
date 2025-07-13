@@ -88,7 +88,7 @@ namespace EbonianMod.Items.Pets.Blinkroot
             Lighting.AddLight(Projectile.Center, 0.05f + ((MathF.Sin(Main.GlobalTimeWrappedHourly * 0.75f) + 1) * 0.5f) * 0.2f, 0.05f + ((MathF.Sin(Main.GlobalTimeWrappedHourly * 0.75f) + 1) * 0.5f) * 0.2f, 0.05f + ((MathF.Sin(Main.GlobalTimeWrappedHourly * 0.75f) + 1) * 0.5f) * 0.2f);
             frameCounter++;
             int height = frames.Height;
-            Projectile.tileCollide = (Player.GetFloorTile(player.Bottom.ToTileCoordinates().X, player.Bottom.ToTileCoordinates().Y) != null && Player.GetFloorTile(Projectile.Top.ToTileCoordinates().X, Projectile.Top.ToTileCoordinates().Y) == null && (player.Center.X.InRange(Projectile.Center.X, 400) && player.Center.Y.InRange(Projectile.Center.Y, 200)));
+            Projectile.tileCollide = (Player.GetFloorTile(player.Bottom.ToTileCoordinates().X, player.Bottom.ToTileCoordinates().Y) is not null && Player.GetFloorTile(Projectile.Top.ToTileCoordinates().X, Projectile.Top.ToTileCoordinates().Y) is null && (player.Center.X.InRange(Projectile.Center.X, 400) && player.Center.Y.InRange(Projectile.Center.Y, 200)));
             if ((Projectile.velocity.Y += 0.2f) > 7f) Projectile.velocity.Y = 7f;
 
             if (!Projectile.tileCollide)

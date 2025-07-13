@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 
 namespace EbonianMod.Common.Systems.Verlets;
-
 public struct VerletTextureData
 {
     public string texPath, baseTex, endTex;
@@ -40,7 +39,6 @@ public struct VerletDrawData
 }
 public class Verlet
 {
-
     public int stiffness { get; set; }
     public List<VerletSegment> segments { get; set; }
     public List<VerletPoint> points { get; set; }
@@ -118,14 +116,14 @@ public class Verlet
         UnifiedRandom rand = new UnifiedRandom(drawData.variantSeed);
         foreach (VerletSegment segment in segments)
         {
-            if (drawData.tex.baseTex != null || drawData.tex.endTex != null ? segment != segments.First() && segment != segments.Last() : true)
+            if (drawData.tex.baseTex is not null || drawData.tex.endTex is not null ? segment != segments.First() && segment != segments.Last() : true)
             {
                 int variant = rand.Next(drawData.maxVariants > 0 ? drawData.maxVariants : 2);
                 segment.DrawSegments(sb, drawData.tex.texPath + (drawData.maxVariants > 0 ? variant.ToString() : ""), drawData.color, drawData.scale, drawData.rot, drawData.tex.frame);
             }
-            else if (drawData.tex.endTex != null && segment == segments.Last())
+            else if (drawData.tex.endTex is not null && segment == segments.Last())
                 segment.Draw(sb, drawData.tex.endTex, drawData.color, drawData.scale, drawData.endRot, drawData.tex.endFrame);
-            else if (drawData.tex.baseTex != null && segment == segments.First())
+            else if (drawData.tex.baseTex is not null && segment == segments.First())
                 segment.Draw(sb, drawData.tex.baseTex, drawData.color, drawData.scale, drawData.firstRot, drawData.tex.baseFrame);
         }
     }

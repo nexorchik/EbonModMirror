@@ -61,7 +61,6 @@ public class BloodHunter : ModNPC
     }
     public override void OnSpawn(IEntitySource source)
     {
-        tail = new Verlet(NPC.Center, 20, 6, -10, true, true, 60, false);
         stingerTarget = NPC.Center + new Vector2(30 * NPC.direction, -35);
     }
     public override bool? CanFallThroughPlatforms()
@@ -81,7 +80,7 @@ public class BloodHunter : ModNPC
             Gore.NewGore(NPC.GetSource_Death(), NPC.Center + fgLegOffsets[0], Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/BloodHunter_FGLeg1").Type, NPC.scale);
             Gore.NewGore(NPC.GetSource_Death(), NPC.Center + fgLegOffsets[1], Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/BloodHunter_FGLeg2").Type, NPC.scale);
         }
-        if (tail != null)
+        if (tail is not null)
         {
             for (int i = 0; i < tail.points.Count; i++)
             {
@@ -142,7 +141,7 @@ public class BloodHunter : ModNPC
             }
         }
         UpdateLegs();
-        if (tail != null)
+        if (tail is not null)
         {
             if (NPC.Grounded() ? NPC.Distance(player.Center) > 100 : true)
                 stingerTarget = Vector2.Lerp(stingerTarget, NPC.Center + new Vector2(30 * NPC.direction, -28), 0.15f + (NPC.velocity.Length() * 0.02f));
@@ -226,7 +225,9 @@ public class BloodHunter : ModNPC
         Texture2D tail1 = Assets.ExtraSprites.Crimson.BloodHunter_Tail1.Value;
         Texture2D tail2 = Assets.ExtraSprites.Crimson.BloodHunter_Tail2.Value;
         Texture2D stinger = Assets.ExtraSprites.Crimson.BloodHunter_Stinger.Value;
-        if (tail != null)
+        if (tail is null)
+            tail = new Verlet(NPC.Center, 20, 6, -10, true, true, 60, false);
+        else
         {
             for (int i = 0; i < tail.points.Count - 1; i++)
             {

@@ -337,7 +337,7 @@ public class ArchmageCutsceneMartian : ModNPC
             {
                 DialogueSystem.NewDialogueBox(80, NPC.Center - new Vector2(0, 80), Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.Martian.Line5").Value, Color.Violet, -1, 0.6f, Color.Indigo * 0.6f, 2f, true, DialogueAnimationIDs.BopDown | DialogueAnimationIDs.ColorWhite, SoundID.DD2_OgreRoar.WithPitchOffset(0.9f), 4);
             }
-            if (AITimer > 410 && AITimer < 680 && modifier != null)
+            if (AITimer > 410 && AITimer < 680 && modifier is not null)
                 if (!Main.dedServ)
                 {
                     modifier._pos = Vector2.Lerp(modifier._pos, NPC.Center - new Vector2(0, 200) - new Vector2(Main.screenWidth, Main.screenHeight) / 2, 0.02f);
@@ -346,7 +346,7 @@ public class ArchmageCutsceneMartian : ModNPC
             {
                 DialogueSystem.NewDialogueBox(80, NPC.Center - new Vector2(0, 80), Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.Martian.Line6").Value, Color.Violet, -1, 0.6f, Color.Indigo * 0.6f, 2f, true, DialogueAnimationIDs.BopDown | DialogueAnimationIDs.ColorWhite, SoundID.DD2_OgreRoar.WithPitchOffset(0.9f), 4);
             }
-            if (AITimer > 680 && AITimer < 750 && modifier != null)
+            if (AITimer > 680 && AITimer < 750 && modifier is not null)
                 if (!Main.dedServ)
                 {
                     modifier._pos = Vector2.Lerp(modifier._pos, NPC.Center - new Vector2(0, 200) - new Vector2(Main.screenWidth, Main.screenHeight) / 2, 0.1f);

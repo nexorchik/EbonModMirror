@@ -29,9 +29,9 @@ public class GenericAdditiveDust : ModDust
         if (d.type == DustType<GenericAdditiveDust>() && d.active)
         {
             Texture2D tex = Assets.Extras.explosion.Value;
-            if (d.customData != null)
+            if (d.customData is not null)
                 sb.Draw(tex, d.position - Main.screenPosition, null, Color.White * d.scale * 5, 0, tex.Size() / 2, d.scale * 0.85f * 2, SpriteEffects.None, 0);
-            sb.Draw(tex, d.position - Main.screenPosition, null, d.color * (d.customData != null ? ((int)d.customData == 2 ? d.scale * 10 : 1) : 1), 0, tex.Size() / 2, d.scale * 2, SpriteEffects.None, 0);
+            sb.Draw(tex, d.position - Main.screenPosition, null, d.color * (d.customData is not null ? ((int)d.customData == 2 ? d.scale * 10 : 1) : 1), 0, tex.Size() / 2, d.scale * 2, SpriteEffects.None, 0);
         }
     }
 }
@@ -62,9 +62,9 @@ public class SparkleDust : ModDust
         if (d.type == DustType<SparkleDust>() && d.active)
         {
             Texture2D tex = Assets.Extras.crosslight.Value;
-            if (d.customData != null)
+            if (d.customData is not null)
                 sb.Draw(tex, d.position - Main.screenPosition, null, Color.White * d.scale * 5, 0, tex.Size() / 2, d.scale * 0.85f * 2, SpriteEffects.None, 0);
-            sb.Draw(tex, d.position - Main.screenPosition, null, d.color * (d.customData != null ? ((int)d.customData == 2 ? d.scale * 10 : 1) : 1), 0, tex.Size() / 2, d.scale * 2, SpriteEffects.None, 0);
+            sb.Draw(tex, d.position - Main.screenPosition, null, d.color * (d.customData is not null ? ((int)d.customData == 2 ? d.scale * 10 : 1) : 1), 0, tex.Size() / 2, d.scale * 2, SpriteEffects.None, 0);
         }
     }
 }
@@ -86,7 +86,7 @@ public class LineDustFollowPoint : ModDust
         dust.position += dust.velocity;
         dust.scale -= 0.0025f;
         dust.rotation = dust.velocity.ToRotation() - MathHelper.PiOver2;
-        if (dust.customData != null && dust.customData.GetType() == typeof(Vector2))
+        if (dust.customData is not null && dust.customData.GetType() == typeof(Vector2))
         {
             dust.velocity = Vector2.Lerp(dust.velocity, Helper.FromAToB(dust.position, (Vector2)dust.customData, false) / 25, 0.05f + dust.scale);
             if (dust.position.Distance((Vector2)dust.customData) < 100)
@@ -129,7 +129,7 @@ public class IntenseDustFollowPoint : ModDust
     {
         dust.position += dust.velocity;
         dust.rotation = dust.velocity.ToRotation() - MathHelper.PiOver2;
-        if (dust.customData != null && dust.customData.GetType() == typeof(Vector2) && dust.fadeIn >= 0.9f)
+        if (dust.customData is not null && dust.customData.GetType() == typeof(Vector2) && dust.fadeIn >= 0.9f)
         {
             dust.velocity = Vector2.Lerp(dust.velocity, Helper.FromAToB(dust.position, (Vector2)dust.customData, false) / 5, 0.1f + dust.scale);
             if (dust.position.Distance((Vector2)dust.customData) < 30)

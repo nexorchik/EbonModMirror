@@ -37,7 +37,7 @@ public class GarbageLaserSmall1 : ModProjectile
 
         Dust.NewDustPerfect(Projectile.Center + Projectile.velocity * Main.rand.NextFloat(50), DustID.Smoke, Projectile.velocity.RotatedByRandom(MathHelper.PiOver4) * Main.rand.NextFloat(5, 8));
         NPC npc = Main.npc[(int)Projectile.ai[0]];
-        if (npc != null)
+        if (npc is not null)
             if (npc.active && npc.type == NPCType<HotGarbage>())
             {
                 Projectile.Center = npc.Center + new Vector2(-7 * npc.direction, npc.height * 0.4f);
@@ -157,7 +157,7 @@ public class GarbageLaserSmall2 : ModProjectile
 
 
         NPC npc = Main.npc[(int)Projectile.ai[0]];
-        if (npc != null)
+        if (npc is not null)
             if (npc.active && npc.type == NPCType<HotGarbage>())
             {
                 Projectile.Center = npc.Center + new Vector2(-7 * npc.direction, npc.height * 0.4f);
@@ -268,7 +268,7 @@ public class GarbageLaserSmall3 : ModProjectile
 
         Dust.NewDustPerfect(Projectile.Center + Projectile.velocity * Main.rand.NextFloat(50), DustID.Smoke, Projectile.velocity.RotatedByRandom(MathHelper.PiOver4) * Main.rand.NextFloat(5, 8));
         NPC npc = Main.npc[(int)Projectile.ai[0]];
-        if (npc != null)
+        if (npc is not null)
             if (npc.active && npc.type == NPCType<HotGarbage>())
             {
                 Projectile.Center = npc.Center + new Vector2(-7 * npc.direction, npc.height * 0.4f);

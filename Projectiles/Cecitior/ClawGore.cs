@@ -25,7 +25,7 @@ public class ClawGore : ModProjectile
         Projectile.velocity = Vector2.Zero;
         for (int i = 0; i < 3; i++)
         {
-            if (claw[i].verlet != null)
+            if (claw[i].verlet is not null)
             {
                 claw[i].verlet.lastP.locked = false;
                 claw[i].verlet.firstP.locked = false;
@@ -35,7 +35,14 @@ public class ClawGore : ModProjectile
     }
     public override bool PreDraw(ref Color lightColor)
     {
-        if (claw[0].verlet != null)
+        if (claw[0].verlet is null)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                claw[i] = new CecitiorClaw(new Vector2(Projectile.ai[0], Projectile.ai[1]), new Verlet(Projectile.Center, 12, 22, 15, true, true, 5, true, 20));
+            }
+        }
+        else
         {
             for (int i = 0; i < 3; i++)
             {
@@ -73,10 +80,6 @@ public class ClawGore : ModProjectile
         {
             Projectile.ai[0] = Projectile.Center.X;
             Projectile.ai[1] = Projectile.Center.Y;
-        }
-        for (int i = 0; i < 3; i++)
-        {
-            claw[i] = new CecitiorClaw(new Vector2(Projectile.ai[0], Projectile.ai[1]), new Verlet(Projectile.Center, 12, 22, 15, true, true, 5, true, 20));
         }
         SoundEngine.PlaySound(EbonianSounds.fleshHit with { Pitch = -0.3f, PitchVariance = 0.2f }, Projectile.Center);
     }

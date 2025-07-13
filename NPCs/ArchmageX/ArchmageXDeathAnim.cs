@@ -91,7 +91,7 @@ public class ArchmageHead : ModProjectile
                 }
             }
         if (!Main.dedServ)
-            if (d != null)
+            if (d is not null)
             {
                 d.Center = Projectile.Center - new Vector2(FontAssets.DeathText.Value.MeasureString(Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XDeath").Value).X * -0.25f, 7);
                 d.VisibleCenter = Projectile.Center - new Vector2(FontAssets.DeathText.Value.MeasureString(Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XDeath").Value).X * -0.25f, 7);

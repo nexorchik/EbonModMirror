@@ -79,19 +79,16 @@ public class Rolypoly : ModNPC
                 amount = 10;
                 break;
         }
-        texNum = Main.rand.Next(9999999);
+
         NPC.Size = new Vector2(100, 100) * NPC.scale;
-        verlet = new Verlet(NPC.Center, 16, amount, 0, false, false, 4, true, 8);
-
-        for (int i = 0; i < 7; i++)
-            extraVerlets[i] = new Verlet(NPC.Center, 16, amount - 3, 3f, true, true, 20, true, 8);
-
         NPC.value = Item.buyPrice(0, 0, (int)(40 * NPC.scale));
 
     }
     public override bool CheckDead()
     {
-        if (verlet != null)
+        if (Main.dedServ)
+            return true;
+        if (verlet is not null)
         {
             for (int i = 0; i < verlet.points.Count; i++)
             {
@@ -104,7 +101,7 @@ public class Rolypoly : ModNPC
             S_VerletSystem.verlets.Add(new SpawnableVerlet(v, new VerletDrawData(new VerletTextureData(Texture + "_Tex"), _maxVariants: 3, _variantSeed: texNum), new Vector2(Main.rand.NextFloat(1, 7) * (Main.rand.NextFloatDirection() > 0 ? 1 : -1), Main.rand.NextFloat(-20, 5)), 800));
         }
         for (int i = 0; i < (NPC.scale > 0.55f ? 7 : 2); i++)
-            if (extraVerlets[i] != null)
+            if (extraVerlets[i] is not null)
             {
                 for (int j = 0; j < extraVerlets[i].points.Count; j++)
                 {
@@ -166,7 +163,15 @@ public class Rolypoly : ModNPC
     }
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
-        if (verlet != null)
+        if (verlet is null)
+        {
+            texNum = Main.rand.Next(9999999);
+            verlet = new Verlet(NPC.Center, 16, amount, 0, false, false, 4, true, 8);
+
+            for (int i = 0; i < 7; i++)
+                extraVerlets[i] = new Verlet(NPC.Center, 16, amount - 3, 3f, true, true, 20, true, 8);
+        }
+        else
         {
             for (int i = 0; i < verlet.points.Count; i++)
             {
@@ -178,7 +183,7 @@ public class Rolypoly : ModNPC
             }
             for (int i = 0; i < (NPC.scale > 0.55f ? 5 : 2); i++)
             {
-                if (extraVerlets[i] != null)
+                if (extraVerlets[i] is not null)
                 {
                     int p1 = 0;
                     int p2 = amount - 1;
@@ -220,7 +225,7 @@ public class Rolypoly : ModNPC
             if (NPC.scale > 0.55f)
                 for (int i = 5; i < 7; i++)
                 {
-                    if (extraVerlets[i] != null)
+                    if (extraVerlets[i] is not null)
                     {
                         int p1 = 0;
                         int p2 = amount - 1;

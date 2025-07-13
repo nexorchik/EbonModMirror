@@ -264,7 +264,7 @@ public class FallingStar : ModNPC
     public override void AI()
     {
         Projectile projectile = Main.projectile[(int)NPC.ai[0]];
-        if (projectile == null || projectile.whoAmI != NPC.ai[0] || !projectile.active || projectile.type != ProjectileType<FallingStarBig>()) { NPC.active = false; return; }
+        if (projectile is null || projectile.whoAmI != NPC.ai[0] || !projectile.active || projectile.type != ProjectileType<FallingStarBig>()) { NPC.active = false; return; }
 
         NPC.timeLeft = 2;
         NPC.Center = projectile.Center;

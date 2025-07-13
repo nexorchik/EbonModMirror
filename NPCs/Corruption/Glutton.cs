@@ -224,7 +224,7 @@ public class Glutton : ModNPC
                 SoundEngine.PlaySound(SoundID.Item70, NPC.Center);
                 Projectile a = MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Bottom + new Vector2(NPC.direction * 60, Helper.TRay.CastLength(NPC.Bottom, Vector2.UnitY, 40, true)), new Vector2(0, 0), ProjectileType<GluttonImpact>(), 30, 2.5f, 0, 0);
 
-                if (a != null)
+                if (a is not null)
                 {
                     a.friendly = false;
                     a.hostile = true;
@@ -255,7 +255,7 @@ public class Glutton : ModNPC
                 SoundEngine.PlaySound(SoundID.Item70, NPC.Center);
                 Projectile a = MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Bottom + new Vector2(NPC.direction * 60, Helper.TRay.CastLength(NPC.Bottom, Vector2.UnitY, 40, true)), new Vector2(0, 0), ProjectileType<GluttonImpact>(), 30, 2.5f, 0, 0);
 
-                if (a != null)
+                if (a is not null)
                 {
                     a.friendly = false;
                     a.hostile = true;
@@ -283,7 +283,7 @@ public class Glutton : ModNPC
                 SoundEngine.PlaySound(SoundID.Item70, NPC.Center);
                 Projectile a = MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Bottom + new Vector2(NPC.direction * 60, Helper.TRay.CastLength(NPC.Bottom, Vector2.UnitY, 40, true)), new Vector2(0, 0), ProjectileType<GluttonImpact>(), 30, 2.5f, 0, 0);
 
-                if (a != null)
+                if (a is not null)
                 {
                     a.friendly = false;
                     a.hostile = true;

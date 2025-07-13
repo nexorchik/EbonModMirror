@@ -67,15 +67,16 @@ public class MassiveSpectator : ModNPC
     }
     public override void OnSpawn(IEntitySource source)
     {
-        verlet = new Verlet(NPC.Center, 16, 20, -0.25f, true, true, 30);
-
         NPC.ai[1] = Main.rand.NextFloat(20, 100);
         NPC.ai[2] = Main.rand.NextFloat(30, 100);
         NPC.ai[3] = Main.rand.NextFloatDirection();
+        NPC.netUpdate = true;
     }
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
-        if (verlet != null)
+        if (verlet is null)
+            verlet = new Verlet(NPC.Center, 16, 20, -0.25f, true, true, 30);
+        else
             verlet.Draw(spriteBatch, new VerletDrawData(new VerletTextureData(Texture + "_Vein", null, Texture + "_VeinBase"), _endRot: NPC.rotation + MathHelper.PiOver2));
         Texture2D texture = Request<Texture2D>(Texture).Value;
         spriteBatch.Draw(texture, NPC.Center - Main.screenPosition, null, drawColor, NPC.rotation, texture.Size() / 2, NPC.scale, SpriteEffects.None, 0);
@@ -163,7 +164,7 @@ public class MassiveSpectator : ModNPC
             NPC.ai[2] = Main.rand.NextFloat(30, 100);
             NPC.ai[3] = Main.rand.NextFloatDirection();
         }
-        if (verlet != null)
+        if (verlet is not null)
             verlet.Update(stalkBase, NPC.Center + new Vector2(13, 0).RotatedBy(NPC.rotation));
     }
 }

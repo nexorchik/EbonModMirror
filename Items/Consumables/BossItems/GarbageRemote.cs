@@ -92,7 +92,7 @@ public class GarbageRemoteP : ModProjectile
         Player player = Main.player[Projectile.owner];
         Helper.AddCameraModifier(new PunchCameraModifier(Projectile.Center, Main.rand.NextVector2Unit(), 10, 6, 30, 1000));
         Projectile a = Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileID.DaybreakExplosion, 50, 0);
-        if (a != null)
+        if (a is not null)
         {
             a.hostile = true;
             a.friendly = false;

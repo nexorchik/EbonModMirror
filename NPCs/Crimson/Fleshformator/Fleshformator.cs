@@ -90,13 +90,21 @@ public class Fleshformator : ModNPC
     }
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
-        if (!NPC.IsABestiaryIconDummy && verlet[0] != null)
+        if (!NPC.IsABestiaryIconDummy)
         {
-            for (int i = 0; i < 3; i++)
+            if (verlet[0] is null)
             {
-                if (!Main.gamePaused)
-                    verlet[i].Update(startPos[i], endPos[i]);
-                verlet[i].Draw(spriteBatch, new VerletDrawData(new VerletTextureData("NPCs/Crimson/Fleshformator/Fleshformator_Hook0", _endTex: "NPCs/Crimson/Fleshformator/Fleshformator_Hook1")));
+                for (int i = -1; i < 2; i++)
+                    verlet[i + 1] = new Verlet(NPC.Center + new Vector2(21 * i, -5), 12, 13, NPC.ai[3], stiffness: 30);
+            }
+            else
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    if (!Main.gamePaused)
+                        verlet[i].Update(startPos[i], endPos[i]);
+                    verlet[i].Draw(spriteBatch, new VerletDrawData(new VerletTextureData("NPCs/Crimson/Fleshformator/Fleshformator_Hook0", _endTex: "NPCs/Crimson/Fleshformator/Fleshformator_Hook1")));
+                }
             }
         }
         return true;
@@ -155,7 +163,6 @@ public class Fleshformator : ModNPC
         }
         for (int i = -1; i < 2; i++)
         {
-            verlet[i + 1] = new Verlet(NPC.Center + new Vector2(21 * i, -5), 12, 13, NPC.ai[3], stiffness: 30);
             Vector2 pos = NPC.Center + new Vector2(40 * i, Main.rand.NextFloat(-85, -100)).RotatedBy(NPC.rotation);
             endPos[i + 1] = pos;
             ogEndPos[i + 1] = pos;
@@ -216,7 +223,7 @@ public class Fleshformator : ModNPC
     {
         Player player = Main.player[NPC.target];
         NPC.TargetClosest(false);
-        if (verlet[0] != null)
+        if (verlet[0] is not null)
         {
             for (int i = 0; i < 3; i++)
             {
@@ -315,6 +322,7 @@ public class Fleshformator : ModNPC
             }
 
             player.Hurt(PlayerDeathReason.ByNPC(NPC.whoAmI), 15, 0);
+            NetMessage.SendData(MessageID.PlayerControls, number: player.whoAmI);
         }
         else
         {

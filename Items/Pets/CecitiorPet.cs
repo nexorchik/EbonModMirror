@@ -55,10 +55,6 @@ public class CecitiorPetP : ModProjectile
     public override bool? CanDamage() => false;
     public override bool? CanCutTiles() => false;
     Verlet verlet;
-    public override void OnSpawn(IEntitySource source)
-    {
-        verlet = new(Projectile.Center, 7, 16, 1, true, true, 13);
-    }
     public override void AI()
     {
         Player player = Main.player[Projectile.owner];
@@ -83,7 +79,9 @@ public class CecitiorPetP : ModProjectile
     {
         if (Projectile.isAPreviewDummy) return true;
         Player player = Main.player[Projectile.owner];
-        if (verlet != null)
+        if (verlet is null)
+            verlet = new(Projectile.Center, 7, 16, 1, true, true, 13);
+        else
         {
             verlet.Update(Projectile.Center, player.Center);
             verlet.gravity = (float)Math.Sin(Main.GlobalTimeWrappedHourly) * 0.25f;
@@ -97,7 +95,7 @@ public class CecitiorPetP : ModProjectile
         Player player = Main.player[Projectile.owner];
         Texture2D a = Assets.NPCs.Cecitior.CecitiorChain_base.Value;
         Texture2D b = TextureAssets.Npc[NPCType<CecitiorEye>()].Value;
-        if (verlet != null)
+        if (verlet is not null)
             Main.spriteBatch.Draw(a, verlet.firstP.position - new Vector2(0, 20).RotatedBy(Helper.FromAToB(verlet.firstP.position, verlet.points[5].position, reverse: true).ToRotation() - 1.57f) - Main.screenPosition, null, lightColor, Helper.FromAToB(verlet.firstP.position, verlet.points[5].position, reverse: true).ToRotation() - 1.57f, a.Size() / 2, 1, SpriteEffects.None, 0);
         Main.spriteBatch.Draw(b, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * 34, 32, 34), lightColor, Projectile.rotation, Projectile.Size / 2, Projectile.scale, SpriteEffects.None, 0);
     }

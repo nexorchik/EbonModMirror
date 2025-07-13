@@ -275,7 +275,7 @@ public class AsteroidHerder : CommonNPC
                         style.Volume = 0.5f;
                         SoundEngine.PlaySound(style, NPC.Center);
                         Projectile a = MPUtils.NewProjectile(null, NPC.Center, Vector2.Zero, ProjectileType<WardenSigil>(), 0, 0, ai2: 1);
-                        if (a != null) a.timeLeft = 450;
+                        if (a is not null) a.timeLeft = 450;
                         a?.SyncProjectile();
                     }
                     if (AITimer < 495)

@@ -114,7 +114,7 @@ public class VaccumWormP : ModProjectile
             npcs = npcs.OrderBy(x => x.Distance(player.Center)).ToList();
             for (int i = 0; i < npcs.Count; i++)
             {
-                if (!npcs[i].active || npcs[i] == null)
+                if (!npcs[i].active || npcs[i] is null)
                     continue;
                 if (npcs[i].knockBackResist > 0)
                 {

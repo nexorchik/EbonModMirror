@@ -22,11 +22,16 @@ public class S_VerletSystem : ModSystem
     public static List<SpawnableVerlet> verlets = new List<SpawnableVerlet>(100);
     public override void PostUpdateEverything()
     {
+        if (Main.dedServ)
+        {
+            verlets.Clear();
+            return;
+        }
         for (int i = 0; i < verlets.Count; i++)
         {
             if (verlets[i].timeLeft > -1)
             {
-                if (verlets[i].verlet != null)
+                if (verlets[i].verlet is not null)
                 {
                     if (verlets[i].verlet.gravity > 5)
                         verlets[i].velocity = Vector2.Lerp(verlets[i].velocity, new Vector2(verlets[i].velocity.X * 0.99f, 10), 0.05f);

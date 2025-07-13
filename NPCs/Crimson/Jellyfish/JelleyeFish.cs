@@ -43,17 +43,6 @@ public class JelleyeFish : ModNPC
     }
     Verlet[] eyeVerlets = new Verlet[4];
     Verlet[] tentVerlets = new Verlet[4];
-    public override void OnSpawn(IEntitySource source)
-    {
-        for (int i = 0; i < eyeVerlets.Length; i++)
-        {
-            eyeVerlets[i] = new Verlet(NPC.Center + new Vector2((i - 1) * 3, 0), 6, 2 + i * 6 + Main.rand.Next(5, 12), 5, lastPointLocked: false, stiffness: 30);
-        }
-        for (int i = 0; i < tentVerlets.Length; i++)
-        {
-            tentVerlets[i] = new Verlet(NPC.Center + new Vector2((i - 3) * 4, 0), 6, 10 + i * 3, 7, lastPointLocked: false, stiffness: 15);
-        }
-    }
     public float AIState
     {
         get => NPC.ai[0];
@@ -111,7 +100,7 @@ public class JelleyeFish : ModNPC
         scaleMult = Vector2.Lerp(scaleMult, Vector2.One, 0.1f);
 
         for (int i = 0; i < eyeVerlets.Length; i++)
-            if (eyeVerlets[i] != null)
+            if (eyeVerlets[i] is not null)
             {
                 eyeVerlets[i].gravity = Lerp(eyeVerlets[i].gravity, MathF.Sin(i + AITimer * 0.025f) * 2 + 4, 0.1f);
                 if (AITimer % 2 == 0)
@@ -125,7 +114,7 @@ public class JelleyeFish : ModNPC
                 eyeVerlets[i].Update(NPC.Center + new Vector2(MathF.Abs(i - 1) * 10, -4).RotatedBy(NPC.rotation - PiOver2), eyeVerlets[i].lastP.position);
             }
         for (int i = 0; i < tentVerlets.Length; i++)
-            if (tentVerlets[i] != null)
+            if (tentVerlets[i] is not null)
             {
                 tentVerlets[i].gravity = Lerp(tentVerlets[i].gravity, MathF.Sin(i + AITimer * 0.05f) + 3, 0.1f);
                 if (AITimer % 2 == 0)
@@ -150,7 +139,7 @@ public class JelleyeFish : ModNPC
 
         Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/JelleyeFishGore0").Type, NPC.scale);
         for (int i = 0; i < tentVerlets.Length; i++)
-            if (tentVerlets[i] != null)
+            if (tentVerlets[i] is not null)
             {
                 for (int j = 0; j < tentVerlets[i].points.Count; j++)
                     if (j % 4 == 0 || j == tentVerlets[i].points.Count - 1)
@@ -163,7 +152,7 @@ public class JelleyeFish : ModNPC
             }
 
         for (int i = 0; i < eyeVerlets.Length; i++)
-            if (eyeVerlets[i] != null)
+            if (eyeVerlets[i] is not null)
             {
                 for (int j = 0; j < eyeVerlets[i].points.Count; j++)
                     if (j % 4 == 0 || j == eyeVerlets[i].points.Count - 1)
@@ -178,13 +167,21 @@ public class JelleyeFish : ModNPC
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
         if (NPC.IsABestiaryIconDummy) return true;
-        for (int i = 0; i < tentVerlets.Length; i++)
-            if (tentVerlets[i] != null)
-                tentVerlets[i].Draw(spriteBatch, new VerletDrawData(new VerletTextureData(Texture + "_Chain", null, Texture + "_Tip")));
 
         for (int i = 0; i < eyeVerlets.Length; i++)
-            if (eyeVerlets[i] != null)
+        {
+            if (eyeVerlets[i] is null)
+                eyeVerlets[i] = new Verlet(NPC.Center + new Vector2((i - 1) * 3, 0), 6, 2 + i * 6 + Main.rand.Next(5, 12), 5, lastPointLocked: false, stiffness: 30);
+            else
                 eyeVerlets[i].Draw(spriteBatch, new VerletDrawData(new VerletTextureData(Texture + "_Chain", null, Texture + "_Eye")));
+        }
+        for (int i = 0; i < tentVerlets.Length; i++)
+        {
+            if (tentVerlets[i] is null)
+                tentVerlets[i] = new Verlet(NPC.Center + new Vector2((i - 3) * 4, 0), 6, 10 + i * 3, 7, lastPointLocked: false, stiffness: 15);
+            else
+                tentVerlets[i].Draw(spriteBatch, new VerletDrawData(new VerletTextureData(Texture + "_Chain", null, Texture + "_Tip")));
+        }
 
         Texture2D tex = TextureAssets.Npc[Type].Value;
         spriteBatch.Draw(tex, NPC.Center - Main.screenPosition, NPC.frame, drawColor, NPC.rotation, NPC.Size / 2, scaleMult * NPC.scale, SpriteEffects.None, 0);

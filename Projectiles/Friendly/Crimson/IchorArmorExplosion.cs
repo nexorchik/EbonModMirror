@@ -57,7 +57,7 @@ public class IchorArmorExplosion : ModProjectile
             {
                 Vector2 vel = new Vector2(Main.rand.NextFloat(-5, 5), Main.rand.NextFloat(-5, -2));
                 Projectile a = MPUtils.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center - vel, vel, ProjectileID.GoldenShowerFriendly, Projectile.damage, 0, Projectile.owner, ai2: 52); // magic number as identity since ai2 isnt used.
-                if (a != null)
+                if (a is not null)
                 {
                     a.DamageType = DamageClass.Melee;
                     a.netUpdate = true;

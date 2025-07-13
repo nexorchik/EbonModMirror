@@ -26,7 +26,7 @@ public class ReiMask : ModItem
     public override void ModifyTooltips(List<TooltipLine> tooltips)
     {
         TooltipLine line = tooltips.FirstOrDefault(x => x.Text.Contains("{ReiM_Keybind}"));
-        if (line != null)
+        if (line is not null)
         {
             line.Text = line.Text.Replace("{ReiM_Keybind}", "[" + EbonianKeybinds.ReiDash.GetAssignedKeys().FirstOrDefault("<unbound>") + "]");
         }

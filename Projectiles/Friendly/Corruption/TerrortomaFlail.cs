@@ -54,7 +54,7 @@ public class TerrortomaFlail : ModProjectile
 
         Player player = Main.player[Projectile.owner];
 
-        if (verlet != null)
+        if (verlet is not null)
             verlet.Update(player.Center, Projectile.Center);
         Projectile.timeLeft = 2;
         if (player.dead)
@@ -67,7 +67,6 @@ public class TerrortomaFlail : ModProjectile
         AITimer++;
         if (AITimer == 1)
         {
-            verlet = new Verlet(Projectile.Center, 8, 15, stiffness: 30);
             if (player.whoAmI == Main.myPlayer)
             {
                 Projectile eater = Main.projectile[Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<TerrortomaFlail_Clingers>(), Projectile.damage, 0, player.whoAmI, Projectile.whoAmI)];
@@ -153,7 +152,9 @@ public class TerrortomaFlail : ModProjectile
 
         Player player = Main.player[Projectile.owner];
 
-        if (verlet != null)
+        if (verlet is null)
+            verlet = new Verlet(Projectile.Center, 8, 15, stiffness: 30);
+        else
         {
             VerletDrawData data = new VerletDrawData()
             {
