@@ -13,6 +13,8 @@ is [b]WIP[/b] Mod that plans on adding random nonsense with an unsurprising focu
 [*] Currently the mod contains 4 bosses, over 85 items and 30 enemies, but it will grow with time. 
     
 [*] Play on [b]Expert[/b] for the best experience.
+
+[*] Use [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3494518010]Retro Lighting Fix[/url] to be able to use the Retro / Trippy lighting modes.
     
 [*] Compatible with [url=https://steamcommunity.com/sharedfiles/filedetails/?id=2802867430]Fargo's Best of Both Worlds.[/url]
 
