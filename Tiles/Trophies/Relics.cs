@@ -89,7 +89,7 @@ public abstract class RelicsT : ModTile
 
         Point p = new Point(i, j);
         Tile tile = Main.tile[p.X, p.Y];
-        if (tile is null || !tile.HasTile)
+        if (tile == null || !tile.HasTile)
         {
             return;
         }

@@ -1,5 +1,5 @@
 displayName = Ebonian Mod
 author = Ebonfly
 version = 1.1.2
-modReferences = StructureHelper, Daybreak, FixRetroLighting
+modReferences = StructureHelper, Daybreak
 buildIgnore = .vs\*, Properties\*, *.csproj, *.user, obj\*, bin\*, *.config, .git\*, .github\*, LICENSE, .editorconfig, .gitignore, .gitattributes, Assets\Effects\Compiler\*, *.mp4

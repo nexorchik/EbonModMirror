@@ -27,13 +27,17 @@ public class SpinaxP : ModProjectile
     }
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
     {
-        if (verlet is not null)
-            foreach (VerletPoint pos in verlet.points)
+        bool hit = false;
+        for (float i = 0; i < 1; i += 0.1f)
+        {
+            Vector2 pos = Vector2.Lerp(Main.player[Projectile.owner].Center, Projectile.Center, i);
+            if (Collision.CheckAABBvAABBCollision(pos - Vector2.One * 15, Vector2.One * 30, targetHitbox.TopLeft(), targetHitbox.Size()))
             {
-                if (new Rectangle((int)pos.position.X, (int)pos.position.Y, 8, 8).Intersects(targetHitbox))
-                    return true;
+                hit = true;
+                break;
             }
-        return projHitbox.Intersects(targetHitbox);
+        }
+        return hit || projHitbox.Intersects(targetHitbox);
     }
     public virtual float Ease(float x)
     {
