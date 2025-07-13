@@ -7,3 +7,5 @@ Types: {
 	HotGarbage: Тип: Мусорный бак
 	Animal: Тип: Домашний скот
 }
+
+// LightingWarning: Retro/trippy lighting modes don't work properly in the Ebonian Mod without the use of the 'Retro Lighting Fix' mod published by Zoe, this mod is linked in the Ebonian Mod's workshop page.

@@ -123,18 +123,6 @@ public class CorruptionClawP : ModProjectile
             Projectile.Kill();
             return;
         }
-        foreach (VerletPoint pos in verlet.points)
-        {
-            foreach (NPC npc in Main.ActiveNPCs)
-            {
-                if (npc.active && !npc.friendly && !npc.dontTakeDamage)
-                    if (new Rectangle((int)pos.position.X, (int)pos.position.Y, 8, 8).Intersects(npc.getRect()) && npc.immune[player.whoAmI] == 0)
-                    {
-                        npc.SimpleStrikeNPC(Projectile.damage, player.direction, false, 0, DamageClass.Melee);
-                        npc.immune[player.whoAmI] = Projectile.timeLeft > swingTime ? swingTime : Projectile.timeLeft;
-                    }
-            }
-        }
 
         player.itemTime = 2;
         player.itemAnimation = 2;
