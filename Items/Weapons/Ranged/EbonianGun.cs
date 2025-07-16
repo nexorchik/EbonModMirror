@@ -74,11 +74,11 @@ public class EbonianGunP : HeldProjectileGun
         if (Projectile.ai[0] == 30)
         {
             Projectile.UseAmmo(AmmoID.Bullet);
-            AnimationRotation = -0.1f * player.direction;
+            AnimationRotation = -0.2f * player.direction;
             SoundEngine.PlaySound(SoundID.Item11.WithPitchOffset(Main.rand.NextFloat(-1f, -0.5f)), player.Center);
             SoundEngine.PlaySound(SoundID.Item17.WithPitchOffset(Main.rand.NextFloat(-0.5f, -0.2f)), player.Center);
-            Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Projectile.Center + Projectile.rotation.ToRotationVector2() * 45 + (Projectile.rotation + 90 * -player.direction).ToRotationVector2() * 12, Projectile.rotation.ToRotationVector2() * 10, ProjectileType<CorruptionHitscan>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-            HoldOffset = 6;
+            Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Projectile.Center + Projectile.rotation.ToRotationVector2() * 47 - new Vector2(0, 16 * player.direction).RotatedBy(Projectile.rotation), Projectile.rotation.ToRotationVector2() * 10, ProjectileType<CorruptionHitscan>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+            HoldOffset = 11;
             Projectile.ai[0] = 0;
         }
 

@@ -64,6 +64,8 @@ public class CrimCannonGraphics : HeldProjectileGun
 
         Player player = Main.player[Projectile.owner];
 
+        player.heldProj = Projectile.whoAmI;
+
         if (!Main.player[Projectile.owner].channel || !player.CheckMana(player.HeldItem.mana))
             Projectile.Kill();
 
@@ -80,7 +82,7 @@ public class CrimCannonGraphics : HeldProjectileGun
                 if (Projectile.frame > 5)
                 {
                     Projectile.frame = 0;
-                    AnimationRotation = -0.3f * player.direction;
+                    AnimationRotation = -0.2f * player.direction;
                     Scale = new Vector2(0.65f, 1.6f);
                     SoundEngine.PlaySound(SoundID.NPCHit9.WithPitchOffset(Main.rand.NextFloat(-1f, -0.5f)), player.Center);
                     player.CheckMana(player.HeldItem.mana, true, true);
