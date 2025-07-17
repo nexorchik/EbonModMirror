@@ -361,13 +361,13 @@ public class Cecitior : ModNPC
         writer.Write(open);
         writer.Write(NPC.localAI[0]);
         writer.Write(NPC.localAI[1]);
-        writer.Write((byte)OldState);
+        writer.Write((short)OldState);
         for (int i = 0; i < attackNum; i++)
         {
-            writer.Write((byte)pattern[i]);
-            writer.Write((byte)oldPattern[i]);
+            writer.Write((short)pattern[i]);
+            writer.Write((short)oldPattern[i]);
         }
-        writer.Write((byte)Next);
+        writer.Write((short)Next);
         for (int i = 0; i < claw.Length; i++)
             writer.WriteVector2(claw[i].position);
     }
@@ -377,13 +377,13 @@ public class Cecitior : ModNPC
         open = reader.ReadBoolean();
         NPC.localAI[0] = reader.ReadSingle();
         NPC.localAI[1] = reader.ReadSingle();
-        OldState = reader.ReadByte();
+        OldState = reader.ReadInt16();
         for (int i = 0; i < attackNum; i++)
         {
-            pattern[i] = reader.ReadByte();
-            oldPattern[i] = reader.ReadByte();
+            pattern[i] = reader.ReadInt16();
+            oldPattern[i] = reader.ReadInt16();
         }
-        Next = reader.ReadByte();
+        Next = reader.ReadInt16();
         for (int i = 0; i < claw.Length; i++)
             claw[i].position = reader.ReadVector2();
     }
@@ -493,12 +493,9 @@ public class Cecitior : ModNPC
     int oldHP;
     public override void AI()
     {
+        NPC.ai[2]++; // For eye rotation;
         if (!deathAnim && NPC.life <= 1)
         {
-            for (int i = 0; i < claw.Length; i++)
-            {
-
-            }
             open = false;
             deathAnim = true;
             NPC.life = 1;
@@ -552,8 +549,8 @@ public class Cecitior : ModNPC
             if (npc.active && npc.type == NPCType<CecitiorEye>())
                 eyeCount++;
         }
-
-        if (eyeCount == 0 && !phase2 && AIState != Intro)
+        Main.NewText(eyeCount);
+        if (eyeCount == 0 && !phase2 && AIState > 1)
         {
             AITimer = 0;
             AITimer2 = 0;
@@ -826,7 +823,7 @@ public class Cecitior : ModNPC
             {
                 CameraSystem.ScreenShakeAmount = (AITimer - 40) * 0.1f;
             }
-            if (AITimer == 63)
+            if (AITimer >= 63 && claw[0].verlet is null)
             {
                 for (int i = 0; i < 3; i++)
                 {
@@ -844,7 +841,7 @@ public class Cecitior : ModNPC
                 }
                 NPC.netUpdate = true;
             }
-            if (AITimer > 63)
+            if (AITimer > 63 && claw[0].verlet is not null)
             {
                 claw[0].position = Vector2.Lerp(claw[0].position, NPC.Center + openOffset + new Vector2(150, -65).RotatedBy(MathF.Sin(Main.GlobalTimeWrappedHourly) * 0.4f), 0.2f);
                 claw[1].position = Vector2.Lerp(claw[1].position, NPC.Center + openOffset + new Vector2(165, 45).RotatedBy(MathF.Sin(Main.GlobalTimeWrappedHourly) * 0.4f), 0.2f);
@@ -871,7 +868,6 @@ public class Cecitior : ModNPC
             if (AITimer == 1)
             {
                 GenerateNewPattern();
-                NPC.boss = true;
                 if (!Main.dedServ)
                     Music = MusicLoader.GetMusicSlot(Mod, "Sounds/Music/EvilMiniboss");
                 CameraSystem.ChangeCameraPos(NPC.Center, 260, new ZoomInfo(2, 1.1f, InOutElastic, InOutCirc), 1.5f, InOutQuart);
@@ -879,6 +875,7 @@ public class Cecitior : ModNPC
                 {
                     Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, Main.rand.NextFloat(-6, 6), Main.rand.NextFloat(-6, 6), Scale: 3);
                 }
+                NPC.netUpdate = true;
             }
             if (AITimer == 55)
             {
@@ -887,8 +884,9 @@ public class Cecitior : ModNPC
                 for (int i = 0; i < 6; i++)
                 {
                     float angle = Helper.CircleDividedEqually(i, 6) + MathHelper.ToRadians(15);
-                    MPUtils.NewNPC(NPC.Center + new Vector2(1).RotatedBy(angle), NPCType<CecitiorEye>(), false, NPC.whoAmI, i);
+                    MPUtils.NewNPC(NPC.Center + new Vector2(1).RotatedBy(angle), NPCType<CecitiorEye>(), false, NPC.whoAmI, i, dedServ: true);
                 }
+                NPC.netUpdate = true;
             }
             if (AITimer == 80)
             {

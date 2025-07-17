@@ -172,7 +172,7 @@ public class CecitiorEye : ModNPC
     }
     bool frantic;
     Vector2 focalPoint;
-    readonly int[] leftSiders = new int[] { 0, 5, 4 };
+    private static readonly int[] leftSiders = new int[] { 0, 5, 4 };
     public override void HitEffect(NPC.HitInfo hit)
     {
         if (NPC.life <= 0)
@@ -183,6 +183,13 @@ public class CecitiorEye : ModNPC
                     Gore.NewGore(NPC.GetSource_Death(), verlet.points[i].position, Vector2.Zero, Find<ModGore>("EbonianMod/CecitiorChainGore").Type);
                 }
             }
+    }
+    public override void PostAI()
+    {
+        NPC center = Main.npc[(int)NPC.ai[0]];
+        if (!center.active || center.type != NPCType<Cecitior>() || center.ai[0] == -12124)
+            return;
+        NPC.netUpdate = center.netUpdate;
     }
     public override void AI()
     {
@@ -215,6 +222,7 @@ public class CecitiorEye : ModNPC
         }
         if (center.ai[0] != 0)
             NPC.dontTakeDamage = false;
+
         switch (center.ai[0])
         {
             case 0:
@@ -228,12 +236,12 @@ public class CecitiorEye : ModNPC
                 }
                 else
                 {
-                    NPC.velocity = Helper.FromAToB(NPC.Center, center.Center + new Vector2(100).RotatedBy(angle + (center.ai[1] < 0 ? MathHelper.ToRadians(animationOffsetTimer) : MathHelper.ToRadians(Main.GameUpdateCount))), false) / 10f;
+                    NPC.velocity = Helper.FromAToB(NPC.Center, center.Center + new Vector2(100).RotatedBy(angle + ToRadians(center.ai[2])), false) / 10f;
                     focalPoint = Vector2.Lerp(focalPoint, player.Center, 0.45f);
                 }
                 break;
             case 1:
-                NPC.velocity = Helper.FromAToB(NPC.Center, center.Center + new Vector2(100).RotatedBy(angle + (center.ai[1] < 0 ? MathHelper.ToRadians(animationOffsetTimer) : MathHelper.ToRadians(Main.GameUpdateCount))), false) / 10f;
+                NPC.velocity = Helper.FromAToB(NPC.Center, center.Center + new Vector2(100).RotatedBy(angle + ToRadians(center.ai[2])), false) / 10f;
                 focalPoint = player.Center;
                 AITimer = 0;
                 break;
@@ -311,7 +319,7 @@ public class CecitiorEye : ModNPC
                 focalPoint = player.Center;
                 break;
             case 5:
-                NPC.velocity = Helper.FromAToB(NPC.Center, player.Center + new Vector2(200).RotatedBy(angle + MathHelper.ToRadians(animationOffsetTimer * (halfEyesPhase2 ? 3 : 1))), false) / 3;
+                NPC.velocity = Helper.FromAToB(NPC.Center, player.Center + new Vector2(200).RotatedBy(angle + MathHelper.ToRadians(center.ai[2] * (halfEyesPhase2 ? 3 : 1))), false) / 3;
                 focalPoint = player.Center;
                 if (center.ai[1] % (halfEyesPhase2 ? 20 : 50) == 0 && center.ai[1] > 1)
                 {

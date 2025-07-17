@@ -33,9 +33,9 @@ public static class MPUtils
             projectile.netUpdate = true;
         }
     }
-    public static void NewNPC(Vector2 position, int type, bool noDupes = false, float ai0 = 0, float ai1 = 0, float ai2 = 0, float ai3 = 0)
+    public static void NewNPC(Vector2 position, int type, bool noDupes = false, float ai0 = 0, float ai1 = 0, float ai2 = 0, float ai3 = 0, bool dedServ = false)
     {
-        if (!NotMPClient)
+        if (dedServ ? Main.dedServ : !NotMPClient)
         {
             ModPacket packet = EbonianNetCode.Write(noDupes ? MessageType.SpawnBoss : MessageType.SpawnNPC);
             packet.WriteVector2(position);
@@ -46,7 +46,7 @@ public static class MPUtils
             packet.Write(ai3);
             packet.Send();
         }
-        else if (!Main.dedServ)
+        else if (Main.netMode == NetmodeID.SinglePlayer)
         {
             NPC.NewNPCDirect(NPC.GetSource_NaturalSpawn(), position, type, 0, ai0, ai1, ai2, ai3);
         }
