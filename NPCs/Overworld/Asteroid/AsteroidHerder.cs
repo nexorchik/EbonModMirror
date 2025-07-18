@@ -170,6 +170,7 @@ public class AsteroidHerder : CommonNPC
     public float movementFreq;
     public Vector2 savedPos;
     public bool ded;
+    SlotId deathSound;
     public override void AI()
     {
         Lighting.AddLight(NPC.Center, new Vector3(195, 169, 13) / 255 * 0.5f);
@@ -180,20 +181,18 @@ public class AsteroidHerder : CommonNPC
         {
             case -1:
                 {
-                    if (CachedSlotIdsSystem.loopedSounds.ContainsKey("HerderDeath"))
+                    if (!Main.dedServ)
                     {
-                        SlotId cachedSound = CachedSlotIdsSystem.loopedSounds["HerderDeath"].slotId;
-                        if (!SoundEngine.TryGetActiveSound(cachedSound, out var activeSound) || !activeSound.IsPlaying)
+                        if (SoundEngine.TryGetActiveSound(deathSound, out var _activeSound))
                         {
-                            CachedSlotIdsSystem.ClearSound("HerderDeath");
-                            CachedSlotIdsSystem.loopedSounds.Add("HerderDeath", new(SoundEngine.PlaySound(EbonianSounds.herderDying.WithVolumeScale(2), NPC.Center), Type));
+                            _activeSound.Pitch = Lerp(0, 2, InOutCirc.Invoke(AITimer / 95f));
+                            _activeSound.Position = NPC.Center;
                         }
-                        if (SoundEngine.TryGetActiveSound(cachedSound, out var __activeSound))
-                            __activeSound.Pitch = Lerp(0, 2, InOutCirc.Invoke(AITimer / 95f));
+                        else
+                        {
+                            deathSound = SoundEngine.PlaySound(EbonianSounds.herderDying.WithVolumeScale(2), NPC.Center, (_) => NPC.AnyNPCs(Type));
+                        }
                     }
-                    else
-                        CachedSlotIdsSystem.loopedSounds.Add("HerderDeath", new(SoundEngine.PlaySound(EbonianSounds.herderDying.WithVolumeScale(2), NPC.Center), Type));
-
                     AITimer++;
                     NPC.velocity *= 0.9f;
                     NPC.Center = savedPos + Main.rand.NextVector2Circular(Clamp(AITimer * 0.1f, 0, 10), Clamp(AITimer * 0.1f, 0, 10));

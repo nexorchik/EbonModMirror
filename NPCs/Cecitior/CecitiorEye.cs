@@ -189,7 +189,8 @@ public class CecitiorEye : ModNPC
         NPC center = Main.npc[(int)NPC.ai[0]];
         if (!center.active || center.type != NPCType<Cecitior>() || center.ai[0] == -12124)
             return;
-        NPC.netUpdate = center.netUpdate;
+        if (center.netUpdate)
+            NPC.netUpdate = true;
     }
     public override void AI()
     {

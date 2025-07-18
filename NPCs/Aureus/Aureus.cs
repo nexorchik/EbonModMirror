@@ -715,44 +715,31 @@ public class Aureus : ModNPC
                 break;
         }
     }
+    SlotId idleSound, idleSound2;
     void IdleStuff()
     {
-        if (CachedSlotIdsSystem.loopedSounds.ContainsKey("AureusIdle"))
+        if (!Main.dedServ)
         {
-            SlotId cachedSound = CachedSlotIdsSystem.loopedSounds["AureusIdle"].slotId;
-            if (!SoundEngine.TryGetActiveSound(cachedSound, out var activeSound) || !activeSound.IsPlaying)
+            if (SoundEngine.TryGetActiveSound(idleSound, out var _activeSound))
             {
-                CachedSlotIdsSystem.ClearSound("AureusIdle");
-
-                CachedSlotIdsSystem.loopedSounds.Add("AureusIdle", new(SoundEngine.PlaySound(mangoSound.WithVolumeScale(1.6f), NPC.Center), Type));
+                _activeSound.Pitch = Lerp(-1, 1, NPC.velocity.Length() / 10);
+                _activeSound.Position = NPC.Center;
             }
-            if (SoundEngine.TryGetActiveSound(cachedSound, out var __activeSound))
+            else
+            {
+                idleSound = SoundEngine.PlaySound(loopSound.WithVolumeScale(1.6f), NPC.Center, (_) => NPC.AnyNPCs(Type));
+            }
+
+
+            if (SoundEngine.TryGetActiveSound(idleSound2, out var __activeSound))
             {
                 __activeSound.Pitch = Lerp(-1, 1, NPC.velocity.Length() / 13);
+                __activeSound.Position = NPC.Center;
             }
-        }
-        else
-        {
-            CachedSlotIdsSystem.loopedSounds.Add("AureusIdle", new(SoundEngine.PlaySound(mangoSound.WithVolumeScale(1.6f), NPC.Center), Type));
-        }
-
-        if (CachedSlotIdsSystem.loopedSounds.ContainsKey("AureusIdle2"))
-        {
-            SlotId cachedSound = CachedSlotIdsSystem.loopedSounds["AureusIdle2"].slotId;
-            if (!SoundEngine.TryGetActiveSound(cachedSound, out var activeSound) || !activeSound.IsPlaying)
+            else
             {
-                CachedSlotIdsSystem.ClearSound("AureusIdle2");
-
-                CachedSlotIdsSystem.loopedSounds.Add("AureusIdle2", new(SoundEngine.PlaySound(loopSound.WithVolumeScale(1.6f), NPC.Center), Type));
+                SoundEngine.PlaySound(mangoSound.WithVolumeScale(1.6f), NPC.Center, (_) => NPC.AnyNPCs(Type));
             }
-            if (SoundEngine.TryGetActiveSound(cachedSound, out var __activeSound))
-            {
-                __activeSound.Pitch = Lerp(-1, 1, NPC.velocity.Length() / 10);
-            }
-        }
-        else
-        {
-            CachedSlotIdsSystem.loopedSounds.Add("AureusIdle2", new(SoundEngine.PlaySound(loopSound.WithVolumeScale(1.6f), NPC.Center), Type));
         }
 
         Player player = Main.player[NPC.target];

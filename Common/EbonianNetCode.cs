@@ -23,7 +23,7 @@ public static class EbonianNetCode
                     float ai1 = reader.ReadSingle();
                     float ai2 = reader.ReadSingle();
                     float ai3 = reader.ReadSingle();
-                    NPC.NewNPCDirect(NPC.GetSource_NaturalSpawn(), position, type, 0, ai0, ai1, ai2, ai3).netUpdate2 = true;
+                    NPC.NewNPCDirect(NPC.GetSource_NaturalSpawn(), position, type, 0, ai0, ai1, ai2, ai3).netUpdate = true;
 
                 }
                 break;
@@ -36,7 +36,7 @@ public static class EbonianNetCode
                     float ai2 = reader.ReadSingle();
                     float ai3 = reader.ReadSingle();
                     if (!NPC.AnyNPCs(type))
-                        NPC.NewNPCDirect(NPC.GetSource_NaturalSpawn(), position, type, 0, ai0, ai1, ai2, ai3).netUpdate2 = true; // Hardcoded ai3 for performance. Surely won't regret this.
+                        NPC.NewNPCDirect(NPC.GetSource_NaturalSpawn(), position, type, 0, ai0, ai1, ai2, ai3).netUpdate = true;
                 }
                 break;
         }
