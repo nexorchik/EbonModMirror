@@ -85,7 +85,7 @@ public class LatcherP : ModProjectile
         else if (Projectile.ai[0] > 10)
         {
             Projectile.ai[1]++;
-            Projectile.Center += Helper.FromAToB(Projectile.Center, player.Center) * Projectile.ai[1]*3;
+            Projectile.Center += Helper.FromAToB(Projectile.Center, player.Center) * Projectile.ai[1] * 3;
             if (Vector2.Distance(player.Center, Projectile.Center) < 35)
                 Projectile.Kill();
         }
@@ -187,16 +187,17 @@ public class LatcherPCecitior : ModProjectile
             if (player.Center.Distance(Projectile.Center) < 50)
             {
                 Projectile.ai[2] = 1;
-                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(0, 0), ProjectileType<FatSmash>(), 0, 0, 0, 0);
+                MPUtils.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(0, 0), ProjectileType<FatSmash>(), 0, 0, 0, 0);
 
                 for (int i = -6; i < 6; i++)
                 {
                     if (i == 0) continue;
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(i * 3, Lerp(-3, -5, MathF.Abs(i) / 6)), ProjectileType<CecitiorTeeth>(), 20, 0, 0, 0);
+                    MPUtils.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, new Vector2(i * 3, Lerp(-3, -5, MathF.Abs(i) / 6)), ProjectileType<CecitiorTeeth>(), 20, 0, 0, 0);
                 }
                 player.velocity = Projectile.rotation.ToRotationVector2().RotatedByRandom(PiOver4) * -10f;
                 Projectile.Kill();
                 SoundEngine.PlaySound(EbonianSounds.cecitiorSlam, Projectile.Center);
+                Projectile.netUpdate = true;
             }
         }
         else if (Projectile.ai[1] == 2)
@@ -204,7 +205,6 @@ public class LatcherPCecitior : ModProjectile
             Player playerr = Main.player[(int)Projectile.localAI[0]];
             playerr.velocity = Helper.FromAToB(playerr.Center, player.Center, false) / 10;
             Projectile.velocity = Helper.FromAToB(Projectile.Center, player.Center) * 20;
-
         }
         else
         {
@@ -216,6 +216,7 @@ public class LatcherPCecitior : ModProjectile
 
                 if (player.Center.Distance(Projectile.Center) < 50)
                     Projectile.Kill();
+                Projectile.netUpdate = true;
             }
         }
     }

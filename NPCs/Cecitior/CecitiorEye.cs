@@ -240,6 +240,7 @@ public class CecitiorEye : ModNPC
                     NPC.velocity = Helper.FromAToB(NPC.Center, center.Center + new Vector2(100).RotatedBy(angle + ToRadians(center.ai[2])), false) / 10f;
                     focalPoint = Vector2.Lerp(focalPoint, player.Center, 0.45f);
                 }
+                NPC.netUpdate = true;
                 break;
             case 1:
                 NPC.velocity = Helper.FromAToB(NPC.Center, center.Center + new Vector2(100).RotatedBy(angle + ToRadians(center.ai[2])), false) / 10f;
