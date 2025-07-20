@@ -14,7 +14,7 @@ public static class MPUtils
 
         return Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, owner, ai0, ai1, ai2);
     }
-    public static void SetAsHostile(this Projectile projectile)
+    public static void SetToHostile(this Projectile projectile)
     {
         if (projectile is not null)
         {
@@ -23,7 +23,7 @@ public static class MPUtils
             projectile.netUpdate = true;
         }
     }
-    public static void SetAsFriendly(this Projectile projectile, DamageClass damageClass = null)
+    public static void SetToFriendly(this Projectile projectile, DamageClass damageClass = null)
     {
         if (projectile is not null)
         {

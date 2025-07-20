@@ -11,7 +11,7 @@ v 2.0
 ## Changes
 - Optimized most VFX
 - Ported Structure Helper files to match the 3.0 format
-- Removed Cecitior's pattern system and opted for a completely randomized fight instead.
+- Removed Cecitior and Terrortoma's pattern system and opted for a semi-random fight instead.
 - Updated Hot Garbage's VFX
 - Updated the Voidrunner Mask's VFX
 - Reworked Cursed Firearm, Bloodcolt, Latcher, Bloodsoaked Dentures, Corebreaker

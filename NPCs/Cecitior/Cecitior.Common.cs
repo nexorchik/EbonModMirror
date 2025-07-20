@@ -79,7 +79,6 @@ public partial class Cecitior : ModNPC
     public override void SendExtraAI(BinaryWriter writer)
     {
         writer.WriteVector2(openOffset);
-        writer.Write(open);
         writer.Write(NPC.localAI[0]);
         writer.Write(NPC.localAI[1]);
         writer.Write((short)OldState);
@@ -91,11 +90,11 @@ public partial class Cecitior : ModNPC
         writer.Write(AITimer2);
         writer.Write(AITimer3);
         writer.Write((Half)shakeVal);
+        writer.Write(phase2);
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
         openOffset = reader.ReadVector2();
-        open = reader.ReadBoolean();
         NPC.localAI[0] = reader.ReadSingle();
         NPC.localAI[1] = reader.ReadSingle();
         OldState = reader.ReadInt16();
@@ -107,6 +106,7 @@ public partial class Cecitior : ModNPC
         AITimer2 = reader.ReadSingle();
         AITimer3 = reader.ReadSingle();
         shakeVal = (float)reader.ReadHalf();
+        phase2 = reader.ReadBoolean();
     }
     public int AIState
     {
@@ -130,11 +130,10 @@ public partial class Cecitior : ModNPC
 
     public SlotId openSound, cachedSound;
     Vector2 savedPos, savedClawPos;
-    const int attackNum = 14;
     public int OldState;
     public bool open;
     public Vector2 openOffset;
-    float rotation, openRotation;
+    public float rotation, openRotation;
     public CecitiorClaw[] claw;
     public bool deathAnim;
     public bool halfEyesPhase2;

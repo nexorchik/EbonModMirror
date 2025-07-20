@@ -33,7 +33,7 @@ public partial class Cecitior : ModNPC
             if (halfEyesPhase2)
                 MPUtils.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(AITimer2 * 0.5f, -6), ProjectileType<CIchor>(), 30, 0);
             Projectile a = MPUtils.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(AITimer2 * 5, -5), ProjectileType<CHeart>(), 30, 0);
-            a.SetAsHostile();
+            a.SetToHostile();
             NPC.netUpdate = true;
         }
         if (AITimer >= 60)
@@ -148,7 +148,7 @@ public partial class Cecitior : ModNPC
 
     public void DoTeethChomp()
     {
-        NetUpdateAtSpecificTime(40, 50, 60, 75);
+        NetUpdateAtSpecificTime(40, 50, 60, 75, 76);
         if (!Main.dedServ && AITimer == 2)
             openSound = SoundEngine.PlaySound(EbonianSounds.cecitiorOpen, NPC.Center);
         if (AITimer < 20)
@@ -193,12 +193,12 @@ public partial class Cecitior : ModNPC
 
     public void DoChomp()
     {
-        NetUpdateAtSpecificTime(50, 57, 65);
+        NetUpdateAtSpecificTime(26, 50, 57, 65);
         if (!Main.dedServ && AITimer == 2)
             openSound = SoundEngine.PlaySound(EbonianSounds.cecitiorOpen, NPC.Center);
         if (open)
         {
-            if (MathF.Round(AITimer2) % 2 != (phase2 ? 1 : 0))
+            if ((int)MathF.Round(AITimer2) % 2 != (phase2 ? 1 : 0))
                 openOffset += Vector2.UnitY * 5;
             else
                 openOffset += Vector2.UnitX * 6;
@@ -206,23 +206,19 @@ public partial class Cecitior : ModNPC
         if (AITimer < 25)
         {
             open = true;
-            if (MathF.Round(AITimer2) % 2 != (phase2 ? 1 : 0))
+            if ((int)MathF.Round(AITimer2) % 2 != (phase2 ? 1 : 0))
             {
-                openRotation = MathHelper.Lerp(openRotation, MathHelper.ToRadians(90), 0.5f);
-                rotation = MathHelper.Lerp(rotation, MathHelper.ToRadians(90), 0.5f);
+                openRotation = Utils.AngleLerp(openRotation, ToRadians(90), 0.5f);
+                rotation = Utils.AngleLerp(rotation, ToRadians(90), 0.5f);
             }
             NPC.velocity = Helper.FromAToB(NPC.Center, player.Center, false) / 10f;
-            NPC.netUpdate = true;
         }
         if (AITimer >= 25 && AITimer < (50 + (phase2 ? 7 : 0)))
         {
             shakeVal = Lerp(shakeVal, (phase2 ? 30 : 15), 0.1f);
             if (AITimer < 53)
                 savedPos = player.Center + (phase2 ? player.velocity * 5 : Vector2.Zero);
-            if (MathF.Round(AITimer2) % 2 != (phase2 ? 1 : 0))
-                NPC.velocity = Helper.FromAToB(NPC.Center, savedPos, false) / 5f;
-            else
-                NPC.velocity = Helper.FromAToB(NPC.Center, savedPos, false) / 5f;
+            NPC.velocity = Helper.FromAToB(NPC.Center, savedPos, false) / 5f;
         }
         if (AITimer == 50 + (phase2 ? 7 : 0))
         {
@@ -238,11 +234,11 @@ public partial class Cecitior : ModNPC
         }
         if (AITimer > 65)
         {
-            openOffset.Y = MathHelper.Lerp(openOffset.Y, 0, 0.3f);
+            openOffset.Y = Lerp(openOffset.Y, 0, 0.3f);
         }
-        if (MathF.Round(AITimer2) % 2 != (phase2 ? 1 : 0))
+        if ((int)MathF.Round(AITimer2) % 2 != (phase2 ? 1 : 0))
         {
-            if (openOffset.Y < 50 && AITimer > 25)
+            if (MathF.Abs(openOffset.Y) < 50 && AITimer > 25)
             {
                 if (openOffset != Vector2.Zero)
                 {
@@ -254,6 +250,7 @@ public partial class Cecitior : ModNPC
                 open = false;
                 NPC.frame.Y = 0;
                 openOffset = Vector2.Zero;
+                NPC.netUpdate = true;
             }
         }
         if (AITimer >= 75)

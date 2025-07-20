@@ -22,6 +22,7 @@ public partial class Cecitior : ModNPC
 
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
+        NPC.rotation = Utils.AngleLerp(NPC.rotation, rotation, 0.35f);
         Texture2D glow = Assets.ExtraSprites.Cecitior.Cecitior_Glow.Value;
         Texture2D tex = TextureAssets.Npc[Type].Value;
         Vector2 shakeOffset = Main.rand.NextVector2Circular(shakeVal, shakeVal);
@@ -219,7 +220,7 @@ public partial class Cecitior : ModNPC
                 hookFrame = 1;
         }
 
-        if (openOffset.Length() > 1 || openOffset.Length() < -1 || openRotation != 0)
+        if (openOffset.Length() > 1 || openRotation != 0)
             NPC.frame.Y = frameHeight * 6;
         else if (NPC.frameCounter % 5 == 0)
         {

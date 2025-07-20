@@ -51,10 +51,14 @@ public class TerrorVilethorn1 : ModProjectile
             {
                 num62 = ProjectileType<TerrorVilethorn2>();
             }
-            int num63 = Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.position + Projectile.velocity + (Projectile.Size / 2), Vector2.SmoothStep(Projectile.velocity, Helper.FromAToB(Projectile.Center, Main.LocalPlayer.Center), Projectile.ai[1] / 65).SafeNormalize(Vector2.UnitY) * MathHelper.Lerp(Projectile.velocity.Length(), 28, Projectile.ai[1] / 45), num62, Projectile.damage, 1, Projectile.owner);
-            Main.projectile[num63].damage = Projectile.damage;
-            Main.projectile[num63].ai[1] = Projectile.ai[1] + 1f;
-            NetMessage.SendData(27, -1, -1, null, num63);
+            if (MPUtils.NotMPClient)
+            {
+                int num63 = Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.position + Projectile.velocity + (Projectile.Size / 2), Vector2.SmoothStep(Projectile.velocity, Helper.FromAToB(Projectile.Center, Main.LocalPlayer.Center), Projectile.ai[1] / 65).SafeNormalize(Vector2.UnitY) * MathHelper.Lerp(Projectile.velocity.Length(), 28, Projectile.ai[1] / 45), num62, Projectile.damage, 1, Projectile.owner);
+                Main.projectile[num63].damage = Projectile.damage;
+                Main.projectile[num63].ai[1] = Projectile.ai[1] + 1f;
+                NetMessage.SendData(27, -1, -1, null, num63);
+            }
+            Projectile.netUpdate = true;
         }
         if (Projectile.alpha < 170 && Projectile.alpha + 5 >= 170)
         {
@@ -115,6 +119,7 @@ public class TerrorVilethorn2 : ModProjectile
                 Projectile.ai[1] += 1f;
                 Projectile.position += Projectile.velocity * 1f;
             }
+            Projectile.netUpdate = true;
         }
         if (Projectile.alpha < 170 && Projectile.alpha + 5 >= 170)
         {

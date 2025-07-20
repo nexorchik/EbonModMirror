@@ -72,7 +72,6 @@ public class TFlameThrower : ModProjectile //BREATH
 
     public override void PostAI()
     {
-
         for (int i = 0; i < 2; i++)
             Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.CursedTorch, Projectile.velocity.X, Projectile.velocity.Y, Scale: 4).noGravity = true;
     }

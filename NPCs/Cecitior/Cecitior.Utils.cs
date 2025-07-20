@@ -4,19 +4,30 @@ using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terraria.Chat;
+using Terraria.UI.Chat;
 
 namespace EbonianMod.NPCs.Cecitior;
 public partial class Cecitior : ModNPC
 {
+    public UnifiedRandom syncedRand => new UnifiedRandom((int)NPC.ai[2]);
+
+
+
     public void NetUpdateAtSpecificTime(params int[] times)
     {
         if (times.Contains(AITimer))
             NPC.netUpdate = true;
     }
+
+
     public void KeepClosedJustIncaseYouNeverKnow()
     {
         open = false;
-        openOffset = Vector2.Lerp(openOffset, Vector2.Zero, 0.1f);
+        if (openOffset.Length() < 0.5f)
+            openOffset = Vector2.Zero;
+        else
+            openOffset = Vector2.Lerp(openOffset, Vector2.Zero, 0.1f);
         openRotation = Utils.AngleLerp(openRotation, 0, 0.1f);
     }
 
@@ -169,7 +180,6 @@ public partial class Cecitior : ModNPC
                 cachedSound = SoundEngine.PlaySound(EbonianSounds.cecitiorIdle.WithVolumeScale(0.35f), NPC.Center, (_) => NPC.AnyNPCs(Type));
             }
         }
-        NPC.rotation = MathHelper.Lerp(NPC.rotation, rotation, 0.35f);
     }
 
 
@@ -214,10 +224,10 @@ public partial class Cecitior : ModNPC
     public void Closing()
     {
         NPC.ai[3] = 0;
-        if (!(AIState == Chomp && AITimer2 % 2 != 0) && !(AIState == PreDeath && ((int)AITimer2 == 1 || (int)AITimer2 == 3)))
+        if (!(AIState == Chomp && (int)MathF.Round(AITimer2) % 2 != 0) && !(AIState == PreDeath && ((int)MathF.Round(AITimer2) == 1 || (int)MathF.Round(AITimer2) == 3)))
             openOffset = Vector2.Lerp(openOffset, Vector2.Zero, 0.5f);
 
-        if ((openOffset.Length() < 2.5f && openOffset.Length() > 1f) || (openOffset.Length() > -2.5f && openOffset.Length() < -1f))
+        if (openOffset.Length() > 0 && openOffset.Length() < 4f)
         {
             if (SoundEngine.TryGetActiveSound(openSound, out var sound) && AITimer > 60)
             {
@@ -225,6 +235,7 @@ public partial class Cecitior : ModNPC
             }
             SoundEngine.PlaySound(EbonianSounds.cecitiorClose, NPC.Center);
             CameraSystem.ScreenShakeAmount = 5;
+            openOffset = Vector2.Zero;
         }
         if (openOffset != Vector2.Zero && AIState != ThrowUpBlood && AIState != SpitTeeth && NPC.frame.Y == 6 * 102)
             if (player.Center.Distance(NPC.Center - openOffset) < 75 || player.Center.Distance(NPC.Center + openOffset) < 75)

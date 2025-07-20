@@ -20,7 +20,7 @@ public partial class Cecitior : ModNPC
         else NPC.velocity *= 0.97f;
         if (AITimer >= 140 * (NPC.life / (float)NPC.lifeMax) + 10)
         {
-            AIState = new UnifiedRandom((int)NPC.ai[2]).Next(2, phase2 ? 15 : 9);
+            AIState = syncedRand.Next(2, phase2 ? 15 : 9);
             NPC.velocity = Vector2.Zero;
             AITimer = 0;
             AITimer2 = 0;
@@ -235,7 +235,7 @@ public partial class Cecitior : ModNPC
         open = true;
         openOffset = Vector2.Lerp(openOffset, new Vector2(100 + MathF.Sin(NPC.ai[2] * 0.01f * Main.rand.NextFloat(2, 9)) * Main.rand.NextFloat(50, 80), MathF.Sin(NPC.ai[2] * 0.01f * Main.rand.NextFloat(2, 5)) * Main.rand.NextFloat(20, 40)), 0.15f);
         if ((int)AITimer2 == 0 || AITimer == 1)
-            AITimer2 = new UnifiedRandom((int)NPC.ai[2]).NextFloat(0.01f, Pi * 2);
+            AITimer2 = syncedRand.NextFloat(0.01f, Pi * 2);
         if (AITimer < 20)
         {
             NPC.velocity *= 0.9f;

@@ -100,6 +100,13 @@ internal class Regorger : ModNPC
     {
         npcLoot.Add(ItemDropRule.Common(ItemID.CursedFlame, 2, 1, 3));
     }
+    public override void OnSpawn(IEntitySource source)
+    {
+        NPC.velocity = Main.rand.NextVector2Circular(10, 10);
+        NPC.lifeMax *= 6;
+        NPC.life = NPC.lifeMax;
+        NPC.SyncNPC();
+    }
     public override void AI()
     {
         if (NPC.ai[3] != 0)

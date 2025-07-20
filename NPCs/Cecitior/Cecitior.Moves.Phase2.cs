@@ -50,7 +50,7 @@ public partial class Cecitior : ModNPC
         NetUpdateAtSpecificTime(35, 45);
         if ((int)AITimer2 == 0)
         {
-            AITimer2 = new UnifiedRandom((int)NPC.ai[2]).NextFloat(0.01f, Pi * 2);
+            AITimer2 = syncedRand.NextFloat(0.01f, Pi * 2);
             NPC.netUpdate = true;
         }
         if (AITimer < 35)
@@ -206,7 +206,7 @@ public partial class Cecitior : ModNPC
         NetUpdateAtSpecificTime(40, 90, 140, 190);
         if (AITimer % 50 == 1)
         {
-            AITimer3 = new UnifiedRandom((int)NPC.ai[2]).Next(3);
+            AITimer3 = syncedRand.Next(3);
             NPC.netUpdate = true;
         }
 
@@ -223,7 +223,7 @@ public partial class Cecitior : ModNPC
                 claw[2].position = Vector2.Lerp(claw[2].position, NPC.Center - openOffset + new Vector2(-110, 55).RotatedBy(MathF.Sin(NPC.ai[2] * 0.01f) * 0.4f), 0.1f);
             if (AITimer % 50 == 1 || (int)AITimer2 == 0)
             {
-                AITimer2 = new UnifiedRandom((int)NPC.ai[2]).NextFloat(0.01f, Pi * 2);
+                AITimer2 = syncedRand.NextFloat(0.01f, Pi * 2);
                 NPC.netUpdate = true;
             }
             if (AITimer % 50 < 40)
@@ -443,7 +443,7 @@ public partial class Cecitior : ModNPC
                     for (int i = 0; i < 10; i++)
                     {
                         Projectile p = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.Center - new Vector2(0, 100), Main.rand.NextVector2Circular(14, 14), ProjectileType<Gibs>(), 40, 0, 0, 0);
-                        p.SetAsHostile();
+                        p.SetToHostile();
                         MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - new Vector2(0, 100), new Vector2(Main.rand.NextFloat(-4f, 4), Main.rand.NextFloat(-7, -3)), ProjectileType<CIchor>(), 40, 0, 0, 0);
                     }
                 }
@@ -453,7 +453,7 @@ public partial class Cecitior : ModNPC
                     for (int i = 0; i < 16; i++)
                     {
                         Projectile p = Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.Center - new Vector2(0, 100), Main.rand.NextVector2Circular(14, 14), ProjectileType<Gibs>(), 40, 0, 0, 0);
-                        p.SetAsHostile();
+                        p.SetToHostile();
                         Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - new Vector2(0, 100), Main.rand.NextVector2Circular(4, 4), ProjectileType<CecitiorEyeP>(), 40, 0, 0, 0);
                     }
                 }

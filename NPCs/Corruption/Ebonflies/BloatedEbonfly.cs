@@ -81,6 +81,9 @@ public class BloatedEbonfly : ModNPC
         NPC.scale = Main.rand.NextFloat(0.8f, 1.2f);
         NPC.Center += Main.rand.NextVector2CircularEdge(40, 40);
         NPC.velocity = Main.rand.NextVector2Unit();
+        if (NPC.ai[3] < -2)
+            NPC.dontTakeDamage = true;
+        NPC.SyncNPC();
     }
     float glowAlpha = 0;
     Vector2 lastPos;
