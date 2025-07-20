@@ -198,7 +198,7 @@ public partial class Cecitior : ModNPC
             openSound = SoundEngine.PlaySound(EbonianSounds.cecitiorOpen, NPC.Center);
         if (open)
         {
-            if ((int)MathF.Round(AITimer2) % 2 != (phase2 ? 1 : 0))
+            if (AIByte != (phase2 ? 1 : 0))
                 openOffset += Vector2.UnitY * 5;
             else
                 openOffset += Vector2.UnitX * 6;
@@ -206,11 +206,6 @@ public partial class Cecitior : ModNPC
         if (AITimer < 25)
         {
             open = true;
-            if ((int)MathF.Round(AITimer2) % 2 != (phase2 ? 1 : 0))
-            {
-                openRotation = Utils.AngleLerp(openRotation, ToRadians(90), 0.5f);
-                rotation = Utils.AngleLerp(rotation, ToRadians(90), 0.5f);
-            }
             NPC.velocity = Helper.FromAToB(NPC.Center, player.Center, false) / 10f;
         }
         if (AITimer >= 25 && AITimer < (50 + (phase2 ? 7 : 0)))
@@ -236,7 +231,7 @@ public partial class Cecitior : ModNPC
         {
             openOffset.Y = Lerp(openOffset.Y, 0, 0.3f);
         }
-        if ((int)MathF.Round(AITimer2) % 2 != (phase2 ? 1 : 0))
+        if (AIByte != (phase2 ? 1 : 0))
         {
             if (MathF.Abs(openOffset.Y) < 50 && AITimer > 25)
             {
@@ -246,7 +241,7 @@ public partial class Cecitior : ModNPC
                     CameraSystem.ScreenShakeAmount = 5;
                 }
                 openRotation = 0;
-
+                rotation = 0;
                 open = false;
                 NPC.frame.Y = 0;
                 openOffset = Vector2.Zero;
@@ -264,9 +259,9 @@ public partial class Cecitior : ModNPC
                 num = 2;
             if (phase2)
                 num = 0;
-            if (AITimer2 < num)
+            if (AIByte < num)
             {
-                AITimer2++;
+                AIByte++;
                 AITimer = 0;
                 NPC.velocity = Vector2.Zero;
             }

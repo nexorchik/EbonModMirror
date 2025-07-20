@@ -78,9 +78,6 @@ public partial class Cecitior : ModNPC
         else
             Closing();
 
-        if (AIState > 0)
-            AIState = Chomp;
-
         switch (AIState)
         {
             case Death:

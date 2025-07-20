@@ -34,7 +34,7 @@ public partial class Cecitior : ModNPC
 
     public void ClawIdle()
     {
-        if (phase2)
+        if (phase2 && !NPC.AnyNPCs(NPCType<CecitiorEye>()))
         {
             claw[0].position = Vector2.Lerp(claw[0].position, NPC.Center + openOffset + new Vector2(150, -65).RotatedBy(MathF.Sin(NPC.ai[2] * 0.01f) * 0.4f), 0.2f);
             claw[1].position = Vector2.Lerp(claw[1].position, NPC.Center + openOffset + new Vector2(165, 45).RotatedBy(MathF.Sin(NPC.ai[2] * 0.01f) * 0.4f), 0.2f);
@@ -52,6 +52,7 @@ public partial class Cecitior : ModNPC
         AIState = Idle;
         NPC.damage = 0;
         rotation = 0;
+        AIByte = 0;
         openRotation = 0;
         open = false;
         openOffset = Vector2.Zero;

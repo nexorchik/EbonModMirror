@@ -22,6 +22,14 @@ public partial class Cecitior : ModNPC
 
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
+        if (AIState == Chomp && AITimer < 25 && AIByte % 2 != (phase2 ? 1 : 0))
+        {
+            float rot = Utils.AngleLerp(openRotation, ToRadians(90), 0.5f);
+            if (!MPUtils.NotMPClient)
+                rot = ToRadians(90);
+            openRotation = rot;
+            rotation = rot;
+        }
         NPC.rotation = Utils.AngleLerp(NPC.rotation, rotation, 0.35f);
         Texture2D glow = Assets.ExtraSprites.Cecitior.Cecitior_Glow.Value;
         Texture2D tex = TextureAssets.Npc[Type].Value;

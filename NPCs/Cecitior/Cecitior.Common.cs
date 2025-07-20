@@ -78,9 +78,8 @@ public partial class Cecitior : ModNPC
     }
     public override void SendExtraAI(BinaryWriter writer)
     {
+        writer.Write(AIByte);
         writer.WriteVector2(openOffset);
-        writer.Write(NPC.localAI[0]);
-        writer.Write(NPC.localAI[1]);
         writer.Write((short)OldState);
         for (int i = 0; i < claw.Length; i++)
             writer.WriteVector2(claw[i].position);
@@ -94,9 +93,8 @@ public partial class Cecitior : ModNPC
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
+        AIByte = reader.ReadByte();
         openOffset = reader.ReadVector2();
-        NPC.localAI[0] = reader.ReadSingle();
-        NPC.localAI[1] = reader.ReadSingle();
         OldState = reader.ReadInt16();
         for (int i = 0; i < claw.Length; i++)
             claw[i].position = reader.ReadVector2();
@@ -122,6 +120,7 @@ public partial class Cecitior : ModNPC
     float shakeVal;
     public float AITimer2 = 0;
     public float AITimer3 = 0;
+    public byte AIByte;
     Projectile tongue = null;
 
     const int PhaseTransition = -4, PrePreDeath = -3, Death = -2, PreDeath = -1, Intro = 0, Idle = 1, EyeBehaviour = 2, Chomp = 3, Teeth = 4, EyeBehaviour2 = 5,

@@ -79,7 +79,7 @@ public partial class Terrortoma : ModNPC
         }
 
 
-        if (NPC.alpha <= 0 && AIState != Death)
+        if (NPC.alpha <= 1 && AIState != Death)
         {
             if (!NPC.AnyNPCs(NPCType<TerrorClingerMelee>()))
             {
