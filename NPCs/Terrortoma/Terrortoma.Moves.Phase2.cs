@@ -87,7 +87,7 @@ public partial class Terrortoma : ModNPC
                 Shriek();
             }
             if (AITimer % 20 == 0)
-                Helper.AddCameraModifier(new PunchCameraModifier(NPC.Center, syncedRand.NextVector2Unit(), 10, 6, 30, 1000));
+                Helper.AddCameraModifier(new PunchCameraModifier(NPC.Center, Main.rand.NextVector2Unit(), 10, 6, 30, 1000));
             if (AITimer % 5 == 0)
                 MPUtils.NewProjectile(null, NPC.Center, Vector2.Zero, ProjectileType<TerrortomaScream>(), 0, 0);
         }
@@ -131,9 +131,9 @@ public partial class Terrortoma : ModNPC
                 NPC.velocity = Vector2.Lerp(NPC.velocity, Helper.FromAToB(NPC.Center, to) * 30, 0.1f);
             else NPC.velocity *= 0.9f;
             Vector2 pos = NPC.Center + new Vector2(0, 300).RotatedByRandom(PiOver2 * 0.7f);
-            Dust.NewDustPerfect(pos, DustType<LineDustFollowPoint>(), Helper.FromAToB(pos, NPC.Center) * syncedRand.NextFloat(4, 10), newColor: Color.LawnGreen, Scale: syncedRand.NextFloat(0.06f, 0.2f)).customData = NPC.Center + new Vector2(0, 20);
+            Dust.NewDustPerfect(pos, DustType<LineDustFollowPoint>(), Helper.FromAToB(pos, NPC.Center) * Main.rand.NextFloat(4, 10), newColor: Color.LawnGreen, Scale: Main.rand.NextFloat(0.06f, 0.2f)).customData = NPC.Center + new Vector2(0, 20);
 
-            Dust.NewDustPerfect(pos, DustID.CursedTorch, Helper.FromAToB(pos, NPC.Center) * syncedRand.NextFloat(4, 10)).noGravity = true;
+            Dust.NewDustPerfect(pos, DustID.CursedTorch, Helper.FromAToB(pos, NPC.Center) * Main.rand.NextFloat(4, 10)).noGravity = true;
         }
         if (AITimer == 85)
         {

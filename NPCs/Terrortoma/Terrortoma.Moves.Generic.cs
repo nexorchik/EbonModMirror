@@ -137,7 +137,7 @@ public partial class Terrortoma : ModNPC
             }
         }
 
-        if (AITimer >= 300)
+        if (AITimer >= 100)
         {
             NPC.damage = 0;
             AIState = Idle;
@@ -157,20 +157,21 @@ public partial class Terrortoma : ModNPC
             if (phase2)
                 for (int i = 0; i < 3; i++)
                 {
-                    Vector2 vSpawnPos = player.Center + new Vector2(900, syncedRand.NextFloat(900)).RotatedBy(PiOver2 * syncedRand.Next(4));
-                    if (syncedRand.NextBool(5))
+                    UnifiedRandom rand = new UnifiedRandom((int)NPC.ai[3] + i);
+                    Vector2 vSpawnPos = player.Center + new Vector2(900, rand.NextFloat(900)).RotatedBy(PiOver2 * rand.Next(4));
+                    if (rand.NextBool(5))
                     {
                         Projectile.NewProjectile(NPC.GetSource_FromAI(), vSpawnPos, vSpawnPos.FromAToB(player), ProjectileType<TerrorVilethorn1>(), 20, 0, 0);
                     }
                 }
             SoundEngine.PlaySound(EbonianSounds.terrortomaLaugh, NPC.Center);
         }
-        if (NPC.Distance(player.Center) > 200)
+        if (NPC.Distance(player.Center) > 300)
             NPC.velocity = Vector2.Lerp(NPC.velocity, Helper.FromAToB(NPC.Center, player.Center - new Vector2(0, 200) + Helper.FromAToB(player.Center, NPC.Center) * 50) * 13, 0.1f);
-        else NPC.velocity *= 0.8f;
+        else if (NPC.Distance(player.Center) < 200) NPC.velocity *= 0.8f;
         rotation = Vector2.UnitY.ToRotation() - MathHelper.PiOver2;
 
-        if (AITimer > 190)
+        if (AITimer > 120)
         {
             NPC.velocity = Vector2.Zero;
             AIState = syncedRand.Next(1, 15 - (phase2 ? 0 : 8) + 1);
@@ -195,7 +196,7 @@ public partial class Terrortoma : ModNPC
             if (AITimer == 30)
                 Shriek();
             if (AITimer % 20 == 0)
-                Helper.AddCameraModifier(new PunchCameraModifier(NPC.Center, syncedRand.NextVector2Unit(), 10, 12, 30, 1000));
+                Helper.AddCameraModifier(new PunchCameraModifier(NPC.Center, Main.rand.NextVector2Unit(), 10, 12, 30, 1000));
             if (AITimer % 5 == 0)
                 Projectile.NewProjectile(null, NPC.Center, Vector2.Zero, ProjectileType<TerrortomaScream>(), 0, 0);
         }

@@ -25,7 +25,7 @@ public partial class Terrortoma : ModNPC
                 SoundEngine.PlaySound(EbonianSounds.terrortomaDash, NPC.Center);
                 for (int i = 0; i < 40; i++)
                 {
-                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.CursedTorch, syncedRand.NextFloat(-1, 1), syncedRand.NextFloat(-1, 1));
+                    Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.CursedTorch, Main.rand.NextFloat(-1, 1), Main.rand.NextFloat(-1, 1));
                 }
             }
             if (AITimer2 < 10)
@@ -105,7 +105,7 @@ public partial class Terrortoma : ModNPC
             if (++AITimer2 % 60 == 0)
             {
                 for (int i = 0; i <= 5; i++)
-                    MPUtils.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(syncedRand.NextFloat(-10f, 10f), -10), ProjectileType<TFlameThrower2>(), 20, 1f, Main.myPlayer);
+                    MPUtils.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(new UnifiedRandom((int)NPC.ai[3] + i).NextFloat(-10f, 10f), -10), ProjectileType<TFlameThrower2>(), 20, 1f, Main.myPlayer);
                 MPUtils.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0, -10), ProjectileType<TFlameThrower2>(), 20, 1f, Main.myPlayer);
             }
             if (phase2)

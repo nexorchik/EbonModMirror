@@ -74,7 +74,7 @@ public partial class Terrortoma : ModNPC
     {
         Target();
         MiscChecks();
-        NPC.ai[3]++;
+        NPC.ai[3] += 9;
         AITimer++;
         NPC.rotation = Utils.AngleLerp(NPC.rotation, rotation, 0.25f);
         if (AITimer == 1)

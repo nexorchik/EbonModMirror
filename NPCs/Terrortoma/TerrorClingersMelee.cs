@@ -98,7 +98,7 @@ public class TerrorClingerMelee : TerrorClingerGeneric // Disgusting
             AITimer = (int)center.ai[1];
 
         NPC.damage = (int)center.localAI[0];
-        lerpSpeed = Lerp(lerpSpeed, (center.ai[0] == 0 ? 0.05f : 0.15f), 0.1f);
+        lerpSpeed = Clamp(Lerp(lerpSpeed, (center.ai[0] == 0 ? 0.05f : 0.15f), 0.1f), 0, 0.15f);
         int AIState = (int)center.ai[0];
         bool phase2 = center.life <= center.lifeMax - center.lifeMax / 3 + 3500;
         int CenterAITimer = (int)center.ai[1];

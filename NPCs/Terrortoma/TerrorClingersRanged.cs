@@ -38,7 +38,7 @@ public class TerrorClingerRanged : TerrorClingerGeneric // Disgusting
             NPC.netUpdate = true;
             return;
         }
-        lerpSpeed = Lerp(lerpSpeed, (center.ai[0] == 0 ? 0.05f : 0.1f), 0.1f);
+        lerpSpeed = Clamp(Lerp(lerpSpeed, (center.ai[0] == 0 ? 0.05f : 0.1f), 0.1f), 0, 0.1f);
         int AIState = (int)center.ai[0];
         bool phase2 = center.life <= center.lifeMax - center.lifeMax / 3 + 3500;
         int CenterAITimer = (int)center.ai[1];
