@@ -83,15 +83,15 @@ public partial class Terrortoma : ModNPC
         {
             if (!NPC.AnyNPCs(NPCType<TerrorClingerMelee>()))
             {
-                MPUtils.NewNPC(NPC.Center, NPCType<TerrorClingerMelee>(), false, NPC.whoAmI);
+                MPUtils.NewNPC(NPC.Center, NPCType<TerrorClingerMelee>(), true, NPC.whoAmI);
             }
             if (!NPC.AnyNPCs(NPCType<TerrorClingerSummoner>()))
             {
-                MPUtils.NewNPC(NPC.Center, NPCType<TerrorClingerSummoner>(), false, NPC.whoAmI);
+                MPUtils.NewNPC(NPC.Center, NPCType<TerrorClingerSummoner>(), true, NPC.whoAmI);
             }
             if (!NPC.AnyNPCs(NPCType<TerrorClingerRanged>()))
             {
-                MPUtils.NewNPC(NPC.Center, NPCType<TerrorClingerRanged>(), false, NPC.whoAmI);
+                MPUtils.NewNPC(NPC.Center, NPCType<TerrorClingerRanged>(), true, NPC.whoAmI);
             }
         }
     }
@@ -101,7 +101,7 @@ public partial class Terrortoma : ModNPC
     {
         if (!NPC.HasPlayerTarget)
             NPC.TargetClosest(false);
-        if (!player.active || player.dead && AIState != Death)
+        if ((!player.active || player.dead) && AIState != Death)
         {
             NPC.TargetClosest(false);
             if (NPC.HasValidTarget)
@@ -109,7 +109,7 @@ public partial class Terrortoma : ModNPC
                 AIState = Intro;
                 AITimer = 0;
             }
-            if (!player.active || player.dead && AIState != Death)
+            if ((!player.active || player.dead) && AIState != Death)
             {
                 if (AIState != -12124)
                 {
