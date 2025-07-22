@@ -79,11 +79,11 @@ public class TerrorClingerMelee : TerrorClingerGeneric // Disgusting
         Player player = Main.player[NPC.target];
         NPC.TargetClosest(false);
         terrortomaCenter = center.Center;
-        if (!player.active || player.dead || center.ai[0] == -12124)
+        if (!player.active || player.dead || (int)center.ai[0] == -12124)
         {
             NPC.TargetClosest(false);
             player = Main.player[NPC.target];
-            if (!player.active || player.dead || center.ai[0] == -12124)
+            if (!player.active || player.dead || (int)center.ai[0] == -12124)
             {
                 NPC.velocity = new Vector2(0, 10f);
                 if (NPC.timeLeft > 10)
@@ -94,18 +94,18 @@ public class TerrorClingerMelee : TerrorClingerGeneric // Disgusting
                 return;
             }
         }
-        if (center.ai[1] < 2)
-            AITimer = (int)center.ai[1];
+        if ((int)center.ai[1] < 2)
+            AITimer = (int)(int)center.ai[1];
 
         NPC.damage = (int)center.localAI[0];
-        lerpSpeed = Clamp(Lerp(lerpSpeed, (center.ai[0] == 0 ? 0.05f : 0.15f), 0.1f), 0, 0.15f);
-        int AIState = (int)center.ai[0];
+        lerpSpeed = Clamp(Lerp(lerpSpeed, ((int)center.ai[0] == 0 ? 0.05f : 0.15f), 0.1f), 0, 0.15f);
+        int AIState = (int)(int)center.ai[0];
         bool phase2 = center.life <= center.lifeMax - center.lifeMax / 3 + 3500;
-        int CenterAITimer = (int)center.ai[1];
-        if (center.ai[0] == -1)
+        int CenterAITimer = (int)(int)center.ai[1];
+        if ((int)center.ai[0] == -1)
         {
             IsDashing = false;
-            if (center.ai[1] > 100)
+            if ((int)center.ai[1] > 100)
             {
                 NPC.velocity *= 1.025f;
                 NPC.rotation += MathHelper.ToRadians(3);
@@ -119,7 +119,7 @@ public class TerrorClingerMelee : TerrorClingerGeneric // Disgusting
                 Vector2 moveTo = target - NPC.Center;
                 NPC.velocity = moveTo * 0.09f;
             }
-            if (center.ai[1] == 100)
+            if ((int)center.ai[1] == 100)
             {
                 NPC.netUpdate = true;
                 NPC.velocity = Vector2.UnitY * 5;
@@ -146,7 +146,7 @@ public class TerrorClingerMelee : TerrorClingerGeneric // Disgusting
                     }
                 }
             }
-            if (center.ai[1] == 350)
+            if ((int)center.ai[1] == 350)
             {
                 NPC.life = 0;
                 NPC.checkDead();
@@ -165,14 +165,14 @@ public class TerrorClingerMelee : TerrorClingerGeneric // Disgusting
         }
         else
         {
-            if (center.ai[2] == 2 && NPC.ai[3] == 0)
+            if ((int)center.ai[2] == 2 && NPC.ai[3] == 0)
             {
                 bloomAlpha = 1f;
                 NPC.ai[3] = 1;
             }
             if (bloomAlpha > 0f) bloomAlpha -= 0.025f;
             if (alpha > 0f) alpha -= 0.01f;
-            if ((center.ai[2] != 2 && center.ai[2] <= 2) || center.ai[2] == 4)
+            if (((int)center.ai[2] != 2 && (int)center.ai[2] <= 2) || (int)center.ai[2] == 4)
             {
                 alpha = 0;
                 NPC.rotation = Utils.AngleLerp(NPC.rotation, center.rotation, 0.2f);
@@ -194,7 +194,7 @@ public class TerrorClingerMelee : TerrorClingerGeneric // Disgusting
                     Vector2 moveTo = NPC.FromAToB(pos, false);
                     NPC.velocity = moveTo * lerpSpeed;
                 }
-                if (center.ai[2] != 4)
+                if ((int)center.ai[2] != 4)
                 {
                     switch (AIState)
                     {
@@ -256,6 +256,7 @@ public class TerrorClingerMelee : TerrorClingerGeneric // Disgusting
                                     lerpSpeed = 0.005f;
                                     center.ai[2] = 4;
                                     AITimer = 0;
+                                    center.netUpdate = true;
                                 }
                             }
                             break;
@@ -318,7 +319,7 @@ public class TerrorClingerMelee : TerrorClingerGeneric // Disgusting
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 pos, Color drawColor)
     {
         NPC _center = Main.npc[(int)NPC.ai[0]];
-        if (_center.Distance(NPC.Center) > 2000 || (_center.ai[0] == 0 && _center.ai[1] < 2)) return true;
+        if (_center.Distance(NPC.Center) > 2000 || (_(int)center.ai[0] == 0 && _(int)center.ai[1] < 2)) return true;
         Player player = Main.player[NPC.target];
 
         if (NPC.IsABestiaryIconDummy || NPC.Center == Vector2.Zero)

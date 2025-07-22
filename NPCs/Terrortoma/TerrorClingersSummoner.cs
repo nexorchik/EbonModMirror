@@ -41,12 +41,12 @@ public class TerrorClingerSummoner : TerrorClingerGeneric // Disgusting
             NPC.netUpdate = true;
             return;
         }
-        lerpSpeed = Clamp(Lerp(lerpSpeed, (center.ai[0] == 0 ? 0.05f : 0.1f), 0.1f), 0, 0.1f);
-        int AIState = (int)center.ai[0];
+        lerpSpeed = Clamp(Lerp(lerpSpeed, ((int)center.ai[0] == 0 ? 0.05f : 0.1f), 0.1f), 0, 0.1f);
+        int AIState = (int)(int)center.ai[0];
         bool phase2 = center.life <= center.lifeMax - center.lifeMax / 3 + 3500;
-        int CenterAITimer = (int)center.ai[1];
+        int CenterAITimer = (int)(int)center.ai[1];
         terrortomaCenter = center.Center;
-        if (!player.active || player.dead || center.ai[0] == -12124)
+        if (!player.active || player.dead || (int)center.ai[0] == -12124)
         {
             NPC.TargetClosest(false);
             player = Main.player[NPC.target];
@@ -54,7 +54,7 @@ public class TerrorClingerSummoner : TerrorClingerGeneric // Disgusting
             {
                 AITimer = 0;
             }
-            if (!player.active || player.dead || center.ai[0] == -12124)
+            if (!player.active || player.dead || (int)center.ai[0] == -12124)
             {
                 NPC.velocity = new Vector2(0, 10f);
                 if (NPC.timeLeft > 10)
@@ -65,19 +65,19 @@ public class TerrorClingerSummoner : TerrorClingerGeneric // Disgusting
                 return;
             }
         }
-        if (center.ai[1] < 2)
+        if ((int)center.ai[1] < 2)
         {
-            AITimer = (int)center.ai[1];
+            AITimer = (int)(int)center.ai[1];
             AITimer2 = 0;
         }
-        if (center.ai[0] == -1)
+        if ((int)center.ai[0] == -1)
         {
             AITimer = 0;
             Vector2 pos = center.Center + new Vector2(-80, 80).RotatedBy(center.rotation);
             Vector2 target = pos;
             Vector2 moveTo = target - NPC.Center;
             NPC.velocity = (moveTo) * 0.09f;
-            if (center.ai[1] == 150)
+            if ((int)center.ai[1] == 150)
             {
                 NPC.life = 0;
                 NPC.checkDead();
@@ -117,9 +117,9 @@ public class TerrorClingerSummoner : TerrorClingerGeneric // Disgusting
                 }
             }
         }
-        if (center.ai[2] == 1 && NPC.ai[3] == 0)
+        if ((int)center.ai[2] == 1 && NPC.ai[3] == 0)
         {
-            if (center.ai[0] != 15)
+            if ((int)center.ai[0] != 15)
                 bloomAlpha = 1f;
             NPC.ai[3] = 1;
         }
@@ -131,7 +131,7 @@ public class TerrorClingerSummoner : TerrorClingerGeneric // Disgusting
                 MPUtils.NewNPC(NPC.Center + Main.rand.NextVector2Circular(NPC.width / 2, NPC.height / 2), NPCType<BloatedEbonfly>(), ai3: -3);
             }
         }
-        if ((center.ai[2] != 1 && center.ai[2] <= 2) || center.ai[2] == 4)
+        if (((int)center.ai[2] != 1 && (int)center.ai[2] <= 2) || (int)center.ai[2] == 4)
         {
             Vector2 pos = center.Center + new Vector2(-85, 85).RotatedBy(center.rotation);
             if (AIState == 6 || AIState == 14)
@@ -153,7 +153,7 @@ public class TerrorClingerSummoner : TerrorClingerGeneric // Disgusting
                 NPC.velocity = (moveTo) * lerpSpeed;
                 NPC.scale = Lerp(NPC.scale, 1, 0.1f);
             }
-            if (center.ai[2] != 4)
+            if ((int)center.ai[2] != 4)
             {
                 switch (AIState)
                 {
@@ -189,7 +189,7 @@ public class TerrorClingerSummoner : TerrorClingerGeneric // Disgusting
                                 center.ai[2] = 4;
                                 AITimer = 0;
                                 AITimer2 = 0;
-                                NPC.netUpdate = true;
+                                center.netUpdate = true;
                             }
                         }
                         break;
@@ -249,7 +249,11 @@ public class TerrorClingerSummoner : TerrorClingerGeneric // Disgusting
                                     NPC.Center = savedP + Main.rand.NextVector2Circular(30, 30) * (NPC.scale - 1);
                                 NPC.scale = Lerp(NPC.scale, 2, 0.01f);
 
-                                if (AITimer == 50) savedP = NPC.Center;
+                                if (AITimer == 50)
+                                {
+                                    savedP = NPC.Center;
+                                    NPC.netUpdate = true;
+                                }
 
                                 if (AITimer < 50)
                                 {
@@ -302,7 +306,7 @@ public class TerrorClingerSummoner : TerrorClingerGeneric // Disgusting
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 pos, Color drawColor)
     {
         NPC _center = Main.npc[(int)NPC.ai[0]];
-        if (_center.Distance(NPC.Center) > 2000 || (_center.ai[0] == 0 && _center.ai[1] < 2)) return true;
+        if (_center.Distance(NPC.Center) > 2000 || ((int)_center.ai[0] == 0 && _center.ai[1] < 2)) return true;
         Player player = Main.player[NPC.target];
 
 

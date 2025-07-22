@@ -18,7 +18,6 @@ public partial class Terrortoma : ModNPC
         NetUpdateAtSpecificTime(30, 326, 480);
         SelectedClinger = 4;
         NPC.damage = 0;
-        NPC.timeLeft = 10;
         isLaughing = false;
         if (AITimer < 250)
         {
