@@ -23,23 +23,21 @@ public abstract class TerrorClingerGeneric : ModNPC
 
     public float lerpSpeed;
     public float AITimer3;
-    public Vector2 terrortomaCenter, savedP;
+    public Vector2 savedP;
     public float bloomAlpha;
     public override void SendExtraAI(BinaryWriter writer)
     {
         writer.Write(lerpSpeed);
         writer.Write(AITimer3);
-        writer.WriteVector2(terrortomaCenter);
         writer.WriteVector2(savedP);
         writer.Write(bloomAlpha);
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
-        lerpSpeed = reader.Read();
-        AITimer3 = reader.Read();
-        terrortomaCenter = reader.ReadVector2();
+        lerpSpeed = reader.ReadSingle();
+        AITimer3 = reader.ReadSingle();
         savedP = reader.ReadVector2();
-        bloomAlpha = reader.Read();
+        bloomAlpha = reader.ReadSingle();
     }
     public override void SetDefaults()
     {

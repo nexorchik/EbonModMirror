@@ -72,13 +72,27 @@ public class TerrorClingerMelee : TerrorClingerGeneric // Disgusting
         NPC center = Main.npc[(int)NPC.ai[0]];
         if (!center.active || center.type != NPCType<Terrortoma>())
         {
-            NPC.active = false;
-            NPC.netUpdate = true;
-            return;
+            bool found = false;
+            foreach (NPC npc in Main.ActiveNPCs)
+            {
+                if (npc.type == NPCType<Terrortoma>())
+                {
+                    NPC.ai[0] = npc.whoAmI;
+                    npc.netUpdate = true;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+            {
+                NPC.active = false;
+                NPC.netUpdate = true;
+                return;
+            }
         }
         Player player = Main.player[NPC.target];
         NPC.TargetClosest(false);
-        terrortomaCenter = center.Center;
+
         if (!player.active || player.dead || (int)center.ai[0] == -12124)
         {
             NPC.TargetClosest(false);
@@ -125,7 +139,7 @@ public class TerrorClingerMelee : TerrorClingerGeneric // Disgusting
                 NPC.velocity = Vector2.UnitY * 5;
                 CameraSystem.ScreenShakeAmount += 5f;
                 MPUtils.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ProjectileType<OstertagiExplosion>(), 0, 0, 0);
-                Vector2 neckOrigin = terrortomaCenter;
+                Vector2 neckOrigin = center.Center;
                 Vector2 NPCcenter = NPC.Center;
                 Vector2 distToProj = neckOrigin - NPC.Center;
                 float projRotation = distToProj.ToRotation() - 1.57f;
@@ -319,7 +333,7 @@ public class TerrorClingerMelee : TerrorClingerGeneric // Disgusting
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 pos, Color drawColor)
     {
         NPC _center = Main.npc[(int)NPC.ai[0]];
-        if (_center.Distance(NPC.Center) > 2000 || (_(int)center.ai[0] == 0 && _(int)center.ai[1] < 2)) return true;
+        if (_center.Distance(NPC.Center) > 2000 || ((int)_center.ai[0] == 0 && (int)_center.ai[1] < 2)) return true;
         Player player = Main.player[NPC.target];
 
         if (NPC.IsABestiaryIconDummy || NPC.Center == Vector2.Zero)
@@ -335,7 +349,7 @@ public class TerrorClingerMelee : TerrorClingerGeneric // Disgusting
         }
         if (Main.npc[(int)NPC.ai[0]].ai[0] == -1 && Main.npc[(int)NPC.ai[0]].ai[1] > 100)
             return true;
-        Vector2 neckOrigin = terrortomaCenter;
+        Vector2 neckOrigin = _center.Center;
         Vector2 center = NPC.Center;
         Vector2 distToProj = neckOrigin - NPC.Center;
         float projRotation = distToProj.ToRotation() - 1.57f;

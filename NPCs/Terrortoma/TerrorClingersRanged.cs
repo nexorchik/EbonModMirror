@@ -34,15 +34,29 @@ public class TerrorClingerRanged : TerrorClingerGeneric // Disgusting
         NPC center = Main.npc[(int)NPC.ai[0]];
         if (!center.active || center.type != NPCType<Terrortoma>())
         {
-            NPC.active = false;
-            NPC.netUpdate = true;
-            return;
+            bool found = false;
+            foreach (NPC npc in Main.ActiveNPCs)
+            {
+                if (npc.type == NPCType<Terrortoma>())
+                {
+                    NPC.ai[0] = npc.whoAmI;
+                    npc.netUpdate = true;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found)
+            {
+                NPC.active = false;
+                NPC.netUpdate = true;
+                return;
+            }
         }
         lerpSpeed = Clamp(Lerp(lerpSpeed, ((int)center.ai[0] == 0 ? 0.05f : 0.1f), 0.1f), 0, 0.1f);
         int AIState = (int)(int)center.ai[0];
         bool phase2 = center.life <= center.lifeMax - center.lifeMax / 3 + 3500;
         int CenterAITimer = (int)(int)center.ai[1];
-        terrortomaCenter = center.Center;
+
         if (!player.active || player.dead || (int)center.ai[0] == -12124)
         {
             NPC.TargetClosest(false);
@@ -77,7 +91,7 @@ public class TerrorClingerRanged : TerrorClingerGeneric // Disgusting
             NPC.velocity = moveTo * 0.09f;
             if ((int)center.ai[1] == 50)
             {
-                Vector2 neckOrigin = terrortomaCenter;
+                Vector2 neckOrigin = center.Center;
                 Vector2 NPCcenter = NPC.Center;
                 Vector2 distToProj = neckOrigin - NPC.Center;
                 float projRotation = distToProj.ToRotation() - 1.57f;
@@ -322,7 +336,7 @@ public class TerrorClingerRanged : TerrorClingerGeneric // Disgusting
 
         if (NPC.IsABestiaryIconDummy || NPC.Center == Vector2.Zero)
             return true;
-        Vector2 neckOrigin = terrortomaCenter;
+        Vector2 neckOrigin = _center.Center;
         Vector2 center = NPC.Center;
         Vector2 distToProj = neckOrigin - NPC.Center;
         float projRotation = distToProj.ToRotation() - 1.57f;
