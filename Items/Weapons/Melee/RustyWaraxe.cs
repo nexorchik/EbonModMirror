@@ -78,4 +78,11 @@ public class RustyWaraxeP : HeldSword
     {
         SoundEngine.PlaySound(SoundID.Item1);
     }
+    public override void ExtraAI()
+    {
+    }
+    public override void PostDraw(Color lightColor)
+    {
+        base.PostDraw(lightColor);
+    }
 }

@@ -135,14 +135,21 @@ public class ReiCapeP : ModProjectile
             }
             if (vertex[0].Count > 2)
             {
-                Main.spriteBatch.End();
-                Main.spriteBatch.Begin(SpriteSortMode.Immediate, MiscDrawingMethods.Subtractive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                Main.spriteBatch.Draw(Assets.Extras.explosion.Value, v.startPos - Main.screenPosition, null, Color.White * playerAlpha, v.segments[0].Rotation(), Assets.Extras.explosion.Value.Size() / 2, new Vector2(0.08f, 0.07f), SpriteEffects.None, 0);
-                for (int j = 0; j < 3; j++)
+                EbonianMod.pixelationDrawCache.Add(() =>
                 {
-                    Helper.DrawTexturedPrimitives(vertex[j].ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.wavyLaser2, false);
-                    Helper.DrawTexturedPrimitives(vertex2[j].ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.Tentacle, false);
-                }
+                    Main.spriteBatch.Snapshot(out SpritebatchParameters sbParams2);
+                    if (Main.spriteBatch.beginCalled)
+                        Main.spriteBatch.End();
+                    Main.spriteBatch.Begin(SpriteSortMode.Immediate, MiscDrawingMethods.Subtractive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+                    Main.spriteBatch.Draw(Assets.Extras.explosion.Value, v.startPos - Main.screenPosition, null, Color.White * playerAlpha, v.segments[0].Rotation(), Assets.Extras.explosion.Value.Size() / 2, new Vector2(0.08f, 0.07f), SpriteEffects.None, 0);
+                    for (int j = 0; j < 3; j++)
+                    {
+                        Helper.DrawTexturedPrimitives(vertex[j].ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.wavyLaser2, false);
+                        Helper.DrawTexturedPrimitives(vertex2[j].ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.Tentacle, false);
+                    }
+                    Main.spriteBatch.End();
+                    Main.spriteBatch.Begin(sbParams2);
+                });
             }
         }
         for (int i = 0; i < 2; i++) // Big SpriteBatch is hiding this from you: WHY DO I HAVE TO RESET THIS TWICE FOR THE ZENITH TO WORK ??
