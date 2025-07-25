@@ -1,4 +1,6 @@
 ﻿using AssGen;
+using EbonianMod.Items.Pets.LilPilg;
+using EbonianMod.Items.Weapons.Magic;
 using EbonianMod.NPCs.Corruption;
 using EbonianMod.Projectiles.VFXProjectiles;
 using System;
@@ -70,6 +72,10 @@ public class Botanist : ModNPC
     public override void DrawBehind(int index)
     {
         Main.instance.DrawCacheNPCsMoonMoon.Add(index);
+    }
+    public override void ModifyNPCLoot(NPCLoot npcLoot)
+    {
+        npcLoot.Add(ItemDropRule.Common(ItemType<BotanistHeadStaff>(), 30));
     }
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {

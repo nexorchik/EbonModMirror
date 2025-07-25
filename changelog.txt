@@ -15,6 +15,7 @@ v 2.0
 - Updated Hot Garbage's VFX
 - Updated the Voidrunner Mask's VFX
 - Reworked Cursed Firearm, Bloodcolt, Latcher, Bloodsoaked Dentures, Corebreaker
+- Corebreaker is no longer craftable
 - Renamed Cursed Firearm into Vile Musket
 - Renamed Bloodcolt into Fangnum
 - Resprited Sawcitior
@@ -42,6 +43,7 @@ v 2.0
 - Fixed Terrortoma only having 14k HP in Master Mode
 - Fixed Hot Garbage endlessly firing his nuke under certain conditions
 - Fixed minions not correctly targeting enemies when right clicking
+- Ostertagi and Sacrifical Dagger no longer show incorrect damage values
 - Other fixes I forgot
 
 And probably more stuff I missed.

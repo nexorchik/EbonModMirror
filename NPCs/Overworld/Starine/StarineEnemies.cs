@@ -1,4 +1,5 @@
 using EbonianMod.Dusts;
+using EbonianMod.Items.Pets.LilPilg;
 using EbonianMod.NPCs.Overworld.Starine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -237,6 +238,10 @@ public class Starine_Sightseer : ModNPC
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
                 new FlavorTextBestiaryInfoElement(NPC.BestiaryKey())
         });
+    }
+    public override void ModifyNPCLoot(NPCLoot npcLoot)
+    {
+        npcLoot.Add(ItemDropRule.Common(ItemType<LilPilgI>(), 60));
     }
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {

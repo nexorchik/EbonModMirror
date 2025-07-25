@@ -1,4 +1,5 @@
-﻿using EbonianMod.Tiles;
+﻿using EbonianMod.Items.Materials;
+using EbonianMod.Tiles;
 
 namespace EbonianMod.Items.Tiles;
 
@@ -17,5 +18,9 @@ public class CorruptrotI : ModItem
         Item.useStyle = 1;
         Item.consumable = true;
         Item.createTile = TileType<CorruptrotTile>();
+    }
+    public override void AddRecipes()
+    {
+        CreateRecipe(4).AddIngredient<TerrortomaMaterial>().AddTile(TileID.HeavyWorkBench).Register();
     }
 }

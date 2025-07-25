@@ -16,7 +16,7 @@ public class Terrorhead : ModItem
     }
     public override void AddRecipes()
     {
-        CreateRecipe().AddIngredient(ItemType<CecitiorMaterial>(), 12).AddTile(TileID.MythrilAnvil).Register();
+        CreateRecipe().AddIngredient(ItemType<TerrortomaMaterial>(), 12).AddTile(TileID.MythrilAnvil).Register();
     }
     public override bool IsArmorSet(Item head, Item body, Item legs)
     {
@@ -56,7 +56,7 @@ public class Terrorbody : ModItem
     }
     public override void AddRecipes()
     {
-        CreateRecipe().AddIngredient(ItemType<CecitiorMaterial>(), 16).AddTile(TileID.MythrilAnvil).Register();
+        CreateRecipe().AddIngredient(ItemType<TerrortomaMaterial>(), 16).AddTile(TileID.MythrilAnvil).Register();
     }
 }
 [AutoloadEquip(EquipType.Legs)]
@@ -78,6 +78,6 @@ public class Terrorlegs : ModItem
     }
     public override void AddRecipes()
     {
-        CreateRecipe().AddIngredient(ItemType<CecitiorMaterial>(), 12).AddTile(TileID.MythrilAnvil).Register();
+        CreateRecipe().AddIngredient(ItemType<TerrortomaMaterial>(), 12).AddTile(TileID.MythrilAnvil).Register();
     }
 }

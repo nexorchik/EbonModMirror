@@ -6,6 +6,7 @@ namespace EbonianMod.Items.Misc;
 
 public class CongFisherate : ModItem
 {
+    public override bool IsLoadingEnabled(Mod mod) => false;
     public override void SetDefaults()
     {
         Item.CloneDefaults(ItemID.WoodFishingPole);

@@ -1,4 +1,5 @@
-﻿using EbonianMod.Tiles;
+﻿using EbonianMod.Items.Materials;
+using EbonianMod.Tiles;
 
 namespace EbonianMod.Items.Tiles;
 
@@ -17,5 +18,9 @@ public class FleshichorI : ModItem
         Item.useStyle = 1;
         Item.consumable = true;
         Item.createTile = TileType<FleshichorTile>();
+    }
+    public override void AddRecipes()
+    {
+        CreateRecipe(4).AddIngredient<CecitiorMaterial>().AddTile(TileID.HeavyWorkBench).Register();
     }
 }

@@ -17,7 +17,7 @@ public class Ostertagi : ModItem
         Item.autoReuse = false;
         Item.noMelee = true;
         Item.channel = true;
-        Item.DamageType = DamageClass.Melee;
+        Item.DamageType = DamageClass.Default;
         Item.UseSound = SoundID.Item1;
         Item.useStyle = ItemUseStyleID.Swing;
         Item.rare = ItemRarityID.LightRed;

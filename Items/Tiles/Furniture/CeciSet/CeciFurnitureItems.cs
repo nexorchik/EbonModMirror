@@ -12,7 +12,7 @@ public class CeciChairI : ModItem
     }
     public override void AddRecipes()
     {
-        CreateRecipe().AddIngredient(ItemType<CorruptrotI>(), 4).AddTile(TileID.WorkBenches).Register();
+        CreateRecipe().AddIngredient(ItemType<FleshichorI>(), 4).AddTile(TileID.WorkBenches).Register();
     }
 }
 public class CeciWallI : ModItem
@@ -24,7 +24,7 @@ public class CeciWallI : ModItem
     }
     public override void AddRecipes()
     {
-        CreateRecipe(4).AddIngredient(ItemType<CorruptrotI>(), 1).AddTile(TileID.WorkBenches).Register();
+        CreateRecipe(4).AddIngredient(ItemType<FleshichorI>(), 1).AddTile(TileID.WorkBenches).Register();
     }
 }
 public class CeciPlatformI : ModItem
@@ -36,6 +36,6 @@ public class CeciPlatformI : ModItem
     }
     public override void AddRecipes()
     {
-        CreateRecipe(2).AddIngredient(ItemType<CorruptrotI>(), 1).Register();
+        CreateRecipe(2).AddIngredient(ItemType<FleshichorI>(), 1).Register();
     }
 }
