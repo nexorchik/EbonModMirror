@@ -1,17 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Terraria.DataStructures;
-using Terraria.ID;
-using Terraria.ModLoader;
-using Terraria;
-using Microsoft.Xna.Framework;
-using rail;
-using Terraria.Audio;
-using EbonianMod.Buffs;
+﻿using EbonianMod.Buffs;
 using EbonianMod.Projectiles.Bases;
+using System;
 
 namespace EbonianMod.Items.Weapons.Melee;
 public class RustyWaraxe : ModItem
@@ -50,18 +39,13 @@ public class RustyWaraxeP : HeldSword
     public override string Texture => "EbonianMod/Items/Weapons/Melee/RustyWaraxe";
     public override void SetExtraDefaults()
     {
-        swingTime = 30;
+        swingTime = 35;
         holdOffset = 38;
         Projectile.Size = new(54, 54);
     }
     public override float Ease(float x)
     {
-        return (float)(x == 0
-? 0
-: x == 1
-? 1
-: x < 0.5 ? Math.Pow(2, 20 * x - 10) / 2
-: (2 - Math.Pow(2, -20 * x + 10)) / 2);
+        return MathF.Pow(x, 5 + 2 * x) * MathF.Pow(1 + MathF.Sin(x * Pi), 3);
     }
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
@@ -80,6 +64,30 @@ public class RustyWaraxeP : HeldSword
     }
     public override void ExtraAI()
     {
+        int direction = (int)Projectile.ai[1];
+        float swingProgress = Ease(Utils.GetLerpValue(0f, swingTime, Projectile.timeLeft));
+        float nextSwingProgress = Ease(Utils.GetLerpValue(0f, swingTime, Projectile.timeLeft - 1));
+
+        float defRot = Projectile.velocity.ToRotation();
+        float start = defRot - (PiOver2 + PiOver4);
+        float end = defRot + (PiOver2 + PiOver4);
+        float rotation = direction == 1 ? start + Pi * 3 / 2 * swingProgress : end - Pi * 3 / 2 * swingProgress;
+        Vector2 position = Main.player[Projectile.owner].GetFrontHandPosition(stretch, rotation - PiOver2) +
+            rotation.ToRotationVector2() * holdOffset * ScaleFunction(swingProgress);
+
+        float nextRotation = direction == 1 ? start + Pi * 3 / 2 * nextSwingProgress : end - Pi * 3 / 2 * nextSwingProgress;
+        Vector2 nextPosition = Main.player[Projectile.owner].GetFrontHandPosition(stretch, rotation - PiOver2) +
+            nextRotation.ToRotationVector2() * holdOffset * ScaleFunction(swingProgress);
+
+        if (swingProgress is < 0.8f and > 0.2f)
+        {
+            for (float i = -1; i < 1; i += 0.05f)
+            {
+                Vector2 _pos = position + rotation.ToRotationVector2() * 1.1f * (i + Main.rand.NextFloat(-0.025f, 0.025f));
+                Vector2 _pos2 = nextPosition + rotation.ToRotationVector2() * ((1f - i) + Main.rand.NextFloat(-0.025f, 0.025f));
+                Dust.NewDustPerfect(_pos, DustID.Poop, _pos.FromAToB(_pos2) * Main.rand.NextFloat(5), Scale: 0.75f).noGravity = true;
+            }
+        }
     }
     public override void PostDraw(Color lightColor)
     {
