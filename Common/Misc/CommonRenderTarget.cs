@@ -16,7 +16,7 @@ public abstract class CommonRenderTarget : ARenderTargetContentByRequest, INeedR
         if (!conditional ?? false)
             return;
         Request();
-        PrepareRenderTarget(Main.graphics.GraphicsDevice, Main.spriteBatch);
+        //PrepareRenderTarget(Main.graphics.GraphicsDevice, Main.spriteBatch);
     }
     public void PrepareATarget(ref RenderTarget2D rt, GraphicsDevice gd, int? width = null, int? height = null, RenderTargetUsage usage = RenderTargetUsage.PlatformContents) =>
         PrepareARenderTarget_AndListenToEvents(ref rt, gd, width ?? Main.screenWidth, height ?? Main.screenHeight, usage);
@@ -30,6 +30,10 @@ public abstract class CommonRenderTarget : ARenderTargetContentByRequest, INeedR
     protected sealed override void HandleUseReqest(GraphicsDevice device, SpriteBatch spriteBatch)
     {
         var old = device.GetRenderTargets();
+
+        foreach (RenderTargetBinding oldTarget in old)
+            if (oldTarget.RenderTarget is RenderTarget2D rt)
+                rt.RenderTargetUsage = RenderTargetUsage.PreserveContents;
 
         HandleUseRequest(device, spriteBatch); // Advancement. Evolution. Progress.
 
