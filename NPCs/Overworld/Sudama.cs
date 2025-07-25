@@ -23,6 +23,7 @@ public class Sudama : ModNPC
         NPC.damage = 30;
         NPC.aiStyle = -1;
     }
+    public override bool IsLoadingEnabled(Mod mod) => false;
     public override Color? GetAlpha(Color drawColor) => Color.White;
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {

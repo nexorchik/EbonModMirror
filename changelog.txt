@@ -18,6 +18,7 @@ v 2.0
 - Renamed Cursed Firearm into Vile Musket
 - Renamed Bloodcolt into Fangnum
 - Resprited Sawcitior
+- Removed the Grinner 
 - Resprited the Trumpet, Screecher, and Rolypoly
 - Gave the Crimorrhage a telegraph before it fires ichor
 - Gutling animation and SFX improvements

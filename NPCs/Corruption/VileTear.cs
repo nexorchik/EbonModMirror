@@ -9,6 +9,7 @@ namespace EbonianMod.NPCs.Corruption;
 
 public class VileTear : ModNPC
 {
+    public override bool IsLoadingEnabled(Mod mod) => false;
     public override void SetStaticDefaults()
     {
         Main.npcFrameCount[Type] = 2;

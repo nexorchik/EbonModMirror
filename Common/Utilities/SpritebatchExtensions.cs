@@ -1,6 +1,4 @@
-﻿using Daybreak.Common.Rendering;
-
-namespace EbonianMod.Common.Utilities;
+﻿namespace EbonianMod.Common.Utilities;
 
 public readonly struct SpritebatchParameters
 {

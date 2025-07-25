@@ -1,4 +1,4 @@
-﻿using Daybreak.Common.Features.ModPanel;
+﻿/*using Daybreak.Common.Features.ModPanel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,3 +21,4 @@ public class EbonianPanel : ModPanelStyle
         element.BorderColor = secondary_color;
     }
 }
+*/

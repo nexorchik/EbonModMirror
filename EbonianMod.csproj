@@ -15,9 +15,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Reference Include="Daybreak">
+		<!--<Reference Include="Daybreak">
 			<HintPath>..\ModAssemblies\Daybreak_v1.2.1.dll</HintPath>
-		</Reference>
+		</Reference>-->
 		<Reference Include="StructureHelper">
 			<HintPath>..\ModAssemblies\StructureHelper_v3.0.1.dll</HintPath>
 		</Reference>
