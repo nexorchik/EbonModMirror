@@ -39,9 +39,10 @@ public class RustyWaraxeP : HeldSword
     public override string Texture => "EbonianMod/Items/Weapons/Melee/RustyWaraxe";
     public override void SetExtraDefaults()
     {
-        swingTime = 35;
+        swingTime = 35 * 2;
         holdOffset = 38;
         Projectile.Size = new(54, 54);
+        Projectile.extraUpdates = 1;
     }
     public override float Ease(float x)
     {
@@ -83,8 +84,8 @@ public class RustyWaraxeP : HeldSword
         {
             for (float i = -1; i < 1; i += 0.05f)
             {
-                Vector2 _pos = position + rotation.ToRotationVector2() * 1.1f * (i + Main.rand.NextFloat(-0.025f, 0.025f));
-                Vector2 _pos2 = nextPosition + rotation.ToRotationVector2() * ((1f - i) + Main.rand.NextFloat(-0.025f, 0.025f));
+                Vector2 _pos = position + Main.player[Projectile.owner].DirectionTo(position) * 20 + rotation.ToRotationVector2() * 1.3f * (i + Main.rand.NextFloat(-0.025f, 0.025f));
+                Vector2 _pos2 = nextPosition + Main.player[Projectile.owner].DirectionTo(nextPosition) * 20 + rotation.ToRotationVector2() * 1.2f * ((1f - i) + Main.rand.NextFloat(-0.025f, 0.025f));
                 Dust.NewDustPerfect(_pos, DustID.Poop, _pos.FromAToB(_pos2) * Main.rand.NextFloat(5), Scale: 0.75f).noGravity = true;
             }
         }

@@ -1,4 +1,5 @@
 ﻿using EbonianMod.Common.Misc;
+using EbonianMod.Dusts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,7 @@ public static class RTHandler
     public static InvisibleTarget invisTarget => GetInstance<InvisibleTarget>();
     public static GarbageTarget garbageTarget => GetInstance<GarbageTarget>();
     public static XareusTarget xareusTarget => GetInstance<XareusTarget>();
+    public static JungleDustTarget jungleDustTarget => GetInstance<JungleDustTarget>();
 }
 public class PixelationTarget : CommonRenderTarget
 {
@@ -62,5 +64,17 @@ public sealed class XareusTarget : CommonRenderTarget
         sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         EbonianMod.xareusGoopCache.InvokeAllAndClear();
         sb.End();
+    }
+}
+
+public sealed class JungleDustTarget : CommonRenderTarget
+{
+    public override void HandleUseRequest(GraphicsDevice gd, SpriteBatch sb)
+    {
+        PrepareAndSet(ref _target, gd);
+        sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+        JunglePinkDust.DrawAll(sb);
+        sb.End();
+
     }
 }

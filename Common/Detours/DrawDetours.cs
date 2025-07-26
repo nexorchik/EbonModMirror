@@ -84,6 +84,16 @@ public class DrawDetours : ModSystem
 
         if (!Main.gameMenu)
         {
+            RTHandler.jungleDustTarget.RequestAndPrepare(Main.dust.Any());
+            if (RTHandler.jungleDustTarget.IsReady)
+            {
+                Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
+                Main.graphics.GraphicsDevice.Textures[1] = Assets.Extras.jungleDustColor.Value;
+                EbonianMod.metaballGradient.Value.CurrentTechnique.Passes[0].Apply();
+                Main.spriteBatch.Draw(RTHandler.jungleDustTarget.GetTarget(), Vector2.Zero, Color.White);
+                Main.spriteBatch.End();
+            }
+
             DrawGarbageFlames();
             DrawInvisMasks(Main.spriteBatch, Main.graphics.GraphicsDevice);
             DrawXareusGoop(Main.spriteBatch, Main.graphics.GraphicsDevice);

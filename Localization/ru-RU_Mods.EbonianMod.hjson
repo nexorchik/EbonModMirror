@@ -359,6 +359,9 @@ Projectiles: {
 	// LatcherGraphics.DisplayName: Latcher Graphics
 	// BallLauncherPrimary.DisplayName: Ball Launcher Primary
 	// SpudCannonP.DisplayName: Spud Cannon P
+	// PlantGunP.DisplayName: Plant Gun P
+	// PlantGunP2.DisplayName: Plant Gun P2
+	// VivineSpit.DisplayName: Vivine Spit
 }
 
 NPCs: {
@@ -747,6 +750,8 @@ NPCs: {
 		// DisplayName: Starine Skipper
 		// Bestiary: Powered by magic derived from the stars, it uses its well-developed back legs to hop and skip about the night, usually kicking off unsuspecting prey to cripple them.
 	}
+
+	// Vivine.DisplayName: Vivine
 }
 
 Items: {
@@ -1634,6 +1639,11 @@ Items: {
 		// DisplayName: Blindeye Bow
 		// Tooltip: ""
 	}
+
+	Spitvine: {
+		// DisplayName: Spitvine
+		// Tooltip: ""
+	}
 }
 
 Buffs: {
@@ -1745,6 +1755,11 @@ Buffs: {
 	SudamaBuff: {
 		// DisplayName: Sudama
 		// Description: Sudamas fight for you.
+	}
+
+	PlantGunB: {
+		// DisplayName: Plant Gun B
+		// Description: Mods.EbonianMod.Buffs.PlantGunB.Description
 	}
 }
 
