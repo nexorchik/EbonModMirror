@@ -60,7 +60,9 @@ public class PlantGunP : ModProjectile
         {
             Vector2 vel = Main.rand.NextVector2Unit();
             float f = Main.rand.NextFloat(1, 5) * Main.rand.NextFloatDirection();
-            Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + -vel * 16, vel * 20, ModContent.ProjectileType<PlantGunP2>(), Projectile.damage, Projectile.knockBack, Projectile.owner, f, Main.rand.NextFloat(0.8f, 0.9f), -f);
+            Projectile a = MPUtils.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + -vel * 16, vel * 20, ModContent.ProjectileType<PlantGunP2>(), Projectile.damage, Projectile.knockBack, Projectile.owner, f, Main.rand.NextFloat(0.8f, 0.9f), -f);
+            if (Projectile.hostile)
+                a.SetToHostile();
         }
     }
     public override void OnKill(int timeLeft)
@@ -69,12 +71,16 @@ public class PlantGunP : ModProjectile
         {
             Vector2 vel = Main.rand.NextVector2Unit();
             float f = Main.rand.NextFloat(1, 5) * Main.rand.NextFloatDirection();
-            Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + -vel * 16, vel * 20, ModContent.ProjectileType<PlantGunP2>(), Projectile.damage, Projectile.knockBack, Projectile.owner, f, Main.rand.NextFloat(0.8f, 0.9f), -f);
+            Projectile a = MPUtils.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + -vel * 16, vel * 20, ModContent.ProjectileType<PlantGunP2>(), Projectile.damage, Projectile.knockBack, Projectile.owner, f, Main.rand.NextFloat(0.8f, 0.9f), -f);
+            if (Projectile.hostile)
+                a.SetToHostile();
         }
     }
     bool canFire;
     public override void AI()
     {
+        if (Projectile.extraUpdates == 3 && Projectile.hostile)
+            Projectile.extraUpdates = 0;
         if (Projectile.timeLeft % 30 == Projectile.ai[2])
         {
             float f = Main.rand.NextFloat(1, 5) * Main.rand.NextFloatDirection();
@@ -86,7 +92,11 @@ public class PlantGunP : ModProjectile
             Vector2 vel = Main.rand.NextVector2Unit();
 
             if (canFire)
-                Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + -vel * 16, vel * 20, ModContent.ProjectileType<PlantGunP2>(), Projectile.damage, Projectile.knockBack, Projectile.owner, f, Main.rand.NextFloat(0.8f, 0.9f), -f);
+            {
+                Projectile a = MPUtils.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + -vel * 16, vel * 20, ModContent.ProjectileType<PlantGunP2>(), Projectile.damage, Projectile.knockBack, Projectile.owner, f, Main.rand.NextFloat(0.8f, 0.9f), -f);
+                if (Projectile.hostile)
+                    a.SetToHostile();
+            }
 
             canFire = true;
         }
@@ -100,7 +110,9 @@ public class PlantGunP : ModProjectile
                     {
                         float f = Main.rand.NextFloat(1, 5) * Main.rand.NextFloatDirection();
                         Vector2 vel = Helper.FromAToB(Projectile.Center, npc.Center);
-                        Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + -vel * 16, vel * 20, ModContent.ProjectileType<PlantGunP2>(), Projectile.damage, Projectile.knockBack, Projectile.owner, f, Main.rand.NextFloat(0.8f, 0.9f), -f);
+                        Projectile a = MPUtils.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + -vel * 16, vel * 20, ModContent.ProjectileType<PlantGunP2>(), Projectile.damage, Projectile.knockBack, Projectile.owner, f, Main.rand.NextFloat(0.8f, 0.9f), -f);
+                        if (Projectile.hostile)
+                            a.SetToHostile();
                         Projectile.ai[1] = Main.rand.Next(20, 50);
                         break;
                     }

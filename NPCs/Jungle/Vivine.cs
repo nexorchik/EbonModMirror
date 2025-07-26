@@ -172,11 +172,12 @@ public class Vivine : ModNPC
         }
         else if (AIState == Move)
         {
+            Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY);
             var Distance = Vector2.Distance(player.Center, NPC.Center);
             NPC.knockBackResist = 0.8f;
             AITimer++;
             NPC.GetGlobalNPC<FighterGlobalAI>().FighterAI(NPC, 6, 1, true, -1, 0/*, 1, 0*/);
-            if (AITimer >= 200 && Distance < 500)
+            if (AITimer >= 200 && Distance < 500 && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
             {
                 AITimer = 0;
                 AIState = Spit;
@@ -192,7 +193,7 @@ public class Vivine : ModNPC
             {
                 AITimer = 1;
                 SoundEngine.PlaySound(SoundID.Item17);
-                Projectile a = MPUtils.NewProjectile(NPC.GetSource_FromAI(), NPC.Center - new Vector2(1, 19), Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center) * 10f, ModContent.ProjectileType<PlantGunP>(), 15, 0);
+                Projectile a = MPUtils.NewProjectile(NPC.GetSource_FromAI(), NPC.Center - new Vector2(1, 14), Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center) * 10f, ModContent.ProjectileType<PlantGunP>(), 15, 0);
                 a.SetToHostile();
             }
         }

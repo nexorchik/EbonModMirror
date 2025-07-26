@@ -366,6 +366,8 @@ public static class Helper
     }
     public static void SpawnGore(this NPC NPC, string gore, int amount = 1, int type = -1, Vector2 vel = default, float scale = 1f)
     {
+        if (Main.dedServ) return;
+
         var position = NPC.Center;
         if (type != -1)
         {
