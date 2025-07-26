@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EbonianMod.Common.Utilities;
+namespace EbonianMod.Core.Utilities;
 public static class EntityExtensions
 {
     public static int OldDirection(this Player player) => player.GetModPlayer<OldDirPlayer>().oldDir;

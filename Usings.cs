@@ -7,8 +7,8 @@ global using EbonianMod.Common;
 global using EbonianMod.Common.Registries;
 global using EbonianMod.Common.Systems;
 global using EbonianMod.Common.Systems.Misc;
-global using EbonianMod.Common.Utilities;
-global using static EbonianMod.Common.Easings;
+global using EbonianMod.Core.Utilities;
+global using static EbonianMod.Core.Utilities.Easings;
 // ReLogic
 global using ReLogic.Content;
 // Terraria

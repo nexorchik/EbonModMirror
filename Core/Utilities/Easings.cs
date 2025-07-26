@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace EbonianMod.Common;
+namespace EbonianMod.Core.Utilities;
 
 public static class Easings
 {
@@ -42,19 +42,19 @@ public static class Easings
 
 
         return x < 0.5
-          ? (MathF.Pow(2 * x, 2) * ((c2 + 1) * 2 * x - c2)) / 2
+          ? MathF.Pow(2 * x, 2) * ((c2 + 1) * 2 * x - c2) / 2
           : (MathF.Pow(2 * x - 2, 2) * ((c2 + 1) * (x * 2 - 2) + c2) + 2) / 2;
     };
     public static Func<float, float> InOutElastic = (x) =>
     {
-        float c5 = (2 * Pi) / 4.5f;
+        float c5 = 2 * Pi / 4.5f;
         return x == 0
 ? 0
 : x == 1
 ? 1
 : x < 0.5
 ? -(MathF.Pow(2, 20 * x - 10) * MathF.Sin((20 * x - 11.125f) * c5)) / 2
-: (MathF.Pow(2, -20 * x + 10) * MathF.Sin((20 * x - 11.125f) * c5)) / 2 + 1;
+: MathF.Pow(2, -20 * x + 10) * MathF.Sin((20 * x - 11.125f) * c5) / 2 + 1;
     };
 
 

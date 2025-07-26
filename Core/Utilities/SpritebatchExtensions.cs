@@ -1,4 +1,4 @@
-﻿namespace EbonianMod.Common.Utilities;
+﻿namespace EbonianMod.Core.Utilities;
 
 public readonly struct SpritebatchParameters
 {

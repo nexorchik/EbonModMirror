@@ -38,11 +38,11 @@ namespace EbonianMod.NPCs.Overworld.Starine
         {
             if (Projectile.Center.Y < basePos.Y - 16)
                 Projectile.tileCollide = true;
-            var dustType = ModContent.DustType<StarineDust>();
-            var dust = Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, dustType);
-            Main.dust[dust].velocity = Vector2.Zero;
-            Main.dust[dust].noGravity = true;
-            Main.dust[dust].velocity.Y = -1.5f;
+            int dustType = ModContent.DustType<StarineDust>();
+            Dust dust = Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, dustType);
+            dust.velocity = Vector2.Zero;
+            dust.noGravity = HasCollided;
+            dust.velocity.Y = -1.5f;
             if (HasCollided)
                 Projectile.rotation += 0.05f;
             else

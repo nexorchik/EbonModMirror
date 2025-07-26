@@ -1,4 +1,4 @@
-﻿namespace EbonianMod.Common.Utilities;
+﻿namespace EbonianMod.Core.Utilities;
 
 public static class MPUtils
 {
@@ -35,7 +35,7 @@ public static class MPUtils
     }
     public static void NewNPC(Vector2 position, int type, bool noDupes = false, float ai0 = 0, float ai1 = 0, float ai2 = 0, float ai3 = 0, bool dedServ = false)
     {
-        if (dedServ ? Main.dedServ : (!NotMPClient && Main.LocalPlayer.whoAmI == 0))
+        if (dedServ ? Main.dedServ : !NotMPClient && Main.LocalPlayer.whoAmI == 0)
         {
             ModPacket packet = EbonianNetCode.Write(noDupes ? MessageType.SpawnBoss : MessageType.SpawnNPC);
             packet.WriteVector2(position);
@@ -48,7 +48,7 @@ public static class MPUtils
         }
         else if (Main.netMode == NetmodeID.SinglePlayer)
         {
-            NPC.NewNPCDirect(NPC.GetSource_NaturalSpawn(), position, type, 0, ai0, ai1, ai2, ai3);
+            NPC.NewNPCDirect(Entity.GetSource_NaturalSpawn(), position, type, 0, ai0, ai1, ai2, ai3);
         }
     }
     public static void SyncProjectile(int index) => NetMessage.SendData(MessageID.SyncProjectile, number: index);

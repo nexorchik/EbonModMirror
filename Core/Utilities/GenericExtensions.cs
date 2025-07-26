@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Threading.Tasks.Dataflow;
 
-namespace EbonianMod.Common.Utilities;
+namespace EbonianMod.Core.Utilities;
 public static class GenericExtensions
 {
     public static void InvokeAllAndClear(this List<Action> list)
