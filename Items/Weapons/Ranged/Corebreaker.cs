@@ -22,15 +22,6 @@ public class Corebreaker : ModItem
         Item.channel = true;
         Item.noMelee = true;
     }
-    public override bool AltFunctionUse(Player player)
-    {
-        if (player.altFunctionUse == 2)
-        {
-            Item.shoot = ProjectileType<CorebreakerGraphics>();
-        }
-        return base.AltFunctionUse(player);
-    }
-
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
     {
         velocity = Vector2.Zero;
@@ -73,7 +64,7 @@ public class CorebreakerGraphics : HeldProjectileGun
             Projectile.ai[0]++;
             if (Projectile.ai[0] == 120)
             {
-                Vector2 SpawnPosition = Projectile.Center + new Vector2(Projectile.rotation.ToRotationVector2().X, Projectile.rotation.ToRotationVector2().Y) * 45;
+                Vector2 SpawnPosition = Projectile.Center + Projectile.rotation.ToRotationVector2() * 45;
                 SoundEngine.PlaySound(SoundID.Item40.WithPitchOffset(Main.rand.NextFloat(-4f, -2f)), player.Center);
                 SoundEngine.PlaySound(SoundID.Item38.WithPitchOffset(Main.rand.NextFloat(-0.8f, -0.4f)), player.Center);
                 for (int i = 0; i < 30; i++)
@@ -86,7 +77,7 @@ public class CorebreakerGraphics : HeldProjectileGun
             if (Main.mouseRight && Main.myPlayer == Projectile.owner)
             {
                 HoldOffset = 0;
-                Vector2 SpawnPosition = Projectile.Center + new Vector2(Projectile.rotation.ToRotationVector2().X, Projectile.rotation.ToRotationVector2().Y) * 45;
+                Vector2 SpawnPosition = Projectile.Center + Projectile.rotation.ToRotationVector2() * 45;
                 SoundEngine.PlaySound(SoundID.Item62.WithPitchOffset(Main.rand.NextFloat(0.5f, 1.2f)), player.Center);
                 SoundEngine.PlaySound(SoundID.Item98.WithPitchOffset(Main.rand.NextFloat(-4f, -2f)), player.Center);
                 for (int i = 0; i < 30; i++)

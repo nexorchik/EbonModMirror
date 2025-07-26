@@ -25,7 +25,6 @@ public abstract class HeldProjectile : ModProjectile
             Projectile.Kill();
 
         Projectile.Center = player.MountedCenter + PositionOffset;
-        player.heldProj = Projectile.whoAmI;
 
         player.direction = player.Center.X < Main.MouseWorld.X ? 1 : -1;
     }

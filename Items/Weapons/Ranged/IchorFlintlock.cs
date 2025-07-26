@@ -67,6 +67,8 @@ public class IchorFlintlockP : HeldProjectileGun
 
         Player player = Main.player[Projectile.owner];
 
+        player.heldProj = Projectile.whoAmI;
+
         Projectile.ai[0]++;
         if (Projectile.ai[0] == 38)
         {
@@ -82,7 +84,8 @@ public class IchorFlintlockP : HeldProjectileGun
         }
 
         HoldOffset = Lerp(HoldOffset, 27, 0.2f);
-        if (!Main.player[Projectile.owner].channel)
+
+        if (!player.channel)
             Projectile.Kill();
     }
     public override bool PreDraw(ref Color lightColor)

@@ -1,12 +1,5 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System;
+﻿using System;
 using System.IO;
-using Terraria;
-using Terraria.Audio;
-using Terraria.GameContent;
-using Terraria.ID;
-using Terraria.ModLoader;
 
 namespace EbonianMod.Items.Weapons.Magic;
 public class ThawGauntlet : ModItem
@@ -19,7 +12,6 @@ public class ThawGauntlet : ModItem
         Item.noUseGraphic = true;
         Item.noMelee = true;
         Item.crit = -4;
-        Item.noUseGraphic = true;
         Item.knockBack = 4f;
         Item.width = 30;
         Item.height = 30;
@@ -30,11 +22,11 @@ public class ThawGauntlet : ModItem
         Item.channel = true;
         Item.value = Item.buyPrice(0, 0, 0, 1);
         Item.rare = ItemRarityID.Green;
-        Item.shoot = ModContent.ProjectileType<ThawGauntletP>();
+        Item.shoot = ProjectileType<ThawGauntletP>();
     }
     public override bool CanShoot(Player player)
     {
-        return player.ownedProjectileCounts[ModContent.ProjectileType<ThawGauntletP>()] < 1 && player.statMana > 5;
+        return player.ownedProjectileCounts[ProjectileType<ThawGauntletP>()] < 1 && player.statMana > 5;
     }
     public override void AddRecipes()
     {

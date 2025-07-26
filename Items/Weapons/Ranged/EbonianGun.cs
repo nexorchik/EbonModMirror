@@ -68,6 +68,8 @@ public class EbonianGunP : HeldProjectileGun
 
         HoldOffset = Lerp(HoldOffset, 26, 0.2f);
 
+        player.heldProj = Projectile.whoAmI;
+
         Projectile.ai[0]++;
         if (Projectile.ai[0] == 30)
         {
@@ -75,8 +77,8 @@ public class EbonianGunP : HeldProjectileGun
             AnimationRotation = -0.2f * player.direction;
             SoundEngine.PlaySound(SoundID.Item11.WithPitchOffset(Main.rand.NextFloat(-1f, -0.5f)), player.Center);
             SoundEngine.PlaySound(SoundID.Item17.WithPitchOffset(Main.rand.NextFloat(-0.5f, -0.2f)), player.Center);
-            Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Projectile.Center + Projectile.rotation.ToRotationVector2() * 45 + (Projectile.rotation + 90 * -player.direction).ToRotationVector2() * 12, Projectile.rotation.ToRotationVector2() * 10, ProjectileType<CorruptionHitscan>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-            HoldOffset = 6;
+            Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Projectile.Center + Projectile.rotation.ToRotationVector2() * 47 - new Vector2(0, 16 * player.direction).RotatedBy(Projectile.rotation), Projectile.rotation.ToRotationVector2() * 10, ProjectileType<CorruptionHitscan>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+            HoldOffset = 11;
             Projectile.ai[0] = 0;
         }
 
