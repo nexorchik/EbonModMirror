@@ -1,6 +1,7 @@
 ﻿using EbonianMod.Dusts;
 using EbonianMod.Projectiles.Bases;
 using System;
+using System.IO;
 
 namespace EbonianMod.Items.Weapons.Melee;
 
@@ -55,7 +56,20 @@ public class ChainswordP : HeldSword
     {
         return x < 0.5 ? 4 * x * x * x : 1 - MathF.Pow(-2 * x + 2, 3) / 2;
     }
-    float lerpProg = 1, swingProgress, rotation, timer;
+    float lerpProg = 1, swingProgress, rotation;
+    int timer;
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        base.SendExtraAI(writer);
+        writer.Write(lerpProg);
+        writer.Write(timer);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        base.ReceiveExtraAI(reader);
+        lerpProg = reader.ReadSingle();
+        timer = reader.Read();
+    }
     public override void ExtraAI()
     {
         Player player = Main.player[Projectile.owner];
@@ -83,6 +97,7 @@ public class ChainswordP : HeldSword
             if (++timer % 3 != 0)
             {
                 Projectile.timeLeft++;
+                Projectile.netUpdate = true;
                 return;
             }
         }
@@ -114,6 +129,7 @@ public class ChainswordP : HeldSword
         Vector2 vel = Helper.FromAToB(player.Center, pos).RotatedBy(Projectile.ai[1]).RotatedByRandom(MathHelper.PiOver4);
         if (swingProgress.InRange(0.5f, 0.2f))
             lerpProg = MathHelper.Lerp(lerpProg, 0.005f, 0.85f);
+        Projectile.SyncProjectile();
         if (Projectile.extraUpdates == 3)
         {
 

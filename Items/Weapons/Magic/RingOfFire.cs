@@ -50,6 +50,7 @@ public class RingOfFireP : ModProjectile
             Projectile.aiStyle = -1;
             if (Projectile.timeLeft > 200)
                 Projectile.timeLeft = 200;
+            Projectile.netUpdate = true;
         }
         return false;
     }
@@ -66,6 +67,7 @@ public class RingOfFireP : ModProjectile
                 Projectile.timeLeft = 200;
             Projectile.velocity = Vector2.Zero;
             Projectile.aiStyle = -1;
+            Projectile.SyncProjectile();
         }
     }
     public override void SendExtraAI(BinaryWriter writer)
@@ -97,6 +99,7 @@ public class RingOfFireP : ModProjectile
                     Projectile.damage = 1;
                     Projectile.ai[2] = 0;
                     Projectile.aiStyle = 2;
+                    Projectile.netUpdate = true;
                 }
             }
             if (Projectile.ai[0] % 15 == 0 && Projectile.ai[0] > 50)

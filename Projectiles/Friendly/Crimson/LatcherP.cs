@@ -36,8 +36,22 @@ public class LatcherP : ModProjectile
 
     bool IsAttached;
     Vector2 PositionOffset;
-    NPC Target;
+    int TargetIndex = -1;
     float Speed = 0.25f;
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        writer.Write(IsAttached);
+        writer.WriteVector2(PositionOffset);
+        writer.Write(TargetIndex);
+        writer.Write(Speed);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        IsAttached = reader.ReadBoolean();
+        PositionOffset = reader.ReadVector2();
+        TargetIndex = reader.Read();
+        Speed = reader.ReadSingle();
+    }
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hitinfo, int damage)
     {
@@ -45,8 +59,9 @@ public class LatcherP : ModProjectile
         {
             PositionOffset = Projectile.Center - target.Center;
             Projectile.velocity = Vector2.Zero;
-            Target = target;
+            TargetIndex = target.whoAmI;
             IsAttached = true;
+            Projectile.SyncProjectile();
         }
     }
 
@@ -60,8 +75,12 @@ public class LatcherP : ModProjectile
         Player player = Main.player[Projectile.owner];
         Rotation = Utils.AngleLerp(Rotation, Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation(), 0.02f);
         Projectile.ai[0]++;
-        if (IsAttached)
+        if (IsAttached && TargetIndex > -1)
         {
+            NPC Target = Main.npc[TargetIndex];
+            if (!Target.active)
+                Projectile.Kill();
+
             Speed *= 1.08f;
             Speed = Clamp(Speed, 0, 23);
             Projectile.timeLeft = 10;
