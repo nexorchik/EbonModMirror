@@ -3,6 +3,7 @@ using EbonianMod.Projectiles.Bases;
 using EbonianMod.Projectiles.VFXProjectiles;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace EbonianMod.Items.Weapons.Melee;
 
@@ -83,6 +84,16 @@ public class EquilibriumP : HeldSword
         }
     }
     bool _hit;
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        base.SendExtraAI(writer);
+        writer.Write(_hit);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        base.ReceiveExtraAI(reader);
+        _hit = reader.ReadBoolean();
+    }
     public override void OnHit(NPC target, NPC.HitInfo hit, int damageDone)
     {
         Player player = Main.player[Projectile.owner];
@@ -106,6 +117,7 @@ public class EquilibriumP : HeldSword
                 }
             }
             _hit = true;
+            Projectile.SyncProjectile();
         }
     }
     public override bool? CanDamage() => (Ease(Utils.GetLerpValue(0f, swingTime, Projectile.timeLeft)).InRange(0.5f, 0.4f));

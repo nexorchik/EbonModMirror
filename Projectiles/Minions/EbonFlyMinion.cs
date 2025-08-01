@@ -42,8 +42,7 @@ public class EbonFlyMinion : ModProjectile //this is literally ExampleMinion and
 
     public override void OnKill(int timeLeft)
     {
-        if (Projectile.owner == Main.myPlayer)
-            Projectile.NewProjectile(null, Projectile.Center, Vector2.Zero, ProjectileType<OstertagiExplosion>(), Projectile.damage * 2, 0, Projectile.owner);
+        Projectile.NewProjectile(null, Projectile.Center, Vector2.Zero, ProjectileType<OstertagiExplosion>(), Projectile.damage * 2, 0, Projectile.owner);
         if (Main.dedServ)
             return;
         Gore.NewGore(Projectile.GetSource_Death(), Projectile.position, Projectile.velocity, Find<ModGore>("EbonianMod/EbonFlyGore").Type, Projectile.scale);
@@ -87,7 +86,7 @@ public class EbonFlyMinion : ModProjectile //this is literally ExampleMinion and
         {
             Projectile.position = idlePosition;
             Projectile.velocity *= 0.1f;
-            Projectile.netUpdate = true;
+            Projectile.SyncProjectile();
         }
 
         float overlapVelocity = 0.04f;

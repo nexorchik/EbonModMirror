@@ -2,6 +2,7 @@
 using EbonianMod.Projectiles.Bases;
 using EbonianMod.Projectiles.Friendly.Generic;
 using System;
+using System.IO;
 
 namespace EbonianMod.Items.Weapons.Ranged;
 
@@ -67,6 +68,9 @@ public class SpudCannon : ModItem
 
             Scale = Vector2.Lerp(Scale, Vector2.One, 0.21f);
 
+            if (Projectile.timeLeft % 15 == 0)
+                Projectile.netUpdate = true;
+
             if (player.channel || Projectile.ai[0] < 14)
             {
                 if (Projectile.ai[0] < 70)
@@ -126,6 +130,16 @@ public class SpudCannon : ModItem
 
         float ColorModifier;
         Vector2 Shake = Vector2.Zero;
+        public override void SendExtraAI(BinaryWriter writer)
+        {
+            base.SendExtraAI(writer);
+            writer.Write(Charge);
+        }
+        public override void ReceiveExtraAI(BinaryReader reader)
+        {
+            base.ReceiveExtraAI(reader);
+            Charge = reader.ReadSingle();
+        }
         public override bool PreDraw(ref Color lightColor)
         {
             Player player = Main.player[Projectile.owner];

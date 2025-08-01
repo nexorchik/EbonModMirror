@@ -1,5 +1,6 @@
 ﻿using EbonianMod.Common.Systems.Verlets;
 using EbonianMod.Projectiles.Cecitior;
+using System.IO;
 
 namespace EbonianMod.Projectiles.Minions;
 
@@ -127,4 +128,16 @@ public class CecitiorClawMinion : ModProjectile
         return false;
     }
     Vector2 savedP, savedP2;
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        base.SendExtraAI(writer);
+        writer.WriteVector2(savedP);
+        writer.WriteVector2(savedP2);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        base.ReceiveExtraAI(reader);
+        savedP = reader.ReadVector2();
+        savedP2 = reader.ReadVector2();
+    }
 }

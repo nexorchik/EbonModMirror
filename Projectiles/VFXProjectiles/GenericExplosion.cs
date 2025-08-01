@@ -58,7 +58,10 @@ public class FlameExplosionWSprite : ModProjectile
     public override bool PreAI()
     {
         if (Projectile.ai[2] == 0)
+        {
             Projectile.ai[2] = Projectile.scale;
+            Projectile.netUpdate = true;
+        }
         return true;
     }
     public override void AI()
@@ -89,6 +92,8 @@ public class FlameExplosionWSprite : ModProjectile
 
     public override bool PreDraw(ref Color lightColor)
     {
+        if (seed == 0)
+            seed = Main.rand.Next(int.MaxValue / 2);
         Texture2D texture = TextureAssets.Projectile[Type].Value;
 
         int frameHeight = texture.Height / Main.projFrames[Projectile.type];

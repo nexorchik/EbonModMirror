@@ -36,6 +36,7 @@ internal class CecitiorClawSlash : ModProjectile
             SoundEngine.PlaySound(EbonianSounds.cecitiorSlice, Projectile.Center);
         else
             SoundEngine.PlaySound(EbonianSounds.clawSwipe.WithVolumeScale(1.5f), Projectile.Center);
+        Projectile.SyncProjectile();
     }
     public override void AI()
     {
