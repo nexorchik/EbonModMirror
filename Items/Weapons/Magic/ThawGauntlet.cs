@@ -74,7 +74,7 @@ public class ThawGauntletP : ModProjectile
         Lighting.AddLight(Projectile.Center, new Vector3(0, 169, 255) / 255 * 0.5f);
         foreach (Player player in Main.player)
         {
-            if (player == Main.player[Projectile.owner] && player == Main.LocalPlayer)
+            if (player == Main.player[Projectile.owner] && player.whoAmI == Main.myPlayer)
             {
                 if (Projectile.ai[1] == 1)
                 {
@@ -97,7 +97,7 @@ public class ThawGauntletP : ModProjectile
 
 public class ThawGauntletP2 : ModProjectile
 {
-    public override void Kill(int timeLeft)
+    public override void OnKill(int timeLeft)
     {
         SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
         Helper.SpawnDust(Projectile.Center, Projectile.Size, DustID.Ice, Vector2.Zero, 25, new Action<Dust>((target) => { target.noGravity = true; target.scale = Main.rand.NextFloat(0.6f, 0.9f); }
@@ -187,6 +187,7 @@ public class ThawGauntletP2 : ModProjectile
                         {
                             didAlpha = true;
                             alpha = 1f;
+                            Projectile.SyncProjectile();
                         }
                     }
                     if (!didAlpha)

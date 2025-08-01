@@ -73,8 +73,13 @@ namespace EbonianMod.Projectiles.Friendly.Generic
             if (player.whoAmI == Main.myPlayer && Projectile.timeLeft > 7)
             {
                 Projectile.velocity = Vector2.Lerp(Projectile.velocity, Helper.FromAToB(Projectile.Center, Main.MouseWorld) * 4.5f, 0.025f);
+                if (Projectile.timeLeft % 15 == 0)
+                    Projectile.SyncProjectile();
                 if (Projectile.timeLeft < 500 && Main.mouseRight)
+                {
                     Projectile.timeLeft = 7;
+                    Projectile.SyncProjectile();
+                }
             }
             if (Projectile.timeLeft == 500)
             {
@@ -93,7 +98,7 @@ namespace EbonianMod.Projectiles.Friendly.Generic
             if (Projectile.timeLeft == 7)
             {
                 Projectile.velocity = Vector2.Zero;
-                Projectile.NewProjectile(null, Projectile.Center, Vector2.Zero, ModContent.ProjectileType<ShewExplosion>(), 0, 0, Projectile.owner);
+                MPUtils.NewProjectile(null, Projectile.Center, Vector2.Zero, ModContent.ProjectileType<ShewExplosion>(), 0, 0, Projectile.owner);
             }
         }
     }

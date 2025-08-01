@@ -108,7 +108,7 @@ public class PhantasmalGreatswordP : HeldSword
         }
         if (Projectile.timeLeft == 20)
         {
-            if (player.active && player.channel && !player.dead && !player.CCed && !player.noItems)
+            if (player.active && player.channel && !player.dead && !player.CCed && !player.noItems && player.whoAmI == Main.myPlayer)
             {
                 if (player.whoAmI == Main.myPlayer)
                 {
