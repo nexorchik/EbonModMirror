@@ -28,5 +28,10 @@ namespace EbonianMod.Items.Misc.Critters
                .AddTile(TileID.WorkBenches)
                .Register();
         }
+        public override bool? UseItem(Player player)
+        {
+            NPC.NewNPCDirect(null, Main.MouseWorld, Item.makeNPC);
+            return true;
+        }
     }
 }

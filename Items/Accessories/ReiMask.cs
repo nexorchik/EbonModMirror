@@ -51,7 +51,7 @@ public class ReiMask : ModItem
         {
             Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ProjectileType<ReiCapeP>(), 0, 0, player.whoAmI);
         }
-        if (EbonianKeybinds.ReiDash.JustReleased && modPlayer.reiBoostCool <= 0)
+        if (EbonianKeybinds.ReiDash.JustReleased && modPlayer.reiBoostCool <= 0 && player.whoAmI == Main.myPlayer)
         {
             foreach (NPC npc in Main.ActiveNPCs)
             {
@@ -75,6 +75,8 @@ public class ReiMask : ModItem
                         modPlayer.reiBoostCool = 60;
                         player.AddImmuneTime(ImmunityCooldownID.General, 30);
                         player.AddImmuneTime(ImmunityCooldownID.Bosses, 30);
+                        NetMessage.SendData(MessageID.PlayerControls, number: player.whoAmI);
+                        NetMessage.SendData(MessageID.SyncPlayer, number: player.whoAmI);
                         break;
                     }
                 }

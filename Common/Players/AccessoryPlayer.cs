@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria;
+using Terraria.Chat;
 
 namespace EbonianMod.Common.Players;
 public class AccessoryPlayer : ModPlayer
@@ -36,6 +37,7 @@ public class AccessoryPlayer : ModPlayer
     {
         if (item.DamageType == DamageClass.Magic && xTent && xTentCool <= 0 && Main.myPlayer == Player.whoAmI)
         {
+            ChatHelper.BroadcastChatMessage(new NetworkText("swag", NetworkText.Mode.Literal), Color.Red);
             Projectile p = Projectile.NewProjectileDirect(source, position, Helper.FromAToB(position, Main.MouseWorld) * 8, ProjectileType<XAmethyst>(), 50, 0);
             p.DamageType = DamageClass.Magic;
             p.friendly = true;
@@ -68,6 +70,7 @@ public class AccessoryPlayer : ModPlayer
     {
         if (starBit && !target.friendly && hit.Crit && target.lifeMax > 10 && target.type != NPCID.TargetDummy)
         {
+            ChatHelper.BroadcastChatMessage(new NetworkText("swag", NetworkText.Mode.Literal), Color.Red);
             int random = Main.rand.Next(1, 3);
             Vector2 spawnpos = new Vector2(0, Player.position.Y + 900);
             Vector2 pos = Vector2.Zero;

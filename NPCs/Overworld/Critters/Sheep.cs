@@ -2,6 +2,7 @@
 using EbonianMod.Items.Misc;
 using EbonianMod.Items.Misc.Critters;
 using Humanizer;
+using System.IO;
 using Terraria.GameContent.Bestiary;
 
 namespace EbonianMod.NPCs.Overworld.Critters;
@@ -41,6 +42,16 @@ public class Sheep : ModNPC
         NPC.height = 28;
         NPC.catchItem = ItemType<SheepItem>();
         NPC.Size = new Vector2(38, 28);
+    }
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        writer.Write(sheared);
+        writer.Write(dyeId);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        sheared = reader.ReadBoolean();
+        dyeId = reader.Read();
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
@@ -108,6 +119,7 @@ public class Sheep : ModNPC
                     Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Smoke);
                     Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.ShimmerSpark);
                 }
+                NPC.SyncNPC();
             }
         }
         if (Main.LocalPlayer.dontHurtCritters)
@@ -125,6 +137,7 @@ public class Sheep : ModNPC
                         Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Smoke);
                         Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Silk);
                     }
+                    NPC.SyncNPC();
                 }
             }
         }
@@ -204,6 +217,7 @@ public class Sheep : ModNPC
 
         if (Main.rand.NextBool(4) && NPC.Center.Distance(Main.LocalPlayer.Center) < 600)
             SoundEngine.PlaySound(EbonianSounds.sheep, NPC.Center);
+        NPC.SyncNPC();
     }
     public override void FindFrame(int frameHeight)
     {
