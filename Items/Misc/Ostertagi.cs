@@ -129,10 +129,9 @@ public class OstertagiB : ModBuff
             > 60 * 10 => 20,
             _ => 10
         };
-        if (player.buffTime[buffIndex] % interval == 0)
+        if (player.whoAmI == Main.myPlayer && player.buffTime[buffIndex] % interval == 0)
         {
-            if (player.whoAmI == Main.myPlayer)
-                Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, dir * Main.rand.NextFloat(1, 5), ProjectileType<OstertagiWorm>(), 5, 0);
+            Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, dir * Main.rand.NextFloat(1, 5), ProjectileType<OstertagiWorm>(), 5, 0);
 
             Helper.AddCameraModifier(new PunchCameraModifier(player.Center, Main.rand.NextVector2Unit(), 2, 6, 30, 1000));
 

@@ -29,6 +29,7 @@ public class RoSTest : ModItem
             Star.starfallBoost = 3;
         else
             Star.starfallBoost = 0;
+        NetMessage.SendData(MessageID.WorldData);
         return base.UseItem(player);
     }
 }
