@@ -38,6 +38,7 @@ public class TitteringMinion : ModProjectile
     public override void AI()
     {
         Player player = Main.player[Projectile.owner];
+        Projectile.ai[1] += 0.016f;
         EbonianPlayer modPlayer = player.GetModPlayer<EbonianPlayer>();
         if (player.dead)
             modPlayer.titteringMinion = false;
@@ -90,7 +91,7 @@ public class TitteringMinion : ModProjectile
         if (target && targetDist < 600)
         {
 
-            Projectile.velocity = Vector2.Lerp(Projectile.velocity, Helper.FromAToB(Projectile.Center, targetPos + new Vector2(0, -200).RotatedBy(off + MathF.Sin(Projectile.minionPos * 4 + Main.GlobalTimeWrappedHourly * 3) * 1.5f), false) / 40, 0.1f);
+            Projectile.velocity = Vector2.Lerp(Projectile.velocity, Helper.FromAToB(Projectile.Center, targetPos + new Vector2(0, -200).RotatedBy(off + MathF.Sin(Projectile.minionPos * 4 + Projectile.ai[1] * 3) * 1.5f), false) / 40, 0.1f);
             Projectile.rotation = Utils.AngleLerp(Projectile.rotation, Helper.FromAToB(Projectile.Center, targetPos).ToRotation() + MathHelper.Pi, 0.25f);
 
             if (Projectile.ai[2] % 60 == 0)
@@ -112,7 +113,7 @@ public class TitteringMinion : ModProjectile
         else
         {
 
-            Projectile.velocity = Vector2.Lerp(Projectile.velocity, Helper.FromAToB(Projectile.Center, player.Center + new Vector2(0, -200).RotatedBy(off + MathF.Sin(Projectile.minionPos * 4 + Main.GlobalTimeWrappedHourly * 3) * 1.5f), false) / 40, 0.1f);
+            Projectile.velocity = Vector2.Lerp(Projectile.velocity, Helper.FromAToB(Projectile.Center, player.Center + new Vector2(0, -200).RotatedBy(off + MathF.Sin(Projectile.minionPos * 4 + Projectile.ai[1] * 3) * 1.5f), false) / 40, 0.1f);
             Projectile.rotation = Utils.AngleLerp(Projectile.rotation, Projectile.velocity.ToRotation() + MathHelper.Pi, 0.25f);
         }
         /*//Projectile.Center = player.Center;*/
