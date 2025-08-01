@@ -23,6 +23,7 @@ public class CrimCannonP : ModProjectile
     {
         Projectile.ai[1] = 0;
         Projectile.spriteDirection = Main.player[Projectile.owner].direction;
+        Projectile.SyncProjectile();
     }
 
     public override void OnKill(int timeLeft)
@@ -46,6 +47,7 @@ public class CrimCannonP : ModProjectile
             PositionOffset = Projectile.Center - target.Center;
             Target = target;
             Projectile.ai[2] = 1;
+            Projectile.SyncProjectile();
         }
     }
     public override void AI()
@@ -58,6 +60,7 @@ public class CrimCannonP : ModProjectile
                 Projectile.ai[2] = 0;
                 Projectile.velocity *= 0;
                 Projectile.tileCollide = true;
+                Projectile.netUpdate = true;
             }
             Projectile.Center = Target.Center + PositionOffset;
             Projectile.frameCounter++;

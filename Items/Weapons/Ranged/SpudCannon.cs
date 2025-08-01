@@ -96,14 +96,19 @@ public class SpudCannon : ModItem
                     for (int i = 0; i < Clamp(10 * Charge, 8, 100); i++)
                         Dust.NewDustPerfect(SpawnPosition, DustID.Smoke, (Projectile.rotation + Main.rand.NextFloat(-Pi / (Charge * 6), Pi / (Charge * 6))).ToRotationVector2() * Main.rand.NextFloat(0, 8) * Charge, Scale: 1.5f).noGravity = true;
 
-                    Projectile CurrentProjectile = MPUtils.NewProjectile(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * Charge * 8, ProjectileType<PotatoP>(), (int)(Projectile.damage * MathF.Sqrt(Charge * 4)), Projectile.knockBack * Charge, Projectile.owner);
-                    if (Charge == 2)
+
+                    if (player.whoAmI == Main.myPlayer)
                     {
-                        SoundEngine.PlaySound(SoundID.Item40.WithPitchOffset(Main.rand.NextFloat(0.5f, 1)) with { Volume = 0.8f }, player.Center);
-                        for (int i = 0; i < Clamp(8 * Charge, 8, 100); i++)
-                            Dust.NewDustPerfect(SpawnPosition, DustID.Torch, (Projectile.rotation + Main.rand.NextFloat(-Pi / (Charge * 6), Pi / (Charge * 6))).ToRotationVector2() * Main.rand.NextFloat(0, 5) * Charge, Scale: Main.rand.NextFloat(0.4f, 3)).noGravity = true;
-                        if (CurrentProjectile is not null)
-                            CurrentProjectile.CritChance = 100;
+                        Projectile CurrentProjectile = Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * Charge * 8, ProjectileType<PotatoP>(), (int)(Projectile.damage * MathF.Sqrt(Charge * 4)), Projectile.knockBack * Charge, Projectile.owner);
+                        if (Charge == 2)
+                        {
+                            SoundEngine.PlaySound(SoundID.Item40.WithPitchOffset(Main.rand.NextFloat(0.5f, 1)) with { Volume = 0.8f }, player.Center);
+                            for (int i = 0; i < Clamp(8 * Charge, 8, 100); i++)
+                                Dust.NewDustPerfect(SpawnPosition, DustID.Torch, (Projectile.rotation + Main.rand.NextFloat(-Pi / (Charge * 6), Pi / (Charge * 6))).ToRotationVector2() * Main.rand.NextFloat(0, 5) * Charge, Scale: Main.rand.NextFloat(0.4f, 3)).noGravity = true;
+                            if (CurrentProjectile is not null)
+                                CurrentProjectile.CritChance = 100;
+                        }
+                        CurrentProjectile.SyncProjectile();
                     }
 
                     Scale = new Vector2(1 - Charge / 5, 1 + Charge * 0.4f);
@@ -119,7 +124,7 @@ public class SpudCannon : ModItem
             }
         }
 
-        float ColorModifier; 
+        float ColorModifier;
         Vector2 Shake = Vector2.Zero;
         public override bool PreDraw(ref Color lightColor)
         {

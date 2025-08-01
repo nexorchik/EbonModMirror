@@ -1,5 +1,6 @@
 using EbonianMod.Projectiles.Bases;
 using EbonianMod.Projectiles.Friendly.Crimson;
+using System.IO;
 
 namespace EbonianMod.Items.Weapons.Magic;
 
@@ -46,6 +47,7 @@ public class CrimCannonGraphics : HeldProjectileGun
         Projectile.rotation = Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation();
         Projectile.frame = 5;
         Projectile.ai[0] = -20;
+        Projectile.SyncProjectile();
     }
 
     public override bool? CanDamage() => false;
@@ -87,7 +89,8 @@ public class CrimCannonGraphics : HeldProjectileGun
                     SoundEngine.PlaySound(SoundID.NPCHit9.WithPitchOffset(Main.rand.NextFloat(-1f, -0.5f)), player.Center);
                     player.CheckMana(player.HeldItem.mana, true, true);
                     Vector2 SpawnPosition = Projectile.Center + Projectile.rotation.ToRotationVector2() * 22;
-                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * 12, ProjectileType<CrimCannonP>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    if (Main.myPlayer == player.whoAmI)
+                        Projectile.NewProjectile(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * 12, ProjectileType<CrimCannonP>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                     for (int i = 0; i < 3; i++)
                     {
                         Dust.NewDustPerfect(SpawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(PiOver2, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(2, 6), Scale: 1.5f).noGravity = true;

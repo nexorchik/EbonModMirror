@@ -97,7 +97,8 @@ public class BallLauncherPrimary : HeldProjectileGun
                     {
                         AnimationRotation = -0.2f * player.direction;
                         Vector2 SpawnPosition = Projectile.Center + new Vector2(14, -15 * player.direction).RotatedBy(Projectile.rotation);
-                        Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * 16, ProjectileType<CrimsonBall>(), (int)(Projectile.damage * 0.8f), Projectile.knockBack, Projectile.owner);
+                        if (player.whoAmI == Main.myPlayer)
+                            Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * 16, ProjectileType<CrimsonBall>(), (int)(Projectile.damage * 0.8f), Projectile.knockBack, Projectile.owner);
                         for (int i = 0; i < 14; i++)
                             Dust.NewDustPerfect(SpawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(-PiOver4, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(2, 8), Scale: 1.5f).noGravity = true;
                     }
