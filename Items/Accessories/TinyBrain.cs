@@ -15,7 +15,6 @@ public class TinyBrain : ModNPC //the class name is a reference to my brain.
         };
         NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, value);
     }
-    public static Vector2 cen;
     public override void SetDefaults()
     {
         NPC.width = 40;
@@ -44,6 +43,8 @@ public class TinyBrain : ModNPC //the class name is a reference to my brain.
 
     public override bool CheckDead()
     {
+        if (Main.dedServ)
+            return true;
         Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/TinyBrainGore").Type, NPC.scale);
         Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/TinyBrainGore2").Type, NPC.scale);
         Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/TinyBrainGore3").Type, NPC.scale);
@@ -70,7 +71,8 @@ public class TinyBrain : ModNPC //the class name is a reference to my brain.
         AccessoryPlayer modPlayer = player.GetModPlayer<AccessoryPlayer>();
         if (!modPlayer.brainAcc)
         {
-            NPC.life = 0;
+            NPC.active = false;
+            NPC.netUpdate = true;
         }
     }
 

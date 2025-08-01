@@ -33,7 +33,7 @@ public class BrainAcc : ModItem
         if (brains.Count <= 0)
         {
             timer++;
-            if (timer >= 420)
+            if (timer >= 420 && Main.myPlayer == player.whoAmI)
             {
                 for (int k = 0; k < 8; k++)
                 {
