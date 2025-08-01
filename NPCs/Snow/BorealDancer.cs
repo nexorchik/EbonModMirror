@@ -64,13 +64,13 @@ public class BorealDancer : ModNPC
         }
         else
         {
-            NPC.ai[1] = Clamp((int)(XVelocityModule*0.8f), 1, 3);
+            NPC.ai[1] = Clamp((int)(XVelocityModule * 0.8f), 1, 3);
         }
-        if (Helper.TRay.CastLength(NPC.Center - Vector2.UnitY*12, new Vector2(NPC.velocity.X, 0), 45, false) < 12 && XVelocityModule > 0.4f)
+        if (Helper.TRay.CastLength(NPC.Center - Vector2.UnitY * 12, new Vector2(NPC.velocity.X, 0), 45, false) < 12 && XVelocityModule > 0.4f)
         {
             for (int u = 0; u < 15; u++)
             {
-                Dust.NewDustPerfect(NPC.Center, DustID.Snow, -NPC.velocity.X/4 * Main.rand.NextFloat(-Pi/3, Pi/3).ToRotationVector2() * Main.rand.NextFloat(2, 7), Scale: Main.rand.NextFloat(0.7f, 1.3f)).noGravity = true;
+                Dust.NewDustPerfect(NPC.Center, DustID.Snow, -NPC.velocity.X / 4 * Main.rand.NextFloat(-Pi / 3, Pi / 3).ToRotationVector2() * Main.rand.NextFloat(2, 7), Scale: Main.rand.NextFloat(0.7f, 1.3f)).noGravity = true;
             }
             NPC.velocity.X *= -0.6f;
         }
@@ -79,6 +79,8 @@ public class BorealDancer : ModNPC
 
     public override bool CheckDead()
     {
+        if (Main.dedServ)
+            return true;
         for (int i = 1; i < 4; i++)
         {
             Gore.NewGore(NPC.GetSource_Death(), NPC.position + Main.rand.NextVector2Circular(7, 7), NPC.velocity, Find<ModGore>("EbonianMod/BorealDancer" + i).Type, NPC.scale);
@@ -90,15 +92,15 @@ public class BorealDancer : ModNPC
         return true;
     }
 
-    public override void FindFrame(int frameHeight) 
+    public override void FindFrame(int frameHeight)
     {
         NPC.frameCounter++;
         if (NPC.frameCounter * NPC.ai[1] > 10)
         {
             NPC.frameCounter = 0;
-            if(NPC.ai[0] != 0)
+            if (NPC.ai[0] != 0)
                 NPC.frame.Y += frameHeight;
-            if(NPC.ai[0] == 1 && NPC.frame.Y > 7 * frameHeight)
+            if (NPC.ai[0] == 1 && NPC.frame.Y > 7 * frameHeight)
             {
                 NPC.frame.Y = frameHeight;
             }

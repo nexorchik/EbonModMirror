@@ -100,6 +100,8 @@ public class Mosquito : ModNPC
     }
     public override bool CheckDead()
     {
+        if (Main.dedServ)
+            return true;
         Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/WormyGore").Type, NPC.scale);
         Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/WormyGore2").Type, NPC.scale);
         Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/WormyGore3").Type, NPC.scale);

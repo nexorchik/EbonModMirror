@@ -163,6 +163,8 @@ public class Glutton : ModNPC
     }
     public override void HitEffect(NPC.HitInfo hit)
     {
+        if (Main.dedServ)
+            return;
         if ((hit.Damage >= NPC.life && NPC.life <= 0))
         {
             Gore.NewGore(NPC.GetSource_Death(), NPC.Center - new Vector2(0, 25), Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/GluttonGore1").Type, NPC.scale);

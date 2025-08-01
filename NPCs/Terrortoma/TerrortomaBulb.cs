@@ -52,6 +52,12 @@ public class TerrortomaBulb : ModNPC
     {
         if (NPC.life <= 0)
         {
+            MPUtils.NewNPC(NPC.Center + new Vector2(0, 40), NPCType<Terrortoma>(), true);
+            MPUtils.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ProjectileType<OstertagiExplosion>(), 0, 0, 0);
+            for (int i = 0; i < 5; i++)
+                MPUtils.NewProjectile(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Unit() * Main.rand.NextFloat(2, 3), ProjectileType<OstertagiWorm>(), 20, 0, 0);
+            if (Main.dedServ)
+                return;
             SoundEngine.PlaySound(EbonianSounds.cecitiorDie, NPC.Center);
             Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Unit() * Main.rand.NextFloat(5, 10), Find<ModGore>("EbonianMod/Terrortoma2").Type, NPC.scale);
             Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Unit() * Main.rand.NextFloat(5, 10), Find<ModGore>("EbonianMod/VileSlimeGore").Type, NPC.scale);
@@ -61,10 +67,6 @@ public class TerrortomaBulb : ModNPC
             for (int i = 0; i < 3; i++)
                 Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Unit() * Main.rand.NextFloat(5, 10), Find<ModGore>("EbonianMod/EbonCrawlerGore2").Type, NPC.scale);
             Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Unit() * Main.rand.NextFloat(5, 10), Find<ModGore>("EbonianMod/EbonCrawlerGore1").Type, NPC.scale);
-            MPUtils.NewNPC(NPC.Center + new Vector2(0, 40), NPCType<Terrortoma>(), true);
-            MPUtils.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ProjectileType<OstertagiExplosion>(), 0, 0, 0);
-            for (int i = 0; i < 5; i++)
-                MPUtils.NewProjectile(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Unit() * Main.rand.NextFloat(2, 3), ProjectileType<OstertagiWorm>(), 20, 0, 0);
         }
     }
     public override void FindFrame(int frameHeight)

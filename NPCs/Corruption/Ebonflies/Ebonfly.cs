@@ -109,6 +109,8 @@ public class Ebonfly : ModNPC
     }
     public override bool CheckDead()
     {
+        if (Main.dedServ)
+            return true;
         Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/EbonflyGore").Type, NPC.scale);
         Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/EbonflyGore2").Type, NPC.scale);
         Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/EbonflyGore3").Type, NPC.scale);

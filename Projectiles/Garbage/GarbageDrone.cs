@@ -2,6 +2,7 @@
 using EbonianMod.Projectiles.VFXProjectiles;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace EbonianMod.Projectiles.Garbage;
@@ -45,10 +46,21 @@ public class GarbageDrone : ModProjectile
         return true;
     }
     Vector2 startP;
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        writer.WriteVector2(startP);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        startP = reader.ReadVector2();
+    }
     public override void AI()
     {
         if (startP == Vector2.Zero)
+        {
             startP = Projectile.Center;
+            Projectile.netUpdate = true;
+        }
         Projectile.Opacity = MathHelper.Lerp(Projectile.Opacity, 1, 0.025f);
         Projectile.ai[0]++;
         if (Projectile.ai[0] < 20)
@@ -117,12 +129,36 @@ public class GarbageDroneF : ModProjectile
         return true;
     }
     Vector2 startP;
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        writer.WriteVector2(startP);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        startP = reader.ReadVector2();
+    }
     public override void AI()
     {
-        if (startP == Vector2.Zero)
-            startP = Projectile.Center;
         Player player = Main.player[Projectile.owner];
-        Vector2 pos = Main.MouseWorld - new Vector2(0, 200);
+        if (startP == Vector2.Zero)
+        {
+            startP = Projectile.Center;
+            if (Main.myPlayer == player.whoAmI)
+            {
+                Projectile.ai[1] = Main.MouseWorld.X;
+                Projectile.ai[2] = Main.MouseWorld.Y;
+            }
+            Projectile.netUpdate = true;
+        }
+
+        if (Main.myPlayer == player.whoAmI)
+        {
+            Projectile.ai[1] = Main.MouseWorld.X;
+            Projectile.ai[2] = Main.MouseWorld.Y;
+        }
+        if ((int)Projectile.ai[0] % 15 == 0 || (int)Projectile.ai[0] == 80)
+            Projectile.netUpdate = true;
+        Vector2 pos = new Vector2(Projectile.ai[1], Projectile.ai[2]) - new Vector2(0, 200);
         Projectile.Opacity = MathHelper.Lerp(Projectile.Opacity, 1, 0.025f);
         Projectile.ai[0]++;
         if (Projectile.ai[0] < 80 && Projectile.timeLeft % 5 == 0)

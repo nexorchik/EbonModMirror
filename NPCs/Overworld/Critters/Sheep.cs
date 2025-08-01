@@ -59,6 +59,8 @@ public class Sheep : ModNPC
     }
     public override void OnKill()
     {
+        if (Main.dedServ)
+            return;
         if (!sheared)
         {
             Gore.NewGore(NPC.GetSource_Death(), NPC.position, Main.rand.NextVector2Circular(1, 1), Find<ModGore>("EbonianMod/SheepGore0").Type, NPC.scale);

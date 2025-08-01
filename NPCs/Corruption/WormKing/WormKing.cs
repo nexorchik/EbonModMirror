@@ -104,6 +104,8 @@ public class WormKing : ModNPC
         if (hitinfo.Damage > NPC.life && NPC.life <= 0)
         {
             MPUtils.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ProjectileType<OstertagiExplosion>(), 0, 0, 0);
+            if (Main.dedServ)
+                return;
             for (int i = 0; i < 18; i++)
                 Gore.NewGore(NPC.GetSource_Death(), Main.rand.NextVector2FromRectangle(NPC.getRect()), Main.rand.NextVector2Circular(3, 3), Find<ModGore>("EbonianMod/EbonFlyGore2").Type, NPC.scale);
             Gore.NewGore(NPC.GetSource_Death(), Main.rand.NextVector2FromRectangle(NPC.getRect()), Main.rand.NextVector2Circular(3, 3), Find<ModGore>("EbonianMod/CorruptionBrickGibs4").Type, NPC.scale);

@@ -44,6 +44,8 @@ public class EbonFlyMinion : ModProjectile //this is literally ExampleMinion and
     {
         if (Projectile.owner == Main.myPlayer)
             Projectile.NewProjectile(null, Projectile.Center, Vector2.Zero, ProjectileType<OstertagiExplosion>(), Projectile.damage * 2, 0, Projectile.owner);
+        if (Main.dedServ)
+            return;
         Gore.NewGore(Projectile.GetSource_Death(), Projectile.position, Projectile.velocity, Find<ModGore>("EbonianMod/EbonFlyGore").Type, Projectile.scale);
         Gore.NewGore(Projectile.GetSource_Death(), Projectile.position, Projectile.velocity, Find<ModGore>("EbonianMod/EbonFlyGore2").Type, Projectile.scale);
         Gore.NewGore(Projectile.GetSource_Death(), Projectile.position, Projectile.velocity, Find<ModGore>("EbonianMod/EbonFlyGore3").Type, Projectile.scale);

@@ -152,7 +152,7 @@ public class Starine_Skipper : ModNPC
                 Main.dust[dust].scale = 2f;
                 Main.dust[dust].noGravity = true;
             }
-            if (Main.netMode == NetmodeID.Server)
+            if (Main.dedServ)
                 return;
             for (int i = 0; i < Main.rand.Next(3, 5); i++)
                 Gore.NewGore(NPC.GetSource_OnHit(NPC), NPC.Center + new Vector2(Main.rand.Next(-20, 20), Main.rand.Next(-20, 20)), Vector2.Zero, ModContent.Find<ModGore>("EbonianMod/Starine").Type);
@@ -526,6 +526,8 @@ public class Starine_Sightseer : ModNPC
                 dust.scale = 2f;
                 dust.noGravity = true;
             }
+            if (Main.dedServ)
+                return;
             for (int i = 0; i < Main.rand.Next(20, 30); i++)
             {
                 Gore.NewGore(NPC.GetSource_OnHit(NPC), Main.rand.NextVector2FromRectangle(NPC.getRect()), Main.rand.NextVector2Circular(1, 1), ModContent.Find<ModGore>("EbonianMod/Starine").Type, Main.rand.NextFloat(0.8f, 1.2f));

@@ -39,6 +39,8 @@ public class RottenSpineHead : WormHead
     public override bool useNormalMovement => true;
     public override void OnKill()
     {
+        if (Main.dedServ)
+            return;
         Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/RottenSpineGore1").Type, NPC.scale);
     }
     public override void ExtraAI()
@@ -110,6 +112,8 @@ public class RottenSpineBody : WormBody
     public override bool byHeight => false;
     public override void HitEffect(NPC.HitInfo hitinfo)
     {
+        if (Main.dedServ)
+            return;
         if (hitinfo.Damage > NPC.life && NPC.life <= 0)
             if (NPC.ai[3] == 3)
                 Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/RottenSpineGore3").Type, NPC.scale);
@@ -166,6 +170,8 @@ public class RottenSpineTail : WormTail
     public override bool byHeight => false;
     public override void HitEffect(NPC.HitInfo hitinfo)
     {
+        if (Main.dedServ)
+            return;
         if (hitinfo.Damage > NPC.life && NPC.life <= 0)
             Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/RottenSpineGore1").Type, NPC.scale);
     }

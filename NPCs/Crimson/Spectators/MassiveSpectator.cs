@@ -99,6 +99,10 @@ public class MassiveSpectator : ModNPC
     {
         if (NPC.life <= 0)
         {
+            MPUtils.NewNPC(NPC.Center + new Vector2(0, -800), NPCType<Cecitior.Cecitior>());
+            MPUtils.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ProjectileType<BloodShockwave2>(), 0, 0, 0);
+            if (Main.dedServ)
+                return;
             SoundEngine.PlaySound(EbonianSounds.cecitiorDie, NPC.Center);
             Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Unit() * Main.rand.NextFloat(5, 10), Find<ModGore>("EbonianMod/Gnasher0").Type, NPC.scale);
             Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Unit() * Main.rand.NextFloat(5, 10), Find<ModGore>("EbonianMod/CrimsonGoreChunk3").Type, NPC.scale);
@@ -112,8 +116,6 @@ public class MassiveSpectator : ModNPC
                 Gore.NewGore(NPC.GetSource_Death(), verlet.points[i].position, Main.rand.NextVector2Unit() * Main.rand.NextFloat(5, 10), Find<ModGore>("EbonianMod/CrimsonGoreChunk2").Type, NPC.scale);
                 Gore.NewGore(NPC.GetSource_Death(), verlet.points[i].position, Main.rand.NextVector2Unit() * Main.rand.NextFloat(5, 10), Find<ModGore>("EbonianMod/CrimorrhageChain").Type, NPC.scale);
             }
-            MPUtils.NewNPC(NPC.Center + new Vector2(0, -800), NPCType<Cecitior.Cecitior>());
-            MPUtils.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ProjectileType<BloodShockwave2>(), 0, 0, 0);
         }
     }
     bool found = false;

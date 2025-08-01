@@ -44,7 +44,10 @@ public class JuvenileBrain : ModNPC
             NPC.ai[3] = 40;
             NPC.direction = NPC.spriteDirection = -NPC.direction;
             NPC.position = startP + NPC.velocity;
+            NPC.netUpdate = true;
         }
+        if (Main.dedServ)
+            return;
         if ((hit.Damage >= NPC.life && NPC.life <= 0))
         {
             for (int i = 0; i < 4; i++)

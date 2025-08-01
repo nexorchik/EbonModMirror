@@ -73,6 +73,8 @@ public class Bloodhound : ModNPC
     }
     public override bool CheckDead()
     {
+        if (Main.dedServ)
+            return base.CheckDead();
         for (int i = 0; i < 2; i++)
         {
             Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/CrimsonGoreChunk3").Type, NPC.scale);

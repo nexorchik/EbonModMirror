@@ -87,6 +87,9 @@ public class MiniSpectator : ModNPC
     {
         if (NPC.life <= 0)
         {
+            MPUtils.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ProjectileType<BloodShockwave2>(), 0, 0, 0);
+            if (Main.dedServ)
+                return;
             SoundEngine.PlaySound(EbonianSounds.cecitiorDie, NPC.Center);
             Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/WormyGore").Type, NPC.scale);
             Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/WormyGore2").Type, NPC.scale);
@@ -99,7 +102,6 @@ public class MiniSpectator : ModNPC
             {
                 Gore.NewGore(NPC.GetSource_Death(), verlet.points[i].position, Main.rand.NextVector2Unit() * Main.rand.NextFloat(5, 10), Find<ModGore>("EbonianMod/JelleyeFishGore1").Type, NPC.scale);
             }
-            MPUtils.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ProjectileType<BloodShockwave2>(), 0, 0, 0);
         }
     }
     public override void AI()

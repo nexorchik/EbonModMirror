@@ -158,12 +158,13 @@ public class Aureus : ModNPC
                     EbonianSystem.conglomerateSkyFlash = 10f;
                     var entitySource = NPC.GetSource_Death();
 
-                    for (int k = 0; k < 4; k++)
-                    {
-                        int gore = Mod.Find<ModGore>("AureusGore" + k).Type;
+                    if (!Main.dedServ)
+                        for (int k = 0; k < 4; k++)
+                        {
+                            int gore = Mod.Find<ModGore>("AureusGore" + k).Type;
 
-                        Gore.NewGore(entitySource, NPC.position - new Vector2(0, 100), new Vector2(Main.rand.Next(-6, 7), Main.rand.Next(-6, 7)), gore);
-                    }
+                            Gore.NewGore(entitySource, NPC.position - new Vector2(0, 100), new Vector2(Main.rand.Next(-6, 7), Main.rand.Next(-6, 7)), gore);
+                        }
 
                     for (int k = 0; k < 200; k++)
                     {

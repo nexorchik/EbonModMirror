@@ -33,6 +33,8 @@ public class TrumpetHead : WormHead
     }
     public override bool CheckDead()
     {
+        if (Main.dedServ)
+            return true;
         for (int j = 0; j < 3; j++)
             for (int i = 0; i < 5; i++)
                 Gore.NewGore(NPC.GetSource_Death(), Main.rand.NextVector2FromRectangle(NPC.getRect()), Main.rand.NextVector2Circular(3, 3), Find<ModGore>("EbonianMod/CorruptionBrickGibs" + i).Type, NPC.scale);
@@ -122,6 +124,8 @@ public class TrumpetBody : WormBody
     }
     public override void HitEffect(NPC.HitInfo hit)
     {
+        if (Main.dedServ)
+            return;
         if (NPC.life <= 0 || !NPC.active)
             for (int j = 0; j < 3; j++)
                 for (int i = 0; i < 5; i++)
@@ -169,6 +173,8 @@ public class TrumpetTail : WormTail
     }
     public override void HitEffect(NPC.HitInfo hit)
     {
+        if (Main.dedServ)
+            return;
         if (NPC.life <= 0 || !NPC.active)
             for (int j = 0; j < 3; j++)
                 for (int i = 0; i < 5; i++)

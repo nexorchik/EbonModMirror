@@ -32,6 +32,8 @@ public class ArchmageDeath : ModProjectile
         for (int i = 0; i < 2; i++)
             MPUtils.NewProjectile(null, Projectile.Center, Vector2.Zero, ProjectileType<ArchmageArm>(), 0, 0);
 
+        if (Main.dedServ)
+            return;
         for (int i = 0; i < 15; i++)
             Gore.NewGore(null, Projectile.Center, Main.rand.NextVector2Circular(13, 13), Find<ModGore>("EbonianMod/XFlesh" + Main.rand.Next(2).ToString()).Type);
 

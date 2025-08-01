@@ -13,6 +13,8 @@ public class CrimeraHead : WormHead
     //public override bool HasCustomBodySegments => true;
     public override void HitEffect(NPC.HitInfo hit)
     {
+        if (Main.dedServ)
+            return;
         if ((hit.Damage >= NPC.life && NPC.life <= 0))
         {
             for (int i = 0; i < 2; i++)
@@ -167,6 +169,8 @@ public class CrimeraBody : WormBody
     }
     public override void HitEffect(NPC.HitInfo hit)
     {
+        if (Main.dedServ)
+            return;
         if ((hit.Damage >= NPC.life && NPC.life <= 0))
         {
             for (int i = 0; i < 2; i++)
@@ -183,6 +187,8 @@ public class CrimeraTail : WormTail
     public override bool byHeight => false;
     public override void HitEffect(NPC.HitInfo hit)
     {
+        if (Main.dedServ)
+            return;
         if ((hit.Damage >= NPC.life && NPC.life <= 0))
         {
             for (int i = 0; i < 2; i++)

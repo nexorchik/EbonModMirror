@@ -72,6 +72,8 @@ public class Fleshformator : ModNPC
     }
     public override void HitEffect(NPC.HitInfo hit)
     {
+        if (Main.dedServ)
+            return;
         if (NPC.life <= 0)
         {
             Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Unit(), Find<ModGore>("EbonianMod/Crimorrhage1").Type);

@@ -146,6 +146,8 @@ public class ToxicAbomination : ModNPC
     public override bool? CanFallThroughPlatforms() => true;
     public override bool CheckDead()
     {
+        if (Main.dedServ)
+            return true;
         for (int i = 0; i < 8; i++)
         {
             Gore.NewGore(NPC.GetSource_Death(), Main.rand.NextVector2FromRectangle(NPC.getRect()), NPC.velocity, Find<ModGore>("EbonianMod/CorruptionBrickGibs0").Type, NPC.scale);

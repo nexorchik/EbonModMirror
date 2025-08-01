@@ -2,6 +2,7 @@ using EbonianMod.Projectiles.Friendly.Crimson;
 using EbonianMod.Projectiles.VFXProjectiles;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace EbonianMod.Items.Weapons.Magic;
 
@@ -102,6 +103,14 @@ public class GoreBeam : ModProjectile
     bool RunOnce;
     List<Vector2> points = new List<Vector2>();
     Vector2 end;
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        writer.WriteVector2(end);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        end = reader.ReadVector2();
+    }
     public override void AI()
     {
         if (Projectile.ai[1] > 0)
@@ -210,13 +219,18 @@ public class GoreBeam : ModProjectile
 
             points[0] = player.Center + Helper.FromAToB(player.Center, Main.MouseWorld) * 40 - new Vector2(0, 3).RotatedBy(dirr.ToRotation() + MathHelper.Pi / 2);
             float range = (Projectile.ai[2] + 2) * 96;
-            Vector2 offset = Helper.FromAToB(player.Center, Main.MouseWorld, false);
-            if (offset.Length() > range)
+            if (Main.myPlayer == Projectile.owner)
             {
-                offset.Normalize();
-                offset *= range;
+                Vector2 offset = Helper.FromAToB(player.Center, Main.MouseWorld, false);
+                if (offset.Length() > range)
+                {
+                    offset.Normalize();
+                    offset *= range;
+                }
+                end = Vector2.Lerp(end, player.Center + offset, 0.2f);
+                if ((int)Projectile.ai[0] % 15 == 0 || Projectile.ai[0] < 10)
+                    Projectile.SyncProjectile();
             }
-            end = Vector2.Lerp(end, player.Center + offset, 0.2f);
             points[points.Count - 1] = end;
             Projectile.Center = player.Center;
 

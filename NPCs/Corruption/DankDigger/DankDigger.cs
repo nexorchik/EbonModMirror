@@ -45,6 +45,8 @@ public class DankDiggerHead : WormHead
     }
     public override void OnKill()
     {
+        if (Main.dedServ)
+            return;
         for (int i = 0; i < 4; i++)
             Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/EbonFlyGore2").Type, NPC.scale);
     }
@@ -89,6 +91,8 @@ public class DankDiggerBody : WormBody
     }
     public override void HitEffect(NPC.HitInfo hitinfo)
     {
+        if (Main.dedServ)
+            return;
         if (hitinfo.Damage > NPC.life && NPC.life <= 0)
             for (int i = 0; i < 4; i++)
                 Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/EbonFlyGore2").Type, NPC.scale);
@@ -117,6 +121,8 @@ public class DankDiggerTail : WormTail
     }
     public override void HitEffect(NPC.HitInfo hitinfo)
     {
+        if (Main.dedServ)
+            return;
         if (hitinfo.Damage > NPC.life && NPC.life <= 0)
             for (int i = 0; i < 4; i++)
                 Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/EbonFlyGore2").Type, NPC.scale);

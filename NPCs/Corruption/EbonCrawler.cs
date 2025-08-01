@@ -57,8 +57,10 @@ public class EbonCrawler : ModNPC
     {
         for (int i = 0; i < Main.rand.Next(3, 5); i++)
         {
-            NPC.NewNPCDirect(NPC.GetSource_Death(), NPC.Center, NPCType<Ebonfly>(), ai3: 1).scale = 0.7f;
+            MPUtils.NewNPC(NPC.Center, NPCType<Ebonfly>(), ai3: 1);
         }
+        if (Main.dedServ)
+            return true;
         Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/EbonCrawlerGore1").Type, NPC.scale);
         Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/EbonCrawlerGore2").Type, NPC.scale);
         Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/EbonCrawlerGore3").Type, NPC.scale);

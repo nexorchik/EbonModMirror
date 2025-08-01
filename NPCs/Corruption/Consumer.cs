@@ -74,6 +74,8 @@ public class Consumer : ModNPC
     }
     public override void HitEffect(NPC.HitInfo hitinfo)
     {
+        if (Main.dedServ)
+            return;
         if (hitinfo.Damage > NPC.life && NPC.life <= 0)
         {
             for (int i = 0; i < 4; i++)

@@ -65,6 +65,8 @@ public class FleshBrickBig : ModNPC
     }
     public override bool CheckDead()
     {
+        if (Main.dedServ)
+            return true;
         for (int j = 0; j < 6; j++)
             for (int i = 0; i < 5; i++)
                 Gore.NewGore(NPC.GetSource_Death(), Main.rand.NextVector2FromRectangle(NPC.getRect()), Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/CorruptionBrickGibs" + i).Type, NPC.scale);

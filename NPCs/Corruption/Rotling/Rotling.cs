@@ -36,6 +36,8 @@ public class RotlingHead : WormHead
     }
     public override void OnKill()
     {
+        if (Main.dedServ)
+            return;
         Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/EbonFlyGore2").Type, NPC.scale);
     }
     public override int BodyType => NPCType<RotlingBody>();
@@ -67,6 +69,8 @@ public class RotlingBody : WormBody
 {
     public override void HitEffect(NPC.HitInfo hitinfo)
     {
+        if (Main.dedServ)
+            return;
         if (hitinfo.Damage > NPC.life && NPC.life <= 0)
             Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/EbonFlyGore2").Type, NPC.scale);
     }
@@ -92,6 +96,8 @@ public class RotlingTail : WormTail
 {
     public override void HitEffect(NPC.HitInfo hitinfo)
     {
+        if (Main.dedServ)
+            return;
         if (hitinfo.Damage > NPC.life && NPC.life <= 0)
             Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/EbonFlyGore2").Type, NPC.scale);
     }

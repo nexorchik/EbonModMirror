@@ -183,6 +183,8 @@ public class CrimsonWormHead : WormHead
     }
     public override void HitEffect(NPC.HitInfo hitinfo)
     {
+        if (Main.dedServ)
+            return;
         if (hitinfo.Damage > NPC.life && NPC.life <= 0)
         {
             Main.BestiaryTracker.Kills.RegisterKill(NPC);
@@ -197,6 +199,8 @@ public class CrimsonWormBody : WormBody
 {
     public override void HitEffect(NPC.HitInfo hitinfo)
     {
+        if (Main.dedServ)
+            return;
         if (hitinfo.Damage > NPC.life && !isDed)
         {
             if (NPC.ai[2] <= 6 && NPC.ai[2] > 3)
@@ -421,6 +425,8 @@ public class CrimsonWormTail : WormTail
 {
     public override void HitEffect(NPC.HitInfo hitinfo)
     {
+        if (Main.dedServ)
+            return;
         if (hitinfo.Damage > NPC.life && NPC.life <= 0)
         {
             Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/CrimsonGoreChunk7").Type, NPC.scale);

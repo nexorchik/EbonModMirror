@@ -82,9 +82,12 @@ public class ClumpOfMeat : ModNPC
                 }
                 for (int k = 0; k < 5; k++)
                 {
-                    Gore.NewGore(NPC.GetSource_FromThis(), Main.rand.NextVector2FromRectangle(NPC.getRect()), Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/WormyGore").Type, NPC.scale);
-                    Gore.NewGore(NPC.GetSource_FromThis(), Main.rand.NextVector2FromRectangle(NPC.getRect()), Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/WormyGore2").Type, NPC.scale);
-                    Gore.NewGore(NPC.GetSource_FromThis(), Main.rand.NextVector2FromRectangle(NPC.getRect()), Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/WormyGore3").Type, NPC.scale);
+                    if (!Main.dedServ)
+                    {
+                        Gore.NewGore(NPC.GetSource_FromThis(), Main.rand.NextVector2FromRectangle(NPC.getRect()), Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/WormyGore").Type, NPC.scale);
+                        Gore.NewGore(NPC.GetSource_FromThis(), Main.rand.NextVector2FromRectangle(NPC.getRect()), Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/WormyGore2").Type, NPC.scale);
+                        Gore.NewGore(NPC.GetSource_FromThis(), Main.rand.NextVector2FromRectangle(NPC.getRect()), Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/WormyGore3").Type, NPC.scale);
+                    }
                     NPC.NewNPC(NPC.GetSource_FromThis(), (int)NPC.Center.X, (int)NPC.Center.Y, NPCType<Parasite>());
                 }
                 Main.BestiaryTracker.Kills.RegisterKill(NPC);

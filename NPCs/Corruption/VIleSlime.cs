@@ -97,6 +97,8 @@ public class VileSlime : ModNPC //this is literally exampleslime but i honestly 
     }
     public override bool CheckDead()
     {
+        if (Main.dedServ)
+            return true;
         Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/VileSlimeGore").Type, NPC.scale);
         Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/VileSlimeGore2").Type, NPC.scale);
         Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/VileSlimeGore3").Type, NPC.scale);

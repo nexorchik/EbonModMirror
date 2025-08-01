@@ -86,6 +86,8 @@ public class LetsGoo : ModNPC
     }
     public override bool CheckDead()
     {
+        if (Main.dedServ)
+            return true;
         for (int i = 0; i < 6; i++)
             Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/Gnasher" + i).Type, NPC.scale);
         return true;

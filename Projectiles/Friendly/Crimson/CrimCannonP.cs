@@ -28,6 +28,8 @@ public class CrimCannonP : ModProjectile
 
     public override void OnKill(int timeLeft)
     {
+        if (Main.dedServ)
+            return;
         SoundEngine.PlaySound(EbonianSounds.chomp1.WithPitchOffset(Main.rand.NextFloat(-0.4f, 0.2f)), Projectile.Center);
         for (int i = 0; i < 4; i++)
         {
