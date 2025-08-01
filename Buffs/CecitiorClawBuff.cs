@@ -12,7 +12,7 @@ public class CecitiorClawBuff : ModBuff
     public override void Update(Player player, ref int buffIndex)
     {
         EbonianPlayer modPlayer = player.GetModPlayer<EbonianPlayer>();
-        if (player.ownedProjectileCounts[ProjectileType<CecitiorClawMinion>()] > 0)
+        if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ProjectileType<CecitiorClawMinion>()] > 0)
         {
             modPlayer.cClawMinion = true;
         }

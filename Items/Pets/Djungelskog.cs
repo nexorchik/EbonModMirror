@@ -77,6 +77,14 @@ public class Djungelskog : ModProjectile
 
         return false;
     }
+    public override bool PreAI()
+    {
+        Player player = Main.player[Projectile.owner];
+
+        player.babyFaceMonster = false;
+
+        return true;
+    }
     public override void AI()
     {
         Player player = Main.player[Projectile.owner];
@@ -140,12 +148,11 @@ public class DjungelskogB : ModBuff
 
     public override void Update(Player player, ref int buffIndex)
     {
-        if (player.ownedProjectileCounts[ProjectileType<Djungelskog>()] < 1)
+        player.buffTime[buffIndex] = 18000;
+        if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ProjectileType<Djungelskog>()] < 1)
         {
             if (player.whoAmI == Main.myPlayer)
                 Projectile.NewProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ProjectileType<Djungelskog>(), 0, 0, 0);
         }
-        else
-            player.buffTime[buffIndex] = 18000;
     }
 }

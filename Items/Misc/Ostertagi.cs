@@ -123,58 +123,24 @@ public class OstertagiB : ModBuff
         player.lifeRegenTime = 0;
         Vector2 dir = Main.rand.NextVector2Unit();
 
-        if (player.buffTime[buffIndex] > 60 * 30)
+        int interval = player.buffTime[buffIndex] switch
         {
-            if (player.buffTime[buffIndex] % 30 == 0)
-            {
-                if (player.whoAmI == Main.myPlayer)
-                    Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, dir * Main.rand.NextFloat(1, 5), ProjectileType<OstertagiWorm>(), 5, 0);
-
-
-                Helper.AddCameraModifier(new PunchCameraModifier(player.Center, Main.rand.NextVector2Unit(), 2, 6, 30, 1000));
-
-                SoundEngine.PlaySound(EbonianSounds.fleshHit with { PitchVariance = 0.3f, Volume = 0.3f }, player.Center);
-
-                for (int k = 0; k < 15; k++)
-                {
-                    Dust.NewDustPerfect(player.MountedCenter, DustID.Blood, dir.RotatedByRandom(1) * Main.rand.NextFloat(1, 5), 0, default, Main.rand.NextFloat(1, 2));
-                }
-            }
-        }
-        else if (player.buffTime[buffIndex] > 60 * 10)
+            > 60 * 20 => 30,
+            > 60 * 10 => 20,
+            _ => 10
+        };
+        if (player.buffTime[buffIndex] % interval == 0)
         {
-            if (player.buffTime[buffIndex] % 20 == 0)
+            if (player.whoAmI == Main.myPlayer)
+                Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, dir * Main.rand.NextFloat(1, 5), ProjectileType<OstertagiWorm>(), 5, 0);
+
+            Helper.AddCameraModifier(new PunchCameraModifier(player.Center, Main.rand.NextVector2Unit(), 2, 6, 30, 1000));
+
+            SoundEngine.PlaySound(EbonianSounds.fleshHit with { PitchVariance = 0.3f, Volume = 0.3f }, player.Center);
+
+            for (int k = 0; k < 15; k++)
             {
-                if (player.whoAmI == Main.myPlayer)
-                    Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, dir * Main.rand.NextFloat(1, 5), ProjectileType<OstertagiWorm>(), 5, 0);
-
-
-                Helper.AddCameraModifier(new PunchCameraModifier(player.Center, Main.rand.NextVector2Unit(), 2, 6, 30, 1000));
-
-                SoundEngine.PlaySound(EbonianSounds.fleshHit with { PitchVariance = 0.3f, Volume = 0.3f }, player.Center);
-
-                for (int k = 0; k < 15; k++)
-                {
-                    Dust.NewDustPerfect(player.MountedCenter, DustID.Blood, dir.RotatedByRandom(1) * Main.rand.NextFloat(1, 5), 0, default, Main.rand.NextFloat(1, 2));
-                }
-            }
-        }
-        else if (player.buffTime[buffIndex] < 60 * 10)
-        {
-            if (player.buffTime[buffIndex] % 10 == 0)
-            {
-                if (player.whoAmI == Main.myPlayer)
-                    Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, dir * Main.rand.NextFloat(1, 5), ProjectileType<OstertagiWorm>(), 5, 0);
-
-
-                Helper.AddCameraModifier(new PunchCameraModifier(player.Center, Main.rand.NextVector2Unit(), 2, 6, 30, 1000));
-
-                SoundEngine.PlaySound(EbonianSounds.fleshHit with { PitchVariance = 0.3f, Volume = 0.3f }, player.Center);
-
-                for (int k = 0; k < 15; k++)
-                {
-                    Dust.NewDustPerfect(player.MountedCenter, DustID.Blood, dir.RotatedByRandom(1) * Main.rand.NextFloat(1, 5), 0, default, Main.rand.NextFloat(1, 2));
-                }
+                Dust.NewDustPerfect(player.MountedCenter, DustID.Blood, dir.RotatedByRandom(1) * Main.rand.NextFloat(1, 5), 0, default, Main.rand.NextFloat(1, 2));
             }
         }
     }

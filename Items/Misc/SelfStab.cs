@@ -161,23 +161,13 @@ public class SelfStabB : ModBuff
         player.lifeRegen = 0;
         player.lifeRegenTime = 0;
         Vector2 dir = player.GetModPlayer<EbonianPlayer>().stabDirection.RotatedByRandom(MathHelper.PiOver4 / 2) * (Main.rand.NextBool(5) ? -1 : 1);
-        if (player.buffTime[buffIndex] > 60 * 50)
+        int interval = player.buffTime[buffIndex] switch
         {
-            if (player.whoAmI == Main.myPlayer)
-                if (player.buffTime[buffIndex] % 15 == 0)
-                    Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, dir * Main.rand.NextFloat(1, 5), ProjectileType<Gibs>(), 15, 0);
-        }
-        else if (player.buffTime[buffIndex] > 60 * 30)
-        {
-            if (player.whoAmI == Main.myPlayer)
-                if (player.buffTime[buffIndex] % 10 == 0)
-                    Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, dir * Main.rand.NextFloat(1, 5), ProjectileType<Gibs>(), 15, 0);
-        }
-        else if (player.buffTime[buffIndex] < 60 * 30)
-        {
-            if (player.whoAmI == Main.myPlayer)
-                if (player.buffTime[buffIndex] % 5 == 0)
-                    Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, dir * Main.rand.NextFloat(1, 5), ProjectileType<Gibs>(), 15, 0);
-        }
+            > 60 * 50 => 15,
+            > 60 * 30 => 10,
+            _ => 5
+        };
+        if (player.whoAmI == Main.myPlayer && player.buffTime[buffIndex] % interval == 0)
+            Projectile.NewProjectile(player.GetSource_FromThis(), player.Center, dir * Main.rand.NextFloat(1, 5), ProjectileType<Gibs>(), 15, 0);
     }
 }

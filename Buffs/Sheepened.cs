@@ -14,7 +14,7 @@ public class Sheepened : ModBuff
     {
         foreach (Projectile projectile in Main.ActiveProjectiles)
         {
-            if (projectile.friendly && projectile.minion && projectile.owner == player.whoAmI)
+            if (projectile.friendly && projectile.minion && projectile.owner == player.whoAmI && player.whoAmI == Main.myPlayer)
             {
                 projectile.Kill();
             }
@@ -25,7 +25,7 @@ public class Sheepened : ModBuff
                 player.ClearBuff(i);
         }
         player.GetModPlayer<EbonianPlayer>().sheep = true;
-        if (player.ownedProjectileCounts[ProjectileType<player_sheep>()] < 1)
+        if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ProjectileType<player_sheep>()] < 1)
             Projectile.NewProjectile(null, player.Center, Vector2.Zero, ProjectileType<player_sheep>(), 0, 0, player.whoAmI);
     }
 }

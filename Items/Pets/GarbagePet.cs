@@ -112,12 +112,11 @@ public class GarbagePetB : ModBuff
 
     public override void Update(Player player, ref int buffIndex)
     {
-        if (player.ownedProjectileCounts[ProjectileType<GarbagePetP>()] < 1)
+        player.buffTime[buffIndex] = 18000;
+        if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ProjectileType<GarbagePetP>()] < 1)
         {
             if (player.whoAmI == Main.myPlayer)
                 Projectile.NewProjectile(player.GetSource_Buff(buffIndex), player.Center, Vector2.Zero, ProjectileType<GarbagePetP>(), 0, 0, 0);
         }
-        else
-            player.buffTime[buffIndex] = 18000;
     }
 }

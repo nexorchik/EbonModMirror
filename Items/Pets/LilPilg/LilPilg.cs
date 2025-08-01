@@ -27,8 +27,7 @@ namespace EbonianMod.Items.Pets.LilPilg
         public override void SetDefaults()
         {
             Item.DefaultToVanitypet(ModContent.ProjectileType<LilPilg>(), ModContent.BuffType<LilPilgB>());
-            Item.rare = ItemRarityID.Master;
-            Item.master = true;
+            Item.rare = ItemRarityID.Cyan;
             Item.useStyle = ItemUseStyleID.HoldUp;
             Item.UseSound = SoundID.NPCHit54;
             Item.useTime = Item.useAnimation = 80;

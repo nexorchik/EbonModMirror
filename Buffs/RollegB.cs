@@ -12,7 +12,7 @@ public class RollegB : ModBuff
     public override void Update(Player player, ref int buffIndex)
     {
         player.GetModPlayer<EbonianPlayer>().rolleg = true;
-        if (player.ownedProjectileCounts[ProjectileType<Rolleg>()] > 0)
+        if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ProjectileType<Rolleg>()] > 0)
             player.buffTime[buffIndex] = 2;
     }
 }
