@@ -29,7 +29,7 @@ public class CorebreakerP : ModProjectile
         Projectile CurrentProjectile = Projectile.NewProjectileDirect(NPC.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<FlameExplosionWSprite>(), Projectile.damage, 0);
         CurrentProjectile.friendly = true;
         CurrentProjectile.hostile = false;
-        CurrentProjectile.SyncProjectile();
+        CurrentProjectile.netUpdate = true; // TEST
         SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
     }
 }

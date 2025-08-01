@@ -45,7 +45,7 @@ public class SudamaTrident : ModItem
         player.AddBuff(Item.buffType, 2);
         Projectile projectile = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, Main.myPlayer);
         projectile.originalDamage = Item.damage;
-        projectile.SyncProjectile();
+        Projectile.netUpdate = true; // TEST
         return false;
     }
 }

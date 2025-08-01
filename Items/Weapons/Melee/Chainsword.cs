@@ -129,7 +129,7 @@ public class ChainswordP : HeldSword
         Vector2 vel = Helper.FromAToB(player.Center, pos).RotatedBy(Projectile.ai[1]).RotatedByRandom(MathHelper.PiOver4);
         if (swingProgress.InRange(0.5f, 0.2f))
             lerpProg = MathHelper.Lerp(lerpProg, 0.005f, 0.85f);
-        Projectile.SyncProjectile();
+        Projectile.netUpdate = true; // TEST
         if (Projectile.extraUpdates == 3)
         {
 

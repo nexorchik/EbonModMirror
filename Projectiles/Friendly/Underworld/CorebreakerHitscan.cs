@@ -43,7 +43,7 @@ public class CorebreakerHitscan : ModProjectile
                     CurrentProjectile.CritChance = 100;
                     CurrentProjectile.friendly = true;
                     CurrentProjectile.hostile = false;
-                    CurrentProjectile.SyncProjectile();
+                    CurrentProjectile.netUpdate = true; // TEST
                     Freeze();
                 }
         }

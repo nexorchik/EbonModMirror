@@ -128,7 +128,7 @@ public class BaseballBatP : HeldSword
                     if (Projectile.localAI[0] > -3.3f && Projectile.localAI[0] < -2.9f)
                         projectile.velocity.X = player.velocity.X;
                     projectile.ai[1] = 10;
-                    projectile.SyncProjectile();
+                    Projectile.netUpdate = true; // TEST
                 }
             }
             Projectile.rotation += player.direction * ToRadians(Projectile.ai[2]);

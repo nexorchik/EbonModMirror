@@ -129,7 +129,7 @@ public class PhantasmalGreatswordP : HeldSword
                     }
                 }
                 Projectile.active = false;
-                Projectile.SyncProjectile();
+                Projectile.netUpdate = true; // TEST
             }
         }
         alpha = MathHelper.Clamp((float)Math.Sin(swingProgress * Math.PI) * 3f, 0, 1);

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 
 namespace EbonianMod.Projectiles.Friendly.Generic;
 
@@ -15,6 +16,14 @@ public class PotatoP : ModProjectile
         Projectile.CloneDefaults(ProjectileID.WoodenArrowFriendly);
         Projectile.Size = new Vector2(14, 20);
     }
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        writer.Write(Fire);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        Fire = reader.ReadBoolean();
+    }
     public override void OnSpawn(IEntitySource source)
     {
         Projectile.rotation = Projectile.velocity.ToRotation();
@@ -22,6 +31,7 @@ public class PotatoP : ModProjectile
         Fire = Projectile.extraUpdates == 2;
         if (Fire)
             Projectile.velocity *= 1.3f;
+        Projectile.netUpdate = true;
     }
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {

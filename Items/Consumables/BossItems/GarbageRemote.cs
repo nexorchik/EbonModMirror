@@ -128,7 +128,7 @@ public class GarbageRemoteP : ModProjectile
                 basePos = Projectile.Center;
 
             if (Projectile.owner == Main.myPlayer)
-                Projectile.SyncProjectile();
+                Projectile.netUpdate = true; // TEST
             Projectile.ai[0] = 1;
         }
         else
@@ -142,7 +142,7 @@ public class GarbageRemoteP : ModProjectile
                     if (Projectile.owner == Main.myPlayer)
                         pos = basePos + Main.rand.NextVector2Circular(5, 5);
                     if (Projectile.owner == Main.myPlayer)
-                        Projectile.SyncProjectile();
+                        Projectile.netUpdate = true; // TEST
                 }
                 if (Projectile.owner == Main.myPlayer)
                     if (pos != Vector2.Zero)

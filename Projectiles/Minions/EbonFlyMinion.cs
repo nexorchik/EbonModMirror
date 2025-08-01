@@ -86,7 +86,7 @@ public class EbonFlyMinion : ModProjectile //this is literally ExampleMinion and
         {
             Projectile.position = idlePosition;
             Projectile.velocity *= 0.1f;
-            Projectile.SyncProjectile();
+            Projectile.netUpdate = true; // TEST
         }
 
         float overlapVelocity = 0.04f;

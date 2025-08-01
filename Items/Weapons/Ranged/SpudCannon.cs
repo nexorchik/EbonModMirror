@@ -112,7 +112,7 @@ public class SpudCannon : ModItem
                             if (CurrentProjectile is not null)
                                 CurrentProjectile.CritChance = 100;
                         }
-                        CurrentProjectile.SyncProjectile();
+                        CurrentProjectile.netUpdate = true; // TEST
                     }
 
                     Scale = new Vector2(1 - Charge / 5, 1 + Charge * 0.4f);

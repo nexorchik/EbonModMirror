@@ -30,7 +30,7 @@ public class CrimsonBall : ModProjectile
             Projectile projectile = Projectile.NewProjectileDirect(null, Projectile.Center, angle.ToRotationVector2() * Main.rand.NextFloat(5, 7), ModContent.ProjectileType<CecitiorTeethFriendly>(), Projectile.damage / 3, 0, 0);
             projectile.tileCollide = false;
             projectile.velocity /= 50;
-            projectile.SyncProjectile();
+            Projectile.netUpdate = true; // TEST
         }
     }
     public override Color? GetAlpha(Color lightColor) => Color.White;

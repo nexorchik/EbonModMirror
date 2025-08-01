@@ -61,7 +61,7 @@ public class LatcherP : ModProjectile
             Projectile.velocity = Vector2.Zero;
             TargetIndex = target.whoAmI;
             IsAttached = true;
-            Projectile.SyncProjectile();
+            Projectile.netUpdate = true; // TEST
         }
     }
 

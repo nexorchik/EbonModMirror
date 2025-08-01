@@ -19,7 +19,7 @@ public class GarbageMissile : ModProjectile
     public override void OnSpawn(IEntitySource source)
     {
         Projectile.frame = Main.rand.Next(5);
-        Projectile.SyncProjectile();
+        Projectile.netUpdate = true; // TEST
     }
     public override void OnKill(int timeLeft)
     {

@@ -47,7 +47,7 @@ public class CrimCannonGraphics : HeldProjectileGun
         Projectile.rotation = Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation();
         Projectile.frame = 5;
         Projectile.ai[0] = -20;
-        Projectile.SyncProjectile();
+        Projectile.netUpdate = true; // TEST
     }
 
     public override bool? CanDamage() => false;

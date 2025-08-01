@@ -34,7 +34,7 @@ public class Misery : ModProjectile
         Projectile.ai[2] = 0;
         Projectile.tileCollide = false;
         Projectile.aiStyle = -1; //idk just making sure
-        Projectile.SyncProjectile();
+        Projectile.netUpdate = true; // TEST
     }
     public override void AI()
     {

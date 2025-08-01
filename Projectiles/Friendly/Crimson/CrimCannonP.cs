@@ -1,10 +1,12 @@
-﻿namespace EbonianMod.Projectiles.Friendly.Crimson;
+﻿using System.IO;
+
+namespace EbonianMod.Projectiles.Friendly.Crimson;
 
 public class CrimCannonP : ModProjectile
 {
     Vector2 PositionOffset;
     Vector2 Scale = new Vector2(1, 1);
-    NPC Target;
+    int TargetIndex = -1;
     public override void SetDefaults()
     {
         Projectile.width = 46;
@@ -23,7 +25,7 @@ public class CrimCannonP : ModProjectile
     {
         Projectile.ai[1] = 0;
         Projectile.spriteDirection = Main.player[Projectile.owner].direction;
-        Projectile.SyncProjectile();
+        Projectile.netUpdate = true; // TEST
     }
 
     public override void OnKill(int timeLeft)
@@ -40,6 +42,14 @@ public class CrimCannonP : ModProjectile
             Dust.NewDustPerfect(Projectile.Center, DustID.Blood, Main.rand.NextFloat(-Pi, Pi).ToRotationVector2() * Main.rand.NextFloat(2, 5), Scale: 1.5f);
         }
     }
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        writer.Write(TargetIndex);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        TargetIndex = reader.Read();
+    }
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
@@ -47,9 +57,9 @@ public class CrimCannonP : ModProjectile
         {
             Projectile.tileCollide = false;
             PositionOffset = Projectile.Center - target.Center;
-            Target = target;
+            TargetIndex = target.whoAmI;
             Projectile.ai[2] = 1;
-            Projectile.SyncProjectile();
+            Projectile.netUpdate = true; // TEST
         }
     }
     public override void AI()
@@ -57,6 +67,9 @@ public class CrimCannonP : ModProjectile
         Player player = Main.player[Projectile.owner];
         if (Projectile.ai[2] == 1)
         {
+            NPC Target = Main.npc[TargetIndex];
+            if (!Target.active)
+                return;
             if (Target.life <= 0)
             {
                 Projectile.ai[2] = 0;

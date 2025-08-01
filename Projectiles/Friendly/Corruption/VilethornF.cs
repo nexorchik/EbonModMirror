@@ -63,7 +63,7 @@ public class VilethornF1 : ModProjectile
             {
                 vel = vel.RotatedBy(MathHelper.ToRadians(Projectile.ai[1] * (Projectile.ai[2] == 0 ? 1 : Projectile.ai[2])));
             }
-            if (MPUtils.NotMPClient)
+            if (Projectile.owner == Main.myPlayer)
             {
                 int num63 = Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.position + Projectile.velocity + Projectile.Size / 2, Projectile.velocity.Length() * vel, num62, Projectile.damage, 1, Projectile.owner);
                 Main.projectile[num63].damage = Projectile.damage;

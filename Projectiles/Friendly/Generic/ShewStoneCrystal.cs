@@ -74,11 +74,11 @@ namespace EbonianMod.Projectiles.Friendly.Generic
             {
                 Projectile.velocity = Vector2.Lerp(Projectile.velocity, Helper.FromAToB(Projectile.Center, Main.MouseWorld) * 4.5f, 0.025f);
                 if (Projectile.timeLeft % 15 == 0)
-                    Projectile.SyncProjectile();
+                    Projectile.netUpdate = true; // TEST
                 if (Projectile.timeLeft < 500 && Main.mouseRight)
                 {
                     Projectile.timeLeft = 7;
-                    Projectile.SyncProjectile();
+                    Projectile.netUpdate = true; // TEST
                 }
             }
             if (Projectile.timeLeft == 500)

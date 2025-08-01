@@ -67,7 +67,7 @@ public class RingOfFireP : ModProjectile
                 Projectile.timeLeft = 200;
             Projectile.velocity = Vector2.Zero;
             Projectile.aiStyle = -1;
-            Projectile.SyncProjectile();
+            Projectile.netUpdate = true; // TEST
         }
     }
     public override void SendExtraAI(BinaryWriter writer)

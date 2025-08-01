@@ -75,7 +75,7 @@ namespace EbonianMod.Projectiles.Friendly.Generic
                     player.heldProj = Projectile.whoAmI;
                     Projectile.Center = player.Center + Helper.FromAToB(player.Center, Main.MouseWorld) * 20;
                     if ((int)Projectile.ai[1] % 15 == 0)
-                        Projectile.SyncProjectile();
+                        Projectile.netUpdate = true; // TEST
                     if (!player.channel || player.statMana <= 0 || !player.CheckMana(1)) Projectile.Kill();
                 }
             }

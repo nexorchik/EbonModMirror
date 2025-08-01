@@ -29,7 +29,7 @@ public class GarbageLaserSmall1 : ModProjectile
     public override bool? CanDamage() => false;
     public override void OnSpawn(IEntitySource source)
     {
-        Projectile.SyncProjectile();
+        Projectile.netUpdate = true; // TEST
     }
     public override void AI()
     {
@@ -140,7 +140,7 @@ public class GarbageLaserSmall2 : ModProjectile
 
     public override void OnSpawn(IEntitySource source)
     {
-        Projectile.SyncProjectile();
+        Projectile.netUpdate = true; // TEST
     }
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
     {
@@ -258,7 +258,7 @@ public class GarbageLaserSmall3 : ModProjectile
     }
     public override void OnSpawn(IEntitySource source)
     {
-        Projectile.SyncProjectile();
+        Projectile.netUpdate = true; // TEST
     }
     public override bool ShouldUpdatePosition() => false;
     public override bool? CanDamage() => false;

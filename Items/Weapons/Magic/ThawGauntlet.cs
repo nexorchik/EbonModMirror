@@ -187,7 +187,7 @@ public class ThawGauntletP2 : ModProjectile
                         {
                             didAlpha = true;
                             alpha = 1f;
-                            Projectile.SyncProjectile();
+                            Projectile.netUpdate = true; // TEST
                         }
                     }
                     if (!didAlpha)

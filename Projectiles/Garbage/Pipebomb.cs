@@ -73,7 +73,7 @@ public class Pipebomb : ModProjectile
         {
             Projectile.netUpdate = true;
             savedP = Main.player[Projectile.owner].Center.Y;
-            Projectile.SyncProjectile();
+            Projectile.netUpdate = true; // TEST
         }
         Projectile.tileCollide = Projectile.Center.Y > savedP - 20;
         if (savedP == int.MaxValue)

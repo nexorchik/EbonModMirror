@@ -35,13 +35,13 @@ public class GarbageBag : ModProjectile
         Projectile.velocity.Y *= 0.5f;
         Projectile.velocity.X = 0;
         Projectile.frame = 1;
-        Projectile.SyncProjectile();
+        Projectile.netUpdate = true; // TEST
         return false;
     }
     public override void OnSpawn(IEntitySource source)
     {
         Projectile.Opacity = 1;
-        Projectile.SyncProjectile();
+        Projectile.netUpdate = true; // TEST
     }
     public override Color? GetAlpha(Color lightColor)
     {

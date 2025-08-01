@@ -31,7 +31,7 @@ public class Mailbox : ModProjectile
     public override void OnSpawn(IEntitySource source)
     {
         Projectile.scale = 0;
-        Projectile.SyncProjectile();
+        Projectile.netUpdate = true; // TEST
     }
     public override void AI()
     {
@@ -39,7 +39,7 @@ public class Mailbox : ModProjectile
         {
             Projectile.Center = Helper.TRay.Cast(Projectile.Center, Vector2.UnitY, 1000, true);
             Projectile.ai[0] = 1;
-            Projectile.SyncProjectile();
+            Projectile.netUpdate = true; // TEST
         }
         //if (Projectile.timeLeft == 150)
         //  Projectile.NewProjectileDirect(NPC.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<CircleTelegraph>(), 0, 0);
@@ -54,7 +54,7 @@ public class Mailbox : ModProjectile
             SoundEngine.PlaySound(SoundID.Item156, Projectile.Center);
             MPUtils.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center - new Vector2(0, 44), Helper.FromAToB(Projectile.Center, Main.player[Projectile.owner].Center) * 10, ProjectileType<Pipebomb>(), Projectile.damage, 0, Projectile.owner);
             Projectile.ai[1] = 1;
-            Projectile.SyncProjectile();
+            Projectile.netUpdate = true; // TEST
         }
 
         Projectile.frame = (int)Projectile.ai[1];

@@ -117,7 +117,7 @@ public class EquilibriumP : HeldSword
                 }
             }
             _hit = true;
-            Projectile.SyncProjectile();
+            Projectile.netUpdate = true; // TEST
         }
     }
     public override bool? CanDamage() => (Ease(Utils.GetLerpValue(0f, swingTime, Projectile.timeLeft)).InRange(0.5f, 0.4f));
@@ -156,7 +156,7 @@ public class EquilibriumP : HeldSword
                     proj.timeLeft = swingTime - 18 * 5;
                     proj.SyncProjectile();
                     Projectile.active = false;
-                    Projectile.SyncProjectile();
+                    Projectile.netUpdate = true; // TEST
                 }
             }
         }
