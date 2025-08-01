@@ -93,7 +93,7 @@ public class Sheep : ModNPC
                     Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Smoke);
                     Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Silk);
                 }
-                NPC.SyncNPC();
+                NPC.netUpdate = true; // TEST
             }
         }
     }
@@ -119,7 +119,7 @@ public class Sheep : ModNPC
                     Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Smoke);
                     Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.ShimmerSpark);
                 }
-                NPC.SyncNPC();
+                NPC.netUpdate = true; // TEST
             }
         }
         if (Main.LocalPlayer.dontHurtCritters)
@@ -137,7 +137,7 @@ public class Sheep : ModNPC
                         Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Smoke);
                         Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Silk);
                     }
-                    NPC.SyncNPC();
+                    NPC.netUpdate = true; // TEST
                 }
             }
         }
@@ -217,7 +217,7 @@ public class Sheep : ModNPC
 
         if (Main.rand.NextBool(4) && NPC.Center.Distance(Main.LocalPlayer.Center) < 600)
             SoundEngine.PlaySound(EbonianSounds.sheep, NPC.Center);
-        NPC.SyncNPC();
+        NPC.netUpdate = true; // TEST
     }
     public override void FindFrame(int frameHeight)
     {

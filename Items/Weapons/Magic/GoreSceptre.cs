@@ -147,7 +147,7 @@ public class GoreBeam : ModProjectile
         {
             Projectile.direction = end.X > Projectile.Center.X ? 1 : -1;
             player.ChangeDir(Projectile.direction);
-            Projectile.timeLeft = 2;
+            Projectile.timeLeft = 10;
             player.itemTime = 2;
             player.itemAnimation = 2; if (player.HeldItem.type != ItemType<GoreSceptre>()) { player.itemTime = 0; player.itemAnimation = 0; Projectile.Kill(); }
             player.itemRotation = Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation() + (player.direction == -1 ? MathHelper.Pi : 0);

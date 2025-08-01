@@ -107,7 +107,7 @@ public class CrimsonSpearP : HeldSword
             Projectile.rotation += MathHelper.ToRadians(20 * Projectile.localAI[1]);
             if (Projectile.ai[2] < 100)
                 if (player.active && player.channel && !player.dead && !player.CCed && !player.noItems)
-                    Projectile.timeLeft = 2;
+                    Projectile.timeLeft = 10;
             Vector2 position = player.MountedCenter +
                 Projectile.velocity * (10 * Projectile.localAI[1]);
             if (player.gravDir != -1)

@@ -224,7 +224,6 @@ public class IchorGlobSmall : ModProjectile
 
         Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Blood, Projectile.velocity.X * 0.5f, Projectile.velocity.Y * 0.5f, Scale: 0.8f);
         Lighting.AddLight(Projectile.position, 0.1f, 0.1f, 0.1f);
-        Lighting.Brightness(1, 1);
         Projectile.rotation += 0.3f;
         Projectile.velocity *= 0.97f;
 

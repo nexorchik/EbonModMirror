@@ -107,7 +107,7 @@ internal class Regorger : ModNPC
         NPC.velocity = Main.rand.NextVector2Circular(10, 10);
         NPC.lifeMax *= 6;
         NPC.life = NPC.lifeMax;
-        NPC.SyncNPC();
+        NPC.netUpdate = true; // TEST
     }
     public override void AI()
     {

@@ -71,7 +71,7 @@ public class SawcitiorP : ModProjectile
         Player player = Main.player[Projectile.owner];
         if (player.active)
         {
-            Projectile.timeLeft = 2;
+            Projectile.timeLeft = 10;
             Projectile.ai[0]++;
             if (Projectile.ai[0] < 30)
             {

@@ -56,7 +56,7 @@ public class TerrortomaFlail : ModProjectile
 
         if (verlet is not null)
             verlet.Update(player.Center, Projectile.Center);
-        Projectile.timeLeft = 2;
+        Projectile.timeLeft = 10;
         if (player.dead)
         {
             Projectile.Kill();

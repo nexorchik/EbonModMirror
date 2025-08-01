@@ -65,7 +65,7 @@ public class TerrorClingerMelee : TerrorClingerGeneric // Disgusting
         NPC center = Main.npc[(int)NPC.ai[0]];
         if (NPC.Center == Vector2.Zero && center.Center != Vector2.Zero)
             NPC.Center = center.Center;
-        NPC.SyncNPC();
+        NPC.netUpdate = true; // TEST
     }
     public override void AI()
     {

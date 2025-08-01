@@ -85,7 +85,7 @@ namespace EbonianMod.Items.Pets.LilPilg
 
             if (!player.dead && player.HasBuff(ModContent.BuffType<LilPilgB>()))
             {
-                Projectile.timeLeft = 2;
+                Projectile.timeLeft = 10;
             }
 
             frameCounter++;

@@ -60,7 +60,7 @@ public class CecitiorPetP : ModProjectile
         Player player = Main.player[Projectile.owner];
         if (player.HasBuff(BuffType<CecitiorPetB>()))
         {
-            Projectile.timeLeft = 2;
+            Projectile.timeLeft = 10;
         }
         Projectile.velocity = Vector2.Lerp(Projectile.velocity, Helper.FromAToB(Projectile.Center, player.Center - new Vector2(player.direction * 50, 120), false) / 20, 0.1f);
 

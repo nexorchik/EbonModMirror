@@ -58,7 +58,7 @@ public class ExolsawP : ModProjectile
         Dust.NewDustPerfect(Projectile.Center + Main.rand.NextVector2Circular(21, 21), DustID.Torch, Vector2.Zero, Scale: Main.rand.NextFloat(0.9f, 2f)).noGravity = true;
 
         Projectile.rotation += MathHelper.ToRadians(25);
-        Projectile.timeLeft = 2;
+        Projectile.timeLeft = 10;
         Projectile.ai[0]++;
         if (Projectile.ai[0] < 30)
             Projectile.velocity *= 1.02f;

@@ -59,7 +59,7 @@ public class DoomsdayDrone : MinionAI2
         }
         if (modPlayer.doomMinion)
         {
-            Projectile.timeLeft = 2;
+            Projectile.timeLeft = 10;
         }
     }
     public override void SelectFrame()

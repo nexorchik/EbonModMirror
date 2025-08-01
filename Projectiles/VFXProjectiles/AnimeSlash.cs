@@ -82,7 +82,7 @@ public class AnimeSlash : ModProjectile
     public override void AI()
     {
         Projectile.direction = Projectile.velocity.X > 0 ? 1 : -1;
-        Projectile.timeLeft = 2;
+        Projectile.timeLeft = 10;
         if (Projectile.ai[0] <= 20 + velLen)
         {
             Projectile.scale = MathHelper.SmoothStep(0.15f, (Projectile.ai[2] == 0 ? 0.45f : Projectile.ai[2]), Projectile.ai[0] / (20 + velLen));
@@ -201,7 +201,7 @@ public class XAnimeSlash : ModProjectile
     public override void AI()
     {
         Projectile.direction = Projectile.velocity.X > 0 ? 1 : -1;
-        Projectile.timeLeft = 2;
+        Projectile.timeLeft = 10;
         if (Projectile.ai[0] <= 20 + velLen)
         {
             Projectile.scale = MathHelper.SmoothStep(0.15f, (Projectile.ai[2] == 0 ? 0.45f : Projectile.ai[2]), Projectile.ai[0] / (20 + velLen));

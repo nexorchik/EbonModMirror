@@ -57,14 +57,13 @@ public class TinyBrain : ModNPC //the class name is a reference to my brain.
     }
     public override void OnSpawn(IEntitySource source)
     {
-        Player player = Main.player[NPC.target];
+        Player player = Main.player[(int)NPC.ai[1]];
         NPC.TargetClosest(false);
     }
     public override void AI()
     {
-        Player player = Main.player[NPC.target];
-        NPC.TargetClosest(false);
-        NPC.timeLeft = 2;
+        Player player = Main.player[(int)NPC.ai[1]];
+        NPC.timeLeft = 10;
         NPC.ai[0] += 4;
         NPC.ai[3] = MathHelper.Lerp(NPC.ai[3], 1, 0.1f);
         NPC.Center = player.Center + new Vector2(90 + MathF.Sin(NPC.ai[0] * 0.01f) * 20, 0).RotatedBy(Helper.CircleDividedEqually(NPC.localAI[0], 8) + MathHelper.ToRadians(NPC.ai[0] + MathF.Sin(NPC.ai[0])) * 0.7f) * NPC.ai[3];

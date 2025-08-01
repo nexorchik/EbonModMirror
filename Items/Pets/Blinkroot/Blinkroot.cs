@@ -81,7 +81,7 @@ namespace EbonianMod.Items.Pets.Blinkroot
 
             if (!player.dead && player.HasBuff(ModContent.BuffType<BlinkrootB>()))
             {
-                Projectile.timeLeft = 2;
+                Projectile.timeLeft = 10;
             }
             if (Projectile.Center.Distance(player.Center) > 4000)
                 Projectile.Center = player.Center;

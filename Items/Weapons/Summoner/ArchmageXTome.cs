@@ -88,7 +88,7 @@ public class XTomeSummon : ModProjectile
         }
         if (modPlayer.xMinion)
         {
-            Projectile.timeLeft = 2;
+            Projectile.timeLeft = 10;
         }
         if (++Projectile.ai[1] % 100 == 0)
         {

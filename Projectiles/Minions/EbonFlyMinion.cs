@@ -71,7 +71,7 @@ public class EbonFlyMinion : ModProjectile //this is literally ExampleMinion and
         EbonianPlayer mp = player.GetModPlayer<EbonianPlayer>();
         if (mp.ToxicGland)
         {
-            Projectile.timeLeft = 2;
+            Projectile.timeLeft = 10;
         }
         #endregion
 

@@ -69,7 +69,7 @@ public class Rolleg : ModProjectile
         Player player = Main.player[Projectile.owner];
         EbonianPlayer ebonianPlayer = player.GetModPlayer<EbonianPlayer>();
         if (ebonianPlayer.rolleg)
-            Projectile.timeLeft = 2;
+            Projectile.timeLeft = 10;
         if (Projectile.ai[0] != 2)
             Projectile.velocity.Y += 0.5f;
         Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X < 0 ? 1 : -1;

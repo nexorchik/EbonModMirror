@@ -39,7 +39,7 @@ public class CecitiorClawMinion : ModProjectile
         }
         if (modPlayer.cClawMinion)
         {
-            Projectile.timeLeft = 2;
+            Projectile.timeLeft = 10;
         }
         Vector2 targetPos = Projectile.position;
         Vector2 targetVel = Projectile.velocity;

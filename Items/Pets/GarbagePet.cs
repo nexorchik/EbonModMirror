@@ -96,7 +96,7 @@ public class GarbagePetP : ModProjectile
         }
         if (player.HasBuff(BuffType<GarbagePetB>()))
         {
-            Projectile.timeLeft = 2;
+            Projectile.timeLeft = 10;
         }
     }
 }

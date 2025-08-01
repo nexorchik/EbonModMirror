@@ -115,7 +115,7 @@ public class SheepPetP : ModProjectile
         }
         if (player.HasBuff(BuffType<SheepPetB>()))
         {
-            Projectile.timeLeft = 2;
+            Projectile.timeLeft = 10;
         }
     }
 }

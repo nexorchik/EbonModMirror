@@ -1349,13 +1349,13 @@ public class ArchmageX : CommonNPC
                                 disposablePos[2] = Main.rand.NextVector2FromRectangle(rect);
                             }
                             disposablePos[2] = Helper.TRay.Cast(disposablePos[2], Vector2.UnitY, 1000, true) - new Vector2(0, NPC.height / 2 + 8);
-                            NPC.SyncNPC();
+                            NPC.netUpdate = true; // TEST
                         }
                         MPUtils.NewProjectile(null, disposablePos[2], Vector2.Zero, ProjectileType<XExplosionInvis>(), 0, 0);
                         if (disposablePos[2].Distance(NPC.Center) < 3000)
                         {
                             NPC.Center = disposablePos[2];
-                            NPC.SyncNPC();
+                            NPC.netUpdate = true; // TEST
                         }
                     }
                     if ((AITimer <= 120 && AITimer >= 110) || AITimer == 160 || (AITimer <= 190 && AITimer >= 170) || (AITimer <= 250 && AITimer >= 240))

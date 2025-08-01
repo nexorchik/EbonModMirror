@@ -92,7 +92,7 @@ public class ClumpOfMeat : ModNPC
                 }
                 Main.BestiaryTracker.Kills.RegisterKill(NPC);
                 NPC.SimpleStrikeNPC(NPC.lifeMax * 2, 0);
-                NPC.SyncNPC();
+                NPC.netUpdate = true; // TEST
             }
         }
     }

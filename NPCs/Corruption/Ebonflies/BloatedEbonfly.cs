@@ -83,7 +83,7 @@ public class BloatedEbonfly : ModNPC
         NPC.velocity = Main.rand.NextVector2Unit();
         if (NPC.ai[3] < -2)
             NPC.dontTakeDamage = true;
-        NPC.SyncNPC();
+        NPC.netUpdate = true; // TEST
     }
     float glowAlpha = 0;
     Vector2 lastPos;

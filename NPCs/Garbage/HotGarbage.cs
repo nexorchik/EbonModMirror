@@ -1789,7 +1789,7 @@ public class HotGarbageNuke : ModProjectile
             Projectile.Kill();
         }
         extraString = Language.GetText("Mods.EbonianMod.Dialogue.HotGarbageDialogue.Nuke") + ": ";
-        Projectile.timeLeft = 2;
+        Projectile.timeLeft = 10;
         float _alpha = Utils.GetLerpValue(0, 2, waveTimer);
         float alpha2 = Clamp((float)Math.Sin(_alpha * Math.PI) * 3, 0, 1f);
 

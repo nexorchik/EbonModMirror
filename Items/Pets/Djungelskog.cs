@@ -130,7 +130,7 @@ public class Djungelskog : ModProjectile
         }
         if (player.HasBuff(BuffType<DjungelskogB>()))
         {
-            Projectile.timeLeft = 2;
+            Projectile.timeLeft = 10;
         }
     }
 }
