@@ -38,7 +38,7 @@ public class CecitiorClawSummon : ModItem
         player.AddBuff(Item.buffType, 2);
         var projectile = Projectile.NewProjectileDirect(source, position, velocity, type, damage, knockback, Main.myPlayer);
         projectile.originalDamage = Item.damage;
-        Projectile.netUpdate = true; // TEST
+        projectile.SyncProjectile();
 
         return false;
     }

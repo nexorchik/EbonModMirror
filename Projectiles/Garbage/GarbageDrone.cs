@@ -202,7 +202,6 @@ public class GarbageLightning : ModProjectile
     public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI) => behindNPCs.Add(index);
     public override void OnSpawn(IEntitySource source)
     {
-        sound = SoundID.DD2_LightningAuraZap.WithVolumeScale(0.5f);
         end = Projectile.Center;
     }
     public override bool ShouldUpdatePosition()
@@ -224,7 +223,7 @@ public class GarbageLightning : ModProjectile
     bool RunOnce;
     List<Vector2> points = new List<Vector2>();
     Vector2 end;
-    SoundStyle sound;
+    static SoundStyle sound => SoundID.DD2_LightningAuraZap.WithVolumeScale(0.5f);
     public override void AI()
     {
         Projectile.direction = end.X > Projectile.Center.X ? 1 : -1;
@@ -267,7 +266,7 @@ public class GarbageLightning : ModProjectile
         {
             Projectile.ai[0]++;
 
-            if (Projectile.ai[0] % 5 == 0)
+            if ((int)Projectile.ai[0] % 5 == 0)
             {
                 float s = 1;
                 for (int i = 0; i < points.Count; i++)

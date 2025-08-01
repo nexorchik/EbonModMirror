@@ -1,6 +1,6 @@
 ﻿namespace EbonianMod.Common;
 
-public class EbonianKeybinds : ModSystem
+public class Keybinds : ModSystem
 {
     public static ModKeybind ReiDash { get; private set; }
 

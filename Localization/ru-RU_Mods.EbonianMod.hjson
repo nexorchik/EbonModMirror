@@ -1604,12 +1604,12 @@ Items: {
 	}
 
 	Cecibody: {
-		// DisplayName: Sightless Hood
+		// DisplayName: Sightless Breastplate
 		// Tooltip: Increases melee damage by {0}% and melee speed by {1}%
 	}
 
 	Cecihead: {
-		// DisplayName: Sightless Breastplate
+		// DisplayName: Sightless Hood
 		// Tooltip: Increases melee damage by {0}% and melee speed by {1}%
 		// SetBonus: Killing enemies has a 1/4 chance to trigger an ichor explosion
 	}
@@ -1620,12 +1620,12 @@ Items: {
 	}
 
 	Terrorbody: {
-		// DisplayName: Tumorous Helmet
+		// DisplayName: Tumorous Breastplate
 		// Tooltip: Increases magic damage by {0}% and maximum mana by {1}
 	}
 
 	Terrorhead: {
-		// DisplayName: Tumorous Breastplate
+		// DisplayName: Tumorous Helmet
 		// Tooltip: Increases magic damage by {0}% and magic critical strike chance by {1}%
 		// SetBonus: Dealing enough damage unleashes a burst of cursed flame onto the target
 	}

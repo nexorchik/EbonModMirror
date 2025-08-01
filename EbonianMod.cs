@@ -17,7 +17,7 @@ public class EbonianMod : Mod
     public static List<int> projectileFinalDrawList = new List<int>();
     public RenderTarget2D blurrender;
     public EbonianMod() => MusicSkipsVolumeRemap = true;
-    public override void HandlePacket(BinaryReader reader, int whoAmI) => EbonianNetCode.HandlePackets(reader);
+    public override void HandlePacket(BinaryReader reader, int whoAmI) => Packets.HandlePackets(reader);
     public override void Load()
     {
         LoadEffects();

@@ -37,7 +37,7 @@ public static class MPUtils
     {
         if (dedServ ? Main.dedServ : !NotMPClient && Main.LocalPlayer.whoAmI == 0)
         {
-            ModPacket packet = EbonianNetCode.Write(noDupes ? MessageType.SpawnBoss : MessageType.SpawnNPC);
+            ModPacket packet = Packets.Write(noDupes ? MessageType.SpawnBoss : MessageType.SpawnNPC);
             packet.WriteVector2(position);
             packet.Write(type);
             packet.Write(ai0);

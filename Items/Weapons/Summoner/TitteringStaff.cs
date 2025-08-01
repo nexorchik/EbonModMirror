@@ -38,7 +38,7 @@ internal class TitteringStaff : ModItem
         player.AddBuff(Item.buffType, 2);
         var projectile = Projectile.NewProjectileDirect(source, player.Center, Vector2.Zero, type, damage, knockback, player.whoAmI);
         projectile.originalDamage = Item.damage;
-        Projectile.netUpdate = true; // TEST
+        projectile.SyncProjectile();
 
         return false;
     }

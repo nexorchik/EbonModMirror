@@ -28,7 +28,7 @@ public class ReiMask : ModItem
         TooltipLine line = tooltips.FirstOrDefault(x => x.Text.Contains("{ReiM_Keybind}"));
         if (line is not null)
         {
-            line.Text = line.Text.Replace("{ReiM_Keybind}", "[" + EbonianKeybinds.ReiDash.GetAssignedKeys().FirstOrDefault("<unbound>") + "]");
+            line.Text = line.Text.Replace("{ReiM_Keybind}", "[" + Keybinds.ReiDash.GetAssignedKeys().FirstOrDefault("<unbound>") + "]");
         }
     }
     public override void UpdateVanity(Player player)
@@ -51,7 +51,7 @@ public class ReiMask : ModItem
         {
             Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ProjectileType<ReiCapeP>(), 0, 0, player.whoAmI);
         }
-        if (EbonianKeybinds.ReiDash.JustReleased && modPlayer.reiBoostCool <= 0 && player.whoAmI == Main.myPlayer)
+        if (Keybinds.ReiDash.JustReleased && modPlayer.reiBoostCool <= 0 && player.whoAmI == Main.myPlayer)
         {
             foreach (NPC npc in Main.ActiveNPCs)
             {
