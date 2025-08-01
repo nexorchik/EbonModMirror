@@ -91,17 +91,15 @@ public class Sheep : ModNPC
                     Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Smoke);
                     Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Silk);
                 }
+                NPC.SyncNPC();
             }
         }
     }
     public override bool? CanBeHitByItem(Player player, Item item)
     {
-        if (sheared && (item.type == ItemType<Shears>() || item.type == ItemID.StylistKilLaKillScissorsIWish)) return false;
+        if (sheared && (item.type == ItemType<Shears>() || item.type == ItemID.StylistKilLaKillScissorsIWish))
+            return false;
         return base.CanBeHitByItem(player, item);
-    }
-    public override bool? CanCollideWithPlayerMeleeAttack(Player player, Item item, Rectangle meleeAttackHitbox)
-    {
-        return base.CanCollideWithPlayerMeleeAttack(player, item, meleeAttackHitbox);
     }
     public override void AI()
     {
