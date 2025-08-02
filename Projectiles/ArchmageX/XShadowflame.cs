@@ -24,14 +24,6 @@ public class XShadowflame : ModProjectile
         vel.SafeNormalize(-Vector2.UnitY);
         return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), Projectile.Center, Projectile.Center + vel * 200, 20, ref a);
     }
-    public override void SendExtraAI(BinaryWriter writer)
-    {
-        writer.Write(Projectile.localAI[1]);
-    }
-    public override void ReceiveExtraAI(BinaryReader reader)
-    {
-        Projectile.localAI[1] = reader.ReadSingle();
-    }
     public override bool ShouldUpdatePosition() => false;
     public override bool? CanDamage() => Projectile.ai[2] >= 1f;
     float riftAlpha;

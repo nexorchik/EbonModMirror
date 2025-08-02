@@ -31,10 +31,6 @@ public class TinyBrain : ModNPC //the class name is a reference to my brain.
         NPC.friendly = true;
         NPC.dontTakeDamage = false;
     }
-    public override void SendExtraAI(BinaryWriter writer)
-    {
-        writer.Write(NPC.localAI[0]);
-    }
     public override void OnHitByProjectile(Projectile projectile, NPC.HitInfo hitinfo, int damage)
     {
         if (projectile.timeLeft > 2 && projectile.penetrate > 1 && projectile.velocity != Vector2.Zero && projectile.ModProjectile.ShouldUpdatePosition())
@@ -50,10 +46,6 @@ public class TinyBrain : ModNPC //the class name is a reference to my brain.
         Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/TinyBrainGore3").Type, NPC.scale);
         Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/TinyBrainGore4").Type, NPC.scale);
         return true;
-    }
-    public override void ReceiveExtraAI(BinaryReader reader)
-    {
-        NPC.localAI[0] = reader.ReadSingle();
     }
     public override void OnSpawn(IEntitySource source)
     {

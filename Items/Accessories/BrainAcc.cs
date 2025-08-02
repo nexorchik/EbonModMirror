@@ -38,9 +38,7 @@ public class BrainAcc : ModItem
                 for (int k = 0; k < 8; k++)
                 {
                     float angle = 2f * (float)Math.PI / 8f * k;
-                    NPC npc = NPC.NewNPCDirect(player.GetSource_Accessory(Item), player.Center, NPCType<TinyBrain>(), ai1: player.whoAmI);
-                    npc.localAI[0] = k;
-                    NetMessage.SendData(MessageID.SyncNPC, -1, -1, null, npc.whoAmI);
+                    MPUtils.NewNPC(player.Center, NPCType<TinyBrain>(), ai1: player.whoAmI, ai2: k);
                 }
                 timer = 0;
             }

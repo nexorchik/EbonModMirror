@@ -36,14 +36,6 @@ public class DoomsdayDrone : MinionAI2
         shootSpeed = 12f;
         shootCool = 30;
     }
-    public override void SendExtraAI(BinaryWriter writer)
-    {
-        writer.Write(Projectile.localAI[0]);
-    }
-    public override void ReceiveExtraAI(BinaryReader reader)
-    {
-        Projectile.localAI[0] = reader.ReadSingle();
-    }
     public override void ExtraTargetAI(Vector2 pos)
     {
         if (++Projectile.localAI[0] % 50 == 0)

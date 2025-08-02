@@ -135,16 +135,12 @@ public class ThawGauntletP2 : ModProjectile
     float alpha, vel = 5;
     public override void SendExtraAI(BinaryWriter writer)
     {
-        writer.Write(Projectile.localAI[0]);
-        writer.Write(Projectile.localAI[1]);
         writer.Write(alpha);
         writer.Write(vel);
         writer.Write(didAlpha);
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
-        Projectile.localAI[0] = reader.ReadSingle();
-        Projectile.localAI[1] = reader.ReadSingle();
         alpha = reader.ReadSingle();
         vel = reader.ReadSingle();
         didAlpha = reader.ReadBoolean();

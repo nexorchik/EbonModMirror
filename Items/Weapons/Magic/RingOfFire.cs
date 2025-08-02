@@ -70,16 +70,6 @@ public class RingOfFireP : ModProjectile
             Projectile.netUpdate = true; // TEST
         }
     }
-    public override void SendExtraAI(BinaryWriter writer)
-    {
-        writer.Write(Projectile.localAI[1]);
-        writer.Write(Projectile.localAI[0]);
-    }
-    public override void ReceiveExtraAI(BinaryReader reader)
-    {
-        Projectile.localAI[1] = reader.ReadSingle();
-        Projectile.localAI[0] = reader.ReadSingle();
-    }
     public override void OnKill(int timeLeft)
     {
         Helper.DustExplosion(Projectile.Center, Vector2.One, 2, Color.Transparent, false, true);
@@ -166,11 +156,11 @@ public class RingOfFireP2 : ModProjectile // shout out to vanilla code
     }
     public override void SendExtraAI(BinaryWriter writer)
     {
-        writer.Write(Projectile.localAI[0]);
+        writer.Write(proj);
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
-        Projectile.localAI[0] = reader.ReadSingle();
+        proj = reader.ReadInt32();
     }
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
@@ -232,21 +222,22 @@ public class RingOfFireP2 : ModProjectile // shout out to vanilla code
     }
     public override void OnSpawn(IEntitySource source)
     {
-        proj = Main.projectile[(int)Projectile.ai[2]];
+        proj = (int)Projectile.ai[2];
         if (Projectile.localAI[1] == 0)
             Projectile.localAI[1] = 1;
         if (Projectile.localAI[0] == 0)
             Projectile.localAI[0] = 400f;
         if (Projectile.ai[1] == 0)
             Projectile.ai[1] = 1;
+        Projectile.netUpdate = true;
     }
-    Projectile proj = null;
+    int proj = -1;
     public override void AI()
     {
         Projectile.CritChance = 0;
-        proj = Main.projectile[(int)Projectile.ai[2]];
-        if (proj is not null)
-            if (proj.active && proj.type == ProjectileType<RingOfFireP>() && proj.whoAmI == Projectile.ai[2])
+        Projectile _proj = Main.projectile[(int)Projectile.ai[2]];
+        if (_proj is not null)
+            if (_proj.active && _proj.type == ProjectileType<RingOfFireP>() && _proj.whoAmI == (int)Projectile.ai[2])
                 Projectile.Center = Main.projectile[(int)Projectile.ai[2]].Center;
         if (Projectile.ai[1] != 0)
             Projectile.scale = Projectile.ai[1];

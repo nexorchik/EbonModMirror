@@ -58,18 +58,6 @@ public abstract class HeldSword : ModProjectile
     {
 
     }
-    public override void SendExtraAI(BinaryWriter writer)
-    {
-        writer.Write(Projectile.localAI[0]);
-        writer.Write(Projectile.localAI[1]);
-        writer.Write(Projectile.localAI[2]);
-    }
-    public override void ReceiveExtraAI(BinaryReader reader)
-    {
-        Projectile.localAI[0] = reader.ReadSingle();
-        Projectile.localAI[1] = reader.ReadSingle();
-        Projectile.localAI[2] = reader.ReadSingle();
-    }
     public Player.CompositeArmStretchAmount stretch = Player.CompositeArmStretchAmount.Full;
     public bool useHeld = true;
     public override void AI()
