@@ -198,6 +198,7 @@ public class AsteroidWarden : CommonNPC
                 NPC.velocity = Vector2.Zero;
                 AITimer = 0;
                 AIState = next;
+                NPC.netUpdate = true;
             }
         }
         else if (AIState == 1)
@@ -238,6 +239,7 @@ public class AsteroidWarden : CommonNPC
                 AITimer = -100;
                 AIState = 0;
                 next = 2;
+                NPC.netUpdate = true;
             }
         }
         else
@@ -276,7 +278,11 @@ public class AsteroidWarden : CommonNPC
                 AITimer2 = 0;
                 NPC.localAI[0] = 0;
                 AIState = 0;
-                next = Main.rand.NextBool(3) ? 1 : 2;
+                if (Main.dedServ)
+                {
+                    next = Main.rand.NextBool(3) ? 1 : 2;
+                    NPC.netUpdate = true;
+                }
             }
         }
     }
