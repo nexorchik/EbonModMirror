@@ -31,6 +31,7 @@ public class TinyFish : ModProjectile
     {
         Projectile.velocity = new Vector2(Main.rand.NextFloat(-1.5f, 1.5f), -Projectile.oldVelocity.Y * 0.8f);
         Projectile.aiStyle = 2;
+        Projectile.netUpdate = true;
         return false;
     }
 

@@ -106,9 +106,9 @@ public class GutlingGunP : ModProjectile
             }
             SoundEngine.PlaySound(SoundID.Item11.WithPitchOffset(Main.rand.NextFloat(-1f, 0.2f)), player.Center);
             SoundEngine.PlaySound(SoundID.NPCHit9.WithPitchOffset(Main.rand.NextFloat(1f, 0.4f)), player.Center);
+            Scale = new Vector2(0.8f, 1.3f);
             if (player.whoAmI == Main.myPlayer)
-                Scale = new Vector2(0.8f, 1.3f);
-            Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.velocity * 10, Projectile.velocity.RotatedBy(Main.rand.NextFloat(-(MathHelper.Pi / 16), MathHelper.Pi / 16)) * Main.rand.NextFloat(20, 25), ProjectileType<CecitiorTeethFriendly>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Projectile.Center + Projectile.velocity * 10, Projectile.velocity.RotatedBy(Main.rand.NextFloat(-(MathHelper.Pi / 16), MathHelper.Pi / 16)) * Main.rand.NextFloat(20, 25), ProjectileType<CecitiorTeethFriendly>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
             Projectile.ai[1] = 0;
         }
     }
