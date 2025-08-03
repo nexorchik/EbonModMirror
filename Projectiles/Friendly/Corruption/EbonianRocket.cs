@@ -114,7 +114,8 @@ public class EbonianRocket : ModProjectile
         {
             if (Projectile.ai[0] == 41)
             {
-                Projectile.velocity = Projectile.rotation.ToRotationVector2();
+                if (Main.myPlayer == Projectile.owner)
+                    Projectile.velocity = Projectile.rotation.ToRotationVector2();
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (Projectile.ai[1] == 2)
@@ -137,7 +138,8 @@ public class EbonianRocket : ModProjectile
         else
         {
             Projectile.velocity *= 0.86f;
-            Projectile.rotation = Helper.FromAToB(Projectile.Center, Main.MouseWorld).ToRotation();
+            if (Main.myPlayer == Projectile.owner)
+                Projectile.rotation = Helper.FromAToB(Projectile.Center, Main.MouseWorld).ToRotation();
         }
     }
 }

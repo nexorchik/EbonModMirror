@@ -150,10 +150,10 @@ public class GoreBeam : ModProjectile
             Projectile.timeLeft = 10;
             player.itemTime = 2;
             player.itemAnimation = 2; if (player.HeldItem.type != ItemType<GoreSceptre>()) { player.itemTime = 0; player.itemAnimation = 0; Projectile.Kill(); }
-            player.itemRotation = Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation() + (player.direction == -1 ? MathHelper.Pi : 0);
+            player.itemRotation = Helper.FromAToB(player.Center, end).ToRotation() + (player.direction == -1 ? MathHelper.Pi : 0);
             if (player.gravDir != -1)
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation() - MathHelper.PiOver2);
-            Projectile.velocity = Helper.FromAToB(player.Center, Main.MouseWorld);
+            Projectile.velocity = Helper.FromAToB(player.Center, end);
             Projectile.rotation = Projectile.velocity.ToRotation();
 
             if (player.Distance(end) < 200)
@@ -191,6 +191,7 @@ public class GoreBeam : ModProjectile
                 Projectile.damage++;
                 Projectile.ai[2]++;
                 Projectile.ai[0] = 0;
+                Projectile.netUpdate = true;
             }
 
             if (Projectile.ai[0] % 3 == 0)
@@ -217,7 +218,7 @@ public class GoreBeam : ModProjectile
             }
 
 
-            points[0] = player.Center + Helper.FromAToB(player.Center, Main.MouseWorld) * 40 - new Vector2(0, 3).RotatedBy(dirr.ToRotation() + MathHelper.Pi / 2);
+            points[0] = player.Center + Helper.FromAToB(player.Center, end) * 40 - new Vector2(0, 3).RotatedBy(dirr.ToRotation() + MathHelper.Pi / 2);
             float range = (Projectile.ai[2] + 2) * 96;
             if (Main.myPlayer == Projectile.owner)
             {

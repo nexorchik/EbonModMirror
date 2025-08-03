@@ -74,7 +74,7 @@ public class ThawGauntletP : ModProjectile
         Lighting.AddLight(Projectile.Center, new Vector3(0, 169, 255) / 255 * 0.5f);
         foreach (Player player in Main.player)
         {
-            if (player == Main.player[Projectile.owner] && player.whoAmI == Main.myPlayer)
+            if (player.whoAmI == Projectile.owner && player.whoAmI == Main.myPlayer)
             {
                 if (Projectile.ai[1] == 1)
                 {
@@ -169,7 +169,7 @@ public class ThawGauntletP2 : ModProjectile
         Lighting.AddLight(Projectile.Center, new Vector3(0, 169, 255) / 255 * 0.5f);
         foreach (Player player in Main.player)
         {
-            if (player == Main.player[Projectile.owner] && player == Main.LocalPlayer)
+            if (player.whoAmI == Projectile.owner && player.whoAmI == Main.myPlayer)
             {
                 if ((int)Projectile.ai[0] == 0)
                 {

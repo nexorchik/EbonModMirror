@@ -160,7 +160,8 @@ public class FangSlingerP : ModProjectile
             }
             if (Projectile.timeLeft > 50 && Projectile.timeLeft < maxTime - 1)
                 Projectile.ai[2] += 0.5f;
-            Projectile.velocity = Vector2.Lerp(Projectile.velocity, Helper.FromAToB(player.Center, Main.MouseWorld), 0.5f - MathHelper.Lerp(0, 0.2f, Projectile.timeLeft / 30)).SafeNormalize(Vector2.UnitX);
+            if (Main.myPlayer == Projectile.owner)
+                Projectile.velocity = Vector2.Lerp(Projectile.velocity, Helper.FromAToB(player.Center, Main.MouseWorld), 0.5f - MathHelper.Lerp(0, 0.2f, Projectile.timeLeft / 30)).SafeNormalize(Vector2.UnitX);
         }
         else
         {
