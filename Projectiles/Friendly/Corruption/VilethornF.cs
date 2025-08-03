@@ -65,10 +65,7 @@ public class VilethornF1 : ModProjectile
             }
             if (Projectile.owner == Main.myPlayer)
             {
-                int num63 = Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.position + Projectile.velocity + Projectile.Size / 2, Projectile.velocity.Length() * vel, num62, Projectile.damage, 1, Projectile.owner);
-                Main.projectile[num63].damage = Projectile.damage;
-                Main.projectile[num63].ai[1] = Projectile.ai[1] + 1f;
-                Main.projectile[num63].ai[2] = Projectile.ai[2];
+                int num63 = Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.position + Projectile.velocity + Projectile.Size / 2, Projectile.velocity.Length() * vel, num62, Projectile.damage, 1, Projectile.owner, 0, Projectile.ai[1] + 1, Projectile.ai[2]);
                 NetMessage.SendData(27, -1, -1, null, num63);
             }
             Projectile.netUpdate = true;

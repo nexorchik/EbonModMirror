@@ -1,5 +1,6 @@
 ﻿using EbonianMod.Dusts;
 using ReLogic.Utilities;
+using System.IO;
 
 namespace EbonianMod.Items.Weapons.Melee;
 
@@ -103,9 +104,19 @@ public class GhizasWheelP : ModProjectile
         }
     }
     float lerpT = 0.5f;
+    Vector2 mousePos;
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        writer.Write(lerpT);
+        writer.WriteVector2(mousePos);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        lerpT = reader.ReadSingle();
+        mousePos = reader.ReadVector2();
+    }
     public override void AI()
     {
-
         Player player = Main.player[Projectile.owner];
         if (!player.active || player.dead || player.CCed || player.noItems || !player.channel || !player.channel)
         {
@@ -148,6 +159,7 @@ public class GhizasWheelP : ModProjectile
         }
         Projectile.timeLeft = 10;
         Projectile.direction = Projectile.velocity.X > 0 ? 1 : -1;
+
         Vector2 pos = player.RotatedRelativePoint(player.MountedCenter);
         player.ChangeDir(Projectile.velocity.X < 0 ? -1 : 1);
         player.itemRotation = (Projectile.velocity.ToRotation()) * player.direction;
@@ -156,7 +168,13 @@ public class GhizasWheelP : ModProjectile
         Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
         if (player.gravDir != -1)
             player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.velocity.ToRotation() - MathHelper.PiOver2);
-        Projectile.velocity = Vector2.Lerp(Projectile.velocity, Helper.FromAToB(player.Center, Main.MouseWorld), lerpT).SafeNormalize(Vector2.UnitX);
+        if (player.whoAmI == Main.myPlayer)
+            mousePos = Main.MouseWorld;
+
+        if ((int)(Projectile.ai[1] * 10) % 15 == 0 || (int)Projectile.ai[1] == 0)
+            Projectile.netUpdate = true;
+
+        Projectile.velocity = Vector2.Lerp(Projectile.velocity, Helper.FromAToB(player.Center, mousePos), lerpT).SafeNormalize(Vector2.UnitX);
 
         Projectile.ai[0] = MathHelper.Clamp(MathHelper.Lerp(Projectile.ai[0], 1, 0.05f), 0, 1);
 

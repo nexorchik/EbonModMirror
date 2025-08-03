@@ -1,12 +1,13 @@
-﻿using Microsoft.Xna.Framework.Graphics.PackedVector;
+﻿using EbonianMod.Dusts;
+using Microsoft.Xna.Framework.Graphics.PackedVector;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Terraria.GameContent.Drawing;
 using Terraria;
-using EbonianMod.Dusts;
+using Terraria.GameContent.Drawing;
 
 namespace EbonianMod.Projectiles.Enemy.Overworld;
 public class Kodama : ModProjectile
@@ -113,6 +114,19 @@ public class KodamaF : Kodama
         }
     }
     Vector2 pos, vel;
+    Vector2 mousePos;
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        writer.WriteVector2(vel);
+        writer.WriteVector2(pos);
+        writer.WriteVector2(mousePos);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        vel = reader.ReadVector2();
+        pos = reader.ReadVector2();
+        mousePos = reader.ReadVector2();
+    }
     public override void AI()
     {
         if (vel == Vector2.Zero)
@@ -134,6 +148,9 @@ public class KodamaF : Kodama
             float rand = Main.rand.NextFloat(-0.5f, 0.5f);
             for (int i = 0; i < Projectile.oldPos.Length; i++)
                 Projectile.oldPos[i] = Projectile.position - Projectile.velocity.RotatedBy(rand) * i * 0.4f;
+            if (Main.myPlayer == Projectile.owner)
+                mousePos = Main.MouseWorld;
+            Projectile.netUpdate = true;
         }
         for (int i = 0; i < Projectile.oldPos.Length; i += 2)
             Lighting.AddLight(Projectile.oldPos[i] + Projectile.Size / 2, 197f / 255f * (1 - 1f / Projectile.oldPos.Length * i), 226f / 255f * (1 - 1f / Projectile.oldPos.Length * i), 105f / 255f * (1 - 1f / Projectile.oldPos.Length * i));
@@ -144,6 +161,9 @@ public class KodamaF : Kodama
 
 
         Projectile.ai[0] += 0.5f;
+        if ((int)(Projectile.ai[0] * 2) % 15 == 0)
+            Projectile.netUpdate = true;
+
         if (Projectile.ai[0] > 100)
             alpha = Lerp(alpha, 0, 0.1f);
 
@@ -153,7 +173,7 @@ public class KodamaF : Kodama
         {
             alpha = Lerp(alpha, 1, 0.1f);
             if (Projectile.ai[0] < 5)
-                vel = Helper.FromAToB(Projectile.Center - new Vector2(0, 150), Main.MouseWorld);
+                vel = Helper.FromAToB(Projectile.Center - new Vector2(0, 150), mousePos);
         }
         if (Projectile.ai[0] > 110)
             Projectile.Kill();

@@ -171,7 +171,7 @@ public class ThawGauntletP2 : ModProjectile
         {
             if (player == Main.player[Projectile.owner] && player == Main.LocalPlayer)
             {
-                if (Projectile.ai[0] == 0)
+                if ((int)Projectile.ai[0] == 0)
                 {
                     Projectile.Center = player.Center + Helper.FromAToB(player.Center, Main.MouseWorld) * 40;
                     Projectile.velocity = Helper.FromAToB(player.Center, Main.MouseWorld) * 5;
@@ -197,7 +197,7 @@ public class ThawGauntletP2 : ModProjectile
                     else
                         Projectile.timeLeft = 300;
                 }
-                if (Projectile.ai[0] == 0 && (!player.channel || player.statMana <= 0 || !player.CheckMana(1)))
+                if ((int)Projectile.ai[0] == 0 && (!player.channel || player.statMana <= 0 || !player.CheckMana(1)))
                 {
                     if (Projectile.localAI[0] < 0.95f)
                         Projectile.Kill();
@@ -206,7 +206,7 @@ public class ThawGauntletP2 : ModProjectile
                 }
             }
         }
-        if (Projectile.ai[0] != 0)
+        if ((int)Projectile.ai[0] != 0)
         {
             Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0 ? 1 : -1;
 

@@ -22,6 +22,7 @@ public class XAmethyst : ModProjectile
     public override bool OnTileCollide(Vector2 oldVelocity)
     {
         Projectile.velocity = -oldVelocity;
+        Projectile.netUpdate = true;
         return false;
     }
     public override bool? CanDamage() => Projectile.velocity.Length() > 2.5f;
@@ -194,5 +195,17 @@ public class XAmethystCloseIn : ModProjectile
                     Projectile.Kill();
             }
         }
+    }
+}
+
+public class XAmethystFriendly : XAmethyst
+{
+    public override string Texture => "EbonianMod/Projectiles/ArchmageX/XAmethyst";
+    public override void SetDefaults()
+    {
+        base.SetDefaults();
+        Projectile.DamageType = DamageClass.Magic;
+        Projectile.friendly = true;
+        Projectile.hostile = false;
     }
 }

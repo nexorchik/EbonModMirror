@@ -111,16 +111,7 @@ public class RingOfFireP : ModProjectile
                     {
                         float angle = Helper.CircleDividedEqually(i, 8) + Projectile.rotation;
                         Vector2 vel = Vector2.One.RotatedBy(angle);
-                        Projectile a = Projectile.NewProjectileDirect(Terraria.Entity.InheritSource(Projectile), Projectile.Center, vel, ProjectileType<RingOfFireP2>(), 5, Projectile.knockBack, Projectile.owner);
-                        a.friendly = true;
-                        a.hostile = false;
-                        a.localAI[0] = 100;
-                        a.localAI[1] = 2;
-                        a.ai[2] = Projectile.whoAmI;
-                        a.scale = 0.25f;
-                        a.ai[1] = 0.25f;
-                        a.ArmorPenetration = 9999;
-                        a.SyncProjectile();
+                        Projectile.NewProjectileDirect(Terraria.Entity.InheritSource(Projectile), Projectile.Center, vel, ProjectileType<RingOfFireP2>(), 5, Projectile.knockBack, Projectile.owner, ai2: Projectile.whoAmI);
                     }
             }
         }
@@ -215,6 +206,8 @@ public class RingOfFireP2 : ModProjectile // shout out to vanilla code
         Projectile.usesLocalNPCImmunity = true;
         Projectile.hide = true;
         Projectile.localNPCHitCooldown = 5;
+        Projectile.scale = 0.25f;
+        Projectile.ArmorPenetration = 9999;
     }
     public override bool ShouldUpdatePosition()
     {
@@ -223,17 +216,18 @@ public class RingOfFireP2 : ModProjectile // shout out to vanilla code
     public override void OnSpawn(IEntitySource source)
     {
         proj = (int)Projectile.ai[2];
-        if (Projectile.localAI[1] == 0)
-            Projectile.localAI[1] = 1;
-        if (Projectile.localAI[0] == 0)
-            Projectile.localAI[0] = 400f;
-        if (Projectile.ai[1] == 0)
-            Projectile.ai[1] = 1;
         Projectile.netUpdate = true;
     }
     int proj = -1;
     public override void AI()
     {
+        if (Projectile.localAI[1] == 0)
+            Projectile.localAI[1] = 2;
+        if (Projectile.localAI[0] == 0)
+            Projectile.localAI[0] = 100f;
+        if (Projectile.ai[1] == 0)
+            Projectile.ai[1] = 0.25f;
+
         Projectile.CritChance = 0;
         Projectile _proj = Main.projectile[(int)Projectile.ai[2]];
         if (_proj is not null)

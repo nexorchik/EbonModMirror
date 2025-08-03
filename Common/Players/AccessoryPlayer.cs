@@ -30,22 +30,7 @@ public class AccessoryPlayer : ModPlayer
     {
         if (item.DamageType == DamageClass.Magic && xTent && xTentCool <= 0 && Main.myPlayer == Player.whoAmI)
         {
-            if (Main.CurrentFrameFlags.ActivePlayersCount > 1)
-            {
-                ModPacket packet = Packets.Write(MessageType.OnHitAccessory);
-                packet.Write(0);
-                packet.Write(Player.whoAmI);
-                packet.WriteVector2(Main.MouseWorld);
-                packet.Send();
-            }
-            else
-            {
-                Projectile p = Projectile.NewProjectileDirect(null, Player.Center, Helper.FromAToB(Player.Center, Main.MouseWorld) * 8, ProjectileType<XAmethyst>(), 50, 0, Player.whoAmI);
-                p.DamageType = DamageClass.Magic;
-                p.friendly = true;
-                p.hostile = false;
-                p.SyncProjectile();
-            }
+            Projectile p = Projectile.NewProjectileDirect(null, Player.Center, Helper.FromAToB(Player.Center, Main.MouseWorld) * 8, ProjectileType<XAmethystFriendly>(), 50, 0, Player.whoAmI);
             xTentCool = 60;
         }
         return base.Shoot(item, source, position, velocity, type, damage, knockback);
@@ -55,29 +40,16 @@ public class AccessoryPlayer : ModPlayer
     {
         if (starBit && !target.friendly && hit.Crit && target.lifeMax > 10 && target.type != NPCID.TargetDummy)
         {
-            Vector2 pos = Vector2.Zero;
             int random = Main.rand.Next(1, 3);
             Vector2 spawnpos = new Vector2(0, Player.position.Y + 900);
+            Vector2 pos = Vector2.Zero;
             if (random == 1)
                 pos = new Vector2(Player.position.X + 1000, spawnpos.Y - Main.rand.Next(1, 1800));
             else
                 pos = new Vector2(Player.position.X - 1000, spawnpos.Y - Main.rand.Next(1, 1800));
+            Vector2 direction = Helper.FromAToB(pos, target.Center + target.velocity);
 
-            if (Main.CurrentFrameFlags.ActivePlayersCount > 1)
-            {
-                ModPacket packet = Packets.Write(MessageType.OnHitAccessory);
-                packet.Write(1);
-                packet.Write(Player.whoAmI);
-                packet.WriteVector2(pos);
-                packet.WriteVector2(target.Center + target.velocity);
-                packet.Send();
-            }
-            else
-            {
-
-                Vector2 direction = Helper.FromAToB(pos, target.Center + target.velocity);
-                Projectile.NewProjectile(null, pos, direction * 25, ModContent.ProjectileType<StarBitBlue>(), Player.HeldItem.damage * 2, 4f, Player.whoAmI);
-            }
+            Projectile.NewProjectile(Player.GetSource_FromThis(), pos, direction * 25, ModContent.ProjectileType<StarBitBlue>(), Player.HeldItem.damage * 2, 4f, Main.myPlayer);
         }
     }
 
@@ -85,7 +57,6 @@ public class AccessoryPlayer : ModPlayer
     {
         if (starBit && !target.friendly && hit.Crit && target.lifeMax > 10 && target.type != NPCID.TargetDummy)
         {
-            ChatHelper.BroadcastChatMessage(new NetworkText("swag", NetworkText.Mode.Literal), Color.Red);
             int random = Main.rand.Next(1, 3);
             Vector2 spawnpos = new Vector2(0, Player.position.Y + 900);
             Vector2 pos = Vector2.Zero;
