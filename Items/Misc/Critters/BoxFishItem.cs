@@ -30,7 +30,8 @@ namespace EbonianMod.Items.Misc.Critters
         }
         public override bool? UseItem(Player player)
         {
-            NPC.NewNPCDirect(null, Main.MouseWorld, Item.makeNPC);
+            if (player.whoAmI == Main.myPlayer)
+                MPUtils.NewNPC(Main.MouseWorld, Item.makeNPC);
             return true;
         }
     }
