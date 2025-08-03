@@ -19,10 +19,13 @@ using Terraria.ModLoader.UI;
 namespace EbonianMod.NPCs.Overworld.Asteroid;
 public class AsteroidHerder : CommonNPC
 {
-    public override void SetDefaults()
+    public override void SetStaticDefaults()
     {
         NPCID.Sets.TrailCacheLength[Type] = 4;
         NPCID.Sets.TrailingMode[Type] = 1;
+    }
+    public override void SetDefaults()
+    {
         NPC.Size = new Vector2(24, 30);
         NPC.noGravity = true;
         NPC.noTileCollide = true;
