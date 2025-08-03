@@ -196,7 +196,7 @@ public class Belladonna : ModNPC
                 {
                     Vector2 pos = NPC.Center - new Vector2(Main.rand.Next(-400, 400), 100f);
                     Vector2 actualPos = Helper.TRay.Cast(pos, Vector2.UnitY, 500f);
-                    Projectile.NewProjectile(NPC.GetSource_FromAI(), actualPos - Vector2.UnitY * 20, Vector2.Zero, ProjectileType<BelladonnaBush>(), 0, 0);
+                    MPUtils.NewProjectile(NPC.GetSource_FromAI(), actualPos - Vector2.UnitY * 20, Vector2.Zero, ProjectileType<BelladonnaBush>(), 0, 0);
                 }
             }
         }
@@ -253,9 +253,9 @@ public class BelladonnaBush : ModProjectile
             for (int i = 0; i < 3; ++i)
             {
                 if (Projectile.ai[0] == 0)
-                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Main.rand.NextVector2Unit(), ProjectileType<Blueberry>(), 0, 0);
+                    MPUtils.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Main.rand.NextVector2Unit(), ProjectileType<Blueberry>(), 0, 0);
                 else
-                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Main.rand.NextVector2Unit(), ProjectileType<Nightshade>(), 0, 0);
+                    MPUtils.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Main.rand.NextVector2Unit(), ProjectileType<Nightshade>(), 0, 0);
             }
         }
     }
@@ -325,7 +325,7 @@ public class Nightshade : ModProjectile
     }
     public override void Kill(int timeLeft)
     {
-        Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<Nightshade2>(), 10, 0);
+        MPUtils.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<Nightshade2>(), 10, 0);
     }
     public override void AI()
     {
@@ -338,7 +338,7 @@ public class Nightshade : ModProjectile
                 if (npc.Center.Distance(Projectile.Center) < 50)
                 {
                     Projectile.Kill();
-                    Projectile.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<Nightshade2>(), 10, 0);
+                    MPUtils.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<Nightshade2>(), 10, 0);
                 }
             }
         }

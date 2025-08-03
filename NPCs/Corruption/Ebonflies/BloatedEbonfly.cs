@@ -1,5 +1,6 @@
 ﻿using EbonianMod.Items.Misc;
 using EbonianMod.Items.Tiles;
+using System.IO;
 using Terraria.GameContent.Bestiary;
 
 namespace EbonianMod.NPCs.Corruption.Ebonflies;
@@ -76,6 +77,14 @@ public class BloatedEbonfly : ModNPC
                 NPC.frame.Y = 0;
         }
     }
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        writer.Write(NPC.scale);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        NPC.scale = reader.ReadSingle();
+    }
     public override void OnSpawn(IEntitySource source)
     {
         NPC.scale = Main.rand.NextFloat(0.8f, 1.2f);
@@ -97,37 +106,40 @@ public class BloatedEbonfly : ModNPC
                 if (npc.Center.Distance(NPC.Center) < npc.width * npc.scale)
                 {
                     NPC.velocity += NPC.Center.FromAToB(npc.Center, true, true) * 0.5f;
+                    NPC.netUpdate = true;
                 }
                 if (npc.Center == NPC.Center)
                 {
                     NPC.velocity = Main.rand.NextVector2Unit() * 5;
+                    NPC.netUpdate = true;
                 }
             }
         }
-        if (Main.LocalPlayer.Center.Distance(NPC.Center) < 450 || (NPC.dontTakeDamage && ++AITimer > 60 * 8) || NPC.ai[3] > 0)
+        foreach (Player player in Main.ActivePlayers)
         {
-            if (++NPC.ai[3] > 100 * NPC.scale)
+            if (player.Center.Distance(NPC.Center) < 450 || (NPC.dontTakeDamage && ++AITimer > 60 * 8) || NPC.ai[3] > 0)
             {
-                NPC.aiStyle = -1;
-                AIType = 0;
-                NPC.velocity *= 0.99f;
-                if (NPC.ai[3] >= 120)
-                    NPC.Center = lastPos + Main.rand.NextVector2Circular(4 * glowAlpha, 4 * glowAlpha);
-                else
-                    lastPos = NPC.Center;
-                glowAlpha += 0.03f;
-                if (NPC.ai[3] > 150)
+                if (++NPC.ai[3] > 100 * NPC.scale)
                 {
-                    Main.BestiaryTracker.Kills.RegisterKill(NPC);
-                    Projectile a = MPUtils.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ProjectileType<OstertagiExplosion>(), 50, 0);
-                    if (a is not null)
+                    NPC.aiStyle = -1;
+                    AIType = 0;
+                    NPC.velocity *= 0.99f;
+                    if (NPC.ai[3] >= 120)
+                        NPC.Center = lastPos + Main.rand.NextVector2Circular(4 * glowAlpha, 4 * glowAlpha);
+                    else
+                        lastPos = NPC.Center;
+                    glowAlpha += 0.03f;
+                    if (NPC.ai[3] > 150)
                     {
-                        a.friendly = true;
-                        a.hostile = true;
-                        a.SyncProjectile();
+                        Main.BestiaryTracker.Kills.RegisterKill(NPC);
+                        MPUtils.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ProjectileType<HostileCorruptExplosion>(), 50, 0);
+                        NPC.dontTakeDamage = false;
+                        NPC.StrikeInstantKill();
+                        NPC.netUpdate = true;
+                        break;
                     }
-                    NPC.dontTakeDamage = false;
-                    NPC.StrikeInstantKill();
+                    if ((int)NPC.ai[3] == 101)
+                        NPC.netUpdate = true;
                 }
             }
         }

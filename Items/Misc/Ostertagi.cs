@@ -144,6 +144,15 @@ public class OstertagiB : ModBuff
         }
     }
 }
+public class HostileCorruptExplosion : OstertagiExplosion
+{
+    public override void SetDefaults()
+    {
+        base.SetDefaults();
+        Projectile.friendly = false;
+        Projectile.hostile = true;
+    }
+}
 
 public class OstertagiExplosion : ModProjectile
 {

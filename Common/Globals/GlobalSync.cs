@@ -14,8 +14,8 @@ public class GlobalSync : GlobalProjectile
     {
         if (projectile.ModProjectile?.Mod.Name == "EbonianMod")
         {
-            writer.Write(projectile.extraUpdates);
-            writer.Write(projectile.aiStyle);
+            writer.Write((byte)projectile.extraUpdates);
+            writer.Write((short)projectile.aiStyle);
 
             for (int i = 0; i < projectile.localAI.Length; i++)
                 writer.Write(projectile.localAI[i]);
@@ -29,8 +29,8 @@ public class GlobalSync : GlobalProjectile
     {
         if (projectile.ModProjectile?.Mod.Name == "EbonianMod")
         {
-            projectile.extraUpdates = reader.ReadInt32();
-            projectile.aiStyle = reader.ReadInt32();
+            projectile.extraUpdates = reader.ReadByte();
+            projectile.aiStyle = reader.ReadInt16();
 
             for (int i = 0; i < projectile.localAI.Length; i++)
                 projectile.localAI[i] = reader.ReadSingle();

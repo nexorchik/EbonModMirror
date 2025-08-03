@@ -179,10 +179,12 @@ public class Starlad : ModNPC
                     if (npc.Center.Distance(NPC.Center) < npc.width * npc.scale)
                     {
                         NPC.Center += NPC.Center.FromAToB(npc.Center, true, true);
+                        NPC.netUpdate = true;
                     }
                     if (npc.Center == NPC.Center)
                     {
                         NPC.velocity = Main.rand.NextVector2Unit() * 5;
+                        NPC.netUpdate = true;
                     }
                 }
             }

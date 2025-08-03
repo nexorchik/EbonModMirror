@@ -1,4 +1,5 @@
 ﻿using EbonianMod.Items.Tiles;
+using System.IO;
 using Terraria.GameContent.Bestiary;
 
 namespace EbonianMod.NPCs.Corruption.Ebonflies;
@@ -82,7 +83,16 @@ public class Ebonfly : ModNPC
         {
             NPC.scale = Main.rand.NextFloat(0.8f, 1.2f);
             NPC.velocity = Main.rand.NextVector2Unit();
+            NPC.netUpdate = true;
         }
+    }
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        writer.Write(NPC.scale);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        NPC.scale = reader.ReadSingle();
     }
     public override void PostAI()
     {
@@ -93,10 +103,12 @@ public class Ebonfly : ModNPC
                 if (npc.Center.Distance(NPC.Center) < npc.width * npc.scale)
                 {
                     NPC.velocity += NPC.Center.FromAToB(npc.Center, true, true) * 0.5f;
+                    NPC.netUpdate = true;
                 }
                 if (npc.Center == NPC.Center)
                 {
                     NPC.velocity = Main.rand.NextVector2Unit() * 5;
+                    NPC.netUpdate = true;
                 }
             }
         }
