@@ -24,7 +24,7 @@ public class FlameExplosionWSprite : ModProjectile
         Projectile.Size = new Vector2(98);
         Projectile.tileCollide = false;
         Projectile.ignoreWater = true;
-
+        Projectile.timeLeft = 26;
         Projectile.aiStyle = -1;
     }
     int seed;
@@ -57,7 +57,7 @@ public class FlameExplosionWSprite : ModProjectile
 
     public override bool PreAI()
     {
-        if (Projectile.ai[2] == 0)
+        if ((int)Projectile.ai[2] == 0)
         {
             Projectile.ai[2] = Projectile.scale;
             Projectile.netUpdate = true;
@@ -70,16 +70,9 @@ public class FlameExplosionWSprite : ModProjectile
 
         Projectile.scale += 0.05f;
 
-        if (Projectile.alpha >= 255)
-        {
-            Projectile.Kill();
-        }
-        else
-        {
-            Projectile.alpha += 10;
-            if (Projectile.ai[1] < 1.1f)
-                Projectile.ai[1] += 0.07f;
-        }
+        Projectile.alpha += 10;
+        if (Projectile.ai[1] < 1.1f)
+            Projectile.ai[1] += 0.07f;
 
         if (Projectile.frameCounter++ >= 3 && Projectile.frame <= Main.projFrames[Type])
         {
@@ -267,7 +260,7 @@ public class CircleTelegraph : ModProjectile
     }
     public override void PostAI()
     {
-        if (Projectile.ai[1] == 1)
+        if ((int)Projectile.ai[1] == 1)
             Projectile.damage = 0;
     }
     public override bool ShouldUpdatePosition() => false;

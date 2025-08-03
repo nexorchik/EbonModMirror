@@ -55,4 +55,5 @@ public static class MPUtils
     public static void SyncProjectile(this Projectile projectile) => NetMessage.SendData(MessageID.SyncProjectile, number: projectile.whoAmI);
     public static void SyncNPC(int index) => NetMessage.SendData(MessageID.SyncNPC, number: index);
     public static void SyncNPC(this NPC npc) => NetMessage.SendData(MessageID.SyncNPC, number: npc.whoAmI);
+    public static void SyncPlayerControls(this Player player) => NetMessage.SendData(MessageID.PlayerControls, number: player.whoAmI);
 }

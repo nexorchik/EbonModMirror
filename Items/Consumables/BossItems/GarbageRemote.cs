@@ -104,11 +104,6 @@ public class GarbageRemoteP : ModProjectile
     Vector2 basePos;
     Vector2 pos;
     float rot;
-    public override void OnSpawn(IEntitySource source)
-    {
-
-        Projectile.netUpdate = true;
-    }
     public override void AI()
     {
 

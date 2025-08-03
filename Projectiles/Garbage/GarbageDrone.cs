@@ -167,17 +167,24 @@ public class GarbageDroneF : ModProjectile
             Projectile.velocity *= 0.9f;
         if (Projectile.ai[0] >= 100 && Projectile.ai[0] % 5 == 0 && Projectile.ai[0] < 120 && Projectile.owner == Main.myPlayer)
         {
-            Projectile p = Projectile.NewProjectileDirect(null, Projectile.Center, Vector2.UnitY, ProjectileType<GarbageLightning>(), Projectile.damage, 0);
-            p.friendly = true;
-            p.hostile = false;
-            p.DamageType = DamageClass.Magic;
-            p.SyncProjectile();
+            Projectile.NewProjectileDirect(null, Projectile.Center, Vector2.UnitY, ProjectileType<GarbageLightningF>(), Projectile.damage, 0, Projectile.owner);
         }
-        if (Projectile.ai[0] == 130 && Projectile.owner == Main.myPlayer)
+        if ((int)Projectile.ai[0] == 130)
         {
-            Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<FlameExplosionWSprite>(), 0, 0);
+            if (Projectile.owner == Main.myPlayer)
+                Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<FlameExplosionWSprite>(), 0, 0);
             Projectile.Kill();
         }
+    }
+}
+public class GarbageLightningF : GarbageLightning
+{
+    public override void SetDefaults()
+    {
+        base.SetDefaults();
+        Projectile.friendly = true;
+        Projectile.hostile = false;
+        Projectile.DamageType = DamageClass.Magic;
     }
 }
 public class GarbageLightning : ModProjectile

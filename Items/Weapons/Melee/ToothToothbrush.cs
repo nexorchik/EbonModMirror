@@ -1,6 +1,7 @@
 ﻿using EbonianMod.Projectiles.Bases;
 using EbonianMod.Projectiles.VFXProjectiles;
 using System;
+using System.IO;
 
 namespace EbonianMod.Items.Weapons.Melee;
 
@@ -68,6 +69,7 @@ public class ToothToothbrushP : HeldSword
     {
         Player player = Main.player[Projectile.owner];
         player.ChangeDir(Main.MouseWorld.X < player.Center.X ? -1 : 1);
+        player.SyncPlayerControls();
         if (player.active && player.channel && !player.dead && !player.CCed && !player.noItems && Projectile.owner == player.whoAmI)
             Projectile.NewProjectile(null, Projectile.Center, Vector2.UnitX * player.direction, Projectile.type, Projectile.damage, Projectile.knockBack, player.whoAmI, 0, -player.direction, 1);
     }
@@ -77,7 +79,7 @@ public class ToothToothbrushP : HeldSword
         if (lerpProg != 1 && lerpProg != -1)
             lerpProg = MathHelper.SmoothStep(lerpProg, 1, 0.1f);
         if (swingProgress > 0.05f && swingProgress < 0.95f)
-            if (Projectile.ai[0] == 0 && Helper.TRay.CastLength(Projectile.Center, Vector2.UnitY, 100) < 15)
+            if ((int)Projectile.ai[0] == 0 && Helper.TRay.CastLength(Projectile.Center, Vector2.UnitY, 100) < 15)
             {
                 Projectile.ai[0] = 1;
                 Projectile.timeLeft = 15;
@@ -87,6 +89,7 @@ public class ToothToothbrushP : HeldSword
                         Projectile.NewProjectile(Projectile.GetSource_FromAI(), Helper.TRay.Cast(Projectile.Center - new Vector2(0, 30), Vector2.UnitY, 60) - new Vector2(0, 10), Main.rand.NextVector2Circular(15, 15), ProjectileType<Gibs>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
                 lerpProg = -1;
+                Projectile.netUpdate = true;
             }
         int direction = (int)Projectile.ai[1];
         if (lerpProg >= 0)
@@ -107,6 +110,20 @@ public class ToothToothbrushP : HeldSword
         if (player.gravDir != -1)
             player.SetCompositeArmBack(true, stretch, rotation - MathHelper.PiOver2 - MathHelper.PiOver4);
     }
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        base.SendExtraAI(writer);
+        writer.Write(rotation);
+        writer.Write(lerpProg);
+        writer.Write(_hit);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        base.ReceiveExtraAI(reader);
+        rotation = reader.ReadSingle();
+        lerpProg = reader.ReadSingle();
+        _hit = reader.ReadBoolean();
+    }
     public override bool? CanDamage()
     {
         return Projectile.ai[0] < 1 && swingProgress > 0.15f && swingProgress < 0.95f;
@@ -118,6 +135,7 @@ public class ToothToothbrushP : HeldSword
         {
             lerpProg = -.25f;
             _hit = true;
+            Projectile.netUpdate = true;
         }
     }
 }
