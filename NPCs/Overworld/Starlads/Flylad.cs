@@ -180,7 +180,9 @@ public class Flylad : ModNPC
                 player.velocity.Y = -6;
                 heightMod = 0.5f;
                 widthMod = 2f;
+                player.SyncPlayerControls();
                 NPC.StrikeNPC(80, 0, 0);
+                NPC.netUpdate = true;
             }
             NPC.damage = 0;
 

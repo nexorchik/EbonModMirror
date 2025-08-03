@@ -36,18 +36,18 @@ public class BorealDancer : ModNPC
         NPC.ai[1] = 2;
         if (NPC.ai[2] > 0)
         {
-            if (NPC.ai[0] == 0)
+            if ((int)NPC.ai[0] == 0)
             {
                 NPC.ai[0] = 2;
+                NPC.netUpdate = true;
             }
-            if (NPC.ai[0] == 1)
+            if ((int)NPC.ai[0] == 1)
             {
                 NPC.velocity.X += NPC.direction * 0.05f;
                 NPC.velocity.X = Clamp(NPC.velocity.X, -7, 7);
                 if (MathF.Abs(player.Center.X - NPC.Center.X) < 62 && MathF.Abs(player.Center.Y - NPC.Center.Y) < 30)
                 {
-                    MPUtils.NewProjectile(NPC.GetSource_FromThis(), Helper.TRay.Cast(NPC.Center - new Vector2(-NPC.direction * 15, 35), Vector2.UnitY, 5000, true) + new Vector2(0, 3), Vector2.Zero, ProjectileType<BorealSpike>(), NPC.damage, 0).ai[1] = NPC.direction;
-                    NPC.ai[0] = 2;
+                    MPUtils.NewProjectile(NPC.GetSource_FromThis(), Helper.TRay.Cast(NPC.Center - new Vector2(-NPC.direction * 15, 35), Vector2.UnitY, 5000, true) + new Vector2(0, 3), Vector2.Zero, ProjectileType<BorealSpike>(), NPC.damage, 0, ai0: 2, ai1: NPC.direction);
                     NPC.velocity.X = -NPC.direction * 2.4f;
                 }
             }

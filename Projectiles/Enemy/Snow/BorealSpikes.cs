@@ -30,14 +30,13 @@ public class BorealSpike : ModProjectile
     public override bool ShouldUpdatePosition() => false;
     public override void AI()
     {
-        if(Projectile.timeLeft == 78 && Projectile.frame < 14)
+        Projectile.frame = (int)Projectile.ai[2];
+        if (Projectile.timeLeft == 78 && Projectile.frame < 14)
         {
             Projectile.ai[0]++;
-            Projectile Current = Projectile.NewProjectileDirect(Projectile.GetSource_FromAI(), TRay.Cast(Projectile.Center - new Vector2(-10 * Projectile.ai[1], 70), Vector2.UnitY, 5000, true)+new Vector2(0, 3), Vector2.Zero, ProjectileType<BorealSpike>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-            Current.frame = Projectile.frame + 2;
-            Current.ai[1] = Projectile.ai[1];
+            MPUtils.NewProjectile(Projectile.GetSource_FromAI(), TRay.Cast(Projectile.Center - new Vector2(-10 * Projectile.ai[1], 70), Vector2.UnitY, 5000, true) + new Vector2(0, 3), Vector2.Zero, ProjectileType<BorealSpike>(), Projectile.damage, Projectile.knockBack, Projectile.owner, ai1: Projectile.ai[1], ai2: Projectile.frame + 2);
         }
-        if(Projectile.timeLeft < 20)
+        if (Projectile.timeLeft < 20)
             Projectile.scale = Lerp(Projectile.scale, 0, 0.25f);
         else
             Projectile.scale = Lerp(Projectile.scale, 1, 0.3f);
@@ -45,7 +44,7 @@ public class BorealSpike : ModProjectile
     public override bool PreDraw(ref Color lightColor)
     {
         Texture2D texture = TextureAssets.Projectile[Type].Value;
-        Rectangle frameRect = new Rectangle(0, Projectile.frame/2 * Projectile.height, Projectile.width, Projectile.height);
+        Rectangle frameRect = new Rectangle(0, Projectile.frame / 2 * Projectile.height, Projectile.width, Projectile.height);
         Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, frameRect, lightColor, Projectile.rotation, new Vector2(Projectile.Size.X / 2, Projectile.Size.Y / 2 + 12), new Vector2(1, Projectile.scale), Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
         return false;
     }

@@ -89,6 +89,7 @@ public class Obeselad : ModNPC
                 Dust.NewDustPerfect(NPC.Bottom, 278, -Vector2.UnitY.RotatedByRandom(PiOver2) * (2f + Main.rand.NextFloat() * 3f), 150, Color.Gold).noGravity = true;
             }
             player.velocity.Y = -10f;
+            player.SyncPlayerControls();
         }
 
         if (NPC.Center.Distance(player.Center) >= 100f)
