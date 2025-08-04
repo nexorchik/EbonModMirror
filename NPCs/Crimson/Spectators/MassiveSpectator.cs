@@ -95,11 +95,16 @@ public class MassiveSpectator : ModNPC
         stalkBase = reader.ReadVector2();
         found = reader.ReadBoolean();
     }
+    public override bool CheckDead()
+    {
+        if (Main.myPlayer == 0)
+            MPUtils.NewNPC(NPC.Center + new Vector2(0, -800), NPCType<Cecitior.Cecitior>());
+        return base.CheckDead();
+    }
     public override void HitEffect(NPC.HitInfo hit)
     {
-        if (NPC.life <= 0)
+        if (!NPC.active)
         {
-            MPUtils.NewNPC(NPC.Center + new Vector2(0, -800), NPCType<Cecitior.Cecitior>());
             MPUtils.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ProjectileType<BloodShockwave2>(), 0, 0, 0);
             if (Main.dedServ)
                 return;

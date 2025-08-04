@@ -46,7 +46,8 @@ public class TrumpetHead : WormHead
     public override bool useNormalMovement => false;
     public override void ExtraAI()
     {
-        if (NPC.ai[2] == 0)
+        NPC.TargetClosest(false);
+        if ((int)NPC.ai[2] == 0)
             NPC.ai[2] = NPC.Center.X - Main.player[NPC.target].Center.X > 0 ? -1 : 1;
         if (!Main.player[NPC.target].ZoneCorrupt && NPC.Distance(Main.player[NPC.target].Center) > 900)
             Despawn();
@@ -133,7 +134,7 @@ public class TrumpetBody : WormBody
     }
     public override void ExtraAI()
     {
-        NPC.timeLeft = 10;
+        NPC.timeLeft = 100;
         NPC.direction = NPC.spriteDirection = HeadSegment.ai[2] < 0 ? 1 : -1;
         NPC.rotation = Helper.FromAToB(NPC.Center, FollowingNPC.Center).ToRotation() + PiOver2;
         if (++NPC.ai[2] % 150 == 50 + NPC.ai[3] * Main.rand.Next(1, 6))
@@ -182,7 +183,7 @@ public class TrumpetTail : WormTail
     }
     public override void ExtraAI()
     {
-        NPC.timeLeft = 10;
+        NPC.timeLeft = 100;
         NPC.direction = NPC.spriteDirection = HeadSegment.ai[2] < 0 ? 1 : -1;
     }
     public override void Init()

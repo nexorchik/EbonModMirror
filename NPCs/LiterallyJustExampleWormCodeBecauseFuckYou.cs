@@ -212,6 +212,7 @@ public abstract class WormHead : Worm
         latest.realLife = NPC.whoAmI;
         latest.ai[3] = ai3;
         latest.ai[2] = ai2;
+        latest.netUpdate = true;
 
         return latestNPC;
     }

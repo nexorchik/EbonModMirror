@@ -1334,7 +1334,6 @@ public class ArchmageX : CommonNPC
                     }
                     if (AITimer == 150 || AITimer == 220)
                     {
-                        NPC.netUpdate = true;
                         int attempts = 0;
                         MPUtils.NewProjectile(null, NPC.Center, Vector2.Zero, ProjectileType<XExplosionInvis>(), 0, 0);
                         if (MPUtils.NotMPClient)
@@ -1349,15 +1348,16 @@ public class ArchmageX : CommonNPC
                                 disposablePos[2] = Main.rand.NextVector2FromRectangle(rect);
                             }
                             disposablePos[2] = Helper.TRay.Cast(disposablePos[2], Vector2.UnitY, 1000, true) - new Vector2(0, NPC.height / 2 + 8);
-                            NPC.netUpdate = true; // TEST
                         }
                         MPUtils.NewProjectile(null, disposablePos[2], Vector2.Zero, ProjectileType<XExplosionInvis>(), 0, 0);
                         if (disposablePos[2].Distance(NPC.Center) < 3000)
                         {
                             NPC.Center = disposablePos[2];
-                            NPC.netUpdate = true; // TEST
                         }
                     }
+                    else if (AITimer == 151 || AITimer == 221)
+                        NPC.netUpdate = true; // TEST
+
                     if ((AITimer <= 120 && AITimer >= 110) || AITimer == 160 || (AITimer <= 190 && AITimer >= 170) || (AITimer <= 250 && AITimer >= 240))
                     {
                         if (AITimer % (AITimer > 229 ? (phase2 ? (phaseMult == 3 ? 4 : 5) : (phaseMult == 1 ? 5 : 10)) : (phase2 ? (phaseMult == 3 ? 4 : 6) : 10)) == 0)

@@ -1,6 +1,7 @@
 ﻿using EbonianMod.Dusts;
 using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace EbonianMod.Projectiles.ArchmageX;
 
@@ -111,6 +112,14 @@ public class XLargeAmethyst : ModProjectile
         return false;
     }
     Vector2 p;
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        writer.WriteVector2(p);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        p = reader.ReadVector2();
+    }
     public override void AI()
     {
         Player player = Main.player[Projectile.owner];
@@ -123,7 +132,10 @@ public class XLargeAmethyst : ModProjectile
             {
                 Projectile.velocity = Helper.FromAToB(Projectile.Center, player.Center + Helper.FromAToB(player.Center, Projectile.Center) * 50) * 3 * vel;
                 if (Projectile.Distance(player.Center) < 90)
+                {
                     Projectile.timeLeft = 70;
+                    Projectile.netUpdate = true;
+                }
             }
             else
             {
