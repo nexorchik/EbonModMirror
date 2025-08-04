@@ -9,6 +9,10 @@ public class XSineLaser : ModProjectile
 {
     public override string Texture => "EbonianMod/Extras/Empty";
     int MAX_TIME = 80;
+    public override void SetStaticDefaults()
+    {
+        ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
+    }
     public override void SetDefaults()
     {
         Projectile.width = 1;

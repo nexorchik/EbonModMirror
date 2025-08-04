@@ -80,6 +80,10 @@ public class XImpact : ModProjectile
 public class XImpact2 : ModProjectile
 {
     public override string Texture => Helper.Placeholder;
+    public override void SetStaticDefaults()
+    {
+        ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
+    }
     public override void SetDefaults()
     {
         Projectile.width = 30;

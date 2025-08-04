@@ -4,6 +4,10 @@ using System.Collections.Generic;
 namespace EbonianMod.Projectiles.AsteroidShower;
 public class FallingStarTiny : ModProjectile
 {
+    public override void SetStaticDefaults()
+    {
+        ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
+    }
     public override void SetDefaults()
     {
         Projectile.width = 12;
@@ -129,6 +133,10 @@ public class FallingStarTiny : ModProjectile
 public class FallingStarTinyHostile : ModProjectile
 {
     public override string Texture => "EbonianMod/Projectiles/AsteroidShower/FallingStarTiny";
+    public override void SetStaticDefaults()
+    {
+        ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
+    }
     public override void SetDefaults()
     {
         Projectile.width = 12;

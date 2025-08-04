@@ -10,6 +10,10 @@ public class TerrorVilethorn1 : ModProjectile
     {
         return Projectile.alpha < 50;
     }
+    public override void SetStaticDefaults()
+    {
+        ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
+    }
     public override void SetDefaults()
     {
         Projectile.width = 28;
@@ -83,6 +87,10 @@ public class TerrorVilethorn2 : ModProjectile
     public override Color? GetAlpha(Color lightColor)
     {
         return Color.White * ((255 - Projectile.alpha) / 255f);
+    }
+    public override void SetStaticDefaults()
+    {
+        ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
     }
 
     public override void SetDefaults()

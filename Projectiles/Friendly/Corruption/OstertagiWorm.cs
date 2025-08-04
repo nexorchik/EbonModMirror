@@ -9,6 +9,7 @@ public class OstertagiWorm : ModProjectile
     {
         ProjectileID.Sets.TrailCacheLength[Type] = 8 * 5;
         ProjectileID.Sets.TrailingMode[Type] = 2;
+        ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
     }
     public override void SetDefaults()
     {

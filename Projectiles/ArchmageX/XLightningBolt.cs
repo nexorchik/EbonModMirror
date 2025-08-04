@@ -8,6 +8,10 @@ public class XLightningBolt : ModProjectile
 {
     public override string Texture => "EbonianMod/Extras/Empty";
     int MAX_TIME = 40;
+    public override void SetStaticDefaults()
+    {
+        ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
+    }
     public override void SetDefaults()
     {
         Projectile.width = 25;

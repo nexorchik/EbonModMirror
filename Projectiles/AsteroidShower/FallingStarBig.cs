@@ -9,6 +9,10 @@ namespace EbonianMod.Projectiles.AsteroidShower;
 
 public class FallingStarBig : ModProjectile
 {
+    public override void SetStaticDefaults()
+    {
+        ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
+    }
     public override void SetDefaults()
     {
         Projectile.width = 50;

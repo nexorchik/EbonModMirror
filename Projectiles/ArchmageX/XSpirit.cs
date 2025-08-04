@@ -10,6 +10,7 @@ public class XSpirit : ModProjectile
     {
         ProjectileID.Sets.TrailCacheLength[Type] = 30;
         ProjectileID.Sets.TrailingMode[Type] = 2;
+        ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
     }
     public override void SetDefaults()
     {
@@ -103,7 +104,7 @@ public class XSpiritNoHome : ModProjectile
     {
         ProjectileID.Sets.TrailCacheLength[Type] = 30;
         ProjectileID.Sets.TrailingMode[Type] = 2;
-
+        ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
     }
     public override void SetDefaults()
     {

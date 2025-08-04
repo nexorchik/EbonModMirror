@@ -9,6 +9,7 @@ public class CecitiorTeeth : ModProjectile
     {
         ProjectileID.Sets.TrailCacheLength[Type] = 6;
         ProjectileID.Sets.TrailingMode[Type] = 2;
+        ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
     }
 
     /*public override bool OnTileCollide(Vector2 oldVelocity)

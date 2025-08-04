@@ -11,6 +11,7 @@ public class FlameExplosionWSprite : ModProjectile
     public override void SetStaticDefaults()
     {
         Main.projFrames[Type] = 7;
+        ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
     }
     public override bool? CanDamage() => Projectile.alpha < 150;
 
@@ -145,6 +146,7 @@ public class BloodExplosionWSprite : ModProjectile
     public override void SetStaticDefaults()
     {
         Main.projFrames[Type] = 7;
+        ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
     }
 
     public override void SetDefaults()
@@ -244,6 +246,7 @@ public class CircleTelegraph : ModProjectile
     public override void SetStaticDefaults()
     {
         EbonianMod.projectileFinalDrawList.Add(Type);
+        ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
     }
     public override void SetDefaults()
     {

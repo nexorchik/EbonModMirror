@@ -10,6 +10,7 @@ public class XTentacle : ModProjectile
     {
         ProjectileID.Sets.TrailCacheLength[Projectile.type] = 100;
         ProjectileID.Sets.TrailingMode[Projectile.type] = 2;
+        ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
     }
     private List<float> rots;
 
