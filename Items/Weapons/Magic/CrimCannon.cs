@@ -9,7 +9,7 @@ public class CrimCannon : ModItem
     public override void SetDefaults()
     {
         Item.DamageType = DamageClass.Magic;
-        Item.damage = 11;
+        Item.damage = 4;
         Item.useTime = 70;
         Item.mana = 1;
         Item.useAnimation = 25;
@@ -90,11 +90,11 @@ public class CrimCannonGraphics : HeldProjectileGun
                     player.CheckMana(player.HeldItem.mana, true, true);
                     Vector2 SpawnPosition = Projectile.Center + Projectile.rotation.ToRotationVector2() * 22;
                     if (Main.myPlayer == player.whoAmI)
-                        Projectile.NewProjectile(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * 12, ProjectileType<CrimCannonP>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                    for (int i = 0; i < 3; i++)
+                            
+                    for (int i = 0; i < 7; i++)
                     {
-                        Dust.NewDustPerfect(SpawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(PiOver2, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(2, 6), Scale: 1.5f).noGravity = true;
-                        Dust.NewDustPerfect(SpawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(-PiOver2, -PiOver4)).ToRotationVector2() * Main.rand.NextFloat(2, 6), Scale: 1.5f).noGravity = true;
+                        Dust.NewDustPerfect(SpawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(PiOver2, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(3, 8), Scale: 1.5f).noGravity = true;
+                        Dust.NewDustPerfect(SpawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(-PiOver2, -PiOver4)).ToRotationVector2() * Main.rand.NextFloat(3, 8), Scale: 1.5f).noGravity = true;
                     }
                     Projectile.frameCounter += 15;
                 }

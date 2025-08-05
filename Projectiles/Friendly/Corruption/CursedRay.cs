@@ -1,47 +1,8 @@
-﻿using EbonianMod.Items.Materials;
-using System;
 using System.Collections.Generic;
+using System;
 
-namespace EbonianMod.Items.Weapons.Magic;
-
-internal class CursedToy : ModItem
-{
-    public override void SetDefaults()
-    {
-        Item.DamageType = DamageClass.Magic;
-        Item.damage = 40;
-        Item.useTime = 1;
-        Item.useAnimation = 10;
-        Item.reuseDelay = 25;
-        Item.shoot = ProjectileType<CursedToyP>();
-        Item.shootSpeed = 4f;
-        Item.mana = 10;
-        Item.rare = ItemRarityID.LightRed;
-        Item.useStyle = ItemUseStyleID.HoldUp;
-        Item.autoReuse = true;
-        Item.value = Item.buyPrice(0, 30, 0, 0);
-        Item.noMelee = true;
-    }
-    public override Vector2? HoldoutOffset()
-    {
-        return new Vector2(-5, 2);
-    }
-    public override void AddRecipes()
-    {
-        CreateRecipe().AddIngredient(ItemID.GuideVoodooDoll).AddIngredient(ItemType<TerrortomaMaterial>(), 20).AddTile(TileID.MythrilAnvil).Register();
-    }
-    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
-    {
-        Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
-        return false;
-    }
-    public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
-    {
-        position = new Vector2(Main.MouseWorld.X - Main.rand.NextFloat(-150, 150), player.Center.Y - 900);
-        velocity = Helper.FromAToB(position, Main.MouseWorld).RotatedByRandom(MathHelper.PiOver4 * 0.1f) * Item.shootSpeed * 4;
-    }
-}
-public class CursedToyP : ModProjectile
+namespace EbonianMod.Projectiles.Friendly.Corruption;
+public class CursedRay : ModProjectile
 {
     public override string Texture => Helper.Placeholder;
     public override void SetStaticDefaults()
@@ -122,8 +83,7 @@ public class CursedToyP : ModProjectile
         else if (Projectile.velocity.Length() > 0)
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
-            if (Projectile.timeLeft % 5 == 0 && Projectile.velocity.Length() > 0)
-                Dust.NewDustPerfect(Projectile.Center, DustID.CursedTorch, Projectile.velocity * Main.rand.NextFloat(), Scale: 2).noGravity = true;
+            if (Projectile.timeLeft % 5 == 0 && Projectile.velocity.Length() > 0) Dust.NewDustPerfect(Projectile.Center, DustID.CursedTorch, Projectile.velocity * Main.rand.NextFloat(), Scale: 2).noGravity = true;
         }
     }
 }

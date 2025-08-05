@@ -1,4 +1,4 @@
-﻿using EbonianMod.Items.Weapons.Magic;
+﻿using EbonianMod.Projectiles.Friendly.Corruption;
 using System;
 
 namespace EbonianMod.Projectiles.Minions;
@@ -100,7 +100,7 @@ public class TitteringMinion : ModProjectile
             {
                 if (Projectile.owner == Main.myPlayer)
                 {
-                    Projectile p = Projectile.NewProjectileDirect(null, Projectile.Center, Helper.FromAToB(Projectile.Center, targetPos) * 10, ProjectileType<CursedToyP>(), Projectile.damage, 0);
+                    Projectile p = Projectile.NewProjectileDirect(null, Projectile.Center, Helper.FromAToB(Projectile.Center, targetPos) * 10, ProjectileType<CursedRay>(), Projectile.damage, 0);
                     p.DamageType = DamageClass.Summon;
                     p.tileCollide = false;
                     p.SyncProjectile();

@@ -362,6 +362,14 @@ Projectiles: {
 	PlantGunP.DisplayName: Plant Gun P
 	PlantGunP2.DisplayName: Plant Gun P2
 	VivineSpit.DisplayName: Vivine Spit
+	HostileCorruptExplosion.DisplayName: Hostile Corrupt Explosion
+	XAmethystFriendly.DisplayName: X Amethyst Friendly
+	GarbageLightningF.DisplayName: Garbage Lightning F
+	CursedDollProjectile.DisplayName: Cursed Doll Projectile
+	CursedRay.DisplayName: Cursed Ray
+	DollPin.DisplayName: Doll Pin
+	GoryJaw.DisplayName: Gory Jaw
+	DollHitscan.DisplayName: Doll Hitscan
 }
 
 NPCs: {
@@ -1623,6 +1631,11 @@ Items: {
 
 	Spitvine: {
 		DisplayName: Spitvine
+		Tooltip: ""
+	}
+
+	CursedDoll: {
+		DisplayName: Cursed Doll
 		Tooltip: ""
 	}
 }

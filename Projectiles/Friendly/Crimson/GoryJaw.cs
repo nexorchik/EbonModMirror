@@ -2,7 +2,7 @@
 
 namespace EbonianMod.Projectiles.Friendly.Crimson;
 
-public class CrimCannonP : ModProjectile
+public class GoryJaw : ModProjectile
 {
     Vector2 PositionOffset;
     Vector2 Scale = new Vector2(1, 1);
@@ -18,7 +18,8 @@ public class CrimCannonP : ModProjectile
         Projectile.penetrate = -1;
         Projectile.timeLeft = 290;
         Projectile.frame = 2;
-        Projectile.localNPCHitCooldown = 23;
+        Projectile.localNPCHitCooldown = 20;
+        Projectile.ArmorPenetration = 11;
     }
 
     public override void OnSpawn(IEntitySource source)
@@ -30,17 +31,10 @@ public class CrimCannonP : ModProjectile
 
     public override void OnKill(int timeLeft)
     {
-        if (Main.dedServ)
-            return;
+        if (Main.dedServ) return;
         SoundEngine.PlaySound(EbonianSounds.chomp1.WithPitchOffset(Main.rand.NextFloat(-0.4f, 0.2f)), Projectile.Center);
-        for (int i = 0; i < 4; i++)
-        {
-            Gore.NewGore(null, Projectile.Center, Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/GoryJaw" + i).Type, 1);
-        }
-        for (int i = 0; i < 20; i++)
-        {
-            Dust.NewDustPerfect(Projectile.Center, DustID.Blood, Main.rand.NextFloat(-Pi, Pi).ToRotationVector2() * Main.rand.NextFloat(2, 5), Scale: 1.5f);
-        }
+        for (int i = 0; i < 4; i++) Gore.NewGore(null, Projectile.Center, Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/GoryJaw" + i).Type, 1);
+        for (int i = 0; i < 20; i++) Dust.NewDustPerfect(Projectile.Center, DustID.Blood, Main.rand.NextFloat(-Pi, Pi).ToRotationVector2() * Main.rand.NextFloat(2, 5), Scale: 1.5f);
     }
     public override void SendExtraAI(BinaryWriter writer)
     {
@@ -68,14 +62,13 @@ public class CrimCannonP : ModProjectile
         if (Projectile.ai[2] == 1)
         {
             NPC Target = Main.npc[TargetIndex];
-            if (!Target.active)
-                return;
-            if (Target.life <= 0)
+            if (Target.life <= 0 || !Target.active)
             {
                 Projectile.ai[2] = 0;
                 Projectile.velocity *= 0;
                 Projectile.tileCollide = true;
                 Projectile.netUpdate = true;
+                return;
             }
             Projectile.Center = Target.Center + PositionOffset;
             Projectile.frameCounter++;
@@ -85,6 +78,7 @@ public class CrimCannonP : ModProjectile
                 Projectile.frameCounter = 0;
                 if (Projectile.frame > 2)
                 {
+                    for (int i = 0; i < 8; i++) Dust.NewDustPerfect(Projectile.Center + Projectile.rotation.ToRotationVector2() * 23, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(-Pi / 3, Pi / 3)).ToRotationVector2() * Main.rand.NextFloat(2, 6), Scale: 1.5f).noGravity = true;
                     Projectile.frame = 0;
                 }
             }

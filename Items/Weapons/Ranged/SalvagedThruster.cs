@@ -85,6 +85,7 @@ public class SalvagedThrusterP : HeldProjectileGun
             Projectile.ai[0] = Lerp(Projectile.ai[0], 225, 0.05f);
             Charge = Projectile.ai[0];
             RayLength = Helper.TRay.CastLength(Projectile.Center, Projectile.rotation.ToRotationVector2(), Charge);
+
             Dust.NewDustPerfect(Projectile.Center + Projectile.rotation.ToRotationVector2() * 47, DustID.Smoke, (Projectile.rotation).ToRotationVector2().RotatedByRandom(Pi / 4) * Main.rand.NextFloat(0.1f, 2), Scale: Main.rand.NextFloat(1.1f, 2));
             for (int i = 0; i < Charge / 12; i++)
                 for (int u = 0; u < i / 4 + 1; u++)
