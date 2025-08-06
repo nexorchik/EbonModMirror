@@ -90,13 +90,15 @@ public class CrimCannonGraphics : HeldProjectileGun
                     player.CheckMana(player.HeldItem.mana, true, true);
                     Vector2 SpawnPosition = Projectile.Center + Projectile.rotation.ToRotationVector2() * 22;
                     if (Main.myPlayer == player.whoAmI)
-                            
-                    for (int i = 0; i < 7; i++)
                     {
-                        Dust.NewDustPerfect(SpawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(PiOver2, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(3, 8), Scale: 1.5f).noGravity = true;
-                        Dust.NewDustPerfect(SpawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(-PiOver2, -PiOver4)).ToRotationVector2() * Main.rand.NextFloat(3, 8), Scale: 1.5f).noGravity = true;
+                        Projectile.NewProjectile(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * 1.2f, ProjectileType<GoryJaw>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        for (int i = 0; i < 7; i++)
+                        {
+                            Dust.NewDustPerfect(SpawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(PiOver2, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(3, 8), Scale: 1.5f).noGravity = true;
+                            Dust.NewDustPerfect(SpawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(-PiOver2, -PiOver4)).ToRotationVector2() * Main.rand.NextFloat(3, 8), Scale: 1.5f).noGravity = true;
+                        }
+                        Projectile.frameCounter += 15;
                     }
-                    Projectile.frameCounter += 15;
                 }
             }
         }

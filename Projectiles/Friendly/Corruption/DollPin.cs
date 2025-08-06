@@ -24,15 +24,15 @@ public class DollPin : ModProjectile
     {
         if (Projectile.ai[0] == 0)
         {
-            Projectile.localAI[1] = Clamp(target.Size.Length() / 15, 6, 100);
+            Projectile.localAI[1] = Clamp(target.Size.Length() / 15, 7, 100);
             Projectile.Center = target.Center;
             TargetIndex = target.whoAmI;
             Projectile.timeLeft = 100000;
             Projectile.ai[0] = 1;
-            Projectile.ai[1] = 15;
+            Projectile.ai[1] = Projectile.localAI[1];
         }
     }
-    public override bool? CanDamage() => Projectile.ai[1] == 0 && Projectile.localAI[0] < 10;
+    public override bool? CanDamage() => Projectile.ai[1] == 0 && Projectile.localAI[0] < 20;
 
     public override void AI()
     {
@@ -41,12 +41,12 @@ public class DollPin : ModProjectile
         NPC Target = Main.npc[TargetIndex];
         if (Target.life > 0 && Target.active) Projectile.Center = Target.Center;
 
-        if (Projectile.ai[1] == 0) Projectile.localAI[1] *= 1.2f;
+        if (Projectile.ai[1] == 0) Projectile.localAI[1] *= 1.4f;
         else
         {
             Projectile.localAI[1] *= 0.9f;
             Projectile.ai[1] = Lerp(Projectile.ai[1], 0, 0.15f);
-            Projectile.rotation = Projectile.ai[1];
+            Projectile.rotation = Pi / 4 + Projectile.ai[1];
             if (Projectile.ai[1] < 0.02f)
             {
                 Projectile.damage = (int)Projectile.ai[2];
@@ -56,7 +56,7 @@ public class DollPin : ModProjectile
         }
         Projectile.localAI[0] += Projectile.localAI[1];
 
-        if (Projectile.ai[1] == 0 && Projectile.localAI[0] < 0.2f) Projectile.Kill();
+        if (Projectile.ai[1] == 0 && Projectile.localAI[0] < -15f) Projectile.Kill();
     }
     public override void OnKill(int timeLeft)
     {
