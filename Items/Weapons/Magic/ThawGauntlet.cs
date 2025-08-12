@@ -56,6 +56,7 @@ public class ThawGauntletP : ModProjectile
     }
     public override bool PreDraw(ref Color lightColor)
     {
+        if (Projectile.timeLeft >= 29) return false;
         Texture2D tex = TextureAssets.Projectile[Type].Value;
         Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2, Projectile.scale, Main.player[Projectile.owner].direction == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None, 0);
         return false;
@@ -72,8 +73,7 @@ public class ThawGauntletP : ModProjectile
     {
         Projectile.ai[1]++;
         Lighting.AddLight(Projectile.Center, new Vector3(0, 169, 255) / 255 * 0.5f);
-        foreach (Player player in Main.player)
-        {
+        Player player = Main.player[Projectile.owner];
             if (player.whoAmI == Projectile.owner && player.whoAmI == Main.myPlayer)
             {
                 if (Projectile.ai[1] == 1)
@@ -81,6 +81,7 @@ public class ThawGauntletP : ModProjectile
                     Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Helper.FromAToB(player.Center, Main.MouseWorld) * 5, ModContent.ProjectileType<ThawGauntletP2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 }
                 player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);
+                if (Projectile.timeLeft < 29)
                 Projectile.timeLeft++;
                 player.direction = Main.MouseWorld.X >= player.Center.X ? 1 : -1;
                 player.itemTime = 2;
@@ -91,7 +92,6 @@ public class ThawGauntletP : ModProjectile
                 Projectile.rotation = (Main.MouseWorld - player.Center).ToRotation();
                 if (!player.channel || player.statMana <= 0 || !player.CheckMana(1)) Projectile.Kill();
             }
-        }
     }
 }
 
@@ -167,14 +167,14 @@ public class ThawGauntletP2 : ModProjectile
     {
         Projectile.ai[1]++;
         Lighting.AddLight(Projectile.Center, new Vector3(0, 169, 255) / 255 * 0.5f);
-        foreach (Player player in Main.player)
-        {
-            if (player.whoAmI == Projectile.owner && player.whoAmI == Main.myPlayer)
+        Player player = Main.player[Projectile.owner];
+            if (player.whoAmI == Projectile.owner && player == Main.LocalPlayer)
             {
-                if ((int)Projectile.ai[0] == 0)
+                if (Projectile.ai[0] == 0)
                 {
                     Projectile.Center = player.Center + Helper.FromAToB(player.Center, Main.MouseWorld) * 40;
                     Projectile.velocity = Helper.FromAToB(player.Center, Main.MouseWorld) * 5;
+
                     if (Projectile.localAI[0] < 1)
                         Projectile.localAI[0] += 0.05f;
                     else
@@ -183,7 +183,7 @@ public class ThawGauntletP2 : ModProjectile
                         {
                             didAlpha = true;
                             alpha = 1f;
-                            Projectile.netUpdate = true; // TEST
+                            Projectile.netUpdate = true;
                         }
                     }
                     if (!didAlpha)
@@ -197,7 +197,7 @@ public class ThawGauntletP2 : ModProjectile
                     else
                         Projectile.timeLeft = 300;
                 }
-                if ((int)Projectile.ai[0] == 0 && (!player.channel || player.statMana <= 0 || !player.CheckMana(1)))
+                if (Projectile.ai[0] == 0 && (!player.channel || player.statMana <= 0 || !player.CheckMana(1)))
                 {
                     if (Projectile.localAI[0] < 0.95f)
                         Projectile.Kill();
@@ -205,8 +205,7 @@ public class ThawGauntletP2 : ModProjectile
                         Projectile.ai[0] = 1;
                 }
             }
-        }
-        if ((int)Projectile.ai[0] != 0)
+        if (Projectile.ai[0] != 0)
         {
             Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0 ? 1 : -1;
 
