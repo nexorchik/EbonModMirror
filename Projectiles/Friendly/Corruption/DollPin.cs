@@ -1,4 +1,6 @@
 ﻿
+using Terraria;
+
 namespace EbonianMod.Projectiles.Friendly.Corruption;
 
 public class DollPin : ModProjectile
@@ -7,7 +9,7 @@ public class DollPin : ModProjectile
     {
         Projectile.Size = new Vector2(42, 14);
         Projectile.friendly = true;
-        Projectile.hostile = false;
+        Projectile.hostile = true;
         Projectile.timeLeft = 3;
         Projectile.penetrate = -1;
         Projectile.tileCollide = false;
@@ -27,12 +29,12 @@ public class DollPin : ModProjectile
             Projectile.localAI[1] = Clamp(target.Size.Length() / 15, 7, 100);
             Projectile.Center = target.Center;
             TargetIndex = target.whoAmI;
-            Projectile.timeLeft = 100000;
+            Projectile.timeLeft = 999;
             Projectile.ai[0] = 1;
             Projectile.ai[1] = Projectile.localAI[1];
         }
     }
-    public override bool? CanDamage() => Projectile.ai[1] == 0 && Projectile.localAI[0] < 20;
+    public override bool? CanDamage() => Projectile.ai[0] == 0;
 
     public override void AI()
     {
@@ -56,7 +58,12 @@ public class DollPin : ModProjectile
         }
         Projectile.localAI[0] += Projectile.localAI[1];
 
-        if (Projectile.ai[1] == 0 && Projectile.localAI[0] < -15f) Projectile.Kill();
+        if (Projectile.ai[1] == 0 && Projectile.localAI[0] < -15f)
+        {
+            Projectile.Kill();
+            Target.StrikeNPC(Target.townNPC ? 99999 : Projectile.damage, Projectile.knockBack, Target.direction);
+            Target.AddBuff(BuffID.CursedInferno, 400);
+        }
     }
     public override void OnKill(int timeLeft)
     {
