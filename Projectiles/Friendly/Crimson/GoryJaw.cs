@@ -9,17 +9,18 @@ public class GoryJaw : ModProjectile
     int TargetIndex = -1;
     public override void SetDefaults()
     {
-        Projectile.width = 46;
+        Projectile.width = 23;
         Projectile.height = 34;
         Projectile.tileCollide = true;
         Projectile.friendly = true;
         Projectile.hostile = false;
         Projectile.usesLocalNPCImmunity = true;
         Projectile.penetrate = -1;
-        Projectile.timeLeft = 290;
+        Projectile.timeLeft = 2900;
         Projectile.frame = 2;
-        Projectile.localNPCHitCooldown = 20;
+        Projectile.localNPCHitCooldown = 240;
         Projectile.ArmorPenetration = 11;
+        Projectile.extraUpdates = 10;
     }
 
     public override void OnSpawn(IEntitySource source)
@@ -49,6 +50,7 @@ public class GoryJaw : ModProjectile
     {
         if (Projectile.ai[2] == 0)
         {
+            Projectile.localNPCHitCooldown = 180;
             Projectile.tileCollide = false;
             PositionOffset = Projectile.Center - target.Center;
             TargetIndex = target.whoAmI;
@@ -72,7 +74,7 @@ public class GoryJaw : ModProjectile
             }
             Projectile.Center = Target.Center + PositionOffset;
             Projectile.frameCounter++;
-            if (Projectile.frameCounter > 5)
+            if (Projectile.frameCounter == 60)
             {
                 Projectile.frame++;
                 Projectile.frameCounter = 0;
@@ -87,17 +89,17 @@ public class GoryJaw : ModProjectile
         {
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (Projectile.ai[1] > -0.5f)
-                Projectile.ai[1] -= 0.01f;
+                Projectile.ai[1] -= 0.00001f;
             Projectile.velocity = new Vector2(Projectile.velocity.X, Projectile.velocity.Y - Projectile.ai[1]);
         }
-        Scale = Vector2.Lerp(Scale, new Vector2(Main.rand.NextFloat(2f - Projectile.ai[0] / 120, Projectile.ai[0] / 120), Main.rand.NextFloat(2f - Projectile.ai[0] / 120, Projectile.ai[0] / 120)), Projectile.ai[0] / 800);
+        Scale = Vector2.Lerp(Scale, new Vector2(Main.rand.NextFloat(2f - Projectile.ai[0] / 1200, Projectile.ai[0] / 1200), Main.rand.NextFloat(2f - Projectile.ai[0] / 1200, Projectile.ai[0] / 1200)), Projectile.ai[0] / 8000);
         Projectile.ai[0]++;
     }
     public override bool PreDraw(ref Color lightColor)
     {
         Texture2D texture = TextureAssets.Projectile[Type].Value;
-        Rectangle frameRect = new Rectangle(0, Projectile.frame * Projectile.height, Projectile.width, Projectile.height);
-        Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, frameRect, lightColor, Projectile.rotation, new Vector2(Projectile.Size.X / 2, Projectile.Size.Y / 2), Scale, Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+        Rectangle frameRect = new Rectangle(0, Projectile.frame * 34, 46, 34);
+        Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, frameRect, lightColor, Projectile.rotation, Projectile.Size / 2, Scale, Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
         return false;
     }
 }

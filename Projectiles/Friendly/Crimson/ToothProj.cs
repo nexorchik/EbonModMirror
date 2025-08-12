@@ -29,17 +29,13 @@ public class ToothProj : ModProjectile
     {
         SoundEngine.PlaySound(SoundID.NPCHit9.WithPitchOffset(Main.rand.NextFloat(-0.5f, 0f)), Projectile.Center);
         SoundEngine.PlaySound(EbonianSounds.chomp1.WithPitchOffset(Main.rand.NextFloat(0f, 1f)), Projectile.Center);
-        for (int i = 0; i < 4; i++)
-        {
-            Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, (Projectile.rotation + Main.rand.NextFloat(-Pi / 8, Pi / 8)).ToRotationVector2() * Main.rand.Next(6, 10), ProjectileType<Gibs>(), 15, 0);
-        }
+        for (int i = 0; i < 3; i++) Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Main.rand.NextFloat(0, Pi * 2).ToRotationVector2() * Main.rand.Next(6, 10), ProjectileType<Gibs>(), Projectile.damage / 8, 0);
     }
     public override void AI()
     {
         Dust.NewDustPerfect(Projectile.Center, DustID.Blood, Main.rand.NextFloat(0, Pi * 2).ToRotationVector2(), Scale: 1.5f).noGravity = true;
         Projectile.rotation = Projectile.velocity.ToRotation();
-        if (Gravity > -0.5f)
-            Gravity -= 0.01f;
+        if (Gravity > -0.5f) Gravity -= 0.01f;
         Projectile.velocity = new Vector2(Projectile.velocity.X, Projectile.velocity.Y - Gravity);
     }
 }
