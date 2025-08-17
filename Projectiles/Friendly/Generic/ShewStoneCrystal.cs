@@ -73,7 +73,7 @@ namespace EbonianMod.Projectiles.Friendly.Generic
             if (player.whoAmI == Main.myPlayer && Projectile.timeLeft > 7)
             {
                 Projectile.velocity = Vector2.Lerp(Projectile.velocity, Helper.FromAToB(Projectile.Center, Main.MouseWorld) * 4.5f, 0.025f);
-                if (Projectile.timeLeft % 15 == 0)
+                if (Main.MouseWorld.Distance(Projectile.Center) > 10)
                     Projectile.netUpdate = true; // TEST
                 if (Projectile.timeLeft < 500 && Main.mouseRight)
                 {

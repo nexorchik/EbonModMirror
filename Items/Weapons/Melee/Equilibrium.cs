@@ -108,16 +108,13 @@ public class EquilibriumP : HeldSword
                 proj.Center = Projectile.Center + Projectile.velocity * 50;
                 proj.timeLeft = 60 * 5 - 15 * 5;
                 proj.SyncProjectile();
-                //if (Projectile.ai[0] == 3)
-                {
-                    Projectile a = Projectile.NewProjectileDirect(null, Projectile.Center + Projectile.velocity * 50, Vector2.Zero, Projectile.ai[1] == 1 ? ProjectileType<OstertagiExplosion>() : ProjectileType<BloodExplosionWSprite>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                    a.hostile = false;
-                    a.friendly = true;
-                    a.SyncProjectile();
-                }
+                Projectile a = Projectile.NewProjectileDirect(null, Projectile.Center + Projectile.velocity * 50, Vector2.Zero, Projectile.ai[1] == 1 ? ProjectileType<OstertagiExplosion>() : ProjectileType<BloodExplosionWSprite>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                a.hostile = false;
+                a.friendly = true;
+                a.SyncProjectile();
             }
             _hit = true;
-            Projectile.netUpdate = true; // TEST
+            Projectile.SyncProjectile();
         }
     }
     public override bool? CanDamage() => (Ease(Utils.GetLerpValue(0f, swingTime, Projectile.timeLeft)).InRange(0.5f, 0.4f));
@@ -154,7 +151,7 @@ public class EquilibriumP : HeldSword
                     proj.rotation = Projectile.rotation;
                     proj.Center = Projectile.Center;
                     proj.timeLeft = swingTime - 18 * 5;
-                    proj.SyncProjectile();
+                    proj.netUpdate = true;
                 }
                 Projectile.active = false;
                 Projectile.netUpdate = true; // TEST

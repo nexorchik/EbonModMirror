@@ -97,7 +97,6 @@ public class ChainswordP : HeldSword
             if (++timer % 3 != 0)
             {
                 Projectile.timeLeft++;
-                Projectile.netUpdate = true;
                 return;
             }
         }
@@ -111,6 +110,7 @@ public class ChainswordP : HeldSword
         lerpProg = MathHelper.Lerp(lerpProg, 1.05f, 0.275f);
         swingProgress = MathHelper.Lerp(swingProgress, Ease(Utils.GetLerpValue(0f, swingTime, Projectile.timeLeft)), MathHelper.Clamp(lerpProg, -.1f, 1));
         Projectile.scale = 1 + Clamp(MathF.Sin(Pi * swingProgress) * 2, 0, 0.4f);
+        Projectile.netUpdate = true;
         //          if (lerpProg < 0)
         //                Projectile.timeLeft++;
         //if (lerpProg < 0.2f)
@@ -129,7 +129,7 @@ public class ChainswordP : HeldSword
         Vector2 vel = Helper.FromAToB(player.Center, pos).RotatedBy(Projectile.ai[1]).RotatedByRandom(MathHelper.PiOver4);
         if (swingProgress.InRange(0.5f, 0.2f))
             lerpProg = MathHelper.Lerp(lerpProg, 0.005f, 0.85f);
-        Projectile.netUpdate = true; // TEST
+        Projectile.SyncProjectile();
         if (Projectile.extraUpdates == 3)
         {
 

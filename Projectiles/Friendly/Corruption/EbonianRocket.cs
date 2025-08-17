@@ -95,7 +95,7 @@ public class EbonianRocket : ModProjectile
     }
     public override void AI()
     {
-        if (Projectile.ai[1] == 1)
+        if ((int)Projectile.ai[1] == 1)
         {
             Projectile.timeLeft = 45;
             Projectile.velocity *= 0;
@@ -108,17 +108,19 @@ public class EbonianRocket : ModProjectile
             }
             Helper.DustExplosion(Projectile.Center, Vector2.One, 0, new Color(0.576f, 1f, 0.141f, 0.02f), true, true, increment: 0.03f, MinMulti: 0.6f, MaxMulti: 1.5f);
             Projectile.ai[1] = 2;
+            Projectile.netUpdate = true;
         }
         Projectile.ai[0]++;
         if (Projectile.ai[0] > 40)
         {
-            if (Projectile.ai[0] == 41)
+            if ((int)Projectile.ai[0] == 41)
             {
                 if (Main.myPlayer == Projectile.owner)
                     Projectile.velocity = Projectile.rotation.ToRotationVector2();
+                Projectile.netUpdate = true;
             }
             Projectile.rotation = Projectile.velocity.ToRotation();
-            if (Projectile.ai[1] == 2)
+            if ((int)Projectile.ai[1] == 2)
             {
                 Projectile.damage = 0;
                 return;
@@ -129,10 +131,12 @@ public class EbonianRocket : ModProjectile
                     Dust.NewDustPerfect(Projectile.Center - Projectile.rotation.ToRotationVector2() * 20, DustID.CursedTorch, (Projectile.rotation + Main.rand.NextFloat(PiOver4, -PiOver4)).ToRotationVector2() * 3, 150, Scale: Main.rand.NextFloat(1, 3)).noGravity = true;
                 if (Projectile.ai[0] < 80)
                     Projectile.velocity *= 1.1f;
+                Projectile.netUpdate = true;
             }
             if (Projectile.timeLeft < 45)
             {
                 Projectile.velocity *= 0.9f;
+                Projectile.netUpdate = true;
             }
         }
         else
@@ -140,6 +144,7 @@ public class EbonianRocket : ModProjectile
             Projectile.velocity *= 0.86f;
             if (Main.myPlayer == Projectile.owner)
                 Projectile.rotation = Helper.FromAToB(Projectile.Center, Main.MouseWorld).ToRotation();
+            Projectile.netUpdate = true;
         }
     }
 }

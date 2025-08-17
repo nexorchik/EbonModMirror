@@ -229,7 +229,7 @@ public class GoreBeam : ModProjectile
                     offset *= range;
                 }
                 end = Vector2.Lerp(end, player.Center + offset, 0.2f);
-                if ((int)Projectile.ai[0] % 15 == 0 || Projectile.ai[0] < 10)
+                if (end.Distance(Main.MouseWorld) > 10 || Projectile.ai[0] < 10)
                     Projectile.netUpdate = true; // TEST
             }
             points[points.Count - 1] = end;

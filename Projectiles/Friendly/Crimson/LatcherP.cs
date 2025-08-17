@@ -85,6 +85,7 @@ public class LatcherP : ModProjectile
             Speed = Clamp(Speed, 0, 23);
             Projectile.timeLeft = 10;
             player.velocity += Helper.FromAToB(player.Center, Projectile.Center, true) * Speed;
+            player.SyncPlayerControls();
             Projectile.Center = Target.Center + PositionOffset;
             if (Vector2.Distance(player.Center, Target.Center) < 100)
             {
