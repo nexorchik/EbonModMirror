@@ -19,6 +19,7 @@ public abstract class HeldProjectileGun : HeldProjectile
         player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - PiOver2);
 
         AnimationRotation = Lerp(AnimationRotation, 0, AnimationRotationSpeed);
+        Projectile.netUpdate = true;
     }
     public override void SendExtraAI(BinaryWriter writer)
     {

@@ -47,13 +47,11 @@ public class Sheep : ModNPC
     {
         writer.Write(sheared);
         writer.Write(dyeId);
-        writer.Write(NPC.catchItem);
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
         sheared = reader.ReadBoolean();
         dyeId = reader.Read();
-        NPC.catchItem = reader.Read();
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
@@ -95,7 +93,7 @@ public class Sheep : ModNPC
                     Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Smoke);
                     Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Silk);
                 }
-                NPC.netUpdate = true; // TEST
+                NPC.SyncNPC();
             }
         }
     }
@@ -121,7 +119,7 @@ public class Sheep : ModNPC
                     Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Smoke);
                     Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.ShimmerSpark);
                 }
-                NPC.netUpdate = true; // TEST
+                NPC.SyncNPC();
             }
         }
         if (Main.LocalPlayer.dontHurtCritters)
@@ -139,12 +137,14 @@ public class Sheep : ModNPC
                         Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Smoke);
                         Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Silk);
                     }
-                    NPC.netUpdate = true; // TEST
+                    NPC.SyncNPC();
                 }
             }
         }
-        if (sheared)
+        if (sheared && NPC.catchItem != ItemType<SheepItemNaked>())
+        {
             NPC.catchItem = ItemType<SheepItemNaked>();
+        }
         if (Main.netMode == 0)
             Collision.StepDown(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY);
     }
@@ -180,7 +180,7 @@ public class Sheep : ModNPC
     }
     public override void OnSpawn(IEntitySource source)
     {
-        if (NPC.ai[2] == 1)
+        if (NPC.ai[2] > 0)
         {
             sheared = true;
             NPC.ai[2] = 0;
@@ -215,7 +215,7 @@ public class Sheep : ModNPC
 
         if (Main.rand.NextBool(4) && NPC.Center.Distance(Main.LocalPlayer.Center) < 600)
             SoundEngine.PlaySound(EbonianSounds.sheep, NPC.Center);
-        NPC.netUpdate = true; // TEST
+        NPC.SyncNPC();
     }
     public override void FindFrame(int frameHeight)
     {

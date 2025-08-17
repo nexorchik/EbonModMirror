@@ -25,11 +25,14 @@ public class RoSTest : ModItem
     }
     public override bool? UseItem(Player player)
     {
-        if (Main.mouseRight)
-            Star.starfallBoost = 3;
-        else
-            Star.starfallBoost = 0;
-        NetMessage.SendData(MessageID.WorldData);
+        if (player.whoAmI == Main.myPlayer)
+        {
+            if (Main.mouseRight)
+                Star.starfallBoost = 3;
+            else
+                Star.starfallBoost = 0;
+            NetMessage.SendData(MessageID.WorldData);
+        }
         return base.UseItem(player);
     }
 }

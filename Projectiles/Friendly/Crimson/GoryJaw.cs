@@ -5,7 +5,7 @@ namespace EbonianMod.Projectiles.Friendly.Crimson;
 public class GoryJaw : ModProjectile
 {
     Vector2 PositionOffset;
-    Vector2 Scale = new Vector2(1, 1);
+    Vector2 Scale = Vector2.One;
     int TargetIndex = -1;
     public override void SetDefaults()
     {
@@ -27,7 +27,6 @@ public class GoryJaw : ModProjectile
     {
         Projectile.ai[1] = 0;
         Projectile.spriteDirection = Main.player[Projectile.owner].direction;
-        Projectile.netUpdate = true; // TEST
     }
 
     public override void OnKill(int timeLeft)
@@ -40,10 +39,12 @@ public class GoryJaw : ModProjectile
     public override void SendExtraAI(BinaryWriter writer)
     {
         writer.Write(TargetIndex);
+        writer.WriteVector2(PositionOffset);
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
         TargetIndex = reader.Read();
+        PositionOffset = reader.ReadVector2();
     }
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -55,13 +56,13 @@ public class GoryJaw : ModProjectile
             PositionOffset = Projectile.Center - target.Center;
             TargetIndex = target.whoAmI;
             Projectile.ai[2] = 1;
-            Projectile.netUpdate = true; // TEST
+            Projectile.netUpdate = true; // TESTf
         }
     }
     public override void AI()
     {
         Player player = Main.player[Projectile.owner];
-        if (Projectile.ai[2] == 1)
+        if (TargetIndex > -1)
         {
             NPC Target = Main.npc[TargetIndex];
             if (Target.life <= 0 || !Target.active)
@@ -80,7 +81,7 @@ public class GoryJaw : ModProjectile
                 Projectile.frameCounter = 0;
                 if (Projectile.frame > 2)
                 {
-                    for (int i = 0; i < 8; i++) Dust.NewDustPerfect(Projectile.Center + Projectile.rotation.ToRotationVector2() * 23, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(-Pi / 3, Pi / 3)).ToRotationVector2() * Main.rand.NextFloat(2, 6), Scale: 1.5f).noGravity = true;
+                    for (int i = 0; i < 8; i++) Dust.NewDustPerfect(Projectile.Center + Projectile.rotation.ToRotationVector2() * 23, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(-Pi / 3f, Pi / 3f)).ToRotationVector2() * Main.rand.NextFloat(2, 6), Scale: 1.5f).noGravity = true;
                     Projectile.frame = 0;
                 }
             }
@@ -90,16 +91,16 @@ public class GoryJaw : ModProjectile
             Projectile.rotation = Projectile.velocity.ToRotation();
             if (Projectile.ai[1] > -0.5f)
                 Projectile.ai[1] -= 0.00001f;
-            Projectile.velocity = new Vector2(Projectile.velocity.X, Projectile.velocity.Y - Projectile.ai[1]);
+            Projectile.velocity.Y -= Projectile.ai[1];
         }
-        Scale = Vector2.Lerp(Scale, new Vector2(Main.rand.NextFloat(2f - Projectile.ai[0] / 1200, Projectile.ai[0] / 1200), Main.rand.NextFloat(2f - Projectile.ai[0] / 1200, Projectile.ai[0] / 1200)), Projectile.ai[0] / 8000);
+        Scale = Vector2.Lerp(Scale, new Vector2(Main.rand.NextFloat(2f - Projectile.ai[0] / 1200f, Projectile.ai[0] / 1200f), Main.rand.NextFloat(2f - Projectile.ai[0] / 1200f, Projectile.ai[0] / 1200f)), Projectile.ai[0] / 8000f);
         Projectile.ai[0]++;
     }
     public override bool PreDraw(ref Color lightColor)
     {
         Texture2D texture = TextureAssets.Projectile[Type].Value;
         Rectangle frameRect = new Rectangle(0, Projectile.frame * 34, 46, 34);
-        Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, frameRect, lightColor, Projectile.rotation, Projectile.Size / 2, Scale, Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+        Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, frameRect, lightColor, Projectile.rotation, Projectile.Size / 2f, Scale, Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
         return false;
     }
 }

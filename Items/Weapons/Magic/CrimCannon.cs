@@ -44,10 +44,8 @@ public class CrimCannonGraphics : HeldProjectileGun
     {
         Player player = Main.player[Projectile.owner];
         player.CheckMana(-player.HeldItem.mana, true);
-        Projectile.rotation = Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation();
-        Projectile.frame = 5;
         Projectile.ai[0] = -20;
-        Projectile.netUpdate = true; // TEST
+        Projectile.SyncProjectile();
     }
 
     public override bool? CanDamage() => false;
@@ -73,6 +71,13 @@ public class CrimCannonGraphics : HeldProjectileGun
 
         Scale = Vector2.Lerp(Scale, new Vector2(1, 1), 0.14f);
 
+        if (Projectile.ai[0] == 0)
+        {
+            if (player.whoAmI == Main.myPlayer)
+                Projectile.rotation = Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation();
+            Projectile.frame = 5;
+            Projectile.netUpdate = true;
+        }
 
         if (Projectile.ai[0]++ > 14)
         {
@@ -102,6 +107,18 @@ public class CrimCannonGraphics : HeldProjectileGun
                 }
             }
         }
+    }
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        base.SendExtraAI(writer);
+        writer.Write((ushort)Projectile.frameCounter);
+        writer.Write((byte)Projectile.frame);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        base.ReceiveExtraAI(reader);
+        Projectile.frameCounter = reader.ReadInt16();
+        Projectile.frame = reader.ReadByte();
     }
     public override bool PreDraw(ref Color lightColor)
     {

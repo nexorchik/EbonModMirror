@@ -74,24 +74,27 @@ public class ThawGauntletP : ModProjectile
         Projectile.ai[1]++;
         Lighting.AddLight(Projectile.Center, new Vector3(0, 169, 255) / 255 * 0.5f);
         Player player = Main.player[Projectile.owner];
-            if (player.whoAmI == Projectile.owner && player.whoAmI == Main.myPlayer)
+        if (player.whoAmI == Projectile.owner && player.whoAmI == Main.myPlayer)
+        {
+            if (Projectile.ai[1] == 1)
             {
-                if (Projectile.ai[1] == 1)
-                {
-                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Helper.FromAToB(player.Center, Main.MouseWorld) * 5, ModContent.ProjectileType<ThawGauntletP2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                }
-                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);
-                if (Projectile.timeLeft < 29)
-                Projectile.timeLeft++;
-                player.direction = Main.MouseWorld.X >= player.Center.X ? 1 : -1;
-                player.itemTime = 2;
-                player.itemAnimation = 2;
-                Projectile.ModProjectile.DrawHeldProjInFrontOfHeldItemAndArms = true;
-                player.heldProj = Projectile.whoAmI;
-                Projectile.Center = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);
-                Projectile.rotation = (Main.MouseWorld - player.Center).ToRotation();
-                if (!player.channel || player.statMana <= 0 || !player.CheckMana(1)) Projectile.Kill();
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Helper.FromAToB(player.Center, Main.MouseWorld) * 5, ModContent.ProjectileType<ThawGauntletP2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             }
+            player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);
+            if (Projectile.timeLeft < 29)
+                Projectile.timeLeft++;
+            player.direction = Main.MouseWorld.X >= player.Center.X ? 1 : -1;
+            player.itemTime = 2;
+            player.itemAnimation = 2;
+            Projectile.ModProjectile.DrawHeldProjInFrontOfHeldItemAndArms = true;
+            player.heldProj = Projectile.whoAmI;
+            Projectile.Center = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);
+            Projectile.velocity = Main.MouseWorld - player.Center;
+            if (Projectile.velocity != Projectile.oldVelocity)
+                Projectile.netUpdate = true;
+            if (!player.channel || player.statMana <= 0 || !player.CheckMana(1)) Projectile.Kill();
+        }
+        Projectile.rotation = Projectile.velocity.ToRotation();
     }
 }
 
@@ -162,49 +165,48 @@ public class ThawGauntletP2 : ModProjectile
         if (Projectile.damage > 1 && Projectile.ai[0] != 0)
             Projectile.damage /= 2;
     }
-    int a;
     public override void AI()
     {
         Projectile.ai[1]++;
         Lighting.AddLight(Projectile.Center, new Vector3(0, 169, 255) / 255 * 0.5f);
         Player player = Main.player[Projectile.owner];
-            if (player.whoAmI == Projectile.owner && player == Main.LocalPlayer)
+        if (player.whoAmI == Projectile.owner && player == Main.LocalPlayer)
+        {
+            if (Projectile.ai[0] == 0)
             {
-                if (Projectile.ai[0] == 0)
-                {
-                    Projectile.Center = player.Center + Helper.FromAToB(player.Center, Main.MouseWorld) * 40;
-                    Projectile.velocity = Helper.FromAToB(player.Center, Main.MouseWorld) * 5;
+                Projectile.Center = player.Center + Helper.FromAToB(player.Center, Main.MouseWorld) * 40;
+                Projectile.velocity = Helper.FromAToB(player.Center, Main.MouseWorld) * 5;
 
-                    if (Projectile.localAI[0] < 1)
-                        Projectile.localAI[0] += 0.05f;
-                    else
-                    {
-                        if (!didAlpha)
-                        {
-                            didAlpha = true;
-                            alpha = 1f;
-                            Projectile.netUpdate = true;
-                        }
-                    }
-                    if (!didAlpha)
-                        if (Projectile.ai[1] % 5 == 0)
-                        {
-                            player.CheckMana(2, true, true);
-                            player.manaRegenDelay = (int)player.maxRegenDelay;
-                        }
-                    if (player.ZoneSnow)
-                        Projectile.timeLeft = 600;
-                    else
-                        Projectile.timeLeft = 300;
-                }
-                if (Projectile.ai[0] == 0 && (!player.channel || player.statMana <= 0 || !player.CheckMana(1)))
+                if (Projectile.localAI[0] < 1)
+                    Projectile.localAI[0] += 0.05f;
+                else
                 {
-                    if (Projectile.localAI[0] < 0.95f)
-                        Projectile.Kill();
-                    else
-                        Projectile.ai[0] = 1;
+                    if (!didAlpha)
+                    {
+                        didAlpha = true;
+                        alpha = 1f;
+                        Projectile.netUpdate = true;
+                    }
                 }
+                if (!didAlpha)
+                    if (Projectile.ai[1] % 5 == 0)
+                    {
+                        player.CheckMana(2, true, true);
+                        player.manaRegenDelay = (int)player.maxRegenDelay;
+                    }
+                if (player.ZoneSnow)
+                    Projectile.timeLeft = 600;
+                else
+                    Projectile.timeLeft = 300;
             }
+            if (Projectile.ai[0] == 0 && (!player.channel || player.statMana <= 0 || !player.CheckMana(1)))
+            {
+                if (Projectile.localAI[0] < 0.95f)
+                    Projectile.Kill();
+                else
+                    Projectile.ai[0] = 1;
+            }
+        }
         if (Projectile.ai[0] != 0)
         {
             Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0 ? 1 : -1;
@@ -212,12 +214,12 @@ public class ThawGauntletP2 : ModProjectile
             if (Helper.TRay.CastLength(Projectile.Center, Vector2.UnitY, 12) <= 10)
             {
                 Projectile.velocity.Y = 0;
-                if (Helper.TRay.CastLength(Projectile.Center, Vector2.UnitY, 12) > 2 && Helper.TRay.CastLength(Projectile.Center, -Vector2.UnitY, 12) > 2 && a < 3)
+                if (Helper.TRay.CastLength(Projectile.Center, Vector2.UnitY, 12) > 2 && Helper.TRay.CastLength(Projectile.Center, -Vector2.UnitY, 12) > 2 && Projectile.ai[2] < 3)
                 {
                     Projectile.Center = Helper.TRay.Cast(Projectile.Center - Vector2.UnitY * 10, Vector2.UnitY, 100) - new Vector2(0, 10);
                     Tile tile = Framing.GetTileSafely(Projectile.Center.ToTileCoordinates16().ToPoint());
                     if (tile.HasTile && !tile.IsActuated && WorldGen.SolidTile(tile))
-                        a++;
+                        Projectile.ai[2]++;
                 }
                 else
                 {
@@ -232,7 +234,11 @@ public class ThawGauntletP2 : ModProjectile
             }
             if (Helper.TRay.CastLength(Projectile.Center, Vector2.UnitY, 12) > 10)
             {
-                a = 0;
+                if (Projectile.ai[2] > 0)
+                {
+                    Projectile.ai[2] = 0;
+                    Projectile.netUpdate = true;
+                }
                 if (Projectile.localAI[1] != 0)
                     Projectile.velocity.Y = MathHelper.Lerp(Projectile.velocity.Y, 10, 0.25f);
                 else
@@ -255,6 +261,7 @@ public class ThawGauntletP2 : ModProjectile
                     else
                         bounce = true;
                     Projectile.ai[1] = 30;
+                    Projectile.netUpdate = true;
                 }
                 else
                     bounce = true;
@@ -269,6 +276,7 @@ public class ThawGauntletP2 : ModProjectile
                     else
                         bounce2 = true;
                     Projectile.ai[1] = 30;
+                    Projectile.netUpdate = true;
                 }
                 else
                     bounce2 = true;
@@ -279,7 +287,7 @@ public class ThawGauntletP2 : ModProjectile
             }
             else if (bounce2)
             {
-                Projectile.velocity.X = 0f - vel;
+                Projectile.velocity.X = -vel;
             }
         }
 
