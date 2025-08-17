@@ -31,7 +31,6 @@ public class FlameExplosionWSprite : ModProjectile
     int seed;
     public override void OnSpawn(IEntitySource source)
     {
-        seed = Main.rand.Next(int.MaxValue / 2);
         Helper.AddCameraModifier(new PunchCameraModifier(Projectile.Center, Main.rand.NextVector2Unit(), 4, 6, 30, 1000));
 
         SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
@@ -58,7 +57,7 @@ public class FlameExplosionWSprite : ModProjectile
 
     public override bool PreAI()
     {
-        if ((int)Projectile.ai[2] == 0)
+        if (Projectile.ai[2] < 0.05f)
         {
             Projectile.ai[2] = Projectile.scale;
             Projectile.netUpdate = true;

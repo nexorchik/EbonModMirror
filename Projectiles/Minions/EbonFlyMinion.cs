@@ -21,7 +21,7 @@ public class EbonFlyMinion : ModProjectile //this is literally ExampleMinion and
         Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * 40, 40, 40), lightColor, Projectile.rotation, Projectile.Size / 2, Projectile.scale, effects, 0);
         Main.EntitySpriteDraw(glow, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * 40, 40, 40), Color.White, Projectile.rotation, Projectile.Size / 2, Projectile.scale, effects, 0);
         Main.spriteBatch.Reload(BlendState.Additive);
-        Main.EntitySpriteDraw(glow, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * 40, 40, 40), Color.LawnGreen * glowAlpha, Projectile.rotation, Projectile.Size / 2, Projectile.scale, effects, 0);
+        Main.EntitySpriteDraw(glow, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * 40, 40, 40), Color.LawnGreen * Projectile.ai[1], Projectile.rotation, Projectile.Size / 2, Projectile.scale, effects, 0);
         Main.spriteBatch.Reload(BlendState.AlphaBlend);
         return false;
     }
@@ -57,7 +57,6 @@ public class EbonFlyMinion : ModProjectile //this is literally ExampleMinion and
     {
         return true;
     }
-    float glowAlpha;
     public override void AI()
     {
         Player player = Main.player[Projectile.owner];
@@ -109,7 +108,7 @@ public class EbonFlyMinion : ModProjectile //this is literally ExampleMinion and
         Vector2 targetCenter = Projectile.position;
         bool foundTarget = false;
 
-        if (glowAlpha >= 1)
+        if (Projectile.ai[1] >= 1)
             Projectile.Kill();
         if (player.HasMinionAttackTargetNPC)
         {
@@ -121,7 +120,7 @@ public class EbonFlyMinion : ModProjectile //this is literally ExampleMinion and
                 targetCenter = npc.Center;
                 foundTarget = true;
                 if (between < 100)
-                    glowAlpha += 0.03f;
+                    Projectile.ai[1] += 0.03f;
             }
         }
         if (!foundTarget)
@@ -191,6 +190,7 @@ public class EbonFlyMinion : ModProjectile //this is literally ExampleMinion and
             {
                 Projectile.velocity.X = -0.15f;
                 Projectile.velocity.Y = -0.05f;
+                Projectile.netUpdate = true;
             }
         }
         #endregion

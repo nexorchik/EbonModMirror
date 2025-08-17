@@ -30,16 +30,16 @@ internal class CecitiorClawSlash : ModProjectile
         a.PitchVariance = 0.2f;
         a.MaxInstances = 30;
         SoundEngine.PlaySound(a, Projectile.Center);
-        if (Projectile.ai[1] > 0)
-            Projectile.extraUpdates = (int)Projectile.ai[1];
         if (Projectile.ai[2] == 1)
             SoundEngine.PlaySound(EbonianSounds.cecitiorSlice, Projectile.Center);
         else
             SoundEngine.PlaySound(EbonianSounds.clawSwipe.WithVolumeScale(1.5f), Projectile.Center);
-        Projectile.netUpdate = true; // TEST
     }
     public override void AI()
     {
+        if (Projectile.ai[1] > 0)
+            Projectile.extraUpdates = (int)Projectile.ai[1];
+
         Projectile.rotation = Projectile.velocity.ToRotation();
         float progress = Utils.GetLerpValue(0, max, Projectile.timeLeft);
         Projectile.scale = MathHelper.Clamp((float)Math.Sin(progress * Math.PI) * (Projectile.scale + 0.5f), 0, 1);
