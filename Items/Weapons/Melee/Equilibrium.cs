@@ -153,8 +153,7 @@ public class EquilibriumP : HeldSword
                     proj.timeLeft = swingTime - 18 * 5;
                     proj.netUpdate = true;
                 }
-                Projectile.active = false;
-                Projectile.netUpdate = true; // TEST
+                Projectile.Kill();
             }
         }
         Projectile.scale = MathHelper.Clamp(MathF.Sin(swingProgress * MathF.PI) * 0.1f + 1, 0.975f, 1.05f);

@@ -161,8 +161,6 @@ public class KodamaF : Kodama
 
 
         Projectile.ai[0] += 0.5f;
-        if ((int)(Projectile.ai[0] * 2) % 15 == 0)
-            Projectile.netUpdate = true;
 
         if (Projectile.ai[0] > 100)
             alpha = Lerp(alpha, 0, 0.1f);
@@ -174,6 +172,7 @@ public class KodamaF : Kodama
             alpha = Lerp(alpha, 1, 0.1f);
             if (Projectile.ai[0] < 5)
                 vel = Helper.FromAToB(Projectile.Center - new Vector2(0, 150), mousePos);
+            Projectile.netUpdate = true;
         }
         if (Projectile.ai[0] > 110)
             Projectile.Kill();

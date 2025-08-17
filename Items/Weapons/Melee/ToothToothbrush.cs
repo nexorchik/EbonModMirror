@@ -135,7 +135,7 @@ public class ToothToothbrushP : HeldSword
         {
             lerpProg = -.25f;
             _hit = true;
-            Projectile.netUpdate = true;
+            Projectile.SyncProjectile();
         }
     }
 }

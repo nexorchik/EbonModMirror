@@ -49,6 +49,7 @@ public class BorealDancer : ModNPC
                 {
                     MPUtils.NewProjectile(NPC.GetSource_FromThis(), Helper.TRay.Cast(NPC.Center - new Vector2(-NPC.direction * 15, 35), Vector2.UnitY, 5000, true) + new Vector2(0, 3), Vector2.Zero, ProjectileType<BorealSpike>(), NPC.damage, 0, ai0: 2, ai1: NPC.direction);
                     NPC.velocity.X = -NPC.direction * 2.4f;
+                    NPC.netUpdate = true;
                 }
             }
             else
@@ -61,6 +62,7 @@ public class BorealDancer : ModNPC
         if (NPC.ai[0] != 1)
         {
             NPC.ai[1] = 2;
+            NPC.netUpdate = true;
         }
         else
         {

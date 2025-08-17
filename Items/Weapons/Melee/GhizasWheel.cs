@@ -168,11 +168,11 @@ public class GhizasWheelP : ModProjectile
         Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
         if (player.gravDir != -1)
             player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.velocity.ToRotation() - MathHelper.PiOver2);
-        if (player.whoAmI == Main.myPlayer)
+        if (player.whoAmI == Main.myPlayer && Main.MouseWorld != mousePos)
+        {
             mousePos = Main.MouseWorld;
-
-        if ((int)(Projectile.ai[1] * 10) % 15 == 0 || (int)Projectile.ai[1] == 0)
             Projectile.netUpdate = true;
+        }
 
         Projectile.velocity = Vector2.Lerp(Projectile.velocity, Helper.FromAToB(player.Center, mousePos), lerpT).SafeNormalize(Vector2.UnitX);
 
