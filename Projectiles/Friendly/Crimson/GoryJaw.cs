@@ -62,7 +62,7 @@ public class GoryJaw : ModProjectile
     public override void AI()
     {
         Player player = Main.player[Projectile.owner];
-        if (TargetIndex > -1)
+        if (TargetIndex > -1 && TargetIndex < Main.npc.Length)
         {
             NPC Target = Main.npc[TargetIndex];
             if (Target.life <= 0 || !Target.active)

@@ -20,9 +20,9 @@ public class GlobalSync : GlobalProjectile
             for (int i = 0; i < projectile.localAI.Length; i++)
                 writer.Write(projectile.localAI[i]);
 
-            writer.Write(projectile.hostile);
-            writer.Write(projectile.friendly);
-            writer.Write(projectile.tileCollide);
+            bitWriter.WriteBit(projectile.hostile);
+            bitWriter.WriteBit(projectile.friendly);
+            bitWriter.WriteBit(projectile.tileCollide);
         }
     }
     public override void ReceiveExtraAI(Projectile projectile, BitReader bitReader, BinaryReader reader)
@@ -35,9 +35,9 @@ public class GlobalSync : GlobalProjectile
             for (int i = 0; i < projectile.localAI.Length; i++)
                 projectile.localAI[i] = reader.ReadSingle();
 
-            projectile.hostile = reader.ReadBoolean();
-            projectile.friendly = reader.ReadBoolean();
-            projectile.tileCollide = reader.ReadBoolean();
+            projectile.hostile = bitReader.ReadBit();
+            projectile.friendly = bitReader.ReadBit();
+            projectile.tileCollide = bitReader.ReadBit();
         }
     }
 }
@@ -46,7 +46,7 @@ public class GlobalSyncNPC : GlobalNPC
 {
     public override void SendExtraAI(NPC npc, BitWriter bitWriter, BinaryWriter writer)
     {
-        if (npc.ModNPC?.Mod.Name == "EbonianMod")
+        if (npc.ModNPC?.Mod.Name == "EbonianMod" && !npc.boss)
         {
             for (int i = 0; i < npc.localAI.Length; i++)
                 writer.Write(npc.localAI[i]);
@@ -59,7 +59,7 @@ public class GlobalSyncNPC : GlobalNPC
     }
     public override void ReceiveExtraAI(NPC npc, BitReader bitReader, BinaryReader reader)
     {
-        if (npc.ModNPC?.Mod.Name == "EbonianMod")
+        if (npc.ModNPC?.Mod.Name == "EbonianMod" && !npc.boss)
         {
             for (int i = 0; i < npc.localAI.Length; i++)
                 npc.localAI[i] = reader.ReadSingle();

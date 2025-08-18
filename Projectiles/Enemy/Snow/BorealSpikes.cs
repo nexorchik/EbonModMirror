@@ -28,10 +28,14 @@ public class BorealSpike : ModProjectile
         Projectile.scale = 0;
     }
     public override bool ShouldUpdatePosition() => false;
+
+
     public override void AI()
     {
         Projectile.frame = (int)Projectile.ai[2];
-        if (Projectile.timeLeft == 78 && Projectile.frame < 14)
+        if (Projectile.timeLeft > 78)
+            Projectile.localAI[0] = Projectile.ai[0] + 0.5f;
+        if (Projectile.timeLeft < 79 && Projectile.timeLeft > 76 && Projectile.ai[0] < Projectile.localAI[0] && Projectile.frame < 14)
         {
             Projectile.ai[0]++;
             MPUtils.NewProjectile(Projectile.GetSource_FromAI(), TRay.Cast(Projectile.Center - new Vector2(-10 * Projectile.ai[1], 70), Vector2.UnitY, 5000, true) + new Vector2(0, 3), Vector2.Zero, ProjectileType<BorealSpike>(), Projectile.damage, Projectile.knockBack, Projectile.owner, ai1: Projectile.ai[1], ai2: Projectile.frame + 2);

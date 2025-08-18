@@ -64,7 +64,6 @@ namespace EbonianMod.Projectiles.Friendly.Generic
                     player.manaRegenDelay = (int)player.maxRegenDelay;
 
                     Projectile.ai[1] = 0;
-                    Projectile.netUpdate = true;
                 }
                 Projectile.timeLeft++;
                 player.direction = Main.MouseWorld.X >= player.Center.X ? 1 : -1;
@@ -73,10 +72,9 @@ namespace EbonianMod.Projectiles.Friendly.Generic
                 Projectile.ModProjectile.DrawHeldProjInFrontOfHeldItemAndArms = true;
                 player.heldProj = Projectile.whoAmI;
                 Projectile.Center = player.Center + Helper.FromAToB(player.Center, Main.MouseWorld) * 20;
-                if (Projectile.position != Projectile.oldPosition)
-                    Projectile.netUpdate = true;
                 if (!player.channel || player.statMana <= 0 || !player.CheckMana(1)) Projectile.Kill();
             }
+            Projectile.netUpdate = true;
         }
         public override void PostDraw(Color lightColor)
         {
