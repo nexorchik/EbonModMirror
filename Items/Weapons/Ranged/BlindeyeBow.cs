@@ -2,6 +2,7 @@
 using EbonianMod.Projectiles.Friendly.Crimson;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -181,5 +182,6 @@ public class BlindeyeBowP : ModProjectile
 
         player.itemTime = 2;
         player.itemAnimation = 2;
+        Projectile.netUpdate = true;
     }
 }

@@ -1,10 +1,11 @@
-﻿using Terraria.ID;
-using Terraria;
-using Terraria.ModLoader;
-using EbonianMod.Dusts;
+﻿using EbonianMod.Dusts;
 using Microsoft.Xna.Framework;
-using Terraria.Utilities;
 using Microsoft.Xna.Framework.Graphics;
+using System.IO;
+using Terraria;
+using Terraria.ID;
+using Terraria.ModLoader;
+using Terraria.Utilities;
 
 namespace EbonianMod.Items.Weapons.Ranged;
 public class Spitvine : ModItem
@@ -54,6 +55,16 @@ public class PlantGunP : ModProjectile
         Projectile.light = 0f;
         Projectile.extraUpdates = 3;
     }
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        base.SendExtraAI(writer);
+        writer.Write(Projectile.extraUpdates);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        base.ReceiveExtraAI(reader);
+        Projectile.extraUpdates = reader.ReadInt32();
+    }
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
         for (int i = 0; i < 2; i++)
@@ -80,7 +91,10 @@ public class PlantGunP : ModProjectile
     public override void AI()
     {
         if (Projectile.extraUpdates == 3 && Projectile.hostile)
+        {
             Projectile.extraUpdates = 0;
+            Projectile.netUpdate = true;
+        }
         if (Projectile.timeLeft % 30 == Projectile.ai[2])
         {
             float f = Main.rand.NextFloat(1, 5) * Main.rand.NextFloatDirection();

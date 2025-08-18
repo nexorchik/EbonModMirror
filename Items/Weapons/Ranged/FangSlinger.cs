@@ -184,5 +184,6 @@ public class FangSlingerP : ModProjectile
 
         player.itemTime = 2;
         player.itemAnimation = 2;
+        Projectile.netUpdate = true;
     }
 }

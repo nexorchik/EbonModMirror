@@ -169,6 +169,7 @@ public class ThornBowP : ModProjectile
             else
                 Projectile.ai[2] = MathHelper.Lerp(Projectile.ai[2], 0, 0.2f);
         }
+        Projectile.netUpdate = true;
     }
 }
 

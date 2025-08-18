@@ -19,10 +19,12 @@ public class PotatoP : ModProjectile
     public override void SendExtraAI(BinaryWriter writer)
     {
         writer.Write(Fire);
+        writer.Write(Projectile.extraUpdates);
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
         Fire = reader.ReadBoolean();
+        Projectile.extraUpdates = reader.ReadInt32();
     }
     public override void OnSpawn(IEntitySource source)
     {

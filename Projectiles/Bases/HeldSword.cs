@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using Terraria;
 
 namespace EbonianMod.Projectiles.Bases;
 
@@ -22,6 +23,16 @@ public abstract class HeldSword : ModProjectile
     public virtual void OnHit(NPC target, NPC.HitInfo hit, int damageDone)
     {
 
+    }
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        for (int i = 0; i < Projectile.localAI.Length; i++)
+            writer.Write(Projectile.localAI[i]);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        for (int i = 0; i < Projectile.localAI.Length; i++)
+            Projectile.localAI[i] = reader.ReadSingle();
     }
     public override void SetDefaults()
     {
