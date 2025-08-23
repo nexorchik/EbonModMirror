@@ -106,7 +106,6 @@ public class EquilibriumP : HeldSword
                 Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.velocity * 50, dir, ProjectileType<EquilibriumP2>(), Projectile.damage, Projectile.knockBack, player.whoAmI, 0, (Projectile.ai[1]));
                 proj.rotation = Projectile.rotation;
                 proj.Center = Projectile.Center + Projectile.velocity * 50;
-                proj.timeLeft = 60 * 5 - 15 * 5;
                 proj.SyncProjectile();
                 Projectile a = Projectile.NewProjectileDirect(null, Projectile.Center + Projectile.velocity * 50, Vector2.Zero, Projectile.ai[1] == 1 ? ProjectileType<OstertagiExplosion>() : ProjectileType<BloodExplosionWSprite>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 a.hostile = false;
@@ -152,8 +151,8 @@ public class EquilibriumP : HeldSword
                     proj.Center = Projectile.Center;
                     proj.timeLeft = swingTime - 18 * 5;
                     proj.netUpdate = true;
+                    Projectile.Kill();
                 }
-                Projectile.active = false;
                 Projectile.netUpdate = true;
             }
         }
@@ -255,6 +254,7 @@ public class EquilibriumP2 : HeldSword
         Projectile.width = 200;
         Projectile.height = 200;
         swingTime = 60 * 5;
+        Projectile.timeLeft = 60 * 5 - 15 * 5;
         Projectile.extraUpdates = 4;
         holdOffset = 0;
         Projectile.tileCollide = false;

@@ -114,8 +114,8 @@ public class BorealDancer : ModNPC
             }
             if (NPC.frame.Y > 13 * frameHeight)
             {
-                NPC.ai[0] = 1;
                 NPC.frame.Y = frameHeight;
+                NPC.ai[0] = 1;
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿
 using EbonianMod.Projectiles.Bases;
 using EbonianMod.Projectiles.Friendly.Underworld;
+using System.IO;
 
 namespace EbonianMod.Items.Weapons.Ranged;
 
@@ -52,7 +53,16 @@ public class CorebreakerGraphics : HeldProjectileGun
     }
     bool AltAttack = true;
     float HoldOffset;
-
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        base.SendExtraAI(writer);
+        writer.Write(AltAttack);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        base.ReceiveExtraAI(reader);
+        AltAttack = reader.ReadBoolean();
+    }
     public override void AI()
     {
         base.AI();
@@ -62,7 +72,7 @@ public class CorebreakerGraphics : HeldProjectileGun
         if (!AltAttack)
         {
             Projectile.ai[0]++;
-            if (Projectile.ai[0] == 120)
+            if (Projectile.ai[0] >= 120)
             {
                 Vector2 SpawnPosition = Projectile.Center + Projectile.rotation.ToRotationVector2() * 45;
                 SoundEngine.PlaySound(SoundID.Item40.WithPitchOffset(Main.rand.NextFloat(-4f, -2f)), player.Center);
@@ -74,6 +84,7 @@ public class CorebreakerGraphics : HeldProjectileGun
                 AnimationRotation = -0.4f * player.direction;
                 HoldOffset = 0;
                 Projectile.ai[0] = 0;
+                Projectile.netUpdate = true;
             }
             if (Main.mouseRight && Main.myPlayer == Projectile.owner)
             {
@@ -88,7 +99,11 @@ public class CorebreakerGraphics : HeldProjectileGun
                 }
                 if (player.whoAmI == Main.myPlayer)
                     Projectile.NewProjectile(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * 4, ProjectileType<CorebreakerHitscan>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                AltAttack = true;
+                if (!AltAttack)
+                {
+                    AltAttack = true;
+                    Projectile.netUpdate = true;
+                }
             }
         }
         else
@@ -98,6 +113,7 @@ public class CorebreakerGraphics : HeldProjectileGun
             {
                 AltAttack = false;
                 Projectile.ai[1] = 0;
+                Projectile.netUpdate = true;
             }
         }
         if (!Main.player[Projectile.owner].channel)

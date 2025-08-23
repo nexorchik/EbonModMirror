@@ -56,7 +56,7 @@ public class ThawGauntletP : ModProjectile
     }
     public override bool PreDraw(ref Color lightColor)
     {
-        if (Projectile.timeLeft >= 29) return false;
+        if (Projectile.timeLeft > 29) return false;
         Texture2D tex = TextureAssets.Projectile[Type].Value;
         Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2, Projectile.scale, Main.player[Projectile.owner].direction == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None, 0);
         return false;
@@ -71,14 +71,14 @@ public class ThawGauntletP : ModProjectile
     }
     public override void AI()
     {
-        Projectile.ai[1]++;
         Lighting.AddLight(Projectile.Center, new Vector3(0, 169, 255) / 255 * 0.5f);
         Player player = Main.player[Projectile.owner];
         if (player.whoAmI == Projectile.owner && player.whoAmI == Main.myPlayer)
         {
-            if (Projectile.ai[1] == 1)
+            if (Projectile.ai[1] < 1)
             {
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Helper.FromAToB(player.Center, Main.MouseWorld) * 5, ModContent.ProjectileType<ThawGauntletP2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                Projectile.ai[1] = 1;
             }
             player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);
             if (Projectile.timeLeft < 29)
@@ -141,12 +141,16 @@ public class ThawGauntletP2 : ModProjectile
         writer.Write(alpha);
         writer.Write(vel);
         writer.Write(didAlpha);
+        writer.Write(Projectile.localAI[0]);
+        writer.Write(Projectile.localAI[1]);
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
         alpha = reader.ReadSingle();
         vel = reader.ReadSingle();
         didAlpha = reader.ReadBoolean();
+        Projectile.localAI[0] = reader.ReadSingle();
+        Projectile.localAI[1] = reader.ReadSingle();
     }
     public override bool PreDraw(ref Color lightColor)
     {
@@ -185,7 +189,6 @@ public class ThawGauntletP2 : ModProjectile
                     {
                         didAlpha = true;
                         alpha = 1f;
-                        Projectile.netUpdate = true;
                     }
                 }
                 if (!didAlpha)
@@ -220,6 +223,8 @@ public class ThawGauntletP2 : ModProjectile
                     Tile tile = Framing.GetTileSafely(Projectile.Center.ToTileCoordinates16().ToPoint());
                     if (tile.HasTile && !tile.IsActuated && WorldGen.SolidTile(tile))
                         Projectile.ai[2]++;
+
+                    Projectile.netUpdate = true;
                 }
                 else
                 {
@@ -228,7 +233,7 @@ public class ThawGauntletP2 : ModProjectile
                 }
                 Helper.SpawnDust(Projectile.Bottom + new Vector2(5 * -Projectile.direction, -4), Vector2.One, DustID.Frost, new Vector2(-Projectile.velocity.X, -2), 2, new Action<Dust>((target) => { target.noGravity = true; target.scale = Main.rand.NextFloat(0.6f, 0.9f); }
                 ));
-                if (Projectile.localAI[1] == 0)
+                if (Projectile.localAI[1] < 1)
                     Projectile.velocity.X = vel * Projectile.direction;
                 Projectile.localAI[1]++;
             }
@@ -290,6 +295,7 @@ public class ThawGauntletP2 : ModProjectile
                 Projectile.velocity.X = -vel;
             }
         }
-
+        else
+            Projectile.netUpdate = true;
     }
 }

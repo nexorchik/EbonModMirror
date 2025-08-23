@@ -54,7 +54,7 @@ public class CorruptionHitscan : ModProjectile
         if (Projectile.ai[2] == 0)
             Projectile.timeLeft = 200;
         Projectile.ai[1] = Lerp(0, 1, InOutCirc.Invoke(Projectile.timeLeft / 100f));
-        if(EmitParticles == true)
+        if(EmitParticles)
             Dust.NewDustPerfect(Projectile.Center, DustID.Demonite, Main.rand.NextVector2Circular(1, 1), Scale: Main.rand.NextFloat(0.5f, 0.8f));
     }
     public override bool? CanDamage() => Projectile.ai[2] == 0;

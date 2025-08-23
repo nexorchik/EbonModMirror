@@ -63,14 +63,12 @@ public class ChainswordP : HeldSword
         base.SendExtraAI(writer);
         writer.Write(lerpProg);
         writer.Write(timer);
-        writer.Write(Projectile.extraUpdates);
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
         base.ReceiveExtraAI(reader);
         lerpProg = reader.ReadSingle();
         timer = reader.ReadInt32();
-        Projectile.extraUpdates = reader.ReadInt32();
     }
     public override void ExtraAI()
     {

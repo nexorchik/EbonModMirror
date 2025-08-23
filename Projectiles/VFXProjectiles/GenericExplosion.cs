@@ -18,10 +18,11 @@ public class FlameExplosionWSprite : ModProjectile
     {
         Projectile.penetrate = -1;
         Projectile.DamageType = DamageClass.Ranged;
-        Projectile.friendly = false;
-        Projectile.hostile = true;
+        Projectile.friendly = true;
+        Projectile.hostile = false;
 
         Projectile.Size = new Vector2(98);
+
         Projectile.tileCollide = false;
         Projectile.ignoreWater = true;
         Projectile.timeLeft = 26;
@@ -59,7 +60,6 @@ public class FlameExplosionWSprite : ModProjectile
         if (Projectile.ai[2] < 0.05f)
         {
             Projectile.ai[2] = Projectile.scale;
-            Projectile.netUpdate = true;
         }
         return true;
     }
@@ -70,6 +70,7 @@ public class FlameExplosionWSprite : ModProjectile
         Projectile.scale += 0.05f;
 
         Projectile.alpha += 10;
+
         if (Projectile.ai[1] < 1.1f)
             Projectile.ai[1] += 0.07f;
 

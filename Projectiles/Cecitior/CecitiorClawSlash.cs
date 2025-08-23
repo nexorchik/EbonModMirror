@@ -37,7 +37,7 @@ internal class CecitiorClawSlash : ModProjectile
     }
     public override void AI()
     {
-        if (Projectile.ai[1] > 0)
+        if (Projectile.ai[1] >= 1)
             Projectile.extraUpdates = (int)Projectile.ai[1];
 
         Projectile.rotation = Projectile.velocity.ToRotation();

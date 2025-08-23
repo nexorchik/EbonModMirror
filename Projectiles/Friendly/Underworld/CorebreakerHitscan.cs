@@ -23,11 +23,10 @@ public class CorebreakerHitscan : ModProjectile
         Projectile.extraUpdates = 60;
         Projectile.timeLeft = 350;
     }
-    bool EmitParticles = true;
     public override void AI()
     {
         Projectile.rotation = Projectile.velocity.ToRotation();
-        if (EmitParticles == true)
+        if (Projectile.velocity.Length() > 0.1f)
         {
             Dust.NewDustPerfect(Projectile.Center, DustID.Torch, (Projectile.rotation - PiOver2).ToRotationVector2() * Main.rand.NextFloat(0.7f, 2f), Scale: (float)Projectile.timeLeft / 70).noGravity = true;
             Dust.NewDustPerfect(Projectile.Center, DustID.Torch, (Projectile.rotation + PiOver2).ToRotationVector2() * Main.rand.NextFloat(0.7f, 2f), Scale: (float)Projectile.timeLeft / 70).noGravity = true;
@@ -37,16 +36,21 @@ public class CorebreakerHitscan : ModProjectile
             if (projectile.type == ProjectileType<CorebreakerP>())
                 if (Projectile.Distance(projectile.Center) < 45)
                 {
-                    projectile.Kill();
-                    Projectile CurrentProjectile = Projectile.NewProjectileDirect(NPC.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<FlameExplosionWSprite>(), Projectile.damage * 5, 0);
-                    CurrentProjectile.scale *= 1.6f;
-                    CurrentProjectile.CritChance = 100;
-                    CurrentProjectile.friendly = true;
-                    CurrentProjectile.hostile = false;
-                    CurrentProjectile.netUpdate = true; // TEST
+                    if (Main.myPlayer == projectile.owner)
+                    {
+                        projectile.Kill();
+                        Projectile CurrentProjectile = Projectile.NewProjectileDirect(NPC.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<FlameExplosionWSprite>(), Projectile.damage * 5, 0);
+                        CurrentProjectile.scale *= 1.6f;
+                        CurrentProjectile.CritChance = 100;
+                        CurrentProjectile.friendly = true;
+                        CurrentProjectile.hostile = false;
+                        CurrentProjectile.SyncProjectile();
+                    }
                     Freeze();
                 }
         }
+        if (Projectile.ai[2] >= 1)
+            Projectile.velocity *= 0;
     }
     public override bool PreDraw(ref Color lightColor)
     {
@@ -84,7 +88,7 @@ public class CorebreakerHitscan : ModProjectile
         Projectile.Center += Projectile.velocity;
         Projectile.velocity = Vector2.Zero;
         Projectile.ai[2] = 1;
-        EmitParticles = false;
+        Projectile.netUpdate = true;
     }
 
     public override bool? CanDamage() => Projectile.ai[2] == 0;

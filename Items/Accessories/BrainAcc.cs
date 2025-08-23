@@ -33,12 +33,12 @@ public class BrainAcc : ModItem
         if (brains.Count <= 0)
         {
             timer++;
-            if (timer >= 420 && Main.myPlayer == player.whoAmI)
+            if (timer >= 420)
             {
                 for (int k = 0; k < 8; k++)
                 {
                     float angle = 2f * (float)Math.PI / 8f * k;
-                    MPUtils.NewNPC(player.Center, NPCType<TinyBrain>(), ai1: player.whoAmI, ai2: k);
+                    NPC.NewNPCDirect(null, player.Center, NPCType<TinyBrain>(), ai1: player.whoAmI, ai2: k);
                 }
                 timer = 0;
             }

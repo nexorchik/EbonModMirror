@@ -62,7 +62,7 @@ public class Chalice : ModNPC
                 SoundEngine.PlaySound(SoundID.Item21.WithPitchOffset(Main.rand.NextFloat(0.2f, 0.5f)), NPC.Center);
                 MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, (NPC.rotation - Pi / 2).ToRotationVector2() * 30, ProjectileType<AshBlast>(), 4, 0);
             }
-            if (Animation == true)
+            if (Animation)
             {
                 NPC.ai[0]++;
                 if (NPC.ai[0] > 50)
