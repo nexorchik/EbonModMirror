@@ -81,10 +81,9 @@ public class GarbageDrone : ModProjectile
             {
                 Projectile.NewProjectile(null, Projectile.Center, Vector2.UnitY, ProjectileType<GarbageLightning>(), Projectile.damage, 0);
             }
-        if (Projectile.ai[0] == 230)
+        if (Projectile.ai[0] > 230)
         {
-            if (Projectile.owner == Main.myPlayer)
-                Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<FlameExplosionWSprite>(), 50, 0);
+            Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<FlameExplosionWSprite>(), 50, 0);
             Projectile.Kill();
         }
     }
@@ -169,10 +168,9 @@ public class GarbageDroneF : ModProjectile
         {
             Projectile.NewProjectileDirect(null, Projectile.Center, Vector2.UnitY, ProjectileType<GarbageLightningF>(), Projectile.damage, 0, Projectile.owner);
         }
-        if ((int)Projectile.ai[0] == 130)
+        if (Projectile.ai[0] > 130)
         {
-            if (Projectile.owner == Main.myPlayer)
-                Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<FlameExplosionWSprite>(), 0, 0);
+            Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<FlameExplosionWSprite>(), 0, 0);
             Projectile.Kill();
         }
     }

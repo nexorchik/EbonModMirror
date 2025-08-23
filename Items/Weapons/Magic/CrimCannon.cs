@@ -31,7 +31,7 @@ public class CrimCannon : ModItem
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
     {
         velocity.Normalize();
-        Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
+        Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, -20);
         return false;
     }
 }
@@ -43,9 +43,7 @@ public class CrimCannonGraphics : HeldProjectileGun
     public override void OnSpawn(IEntitySource source)
     {
         Player player = Main.player[Projectile.owner];
-        player.CheckMana(-player.HeldItem.mana, true);
-        Projectile.ai[0] = -20;
-        Projectile.SyncProjectile();
+        player.CheckMana(player.HeldItem.mana, true);
     }
 
     public override bool? CanDamage() => false;
@@ -81,14 +79,14 @@ public class CrimCannonGraphics : HeldProjectileGun
 
         if (Projectile.ai[0]++ > 14)
         {
-            Projectile.frameCounter--;
-            if (Projectile.frameCounter <= 0)
+            Projectile.ai[2]--;
+            if (Projectile.ai[2] <= 0)
             {
-                Projectile.frameCounter += 6;
-                Projectile.frame++;
-                if (Projectile.frame > 5)
+                Projectile.ai[2] += 6;
+                Projectile.ai[1]++;
+                if (Projectile.ai[1] > 5)
                 {
-                    Projectile.frame = 0;
+                    Projectile.ai[1] = 0;
                     AnimationRotation = -0.2f * player.direction;
                     Scale = new Vector2(0.65f, 1.6f);
                     SoundEngine.PlaySound(SoundID.NPCHit9.WithPitchOffset(Main.rand.NextFloat(-1f, -0.5f)), player.Center);
@@ -102,23 +100,12 @@ public class CrimCannonGraphics : HeldProjectileGun
                             Dust.NewDustPerfect(SpawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(PiOver2, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(3, 8), Scale: 1.5f).noGravity = true;
                             Dust.NewDustPerfect(SpawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(-PiOver2, -PiOver4)).ToRotationVector2() * Main.rand.NextFloat(3, 8), Scale: 1.5f).noGravity = true;
                         }
-                        Projectile.frameCounter += 15;
+                        Projectile.ai[2] += 15;
                     }
                 }
             }
         }
-    }
-    public override void SendExtraAI(BinaryWriter writer)
-    {
-        base.SendExtraAI(writer);
-        writer.Write((ushort)Projectile.frameCounter);
-        writer.Write((byte)Projectile.frame);
-    }
-    public override void ReceiveExtraAI(BinaryReader reader)
-    {
-        base.ReceiveExtraAI(reader);
-        Projectile.frameCounter = reader.ReadInt16();
-        Projectile.frame = reader.ReadByte();
+        Projectile.frame = (int)Projectile.ai[1];
     }
     public override bool PreDraw(ref Color lightColor)
     {

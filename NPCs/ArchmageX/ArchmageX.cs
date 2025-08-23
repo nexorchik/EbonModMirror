@@ -1353,6 +1353,8 @@ public class ArchmageX : CommonNPC
                         if (disposablePos[2].Distance(NPC.Center) < 3000)
                         {
                             NPC.Center = disposablePos[2];
+                            if (!MPUtils.NotMPClient)
+                                NPC.netOffset *= 0;
                         }
                     }
                     else if (AITimer == 151 || AITimer == 221)
@@ -1375,32 +1377,6 @@ public class ArchmageX : CommonNPC
                     }
                     else
                         NPC.damage = 0;
-
-                    /*if (phaseMult == 3 && AITimer == 260)
-                    {
-                        NPC.netUpdate = true;
-                        if (MPUtils.NotMPClient)
-                        {
-                            disposablePos[0] = NPC.Center + Helper.FromAToB(NPC.Center, staffP) * 20;
-                            disposablePos[1] = player.Center + player.velocity;
-                        }
-                        MPUtils.NewProjectileServerSide(null, disposablePos[0], Vector2.Zero, ProjectileType<XExplosion>(), 0, 0);
-                        for (int i = -2; i < 3; i++)
-                        {
-                            disposablePos[i + 6] = Helper.FromAToB(disposablePos[0], disposablePos[1]).RotatedByRandom(MathF.Abs(i) * 0.75f);
-                            MPUtils.NewProjectileServerSide(null, disposablePos[0], disposablePos[i + 6], ProjectileType<XSineLaser>(), 0, 0);
-                        }
-                    }
-
-                   if (phaseMult == 3 && AITimer == 358)
-                    {
-                        MPUtils.NewProjectileServerSide(null, disposablePos[0], Vector2.Zero, ProjectileType<XExplosion>(), 0, 0);
-                        for (int i = -2; i < 3; i++)
-                        {
-                            MPUtils.NewProjectileServerSide(null, disposablePos[0], disposablePos[i + 6], ProjectileType<XSineLaser>(), 15, 0);
-                        }
-                    }
-                    */
                     if (AITimer >= (330 + (phaseMult == 3 ? 100 : 0)))
                     {
                         Reset();

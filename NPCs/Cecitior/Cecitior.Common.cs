@@ -100,7 +100,7 @@ public partial class Cecitior : ModNPC
             claw[i].position = reader.ReadVector2();
         savedPos = reader.ReadVector2();
         savedClawPos = reader.ReadVector2();
-        oldHP = reader.Read();
+        oldHP = reader.ReadInt32();
         AITimer2 = reader.ReadSingle();
         AITimer3 = reader.ReadSingle();
         shakeVal = (float)reader.ReadHalf();

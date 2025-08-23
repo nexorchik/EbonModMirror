@@ -91,9 +91,9 @@ public class VileSlime : ModNPC //this is literally exampleslime but i honestly 
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
-        int1 = reader.Read();
-        int2 = reader.Read();
-        int3 = reader.Read();
+        int1 = reader.ReadInt32();
+        int2 = reader.ReadInt32();
+        int3 = reader.ReadInt32();
     }
     public override bool CheckDead()
     {

@@ -560,12 +560,12 @@ public class MiscDrawingMethods
     };
     public static void DrawWithDye(SpriteBatch spriteBatch, DrawData data, int dye, Entity entity, bool Additive = false)
     {
-        spriteBatch.End();
+        spriteBatch.End(out var sbParams);
         spriteBatch.Begin(SpriteSortMode.Immediate, Additive ? BlendState.Additive : BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullNone, null, Main.Transform);
-        GameShaders.Armor.GetShaderFromItemId(dye).Apply(entity, data);
+        GameShaders.Armor.GetShaderFromItemId(dye).Apply(null, data);
         data.Draw(Main.spriteBatch);
         spriteBatch.End();
-        spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.Transform);
+        spriteBatch.Begin(sbParams);
     }
     public static void DrawShinyText(DrawableTooltipLine line)
     {

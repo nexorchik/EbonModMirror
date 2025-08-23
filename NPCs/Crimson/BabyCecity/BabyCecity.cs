@@ -114,7 +114,7 @@ public class BabyCecity : ModNPC
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
-        seed = reader.Read();
+        seed = reader.ReadInt32();
         savedP = reader.ReadVector2();
         savedP2 = reader.ReadVector2();
         for (int i = 0; i < 2; i++)

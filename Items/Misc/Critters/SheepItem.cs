@@ -12,8 +12,8 @@ public class SheepItem : ModItem
     }
     public override bool? UseItem(Player player)
     {
-        if (player.whoAmI == Main.myPlayer)
-            MPUtils.NewNPC(Main.MouseWorld, NPCType<Sheep>());
+        //if (player.whoAmI == Main.myPlayer)
+        //  MPUtils.NewNPC(Main.MouseWorld, NPCType<Sheep>());
         return true;
     }
 }

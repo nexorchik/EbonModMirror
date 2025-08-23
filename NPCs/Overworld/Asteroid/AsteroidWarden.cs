@@ -47,7 +47,7 @@ public class AsteroidWarden : CommonNPC
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
-        next = reader.Read();
+        next = reader.ReadInt32();
     }
     public override void FindFrame(int frameHeight)
     {

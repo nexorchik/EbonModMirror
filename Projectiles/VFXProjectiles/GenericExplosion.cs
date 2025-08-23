@@ -11,7 +11,6 @@ public class FlameExplosionWSprite : ModProjectile
     public override void SetStaticDefaults()
     {
         Main.projFrames[Type] = 7;
-        ProjectileID.Sets.DontAttachHideToAlpha[Type] = true;
     }
     public override bool? CanDamage() => Projectile.alpha < 150;
 

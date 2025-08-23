@@ -51,7 +51,7 @@ public class Sheep : ModNPC
     public override void ReceiveExtraAI(BinaryReader reader)
     {
         sheared = reader.ReadBoolean();
-        dyeId = reader.Read();
+        dyeId = reader.ReadInt32();
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
@@ -82,19 +82,6 @@ public class Sheep : ModNPC
         if ((item.type == ItemType<Shears>() || item.type == ItemID.StylistKilLaKillScissorsIWish))
         {
             modifiers.FinalDamage *= 0;
-            if (!sheared)
-            {
-                sheared = true;
-                Item.NewItem(null, NPC.getRect(), ItemType<Wool>(), Main.rand.Next(2, 5));
-                SoundEngine.PlaySound(EbonianSounds.shears, NPC.Center);
-                SoundEngine.PlaySound(EbonianSounds.sheep, NPC.Center);
-                for (int i = 0; i < 30; i++)
-                {
-                    Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Smoke);
-                    Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Silk);
-                }
-                NPC.SyncNPC();
-            }
         }
     }
     public override bool? CanBeHitByItem(Player player, Item item)
@@ -103,12 +90,52 @@ public class Sheep : ModNPC
             return false;
         return base.CanBeHitByItem(player, item);
     }
+    bool spawn;
     public override void AI()
     {
+        if (!spawn)
+        {
+            if (NPC.ai[2] > 0)
+            {
+                sheared = true;
+                NPC.ai[2] = 0;
+            }
+            else if (Main.netMode > 0)
+            {
+                WeightedRandom<int> dye = new();
+                dye.Add(ItemID.PinkDye, 0.01f);
+                dye.Add(ItemID.NegativeDye, 0.001f);
+                dye.Add(ItemID.BlackDye);
+                dye.Add(ItemID.BlueDye, 0.1f);
+                dye.Add(ItemID.BrownDye);
+                dye.Add(ItemID.YellowDye, 0.3f);
+                dye.Add(ItemID.BrightSilverDye);
+                dye.Add(ItemID.GreenDye, 0.2f);
+                dye.Add(ItemID.ShadowDye);
+                dye.Add(ItemID.BrightBrownDye);
+                dye.Add(ItemID.BrownAndBlackDye);
+                dye.Add(ItemID.BrownAndSilverDye);
+                dye.Add(ItemID.SkyBlueDye, 0.5f);
+                dye.Add(ItemID.OrangeandSilverDye);
+                dye.Add(ItemID.ReflectiveGoldDye, 0.025f);
+                dye.Add(-1, 8);
+                dyeId = dye;
+
+                string name = Main.LocalPlayer.name;
+                name.ApplyCase(LetterCasing.LowerCase);
+                if (name == "jeb" || name == "jeb_")
+                    dyeId = ItemID.LivingRainbowDye;
+            }
+
+            if (Main.rand.NextBool(4) && NPC.Center.Distance(Main.LocalPlayer.Center) < 600)
+                SoundEngine.PlaySound(EbonianSounds.sheep, NPC.Center);
+            NPC.netUpdate = true;
+            spawn = true;
+        }
         lastClicked--;
         if (Main.rand.NextBool(2000) && NPC.Center.Distance(Main.LocalPlayer.Center) < 600)
             SoundEngine.PlaySound(EbonianSounds.sheep.WithVolumeScale(0.35f), NPC.Center);
-        if (Main.LocalPlayer.Center.Distance(NPC.Center) < 175 && new Rectangle((int)Main.MouseWorld.X, (int)Main.MouseWorld.Y, 5, 5).Intersects(NPC.getRect()) && Main.mouseRight && lastClicked < 0)
+        if (Main.netMode > 0 && Main.LocalPlayer.Center.Distance(NPC.Center) < 175 && new Rectangle((int)Main.MouseWorld.X, (int)Main.MouseWorld.Y, 5, 5).Intersects(NPC.getRect()) && Main.mouseRight && lastClicked < 0)
         {
             if (Main.LocalPlayer.HeldItem.dye > 0 && dyeId != Main.LocalPlayer.HeldItem.type && !sheared)
             {
@@ -119,12 +146,12 @@ public class Sheep : ModNPC
                     Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Smoke);
                     Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.ShimmerSpark);
                 }
-                NPC.SyncNPC();
+                NPC.netUpdate = true;
             }
         }
-        if (Main.LocalPlayer.dontHurtCritters)
+        foreach (Player player in Main.ActivePlayers)
         {
-            if ((Main.LocalPlayer.HeldItem.type == ItemType<Shears>() || Main.LocalPlayer.HeldItem.type == ItemID.StylistKilLaKillScissorsIWish) && Main.LocalPlayer.Center.Distance(NPC.Center) < 50)
+            if ((player.HeldItem.type == ItemType<Shears>() || player.HeldItem.type == ItemID.StylistKilLaKillScissorsIWish) && player.Center.Distance(NPC.Center) < 50 && player.itemAnimation > 0)
             {
                 if (!sheared)
                 {
@@ -137,7 +164,7 @@ public class Sheep : ModNPC
                         Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Smoke);
                         Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Silk);
                     }
-                    NPC.SyncNPC();
+                    NPC.netUpdate = true;
                 }
             }
         }
@@ -155,7 +182,7 @@ public class Sheep : ModNPC
     }
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
-        if (NPC.IsABestiaryIconDummy) return true;
+        if (NPC.IsABestiaryIconDummy || !spawn) return true;
         Texture2D tex = TextureAssets.Npc[Type].Value;
         if (sheared)
             tex = Assets.ExtraSprites.Overworld.Sheep_Naked.Value;
@@ -168,7 +195,7 @@ public class Sheep : ModNPC
     }
     public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
-        if (NPC.IsABestiaryIconDummy || sheared) return;
+        if (NPC.IsABestiaryIconDummy || sheared || !spawn || Main.netMode > 0) return;
         Texture2D tex = Assets.ExtraSprites.Overworld.Sheep_Wool.Value;
         if (dyeId > 0 && !sheared)
         {
@@ -177,45 +204,6 @@ public class Sheep : ModNPC
             DrawData data = new(tex, NPC.Center + new Vector2(0, NPC.gfxOffY + 2) - Main.screenPosition, NPC.frame, drawColor, NPC.rotation, NPC.Size / 2, NPC.scale, (NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally) | (name == "dinnerbone" || name == "grumm" ? SpriteEffects.FlipVertically : SpriteEffects.None));
             MiscDrawingMethods.DrawWithDye(spriteBatch, data, dyeId, NPC);
         }
-    }
-    public override void OnSpawn(IEntitySource source)
-    {
-        if (NPC.ai[2] > 0)
-        {
-            sheared = true;
-            NPC.ai[2] = 0;
-        }
-        else
-        {
-
-            WeightedRandom<int> dye = new();
-            dye.Add(ItemID.PinkDye, 0.01f);
-            dye.Add(ItemID.NegativeDye, 0.001f);
-            dye.Add(ItemID.BlackDye);
-            dye.Add(ItemID.BlueDye, 0.1f);
-            dye.Add(ItemID.BrownDye);
-            dye.Add(ItemID.YellowDye, 0.3f);
-            dye.Add(ItemID.BrightSilverDye);
-            dye.Add(ItemID.GreenDye, 0.2f);
-            dye.Add(ItemID.ShadowDye);
-            dye.Add(ItemID.BrightBrownDye);
-            dye.Add(ItemID.BrownAndBlackDye);
-            dye.Add(ItemID.BrownAndSilverDye);
-            dye.Add(ItemID.SkyBlueDye, 0.5f);
-            dye.Add(ItemID.OrangeandSilverDye);
-            dye.Add(ItemID.ReflectiveGoldDye, 0.025f);
-            dye.Add(-1, 8);
-            dyeId = dye;
-
-            string name = Main.LocalPlayer.name;
-            name.ApplyCase(LetterCasing.LowerCase);
-            if (name == "jeb" || name == "jeb_")
-                dyeId = ItemID.LivingRainbowDye;
-        }
-
-        if (Main.rand.NextBool(4) && NPC.Center.Distance(Main.LocalPlayer.Center) < 600)
-            SoundEngine.PlaySound(EbonianSounds.sheep, NPC.Center);
-        NPC.SyncNPC();
     }
     public override void FindFrame(int frameHeight)
     {

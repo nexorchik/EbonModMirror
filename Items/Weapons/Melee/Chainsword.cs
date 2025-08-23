@@ -69,7 +69,7 @@ public class ChainswordP : HeldSword
     {
         base.ReceiveExtraAI(reader);
         lerpProg = reader.ReadSingle();
-        timer = reader.Read();
+        timer = reader.ReadInt32();
         Projectile.extraUpdates = reader.ReadInt32();
     }
     public override void ExtraAI()

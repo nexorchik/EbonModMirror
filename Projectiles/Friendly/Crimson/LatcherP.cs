@@ -49,7 +49,7 @@ public class LatcherP : ModProjectile
     {
         IsAttached = reader.ReadBoolean();
         PositionOffset = reader.ReadVector2();
-        TargetIndex = reader.Read();
+        TargetIndex = reader.ReadInt32();
         Speed = reader.ReadSingle();
     }
 
@@ -113,7 +113,7 @@ public class LatcherP : ModProjectile
     public override bool PreDraw(ref Color lightColor)
     {
         Player player = Main.player[Projectile.owner];
-        Vector2 neckOrigin = player.Center + Rotation.ToRotationVector2() * 40;
+        Vector2 neckOrigin = player.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 40;
         Vector2 center = Projectile.Center;
         Vector2 distToProj = neckOrigin - Projectile.Center;
         float projRotation = distToProj.ToRotation() - 1.57f;
