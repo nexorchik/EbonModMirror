@@ -26,14 +26,14 @@ public class CorebreakerHitscan : ModProjectile
     public override void AI()
     {
         Projectile.rotation = Projectile.velocity.ToRotation();
-        if (Projectile.velocity.Length() > 0.1f)
+        if (Projectile.velocity.Length() > 0f)
         {
             Dust.NewDustPerfect(Projectile.Center, DustID.Torch, (Projectile.rotation - PiOver2).ToRotationVector2() * Main.rand.NextFloat(0.7f, 2f), Scale: (float)Projectile.timeLeft / 70).noGravity = true;
             Dust.NewDustPerfect(Projectile.Center, DustID.Torch, (Projectile.rotation + PiOver2).ToRotationVector2() * Main.rand.NextFloat(0.7f, 2f), Scale: (float)Projectile.timeLeft / 70).noGravity = true;
         }
         foreach (Projectile projectile in Main.ActiveProjectiles)
         {
-            if (projectile.type == ProjectileType<CorebreakerP>())
+            if (projectile.type == ProjectileType<CorebreakerP>() && Projectile.timeLeft < 345)
                 if (Projectile.Distance(projectile.Center) < 45)
                 {
                     if (Main.myPlayer == projectile.owner)
@@ -46,11 +46,17 @@ public class CorebreakerHitscan : ModProjectile
                         CurrentProjectile.hostile = false;
                         CurrentProjectile.SyncProjectile();
                     }
-                    Freeze();
+                    if (Projectile.velocity.Length() > 0)
+                    {
+                        for (int i = 0; i < 35; i++)
+                        {
+                            Dust.NewDustPerfect(Projectile.Center, DustID.Torch, (Projectile.velocity + Main.rand.NextVector2Circular(5, 5)) * Main.rand.NextFloat(0.2f, 1.2f), Scale: Main.rand.NextFloat(1.8f, 2.7f));
+                        }
+                        Projectile.velocity *= 0;
+                        Projectile.netUpdate = true;
+                    }
                 }
         }
-        if (Projectile.ai[2] >= 1)
-            Projectile.velocity *= 0;
     }
     public override bool PreDraw(ref Color lightColor)
     {
@@ -78,23 +84,14 @@ public class CorebreakerHitscan : ModProjectile
         return false;
     }
 
-    void Freeze()
+
+    public override bool? CanDamage() => Projectile.ai[2] == 0;
+    public override bool OnTileCollide(Vector2 oldVelocity)
     {
         for (int i = 0; i < 35; i++)
         {
             Dust.NewDustPerfect(Projectile.Center, DustID.Torch, (Projectile.velocity + Main.rand.NextVector2Circular(5, 5)) * Main.rand.NextFloat(0.2f, 1.2f), Scale: Main.rand.NextFloat(1.8f, 2.7f));
         }
-        Projectile.tileCollide = false;
-        Projectile.Center += Projectile.velocity;
-        Projectile.velocity = Vector2.Zero;
-        Projectile.ai[2] = 1;
-        Projectile.netUpdate = true;
-    }
-
-    public override bool? CanDamage() => Projectile.ai[2] == 0;
-    public override bool OnTileCollide(Vector2 oldVelocity)
-    {
-        Freeze();
-        return false;
+        return true;
     }
 }

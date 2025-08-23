@@ -121,6 +121,23 @@ public class EquilibriumP : HeldSword
     {
         Projectile.ai[2] = 1;
         Player player = Main.player[Projectile.owner];
+        if (Projectile.timeLeft <= 18 * 5)
+        {
+            if (player.active && player.channel && !player.dead && !player.CCed && !player.noItems)
+            {
+                if (player.whoAmI == Main.myPlayer)
+                {
+                    Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center);
+                    Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), player.Center, dir, Projectile.type, Projectile.damage, Projectile.knockBack, Projectile.owner, (Projectile.ai[0] > 3 ? 0 : Projectile.ai[0] + 1), (-Projectile.ai[1]));
+                    proj.rotation = Projectile.rotation;
+                    proj.Center = Projectile.Center;
+                    proj.timeLeft = swingTime - 18 * 5;
+                    proj.netUpdate = true;
+                }
+                Projectile.active = false;
+                return;
+            }
+        }
         int direction = (int)Projectile.ai[1];
         float swingProgress = Ease(Utils.GetLerpValue(0f, swingTime, Projectile.timeLeft));
         float defRot = Projectile.velocity.ToRotation();
@@ -139,23 +156,6 @@ public class EquilibriumP : HeldSword
             SoundEngine.PlaySound(EbonianSounds.HeavySwing, Projectile.Center);
         }
 
-        if (Projectile.timeLeft <= 18 * 5)
-        {
-            if (player.active && player.channel && !player.dead && !player.CCed && !player.noItems)
-            {
-                if (player.whoAmI == Main.myPlayer)
-                {
-                    Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center);
-                    Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), player.Center, dir, Projectile.type, Projectile.damage, Projectile.knockBack, player.whoAmI, (Projectile.ai[0] > 3 ? 0 : Projectile.ai[0] + 1), (-Projectile.ai[1]));
-                    proj.rotation = Projectile.rotation;
-                    proj.Center = Projectile.Center;
-                    proj.timeLeft = swingTime - 18 * 5;
-                    proj.netUpdate = true;
-                    Projectile.Kill();
-                }
-                Projectile.netUpdate = true;
-            }
-        }
         Projectile.scale = MathHelper.Clamp(MathF.Sin(swingProgress * MathF.PI) * 0.1f + 1, 0.975f, 1.05f);
         float angle = MathHelper.Lerp(-MathHelper.PiOver2 - MathHelper.PiOver4 * 0.5f, MathHelper.Pi + MathHelper.PiOver4 * 0.5f, -swingProgress + 1);
         float rot = angle + (Projectile.ai[1] == 1 ? 0 : MathHelper.Pi) + MathHelper.PiOver2;
@@ -179,6 +179,9 @@ public class EquilibriumP : HeldSword
     List<float> oldP = new List<float>(30);
     public override bool PreDraw(ref Color lightColor)
     {
+        Player player = Main.player[Projectile.owner];
+        if (Projectile.timeLeft <= 18 * 5 && (player.active && player.channel && !player.dead && !player.CCed && !player.noItems))
+            return false;
         float swingProgress = Ease(Utils.GetLerpValue(0f, swingTime, Projectile.timeLeft));
         float swingProgressInv = MathHelper.Lerp(1, 0, swingProgress);
         float angle = MathHelper.Lerp(-MathHelper.PiOver2 - MathHelper.PiOver4 * 0.5f, MathHelper.Pi + MathHelper.PiOver4 * 0.5f, -swingProgress + 1);
