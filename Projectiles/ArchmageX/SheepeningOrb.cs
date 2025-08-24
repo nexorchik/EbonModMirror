@@ -2,6 +2,7 @@
 using EbonianMod.Dusts;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Terraria.Graphics.CameraModifiers;
 
 namespace EbonianMod.Projectiles.ArchmageX;
@@ -23,7 +24,6 @@ public class SheepeningOrb : ModProjectile
         Projectile.timeLeft = MaxTime;
         Projectile.Size = new(32, 32);
     }
-    float alpha;
     public override bool ShouldUpdatePosition() => false;
     public override bool? CanDamage() => Projectile.ai[1] > 0.1f && Projectile.timeLeft > 25;
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
@@ -33,32 +33,38 @@ public class SheepeningOrb : ModProjectile
     }
     public override void SendExtraAI(BinaryWriter writer)
     {
+        writer.Write(Projectile.localAI[1]);
     }
+
     public override void ReceiveExtraAI(BinaryReader reader)
     {
+        Projectile.localAI[1] = reader.ReadSingle();
     }
     public override void AI()
     {
-        if (Projectile.timeLeft > 70 && Projectile.localAI[0] == 0 && Projectile.owner > -1)
-            if (Main.player[Projectile.owner].active)
+        if (Projectile.timeLeft > 70 && Projectile.ai[0] > -1)
+            if (Main.player[(int)Projectile.ai[0]].active)
+            {
                 Projectile.velocity = Helper.FromAToB(Projectile.Center, Main.player[Projectile.owner].Center);
+                Projectile.netUpdate = true;
+            }
         Projectile.ai[2] = MathHelper.Lerp(Projectile.ai[2], 0, 0.1f);
         if (Projectile.timeLeft < 31 && Projectile.timeLeft > 10)
             Projectile.ai[1] = MathHelper.Lerp(Projectile.ai[1], 1, 0.3f);
         if (Projectile.timeLeft > 30)
-            Projectile.ai[0] = MathHelper.Lerp(Projectile.ai[0], 1f, 0.1f);
+            Projectile.localAI[1] = MathHelper.Lerp(Projectile.localAI[1], 1f, 0.1f);
         else
         {
             if (Projectile.timeLeft > 10)
             {
-                Projectile.ai[0] = MathHelper.Lerp(Projectile.ai[0], 0, 0.2f);
+                Projectile.localAI[1] = MathHelper.Lerp(Projectile.localAI[1], 0, 0.2f);
             }
             else
             {
                 Projectile.ai[1] = MathHelper.Lerp(Projectile.ai[1], 0, 0.05f);
             }
         }
-        if (Projectile.timeLeft == 30)
+        if (Projectile.timeLeft < 30 && Projectile.ai[2] < 0.5f)
         {
             Helper.AddCameraModifier(new PunchCameraModifier(Projectile.Center, Projectile.velocity, 7, 15, 30));
             MPUtils.NewProjectile(null, Projectile.Center + Projectile.velocity * 10, Vector2.Zero, ProjectileType<XExplosion>(), 0, 0);
@@ -69,14 +75,12 @@ public class SheepeningOrb : ModProjectile
                 Dust.NewDustPerfect(Projectile.Center, DustType<LineDustFollowPoint>(), Projectile.velocity.RotatedByRandom(MathHelper.PiOver4) * Main.rand.NextFloat(5, 15), 0, Color.White, Main.rand.NextFloat(0.05f, 0.24f));
             }
             Projectile.ai[2] = 0.5f;
+            Projectile.netUpdate = true;
         }
-        if (Projectile.timeLeft == 29)
+        if (Projectile.timeLeft < 29 && Projectile.ai[2] < 1)
             Projectile.ai[2] = 1;
 
         Projectile.localAI[0] -= 0.07f;
-        if (Projectile.localAI[0] <= 0)
-            Projectile.localAI[0] = 1;
-        Projectile.localAI[0] = MathHelper.Clamp(Projectile.localAI[0], float.Epsilon, 1 - float.Epsilon);
     }
     public override bool PreDraw(ref Color lightColor)
     {
@@ -114,19 +118,17 @@ public class SheepeningOrb : ModProjectile
             else
                 sLin = MathHelper.Clamp((-i + 1), 0, 0.5f);
 
-            float __off = Projectile.localAI[0];
-            if (__off > 1) __off = -__off + 1;
-            float _off = (__off + i) % 1f;
+            float _off = Projectile.localAI[0];
 
             Color col = Color.White * 0.5f * s;
-            if (Projectile.ai[0] > 0)
+            if (Projectile.localAI[1] > 0)
             {
-                verticesTelegraph1.Add(Helper.AsVertex(start + off * i + new Vector2(MathHelper.SmoothStep(10, 450, i), 0).RotatedBy(rot + MathHelper.PiOver2) * Projectile.ai[0], new Vector2(_off, 1), col * Projectile.ai[0]));
-                verticesTelegraph1.Add(Helper.AsVertex(start + off * i + new Vector2(MathHelper.SmoothStep(10, 450, i), 0).RotatedBy(rot - MathHelper.PiOver2) * Projectile.ai[0], new Vector2(_off, 0), col * Projectile.ai[0]));
+                verticesTelegraph1.Add(Helper.AsVertex(start + off * i + new Vector2(MathHelper.SmoothStep(10, 450, i), 0).RotatedBy(rot + MathHelper.PiOver2) * Projectile.localAI[1], new Vector2(_off, 1), col * Projectile.localAI[1]));
+                verticesTelegraph1.Add(Helper.AsVertex(start + off * i + new Vector2(MathHelper.SmoothStep(10, 450, i), 0).RotatedBy(rot - MathHelper.PiOver2) * Projectile.localAI[1], new Vector2(_off, 0), col * Projectile.localAI[1]));
 
                 col = Color.Magenta * 0.25f * s;
-                verticesTelegraph2.Add(Helper.AsVertex(start + off * i + new Vector2(420, 0).RotatedBy(rot + MathHelper.PiOver2) * Projectile.ai[0], new Vector2(_off, 1), col * Projectile.ai[0]));
-                verticesTelegraph2.Add(Helper.AsVertex(start + off * i + new Vector2(420, 0).RotatedBy(rot - MathHelper.PiOver2) * Projectile.ai[0], new Vector2(_off, 0), col * Projectile.ai[0]));
+                verticesTelegraph2.Add(Helper.AsVertex(start + off * i + new Vector2(420, 0).RotatedBy(rot + MathHelper.PiOver2) * Projectile.localAI[1], new Vector2(_off, 1), col * Projectile.localAI[1]));
+                verticesTelegraph2.Add(Helper.AsVertex(start + off * i + new Vector2(420, 0).RotatedBy(rot - MathHelper.PiOver2) * Projectile.localAI[1], new Vector2(_off, 0), col * Projectile.localAI[1]));
             }
             if (Projectile.ai[1] > 0)
             {

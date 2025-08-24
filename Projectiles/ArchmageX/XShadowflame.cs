@@ -27,6 +27,15 @@ public class XShadowflame : ModProjectile
     public override bool ShouldUpdatePosition() => false;
     public override bool? CanDamage() => Projectile.ai[2] >= 1f;
     float riftAlpha;
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        writer.Write(Projectile.localAI[1]);
+    }
+
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        Projectile.localAI[1] = reader.ReadSingle();
+    }
     public override void AI()
     {
         if (Projectile.velocity == Vector2.Zero) Projectile.velocity = -Vector2.UnitY;

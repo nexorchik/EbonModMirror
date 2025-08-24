@@ -1,4 +1,6 @@
 ﻿using EbonianMod.Dusts;
+using System.IO;
+using System.Linq;
 
 namespace EbonianMod.Projectiles.ArchmageX;
 
@@ -40,7 +42,15 @@ public class XCloud : ModProjectile
             Dust.NewDustPerfect(Main.rand.NextVector2FromRectangle(Projectile.getRect()), DustType<SparkleDust>(), Main.rand.NextVector2Circular(2, 2), 0, Color.Indigo, Scale: Main.rand.NextFloat(0.1f, .15f));
         }
     }
-    Vector2 savedDir, savedP;
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        writer.Write(Projectile.localAI[0]);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        Projectile.localAI[0] = reader.ReadSingle();
+    }
+    Vector2 savedDir;
     public override void AI()
     {
         Lighting.AddLight(Projectile.Center, TorchID.Purple);
@@ -53,15 +63,15 @@ public class XCloud : ModProjectile
 
         if (Projectile.ai[0] > 40)
         {
-            Projectile.ai[2] = MathHelper.Lerp(Projectile.ai[2], 1, 0.2f);
+            Projectile.localAI[0] = MathHelper.Lerp(Projectile.localAI[0], 1, 0.2f);
             if (Projectile.ai[0] % 6 == 0 && Projectile.ai[0] < 70)
             {
                 Vector2 pos = Projectile.Center + Main.rand.NextVector2CircularEdge(150, 150) * Main.rand.NextFloat(1, 2);
-                Dust.NewDustPerfect(pos, DustType<LineDustFollowPoint>(), Helper.FromAToB(pos, Projectile.Center) * Main.rand.NextFloat(1, 2), 0, Color.Lerp(Color.Purple, Color.Indigo, Projectile.ai[2]), Scale: Main.rand.NextFloat(0.15f, .4f)).customData = Projectile.Center;
+                Dust.NewDustPerfect(pos, DustType<LineDustFollowPoint>(), Helper.FromAToB(pos, Projectile.Center) * Main.rand.NextFloat(1, 2), 0, Color.Lerp(Color.Purple, Color.Indigo, Projectile.localAI[0]), Scale: Main.rand.NextFloat(0.15f, .4f)).customData = Projectile.Center;
             }
         }
         else
-            Projectile.ai[2] = MathHelper.Lerp(Projectile.ai[2], 0, 0.2f);
+            Projectile.localAI[0] = MathHelper.Lerp(Projectile.localAI[0], 0, 0.2f);
 
         if (Projectile.timeLeft % 8 == 0)
         {
@@ -72,13 +82,13 @@ public class XCloud : ModProjectile
             Dust.NewDustPerfect(Main.rand.NextVector2FromRectangle(Projectile.getRect()), DustType<SparkleDust>(), Main.rand.NextVector2Circular(2, 2), 0, Color.Indigo, Scale: Main.rand.NextFloat(0.1f, .15f));
         if (Projectile.timeLeft <= 345)
             Projectile.ai[0]++;
-        if (Projectile.ai[0] == 20)
+        if (Projectile.ai[0] <= 20 && savedDir == Vector2.Zero)
         {
             savedDir = Helper.FromAToB(Projectile.Center, Main.player[Projectile.owner].Center);
             if (Projectile.ai[1] != 1)
                 MPUtils.NewProjectile(null, Projectile.Center, savedDir, ProjectileType<XTelegraphLine>(), 0, 0);
             else
-                MPUtils.NewProjectile(null, Projectile.Center, savedDir, ProjectileType<SheepeningOrb>(), 20, 0, Projectile.owner);
+                MPUtils.NewProjectile(null, Projectile.Center, savedDir, ProjectileType<SheepeningOrb>(), 20, 0, Main.myPlayer, Projectile.ai[2]);
         }
         if (Projectile.ai[0] > (Projectile.ai[1] != 1 ? 55 : 100))
         {

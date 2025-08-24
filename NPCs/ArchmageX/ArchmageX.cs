@@ -476,6 +476,7 @@ public class ArchmageX : CommonNPC
     }
     public override void AI()
     {
+        NPC.dontTakeDamage = AIState != Spawn && AIState != Phase2Transition;
         bool phase2 = phaseMult >= 2;
         if (currentDialogue is not null)
         {
@@ -883,9 +884,9 @@ public class ArchmageX : CommonNPC
                     }
                     if (AITimer == 660)
                     {
-                        MPUtils.NewProjectile(null, GetArenaRect().Center() + new Vector2(250, -100), Vector2.Zero, ProjectileType<XCloud>(), 0, 0);
-                        MPUtils.NewProjectile(null, GetArenaRect().Center() + new Vector2(-250, -100), Vector2.Zero, ProjectileType<XCloud>(), 0, 0);
-                        MPUtils.NewProjectile(null, GetArenaRect().Center() + new Vector2(0, -150), Vector2.Zero, ProjectileType<XCloud>(), 0, 0);
+                        MPUtils.NewProjectile(null, GetArenaRect().Center() + new Vector2(250, -100), Vector2.Zero, ProjectileType<XCloud>(), 0, 0, Main.myPlayer);
+                        MPUtils.NewProjectile(null, GetArenaRect().Center() + new Vector2(-250, -100), Vector2.Zero, ProjectileType<XCloud>(), 0, 0, Main.myPlayer);
+                        MPUtils.NewProjectile(null, GetArenaRect().Center() + new Vector2(0, -150), Vector2.Zero, ProjectileType<XCloud>(), 0, 0, Main.myPlayer);
                     }
                     if (AITimer > 800 && AITimer < 1000 && AITimer % 50 == 0)
                     {
@@ -895,7 +896,7 @@ public class ArchmageX : CommonNPC
                     }
                     if (AITimer == 1030)
                     {
-                        MPUtils.NewProjectile(null, staffTip, Vector2.Zero, ProjectileType<SheepeningOrb>(), 1, 0);
+                        MPUtils.NewProjectile(null, staffTip, Vector2.Zero, ProjectileType<SheepeningOrb>(), 1, 0, Main.myPlayer, -1, ai1: -1);
                     }
                     if (AITimer == 1110)
                         currentDialogue = DialogueSystem.NewDialogueBox(160, NPC.Center - new Vector2(0, 80), Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XPhase2End").Value, Color.Violet, -1, 0.6f, Color.Indigo * 0.5f, 2.3f, true, DialogueAnimationIDs.BopDown | DialogueAnimationIDs.ColorWhite, SoundID.DD2_OgreRoar.WithPitchOffset(0.9f + (phaseMult == 3 ? 0.1f : 0)), 5);
@@ -1129,10 +1130,9 @@ public class ArchmageX : CommonNPC
                                 Dust.NewDustPerfect(pos, DustType<LineDustFollowPoint>(), Helper.FromAToB(staffTip, player.Center).RotatedByRandom(PiOver4) * Main.rand.NextFloat(10, 15), 0, Color.Indigo, Main.rand.NextFloat(0.05f, 0.175f));
                         }
                         if (!phase2)
-                            MPUtils.NewProjectile(null, NPC.Center, Helper.FromAToB(staffTip, player.Center).RotatedByRandom(MathHelper.PiOver4) * (phaseMult == 3 ? 4 : 5f), ProjectileType<XSpirit>(), 15, 0, player.whoAmI);
+                            MPUtils.NewProjectile(null, NPC.Center, Helper.FromAToB(staffTip, player.Center).RotatedByRandom(MathHelper.PiOver4) * (phaseMult == 3 ? 4 : 5f), ProjectileType<XSpirit>(), 15, 0, Main.myPlayer, player.whoAmI);
                         else
-                            MPUtils.NewProjectile(null, NPC.Center, Helper.FromAToB(staffTip, player.Center).RotatedByRandom(MathHelper.PiOver4 * 0.25f) * 6f, ProjectileType<XSpirit>(), 15, 0, player.whoAmI);
-
+                            MPUtils.NewProjectile(null, NPC.Center, Helper.FromAToB(staffTip, player.Center).RotatedByRandom(MathHelper.PiOver4 * 0.25f) * 6f, ProjectileType<XSpirit>(), 15, 0, Main.myPlayer, player.whoAmI);
                     }
                     else
                         NPC.damage = 0;
@@ -1660,7 +1660,7 @@ public class ArchmageX : CommonNPC
                         }
                         if (!phase2 && AITimer >= 60 && AITimer % 25 == 0)
                         {
-                            MPUtils.NewProjectile(null, staffTip, Vector2.Zero, ProjectileType<XLargeAmethyst>(), 15, player.whoAmI, 0);
+                            MPUtils.NewProjectile(null, staffTip, Vector2.Zero, ProjectileType<XLargeAmethyst>(), 15, 0, Main.myPlayer, player.whoAmI);
 
                             MPUtils.NewProjectile(null, staffTip, Vector2.Zero, ProjectileType<XExplosionInvis>(), 0, 0);
                         }
@@ -1846,13 +1846,13 @@ public class ArchmageX : CommonNPC
                     if (shouldAttack)
                     {
                         SoundEngine.PlaySound(EbonianSounds.cursedToyCharge, NPC.Center);
-                        MPUtils.NewProjectile(null, NPC.Center, Helper.FromAToB(NPC.Center, player.Center + player.velocity), ProjectileType<SheepeningOrb>(), 1, 0, player.whoAmI);
+                        MPUtils.NewProjectile(null, NPC.Center, Helper.FromAToB(NPC.Center, player.Center + player.velocity), ProjectileType<SheepeningOrb>(), 1, 0, Main.myPlayer, player.whoAmI);
 
                         if (phaseMult == 3 && AITimer % 60 == 0)
                             for (int i = -1; i < 2; i++)
                             {
                                 if (i == 0) continue;
-                                Projectile a = MPUtils.NewProjectile(null, NPC.Center, Helper.FromAToB(NPC.Center, player.Center + player.velocity).RotatedBy(i * 0.75f), ProjectileType<SheepeningOrb>(), 1, 0, -1);
+                                Projectile a = MPUtils.NewProjectile(null, NPC.Center, Helper.FromAToB(NPC.Center, player.Center + player.velocity).RotatedBy(i * 0.75f), ProjectileType<SheepeningOrb>(), 1, 0, Main.myPlayer, -1);
                                 if (a is not null)
                                 {
                                     a.localAI[0] = 1;
@@ -1865,7 +1865,7 @@ public class ArchmageX : CommonNPC
                     {
                         for (int i = -2; i < 4; i++)
                         {
-                            Projectile a = MPUtils.NewProjectile(null, NPC.Center, Helper.FromAToB(NPC.Center, player.Center + player.velocity).RotatedBy(i * 0.35f), ProjectileType<SheepeningOrb>(), 1, 0, -1);
+                            Projectile a = MPUtils.NewProjectile(null, NPC.Center, Helper.FromAToB(NPC.Center, player.Center + player.velocity).RotatedBy(i * 0.35f), ProjectileType<SheepeningOrb>(), 1, 0, Main.myPlayer, -1);
                             if (a is not null)
                             {
                                 a.localAI[0] = 1;
@@ -2032,7 +2032,7 @@ public class ArchmageX : CommonNPC
                         disposablePos[0] = player.Center;
                         Vector2 vel = Helper.FromAToB(NPC.Center, disposablePos[0]);
                         if (phaseMult == 3)
-                            MPUtils.NewProjectile(null, NPC.Center, Helper.FromAToB(NPC.Center, player.Center + player.velocity), ProjectileType<SheepeningOrb>(), 1, 0, player.whoAmI);
+                            MPUtils.NewProjectile(null, NPC.Center, Helper.FromAToB(NPC.Center, player.Center + player.velocity), ProjectileType<SheepeningOrb>(), 1, 0, Main.myPlayer, player.whoAmI);
                         else
                         {
                             MPUtils.NewProjectile(null, NPC.Center + vel * 15, vel, ProjectileType<XSineLaser>(), 0, 0, ai1: 7.5f);
@@ -2040,7 +2040,7 @@ public class ArchmageX : CommonNPC
                         }
                     }
                     if (AITimer > 160 && AITimer < 200 && AITimer % 25 == 0 && phaseMult == 3)
-                        MPUtils.NewProjectile(null, NPC.Center, Helper.FromAToB(NPC.Center, player.Center + player.velocity), ProjectileType<SheepeningOrb>(), 1, 0, player.whoAmI);
+                        MPUtils.NewProjectile(null, NPC.Center, Helper.FromAToB(NPC.Center, player.Center + player.velocity), ProjectileType<SheepeningOrb>(), 1, 0, Main.myPlayer, player.whoAmI);
                     if (AITimer == 170 && phaseMult != 3)
                     {
                         headFrame.Y = ShockedFace;
@@ -2363,18 +2363,18 @@ public class ArchmageX : CommonNPC
                     {
                         if (phase2)
                         {
-                            MPUtils.NewProjectile(null, GetArenaRect().Center() + new Vector2(250, -100), Vector2.Zero, ProjectileType<XCloud>(), 0, 0, player.whoAmI, ai1: (phaseMult == 3 ? 1 : 0));
-                            MPUtils.NewProjectile(null, GetArenaRect().Center() + new Vector2(-250, -100), Vector2.Zero, ProjectileType<XCloud>(), 0, 0, player.whoAmI, -20, ai1: (phaseMult == 3 ? 1 : 0));
+                            MPUtils.NewProjectile(null, GetArenaRect().Center() + new Vector2(250, -100), Vector2.Zero, ProjectileType<XCloud>(), 0, 0, Main.myPlayer, ai1: (phaseMult == 3 ? 1 : 0), ai2: player.whoAmI);
+                            MPUtils.NewProjectile(null, GetArenaRect().Center() + new Vector2(-250, -100), Vector2.Zero, ProjectileType<XCloud>(), 0, 0, Main.myPlayer, -20, ai1: (phaseMult == 3 ? 1 : 0), ai2: player.whoAmI);
                             if (phaseMult == 3)
                             {
-                                MPUtils.NewProjectile(null, GetArenaRect().Center() + new Vector2(0, -150), Vector2.Zero, ProjectileType<XCloud>(), 0, 0, player.whoAmI, -30, ai1: (phaseMult == 3 ? 1 : 0));
+                                MPUtils.NewProjectile(null, GetArenaRect().Center() + new Vector2(0, -150), Vector2.Zero, ProjectileType<XCloud>(), 0, 0, Main.myPlayer, -30, ai1: (phaseMult == 3 ? 1 : 0), ai2: player.whoAmI);
 
-                                MPUtils.NewProjectile(null, GetArenaRect().Center() + new Vector2(420, -50), Vector2.Zero, ProjectileType<XCloud>(), 0, 0, player.whoAmI, -10, ai1: (phaseMult == 3 ? 1 : 0));
-                                MPUtils.NewProjectile(null, GetArenaRect().Center() + new Vector2(-420, -50), Vector2.Zero, ProjectileType<XCloud>(), 0, 0, player.whoAmI, 5, ai1: (phaseMult == 3 ? 1 : 0));
+                                MPUtils.NewProjectile(null, GetArenaRect().Center() + new Vector2(420, -50), Vector2.Zero, ProjectileType<XCloud>(), 0, 0, Main.myPlayer, -10, ai1: (phaseMult == 3 ? 1 : 0), ai2: player.whoAmI);
+                                MPUtils.NewProjectile(null, GetArenaRect().Center() + new Vector2(-420, -50), Vector2.Zero, ProjectileType<XCloud>(), 0, 0, Main.myPlayer, 5, ai1: (phaseMult == 3 ? 1 : 0), ai2: player.whoAmI);
                             }
                         }
                         else
-                            MPUtils.NewProjectile(null, new Vector2(MathHelper.Clamp(NPC.Center.X, GetArenaRect().X + 40, GetArenaRect().X + GetArenaRect().Width - 40), MathHelper.Clamp(NPC.Center.Y - 120, GetArenaRect().Y + 70, GetArenaRect().Y + GetArenaRect().Width - 70)), Vector2.Zero, ProjectileType<XCloud>(), 0, 0, player.whoAmI);
+                            MPUtils.NewProjectile(null, new Vector2(MathHelper.Clamp(NPC.Center.X, GetArenaRect().X + 40, GetArenaRect().X + GetArenaRect().Width - 40), MathHelper.Clamp(NPC.Center.Y - 120, GetArenaRect().Y + 70, GetArenaRect().Y + GetArenaRect().Width - 70)), Vector2.Zero, ProjectileType<XCloud>(), 0, 0, Main.myPlayer, ai2: player.whoAmI);
                     }
 
                     if (AITimer >= 280 + (phaseMult == 3 ? 100 : 0))

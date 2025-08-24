@@ -175,6 +175,17 @@ public class LatcherPCecitior : ModProjectile
             Projectile.ai[1] = 2;
         }
     }
+
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        writer.Write(Projectile.localAI[0]);
+    }
+
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        Projectile.localAI[0] = reader.ReadSingle();
+    }
+
     public override void AI()
     {
         if (Helper.TRay.CastLength(Projectile.Center, Vector2.UnitY, 30, true) < 20)

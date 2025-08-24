@@ -122,8 +122,7 @@ public class XLargeAmethyst : ModProjectile
     }
     public override void AI()
     {
-        Player player = Main.player[Projectile.owner];
-        Projectile.ai[0]++;
+        Player player = Main.player[(int)Projectile.ai[0]];
         float progress = Utils.GetLerpValue(0, 250, Projectile.timeLeft);
         float vel = MathHelper.Clamp((float)Math.Sin(progress * Math.PI) * 3f, 0, 2);
         if (Projectile.timeLeft > 70)
@@ -131,10 +130,14 @@ public class XLargeAmethyst : ModProjectile
             if (Projectile.ai[2] == 0)
             {
                 Projectile.velocity = Helper.FromAToB(Projectile.Center, player.Center + Helper.FromAToB(player.Center, Projectile.Center) * 50) * 3 * vel;
-                if (Projectile.Distance(player.Center) < 90)
+
+                foreach (Player pl in Main.ActivePlayers)
                 {
-                    Projectile.timeLeft = 70;
-                    Projectile.netUpdate = true;
+                    if (Projectile.Distance(pl.Center) < 90)
+                    {
+                        Projectile.timeLeft = 70;
+                        Projectile.netUpdate = true;
+                    }
                 }
             }
             else
@@ -146,9 +149,13 @@ public class XLargeAmethyst : ModProjectile
         else if (Projectile.timeLeft <= 70 && Projectile.timeLeft > 50)
         {
             Projectile.velocity *= 0.9f;
-            p = Projectile.Center;
+            if (p == Vector2.Zero)
+            {
+                p = Projectile.Center;
+                Projectile.netUpdate = true;
+            }
         }
-        if (Projectile.timeLeft <= 50)
+        if (Projectile.timeLeft <= 50 && p.Distance(Projectile.Center) < 2000)
         {
             Projectile.ai[1] += 0.1f;
             Projectile.Center = p + Main.rand.NextVector2Circular(Projectile.ai[1], Projectile.ai[1]);

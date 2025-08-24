@@ -54,6 +54,16 @@ public class RingOfFireP : ModProjectile
         }
         return false;
     }
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        writer.Write(Projectile.localAI[0]);
+        writer.Write(Projectile.localAI[1]);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        Projectile.localAI[0] = reader.ReadSingle();
+        Projectile.localAI[1] = reader.ReadSingle();
+    }
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
         if (Projectile.ai[2] == 0)
@@ -147,10 +157,12 @@ public class RingOfFireP2 : ModProjectile // shout out to vanilla code
     }
     public override void SendExtraAI(BinaryWriter writer)
     {
+        writer.Write(Projectile.localAI[0]);
         writer.Write(proj);
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
+        Projectile.localAI[0] = reader.ReadSingle();
         proj = reader.ReadInt32();
     }
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)

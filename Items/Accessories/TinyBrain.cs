@@ -58,33 +58,17 @@ public class TinyBrain : ModNPC //the class name is a reference to my brain.
         if (!modPlayer.brainAcc)
         {
             NPC.active = false;
-            NPC.netUpdate = true;
         }
     }
 
     public override void FindFrame(int frameHeight)
     {
-
         NPC.frameCounter++;
-        if (NPC.frameCounter < 10)
+        if (NPC.frameCounter % 5 == 0)
         {
-            NPC.frame.Y = 0 * frameHeight;
-        }
-        else if (NPC.frameCounter < 20)
-        {
-            NPC.frame.Y = 1 * frameHeight;
-        }
-        else if (NPC.frameCounter < 30)
-        {
-            NPC.frame.Y = 2 * frameHeight;
-        }
-        else if (NPC.frameCounter < 40)
-        {
-            NPC.frame.Y = 3 * frameHeight;
-        }
-        else
-        {
-            NPC.frameCounter = 0;
+            NPC.frame.Y += frameHeight;
+            if (NPC.frame.Y > 3 * frameHeight)
+                NPC.frame.Y = 0;
         }
     }
     Verlet verlet;
