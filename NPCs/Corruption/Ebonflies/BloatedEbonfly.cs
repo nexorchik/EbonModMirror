@@ -80,18 +80,20 @@ public class BloatedEbonfly : ModNPC
     public override void SendExtraAI(BinaryWriter writer)
     {
         writer.Write(NPC.scale);
+        writer.Write(AITimer);
+        writer.WriteVector2(lastPos);
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
         NPC.scale = reader.ReadSingle();
+        AITimer = reader.ReadSingle();
+        lastPos = reader.ReadVector2();
     }
     public override void OnSpawn(IEntitySource source)
     {
         NPC.scale = Main.rand.NextFloat(0.8f, 1.2f);
         NPC.Center += Main.rand.NextVector2CircularEdge(40, 40);
         NPC.velocity = Main.rand.NextVector2Unit();
-        if (NPC.ai[3] < -2)
-            NPC.dontTakeDamage = true;
         NPC.netUpdate = true; // TEST
     }
     float glowAlpha = 0;
@@ -99,6 +101,8 @@ public class BloatedEbonfly : ModNPC
     float AITimer;
     public override void PostAI()
     {
+        if (NPC.ai[3] < -2)
+            NPC.dontTakeDamage = true;
         foreach (NPC npc in Main.ActiveNPCs)
         {
             if (npc.active && npc.whoAmI != NPC.whoAmI)
@@ -123,8 +127,8 @@ public class BloatedEbonfly : ModNPC
                 {
                     NPC.aiStyle = -1;
                     AIType = 0;
-                    NPC.velocity *= 0.99f;
-                    if (NPC.ai[3] >= 120)
+                    NPC.velocity *= 0.7f;
+                    if (NPC.ai[3] >= 120 && lastPos.Distance(NPC.Center) < 100)
                         NPC.Center = lastPos + Main.rand.NextVector2Circular(4 * glowAlpha, 4 * glowAlpha);
                     else
                         lastPos = NPC.Center;
@@ -135,7 +139,6 @@ public class BloatedEbonfly : ModNPC
                         MPUtils.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ProjectileType<HostileCorruptExplosion>(), 50, 0);
                         NPC.dontTakeDamage = false;
                         NPC.StrikeInstantKill();
-                        NPC.netUpdate = true;
                         break;
                     }
                     if ((int)NPC.ai[3] == 101)

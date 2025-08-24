@@ -342,6 +342,7 @@ public class ArchmageX : CommonNPC
     int blinkInterval;
     int frameBeforeBlink;
     SlotId helicopterSlot;
+    int seedCounter;
     float swingProgress, lerpProg = 1;
     FloatingDialogueBox currentDialogue;
     public override void SendExtraAI(BinaryWriter writer)
@@ -354,6 +355,8 @@ public class ArchmageX : CommonNPC
         writer.Write(doneAttacksBefore);
         for (int i = 0; i < disposablePos.Length; i++)
             writer.WriteVector2(disposablePos[i]);
+
+        writer.Write(seedCounter);
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
@@ -365,6 +368,8 @@ public class ArchmageX : CommonNPC
         doneAttacksBefore = reader.ReadBoolean();
         for (int i = 0; i < disposablePos.Length; i++)
             disposablePos[i] = reader.ReadVector2();
+
+        seedCounter = reader.ReadInt32();
     }
     void IdleAnimation()
     {
@@ -476,7 +481,13 @@ public class ArchmageX : CommonNPC
     }
     public override void AI()
     {
-        NPC.dontTakeDamage = AIState != Spawn && AIState != Phase2Transition;
+        if (seedCounter == 0 && MPUtils.NotMPClient)
+        {
+            seedCounter = Main.rand.Next(200, 10000);
+            NPC.netUpdate = true;
+        }
+        seedCounter++;
+        NPC.dontTakeDamage = AIState == Spawn || AIState == Phase2Transition;
         bool phase2 = phaseMult >= 2;
         if (currentDialogue is not null)
         {
@@ -649,7 +660,7 @@ public class ArchmageX : CommonNPC
                     headFrame.Y = (NPC.life < NPC.lifeMax * 0.1f ? AngryFace : SmirkFace);
                     if (AITimer == 40)
                     {
-                        WeightedRandom<string> chat = new WeightedRandom<string>();
+                        WeightedRandom<string> chat = new WeightedRandom<string>(seedCounter);
                         if (!phase2)
                         {
                             chat.Add(Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XDespawn1").Value);
@@ -730,7 +741,7 @@ public class ArchmageX : CommonNPC
                             currentDialogue = DialogueSystem.NewDialogueBox(100, NPC.Center - new Vector2(0, 80), Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XIntro3").Value, Color.Violet, -1, 0.6f, Color.Indigo * 0.5f, 4f, true, DialogueAnimationIDs.BopDown | DialogueAnimationIDs.ColorWhite, SoundID.DD2_OgreRoar.WithPitchOffset(0.9f + (phaseMult == 3 ? 0.1f : 0)), 5);
                         else
                         {
-                            WeightedRandom<string> chat = new WeightedRandom<string>();
+                            WeightedRandom<string> chat = new WeightedRandom<string>(seedCounter);
                             chat.Add(Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XIntro4").Value);
                             chat.Add(Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XIntro5").Value);
                             chat.Add(Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XIntro6").Value);
@@ -929,7 +940,7 @@ public class ArchmageX : CommonNPC
                     NPC.rotation = MathHelper.Lerp(NPC.rotation, NPC.velocity.X * 0.03f, 0.1f);
                     if (AITimer == 40)
                     {
-                        WeightedRandom<string> chat = new WeightedRandom<string>();
+                        WeightedRandom<string> chat = new WeightedRandom<string>(seedCounter);
                         chat.Add(Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XTaunt1").Value);
                         chat.Add(Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XTaunt2").Value);
                         chat.Add(Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XTaunt3").Value);
@@ -1350,15 +1361,16 @@ public class ArchmageX : CommonNPC
                             disposablePos[2] = Helper.TRay.Cast(disposablePos[2], Vector2.UnitY, 1000, true) - new Vector2(0, NPC.height / 2 + 8);
                         }
                         MPUtils.NewProjectile(null, disposablePos[2], Vector2.Zero, ProjectileType<XExplosionInvis>(), 0, 0);
+
+                    }
+                    else if (AITimer == 151 || AITimer == 221)
+                    {
                         if (disposablePos[2].Distance(NPC.Center) < 3000)
                         {
                             NPC.Center = disposablePos[2];
-                            if (!MPUtils.NotMPClient)
-                                NPC.netOffset *= 0;
+                            NPC.netOffset *= 0;
                         }
                     }
-                    else if (AITimer == 151 || AITimer == 221)
-                        NPC.netUpdate = true; // TEST
 
                     if ((AITimer <= 120 && AITimer >= 110) || AITimer == 160 || (AITimer <= 190 && AITimer >= 170) || (AITimer <= 250 && AITimer >= 240))
                     {
@@ -1819,7 +1831,7 @@ public class ArchmageX : CommonNPC
                     NPC.rotation = MathHelper.Lerp(NPC.rotation, 0, 0.1f);
                     if (AITimer == 40)
                     {
-                        WeightedRandom<string> chat = new WeightedRandom<string>();
+                        WeightedRandom<string> chat = new WeightedRandom<string>(seedCounter);
                         chat.Add(Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XAttack10.Default1").Value);
                         chat.Add(Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XAttack10.Default2").Value);
                         chat.Add(Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XAttack10.Default3").Value);
@@ -1897,7 +1909,7 @@ public class ArchmageX : CommonNPC
                             currentDialogue = DialogueSystem.NewDialogueBox(100, NPC.Center - new Vector2(0, 80), Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XAttack11.Default").Value, Color.Violet, -1, 0.6f, Color.Indigo * 0.5f, 4f, true, DialogueAnimationIDs.BopDown | DialogueAnimationIDs.ColorWhite, SoundID.DD2_OgreRoar.WithPitchOffset(0.9f + (phaseMult == 3 ? 0.1f : 0)), 5);
                         else
                         {
-                            WeightedRandom<string> chat = new WeightedRandom<string>();
+                            WeightedRandom<string> chat = new WeightedRandom<string>(seedCounter);
                             if (NPC.ai[3] == 1)
                                 chat.Add(Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XAttack11.Continuation1").Value);
                             else
@@ -2086,7 +2098,7 @@ public class ArchmageX : CommonNPC
                     //more portals in phase 2
                     if (AITimer == 80)
                     {
-                        WeightedRandom<string> chat = new WeightedRandom<string>();
+                        WeightedRandom<string> chat = new WeightedRandom<string>(seedCounter);
                         chat.Add(Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XAttack13.Default1").Value);
                         chat.Add(Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XAttack13.Default2").Value);
                         chat.Add(Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XAttack13.Default3").Value);
