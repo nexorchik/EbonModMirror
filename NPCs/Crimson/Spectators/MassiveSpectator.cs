@@ -97,8 +97,7 @@ public class MassiveSpectator : ModNPC
     }
     public override bool CheckDead()
     {
-        if (Main.myPlayer == 0)
-            MPUtils.NewNPC(NPC.Center + new Vector2(0, -800), NPCType<Cecitior.Cecitior>());
+        NPC.NewNPCDirect(null, NPC.Center + new Vector2(0, -500), NPCType<Cecitior.Cecitior>());
         return base.CheckDead();
     }
     public override void HitEffect(NPC.HitInfo hit)

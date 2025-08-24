@@ -37,9 +37,6 @@ internal class CecitiorClawSlash : ModProjectile
     }
     public override void AI()
     {
-        if (Projectile.ai[1] >= 1)
-            Projectile.extraUpdates = (int)Projectile.ai[1];
-
         Projectile.rotation = Projectile.velocity.ToRotation();
         float progress = Utils.GetLerpValue(0, max, Projectile.timeLeft);
         Projectile.scale = MathHelper.Clamp((float)Math.Sin(progress * Math.PI) * (Projectile.scale + 0.5f), 0, 1);

@@ -90,6 +90,8 @@ public partial class Cecitior : ModNPC
         writer.Write(AITimer3);
         writer.Write((Half)shakeVal);
         writer.Write(phase2);
+        writer.Write(NPC.localAI[0]);
+        writer.Write(NPC.localAI[1]);
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
@@ -105,6 +107,8 @@ public partial class Cecitior : ModNPC
         AITimer3 = reader.ReadSingle();
         shakeVal = (float)reader.ReadHalf();
         phase2 = reader.ReadBoolean();
+        NPC.localAI[0] = reader.ReadSingle();
+        NPC.localAI[1] = reader.ReadSingle();
     }
     public int AIState
     {
