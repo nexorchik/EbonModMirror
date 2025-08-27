@@ -26,7 +26,7 @@ public class DollPin : ModProjectile
     {
         if (Projectile.ai[0] == 0)
         {
-            Projectile.localAI[1] = Clamp(target.Size.Length() / 15, 7, 100);
+            Projectile.localAI[1] = Clamp(target.Size.Length() / 15, 10, 1000);
             Projectile.Center = target.Center;
             TargetIndex = target.whoAmI;
             Projectile.timeLeft = 999;
@@ -61,7 +61,7 @@ public class DollPin : ModProjectile
         if (Projectile.ai[1] == 0 && Projectile.localAI[0] < -15f)
         {
             Projectile.Kill();
-            Target.StrikeNPC(Target.townNPC ? 99999 : Projectile.damage, Projectile.knockBack, Target.direction);
+            Target.StrikeNPC(Target.townNPC ? 999999999 : Projectile.damage, Projectile.knockBack, Target.direction);
             Target.AddBuff(BuffID.CursedInferno, 400);
         }
     }
