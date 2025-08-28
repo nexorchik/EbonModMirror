@@ -1363,7 +1363,7 @@ public class ArchmageX : CommonNPC
                         MPUtils.NewProjectile(null, disposablePos[2], Vector2.Zero, ProjectileType<XExplosionInvis>(), 0, 0);
 
                     }
-                    else if (AITimer == 151 || AITimer == 221)
+                    else if (AITimer is (> 150 and < 153) or (> 220 and < 223))
                     {
                         if (disposablePos[2].Distance(NPC.Center) < 3000)
                         {
@@ -1661,7 +1661,7 @@ public class ArchmageX : CommonNPC
                             currentDialogue = DialogueSystem.NewDialogueBox(100, NPC.Center - new Vector2(0, 80), (phaseMult == 3 ? Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XAttack8.RepeatAngry").Value : Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.AndAgain").Value), Color.Violet, -1, 0.6f, Color.Indigo * 0.5f, 4f, true, DialogueAnimationIDs.BopDown | DialogueAnimationIDs.ColorWhite, SoundID.DD2_OgreRoar.WithPitchOffset(0.9f + (phaseMult == 3 ? 0.1f : 0)), 5);
                     if (phaseMult < 3)
                     {
-                        if (AITimer >= 60 && phase2 && AITimer % 35 == 0)
+                        if (AITimer >= 60 && phase2 && (int)AITimer % 35 == 0)
                         {
                             float off = Main.rand.NextFloat(Pi);
                             for (int i = 0; i < 3; i++)
@@ -1670,7 +1670,7 @@ public class ArchmageX : CommonNPC
                                 MPUtils.NewProjectile(null, staffTip, angle.ToRotationVector2(), ProjectileType<XLargeAmethyst>(), 15, 0, player.whoAmI, ai2: 1);
                             }
                         }
-                        if (!phase2 && AITimer >= 60 && AITimer % 25 == 0)
+                        if (!phase2 && AITimer >= 60 && (int)AITimer % 25 == 0)
                         {
                             MPUtils.NewProjectile(null, staffTip, Vector2.Zero, ProjectileType<XLargeAmethyst>(), 15, 0, Main.myPlayer, player.whoAmI);
 

@@ -1,6 +1,6 @@
 ﻿namespace EbonianMod.Projectiles.ArchmageX;
 
-public class player_sheep : ModProjectile
+public class SheepeningPlayerProjectile : ModProjectile
 {
     public override void SetStaticDefaults()
     {
@@ -38,7 +38,7 @@ public class player_sheep : ModProjectile
     }
     public override void AI()
     {
-        Player player = Main.player[Projectile.owner];
+        Player player = Main.player[(int)Projectile.ai[0]];
         if (player.TryGetModPlayer<EbonianPlayer>(out var p))
             if (!p.sheep || player.dead || !player.active) Projectile.Kill();
 

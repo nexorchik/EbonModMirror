@@ -115,7 +115,7 @@ public class EbonianPlayer : ModPlayer
             Player.position.Y += Player.width + 2;
             foreach (Projectile proj in Main.ActiveProjectiles)
             {
-                if (proj.active && proj.type == ProjectileType<player_sheep>())
+                if (proj.active && proj.type == ProjectileType<SheepeningPlayerProjectile>())
                 {
                     proj.Center = Player.Bottom + new Vector2(0, -14);
                     if (Player.velocity.Y < 0)
