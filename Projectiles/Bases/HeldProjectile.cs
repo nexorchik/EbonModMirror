@@ -22,7 +22,7 @@ public abstract class HeldProjectile : ModProjectile
 
         if (!player.active || player.dead || player.CCed || player.HeldItem.type != ItemType) Projectile.Kill();
 
-        Projectile.Center = player.MountedCenter + PositionOffset;
+        Projectile.Center = player.MountedCenter + PositionOffset.RotatedBy(player.fullRotation * 100);
 
         player.direction = player.Center.X < Main.MouseWorld.X ? 1 : -1;
     }
