@@ -33,13 +33,16 @@ public class SheepeningOrb : ModProjectile
     }
     public override void SendExtraAI(BinaryWriter writer)
     {
+        writer.Write(Projectile.localAI[0]);
         writer.Write(Projectile.localAI[1]);
     }
 
     public override void ReceiveExtraAI(BinaryReader reader)
     {
+        Projectile.localAI[0] = reader.ReadSingle();
         Projectile.localAI[1] = reader.ReadSingle();
     }
+    float vfxOff;
     public override void AI()
     {
         if (Projectile.timeLeft > 70 && Projectile.ai[0] > -1)
@@ -64,7 +67,7 @@ public class SheepeningOrb : ModProjectile
                 Projectile.ai[1] = MathHelper.Lerp(Projectile.ai[1], 0, 0.05f);
             }
         }
-        if (Projectile.timeLeft < 30 && Projectile.ai[2] < 0.5f)
+        if (Projectile.timeLeft < 30 && Projectile.localAI[0] < 1)
         {
             Helper.AddCameraModifier(new PunchCameraModifier(Projectile.Center, Projectile.velocity, 7, 15, 30));
             MPUtils.NewProjectile(null, Projectile.Center + Projectile.velocity * 10, Vector2.Zero, ProjectileType<XExplosion>(), 0, 0);
@@ -75,12 +78,13 @@ public class SheepeningOrb : ModProjectile
                 Dust.NewDustPerfect(Projectile.Center, DustType<LineDustFollowPoint>(), Projectile.velocity.RotatedByRandom(MathHelper.PiOver4) * Main.rand.NextFloat(5, 15), 0, Color.White, Main.rand.NextFloat(0.05f, 0.24f));
             }
             Projectile.ai[2] = 0.5f;
+            Projectile.localAI[0] = 1;
             Projectile.netUpdate = true;
         }
-        if (Projectile.timeLeft < 29 && Projectile.ai[2] < 1)
+        if (Projectile.timeLeft is < 29 and > 27)
             Projectile.ai[2] = 1;
 
-        Projectile.localAI[0] -= 0.07f;
+        vfxOff -= 0.07f;
     }
     public override bool PreDraw(ref Color lightColor)
     {
@@ -118,7 +122,7 @@ public class SheepeningOrb : ModProjectile
             else
                 sLin = MathHelper.Clamp((-i + 1), 0, 0.5f);
 
-            float _off = Projectile.localAI[0];
+            float _off = vfxOff;
 
             Color col = Color.White * 0.5f * s;
             if (Projectile.localAI[1] > 0)
