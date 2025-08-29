@@ -1369,6 +1369,7 @@ public class ArchmageX : CommonNPC
                         {
                             NPC.Center = disposablePos[2];
                             NPC.netOffset *= 0;
+                            NPC.netUpdate = true;
                         }
                     }
 

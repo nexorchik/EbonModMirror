@@ -13,6 +13,7 @@ public class SheepeningPlayerProjectile : ModProjectile
         Projectile.tileCollide = false;
         Projectile.aiStyle = -1;
         Projectile.timeLeft = 1000;
+        Projectile.netImportant = true;
         Projectile.extraUpdates = 3;
         Projectile.Size = new(38, 28);
     }
@@ -42,7 +43,7 @@ public class SheepeningPlayerProjectile : ModProjectile
         if (player.TryGetModPlayer<EbonianPlayer>(out var p))
             if (!p.sheep || player.dead || !player.active) Projectile.Kill();
 
-        Projectile.timeLeft = Projectile.extraUpdates * 2;
+        Projectile.timeLeft = Projectile.extraUpdates * 10;
         Projectile.Center = player.Bottom + new Vector2(0, -Projectile.height / 2 + player.gfxOffY);
         Projectile.direction = Projectile.spriteDirection = player.direction;
         if (Helper.TRay.CastLength(Projectile.Bottom, Vector2.UnitY, 50, true) > 1 || player.velocity.Y < 0)
