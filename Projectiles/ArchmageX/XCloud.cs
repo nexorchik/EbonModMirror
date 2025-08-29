@@ -95,6 +95,7 @@ public class XCloud : ModProjectile
             if (Projectile.ai[1] != 1)
                 MPUtils.NewProjectile(null, Projectile.Center, savedDir, ProjectileType<XLightningBolt>(), 20, 0);
             MPUtils.NewProjectile(null, Projectile.Center, Vector2.Zero, ProjectileType<XExplosion>(), 0, 0);
+            savedDir = Vector2.Zero;
             Projectile.ai[0] = 0;
         }
     }

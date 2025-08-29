@@ -370,6 +370,7 @@ Projectiles: {
 	DollPin.DisplayName: Doll Pin
 	GoryJaw.DisplayName: Gory Jaw
 	DollHitscan.DisplayName: Doll Hitscan
+	SheepeningPlayerProjectile.DisplayName: Sheep
 }
 
 NPCs: {

@@ -1198,7 +1198,7 @@ public class ArchmageX : CommonNPC
                             MPUtils.NewProjectile(null, pos, AITimer % (phase2 ? (phaseMult == 3 ? 20 : 30) : 50) == 0 ? Vector2.UnitY : -Vector2.UnitY, ProjectileType<XShadowflame>(), 15, 0);
                         }
                     }
-                    else//phase 2
+                    else // phase 2
                     {
                         if (AITimer == 100)
                         {
@@ -1383,9 +1383,7 @@ public class ArchmageX : CommonNPC
                             Vector2 vel = Helper.FromAToB(staffTip, player.Center).RotatedByRandom(MathHelper.PiOver4 * MathHelper.Lerp(1.25f + phaseMult * 0.05f, 0.65f, AITimer / 300) * (AITimer == 110 ? 0 : (AITimer > 229 ? 1.2f : 0.65f)));
                             MPUtils.NewProjectile(null, staffTip, vel * 7f, ProjectileType<XBolt>(), 15, 0);
                         }
-
                         NPC.damage = 30;
-
                     }
                     else
                         NPC.damage = 0;

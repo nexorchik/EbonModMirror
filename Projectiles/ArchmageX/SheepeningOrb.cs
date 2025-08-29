@@ -45,7 +45,7 @@ public class SheepeningOrb : ModProjectile
         if (Projectile.timeLeft > 70 && Projectile.ai[0] > -1)
             if (Main.player[(int)Projectile.ai[0]].active)
             {
-                Projectile.velocity = Helper.FromAToB(Projectile.Center, Main.player[Projectile.owner].Center);
+                Projectile.velocity = Helper.FromAToB(Projectile.Center, Main.player[(int)Projectile.ai[0]].Center);
                 Projectile.netUpdate = true;
             }
         Projectile.ai[2] = MathHelper.Lerp(Projectile.ai[2], 0, 0.1f);
