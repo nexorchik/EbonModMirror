@@ -47,10 +47,12 @@ public class CrimeraHead : WormHead
     float offset;
     public override void SendExtraAI(BinaryWriter writer)
     {
+        base.SendExtraAI(writer);
         writer.Write(offset);
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
+        base.ReceiveExtraAI(reader);
         offset = reader.ReadSingle();
     }
     public override void ExtraAI()
