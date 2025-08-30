@@ -44,6 +44,7 @@ public class CrimCannonGraphics : HeldProjectileGun
     {
         Player player = Main.player[Projectile.owner];
         player.CheckMana(player.HeldItem.mana, true);
+        Projectile.rotation = Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation();
     }
 
     public override bool? CanDamage() => false;
