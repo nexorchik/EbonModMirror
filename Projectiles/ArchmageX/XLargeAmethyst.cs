@@ -50,19 +50,6 @@ public class XLargeAmethyst : ModProjectile
     {
         Texture2D tex = TextureAssets.Projectile[Type].Value;
         Texture2D glow = Helper.GetTexture(Texture + "_Glow").Value;
-        /*var fadeMult = Helper.Safe(1f / Projectile.oldPos.Length);
-        for (int i = 0; i < Projectile.oldPos.Length; i++)
-        {
-            float mult = (1f - fadeMult * i);
-            if (i > 0)
-                for (float j = 0; j < 10; j++)
-                {
-                    Vector2 pos = Vector2.Lerp(Projectile.oldPos[i], Projectile.oldPos[i - 1], (float)(j / 10));
-                    Color col = Color.Lerp(Color.Indigo * 0.5f, Color.Gray, (float)(i / Projectile.oldPos.Length));
-                    Main.spriteBatch.Draw(TextureAssets.Projectile[ProjectileType<Gibs>()].Value, pos + Projectile.Size / 2 + (Projectile.Size / 4).RotatedBy((Main.GameUpdateCount + i * 4) * 0.03f) - Main.screenPosition, null, col * (0.35f), 0, TextureAssets.Projectile[ProjectileType<Gibs>()].Value.Size() / 2, 0.025f * mult + (((MathF.Sin(Main.GlobalTimeWrappedHourly * 3) + 1) / 2) * 0.005f), SpriteEffects.None, 0);
-                    Main.spriteBatch.Draw(TextureAssets.Projectile[ProjectileType<Gibs>()].Value, pos + Projectile.Size / 2 - (Projectile.Size / 4).RotatedBy((Main.GameUpdateCount - i * 4) * 0.03f) - Main.screenPosition, null, col * (0.35f), 0, TextureAssets.Projectile[ProjectileType<Gibs>()].Value.Size() / 2, 0.025f * mult + (((MathF.Sin(Main.GlobalTimeWrappedHourly * 3) + 1) / 2) * 0.005f), SpriteEffects.None, 0);
-                }
-        }*/
 
         var fadeMult = Helper.Safe(1f / Projectile.oldPos.Length);
         vfxOffset -= 0.015f;
@@ -111,7 +98,7 @@ public class XLargeAmethyst : ModProjectile
 
         return false;
     }
-    Vector2 p;
+    public Vector2 p;
     public override void SendExtraAI(BinaryWriter writer)
     {
         writer.WriteVector2(p);
@@ -122,29 +109,21 @@ public class XLargeAmethyst : ModProjectile
     }
     public override void AI()
     {
-        Player player = Main.player[(int)Projectile.ai[0]];
-        float progress = Utils.GetLerpValue(0, 250, Projectile.timeLeft);
-        float vel = MathHelper.Clamp((float)Math.Sin(progress * Math.PI) * 3f, 0, 2);
         if (Projectile.timeLeft > 70)
         {
-            if (Projectile.ai[2] == 0)
+            p = Projectile.Center;
+            foreach (Player pl in Main.ActivePlayers)
             {
-                Projectile.velocity = Helper.FromAToB(Projectile.Center, player.Center + Helper.FromAToB(player.Center, Projectile.Center) * 50) * 3 * vel;
-
-                foreach (Player pl in Main.ActivePlayers)
+                if (Projectile.Distance(pl.Center) < 90)
                 {
-                    if (Projectile.Distance(pl.Center) < 90)
-                    {
-                        Projectile.timeLeft = 70;
-                        Projectile.netUpdate = true;
-                    }
+                    Projectile.timeLeft = 70;
+                    Projectile.netUpdate = true;
                 }
             }
-            else
-            {
-                Projectile.velocity = Projectile.velocity.RotatedBy(ToRadians(2)) * 1.05f;
-                Projectile.timeLeft -= 2;
-            }
+            Player player = Main.player[(int)Projectile.ai[0]];
+            float progress = Utils.GetLerpValue(0, 250, Projectile.timeLeft);
+            float vel = MathHelper.Clamp((float)Math.Sin(progress * Math.PI) * 3f, 0, 2);
+            Projectile.velocity = Helper.FromAToB(Projectile.Center, player.Center + Helper.FromAToB(player.Center, Projectile.Center) * 50) * 3 * vel;
         }
         else if (Projectile.timeLeft <= 70 && Projectile.timeLeft > 50)
         {
@@ -155,7 +134,38 @@ public class XLargeAmethyst : ModProjectile
                 Projectile.netUpdate = true;
             }
         }
-        if (Projectile.timeLeft <= 50 && p.Distance(Projectile.Center) < 2000)
+        if (Projectile.timeLeft <= 50 && p.Distance(Projectile.Center) < 40)
+        {
+            Projectile.ai[1] += 0.1f;
+            Projectile.Center = p + Main.rand.NextVector2Circular(Projectile.ai[1], Projectile.ai[1]);
+        }
+    }
+}
+public class XLargeAmethystAlt : XLargeAmethyst
+{
+    public override string Texture => "EbonianMod/Projectiles/ArchmageX/XLargeAmethyst";
+    public override void SetDefaults()
+    {
+        base.SetDefaults();
+        Projectile.timeLeft = 130;
+    }
+    public override void AI()
+    {
+        if (Projectile.timeLeft > 70)
+        {
+            p = Projectile.Center;
+            Projectile.velocity = Projectile.velocity.RotatedBy(ToRadians(2)) * 1.05f;
+        }
+        else if (Projectile.timeLeft <= 70 && Projectile.timeLeft > 50)
+        {
+            Projectile.velocity *= 0.9f;
+            if (p == Vector2.Zero)
+            {
+                p = Projectile.Center;
+                Projectile.netUpdate = true;
+            }
+        }
+        if (Projectile.timeLeft <= 50 && p.Distance(Projectile.Center) < 40)
         {
             Projectile.ai[1] += 0.1f;
             Projectile.Center = p + Main.rand.NextVector2Circular(Projectile.ai[1], Projectile.ai[1]);

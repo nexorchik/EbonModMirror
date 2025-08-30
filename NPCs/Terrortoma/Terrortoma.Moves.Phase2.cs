@@ -69,7 +69,7 @@ public partial class Terrortoma : ModNPC
         {
             if (AITimer % 15 == 0 || AITimer == 40)
                 SoundEngine.PlaySound(SoundID.NPCDeath13.WithPitchOffset(.4f + syncedRand.NextFloat(-.3f, .1f)), NPC.Center);
-            MPUtils.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + (rotation + PiOver2).ToRotationVector2().RotatedByRandom(PiOver4) * 25, (NPC.rotation + MathHelper.PiOver2).ToRotationVector2().RotatedByRandom(PiOver4 * 0.6f) * syncedRand.NextFloat(5, 20), ProjectileType<TerrorStaffPEvil>(), 20, 0, 0);
+            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center + (rotation + PiOver2).ToRotationVector2().RotatedByRandom(PiOver4) * 25, (NPC.rotation + MathHelper.PiOver2).ToRotationVector2().RotatedByRandom(PiOver4 * 0.6f) * syncedRand.NextFloat(5, 20), ProjectileType<TerrorStaffPEvil>(), 20, 0, 0);
         }
     }
 

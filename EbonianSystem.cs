@@ -48,13 +48,13 @@ public class EbonianSystem : ModSystem
         xareusFightCooldown--;
         constantTimer++;
 
-        if (!NPC.AnyNPCs(NPCType<ArchmageStaffNPC>()) && constantTimer % 600 == 0)
+        if (!NPC.AnyNPCs(NPCType<ArchmageStaffNPC>()) && (constantTimer % 600 == 0 || constantTimer == 1))
         {
             if (staffTilePosition == Point.Zero || Main.tile[staffTilePosition.X, staffTilePosition.Y].HasTile
                 || Main.tile[staffTilePosition.X, staffTilePosition.Y].TileType != (ushort)TileType<ArchmageStaffTile>())
             {
-                for (int i = Main.maxTilesX / 2 - 440; i < Main.maxTilesX / 2 + 440; i++)
-                    for (int j = 135; j < Main.maxTilesY / 2; j++)
+                for (int i = Main.maxTilesX / 2 - 740; i < Main.maxTilesX / 2 + 740; i++)
+                    for (int j = 85; j < Main.maxTilesY / 2; j++)
                     {
                         if (Main.tile[i, j].HasTile && Main.tile[i, j].TileType == (ushort)TileType<ArchmageStaffTile>())
                         {
@@ -64,7 +64,7 @@ public class EbonianSystem : ModSystem
                     }
             }
         }
-        if (!NPC.AnyNPCs(NPCType<ArchmageStaffNPC>()) && constantTimer % 60 == 0)
+        if (!NPC.AnyNPCs(NPCType<ArchmageStaffNPC>()))
         {
             if (staffTilePosition != Point.Zero && Main.tile[staffTilePosition.X, staffTilePosition.Y].HasTile && Main.tile[staffTilePosition.X, staffTilePosition.Y].TileType == (ushort)TileType<ArchmageStaffTile>())
             {

@@ -1666,7 +1666,7 @@ public class ArchmageX : CommonNPC
                             for (int i = 0; i < 3; i++)
                             {
                                 float angle = Helper.CircleDividedEqually(i, 3) + off;
-                                MPUtils.NewProjectile(null, staffTip, angle.ToRotationVector2(), ProjectileType<XLargeAmethyst>(), 15, 0, player.whoAmI, ai2: 1);
+                                MPUtils.NewProjectile(null, staffTip, angle.ToRotationVector2(), ProjectileType<XLargeAmethystAlt>(), 15, 0);
                             }
                         }
                         if (!phase2 && AITimer >= 60 && (int)AITimer % 25 == 0)

@@ -121,6 +121,8 @@ public class EquilibriumP : HeldSword
     {
         Projectile.ai[2] = 1;
         Player player = Main.player[Projectile.owner];
+        if (player.HeldItem.type != ItemType<Equilibrium>())
+            return;
         if (Projectile.timeLeft <= 18 * 5)
         {
             if (player.active && player.channel && !player.dead && !player.CCed && !player.noItems)

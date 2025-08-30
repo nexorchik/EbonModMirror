@@ -57,8 +57,6 @@ public partial class Terrortoma : ModNPC
             }
         }
     }
-
-
     public void DoGenericClingerMove()
     {
         if (SelectedClinger == 4 && AITimer < 290)
@@ -109,8 +107,8 @@ public partial class Terrortoma : ModNPC
                 MPUtils.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(0, -10), ProjectileType<TFlameThrower2>(), 20, 1f, Main.myPlayer);
             }
             if (phase2)
-                if (AITimer2 % 20 == 0)
-                    MPUtils.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(syncedRand.NextFloat(-7f, 7f), -10), ProjectileType<TerrorStaffPEvil>(), 24, 1f, NPC.target);
+                if ((int)AITimer2 % 20 == 0)
+                    MPUtils.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, new Vector2(syncedRand.NextFloat(-7f, 7f), -10), ProjectileType<TerrorStaffPEvil>(), 24, 1f);
         }
         else NPC.velocity *= 0.9f;
     }
@@ -126,7 +124,7 @@ public partial class Terrortoma : ModNPC
         {
             Vector2 vSpawnPos = player.Center + new Vector2(900, syncedRand.NextFloat(900)).RotatedBy(PiOver2 * syncedRand.Next(4));
             if (syncedRand.NextBool(5))
-                MPUtils.NewProjectile(NPC.GetSource_FromAI(), vSpawnPos, vSpawnPos.FromAToB(player), ProjectileType<TerrorVilethorn1>(), 20, 0, 0);
+                Projectile.NewProjectile(NPC.GetSource_FromAI(), vSpawnPos, vSpawnPos.FromAToB(player), ProjectileType<TerrorVilethorn1>(), 20, 0, 0);
         }
         Vector2 toPlayer = player.Center - NPC.Center;
         rotation = toPlayer.ToRotation() - MathHelper.PiOver2;

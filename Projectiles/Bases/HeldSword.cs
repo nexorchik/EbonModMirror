@@ -101,10 +101,10 @@ public abstract class HeldSword : ModProjectile
                 rotation.ToRotationVector2() * holdOffset * ScaleFunction(swingProgress);
             Projectile.Center = position;
             Projectile.rotation = (position - player.Center).ToRotation() + PiOver4;
-            if (player.direction != (Projectile.velocity.X < 0 ? -1 : 1))
+            if (player.direction != (Projectile.velocity.X < 0 ? -1 : 1) && player.whoAmI == Main.myPlayer)
             {
                 player.ChangeDir(Projectile.velocity.X < 0 ? -1 : 1);
-                NetMessage.SendData(MessageID.PlayerControls, number: player.whoAmI);
+                NetMessage.SendData(MessageID.PlayerControls, number: Projectile.owner);
             }
             if (player.gravDir != -1)
                 player.SetCompositeArmFront(true, stretch, rotation - PiOver2);

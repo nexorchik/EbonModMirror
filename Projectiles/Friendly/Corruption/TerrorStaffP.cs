@@ -75,20 +75,10 @@ public class TerrorStaffPEvil : ModProjectile
         Projectile.aiStyle = 2;
         Projectile.timeLeft = 500;
     }
-    /*public override bool PreDraw(ref Color lightColor)
-    {
-        Texture2D tex = TextureAssets.Projectile[Type].Value;
-        DrawData data = new DrawData(tex, Projectile.Center - Main.screenPosition, null, lightColor, 0, tex.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
-        MiscDrawingMethods.DrawWithDye(Main.spriteBatch, data, ItemID.GreenFlameDye, Projectile);
-        return false;
-    }*/
     public override void OnKill(int timeLeft)
     {
-        //Helper.DustExplosion(Projectile.Center, Projectile.Size, 0, Color.Green);
-
         if (Projectile.owner == Main.myPlayer)
             Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Main.rand.NextVector2Unit() * 10, ProjectileType<OstertagiExplosion>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-
     }
     public override bool OnTileCollide(Vector2 oldVelocity)
     {
@@ -104,12 +94,13 @@ public class TerrorStaffPEvil : ModProjectile
         }
 
         Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Helper.TRay.Cast(Projectile.Center, Vector2.UnitY, 200), Vector2.Zero, ProjectileType<TExplosion>(), 0, 0);
-        Terraria.Audio.SoundEngine.PlaySound(EbonianSounds.eggplosion, Projectile.Center);
+        SoundEngine.PlaySound(EbonianSounds.eggplosion, Projectile.Center);
         return true;
     }
     public override Color? GetAlpha(Color lightColor) => Color.White;
     public override void AI()
     {
+        Main.NewText("Hi I exist!");
         Projectile.frameCounter++;
         if (Projectile.frameCounter % 5 == 0)
         {

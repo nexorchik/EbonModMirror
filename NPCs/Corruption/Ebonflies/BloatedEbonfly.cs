@@ -79,28 +79,27 @@ public class BloatedEbonfly : ModNPC
     }
     public override void SendExtraAI(BinaryWriter writer)
     {
-        writer.Write(NPC.scale);
         writer.Write(AITimer);
         writer.WriteVector2(lastPos);
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
-        NPC.scale = reader.ReadSingle();
         AITimer = reader.ReadSingle();
         lastPos = reader.ReadVector2();
-    }
-    public override void OnSpawn(IEntitySource source)
-    {
-        NPC.scale = Main.rand.NextFloat(0.8f, 1.2f);
-        NPC.Center += Main.rand.NextVector2CircularEdge(40, 40);
-        NPC.velocity = Main.rand.NextVector2Unit();
-        NPC.netUpdate = true; // TEST
     }
     float glowAlpha = 0;
     Vector2 lastPos;
     float AITimer;
     public override void PostAI()
     {
+        if (NPC.ai[1] < 1)
+        {
+            NPC.scale = Main.rand.NextFloat(0.8f, 1.2f);
+            NPC.Center += Main.rand.NextVector2CircularEdge(40, 40);
+            NPC.velocity = Main.rand.NextVector2Unit();
+            NPC.netUpdate = true; // TEST
+            NPC.ai[1] = 2;
+        }
         if (NPC.ai[3] < -2)
             NPC.dontTakeDamage = true;
         foreach (NPC npc in Main.ActiveNPCs)
@@ -121,32 +120,30 @@ public class BloatedEbonfly : ModNPC
         }
         foreach (Player player in Main.ActivePlayers)
         {
-            if (player.Center.Distance(NPC.Center) < 450 || (NPC.dontTakeDamage && ++AITimer > 60 * 8) || NPC.ai[3] > 0)
+            if (player.Center.Distance(NPC.Center) < 450 && NPC.ai[3] < 1)
+                NPC.ai[3] = 1;
+        }
+        if (NPC.ai[3] < 1)
+            lastPos = NPC.Center;
+        if ((NPC.dontTakeDamage && ++AITimer > 60 * 8) || NPC.ai[3] > 0)
+            if (++NPC.ai[3] > 100 * NPC.scale)
             {
-                if (++NPC.ai[3] > 100 * NPC.scale)
+                NPC.velocity *= 0.7f;
+                if (NPC.ai[3] >= 120 && lastPos.Distance(NPC.Center) < 40)
+                    NPC.Center = lastPos + Main.rand.NextVector2Circular(4 * glowAlpha, 4 * glowAlpha);
+                else
+                    lastPos = NPC.Center;
+                glowAlpha += 0.03f;
+                if (NPC.ai[3] > 150)
                 {
-                    NPC.aiStyle = -1;
-                    AIType = 0;
-                    NPC.velocity *= 0.7f;
-                    if (NPC.ai[3] >= 120 && lastPos.Distance(NPC.Center) < 100)
-                        NPC.Center = lastPos + Main.rand.NextVector2Circular(4 * glowAlpha, 4 * glowAlpha);
-                    else
-                        lastPos = NPC.Center;
-                    glowAlpha += 0.03f;
-                    if (NPC.ai[3] > 150)
-                    {
-                        Main.BestiaryTracker.Kills.RegisterKill(NPC);
-                        MPUtils.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ProjectileType<HostileCorruptExplosion>(), 50, 0);
-                        NPC.dontTakeDamage = false;
+                    Main.BestiaryTracker.Kills.RegisterKill(NPC);
+                    MPUtils.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ProjectileType<HostileCorruptExplosion>(), 50, 0);
+                    NPC.dontTakeDamage = false;
+                    if (MPUtils.NotMPClient)
                         NPC.StrikeInstantKill();
-                        break;
-                    }
-                    if ((int)NPC.ai[3] == 101)
-                        NPC.netUpdate = true;
                 }
             }
-        }
-        if (!NPC.dontTakeDamage && NPC.velocity.Length() < 6)
+        if (!NPC.dontTakeDamage && NPC.velocity.Length() < 6 && NPC.ai[3] < 1)
             NPC.velocity += NPC.Center.FromAToB(Main.LocalPlayer.Center, true) * .3f;
     }
     public override bool CheckDead()

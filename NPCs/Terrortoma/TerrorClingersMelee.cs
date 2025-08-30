@@ -60,16 +60,11 @@ public class TerrorClingerMelee : TerrorClingerGeneric // Disgusting
         savedP2 = reader.ReadVector2();
         IsDashing = reader.ReadBoolean();
     }
-    public override void OnSpawn(IEntitySource source)
+    public override void AI()
     {
         NPC center = Main.npc[(int)NPC.ai[0]];
         if (NPC.Center == Vector2.Zero && center.Center != Vector2.Zero)
             NPC.Center = center.Center;
-        NPC.netUpdate = true; // TEST
-    }
-    public override void AI()
-    {
-        NPC center = Main.npc[(int)NPC.ai[0]];
         if (!center.active || center.type != NPCType<Terrortoma>())
         {
             bool found = false;
@@ -109,13 +104,13 @@ public class TerrorClingerMelee : TerrorClingerGeneric // Disgusting
             }
         }
         if ((int)center.ai[1] < 2)
-            AITimer = (int)(int)center.ai[1];
+            AITimer = (int)center.ai[1];
 
         NPC.damage = (int)center.localAI[0];
         lerpSpeed = Clamp(Lerp(lerpSpeed, ((int)center.ai[0] == 0 ? 0.05f : 0.15f), 0.1f), 0, 0.15f);
-        int AIState = (int)(int)center.ai[0];
+        int AIState = (int)center.ai[0];
         bool phase2 = center.life <= center.lifeMax - center.lifeMax / 3 + 3500;
-        int CenterAITimer = (int)(int)center.ai[1];
+        int CenterAITimer = (int)center.ai[1];
         if ((int)center.ai[0] == -1)
         {
             IsDashing = false;
@@ -215,7 +210,7 @@ public class TerrorClingerMelee : TerrorClingerGeneric // Disgusting
                         case 2:
                             if (CenterAITimer <= 300)
                             {
-                                NetUpdateAtSpecificTime(45, 50, 65, 75, 100);
+                                NetUpdateAtSpecificTime(100);
                                 NPC.damage = 100;
                                 AITimer++;
                                 if (AITimer < 75 && AITimer > 30)
@@ -290,8 +285,8 @@ public class TerrorClingerMelee : TerrorClingerGeneric // Disgusting
                                 else NPC.damage = 100;
                                 if (CenterAITimer == 41)
                                     bloomAlpha = 1f;
-                                NPC.Center = Vector2.Lerp(NPC.Center, center.Center + new Vector2(0, Helper.TRay.CastLength(center.Center, Vector2.UnitY, 360)).RotatedBy((float)Math.Sin((float)Main.GlobalTimeWrappedHourly * 2)), 0.1f);
-                                NPC.rotation = Helper.FromAToB(NPC.Center, center.Center + new Vector2(0, 340).RotatedBy((float)Math.Sin((float)Main.GlobalTimeWrappedHourly * 2))).ToRotation();
+                                NPC.Center = Vector2.Lerp(NPC.Center, center.Center + new Vector2(0, Helper.TRay.CastLength(center.Center, Vector2.UnitY, 360)).RotatedBy((float)Math.Sin(CenterAITimer * 0.05f * 2)), 0.1f);
+                                NPC.rotation = Helper.FromAToB(NPC.Center, center.Center + new Vector2(0, 340).RotatedBy((float)Math.Sin(CenterAITimer * 0.05f * 2))).ToRotation();
                                 if (CenterAITimer > 369 + (center.life < center.lifeMax / 2 ? 50 : 0))
                                     NPC.damage = 0;
                             }

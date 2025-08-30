@@ -62,7 +62,7 @@ public class Obeselad : ModNPC
 
     public override void AI()
     {
-        Player player = Main.LocalPlayer;
+        Player player = Main.player[NPC.target];
 
         if (state == StateID.Spawn)
         {

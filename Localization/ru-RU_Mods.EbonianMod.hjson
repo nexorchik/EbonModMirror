@@ -371,6 +371,7 @@ Projectiles: {
 	// GoryJaw.DisplayName: Gory Jaw
 	// DollHitscan.DisplayName: Doll Hitscan
 	SheepeningPlayerProjectile.DisplayName: Овца
+	// XLargeAmethystAlt.DisplayName: X Large Amethyst Alt
 }
 
 NPCs: {
