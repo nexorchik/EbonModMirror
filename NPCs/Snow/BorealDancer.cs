@@ -34,11 +34,19 @@ public class BorealDancer : ModNPC
         NPC.ai[2]--;
 
         NPC.ai[1] = 2;
+
         if (NPC.ai[2] > 0)
         {
+            if ((int)NPC.ai[0] == -1 && NPC.frame.Y is > 13 * 52 or < 7 * 52)
+            {
+                NPC.ai[0] = 1;
+                NPC.netUpdate = true;
+            }
             if ((int)NPC.ai[0] == 0)
             {
-                NPC.ai[0] = 2;
+                SoundEngine.PlaySound(SoundID.Item1.WithPitchOffset(Main.rand.NextFloat(0f, 1f)), NPC.Center);
+                NPC.ai[0] = -1;
+                NPC.frame.Y = 8 * 52;
                 NPC.netUpdate = true;
             }
             if ((int)NPC.ai[0] == 1)
@@ -48,6 +56,11 @@ public class BorealDancer : ModNPC
                 if (MathF.Abs(player.Center.X - NPC.Center.X) < 62 && MathF.Abs(player.Center.Y - NPC.Center.Y) < 30)
                 {
                     MPUtils.NewProjectile(NPC.GetSource_FromThis(), Helper.TRay.Cast(NPC.Center - new Vector2(-NPC.direction * 15, 35), Vector2.UnitY, 5000, true) + new Vector2(0, 3), Vector2.Zero, ProjectileType<BorealSpike>(), NPC.damage, 0, ai0: 2, ai1: NPC.direction);
+
+                    SoundEngine.PlaySound(SoundID.Item1.WithPitchOffset(Main.rand.NextFloat(0f, 1f)), NPC.Center);
+                    NPC.ai[0] = -1;
+                    NPC.frame.Y = 8 * 52;
+
                     NPC.velocity.X = -NPC.direction * 2.4f;
                     NPC.netUpdate = true;
                 }
@@ -102,20 +115,13 @@ public class BorealDancer : ModNPC
             NPC.frameCounter = 0;
             if (NPC.ai[0] != 0)
                 NPC.frame.Y += frameHeight;
-            if (NPC.ai[0] == 1 && NPC.frame.Y > 7 * frameHeight)
+            if ((int)NPC.ai[0] == 1 && NPC.frame.Y > 7 * frameHeight)
             {
                 NPC.frame.Y = frameHeight;
-            }
-            if (NPC.ai[0] == 2)
-            {
-                SoundEngine.PlaySound(SoundID.Item1.WithPitchOffset(Main.rand.NextFloat(0f, 1f)), NPC.Center);
-                NPC.frame.Y = 8 * frameHeight;
-                NPC.ai[0] = -1;
             }
             if (NPC.frame.Y > 13 * frameHeight)
             {
                 NPC.frame.Y = frameHeight;
-                NPC.ai[0] = 1;
             }
         }
     }
