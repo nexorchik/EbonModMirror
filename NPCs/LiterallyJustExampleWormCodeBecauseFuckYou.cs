@@ -1,6 +1,7 @@
 ﻿
 using EbonianMod.NPCs.Crimson.CrimsonWorm;
 using System;
+using System.IO;
 
 namespace EbonianMod.NPCs;
 
@@ -25,6 +26,16 @@ public enum WormSegmentType
 /// </summary>
 public abstract class Worm : ModNPC
 {
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        base.SendExtraAI(writer);
+        writer.Write(NPC.realLife);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        base.ReceiveExtraAI(reader);
+        NPC.realLife = reader.ReadInt32();
+    }
     public virtual bool byHeight => true;
     /*  ai[] usage:
 		 *  
@@ -203,15 +214,13 @@ public abstract class WormHead : Worm
         // will determine the movement of this new NPC.
         // Under there, we also set the realLife value of the new NPC, because of what is explained above.
         int oldLatest = latestNPC;
-        latestNPC = NPC.NewNPCDirect(source, NPC.Center, type, NPC.whoAmI, 0, latestNPC).whoAmI;
+        latestNPC = NPC.NewNPCDirect(source, NPC.Center, type, NPC.whoAmI, 0, latestNPC, ai2, ai3).whoAmI;
 
         Main.npc[oldLatest].ai[0] = latestNPC;
 
         NPC latest = Main.npc[latestNPC];
         // NPC.realLife is the whoAmI of the NPC that the spawned NPC will share its health with
         latest.realLife = NPC.whoAmI;
-        latest.ai[3] = ai3;
-        latest.ai[2] = ai2;
         latest.netUpdate = true;
 
         return latestNPC;
@@ -265,7 +274,7 @@ public abstract class WormHead : Worm
                     while (distance > 0)
                     {
                         if (NPC.type != NPCType<CrimsonWormHead>())
-                            latestNPC = SpawnSegment(source, BodyType, latestNPC, extraAiAsIndex ? index : 0);
+                            latestNPC = SpawnSegment(source, BodyType, latestNPC, (extraAiAsIndex ? index : 0));
                         else
                             latestNPC = SpawnSegment(source, BodyType, latestNPC, NPC.whoAmI, index);
                         index++;

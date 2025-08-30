@@ -138,14 +138,14 @@ public class RottenSpineBody : WormBody
         Texture2D alt = Assets.NPCs.Corruption.RottenSpine.RottenSpineCoupling.Value;
         Texture2D tex = NPC.ai[3] == 3 ? alt : main; // god bless this code
 
-        if (FollowingNPC == HeadSegment)
+        if (FollowingNPC.type == NPCType<RottenSpineHead>())
             spriteBatch.Draw(main, Vector2.Lerp(NPC.Center, FollowingNPC.Center, 0.5f) - screenPos, null, drawColor, Utils.AngleLerp(NPC.rotation, FollowingNPC.rotation, 0.5f), tex.Size() / 2, NPC.scale, SpriteEffects.None, 0);
 
         spriteBatch.Draw(tex, NPC.Center - screenPos, null, drawColor, NPC.rotation, tex.Size() / 2, NPC.scale, SpriteEffects.None, 0);
 
         if (Main.LocalPlayer.HasBuff(BuffID.Hunter) && !NPC.IsABestiaryIconDummy)
         {
-            if (FollowingNPC == HeadSegment)
+            if (FollowingNPC.type == NPCType<RottenSpineHead>())
                 spriteBatch.Draw(main, Vector2.Lerp(NPC.Center, FollowingNPC.Center, 0.5f) - screenPos, null, NPC.HunterPotionColor(), Utils.AngleLerp(NPC.rotation, FollowingNPC.rotation, 0.5f), tex.Size() / 2, NPC.scale, SpriteEffects.None, 0);
 
             spriteBatch.Draw(tex, NPC.Center - screenPos, null, NPC.HunterPotionColor(), NPC.rotation, tex.Size() / 2, NPC.scale, SpriteEffects.None, 0);

@@ -42,7 +42,6 @@ public class TrumpetHead : WormHead
     }
     public override int TailType => NPCType<TrumpetTail>();
     public override int BodyType => NPCType<TrumpetBody>();
-    public override bool extraAiAsIndex => true;
     public override bool useNormalMovement => false;
     public override void ExtraAI()
     {
@@ -135,11 +134,14 @@ public class TrumpetBody : WormBody
     public override void ExtraAI()
     {
         NPC.timeLeft = 100;
-        NPC.direction = NPC.spriteDirection = HeadSegment.ai[2] < 0 ? 1 : -1;
+        if (FollowingNPC.type != Type)
+            NPC.direction = NPC.spriteDirection = FollowingNPC.ai[2] < 0 ? 1 : -1;
+        else
+            NPC.direction = NPC.spriteDirection = FollowingNPC.direction;
         NPC.rotation = Helper.FromAToB(NPC.Center, FollowingNPC.Center).ToRotation() + PiOver2;
-        if (++NPC.ai[2] % 150 == 50 + NPC.ai[3] * Main.rand.Next(1, 6))
+        if (++NPC.ai[2] % 150 == 50 + NPC.whoAmI * Main.rand.Next(1, 6))
         {
-            if (NPC.ai[3] == 0)
+            if (FollowingNPC.type != Type)
             {
                 SoundEngine.PlaySound(EbonianSounds.trumpet, NPC.Center);
             }
@@ -184,7 +186,7 @@ public class TrumpetTail : WormTail
     public override void ExtraAI()
     {
         NPC.timeLeft = 100;
-        NPC.direction = NPC.spriteDirection = HeadSegment.ai[2] < 0 ? 1 : -1;
+        NPC.direction = NPC.spriteDirection = FollowingNPC.direction;
     }
     public override void Init()
     {
