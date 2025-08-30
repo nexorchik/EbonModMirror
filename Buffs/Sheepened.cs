@@ -1,4 +1,5 @@
-﻿using EbonianMod.Projectiles;
+﻿using EbonianMod.Common.Players;
+using EbonianMod.Projectiles;
 using EbonianMod.Projectiles.ArchmageX;
 
 namespace EbonianMod.Buffs;
@@ -24,8 +25,8 @@ public class Sheepened : ModBuff
             if (!Main.buffNoSave[i] && !Main.buffNoTimeDisplay[i] && !Main.debuff[i])
                 player.ClearBuff(i);
         }
-        player.GetModPlayer<EbonianPlayer>().sheep = true;
-        if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ProjectileType<SheepeningPlayerProjectile>()] < 1)
-            Projectile.NewProjectile(null, player.Center, Vector2.Zero, ProjectileType<SheepeningPlayerProjectile>(), 0, 0, Main.myPlayer, player.whoAmI);
+        player.GetModPlayer<SheepPlayer>().sheep = true;
+        if (player.ownedProjectileCounts[ProjectileType<SheepeningPlayerProjectile>()] < 1)
+            Projectile.NewProjectile(null, player.Center, Vector2.Zero, ProjectileType<SheepeningPlayerProjectile>(), 0, 0, player.whoAmI);
     }
 }

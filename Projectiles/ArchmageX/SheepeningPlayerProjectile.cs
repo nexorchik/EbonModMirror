@@ -1,4 +1,6 @@
-﻿namespace EbonianMod.Projectiles.ArchmageX;
+﻿using EbonianMod.Common.Players;
+
+namespace EbonianMod.Projectiles.ArchmageX;
 
 public class SheepeningPlayerProjectile : ModProjectile
 {
@@ -20,7 +22,8 @@ public class SheepeningPlayerProjectile : ModProjectile
     public override bool PreDraw(ref Color lightColor)
     {
         lightColor = Lighting.GetColor(Projectile.Center.ToTileCoordinates());
-        return true;
+        Main.EntitySpriteDraw(TextureAssets.Projectile[Type].Value, Projectile.Center + Main.player[Projectile.owner].GFX() - Main.screenPosition, new Rectangle(0, Projectile.frame * 30, 38, 30), lightColor, Projectile.rotation, Projectile.Size / 2, Projectile.scale, Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
+        return false;
     }
     public override void OnSpawn(IEntitySource source)
     {
@@ -39,12 +42,10 @@ public class SheepeningPlayerProjectile : ModProjectile
     }
     public override void AI()
     {
-        Player player = Main.player[(int)Projectile.ai[0]];
-        if (player.TryGetModPlayer<EbonianPlayer>(out var p))
-            if (!p.sheep || player.dead || !player.active) Projectile.Kill();
-
-        Projectile.timeLeft = Projectile.extraUpdates * 10;
-        Projectile.Center = player.Bottom + new Vector2(0, -Projectile.height / 2 + player.gfxOffY);
+        Player player = Main.player[Projectile.owner];
+        if (player.GetModPlayer<SheepPlayer>().sheep && player.active)
+            Projectile.timeLeft = Projectile.extraUpdates * 10;
+        Projectile.Center = player.Bottom + new Vector2(0, -Projectile.height / 2);
         Projectile.direction = Projectile.spriteDirection = player.direction;
         if (Helper.TRay.CastLength(Projectile.Bottom, Vector2.UnitY, 50, true) > 1 || player.velocity.Y < 0)
         {

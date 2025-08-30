@@ -47,7 +47,7 @@ public class ReiCapeP : ModProjectile
         Player player = Main.player[Projectile.owner];
         if (Main.player[Projectile.owner].GetModPlayer<AccessoryPlayer>().rei || Main.player[Projectile.owner].GetModPlayer<AccessoryPlayer>().reiV)
             Projectile.timeLeft = 10;
-        if (Main.player[Projectile.owner].GetModPlayer<EbonianPlayer>().sheep)
+        if (Main.player[Projectile.owner].GetModPlayer<SheepPlayer>().sheep)
             Projectile.Kill();
         Projectile.Center = player.RotatedRelativePoint(player.MountedCenter) + new Vector2(-5, 19);
         Projectile.rotation = player.velocity.ToRotation();
@@ -172,7 +172,7 @@ public class ReiCapeTrail : ModProjectile
         if (Main.player[Projectile.owner].GetModPlayer<AccessoryPlayer>().rei || Main.player[Projectile.owner].GetModPlayer<AccessoryPlayer>().reiV)
             Projectile.timeLeft = 10;
         else Projectile.Kill();
-        if (Main.player[Projectile.owner].GetModPlayer<EbonianPlayer>().sheep)
+        if (Main.player[Projectile.owner].GetModPlayer<SheepPlayer>().sheep)
             Projectile.Kill();
         Projectile.Center = player.RotatedRelativePoint(player.MountedCenter) + new Vector2(5 * Projectile.ai[0], 19);
         Projectile.rotation = player.velocity.ToRotation();

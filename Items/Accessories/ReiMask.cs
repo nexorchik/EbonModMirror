@@ -36,7 +36,7 @@ public class ReiMask : ModItem
         AccessoryPlayer modPlayer = player.GetModPlayer<AccessoryPlayer>();
         modPlayer.reiV = true;
         if (player.whoAmI != Main.myPlayer) return;
-        if (player.ownedProjectileCounts[ProjectileType<ReiCapeP>()] < 1 && !player.GetModPlayer<EbonianPlayer>().sheep)
+        if (player.ownedProjectileCounts[ProjectileType<ReiCapeP>()] < 1 && !player.GetModPlayer<SheepPlayer>().sheep)
         {
             Projectile.NewProjectile(player.GetSource_Accessory(Item), player.Center, Vector2.Zero, ProjectileType<ReiCapeP>(), 0, 0, player.whoAmI);
         }
