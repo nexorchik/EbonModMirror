@@ -1,5 +1,7 @@
 ﻿using EbonianMod.Common.Systems.Verlets;
+using System;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.UI.Elements;
 
 namespace EbonianMod.NPCs.Corruption.Rolypoly;
 
@@ -36,7 +38,7 @@ public class Rolypoly : ModNPC
     }
     public override void SetDefaults()
     {
-        NPC.Size = new Vector2(25, 25);
+        NPC.Size = new Vector2(100, 100);
         NPC.lifeMax = 300;
         NPC.defense = 5;
         NPC.knockBackResist = 0.1f;
@@ -56,33 +58,6 @@ public class Rolypoly : ModNPC
     {
         boundingBox.Height = 65;
         boundingBox.Y += boundingBox.Height * 2;
-    }
-    public override void OnSpawn(IEntitySource source)
-    {
-        NPC.netUpdate = true;
-        NPC.scale = Main.rand.Next(new float[] { 0.75f, 0.75f, 0.75f, 0.75f, 0.55f, 0.55f });
-        if (Main.rand.NextBool(50) && NPC.scale == 1f)
-            NPC.scale = 1.25f;
-        amount = 10;
-        switch (NPC.scale)
-        {
-            case 1.25f:
-                amount = 16;
-                break;
-            case 0.75f:
-                amount = 14;
-                break;
-            case 0.55f:
-                amount = 12;
-                break;
-            default:
-                amount = 10;
-                break;
-        }
-
-        NPC.Size = new Vector2(100, 100) * NPC.scale;
-        NPC.value = Item.buyPrice(0, 0, (int)(40 * NPC.scale));
-
     }
     public override bool CheckDead()
     {
@@ -121,6 +96,19 @@ public class Rolypoly : ModNPC
     }
     public override void AI()
     {
+        if (NPC.ai[1] <= 1 && MPUtils.NotMPClient)
+        {
+            NPC.scale = Main.rand.Next([0.75f, 0.75f, 0.75f, 0.75f, 0.55f, 0.55f]);
+            if (Main.rand.NextBool(50))
+                NPC.scale = 1.25f;
+            NPC.value = Item.buyPrice(0, 0, (int)(40 * NPC.scale));
+            NPC.ai[1] = 2;
+            NPC.netUpdate = true;
+        }
+
+        if (NPC.Size != new Vector2(100, 100) * NPC.scale)
+            NPC.Size = new Vector2(100, 100) * NPC.scale;
+
         //lerpFactor = MathHelper.Lerp(lerpFactor, 0.25f, 0.1f);
         Player player = Main.player[NPC.target];
         NPC.TargetClosest(false);
@@ -144,14 +132,8 @@ public class Rolypoly : ModNPC
             if (NPC.velocity.Y > 10)
                 NPC.velocity.Y++;
         }
-
-        rot = MathHelper.Lerp(rot, MathHelper.ToRadians(rotFactor), 1f);
-
-        rotFactor += NPC.velocity.X * 0.25f;
-
         if (++NPC.ai[2] >= Main.rand.Next(300, 600) && player.Distance(NPC.Center) < 1800 && player.Distance(NPC.Center) > 200)
         {
-            NPC.netUpdate = true;
             Vector2 vel = Helper.FromAToB(NPC.Center, player.Center - new Vector2(0, 200 * NPC.scale)) * 5 / NPC.scale.Safe();
             NPC.velocity += new Vector2(vel.X * 0.7f, vel.Y * 2.2f);
             NPC.ai[2] = Main.rand.Next(-200, 20);
@@ -163,6 +145,17 @@ public class Rolypoly : ModNPC
     }
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
+        if (NPC.ai[1] <= 1) return false;
+        amount = NPC.scale switch
+        {
+            > 1 => 16,
+            < 1 and > 0.6f => 14,
+            < 0.6f => 12,
+            _ => 10
+        };
+        rot = MathHelper.Lerp(rot, MathHelper.ToRadians(rotFactor), 1f);
+
+        rotFactor += NPC.velocity.X * 0.25f;
         if (verlet is null)
         {
             texNum = Main.rand.Next(9999999);
@@ -170,6 +163,7 @@ public class Rolypoly : ModNPC
 
             for (int i = 0; i < 7; i++)
                 extraVerlets[i] = new Verlet(NPC.Center, 16, amount - 3, 3f, true, true, 20, true, 8);
+            Main.NewText("RAAAAAAAAUHG");
         }
         else
         {

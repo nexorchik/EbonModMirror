@@ -35,13 +35,14 @@ public class BorealDancer : ModNPC
 
         NPC.ai[1] = 2;
 
+        if ((int)NPC.ai[0] == -1 && NPC.frame.Y is > 13 * 52 or < 7 * 52)
+        {
+            NPC.ai[0] = 1;
+            NPC.netUpdate = true;
+        }
+
         if (NPC.ai[2] > 0)
         {
-            if ((int)NPC.ai[0] == -1 && NPC.frame.Y is > 13 * 52 or < 7 * 52)
-            {
-                NPC.ai[0] = 1;
-                NPC.netUpdate = true;
-            }
             if ((int)NPC.ai[0] == 0)
             {
                 SoundEngine.PlaySound(SoundID.Item1.WithPitchOffset(Main.rand.NextFloat(0f, 1f)), NPC.Center);

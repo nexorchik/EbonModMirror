@@ -72,6 +72,8 @@ public partial class Terrortoma : ModNPC
 
     public override void AI()
     {
+        if (AIState is (> Intro or Idle) and not PhaseTransition)
+            NPC.dontTakeDamage = false;
         Target();
         MiscChecks();
         NPC.ai[3] += 9;
