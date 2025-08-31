@@ -27,6 +27,7 @@ public class RottenSpineHead : WormHead
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
+        if (Main.invasionType > 0) return 0;
         if (spawnInfo.Player.ZoneCorrupt && spawnInfo.Player.ZoneRockLayerHeight && Main.hardMode)
         {
             return .07f;

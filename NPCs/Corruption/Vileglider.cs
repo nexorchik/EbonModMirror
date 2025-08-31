@@ -22,6 +22,7 @@ public class Vileglider : ModNPC
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
+        if (Main.invasionType > 0) return 0;
         if (spawnInfo.Player.ZoneCorrupt)
         {
             return .08f;

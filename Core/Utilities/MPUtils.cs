@@ -35,7 +35,7 @@ public static class MPUtils
     }
     public static void NewNPC(Vector2 position, int type, bool noDupes = false, float ai0 = 0, float ai1 = 0, float ai2 = 0, float ai3 = 0, bool dedServ = false)
     {
-        if (dedServ ? Main.dedServ : !NotMPClient && Main.LocalPlayer.whoAmI == 0)
+        if (dedServ ? Main.dedServ : (!NotMPClient && Main.LocalPlayer.whoAmI == 0))
         {
             ModPacket packet = Packets.Write(noDupes ? MessageType.SpawnBoss : MessageType.SpawnNPC);
             packet.WriteVector2(position);

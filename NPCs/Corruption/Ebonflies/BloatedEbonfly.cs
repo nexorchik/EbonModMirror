@@ -39,6 +39,7 @@ public class BloatedEbonfly : ModNPC
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
+        if (Main.invasionType > 0) return 0;
         if (spawnInfo.Player.ZoneCorrupt)
         {
             return .14f;

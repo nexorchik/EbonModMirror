@@ -32,18 +32,21 @@ public class FlashPlayer : ModPlayer
                     flashTime -= 40;
                 break;
         }
-        if (flashTime > 0)
+        if (!Main.dedServ)
         {
-            flashTime--;
-            if (!Filters.Scene["EbonianMod:ScreenFlash"].IsActive())
-                Filters.Scene.Activate("EbonianMod:ScreenFlash", flashPosition);
-            Filters.Scene["EbonianMod:ScreenFlash"].GetShader().UseProgress((float)Math.Sin((float)flashTime / flashMaxTime * Math.PI) * flashStr);
-            Filters.Scene["EbonianMod:ScreenFlash"].GetShader().UseTargetPosition(flashPosition);
-        }
-        else
-        {
-            if (Filters.Scene["EbonianMod:ScreenFlash"].IsActive())
-                Filters.Scene["EbonianMod:ScreenFlash"].Deactivate();
+            if (flashTime > 0)
+            {
+                flashTime--;
+                if (!Filters.Scene["EbonianMod:ScreenFlash"].IsActive())
+                    Filters.Scene.Activate("EbonianMod:ScreenFlash", flashPosition);
+                Filters.Scene["EbonianMod:ScreenFlash"].GetShader().UseProgress((float)Math.Sin((float)flashTime / flashMaxTime * Math.PI) * flashStr);
+                Filters.Scene["EbonianMod:ScreenFlash"].GetShader().UseTargetPosition(flashPosition);
+            }
+            else
+            {
+                if (Filters.Scene["EbonianMod:ScreenFlash"].IsActive())
+                    Filters.Scene["EbonianMod:ScreenFlash"].Deactivate();
+            }
         }
     }
 }

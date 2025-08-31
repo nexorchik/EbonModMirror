@@ -4,6 +4,7 @@ using EbonianMod.Projectiles.ArchmageX;
 using EbonianMod.Projectiles.VFXProjectiles;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using Terraria.Graphics.CameraModifiers;
 
 namespace EbonianMod.NPCs.ArchmageX;
@@ -48,7 +49,8 @@ public class ArchmageCutsceneMartian : ModNPC
         NPC.DeathSound = SoundID.NPCDeath1;
         NPC.dontTakeDamage = true;
         NPC.noGravity = true;
-        Music = MusicID.MartianMadness;
+        if (!Main.dedServ)
+            Music = MusicID.MartianMadness;
     }
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
@@ -156,14 +158,14 @@ public class ArchmageCutsceneMartian : ModNPC
     int blinkInterval;
     float vfxOffset;
     int frameBeforeBlink, flameFrame;
-    public float AIState
+    public int AIState
     {
-        get => NPC.ai[0];
+        get => (int)NPC.ai[0];
         set => NPC.ai[0] = value;
     }
-    public float AITimer
+    public int AITimer
     {
-        get => NPC.ai[1];
+        get => (int)NPC.ai[1];
         set => NPC.ai[1] = value;
     }
     public float AITimer2
@@ -184,17 +186,36 @@ public class ArchmageCutsceneMartian : ModNPC
         NPC.spriteDirection = NPC.direction;
     }
     Vector2 startP;
-    public override void OnSpawn(IEntitySource source)
-    {
-        if (NPC.ai[0] != -1)
-        {
-            NPC.active = false;
-            return;
-        }
-    }
     FocusCameraModifier modifier;
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        base.SendExtraAI(writer);
+        writer.WriteVector2(startP);
+        writer.Write(NPC.localAI[0]);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        base.ReceiveExtraAI(reader);
+        startP = reader.ReadVector2();
+        NPC.localAI[0] = reader.ReadSingle();
+    }
     public override void AI()
     {
+        if (NPC.localAI[0] < 1)
+        {
+            if (NPC.ai[0] != -1)
+            {
+                NPC.active = false;
+                return;
+            }
+            AITimer = 0;
+            NPC.localAI[0] = 2;
+            NPC.netUpdate = true;
+            return;
+        }
+        NPC.localAI[0] = 2;
+        if (startP.Distance(NPC.Center) > 50)
+            startP = NPC.Center;
         if (!NPC.AnyNPCs(NPCID.MartianSaucer))
         {
             if (AITimer == 0)
@@ -208,16 +229,18 @@ public class ArchmageCutsceneMartian : ModNPC
                 while (atts++ < 400 && (Main.tile[NPC.Center.ToTileCoordinates().X, NPC.Center.ToTileCoordinates().Y].HasTile || Helper.TRay.CastLength(NPC.Center, Vector2.UnitY, 700) < 650))
                     NPC.Center -= Vector2.UnitY * 8;
                 startP = NPC.Center;
+                Main.NewText("time to despawn");
                 foreach (NPC npc in Main.ActiveNPCs)
                 {
-                    if (npc.active && npc.type == NPCID.MartianSaucer)
+                    if (npc.type == NPCID.MartianSaucer)
                     {
                         npc.life = 0;
                         npc.checkDead();
                     }
-                    if (npc.active && !npc.friendly && npc.type != Type && npc.aiStyle != NPCAIStyleID.CelestialPillar)
+                    if (!npc.friendly && npc.type != Type && npc.aiStyle != NPCAIStyleID.CelestialPillar)
                         npc.active = false;
                 }
+                Main.NewText("i made it past the despawning");
                 foreach (Projectile p in Main.ActiveProjectiles)
                 {
                     if (p.active && !p.friendly)
@@ -235,11 +258,6 @@ public class ArchmageCutsceneMartian : ModNPC
                 for (int i = 0; i < 15; i++)
                     MPUtils.NewProjectile(null, NPC.Center, Main.rand.NextVector2Unit() * Main.rand.NextFloat(10, 20), ProjectileType<XAnimeSlash>(), 0, 0, -1, 0, Main.rand.NextFloat(-0.1f, 0.1f), Main.rand.NextFloat(0.1f, 0.3f));
             }
-            foreach (NPC npc in Main.ActiveNPCs)
-            {
-                if ((!npc.friendly || npc.type == NPCType<ArchmageStaffNPC>()) && npc.type != Type)
-                    npc.active = false;
-            }
             if (AITimer % 5 == 0)
             {
                 if (flameFrame > 34 * 2)
@@ -247,7 +265,6 @@ public class ArchmageCutsceneMartian : ModNPC
                 else
                     flameFrame += 34;
             }
-            NPC.DiscourageDespawn(10);
             EbonianSystem.xareusFightCooldown = 500;
             if (AITimer > 180 || AITimer < 100)
             {
@@ -272,7 +289,7 @@ public class ArchmageCutsceneMartian : ModNPC
             {
                 rightArmRot = 0;
             }
-            if (AITimer < 550)
+            if (AITimer < 550 && startP.Distance(NPC.Center) < 50)
                 NPC.Center = startP + new Vector2(0, MathF.Sin(AITimer * 0.005f) * 25);
 
             float rightHandOffsetRot = MathHelper.Pi - (NPC.direction == 1 ? MathHelper.PiOver4 : MathHelper.PiOver2);
@@ -325,6 +342,7 @@ public class ArchmageCutsceneMartian : ModNPC
             if (AITimer == 180)
             {
                 NPC.boss = true;
+                NPC.netUpdate = true;
                 headFrame.Y = SmirkFace;
                 DialogueSystem.NewDialogueBox(80, NPC.Center - new Vector2(0, 80), Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.Martian.Line3").Value, Color.Violet, -1, 0.6f, Color.Indigo * 0.6f, 2f, true, DialogueAnimationIDs.BopDown | DialogueAnimationIDs.ColorWhite, SoundID.DD2_OgreRoar.WithPitchOffset(0.9f), 5);
             }
@@ -361,7 +379,11 @@ public class ArchmageCutsceneMartian : ModNPC
             }
             if (AITimer > 800)
             {
-                if (NPC.Grounded()) AITimer = 1900;
+                if (NPC.Grounded())
+                {
+                    AITimer = 1900;
+                    NPC.netUpdate = true;
+                }
                 NPC.velocity.Y = MathHelper.Lerp(NPC.velocity.Y, 25, MathHelper.Lerp(0, 0.2f, (AITimer - 800) / 300));
                 NPC.rotation += MathHelper.ToRadians((AITimer - 650) / 300);
             }

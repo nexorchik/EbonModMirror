@@ -35,7 +35,6 @@ public class SetBonusPlayer : ModPlayer
         if (terrortoma)
         {
             terrortomaCharge += MathHelper.Clamp(hit.Damage, 0, 100);
-            Main.NewText(terrortomaCharge);
             if (terrortomaCharge > 1500)
             {
                 SoundEngine.PlaySound(SoundID.Item20, Player.Center);

@@ -30,6 +30,7 @@ public class Fleshformator : ModNPC
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
+        if (Main.invasionType > 0) return 0;
         return spawnInfo.Player.ZoneCrimson && spawnInfo.Player.ZoneRockLayerHeight && Main.hardMode ? 0.2f : 0;
     }
     public override void ModifyNPCLoot(NPCLoot npcLoot)
@@ -164,7 +165,6 @@ public class Fleshformator : ModNPC
     }
     public override void AI()
     {
-        Main.NewText(AITimer2);
         if (endPos[0] == Vector2.Zero && MPUtils.NotMPClient)
         {
             int rand = Main.rand.Next(4);

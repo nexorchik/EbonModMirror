@@ -20,6 +20,7 @@ public class Botanist : ModNPC
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
+        if (Main.invasionType > 0) return 0;
         if (spawnInfo.Player.ZoneOverworldHeight && spawnInfo.Player.ZoneForest)
             return .07f;
         else

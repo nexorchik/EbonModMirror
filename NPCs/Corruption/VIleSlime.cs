@@ -43,6 +43,7 @@ public class VileSlime : ModNPC //this is literally exampleslime but i honestly 
 
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
+        if (Main.invasionType > 0) return 0;
         return spawnInfo.Player.ZoneCorrupt && spawnInfo.Player.ZoneOverworldHeight && Main.hardMode ? 0.07f : 0;
     }
 

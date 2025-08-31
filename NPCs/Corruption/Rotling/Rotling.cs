@@ -24,6 +24,7 @@ public class RotlingHead : WormHead
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
+        if (Main.invasionType > 0) return 0;
         return spawnInfo.Player.ZoneCorrupt ? 0.065f : 0;
     }
     public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)

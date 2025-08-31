@@ -156,6 +156,7 @@ namespace EbonianMod.NPCs.Overworld.CenturyFlower
 
         public override float SpawnChance(NPCSpawnInfo spawnInfo)
         {
+            if (Main.invasionType > 0) return 0;
             if (spawnInfo.Player.ZonePurity)
                 return SpawnCondition.OverworldDay.Chance * 0.2f;
             return 0;

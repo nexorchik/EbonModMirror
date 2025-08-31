@@ -31,6 +31,7 @@ public class Mosquito : ModNPC
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
+        if (Main.invasionType > 0) return 0;
         if (spawnInfo.Player.ZoneCrimson)
         {
             return .25f;

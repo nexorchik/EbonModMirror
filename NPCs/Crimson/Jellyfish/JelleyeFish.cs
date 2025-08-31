@@ -27,6 +27,7 @@ public class JelleyeFish : ModNPC
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
+        if (Main.invasionType > 0) return 0;
         return (spawnInfo.Player.ZoneCrimson && spawnInfo.Player.ZoneOverworldHeight) ? 0.08f : 0;
     }
     public override void ModifyNPCLoot(NPCLoot npcLoot)

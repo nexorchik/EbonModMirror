@@ -17,6 +17,7 @@ public class RiverOfStarlight : ModSceneEffect
     }
     public override void SpecialVisuals(Player player, bool isActive)
     {
+        if (Main.dedServ) return;
         if (IsSceneEffectActive(player))
         {
             if (!SkyManager.Instance["Asteroid"].IsActive())

@@ -29,7 +29,7 @@ public class MiscDetours : ModSystem
     {
         if (gameEventId == 3 && !GetInstance<EbonianSystem>().xareusFuckingDies && GetInstance<EbonianSystem>().downedXareus)
         {
-            MPUtils.NewNPC(Main.player[0].Center, NPCType<ArchmageCutsceneMartian>(), true);
+            MPUtils.NewNPC(Main.player[0].Center, NPCType<ArchmageCutsceneMartian>(), false, -1);
             //NPC.NewNPCDirect(null, Main.player[0].Center, NPCType<ArchmageCutsceneMartian>(), 0, -1);
             GetInstance<EbonianSystem>().xareusFuckingDies = true;
         }

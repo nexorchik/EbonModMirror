@@ -40,12 +40,4 @@ public class GenericGlobalNPC : GlobalNPC
         if (npc.type == NPCID.Zombie)
             npcLoot.Add(ItemDropRule.Common(ItemType<ClementinesCap>(), 300));
     }
-    public override void EditSpawnRate(Player player, ref int spawnRate, ref int maxSpawns)
-    {
-        if (NPC.AnyDanger())
-        {
-            maxSpawns = 0;
-            spawnRate = 0;
-        }
-    }
 }

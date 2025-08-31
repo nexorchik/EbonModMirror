@@ -142,6 +142,7 @@ public class AsteroidWarden : CommonNPC
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
+        if (Main.invasionType > 0) return 0;
         return (Star.starfallBoost > 2 && !Main.dayTime && spawnInfo.Player.ZoneNormalSpace) ? 0.1f : 0;
     }
     public override void AI()

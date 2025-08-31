@@ -20,6 +20,7 @@ public class Rolypoly : ModNPC
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
+        if (Main.invasionType > 0) return 0;
         return spawnInfo.Player.ZoneCorrupt && NPC.downedBoss2 ? 0.08f : 0;
     }
     public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
@@ -163,7 +164,6 @@ public class Rolypoly : ModNPC
 
             for (int i = 0; i < 7; i++)
                 extraVerlets[i] = new Verlet(NPC.Center, 16, amount - 3, 3f, true, true, 20, true, 8);
-            Main.NewText("RAAAAAAAAUHG");
         }
         else
         {

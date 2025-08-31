@@ -29,10 +29,6 @@ public class RustyAxeT : ModTile
     }
     public override void RandomUpdate(int i, int j)
     {
-        Main.NewText("I exist");
-        Main.NewText(i + " " + j);
-        Main.NewText(TileObjectData.GetTileData(Main.tile[i, j]).Origin);
-        Main.NewText(Main.LocalPlayer.Center.ToTileCoordinates().X + " " + Main.LocalPlayer.Center.ToTileCoordinates().Y);
         if (Main.mouseRight)
             Main.LocalPlayer.Center = new Vector2(i, j) * 16;
     }

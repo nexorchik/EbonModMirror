@@ -40,6 +40,7 @@ public class FleshBrickBig : ModNPC
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
+        if (Main.invasionType > 0) return 0;
         return spawnInfo.Player.ZoneCorrupt && Main.hardMode ? 0.025f : 0;
     }
     public override void FindFrame(int frameHeight)

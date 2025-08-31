@@ -66,7 +66,6 @@ public class EbonianPlayer : ModPlayer
     public override void PostUpdateMiscEffects()
     {
         consistentTimer++;
-        Player.ManageSpecialBiomeVisuals("EbonianMod:XMartian", NPC.AnyNPCs(NPCType<ArchmageCutsceneMartian>()));
         Player.ManageSpecialBiomeVisuals("EbonianMod:Conglomerate", Player.HasBuff<ConglomerateEnergyBuff>()); // add npc here later when we add conglo
         Player.ManageSpecialBiomeVisuals("EbonianMod:Aureus", NPC.AnyNPCs(NPCType<Aureus>()));
         #region "hell stuff"

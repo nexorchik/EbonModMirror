@@ -49,17 +49,6 @@ public class ArchmageStaffNPC : ModNPC
         if (!NPC.IsABestiaryIconDummy)
             typeName = " ";
     }
-    Vector2 sPos;
-    public override void OnSpawn(IEntitySource source)
-    {
-        seed = Main.rand.Next(1, 999999);
-        if (NPC.ai[3] == 0)
-        {
-            NPC.active = false;
-            return;
-        }
-        sPos = NPC.Center;
-    }
     float staffAlpha;
     int seed;
     void StartFight()
@@ -72,7 +61,7 @@ public class ArchmageStaffNPC : ModNPC
                 {
                     if (EbonianSystem.xareusFightCooldown <= 0)
                     {
-                        MPUtils.NewProjectile(null, new Vector2(i * 16 + 88, j * 16 + MathF.Sin(Main.GlobalTimeWrappedHourly * .15f) * 16), Vector2.Zero, ProjectileType<ArchmageXSpawnAnim>(), 0, 0);
+                        Projectile.NewProjectile(null, new Vector2(i * 16 + 88, j * 16 + MathF.Sin(Main.GlobalTimeWrappedHourly * .15f) * 16), Vector2.Zero, ProjectileType<ArchmageXSpawnAnim>(), 0, 0);
 
                         for (int k = -23; k < 6; k++)
                         {
@@ -127,6 +116,13 @@ public class ArchmageStaffNPC : ModNPC
     bool initiatedMartianCutscene;
     public override void AI()
     {
+        if (seed == 0)
+            seed = Main.rand.Next(1, 999999);
+        if (NPC.ai[3] == 0)
+        {
+            NPC.active = false;
+            return;
+        }
         NPC.DiscourageDespawn(120);
 
         NPC.shimmerWet = false;
@@ -159,7 +155,7 @@ public class ArchmageStaffNPC : ModNPC
             }
         }
         if (!hasTile || NPC.Center == Vector2.Zero) NPC.active = false;
-        NPC.Center = sPos;
+
 
         EbonianPlayer p = Main.LocalPlayer.GetModPlayer<EbonianPlayer>();
         float dist = Main.LocalPlayer.Distance(NPC.Center);
@@ -436,10 +432,7 @@ public class ArchmageStaffNPC : ModNPC
     }
     public override string GetChat()
     {
-        WeightedRandom<string> chat = new WeightedRandom<string>();
-        EbonianPlayer p = Main.LocalPlayer.GetModPlayer<EbonianPlayer>();
-        chat.Add(Language.GetText("Mods.EbonianMod.Dialogue.ArchstaffDialogue.InteractionLine").Value);
-        return chat;
+        return Language.GetText("Mods.EbonianMod.Dialogue.ArchstaffDialogue.InteractionLine").Value;
     }
     public override bool CanChat()
     {

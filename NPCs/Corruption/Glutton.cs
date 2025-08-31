@@ -58,6 +58,7 @@ public class Glutton : ModNPC
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
+        if (Main.invasionType > 0) return 0;
         return spawnInfo.Player.ZoneCorrupt && Main.hardMode ? 0.01f : 0;
     }
     public const int ActualWidth = 170;

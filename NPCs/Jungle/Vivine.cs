@@ -131,6 +131,7 @@ public class Vivine : ModNPC
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
+        if (Main.invasionType > 0) return 0;
         return SpawnCondition.UndergroundJungle.Chance * 0.2f;
     }
     public override bool? CanFallThroughPlatforms()

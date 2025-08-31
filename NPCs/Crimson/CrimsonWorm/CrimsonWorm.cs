@@ -70,6 +70,7 @@ public class CrimsonWormHead : WormHead
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
+        if (Main.invasionType > 0) return 0;
         return spawnInfo.Player.ZoneCrimson && spawnInfo.Player.ZoneOverworldHeight && Main.hardMode ? 0.01f : 0;
     }
     public override void ExtraAI()

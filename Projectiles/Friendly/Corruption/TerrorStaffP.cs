@@ -100,7 +100,6 @@ public class TerrorStaffPEvil : ModProjectile
     public override Color? GetAlpha(Color lightColor) => Color.White;
     public override void AI()
     {
-        Main.NewText("Hi I exist!");
         Projectile.frameCounter++;
         if (Projectile.frameCounter % 5 == 0)
         {

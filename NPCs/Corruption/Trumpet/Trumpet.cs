@@ -95,6 +95,7 @@ public class TrumpetHead : WormHead
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
+        if (Main.invasionType > 0) return 0;
         return spawnInfo.Player.ZoneCorrupt && Main.hardMode && !NPC.AnyNPCs(Type) ? 0.02f : 0;
     }
 }

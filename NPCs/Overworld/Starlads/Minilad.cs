@@ -14,6 +14,7 @@ public class Minilad : ModNPC
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
+        if (Main.invasionType > 0) return 0;
         return ((spawnInfo.Player.ZoneNormalSpace ? 0.2f : 0.15f) + Star.starfallBoost * 0.05f)
             * ((spawnInfo.Player.ZoneForest || spawnInfo.Player.ZoneNormalSpace) && !Main.dayTime).ToInt();
     }
