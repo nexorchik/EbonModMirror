@@ -260,7 +260,7 @@ public class AsteroidHerder : CommonNPC
                         }
                         if (AITimer > 400)
                         {
-                            if (Main.dedServ)
+                            if (MPUtils.NotMPClient)
                                 SwitchState(AITimer3 == 0 ? 1 : Main.rand.Next(1, 4));
                         }
                     }

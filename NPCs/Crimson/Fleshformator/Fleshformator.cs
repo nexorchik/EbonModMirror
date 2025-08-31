@@ -92,6 +92,8 @@ public class Fleshformator : ModNPC
     }
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
+        if (endPos[0] == Vector2.Zero)
+            return false;
         if (!NPC.IsABestiaryIconDummy)
         {
             if (verlet[0] is null)
@@ -110,67 +112,6 @@ public class Fleshformator : ModNPC
             }
         }
         return true;
-    }
-    public override void OnSpawn(IEntitySource source)
-    {
-        NPC.netUpdate = true;
-        int rand = Main.rand.Next(4);
-        int attempts = 0;
-        while (attempts < 25 && NPC.ai[3] == 0)
-        {
-            switch (rand)
-            {
-                case 0:
-                    if (Helper.TRay.CastLength(NPC.Center, Vector2.UnitY, 1500) < 1490)
-                    {
-                        NPC.ai[3] = 0.5f;
-                        NPC.Center = Helper.TRay.Cast(NPC.Center, Vector2.UnitY, 1500) - new Vector2(0, 14);
-                    }
-                    rand = Main.rand.Next(4);
-                    break;
-                case 1:
-                    if (Helper.TRay.CastLength(NPC.Center, Vector2.UnitX, 1500) < 1490)
-                    {
-                        NPC.ai[3] = 0.5f;
-                        NPC.rotation = MathHelper.ToRadians(-90);
-                        NPC.Center = Helper.TRay.Cast(NPC.Center, Vector2.UnitX, 1500) - new Vector2(14, 0);
-                    }
-                    rand = Main.rand.Next(4);
-                    break;
-                case 2:
-                    if (Helper.TRay.CastLength(NPC.Center, -Vector2.UnitX, 1500) < 1490)
-                    {
-                        NPC.ai[3] = 0.5f;
-                        NPC.rotation = MathHelper.ToRadians(90);
-                        NPC.Center = Helper.TRay.Cast(NPC.Center, -Vector2.UnitX, 1500) + new Vector2(14, 0);
-                    }
-                    rand = Main.rand.Next(4);
-                    break;
-                case 3:
-                    if (Helper.TRay.CastLength(NPC.Center, -Vector2.UnitY, 1500) < 1490)
-                    {
-                        NPC.ai[3] = -0.5f;
-                        NPC.rotation = MathHelper.ToRadians(180);
-                        NPC.Center = Helper.TRay.Cast(NPC.Center, -Vector2.UnitY, 1500) + new Vector2(0, 14);
-                    }
-                    rand = Main.rand.Next(4);
-                    break;
-            }
-            attempts++;
-        }
-        if (NPC.ai[3] == 0)
-        {
-            NPC.active = false;
-            return;
-        }
-        for (int i = -1; i < 2; i++)
-        {
-            Vector2 pos = NPC.Center + new Vector2(40 * i, Main.rand.NextFloat(-85, -100)).RotatedBy(NPC.rotation);
-            endPos[i + 1] = pos;
-            ogEndPos[i + 1] = pos;
-            startPos[i + 1] = NPC.Center + new Vector2(15 * i, 0).RotatedBy(NPC.rotation);
-        }
-        NPC.damage = 0;
     }
     public float AIState
     {
@@ -223,98 +164,153 @@ public class Fleshformator : ModNPC
     }
     public override void AI()
     {
-        Player player = Main.player[NPC.target];
-        NPC.TargetClosest(false);
-        if (verlet[0] is not null)
+        Main.NewText(AITimer2);
+        if (endPos[0] == Vector2.Zero && MPUtils.NotMPClient)
         {
-            for (int i = 0; i < 3; i++)
+            int rand = Main.rand.Next(4);
+            int attempts = 0;
+            while (attempts < 25 && NPC.ai[3] == 0)
             {
-                if (verlet[i].lastP.position.Distance(player.Center) < 20 && AITimer2 <= -50)
+                switch (rand)
                 {
-                    NPC.netUpdate = true;
-                    AITimer = i;
-                    alpha = 1;
-                    player.GetModPlayer<EbonianPlayer>().fleshformators++;
-                    AITimer2 = 100;
+                    case 0:
+                        if (Helper.TRay.CastLength(NPC.Center, Vector2.UnitY, 1500) < 1490)
+                        {
+                            NPC.ai[3] = 0.5f;
+                            NPC.Center = Helper.TRay.Cast(NPC.Center, Vector2.UnitY, 1500) - new Vector2(0, 14);
+                        }
+                        rand = Main.rand.Next(4);
+                        break;
+                    case 1:
+                        if (Helper.TRay.CastLength(NPC.Center, Vector2.UnitX, 1500) < 1490)
+                        {
+                            NPC.ai[3] = 0.5f;
+                            NPC.rotation = MathHelper.ToRadians(-90);
+                            NPC.Center = Helper.TRay.Cast(NPC.Center, Vector2.UnitX, 1500) - new Vector2(14, 0);
+                        }
+                        rand = Main.rand.Next(4);
+                        break;
+                    case 2:
+                        if (Helper.TRay.CastLength(NPC.Center, -Vector2.UnitX, 1500) < 1490)
+                        {
+                            NPC.ai[3] = 0.5f;
+                            NPC.rotation = MathHelper.ToRadians(90);
+                            NPC.Center = Helper.TRay.Cast(NPC.Center, -Vector2.UnitX, 1500) + new Vector2(14, 0);
+                        }
+                        rand = Main.rand.Next(4);
+                        break;
+                    case 3:
+                        if (Helper.TRay.CastLength(NPC.Center, -Vector2.UnitY, 1500) < 1490)
+                        {
+                            NPC.ai[3] = -0.5f;
+                            NPC.rotation = MathHelper.ToRadians(180);
+                            NPC.Center = Helper.TRay.Cast(NPC.Center, -Vector2.UnitY, 1500) + new Vector2(0, 14);
+                        }
+                        rand = Main.rand.Next(4);
+                        break;
                 }
-
-                if (endPos[i].Distance(startPos[i]) < 159 && player.Center.Distance(startPos[i] + NPC.Center.FromAToB(startPos[i]) * 50) < 150 && AITimer2 <= 0)
-                    endPos[i] += endPos[i].FromAToB(player.Center).RotatedByRandom(0.5f) * 0.75f;
-                else
-                {
-                    if (AITimer2 > 0 && AITimer == i)
-                    {
-                        if (player.GetModPlayer<EbonianPlayer>().fleshformators == 1)
-                            endPos[i] += endPos[i].FromAToB(NPC.Center - new Vector2(0, 31).RotatedBy(NPC.rotation), false).RotatedByRandom(0.5f) / 30;
-                    }
-                    else
-                        endPos[i] += endPos[i].FromAToB(ogEndPos[i], false).RotatedByRandom(0.5f) / 30;
-                }
-                for (int j = 0; j < 3; j++)
-                {
-                    if (j == i) continue;
-                    if (endPos[i].Distance(endPos[j]) < 20 && AITimer2 <= 0)
-                        endPos[i] += endPos[i].FromAToB(ogEndPos[i], true);
-                }
+                attempts++;
             }
-        }
-        if (AITimer2 > 50)
-        {
-            if (NPC.rotation == MathHelper.ToRadians(90))
-                currentControl = player.controlLeft;
-            else
-                currentControl = player.controlRight;
-        }
-        if (AITimer2 == 50)
-            alpha = 1;
-        if (AITimer2 < 50)
-        {
+            if (MathF.Abs(NPC.ai[3]) < 0.1f)
+            {
+                NPC.active = false;
+                return;
+            }
+            for (int i = -1; i < 2; i++)
+            {
+                Vector2 pos = NPC.Center + new Vector2(40 * i, Main.rand.NextFloat(-85, -100)).RotatedBy(NPC.rotation);
+                endPos[i + 1] = pos;
+                ogEndPos[i + 1] = pos;
+                startPos[i + 1] = NPC.Center + new Vector2(15 * i, 0).RotatedBy(NPC.rotation);
+            }
             NPC.netUpdate = true;
-            if (NPC.rotation == MathHelper.ToRadians(90))
-                currentControl = player.controlRight;
-            else
-                currentControl = player.controlLeft;
         }
-        if (!player.controlLeft && !player.controlRight)
-            controlTimer--;
+        NPC.damage = 0;
+        Player player = Main.player[NPC.target];
+        if (AITimer2 <= -50)
+            NPC.TargetClosest(false);
+        for (int i = 0; i < 3; i++)
+        {
+            if (endPos[i].Distance(player.Center) < 10 && AITimer2 <= -50)
+            {
+                NPC.netUpdate = true;
+                NPC.target = player.whoAmI;
+                AITimer = i;
+                alpha = 1;
+                player.GetModPlayer<EbonianPlayer>().fleshformators++;
+                AITimer2 = 100;
+                return;
+            }
 
-        if (controlTimer < -30 && AITimer2 > 10 && alpha > 0)
-        {
-            NPC.netUpdate = true;
-            if (AITimer2 < 49)
-                AITimer2++;
-            alpha = MathHelper.Clamp(alpha + 0.02f, 0, 1);
-        }
-        if (currentControl && controlTimer <= 0)
-        {
-            NPC.netUpdate = true;
-            offset += Main.rand.NextVector2Unit() * Main.rand.NextFloat(2, 20);
-            controlTimer = 2;
-            AITimer2 -= 5;
-            alpha -= 0.1f;
-        }
-        if (AITimer2 <= 10 && AITimer2 > 0)
-        {
-            NPC.netUpdate = true;
-            if (NPC.rotation == MathHelper.ToRadians(90))
-                player.velocity = Vector2.UnitX * 15;
+            if (endPos[i].Distance(startPos[i]) < 159 && player.Center.Distance(startPos[i] + NPC.Center.FromAToB(startPos[i]) * 50) < 150 && AITimer2 <= 0)
+                endPos[i] += endPos[i].FromAToB(player.Center).RotatedByRandom(0.5f) * 0.75f;
             else
-                player.velocity = -Vector2.UnitX * 15;
-            player.GetModPlayer<EbonianPlayer>().fleshformators--;
-            AITimer2 -= 10;
+            {
+                if (AITimer2 > 0 && (int)AITimer == i)
+                {
+                    if (player.GetModPlayer<EbonianPlayer>().fleshformators > 0)
+                        endPos[i] += endPos[i].FromAToB(NPC.Center - new Vector2(0, 31).RotatedBy(NPC.rotation), false).RotatedByRandom(0.5f) / 30;
+                }
+                else
+                    endPos[i] += endPos[i].FromAToB(ogEndPos[i], false).RotatedByRandom(0.5f) / 30;
+            }
+            for (int j = 0; j < 3; j++)
+            {
+                if (j == i) continue;
+                if (endPos[i].Distance(endPos[j]) < 20 && AITimer2 <= 0)
+                    endPos[i] += endPos[i].FromAToB(ogEndPos[i], true);
+            }
         }
         if (AITimer2 > 0)
         {
-            NPC.netUpdate = true;
-            player.controlUseItem = false;
-            player.controlUseTile = false;
-            player.controlThrow = false;
-            player.gravDir = 1f;
+            if (AITimer2 > 50)
+            {
+                if (NPC.rotation == MathHelper.ToRadians(90))
+                    currentControl = player.controlLeft;
+                else
+                    currentControl = player.controlRight;
+            }
+            if ((int)AITimer2 == 50)
+                alpha = 1;
+            if (AITimer2 < 50)
+            {
+                if (NPC.rotation == MathHelper.ToRadians(90))
+                    currentControl = player.controlRight;
+                else
+                    currentControl = player.controlLeft;
+            }
+            if (!player.controlLeft && !player.controlRight)
+                controlTimer--;
+
+            if (controlTimer < -30 && AITimer2 > 10 && alpha > 0)
+            {
+                if (AITimer2 < 49)
+                    AITimer2++;
+                alpha = MathHelper.Clamp(alpha + 0.02f, 0, 1);
+            }
+            if (currentControl && controlTimer <= 0)
+            {
+                offset += Main.rand.NextVector2Unit() * Main.rand.NextFloat(2, 20);
+                controlTimer = 2;
+                AITimer2 -= 5;
+                alpha -= 0.1f;
+                NPC.netUpdate = true;
+            }
+            if (AITimer2 <= 10)
+            {
+                NPC.netUpdate = true;
+                if (NPC.rotation == MathHelper.ToRadians(90))
+                    player.velocity = Vector2.UnitX * 15;
+                else
+                    player.velocity = -Vector2.UnitX * 15;
+                player.GetModPlayer<EbonianPlayer>().fleshformators--;
+                AITimer2 -= 10;
+            }
             if (AITimer2 > 1)
             {
                 player.velocity.Y = -1;
                 player.velocity.X = 0;
-                player.Center += player.Center.FromAToB(verlet[(int)AITimer].lastP.position, false) / 2f;
+                player.Center += player.Center.FromAToB(endPos[(int)AITimer], false) / 2f;
             }
             if (player.GetModPlayer<EbonianPlayer>().fleshformators > 1)
             {
@@ -324,12 +320,15 @@ public class Fleshformator : ModNPC
             }
 
             player.Hurt(PlayerDeathReason.ByNPC(NPC.whoAmI), 15, 0);
-            NetMessage.SendData(MessageID.PlayerControls, number: player.whoAmI);
+            if (player.whoAmI == Main.myPlayer)
+                NetMessage.SendData(MessageID.PlayerControls, number: player.whoAmI);
         }
         else
         {
-            NPC.netUpdate = true;
-            alpha = 1;
+            foreach (Player p in Main.ActivePlayers)
+            {
+                p.GetModPlayer<EbonianPlayer>().fleshformators--;
+            }
             AITimer2--;
             alpha = 0;
             controlTimer = 0;

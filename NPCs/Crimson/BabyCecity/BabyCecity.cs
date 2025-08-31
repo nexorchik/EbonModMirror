@@ -65,7 +65,7 @@ public class BabyCecity : ModNPC
             if (verlet[0] is null)
             {
                 for (int i = 0; i < 2; i++)
-                    verlet[i] = new Verlet(NPC.Center, 10, 42, gravity: -5f, lastPointLocked: true, stiffness: 50);
+                    verlet[i] = new Verlet(NPC.Center, 10, 42, gravity: -5f, lastPointLocked: true, stiffness: 40);
             }
             else
             {
@@ -152,22 +152,19 @@ public class BabyCecity : ModNPC
     public override void AI()
     {
         Player player = Main.player[NPC.target];
-        NPC.TargetClosest(false);
-        if (player.Distance(NPC.Center) > 1800) return;
         NPC.direction = NPC.velocity.X < 0 ? -1 : 1;
-        if (verlet[0] is null)
-            return;
         if (Helper.TRay.CastLength(NPC.Center, Vector2.UnitY, 600) >= 580)
         {
-            NPC.netUpdate = true;
             NPC.velocity.Y += 2;
             ogPos[0].Y = MathHelper.Lerp(ogPos[0].Y, Helper.TRay.Cast(new Vector2(ogPos[0].X, NPC.Center.Y) - new Vector2(0, 100), Vector2.UnitY, 600).Y + 16, MathHelper.SmoothStep(0.05f, 0.15f, (AITimer2 - 40) / 40));
             ogPos[1].Y = MathHelper.Lerp(ogPos[1].Y, Helper.TRay.Cast(new Vector2(ogPos[1].X, NPC.Center.Y) - new Vector2(0, 100), Vector2.UnitY, 600).Y + 16, MathHelper.SmoothStep(0.05f, 0.15f, (AITimer2 - 40) / 40));
         }
         NPC.rotation = NPC.Center.FromAToB(player.Center).ToRotation() - MathHelper.PiOver2;
-        switch (AIState)
+        switch ((int)AIState)
         {
             case 0:
+                NPC.TargetClosest(false);
+                if (player.Distance(NPC.Center) > 1800) return;
                 if (player.Center.Distance(NPC.Center) < 1300)
                     AITimer++;
 
@@ -236,18 +233,18 @@ public class BabyCecity : ModNPC
                     AITimer2 = 0;
                     NPC.ai[3] = -NPC.ai[3];
                 }
-                if (AITimer2 % 80 == 0)
+                if ((int)AITimer2 % 80 == 0)
                 {
                     NPC.netUpdate = true;
                     if (Main.netMode != NetmodeID.MultiplayerClient)
                         seed = Main.rand.Next(9999999);
                 }
 
-                if (verlet[0].lastP.position.Distance(NPC.Center) > 600)
+                if (ogPos[0].Distance(NPC.Center) > 600)
                 {
                     ogPos[0] = Vector2.Lerp(ogPos[0], new Vector2(NPC.Center.X, Helper.TRay.Cast(ogPos[0], Vector2.UnitY, 800).Y + 16), 0.01f);
                 }
-                if (verlet[1].lastP.position.Distance(NPC.Center) > 600)
+                if (ogPos[1].Distance(NPC.Center) > 600)
                 {
                     ogPos[1] = Vector2.Lerp(ogPos[1], new Vector2(NPC.Center.X, Helper.TRay.Cast(ogPos[1], Vector2.UnitY, 800).Y + 16), 0.01f);
                 }
@@ -257,15 +254,19 @@ public class BabyCecity : ModNPC
                     AIState++;
                     AITimer = 0;
                     AITimer2 = 0;
-                    if (player.Center.Distance(NPC.Center) < 500)
-                        seed = Main.rand.Next(2);
-                    else seed = 0;
+                    if (MPUtils.NotMPClient)
+                    {
+                        if (player.Center.Distance(NPC.Center) < 500)
+                            seed = Main.rand.Next(2);
+                        else seed = 0;
+                    }
                 }
                 break;
             case 1:
                 AITimer++;
+                if (seed > 1) return;
 
-                if (verlet[0].lastP.position.Distance(NPC.Center) > 600)
+                if (ogPos[0].Distance(NPC.Center) > 600)
                 {
                     ogPos[0] = Vector2.Lerp(ogPos[0], new Vector2(NPC.Center.X, Helper.TRay.Cast(ogPos[0], Vector2.UnitY, 800).Y + 16), 0.01f);
                 }
@@ -275,7 +276,7 @@ public class BabyCecity : ModNPC
                 NPC.velocity *= 0.9f;
                 if (seed == 0)
                 {
-                    if (verlet[1].lastP.position.Distance(NPC.Center) > 600)
+                    if (ogPos[1].Distance(NPC.Center) > 600)
                     {
                         ogPos[1] = Vector2.Lerp(ogPos[1], new Vector2(NPC.Center.X, Helper.TRay.Cast(ogPos[1], Vector2.UnitY, 800).Y + 16), 0.01f);
                     }
@@ -294,36 +295,25 @@ public class BabyCecity : ModNPC
                         SoundStyle sound = EbonianSounds.bloodSpit;
                         SoundEngine.PlaySound(sound, NPC.Center);
                     }
-                    if (AITimer2 % 15 == 10)
+                    if ((int)AITimer2 % 25 == 10)
                     {
                         Vector2 vel = NPC.Center.FromAToB(player.Center - new Vector2(0, Main.rand.NextFloat(100))).RotatedByRandom(0.3f);
                         for (int i = 0; i < 15; i++)
                         {
                             Dust.NewDustDirect(NPC.Center, NPC.width / 2, NPC.height / 2, DustID.IchorTorch, vel.X * Main.rand.NextFloat(5, 8), vel.Y * Main.rand.NextFloat(5, 8));
                         }
-                        Projectile a = MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel * Main.rand.NextFloat(10, 15), ProjectileType<CIchor>(), 20, 0);
-
-                        if (a is not null)
-                        {
-                            a.friendly = false;
-                            a.hostile = true;
-                            a.tileCollide = false;
-                            a.SyncProjectile();
-                        }
-
+                        MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, vel * Main.rand.NextFloat(4, 9), ProjectileType<CIchor>(), 20, 0);
                     }
                 }
                 else
                 {
                     if (AITimer < 20)
                     {
-                        if (AITimer == 1 || AITimer == 19)
-                            NPC.netUpdate = true;
                         savedP = ogPos[1];
                         savedP2 = player.Center;
                         ogPos[1] = Vector2.Lerp(ogPos[1], player.Center - new Vector2(0, 200), 0.1f);
                     }
-                    if (AITimer == 40)
+                    if ((int)AITimer == 40 && savedP.Distance(NPC.Center) < 1000)
                         MPUtils.NewProjectile(NPC.GetSource_FromAI(), savedP + Helper.FromAToB(savedP, savedP2) * 110, Helper.FromAToB(savedP, savedP2), ProjectileType<CecitiorClawSlash>(), 30, 0);
 
                     if (AITimer > 40 && AITimer < 65)
@@ -332,7 +322,6 @@ public class BabyCecity : ModNPC
                     }
                     if (AITimer > 65)
                     {
-
                         ogPos[1].Y = MathHelper.Lerp(ogPos[1].Y, Helper.TRay.Cast(ogPos[1] - new Vector2(0, 300), Vector2.UnitY, 1000).Y + 16, 0.1f);
                     }
 

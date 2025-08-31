@@ -640,7 +640,7 @@ public class HotGarbage : ModNPC
             NPC.spriteDirection = NPC.direction = player.Center.X > NPC.Center.X ? 1 : -1;
             JumpCheck();
             if (AITimer == 50 && Main.rand.NextBool() && NextAttack2 != SpewFire)
-                MPUtils.NewProjectile(NPC.GetSource_FromThis(), Helper.TRay.Cast(NPC.Center - new Vector2(Main.rand.NextFloat(-500, 500), 200), Vector2.UnitY, 600, true), Vector2.Zero, ProjectileType<Mailbox>(), 15, 0, player.whoAmI);
+                MPUtils.NewProjectile(NPC.GetSource_FromThis(), Helper.TRay.Cast(NPC.Center - new Vector2(Main.rand.NextFloat(-500, 500), 200), Vector2.UnitY, 600, true), Vector2.Zero, ProjectileType<Mailbox>(), 15, 0);
             NPC.velocity.X = Lerp(NPC.velocity.X, Helper.FromAToB(NPC.Center, player.Center + Helper.FromAToB(player.Center, NPC.Center) * 70, false).X * 0.043f, 0.12f);
             if (player.Distance(NPC.Center) < 70)
                 AITimer += 1;
@@ -1078,7 +1078,7 @@ public class HotGarbage : ModNPC
 
             if (AITimer > 60 && AITimer < 82)
             {
-                MPUtils.NewProjectile(NPC.GetSource_FromThis(), Helper.TRay.Cast(NPC.Center - new Vector2(Main.rand.NextFloat(-2000, 2000), 200), Vector2.UnitY, 600, true), Vector2.Zero, ProjectileType<Mailbox>(), 15, 0, player.whoAmI);
+                MPUtils.NewProjectile(NPC.GetSource_FromThis(), Helper.TRay.Cast(NPC.Center - new Vector2(Main.rand.NextFloat(-2000, 2000), 200), Vector2.UnitY, 600, true), Vector2.Zero, ProjectileType<Mailbox>(), 15, 0);
             }
             if (AITimer >= 120)
             {

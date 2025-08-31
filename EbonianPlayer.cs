@@ -43,6 +43,16 @@ public class EbonianPlayer : ModPlayer
             SoundEngine.PlaySound(SoundID.NPCHit1, Player.Center);
         }
     }
+    public override void PreUpdateMovement()
+    {
+        if (fleshformators > 0)
+        {
+            Player.controlUseItem = false;
+            Player.controlUseTile = false;
+            Player.controlThrow = false;
+            Player.gravDir = 1f;
+        }
+    }
     public override void PostUpdateRunSpeeds()
     {
         if (NPC.AnyNPCs(NPCType<ArchmageX>()) || Player.ownedProjectileCounts[ProjectileType<ArchmageXSpawnAnim>()] > 0)

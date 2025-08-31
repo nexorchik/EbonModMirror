@@ -278,7 +278,7 @@ public class AsteroidWarden : CommonNPC
                 AITimer2 = 0;
                 NPC.localAI[0] = 0;
                 AIState = 0;
-                if (Main.dedServ)
+                if (MPUtils.NotMPClient)
                 {
                     next = Main.rand.NextBool(3) ? 1 : 2;
                     NPC.netUpdate = true;

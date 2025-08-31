@@ -65,10 +65,4 @@ public class CIchor : ModProjectile
         Projectile.tileCollide = false;
         AIType = ProjectileID.GoldenShowerHostile;
     }
-
-    public override bool PreKill(int timeLeft)
-    {
-        Projectile.active = false;
-        return false;
-    }
 }

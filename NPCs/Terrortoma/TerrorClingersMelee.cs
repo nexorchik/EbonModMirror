@@ -285,8 +285,8 @@ public class TerrorClingerMelee : TerrorClingerGeneric // Disgusting
                                 else NPC.damage = 100;
                                 if (CenterAITimer == 41)
                                     bloomAlpha = 1f;
-                                NPC.Center = Vector2.Lerp(NPC.Center, center.Center + new Vector2(0, Helper.TRay.CastLength(center.Center, Vector2.UnitY, 360)).RotatedBy((float)Math.Sin(CenterAITimer * 0.05f * 2)), 0.1f);
-                                NPC.rotation = Helper.FromAToB(NPC.Center, center.Center + new Vector2(0, 340).RotatedBy((float)Math.Sin(CenterAITimer * 0.05f * 2))).ToRotation();
+                                NPC.Center = Vector2.Lerp(NPC.Center, center.Center + new Vector2(0, Helper.TRay.CastLength(center.Center, Vector2.UnitY, 360)).RotatedBy((float)Math.Sin(CenterAITimer * 0.05f)), 0.1f);
+                                NPC.rotation = Helper.FromAToB(NPC.Center, center.Center + new Vector2(0, 340).RotatedBy((float)Math.Sin(CenterAITimer * 0.05f))).ToRotation();
                                 if (CenterAITimer > 369 + (center.life < center.lifeMax / 2 ? 50 : 0))
                                     NPC.damage = 0;
                             }

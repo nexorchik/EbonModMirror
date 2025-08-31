@@ -48,7 +48,7 @@ public class Mailbox : ModProjectile
             Projectile.direction = Projectile.spriteDirection = Helper.FromAToB(Projectile.Center, Main.player[Projectile.owner].Center).X > 0 ? 1 : -1;
 
             SoundEngine.PlaySound(SoundID.Item156, Projectile.Center);
-            MPUtils.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center - new Vector2(0, 44), Helper.FromAToB(Projectile.Center, Main.player[Projectile.owner].Center) * 10, ProjectileType<Pipebomb>(), Projectile.damage, 0, Projectile.owner);
+            Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center - new Vector2(0, 44), Helper.FromAToB(Projectile.Center, Main.player[Projectile.owner].Center) * 10, ProjectileType<Pipebomb>(), Projectile.damage, 0, Projectile.owner);
             Projectile.ai[1] = 1;
         }
 
