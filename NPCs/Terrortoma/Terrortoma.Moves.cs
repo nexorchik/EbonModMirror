@@ -139,6 +139,6 @@ public partial class Terrortoma : ModNPC
             bloomAlpha = 1f;
         rotation = Helper.FromAToB(NPC.Center, player.Center).ToRotation() - MathHelper.PiOver2;
         if (AITimer > 30 && AITimer % 7 == 0 && AITimer <= (phase2 ? 100 : 75))
-            MPUtils.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (NPC.rotation + MathHelper.PiOver2).ToRotationVector2().RotatedByRandom(MathHelper.PiOver2) * 0.5f, ProjectileType<TerrorVilethorn1>(), 20, 0, 0);
+            Projectile.NewProjectile(NPC.GetSource_FromAI(), NPC.Center, (NPC.rotation + MathHelper.PiOver2).ToRotationVector2().RotatedByRandom(MathHelper.PiOver2) * 0.5f, ProjectileType<TerrorVilethorn1>(), 20, 0, 0);
     }
 }

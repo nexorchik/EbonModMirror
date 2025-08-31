@@ -150,7 +150,11 @@ public class DrawDetours : ModSystem
     }
     void DrawPixelatedContent(SpriteBatch sb)
     {
-        RTHandler.pixelationTarget.RequestAndPrepare(EbonianMod.pixelationDrawCache.Any() || EbonianMod.primitivePixelationDrawCache.Any());
+        bool anyProj = false;
+        foreach (Projectile p in Main.ActiveProjectiles)
+            if (PixelationTarget.pixelatedProjectiles.Contains(p.type))
+                anyProj = true;
+        RTHandler.pixelationTarget.RequestAndPrepare(EbonianMod.pixelationDrawCache.Any() || EbonianMod.primitivePixelationDrawCache.Any() || anyProj);
         if (RTHandler.pixelationTarget.IsReady)
         {
             sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise);

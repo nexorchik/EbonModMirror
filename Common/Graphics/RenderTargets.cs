@@ -14,14 +14,29 @@ public static class RTHandler
     public static XareusTarget xareusTarget => GetInstance<XareusTarget>();
     public static JungleDustTarget jungleDustTarget => GetInstance<JungleDustTarget>();
 }
-public class PixelationTarget : CommonRenderTarget
+public class PixelationTarget : CommonRenderTarget, ILoadable
 {
+    public static List<int> pixelatedProjectiles = [];
+    void ILoadable.Unload()
+    {
+        Main.ContentThatNeedsRenderTargets.Remove(this);
+        pixelatedProjectiles = [];
+    }
     public override void HandleUseRequest(GraphicsDevice gd, SpriteBatch sb)
     {
         PrepareAndSet(ref _target2, gd);
         sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         EbonianMod.pixelationDrawCache.InvokeAllAndClear();
         EbonianMod.primitivePixelationDrawCache.InvokeAllAndClear();
+        foreach (Projectile projectile in Main.ActiveProjectiles)
+        {
+            if (pixelatedProjectiles.Contains(projectile.type))
+            {
+                Color color = Color.Transparent;
+                projectile.ModProjectile.PreDraw(ref color);
+                projectile.ModProjectile.PostDraw(Color.Transparent);
+            }
+        }
         sb.End();
 
         PrepareAndSet(ref _target, gd);

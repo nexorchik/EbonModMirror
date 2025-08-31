@@ -164,68 +164,12 @@ public class HotGarbage : ModNPC
             {
                 NPC.frame.Y = 0 * frameHeight;
             }
-            else if (NPC.frameCounter < 10)
-            {
-                NPC.frame.Y = 1 * frameHeight;
-            }
-            else if (NPC.frameCounter < 15)
-            {
-                NPC.frame.Y = 2 * frameHeight;
-            }
-            else if (NPC.frameCounter < 20)
-            {
-                NPC.frame.Y = 3 * frameHeight;
-            }
-            else if (NPC.frameCounter < 25)
-            {
-                NPC.frame.Y = 4 * frameHeight;
-            }
-            else if (NPC.frameCounter < 30)
-            {
-                NPC.frame.Y = 5 * frameHeight;
-            }
-            else if (NPC.frameCounter < 35)
-            {
-                NPC.frame.Y = 6 * frameHeight;
-            }
-            else if (NPC.frameCounter < 40)
-            {
-                NPC.frame.Y = 7 * frameHeight;
-            }
-            else if (NPC.frameCounter < 45)
-            {
-                NPC.frame.Y = 8 * frameHeight;
-            }
-            else if (NPC.frameCounter < 50)
-            {
-                NPC.frame.Y = 9 * frameHeight;
-            }
-            else if (NPC.frameCounter < 55)
-            {
-                NPC.frame.Y = 10 * frameHeight;
-            }
-            else if (NPC.frameCounter < 60)
-            {
-                NPC.frame.Y = 11 * frameHeight;
-            }
-            else if (NPC.frameCounter < 65)
-            {
-                NPC.frame.Y = 12 * frameHeight;
-            }
             else
             {
-                NPC.frameCounter = 0;
-                if (!NPC.IsABestiaryIconDummy)
+                if (NPC.frameCounter % 5 == 0)
                 {
-                    NPC.Center += new Vector2(2 * NPC.direction, 0);
-                    NPC.frame.X = 80;
-                    NPC.frame.Y = 0;
-                    AIState = Idle;
-                    AITimer = 0;
-                    AITimer2 = 0;
-                    NextAttack = WarningForDash;
-
-                    NPC.netUpdate = true;
+                    if (NPC.frame.Y < frameHeight * 12)
+                        NPC.frame.Y += frameHeight;
                 }
             }
         }
@@ -301,13 +245,6 @@ public class HotGarbage : ModNPC
                 {
                     NPC.frame.Y += frameHeight;
                 }
-                else
-                {
-                    AITimer = 0;
-                    AIState = NextAttack2;
-
-                    NPC.netUpdate = true;
-                }
             }
         }
         else if (AIState == CloseLid)
@@ -321,22 +258,18 @@ public class HotGarbage : ModNPC
                 {
                     NPC.frame.Y -= frameHeight;
                 }
-                else
-                {
-                    AIState = Idle;
-                }
             }
         }
 
     }
-    public float AIState
+    public int AIState
     {
-        get => NPC.ai[0];
+        get => (int)NPC.ai[0];
         set => NPC.ai[0] = value;
     }
-    public float AITimer
+    public int AITimer
     {
-        get => NPC.ai[1];
+        get => (int)NPC.ai[1];
         set => NPC.ai[1] = value;
     }
     public float AITimer2
@@ -505,6 +438,9 @@ public class HotGarbage : ModNPC
             }
         }
         NPC.timeLeft = 10;
+
+        if (AIState == CloseLid && NPC.frame.Y < NPC.height)
+            AIState = Idle;
 
         if (AIState == Death)
         {
@@ -680,6 +616,18 @@ public class HotGarbage : ModNPC
                 if (AITimer < 30)
                 {
                     NPC.frameCounter = 0;
+                }
+                if (AITimer > 100)
+                {
+                    NPC.Center += new Vector2(2 * NPC.direction, 0);
+                    NPC.frame.X = 80;
+                    NPC.frame.Y = 0;
+                    AIState = Idle;
+                    AITimer = 0;
+                    AITimer2 = 0;
+                    NextAttack = WarningForDash;
+
+                    NPC.netUpdate = true;
                 }
             }
         }
@@ -945,7 +893,13 @@ public class HotGarbage : ModNPC
                 SoundEngine.PlaySound(SoundID.DD2_BookStaffCast, NPC.Center);
                 MPUtils.NewProjectile(NPC.InheritSource(NPC), NPC.Center, Vector2.Zero, ProjectileType<GreenShockwave>(), 0, 0);
             }
+            if (AITimer >= 20)
+            {
+                AITimer = 0;
+                AIState = NextAttack2;
 
+                NPC.netUpdate = true;
+            }
         }
         else if (AIState == SpewFire)
         {
@@ -970,25 +924,6 @@ public class HotGarbage : ModNPC
                 AIState = CloseLid;
             }
         }
-        /*else if (AIState == FallOver)
-        {
-            AITimer++;
-            if (AITimer == 1)
-                MPUtils.NewProjectileServerSide(NPC.GetSource_FromThis(), Helper.TRay.Cast(NPC.Center, Vector2.UnitY, NPC.velocity.Length() * 40), new Vector2(NPC.direction, 0), ProjectileType<GarbageTelegraphSmall>(), 0, 0, -1, 800);
-            if (AITimer == 40)
-            {
-                SoundEngine.PlaySound(SoundID.DD2_BetsyFlameBreath, NPC.Center);
-                Helper.NewProjectileByNPC(NPC.GetSource_FromThis(), NPC.Center, new Vector2(NPC.direction, 0), ProjectileType<EFireBreath>(), 15, 0).localAI[0] = 650;
-            }
-            if (AITimer >= 60)
-            {
-                AITimer = 0;
-                NPC.damage = 0;
-                NextAttack2 = TrashBags;
-                NPC.velocity = Vector2.Zero;
-                AIState = CloseLid;
-            }
-        }*/
         else if (AIState == SpewFire2)
         {
             AITimer++;
@@ -1017,33 +952,6 @@ public class HotGarbage : ModNPC
         {
             NPC.netUpdate = true;
             AIState = GiantFireball;
-            /*AITimer++;
-            JumpCheck();
-            if (AITimer == 10)
-            {
-                for (int i = 0; i < 30; i++)
-                {
-                    Dust.NewDustPerfect(Main.rand.NextVector2FromRectangle(NPC.getRect()), DustID.Poop, Main.rand.NextVector2Circular(10, 10));
-                }
-                SoundEngine.PlaySound(SoundID.Item177, NPC.Center);
-            }
-            NPC.velocity.X = Lerp(NPC.velocity.X, Helper.FromAToB(NPC.Center, player.Center).X * 4, 0.15f);
-            NPC.spriteDirection = NPC.direction = player.Center.X > NPC.Center.X ? 1 : -1;
-            if (AITimer % 20 == 0 && AITimer > 40)
-            {
-                SoundEngine.PlaySound(SoundID.Item10, NPC.Center);
-                MPUtils.NewProjectileServerSide(NPC.GetSource_FromThis(), NPC.Center, new Vector2(Helper.FromAToB(NPC.Center, player.Center).X * (10 + AITimer * 0.2f), -3), ProjectileType<GarbageBarrel>(), 15, 0, player.whoAmI);
-            }
-
-            if (AITimer >= 160)
-            {
-                AITimer = 0;
-                NPC.damage = 0;
-                NextAttack = OpenLid;
-                NextAttack2 = GiantFireball;
-                NPC.velocity = Vector2.Zero;
-                AIState = CloseLid;
-            }*/
         }
         else if (AIState == GiantFireball)
         {
@@ -1146,7 +1054,7 @@ public class HotGarbage : ModNPC
             if (AITimer % 5 == 0 && AITimer < 60 && AITimer > 20)
             {
                 SoundEngine.PlaySound(SoundID.Item156, NPC.Center);
-                MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(rand.NextFloat(-4, 4), -7), ProjectileType<GarbageMissile>(), 15, 0, player.whoAmI, ToRadians(rand.NextFloat(-3, 3)));
+                Projectile.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(rand.NextFloat(-4, 4), -7), ProjectileType<GarbageMissile>(), 15, 0, player.whoAmI, ToRadians(rand.NextFloat(-3, 3)));
             }
             if (AITimer >= 60)
             {

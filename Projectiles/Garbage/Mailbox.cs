@@ -22,28 +22,24 @@ public class Mailbox : ModProjectile
     public override bool? CanDamage() => false;
     public override bool PreDraw(ref Color lightColor)
     {
+        if (Projectile.ai[0] < 0.5f)
+            return false;
         Texture2D tex = TextureAssets.Projectile[Type].Value;
         float scale = Math.Clamp(MathHelper.Lerp(0, 1, Projectile.scale * 2), 0, 1);
         Rectangle frame = new Rectangle(0, Projectile.frame * 46, 30, 46);
         Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, frame, Color.White, Projectile.rotation, new Vector2(tex.Width / 2, Projectile.height), new Vector2(Projectile.scale, 1), Projectile.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
         return false;
     }
-    public override void OnSpawn(IEntitySource source)
-    {
-        Projectile.scale = 0;
-        Projectile.netUpdate = true; // TEST
-    }
     public override void AI()
     {
-        if (Projectile.ai[0] == 0)
+        if (Projectile.ai[0] < 0.5f)
         {
+            Projectile.scale = 0;
             Projectile.Center = Helper.TRay.Cast(Projectile.Center, Vector2.UnitY, 1000, true);
             Projectile.ai[0] = 1;
             Projectile.netUpdate = true; // TEST
         }
-        //if (Projectile.timeLeft == 150)
-        //  Projectile.NewProjectileDirect(NPC.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<CircleTelegraph>(), 0, 0);
-        if (Projectile.timeLeft < 100 && Projectile.ai[1] == 0)
+        if (Projectile.timeLeft < 100 && Projectile.ai[1] < 0.5f)
         {
             for (int i = 0; i < 15; i++)
             {
@@ -54,7 +50,6 @@ public class Mailbox : ModProjectile
             SoundEngine.PlaySound(SoundID.Item156, Projectile.Center);
             MPUtils.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center - new Vector2(0, 44), Helper.FromAToB(Projectile.Center, Main.player[Projectile.owner].Center) * 10, ProjectileType<Pipebomb>(), Projectile.damage, 0, Projectile.owner);
             Projectile.ai[1] = 1;
-            Projectile.netUpdate = true; // TEST
         }
 
         Projectile.frame = (int)Projectile.ai[1];

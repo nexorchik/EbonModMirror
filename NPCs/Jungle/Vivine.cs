@@ -172,11 +172,11 @@ public class Vivine : ModNPC
         }
         else if (AIState == Move)
         {
-            Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY);
             var Distance = Vector2.Distance(player.Center, NPC.Center);
             NPC.knockBackResist = 0.8f;
             AITimer++;
-            NPC.GetGlobalNPC<FighterGlobalAI>().FighterAI(NPC, 6, 1, true, -1, 0/*, 1, 0*/);
+            NPC.GetGlobalNPC<FighterGlobalAI>().FighterAI(NPC, 6, 1, true, -1, 0);
+            Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY);
             if (AITimer >= 200 && Distance < 500 && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
             {
                 AITimer = 0;
