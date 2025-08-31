@@ -132,10 +132,10 @@ public class BabyCecity : ModNPC
             ogPos[i] = Helper.TRay.Cast(NPC.Center, dir[i], 350) + Vector2.UnitY * 30;
         }
     }
-    public override void HitEffect(NPC.HitInfo hit)
+    public override bool CheckDead()
     {
         if (Main.dedServ)
-            return;
+            return true;
         if (NPC.life <= 0)
         {
             for (int i = 0; i < 4; i++)
@@ -148,6 +148,7 @@ public class BabyCecity : ModNPC
                     Gore.NewGore(NPC.GetSource_Death(), verlet[i].segments[j].pointA.position, Main.rand.NextVector2Unit(), Find<ModGore>("EbonianMod/CrimorrhageChain").Type);
             }
         }
+        return true;
     }
     public override void AI()
     {

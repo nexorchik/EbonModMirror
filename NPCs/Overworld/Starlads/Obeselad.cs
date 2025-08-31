@@ -135,7 +135,7 @@ public class Obeselad : ModNPC
         }
     }
 
-    public override void OnKill()
+    public override bool CheckDead()
     {
         for (int k = 0; k < 20; k++)
         {
@@ -148,6 +148,7 @@ public class Obeselad : ModNPC
         }
 
         if (Main.netMode != NetmodeID.Server) { Gore.NewGore(NPC.GetSource_Death(), NPC.position, Vector2.Zero, Mod.Find<ModGore>("ObeseladCap").Type, 1f); }
+        return true;
     }
 
     public override void FindFrame(int frameHeight)

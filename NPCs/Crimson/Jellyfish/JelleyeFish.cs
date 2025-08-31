@@ -129,10 +129,10 @@ public class JelleyeFish : ModNPC
             }
 
     }
-    public override void OnKill()
+    public override bool CheckDead()
     {
         if (Main.dedServ)
-            return;
+            return true;
         for (int i = 0; i < 50; i++)
             Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, Main.rand.NextFloatDirection() * 5, Main.rand.NextFloatDirection() * 5, Scale: 2);
         Gore.NewGore(NPC.GetSource_FromThis(), NPC.position, Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/WormyGore").Type, NPC.scale);
@@ -165,6 +165,7 @@ public class JelleyeFish : ModNPC
                             Gore.NewGore(NPC.GetSource_Death(), eyeVerlets[i].points[j].position, Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/JelleyeFishGore0").Type, NPC.scale);
                     }
             }
+        return true;
     }
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {

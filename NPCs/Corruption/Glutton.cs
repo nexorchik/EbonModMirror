@@ -161,22 +161,20 @@ public class Glutton : ModNPC
     {
         storedPlayerPos = reader.ReadVector2();
     }
-    public override void HitEffect(NPC.HitInfo hit)
+    public override bool CheckDead()
     {
         if (Main.dedServ)
-            return;
-        if ((hit.Damage >= NPC.life && NPC.life <= 0))
+            return true;
+        Gore.NewGore(NPC.GetSource_Death(), NPC.Center - new Vector2(0, 25), Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/GluttonGore1").Type, NPC.scale);
+        for (int i = 0; i < 2; i++)
         {
-            Gore.NewGore(NPC.GetSource_Death(), NPC.Center - new Vector2(0, 25), Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/GluttonGore1").Type, NPC.scale);
-            for (int i = 0; i < 2; i++)
-            {
-                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/GluttonGore5").Type, NPC.scale);
-                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/GluttonGore2").Type, NPC.scale);
-                Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/GluttonGore3").Type, NPC.scale);
-                for (int j = 0; j < 2; j++)
-                    Gore.NewGore(NPC.GetSource_Death(), NPC.Center + new Vector2(0, 25), Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/GluttonGore4").Type, NPC.scale);
-            }
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/GluttonGore5").Type, NPC.scale);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/GluttonGore2").Type, NPC.scale);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/GluttonGore3").Type, NPC.scale);
+            for (int j = 0; j < 2; j++)
+                Gore.NewGore(NPC.GetSource_Death(), NPC.Center + new Vector2(0, 25), Main.rand.NextVector2Circular(5, 5), Find<ModGore>("EbonianMod/GluttonGore4").Type, NPC.scale);
         }
+        return true;
     }
     float eyeBeamAlpha = 0;
     public override void AI()
