@@ -1,6 +1,4 @@
-﻿
-using EbonianMod.Items.Materials;
-using EbonianMod.Projectiles.Bases;
+﻿using EbonianMod.Projectiles.Bases;
 using EbonianMod.Projectiles.Friendly.Generic;
 using System;
 

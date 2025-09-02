@@ -1,7 +1,3 @@
-using Microsoft.Xna.Framework;
-using Terraria;
-using Terraria.ModLoader;
-
 namespace EbonianMod.Dusts
 {
     public class StarineDust : ModDust

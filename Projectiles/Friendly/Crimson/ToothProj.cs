@@ -20,7 +20,7 @@ public class ToothProj : ModProjectile
     {
         for (int i = 0; i < 14; i++)
         {
-            Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, DustID.Blood, Main.rand.NextFloat(-1, 1), Main.rand.NextFloat(-1, 1), Scale: 1.5f);
+            Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.Blood, Main.rand.NextFloat(-1, 1), Main.rand.NextFloat(-1, 1), Scale: 1.5f);
         }
     }
     float Gravity;

@@ -152,11 +152,11 @@ public class SpudCannon : ModItem
             }
             else
             {
-                ColorModifier = 1 - Charge / 7;
+                ColorModifier = 1 - Charge / 5;
                 Shake = new Vector2(Main.rand.NextFloat(-Charge, Charge), Main.rand.NextFloat(-Charge, Charge));
             }
             Main.EntitySpriteDraw(Helper.GetTexture("Items/Weapons/Ranged/SpudCannon").Value, Projectile.Center - Main.screenPosition + player.GFX() + Shake, frameRect, new Color(1, ColorModifier, ColorModifier, 1), Projectile.rotation, new Vector2(Projectile.width / 2 - 25, Projectile.height / 2 - 2 * player.direction), Scale, player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
-            Main.EntitySpriteDraw(Helper.GetTexture("Items/Weapons/Ranged/SpudCannonFlash").Value, Projectile.Center + player.GFX() + new Vector2(25, 0).RotatedBy(Projectile.rotation) - Main.screenPosition, frameRect, lightColor * Projectile.ai[1], Projectile.rotation, new Vector2(Projectile.width / 2, Projectile.height / 2), new Vector2(Projectile.ai[2], Projectile.ai[2] * 1.2f) * Scale, player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+            Main.EntitySpriteDraw(Helper.GetTexture("Items/Weapons/Ranged/SpudCannonFlash").Value, Projectile.Center + player.GFX() + new Vector2(25, 0).RotatedBy(Projectile.rotation) - Main.screenPosition, frameRect, Color.White * Projectile.ai[1], Projectile.rotation, new Vector2(Projectile.width / 2, Projectile.height / 2), new Vector2(Projectile.ai[2], Projectile.ai[2] * 1.2f) * Scale, player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
             return false;
         }
     }
