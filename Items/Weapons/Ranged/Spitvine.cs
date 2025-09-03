@@ -28,7 +28,7 @@ public class Spitvine : ModItem
         Item.autoReuse = true;
         Item.value = Item.buyPrice(0, 0, 0, 1);
         Item.rare = ItemRarityID.Green;
-        Item.shoot = ModContent.ProjectileType<PlantGunP>();
+        Item.shoot = ProjectileType<PlantGunP>();
         Item.shootSpeed = 4f;
     }
     public override Vector2? HoldoutOffset()
@@ -43,7 +43,7 @@ public class Spitvine : ModItem
     public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)
     {
         position += velocity * 5 + new Vector2(0, -4).RotatedBy(velocity.ToRotation());
-        type = ModContent.ProjectileType<PlantGunP>();
+        type = ProjectileType<PlantGunP>();
     }
 }
 public class PlantGunP : ModProjectile
@@ -69,9 +69,9 @@ public class PlantGunP : ModProjectile
     {
         for (int i = 0; i < 2; i++)
         {
-            Vector2 vel = Main.rand.NextVector2Unit();
+            Vector2 velocity = Main.rand.NextVector2Unit();
             float f = Main.rand.NextFloat(1, 5) * Main.rand.NextFloatDirection();
-            Projectile a = MPUtils.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + -vel * 16, vel * 20, ModContent.ProjectileType<PlantGunP2>(), Projectile.damage, Projectile.knockBack, Projectile.owner, f, Main.rand.NextFloat(0.8f, 0.9f), -f);
+            Projectile a = MPUtils.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + -velocity * 16, velocity * 20, ProjectileType<PlantGunP2>(), Projectile.damage, Projectile.knockBack, Projectile.owner, f, Main.rand.NextFloat(0.8f, 0.9f), -f);
             if (Projectile.hostile)
                 a.SetToHostile();
         }
@@ -80,11 +80,11 @@ public class PlantGunP : ModProjectile
     {
         for (int i = 0; i < 3; i++)
         {
-            Vector2 vel = Main.rand.NextVector2Unit();
+            Vector2 velocity = Main.rand.NextVector2Unit();
             float f = Main.rand.NextFloat(1, 5) * Main.rand.NextFloatDirection();
-            Projectile a = MPUtils.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + -vel * 16, vel * 20, ModContent.ProjectileType<PlantGunP2>(), Projectile.damage, Projectile.knockBack, Projectile.owner, f, Main.rand.NextFloat(0.8f, 0.9f), -f);
+            Projectile projectile = MPUtils.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + -velocity * 16, velocity * 20, ProjectileType<PlantGunP2>(), Projectile.damage, Projectile.knockBack, Projectile.owner, f, Main.rand.NextFloat(0.8f, 0.9f), -f);
             if (Projectile.hostile)
-                a.SetToHostile();
+                projectile.SetToHostile();
         }
     }
     bool canFire;
@@ -107,7 +107,7 @@ public class PlantGunP : ModProjectile
 
             if (canFire)
             {
-                Projectile a = MPUtils.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + -vel * 16, vel * 20, ModContent.ProjectileType<PlantGunP2>(), Projectile.damage, Projectile.knockBack, Projectile.owner, f, Main.rand.NextFloat(0.8f, 0.9f), -f);
+                Projectile a = MPUtils.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + -vel * 16, vel * 20, ProjectileType<PlantGunP2>(), Projectile.damage, Projectile.knockBack, Projectile.owner, f, Main.rand.NextFloat(0.8f, 0.9f), -f);
                 if (Projectile.hostile)
                     a.SetToHostile();
             }
@@ -124,7 +124,7 @@ public class PlantGunP : ModProjectile
                     {
                         float f = Main.rand.NextFloat(1, 5) * Main.rand.NextFloatDirection();
                         Vector2 vel = Helper.FromAToB(Projectile.Center, npc.Center);
-                        Projectile a = MPUtils.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + -vel * 16, vel * 20, ModContent.ProjectileType<PlantGunP2>(), Projectile.damage, Projectile.knockBack, Projectile.owner, f, Main.rand.NextFloat(0.8f, 0.9f), -f);
+                        Projectile a = MPUtils.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + -vel * 16, vel * 20, ProjectileType<PlantGunP2>(), Projectile.damage, Projectile.knockBack, Projectile.owner, f, Main.rand.NextFloat(0.8f, 0.9f), -f);
                         if (Projectile.hostile)
                             a.SetToHostile();
                         Projectile.ai[1] = Main.rand.Next(20, 50);
@@ -135,7 +135,7 @@ public class PlantGunP : ModProjectile
 
         for (float i = 0; i < 1; i += 0.25f)
         {
-            Dust d = Dust.NewDustPerfect(Projectile.Center + Projectile.velocity * i, ModContent.DustType<JunglePinkDust>(), Vector2.Zero, Scale: 2);
+            Dust d = Dust.NewDustPerfect(Projectile.Center + Projectile.velocity * i, DustType<SpitvineDust>(), Vector2.Zero, Scale: 2);
             d.noGravity = true;
             d.customData = 2;
         }
@@ -160,22 +160,22 @@ public class PlantGunP2 : ModProjectile
     public override void AI()
     {
         if (Projectile.oldPos.Length > 0 && Projectile.velocity.Length() > 1)
-            for (int i = 0; i < Projectile.oldPos.Length; i++)
-            {
-                float s = MathHelper.Lerp(0.01f, 1.8f, (float)i / Projectile.oldPos.Length);
+        for (int i = 0; i < Projectile.oldPos.Length; i++)
+        {
+            float s = MathHelper.Lerp(0.01f, 1.8f, (float)i / Projectile.oldPos.Length);
 
-                Dust d = Dust.NewDustPerfect(Projectile.oldPos[i] + Projectile.Size / 2, ModContent.DustType<JunglePinkDust>(), Vector2.Zero, Scale: s);
-                d.noGravity = true;
-                d.customData = 1;
+            Dust d = Dust.NewDustPerfect(Projectile.oldPos[i] + Projectile.Size / 2, DustType<SpitvineDust>(), Vector2.Zero, Scale: s);
+            d.noGravity = true;
+            d.customData = 1;
 
-                if (i > 0)
-                    for (float j = 0; j < 1; j += 0.25f)
-                    {
-                        Dust d2 = Dust.NewDustPerfect(Vector2.Lerp(Projectile.oldPos[i], Projectile.oldPos[i - 1], j) + Projectile.Size / 2, ModContent.DustType<JunglePinkDust>(), Vector2.Zero, Scale: s);
-                        d2.noGravity = true;
-                        d2.customData = 1;
-                    }
-            }
+            if (i > 0)
+                for (float j = 0; j < 1; j += 0.25f)
+                {
+                    Dust d2 = Dust.NewDustPerfect(Vector2.Lerp(Projectile.oldPos[i], Projectile.oldPos[i - 1], j) + Projectile.Size / 2, DustType<SpitvineDust>(), Vector2.Zero, Scale: s);
+                    d2.noGravity = true;
+                    d2.customData = 1;
+                }
+        }
         Projectile.velocity = Projectile.velocity.RotatedBy(MathHelper.ToRadians(Projectile.ai[0])) * Projectile.ai[1];
         Projectile.ai[0] = MathHelper.Lerp(Projectile.ai[0], 0, 0.1f);
     }

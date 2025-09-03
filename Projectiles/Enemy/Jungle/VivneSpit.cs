@@ -21,8 +21,8 @@ public class VivineSpit : ModProjectile
             Projectile.ai[0] -= 0.02f;
         Projectile.velocity.Y -= Projectile.ai[0];
         float velocityLength = Projectile.velocity.Length();
-        Scale = new Vector2(Clamp(velocityLength / 15, 1, 4), Clamp(2 / velocityLength, 0.6f, 1));
-        Dust.NewDustPerfect(Projectile.Center, DustType<JunglePinkDust>(), (Projectile.rotation + Pi + Main.rand.NextFloat(-Pi / 6, Pi / 6)).ToRotationVector2() * Main.rand.NextFloat(2, 3), Scale: Main.rand.NextFloat(0.4f, 0.6f));
+        Scale = new Vector2(Clamp(velocityLength / 9 - 1.2f, 0.6f, 1.3f), Clamp(3 / velocityLength, 0.38f, 0.6f));
+        Dust.NewDustPerfect(Projectile.Center, DustType<JunglePinkDust>(), (Projectile.rotation + Pi + Main.rand.NextFloat(-Pi / 8, Pi / 8)).ToRotationVector2() * Main.rand.NextFloat(2f, 4f) * Projectile.velocity.Length() / 14, Scale: Main.rand.NextFloat(0.4f, 0.5f));
     }
 
     public override bool PreDraw(ref Color lightColor)
@@ -32,9 +32,9 @@ public class VivineSpit : ModProjectile
     }
     public override void OnKill(int timeleft)
     {
-        for (int i = 0; i < 15; i++)
+        for (int i = 0; i < 12; i++)
         {
-            Dust.NewDustPerfect(Projectile.Center, DustType<JunglePinkDust>(), (Main.rand.NextFloat(0, -Pi)).ToRotationVector2() * Main.rand.NextFloat(1, 3) + new Vector2(0, Main.rand.NextFloat(0, -6)), Scale: Main.rand.NextFloat(0.4f, 0.7f));
+            Dust.NewDustPerfect(Projectile.Center, DustType<JunglePinkDust>(), (Main.rand.NextFloat(0, -Pi)).ToRotationVector2() * Main.rand.NextFloat(1, 3) + new Vector2(0, Main.rand.NextFloat(0, -5)), Scale: Main.rand.NextFloat(0.34f, 0.46f));
         }
     }
 }

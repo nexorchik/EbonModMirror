@@ -5,7 +5,7 @@ public class JunglePinkDust : ModDust
     public override string Texture => Helper.Empty;
     public override bool Update(Dust dust)
     {
-        dust.scale -= 0.01f;
+        dust.scale -= 0.005f;
         return base.Update(dust);
     }
     public static void DrawAll(SpriteBatch sb)
