@@ -139,6 +139,7 @@ public class XSpiritNoHome : ModProjectile
     float vfxOffset;
     public override bool PreDraw(ref Color lightColor)
     {
+        float finalAlpha = 1 - Projectile.ai[1];
         Texture2D tex = TextureAssets.Projectile[Type].Value;
         Texture2D glow = Helper.GetTexture(Texture + "_Glow").Value;
         Texture2D fireball = Assets.Extras.fireball.Value;
@@ -153,7 +154,7 @@ public class XSpiritNoHome : ModProjectile
             float mult = (1f - fadeMult * i);
             if (i > 0 && Projectile.oldPos[i] != Vector2.Zero)
             {
-                Color col = Color.Lerp(Color.Indigo * 0.5f, Color.Gray, (float)(i / Projectile.oldPos.Length)) * 2;
+                Color col = Color.Lerp(Color.Indigo * 0.5f, Color.Gray, (float)(i / Projectile.oldPos.Length)) * 2 * finalAlpha;
 
                 float __off = vfxOffset;
                 if (__off > 1) __off = -__off + 1;
@@ -170,17 +171,18 @@ public class XSpiritNoHome : ModProjectile
             Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.LintyTrail.Value, false);
         }
         Main.spriteBatch.ApplySaved(sbParams);
-        Main.EntitySpriteDraw(fireball, Projectile.Center - Main.screenPosition, null, Color.Indigo with { A = 0 } * 0.5f, Projectile.velocity.ToRotation() + MathHelper.PiOver2, new Vector2(fireball.Width / 2, fireball.Height / 4), 1.2f + (((MathF.Sin(Main.GlobalTimeWrappedHourly * 5) + 1) / 2) * 0.4f), SpriteEffects.None, 0);
-        Main.EntitySpriteDraw(fireball, Projectile.Center - Main.screenPosition, null, Color.Indigo with { A = 0 } * 0.5f, Projectile.velocity.ToRotation() + MathHelper.PiOver2, new Vector2(fireball.Width / 2, fireball.Height / 4), 1.2f, SpriteEffects.None, 0);
+        Main.EntitySpriteDraw(fireball, Projectile.Center - Main.screenPosition, null, Color.Indigo with { A = 0 } * 0.5f * finalAlpha, Projectile.velocity.ToRotation() + MathHelper.PiOver2, new Vector2(fireball.Width / 2, fireball.Height / 4), 1.2f + (((MathF.Sin(Main.GlobalTimeWrappedHourly * 5) + 1) / 2) * 0.4f), SpriteEffects.None, 0);
+        Main.EntitySpriteDraw(fireball, Projectile.Center - Main.screenPosition, null, Color.Indigo with { A = 0 } * 0.5f * finalAlpha, Projectile.velocity.ToRotation() + MathHelper.PiOver2, new Vector2(fireball.Width / 2, fireball.Height / 4), 1.2f, SpriteEffects.None, 0);
         //Main.spriteBatch.Reload(BlendState.AlphaBlend);
-        Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White with { A = 0 }, Projectile.rotation, Projectile.Size / 2, Projectile.scale, SpriteEffects.None, 0);
+        Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White with { A = 0 } * finalAlpha, Projectile.rotation, Projectile.Size / 2, Projectile.scale, SpriteEffects.None, 0);
         //Main.spriteBatch.Reload(BlendState.Additive);
-        Main.EntitySpriteDraw(glow, Projectile.Center - Main.screenPosition, null, Color.White with { A = 0 } * 0.5f, Projectile.rotation, glow.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
+        Main.EntitySpriteDraw(glow, Projectile.Center - Main.screenPosition, null, Color.White with { A = 0 } * 0.5f * finalAlpha, Projectile.rotation, glow.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
 
 
         return false;
     }
     Vector2 initP, initV;
+    public override bool? CanDamage() => !(Projectile.ai[2] < 0 && Projectile.ai[1] > 0.8f && Projectile.ai[0] == 0);
     public override void AI()
     {
         if (initV == Vector2.Zero)
@@ -190,8 +192,20 @@ public class XSpiritNoHome : ModProjectile
         }
 
 
-        Player player = Main.player[Projectile.owner];
-        Projectile.SineMovement(initP, initV, 0.25f, 40);
+        if ((Projectile.ai[0] == 0 && Projectile.ai[1] == 0) || Projectile.ai[2] < 0)
+        {
+            Projectile.tileCollide = false;
+            Projectile.ai[2] = -1;
+            Projectile.ai[1] = Lerp(Projectile.ai[1], 1, 0.01f);
+            if (Projectile.velocity.Length() < 20f)
+                Projectile.velocity *= 1.0075f;
+        }
+        else
+        {
+            Player player = Main.player[Projectile.owner];
+            Projectile.SineMovement(initP, initV, 0.25f, 40);
+        }
+
         if (Projectile.oldPos[1] != Vector2.Zero)
             Projectile.rotation = Helper.FromAToB(Projectile.oldPos[1], Projectile.position).ToRotation();
         else

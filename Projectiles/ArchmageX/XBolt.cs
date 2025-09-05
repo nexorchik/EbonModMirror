@@ -48,7 +48,7 @@ public class XBolt : ModProjectile
         else
         {
             if (Projectile.velocity.Length() < 3)
-                Projectile.velocity *= 1.025f;
+                Projectile.velocity *= 1.02f;
         }
         if (Projectile.ai[1] > 0)
         {

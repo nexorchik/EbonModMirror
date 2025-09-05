@@ -336,7 +336,7 @@ public class ArchmageX : CommonNPC
     };
     float Next = 1;
     float arenaFlash;
-    float phaseMult;
+    int phaseMult;
     float oldAttack = Spawn;
     bool doneAttacksBefore;
     int blinkInterval;
@@ -363,7 +363,7 @@ public class ArchmageX : CommonNPC
         if (AIState == Spawn)
             sCenter = reader.ReadVector2();
         Next = reader.ReadByte();
-        phaseMult = (float)reader.ReadByte();
+        phaseMult = reader.ReadByte();
         oldAttack = reader.ReadByte();
         doneAttacksBefore = reader.ReadBoolean();
         for (int i = 0; i < disposablePos.Length; i++)
@@ -443,7 +443,6 @@ public class ArchmageX : CommonNPC
             AIState = Taunt;
             AITimer = 0;
         }
-        //if (phaseMult == 3) Next = BONK; 
     }
     public override void ModifyHitByProjectile(Projectile projectile, ref NPC.HitModifiers modifiers)
     {
@@ -1050,7 +1049,7 @@ public class ArchmageX : CommonNPC
                 {
                     IdleAnimation();
                     //
-                    if (MeleeAttacks.Contains(Next))
+                    if (MeleeAttacks.Contains(Next) && !(Next == HelicopterBlades && phaseMult == 3))
                     {
                         FacePlayer();
 
@@ -1333,7 +1332,7 @@ public class ArchmageX : CommonNPC
                                 Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XAttack4.FirstTimeAngry").Value) :
                                 Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XAttack4.Default").Value, Color.Violet, -1, 0.6f, Color.Indigo * 0.5f, 4f, true, DialogueAnimationIDs.BopDown | DialogueAnimationIDs.ColorWhite, SoundID.DD2_OgreRoar.WithPitchOffset(0.9f + (phaseMult == 3 ? 0.1f : 0)), 5);
                         else
-                            currentDialogue = DialogueSystem.NewDialogueBox(100, NPC.Center - new Vector2(0, 80), (phaseMult == 3 ? Language.GetText("Mod.EbonianMod.Dialogue.ArchmageXDialogue.AgainLoud").Value : Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.AndAgain").Value), Color.Violet, -1, 0.6f, Color.Indigo * 0.5f, 4f, true, DialogueAnimationIDs.BopDown | DialogueAnimationIDs.ColorWhite, SoundID.DD2_OgreRoar.WithPitchOffset(0.9f + (phaseMult == 3 ? 0.1f : 0)), 5);
+                            currentDialogue = DialogueSystem.NewDialogueBox(100, NPC.Center - new Vector2(0, 80), (phaseMult == 3 ? Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.AgainLoud").Value : Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.AndAgain").Value), Color.Violet, -1, 0.6f, Color.Indigo * 0.5f, 4f, true, DialogueAnimationIDs.BopDown | DialogueAnimationIDs.ColorWhite, SoundID.DD2_OgreRoar.WithPitchOffset(0.9f + (phaseMult == 3 ? 0.1f : 0)), 5);
                     if (AITimer == 80)
                     {
                         MPUtils.NewProjectile(null, staffTip, Vector2.Zero, ProjectileType<XExplosionInvis>(), 0, 0);
@@ -1388,7 +1387,20 @@ public class ArchmageX : CommonNPC
                     }
                     else
                         NPC.damage = 0;
-                    if (AITimer >= (330 + (phaseMult == 3 ? 100 : 0)))
+                    if (AITimer == 330 && phaseMult == 3 && !doneAttacksBefore)
+                    {
+                        currentDialogue = DialogueSystem.NewDialogueBox(100, NPC.Center - new Vector2(0, 80), Language.GetTextValue("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XAttack3.Angry"), Color.Violet, -1, 0.6f, Color.Indigo * 0.5f, 4f, true, DialogueAnimationIDs.BopDown | DialogueAnimationIDs.ColorWhite, SoundID.DD2_OgreRoar.WithPitchOffset(0.9f + (phaseMult == 3 ? 0.1f : 0)), 5);
+                    }
+                    if (AITimer > 350 && AITimer < 500 && phaseMult == 3)
+                    {
+                        rightArmRot = Utils.AngleLerp(rightArmRot, -2.9f * NPC.direction, 0.1f);
+                        if (AITimer % 6 == 0)
+                        {
+                            MPUtils.NewProjectile(null, staffTip, Vector2.Zero, ProjectileType<XExplosionTiny>(), 0, 0, 0);
+                            MPUtils.NewProjectile(null, staffTip, Main.rand.NextVector2Unit() * Main.rand.NextFloat(0.1f, 0.6f), ProjectileType<XBolt>(), 15, 0, 0);
+                        }
+                    }
+                    if (AITimer >= (330 + (phaseMult == 3 ? 200 : 0)))
                     {
                         Reset();
                         PickAttack();
@@ -2292,6 +2304,7 @@ public class ArchmageX : CommonNPC
                     }
                     else
                     {
+                        FacePlayer();
                         if (AITimer == 460)
                         {
                             if (oldAttack != AIState)
@@ -2299,21 +2312,20 @@ public class ArchmageX : CommonNPC
                         }
                         if (AITimer == 520)
                         {
-                            SoundEngine.PlaySound(SoundID.Shatter, NPC.Center);
-                            for (int i = 0; i < 10; i++)
+                            SoundEngine.PlaySound(EbonianSounds.xSpirit, NPC.Center);
+                            MPUtils.NewProjectile(null, staffTip, Vector2.Zero, ProjectileType<XExplosionTiny>(), 0, 0);
+                            for (int i = 0; i < 5; i++)
                             {
-                                float angle = Helper.CircleDividedEqually(i, 10);
-                                MPUtils.NewProjectile(null, staffTip, angle.ToRotationVector2() * 3, ProjectileType<XKnife>(), 15, 0);
+                                MPUtils.NewProjectile(null, staffTip, staffTip.FromAToB(player).RotatedBy(.6f * (i - 2.5f)) * (5 - MathF.Abs((i - 2.5f))), ProjectileType<XSpiritNoHome>(), 15, 0);
                             }
                         }
-
-                        if (AITimer == 560)
+                        if (AITimer == 580)
                         {
-                            SoundEngine.PlaySound(SoundID.Shatter, NPC.Center);
-                            for (int i = 0; i < 20; i++)
+                            SoundEngine.PlaySound(EbonianSounds.xSpirit, NPC.Center);
+                            MPUtils.NewProjectile(null, staffTip, Vector2.Zero, ProjectileType<XExplosionTiny>(), 0, 0);
+                            for (int i = 0; i < 8; i++)
                             {
-                                float angle = Helper.CircleDividedEqually(i, 20) + PiOver4;
-                                MPUtils.NewProjectile(null, staffTip, angle.ToRotationVector2() * 5, ProjectileType<XKnife>(), 15, 0);
+                                MPUtils.NewProjectile(null, staffTip, staffTip.FromAToB(player).RotatedBy(.56f * (i - 4f)) * (8 - MathF.Abs((i - 4f))), ProjectileType<XSpiritNoHome>(), 15, 0);
                             }
                         }
                     }
