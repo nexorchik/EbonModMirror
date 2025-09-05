@@ -1,16 +1,9 @@
-﻿using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Terraria;
-using Terraria.ID;
-using Terraria.ModLoader;
-using EbonianMod.Dusts;
-using Terraria.GameContent;
+﻿using EbonianMod.Dusts;
 using Terraria.ModLoader.Utilities;
 using Terraria.GameContent.Bestiary;
-using Terraria.Audio;
-using Terraria.GameContent.ItemDropRules;
 using EbonianMod.Items.Weapons.Ranged;
 using EbonianMod.Common.Globals;
+using EbonianMod.Projectiles.Enemy.Jungle;
 
 namespace EbonianMod.NPCs.Jungle;
 public class Vivine : ModNPC
@@ -118,8 +111,8 @@ public class Vivine : ModNPC
     }
     public override void HitEffect(NPC.HitInfo hit)
     {
-        Helper.SpawnDust(NPC.position, NPC.Size, DustID.Grass, new Vector2(2 * hit.HitDirection, -1.5f), 4);
-        Helper.SpawnDust(NPC.position, NPC.Size, ModContent.DustType<JunglePinkDust>(), Vector2.One * hit.HitDirection * 2, 4);
+        Helper.SpawnDust(NPC.position, NPC.Size, DustID.Grass, new Vector2(2 * hit.HitDirection, -1.5f), 2);
+        Helper.SpawnDust(NPC.position, NPC.Size, ModContent.DustType<JunglePinkDust>(), Vector2.One * hit.HitDirection * 2, 2);
         if (NPC.life <= 0)
         {
             Helper.SpawnDust(NPC.position, NPC.Size, DustID.Grass, new Vector2(2 * hit.HitDirection, -1.5f), 8);
@@ -141,15 +134,13 @@ public class Vivine : ModNPC
     }
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
-        //3hi31mg
-        var clr = new Color(255, 255, 255, 100); // full white
         var drawPos = NPC.Center - screenPos;
         var texture = Assets.NPCs.Jungle.Vivine_Glow.Value;
         var origTexture = TextureAssets.Npc[NPC.type].Value;
         var frame = new Rectangle(0, NPC.frame.Y, NPC.width, NPC.height);
         var orig = frame.Size() / 2f - new Vector2(0, 3);
         Main.spriteBatch.Draw(origTexture, drawPos, frame, drawColor, NPC.rotation, orig, NPC.scale, NPC.direction < 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
-        Main.spriteBatch.Draw(texture, drawPos, frame, clr, NPC.rotation, orig, NPC.scale, NPC.direction < 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
+        Main.spriteBatch.Draw(texture, drawPos, frame, Color.White, NPC.rotation, orig, NPC.scale, NPC.direction < 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);
         return false;
     }
     public override void AI()
@@ -194,32 +185,8 @@ public class Vivine : ModNPC
             {
                 AITimer = 1;
                 SoundEngine.PlaySound(SoundID.Item17);
-                Projectile a = MPUtils.NewProjectile(NPC.GetSource_FromAI(), NPC.Center - new Vector2(1, 14), Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center) * 10f, ModContent.ProjectileType<PlantGunP>(), 15, 0);
-                a.SetToHostile();
+                MPUtils.NewProjectile(NPC.GetSource_FromAI(), NPC.Center - new Vector2(1, 14), Vector2.Normalize(Main.player[NPC.target].Center - NPC.Center) * 20f, ProjectileType<VivineSpit>(), 15, 0);
             }
         }
-    }
-}
-public class VivineSpit : ModProjectile
-{
-    public override void SetDefaults()
-    {
-        Projectile.Size = Vector2.One * 10;
-        Projectile.friendly = false;
-        Projectile.hostile = true;
-        Projectile.tileCollide = true;
-        Projectile.aiStyle = 1;
-        Projectile.timeLeft = 300;
-    }
-    public override void AI()
-    {
-        Lighting.AddLight(Projectile.Center, new Vector3(.19f, .08f, .11f) * .5f);
-        Helper.SpawnDust(Projectile.position, Projectile.Size, ModContent.DustType<JunglePinkDust>(), Vector2.Zero, 1, dust => dust.noGravity = true);
-    }
-    public override Color? GetAlpha(Color lightColor) => new Color(255, 255, 255, 100);
-    public override void OnKill(int timeleft)
-    {
-        Helper.SpawnDust(Projectile.position, Projectile.Size, ModContent.DustType<JunglePinkDust>(), -Projectile.velocity * .5f, 20, dust => dust.scale = 1.5f);
-        SoundEngine.PlaySound(SoundID.NPCHit18);
     }
 }

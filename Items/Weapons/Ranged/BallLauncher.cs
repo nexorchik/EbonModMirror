@@ -165,7 +165,10 @@ public class BallLauncherCharge : HeldProjectileGun
                 }
             }
             if (Projectile.ai[0] == 119)
+            {
+                SoundEngine.PlaySound(SoundID.MaxMana.WithPitchOffset(-0.3f), Projectile.Center);
                 Projectile.ai[1] = 1;
+            }
             float Charge = Projectile.ai[0];
             float ScaleNoise = Charge / 82;
             Scale = Vector2.Lerp(Scale, new Vector2(Main.rand.NextFloat(2f - ScaleNoise, ScaleNoise), Main.rand.NextFloat(2f - ScaleNoise, ScaleNoise)), ScaleNoise / 10);
@@ -208,7 +211,7 @@ public class BallLauncherCharge : HeldProjectileGun
     {
         int Direction = Main.player[Projectile.owner].direction;
         Main.EntitySpriteDraw(Helper.GetTexture("Items/Weapons/Ranged/BallLauncherCharge").Value, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * Projectile.height, Projectile.width, Projectile.height), lightColor, Projectile.rotation, new Vector2(Projectile.Size.X / 2 - 17, Projectile.Size.Y / 2 + 9 * Direction), Scale, Main.player[Projectile.owner].direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
-        Main.EntitySpriteDraw(Helper.GetTexture("Items/Weapons/Ranged/BallLauncherFlash").Value, Projectile.Center + new Vector2(17, -9 * Direction).RotatedBy(Projectile.rotation) - Main.screenPosition, new Rectangle(0, 0, Projectile.width, Projectile.height), lightColor * Projectile.ai[1], Projectile.rotation, new Vector2(Projectile.Size.X / 2, Projectile.Size.Y / 2), new Vector2(Projectile.ai[2], Projectile.ai[2] * 1.1f) * Scale, Main.player[Projectile.owner].direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+        Main.EntitySpriteDraw(Helper.GetTexture("Items/Weapons/Ranged/BallLauncherFlash").Value, Projectile.Center + new Vector2(17, -9 * Direction).RotatedBy(Projectile.rotation) - Main.screenPosition, new Rectangle(0, 0, Projectile.width, Projectile.height), Color.White * Projectile.ai[1], Projectile.rotation, new Vector2(Projectile.Size.X / 2, Projectile.Size.Y / 2), new Vector2(Projectile.ai[2], Projectile.ai[2] * 1.1f) * Scale, Main.player[Projectile.owner].direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
         return false;
     }
 }

@@ -1,58 +1,20 @@
 
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using System.Linq;
-using Terraria;
-using Terraria.ModLoader;
-
 namespace EbonianMod.Dusts;
 public class JunglePinkDust : ModDust
 {
     public override string Texture => Helper.Empty;
-    public override void OnSpawn(Dust dust)
-    {
-        dust.noGravity = false;
-        dust.noLight = true;
-        dust.frame = new Rectangle(0, 8 * Main.rand.Next(3), 8, 8);
-        dust.rotation = Main.rand.NextFloat(MathHelper.Pi);
-        // dust.scale *= 2f;
-    }
     public override bool Update(Dust dust)
     {
-        Lighting.AddLight(dust.position, 0.3f, 0, 0.1f);
+        dust.scale -= 0.01f;
         return base.Update(dust);
-    }
-    public override bool MidUpdate(Dust dust)
-    {
-        if (!dust.noGravity)
-        {
-            dust.velocity.Y += 0.1f;
-        }
-
-        dust.rotation += 0.1f;
-        if (dust.customData != null)
-        {
-            if (dust.customData.Equals(1))
-            {
-                dust.scale -= 0.025f;
-            }
-            else
-                dust.scale -= 0.001f;
-        }
-        dust.position += dust.velocity;
-        if (dust.scale <= 0)
-            dust.active = false;
-
-        return false;
     }
     public static void DrawAll(SpriteBatch sb)
     {
-        foreach (Dust d in Main.dust)
+        foreach (Dust dust in Main.dust)
         {
-            if (d.active && d.type == ModContent.DustType<JunglePinkDust>())
+            if (dust.active && dust.type == DustType<JunglePinkDust>())
             {
-                Texture2D tex = Assets.Dusts.JunglePinkDust_White.Value;
-                sb.Draw(tex, d.position - Main.screenPosition, d.frame, Color.White, d.rotation, new Vector2(4, 4), d.scale, SpriteEffects.None, 0);
+                sb.Draw(Helper.GetTexture("EbonianMod/Projectiles/Enemy/Jungle/VivineSpit").Value, dust.position - Main.screenPosition, new Rectangle(0, 0, 24, 24), Color.White, dust.velocity.ToRotation(), new Vector2(12, 12), new Vector2(2, 1) * dust.scale, SpriteEffects.None, 0);
             }
         }
     }
