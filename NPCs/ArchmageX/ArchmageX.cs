@@ -101,13 +101,6 @@ public class ArchmageX : CommonNPC
         Texture2D heli = Assets.ExtraSprites.ArchmageX.ArchmageXHeli.Value;
         Texture2D heliGlow = Assets.ExtraSprites.ArchmageX.ArchmageXHeli_Glow.Value;
 
-        /*
-        Vector2 staffP = NPC.Center + rightArmRot.ToRotationVector2().RotatedBy(MathHelper.Pi - MathHelper.PiOver4 * 0.8f + (MathHelper.ToRadians((headYOff + 2) * 4) * NPC.direction)) * 6;
-        if (NPC.direction == 1)
-            staffP = NPC.Center + new Vector2(NPC.width / 2 - 4, -2) + rightArmRot.ToRotationVector2().RotatedBy(MathHelper.Pi + MathHelper.PiOver4 * 0.8f + (MathHelper.ToRadians((headYOff + 2) * 4) * NPC.direction)) * -6;
-        float staffRot = rightArmRot + MathHelper.Pi * (NPC.direction == 1 ? .5f : AIState == HelicopterBlades ? .8f : 1f);
-        */
-
         Vector2 staffP = NPC.Center + rightArmRot.ToRotationVector2().RotatedBy(MathHelper.Pi - MathHelper.PiOver4 * 0.8f + (MathHelper.ToRadians((headYOff + 2) * 4) * NPC.direction)) * 0.25f;
         if (NPC.direction == 1)
             staffP = NPC.Center + new Vector2(NPC.width / 2 - 4, -10) + (rightArmRot + (MathHelper.ToRadians((headYOff + 2) * 5) * NPC.direction)).ToRotationVector2().RotatedBy(MathHelper.Pi + MathHelper.PiOver4 * 0.8f + (MathHelper.ToRadians((headYOff + 2) * 4) * NPC.direction)) * -.25f;
@@ -208,13 +201,9 @@ public class ArchmageX : CommonNPC
             float cA = MathHelper.Lerp(s, sLin, i);
             float vertSize = MathHelper.SmoothStep(5, 18, s);
 
-            float __off = arenaVFXOffset;
-            if (__off > 1) __off = -__off + 1;
-            float _off = __off + i;
-
             Color col = new Color(60, 2, 113) * (arenaAlpha * s);
-            verticesR.Add(Helper.AsVertex(startR - new Vector2(-vertSize * 0.5f, vertSize) + offVert * i + new Vector2(vertSize, 0).RotatedBy(rotVert + MathHelper.PiOver2), new Vector2(_off, 0), col * 2));
-            verticesR.Add(Helper.AsVertex(startR - new Vector2(-vertSize * 0.5f, vertSize) + offVert * i + new Vector2(vertSize, 0).RotatedBy(rotVert - MathHelper.PiOver2), new Vector2(_off, 1), col * 2));
+            verticesR.Add(Helper.AsVertex(startR - new Vector2(-vertSize * 0.5f, vertSize) + offVert * i + new Vector2(vertSize, 0).RotatedBy(rotVert + MathHelper.PiOver2), new Vector2(arenaVFXOffset, 0), col * 2));
+            verticesR.Add(Helper.AsVertex(startR - new Vector2(-vertSize * 0.5f, vertSize) + offVert * i + new Vector2(vertSize, 0).RotatedBy(rotVert - MathHelper.PiOver2), new Vector2(arenaVFXOffset, 1), col * 2));
         }
         SpritebatchParameters sbParams = Main.spriteBatch.Snapshot();
         Main.spriteBatch.End();
@@ -245,7 +234,7 @@ public class ArchmageX : CommonNPC
         sCenter = NPC.Center - new Vector2(0, 130);
     }
 
-    public const int
+    const int
         NeutralFace = 0,
         ShockedFace = 1 * 42,
         SadFace = 2 * 42,
@@ -256,7 +245,7 @@ public class ArchmageX : CommonNPC
         VeryShockedFace = 7 * 42,
         BlinkingFace = 8 * 42,
         AssholeFace = 9 * 42;
-    public const int Phase2Transition = -5, Taunt = -4, Despawn = -3, Death = -2, Idle = -1, Spawn = 0,
+    const int Phase2Transition = -5, Taunt = -4, Despawn = -3, Death = -2, Idle = -1, Spawn = 0,
         PhantasmalSpirit = 1, ShadowflamePuddles = 2, SpectralOrbs = 3, MagnificentFireballs = 4, SineLaser = 5, AmethystCloseIn = 6,
         HelicopterBlades = 7, GiantAmethyst = 8, Micolash = 9, TheSheepening = 10, ManaPotion = 11, PhantasmalBlast = 12, ShadowflameRift = 13,
         AmethystBulletHell = 14, AmethystStorm = 15, BullshitRain = 16, BONK = 17;
@@ -347,7 +336,7 @@ public class ArchmageX : CommonNPC
     FloatingDialogueBox currentDialogue;
     public override void SendExtraAI(BinaryWriter writer)
     {
-        if (AIState == Spawn)
+        if ((int)AIState == Spawn)
             writer.WriteVector2(sCenter);
         writer.Write((byte)Next);
         writer.Write((byte)phaseMult);
@@ -360,7 +349,7 @@ public class ArchmageX : CommonNPC
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
-        if (AIState == Spawn)
+        if ((int)AIState == Spawn)
             sCenter = reader.ReadVector2();
         Next = reader.ReadByte();
         phaseMult = reader.ReadByte();
