@@ -26,12 +26,9 @@ public class LatcherP : ModProjectile
         Projectile.timeLeft = 200;
         Projectile.hide = true;
     }
-
-    float Rotation = 0;
-
     public override void OnSpawn(IEntitySource source)
     {
-        Rotation = Helper.FromAToB(Main.player[Projectile.owner].Center, Projectile.Center).ToRotation();
+        Projectile.rotation = Helper.FromAToB(Main.player[Projectile.owner].Center, Projectile.Center).ToRotation();
     }
 
     bool IsAttached;
@@ -73,7 +70,7 @@ public class LatcherP : ModProjectile
     public override void AI()
     {
         Player player = Main.player[Projectile.owner];
-        Rotation = Utils.AngleLerp(Rotation, Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation(), 0.02f);
+        Projectile.rotation = Utils.AngleLerp(Projectile.rotation, Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation(), 0.02f);
         Projectile.ai[0]++;
         if (IsAttached && TargetIndex > -1)
         {
@@ -113,7 +110,7 @@ public class LatcherP : ModProjectile
     public override bool PreDraw(ref Color lightColor)
     {
         Player player = Main.player[Projectile.owner];
-        Vector2 neckOrigin = player.Center + Projectile.velocity.SafeNormalize(Vector2.Zero) * 40;
+        Vector2 neckOrigin = player.Center + Projectile.rotation.ToRotationVector2() * 40;
         Vector2 center = Projectile.Center;
         Vector2 distToProj = neckOrigin - Projectile.Center;
         float projRotation = distToProj.ToRotation() - 1.57f;
