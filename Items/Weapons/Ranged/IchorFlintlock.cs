@@ -74,7 +74,7 @@ public class IchorFlintlockP : HeldProjectileGun
         {
             AnimationRotation = -0.3f * player.direction;
             Projectile.UseAmmo(AmmoID.Bullet);
-            SoundEngine.PlaySound(SoundID.Item38.WithPitchOffset(Main.rand.NextFloat(1f, 3f)), player.Center);
+            SoundEngine.PlaySound(SoundID.Item38.WithPitchOffset(Main.rand.NextFloat(.5f, 1f)), player.Center);
             Vector2 SpawnPosition = Projectile.Center + new Vector2(Projectile.rotation.ToRotationVector2().X, Projectile.rotation.ToRotationVector2().Y) * 42 + (Projectile.rotation + 90 * -player.direction).ToRotationVector2() * 12;
             if (player.whoAmI == Main.myPlayer)
                 Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * 20, ProjectileType<ToothProj>(), Projectile.damage, Projectile.knockBack, Projectile.owner);

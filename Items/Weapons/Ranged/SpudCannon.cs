@@ -82,7 +82,7 @@ public class SpudCannon : ModItem
                 }
                 Charge = Projectile.ai[0] / 35;
                 if (Projectile.timeLeft % 2 == 0)
-                    SoundEngine.PlaySound(SoundID.Item98.WithPitchOffset(Main.rand.NextFloat(Charge - 4, Charge - 3)) with { Volume = Charge / 10 }, player.Center);
+                    SoundEngine.PlaySound(SoundID.Item98.WithPitchOffset(Clamp(Main.rand.NextFloat(Charge - 4, Charge - 3), -1, 1)) with { Volume = Charge / 10 }, player.Center);
                 Projectile.Center = player.MountedCenter;
             }
             else

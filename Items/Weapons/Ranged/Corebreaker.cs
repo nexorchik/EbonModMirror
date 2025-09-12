@@ -75,7 +75,7 @@ public class CorebreakerGraphics : HeldProjectileGun
             if (Projectile.ai[0] >= 120)
             {
                 Vector2 SpawnPosition = Projectile.Center + Projectile.rotation.ToRotationVector2() * 45;
-                SoundEngine.PlaySound(SoundID.Item40.WithPitchOffset(Main.rand.NextFloat(-4f, -2f)), player.Center);
+                SoundEngine.PlaySound(SoundID.Item40.WithPitchOffset(Main.rand.NextFloat(-1f, -0.5f)), player.Center);
                 SoundEngine.PlaySound(SoundID.Item38.WithPitchOffset(Main.rand.NextFloat(-0.8f, -0.4f)), player.Center);
                 for (int i = 0; i < 30; i++)
                     Dust.NewDustPerfect(SpawnPosition, DustID.Torch, (Projectile.rotation + Main.rand.NextFloat(-PiOver4, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(0.3f, 8), Scale: Main.rand.NextFloat(1f, 4f)).noGravity = true;
@@ -91,7 +91,7 @@ public class CorebreakerGraphics : HeldProjectileGun
                 HoldOffset = 0;
                 Vector2 SpawnPosition = Projectile.Center + Projectile.rotation.ToRotationVector2() * 45;
                 SoundEngine.PlaySound(SoundID.Item62.WithPitchOffset(Main.rand.NextFloat(0.5f, 1.2f)), player.Center);
-                SoundEngine.PlaySound(SoundID.Item98.WithPitchOffset(Main.rand.NextFloat(-4f, -2f)), player.Center);
+                SoundEngine.PlaySound(SoundID.Item98.WithPitchOffset(Main.rand.NextFloat(-1f, -0.5f)), player.Center);
                 for (int i = 0; i < 30; i++)
                 {
                     Dust.NewDustPerfect(SpawnPosition, DustID.Smoke, (Projectile.rotation + Main.rand.NextFloat(PiOver2, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(1, 8), Scale: Main.rand.NextFloat(0.5f, 3f)).noGravity = true;
