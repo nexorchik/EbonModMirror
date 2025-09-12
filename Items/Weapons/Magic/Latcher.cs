@@ -82,7 +82,7 @@ public class LatcherGraphics : HeldProjectileGun
                 CanShoot = false;
                 Scale = new Vector2(0.65f, 1.6f);
                 if (player.whoAmI == Main.myPlayer)
-                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center + Projectile.rotation.ToRotationVector2() * 30, Projectile.rotation.ToRotationVector2() * 37, ProjectileType<LatcherP>(), 1, Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center + Projectile.rotation.ToRotationVector2() * 30, Projectile.rotation.ToRotationVector2() * 37, ProjectileType<LatcherP>(), 1, Projectile.knockBack, Projectile.owner, ai2: Projectile.rotation);
                 SoundEngine.PlaySound(SoundID.NPCHit8.WithPitchOffset(Main.rand.NextFloat(-0.4f, 0.4f)), player.Center);
             }
         }
