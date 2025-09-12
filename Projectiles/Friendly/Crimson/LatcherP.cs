@@ -110,7 +110,7 @@ public class LatcherP : ModProjectile
     public override bool PreDraw(ref Color lightColor)
     {
         Player player = Main.player[Projectile.owner];
-        Vector2 neckOrigin = player.Center + Projectile.rotation.ToRotationVector2() * 30;
+        Vector2 neckOrigin = player.Center + Projectile.rotation.ToRotationVector2() * 36;
         Vector2 center = Projectile.Center;
         Vector2 distToProj = neckOrigin - Projectile.Center;
         float projRotation = distToProj.ToRotation() - 1.57f;
