@@ -82,7 +82,7 @@ public class XCloud : ModProjectile
             Dust.NewDustPerfect(Main.rand.NextVector2FromRectangle(Projectile.getRect()), DustType<SparkleDust>(), Main.rand.NextVector2Circular(2, 2), 0, Color.Indigo, Scale: Main.rand.NextFloat(0.1f, .15f));
         if (Projectile.timeLeft <= 345)
             Projectile.ai[0]++;
-        if (Projectile.ai[0] <= 20 && savedDir == Vector2.Zero)
+        if (Projectile.ai[0] <= 20 && savedDir == Vector2.Zero && Projectile.timeLeft > 60)
         {
             savedDir = Helper.FromAToB(Projectile.Center, Main.player[(int)Projectile.ai[2]].Center);
             if (Projectile.ai[1] != 1)

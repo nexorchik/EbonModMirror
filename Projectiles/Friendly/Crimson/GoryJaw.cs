@@ -66,7 +66,8 @@ public class GoryJaw : ModProjectile
             if (Target.life <= 0 || !Target.active)
             {
                 Projectile.ai[2] = 0;
-                Projectile.velocity *= 0;
+                Projectile.velocity = Vector2.Lerp(Projectile.velocity, new Vector2(Projectile.velocity.X*0.1f, 1), 0.005f);
+                Projectile.rotation = Projectile.velocity.ToRotation();
                 Projectile.tileCollide = true;
                 Projectile.netUpdate = true;
                 return;
