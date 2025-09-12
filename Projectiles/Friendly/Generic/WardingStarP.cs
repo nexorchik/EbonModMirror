@@ -60,7 +60,8 @@ namespace EbonianMod.Projectiles.Friendly.Generic
                         Dust.NewDustPerfect(Projectile.Center, 278, Vector2.UnitY.RotatedBy(num615 * Main.rand.NextFloat(2) * ((float)Math.PI * 2f) + Main.rand.NextFloat() * 0.5f) * (2f + Main.rand.NextFloat() * 3f), 150, Color.Gold).noGravity = true;
                     }
 
-                    player.CheckMana(player.HeldItem.mana, true, true);
+                    if (!player.CheckMana(player.HeldItem.mana, true, true))
+                        Projectile.Kill();
                     player.manaRegenDelay = (int)player.maxRegenDelay;
 
                     Projectile.ai[1] = 0;
