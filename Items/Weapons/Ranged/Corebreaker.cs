@@ -10,14 +10,14 @@ public class Corebreaker : ModItem
     public override void SetDefaults()
     {
         Item.knockBack = 10f;
-        Item.crit = 25;
+        Item.crit = 6;
         Item.damage = 21;
         Item.DamageType = DamageClass.Ranged;
         Item.useStyle = ItemUseStyleID.Shoot;
         Item.rare = ItemRarityID.Yellow;
         Item.shootSpeed = 2f;
         Item.value = Item.buyPrice(0, 17, 0, 0);
-        Item.shoot = ProjectileType<CorebreakerGraphics>();
+        Item.shoot = ProjectileType<CorebreakerProjectile>();
         Item.autoReuse = false;
         Item.noUseGraphic = true;
         Item.channel = true;
@@ -30,12 +30,12 @@ public class Corebreaker : ModItem
         return false;
     }
 }
-public class CorebreakerGraphics : HeldProjectileGun
+public class CorebreakerProjectile : HeldProjectileGun
 {
+    bool AltAttack = true;
+    float HoldOffset;
     public override string Texture => "EbonianMod/Items/Weapons/Ranged/Corebreaker";
-
     public override bool? CanDamage() => false;
-
     public override void SetDefaults()
     {
         base.SetDefaults();
@@ -44,15 +44,12 @@ public class CorebreakerGraphics : HeldProjectileGun
         Projectile.width = 62;
         Projectile.height = 38;
     }
-
     public override void OnSpawn(IEntitySource source)
     {
         Projectile.rotation = Helper.FromAToB(Main.player[Projectile.owner].Center, Main.MouseWorld).ToRotation();
         Projectile.ai[1] = 40;
         Projectile.ai[0] = 50;
     }
-    bool AltAttack = true;
-    float HoldOffset;
     public override void SendExtraAI(BinaryWriter writer)
     {
         base.SendExtraAI(writer);
@@ -74,13 +71,13 @@ public class CorebreakerGraphics : HeldProjectileGun
             Projectile.ai[0]++;
             if (Projectile.ai[0] >= 120)
             {
-                Vector2 SpawnPosition = Projectile.Center + Projectile.rotation.ToRotationVector2() * 45;
+                Vector2 shotPoint = Projectile.Center + Projectile.rotation.ToRotationVector2() * 45;
                 SoundEngine.PlaySound(SoundID.Item40.WithPitchOffset(Main.rand.NextFloat(-1f, -0.5f)), player.Center);
                 SoundEngine.PlaySound(SoundID.Item38.WithPitchOffset(Main.rand.NextFloat(-0.8f, -0.4f)), player.Center);
                 for (int i = 0; i < 30; i++)
-                    Dust.NewDustPerfect(SpawnPosition, DustID.Torch, (Projectile.rotation + Main.rand.NextFloat(-PiOver4, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(0.3f, 8), Scale: Main.rand.NextFloat(1f, 4f)).noGravity = true;
+                    Dust.NewDustPerfect(shotPoint, DustID.Torch, (Projectile.rotation + Main.rand.NextFloat(-PiOver4, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(0.3f, 8), Scale: Main.rand.NextFloat(1f, 4f)).noGravity = true;
                 if (player.whoAmI == Main.myPlayer)
-                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * Vector2.Distance(Main.MouseWorld, Projectile.Center) / 35, ProjectileType<CorebreakerP>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), shotPoint, (Main.MouseWorld - Projectile.Center) / 35, ProjectileType<CorebreakerP>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 AnimationRotation = -0.4f * player.direction;
                 HoldOffset = 0;
                 Projectile.ai[0] = 0;
@@ -89,16 +86,16 @@ public class CorebreakerGraphics : HeldProjectileGun
             if (Main.mouseRight && Main.myPlayer == Projectile.owner)
             {
                 HoldOffset = 0;
-                Vector2 SpawnPosition = Projectile.Center + Projectile.rotation.ToRotationVector2() * 45;
+                Vector2 shotPoint = Projectile.Center + Projectile.rotation.ToRotationVector2() * 45;
                 SoundEngine.PlaySound(SoundID.Item62.WithPitchOffset(Main.rand.NextFloat(0.5f, 1.2f)), player.Center);
                 SoundEngine.PlaySound(SoundID.Item98.WithPitchOffset(Main.rand.NextFloat(-1f, -0.5f)), player.Center);
                 for (int i = 0; i < 30; i++)
                 {
-                    Dust.NewDustPerfect(SpawnPosition, DustID.Smoke, (Projectile.rotation + Main.rand.NextFloat(PiOver2, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(1, 8), Scale: Main.rand.NextFloat(0.5f, 3f)).noGravity = true;
-                    Dust.NewDustPerfect(SpawnPosition, DustID.Smoke, (Projectile.rotation + Main.rand.NextFloat(-PiOver2, -PiOver4)).ToRotationVector2() * Main.rand.NextFloat(1, 8), Scale: Main.rand.NextFloat(0.5f, 3f)).noGravity = true;
+                    Dust.NewDustPerfect(shotPoint, DustID.Smoke, (Projectile.rotation + Main.rand.NextFloat(PiOver2, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(1, 8), Scale: Main.rand.NextFloat(0.5f, 3f)).noGravity = true;
+                    Dust.NewDustPerfect(shotPoint, DustID.Smoke, (Projectile.rotation + Main.rand.NextFloat(-PiOver2, -PiOver4)).ToRotationVector2() * Main.rand.NextFloat(1, 8), Scale: Main.rand.NextFloat(0.5f, 3f)).noGravity = true;
                 }
                 if (player.whoAmI == Main.myPlayer)
-                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * 4, ProjectileType<CorebreakerHitscan>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), shotPoint, Projectile.rotation.ToRotationVector2() * 4, ProjectileType<CorebreakerHitscan>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                 if (!AltAttack)
                 {
                     AltAttack = true;
@@ -123,8 +120,7 @@ public class CorebreakerGraphics : HeldProjectileGun
     public override bool PreDraw(ref Color lightColor)
     {
         Player player = Main.player[Projectile.owner];
-        Texture2D tex = TextureAssets.Projectile[Type].Value;
-        Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(Projectile.width / 2 - HoldOffset, Projectile.height / 2 + 4 * player.direction), Projectile.scale, player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+        Main.EntitySpriteDraw(Helper.GetTexture(Texture).Value, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(Projectile.width / 2 - HoldOffset, Projectile.height / 2 + 4 * player.direction), Projectile.scale, player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
         return false;
     }
 }

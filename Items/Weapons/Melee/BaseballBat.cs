@@ -11,7 +11,7 @@ public class BaseballBat : ModItem
         Item.knockBack = 10f;
         Item.width = 48;
         Item.height = 66;
-        Item.crit = 15;
+        Item.crit = 0;
         Item.damage = 18;
         Item.useAnimation = 20;
         Item.useTime = 20;
@@ -58,8 +58,7 @@ public class BaseballBat : ModItem
 }
 public class BaseballBatP : HeldSword
 {
-    public override string Texture => Helper.Empty;
-
+    public override string Texture => "EbonianMod/Items/Weapons/Melee/BaseballBat";
     public override bool? CanDamage() => Projectile.ai[1] < 0 && Projectile.timeLeft > 10;
     public override void SetExtraDefaults()
     {
@@ -159,8 +158,7 @@ public class BaseballBatP : HeldSword
     public override bool PreDraw(ref Color lightColor)
     {
         Player player = Main.player[Projectile.owner];
-        Texture2D tex = Helper.GetTexture("EbonianMod/Items/Weapons/Melee/BaseballBat").Value;
-        Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, lightColor * Projectile.Opacity, Projectile.rotation, new Vector2(Projectile.width / 2, Projectile.height / 2 + 41), Projectile.scale, Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
+        Main.EntitySpriteDraw(Helper.GetTexture(Texture).Value, Projectile.Center - Main.screenPosition, null, lightColor * Projectile.Opacity, Projectile.rotation, new Vector2(Projectile.width / 2, Projectile.height / 2 + 41), Projectile.scale, Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally);
         return false;
     }
 }

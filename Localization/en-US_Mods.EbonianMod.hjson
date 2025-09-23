@@ -372,6 +372,13 @@ Projectiles: {
 	DollHitscan.DisplayName: Doll Hitscan
 	SheepeningPlayerProjectile.DisplayName: Sheep
 	XLargeAmethystAlt.DisplayName: X Large Amethyst Alt
+	CorebreakerProjectile.DisplayName: Corebreaker Projectile
+	FangnumProjectile.DisplayName: Fangnum Projectile
+	LobberProjectile.DisplayName: Lobber Projectile
+	LobberProjectile2.DisplayName: Lobber Projectile2
+	SalvagedThrusterProjectile.DisplayName: Salvaged Thruster Projectile
+	PotatoProjectile.DisplayName: Potato Projectile
+	ExolsawProjectile.DisplayName: Exolsaw Projectile
 }
 
 NPCs: {
@@ -1638,6 +1645,16 @@ Items: {
 
 	CursedDoll: {
 		DisplayName: Cursed Doll
+		Tooltip: ""
+	}
+
+	Fangnum: {
+		DisplayName: Fangnum
+		Tooltip: ""
+	}
+
+	Lobber: {
+		DisplayName: Lobber
 		Tooltip: ""
 	}
 }

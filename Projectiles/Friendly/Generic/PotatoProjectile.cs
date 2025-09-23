@@ -3,7 +3,7 @@ using System.IO;
 
 namespace EbonianMod.Projectiles.Friendly.Generic;
 
-public class PotatoP : ModProjectile
+public class PotatoProjectile : ModProjectile
 {
     public override void SetStaticDefaults()
     {

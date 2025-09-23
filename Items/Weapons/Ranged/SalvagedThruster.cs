@@ -8,7 +8,7 @@ public class SalvagedThruster : ModItem
     {
         Item.DamageType = DamageClass.Ranged;
         Item.damage = 4;
-        Item.shoot = ProjectileType<SalvagedThrusterP>();
+        Item.shoot = ProjectileType<SalvagedThrusterProjectile>();
         Item.shootSpeed = 1f;
         Item.rare = ItemRarityID.Green;
         Item.useStyle = 5;
@@ -18,6 +18,7 @@ public class SalvagedThruster : ModItem
         Item.noMelee = true;
         Item.channel = true;
         Item.useAmmo = AmmoID.Gel;
+        Item.crit = 0;
     }
 
     public override bool CanConsumeAmmo(Item ammo, Player player) => false;
@@ -29,8 +30,13 @@ public class SalvagedThruster : ModItem
         return false;
     }
 }
-public class SalvagedThrusterP : HeldProjectileGun
+public class SalvagedThrusterProjectile : HeldProjectileGun
 {
+    Vector2 Scale;
+    float RayLength = 0, Charge;
+    bool CanAttack, IsReady;
+    public override string Texture => "EbonianMod/Items/Weapons/Ranged/SalvagedThrusterProjectile";
+    public override bool? CanDamage() => CanAttack;
     public override void SetDefaults()
     {
         base.SetDefaults();
@@ -43,14 +49,10 @@ public class SalvagedThrusterP : HeldProjectileGun
         Projectile.frame = 0;
         Projectile.ArmorPenetration = 100;
     }
-
     public override void OnSpawn(IEntitySource source)
     {
         Projectile.rotation = Helper.FromAToB(Main.player[Projectile.owner].Center, Main.MouseWorld).ToRotation();
     }
-    Vector2 Scale;
-    float RayLength = 0, Charge;
-    bool CanAttack, IsReady;
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
     {
         float a = 0f;
@@ -100,7 +102,6 @@ public class SalvagedThrusterP : HeldProjectileGun
         if (!player.channel)
             Projectile.Kill();
     }
-    public override bool? CanDamage() => CanAttack;
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
         target.AddBuff(BuffID.OnFire, 210);
@@ -109,7 +110,7 @@ public class SalvagedThrusterP : HeldProjectileGun
     public override bool PreDraw(ref Color lightColor)
     {
         Player player = Main.player[Projectile.owner];
-        Main.EntitySpriteDraw(TextureAssets.Projectile[Type].Value, Projectile.Center + player.GFX() + Main.rand.NextVector2Circular(Charge * 0.01f, Charge * 0.01f) - Main.screenPosition, new Rectangle(0, Projectile.height * Projectile.frame, Projectile.width, Projectile.height), lightColor, Projectile.rotation, new Vector2(Projectile.width / 2 - 20, Projectile.height / 2 - 4 * player.direction), Scale, player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+        Main.EntitySpriteDraw(Helper.GetTexture(Texture).Value, Projectile.Center + player.GFX() + Main.rand.NextVector2Circular(Charge * 0.01f, Charge * 0.01f) - Main.screenPosition, new Rectangle(0, Projectile.height * Projectile.frame, Projectile.width, Projectile.height), lightColor, Projectile.rotation, new Vector2(Projectile.width / 2 - 20, Projectile.height / 2 - 4 * player.direction), Scale, player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
         return false;
     }
 }

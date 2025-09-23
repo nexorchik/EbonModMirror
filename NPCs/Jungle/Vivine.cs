@@ -47,16 +47,6 @@ public class Vivine : ModNPC
         get => NPC.ai[1];
         set => NPC.ai[1] = value;
     }
-    public float AITimer2
-    {
-        get => NPC.ai[2];
-        set => NPC.ai[2] = value;
-    }
-    public float AITimer3
-    {
-        get => NPC.ai[3];
-        set => NPC.ai[3] = value;
-    }
     const int Idle = 0, Move = 1, Spit = 2;
     public override void FindFrame(int frameHeight)
     {
@@ -111,15 +101,14 @@ public class Vivine : ModNPC
     }
     public override void HitEffect(NPC.HitInfo hit)
     {
-        Helper.SpawnDust(NPC.position, NPC.Size, DustID.Grass, new Vector2(2 * hit.HitDirection, -1.5f), 2);
-        Helper.SpawnDust(NPC.position, NPC.Size, ModContent.DustType<JunglePinkDust>(), Vector2.One * hit.HitDirection * 2, 2);
+        for(int i = 0; i < Clamp(NPC.ai[2], 2, 6); i++) Dust.NewDust(NPC.position, (int)NPC.Size.X, (int)NPC.Size.Y, DustType<JunglePinkDust>(), NPC.velocity.X / 2, Scale: 0.5f);
+        NPC.ai[2] = 0;
         if (NPC.life <= 0)
         {
-            Helper.SpawnDust(NPC.position, NPC.Size, DustID.Grass, new Vector2(2 * hit.HitDirection, -1.5f), 8);
+            for (int i = 0; i < 6; i++) Dust.NewDust(NPC.position, (int)NPC.Size.X, (int)NPC.Size.Y, DustType<JunglePinkDust>(), NPC.velocity.X / 2, Scale: 0.4f);
             Helper.SpawnGore(NPC, "EbonianMod/Vivine", 2, 1, Vector2.One * hit.HitDirection * 2);
             Helper.SpawnGore(NPC, "EbonianMod/Vivine", 1, 2, Vector2.One * hit.HitDirection * 2);
             Helper.SpawnGore(NPC, "EbonianMod/Vivine", 3, 3, Vector2.One * hit.HitDirection * 2);
-            Helper.SpawnDust(NPC.position, NPC.Size, ModContent.DustType<JunglePinkDust>(), Vector2.One * hit.HitDirection * 2, 8);
         }
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
@@ -145,6 +134,7 @@ public class Vivine : ModNPC
     }
     public override void AI()
     {
+        NPC.ai[2]++;
         Lighting.AddLight(NPC.Center, new Vector3(.19f, .08f, .11f));
         NPC.TargetClosest();
         Player player = Main.player[NPC.target];

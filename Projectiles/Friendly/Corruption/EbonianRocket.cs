@@ -1,5 +1,4 @@
 ﻿using EbonianMod.Projectiles.VFXProjectiles;
-using System;
 using System.Collections.Generic;
 
 namespace EbonianMod.Projectiles.Friendly.Corruption;

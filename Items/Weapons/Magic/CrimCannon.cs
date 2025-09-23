@@ -1,6 +1,5 @@
 using EbonianMod.Projectiles.Bases;
 using EbonianMod.Projectiles.Friendly.Crimson;
-using System.IO;
 
 namespace EbonianMod.Items.Weapons.Magic;
 
@@ -9,7 +8,7 @@ public class CrimCannon : ModItem
     public override void SetDefaults()
     {
         Item.DamageType = DamageClass.Magic;
-        Item.damage = 4;
+        Item.damage = 3;
         Item.useTime = 70;
         Item.mana = 1;
         Item.useAnimation = 25;
@@ -23,6 +22,7 @@ public class CrimCannon : ModItem
         Item.noMelee = true;
         Item.channel = true;
         Item.mana = 25;
+        Item.crit = 30;
     }
     public override void AddRecipes()
     {
@@ -39,21 +39,20 @@ public class CrimCannon : ModItem
 public class CrimCannonGraphics : HeldProjectileGun
 {
     public override string Texture => "EbonianMod/Items/Weapons/Magic/CrimCannonReload";
-
+    public override bool? CanDamage() => false;
     public override void OnSpawn(IEntitySource source)
     {
         Player player = Main.player[Projectile.owner];
         player.CheckMana(player.HeldItem.mana, true);
         Projectile.rotation = Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation();
+        Projectile.ai[0] = 9;
     }
-
-    public override bool? CanDamage() => false;
-
     public override void SetDefaults()
     {
         base.SetDefaults();
         ItemType = ItemType<CrimCannon>();
         RotationSpeed = 0.08f;
+        CursorOffset = new Vector2(0, -5);
         Projectile.Size = new Vector2(56, 38);
     }
     Vector2 Scale = new Vector2(0, 1);
@@ -73,7 +72,7 @@ public class CrimCannonGraphics : HeldProjectileGun
         if (Projectile.ai[0] == 0)
         {
             if (player.whoAmI == Main.myPlayer)
-                Projectile.rotation = Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation();
+                Projectile.rotation = (Main.MouseWorld - player.Center).ToRotation();
             Projectile.frame = 5;
             Projectile.netUpdate = true;
         }
@@ -88,18 +87,18 @@ public class CrimCannonGraphics : HeldProjectileGun
                 if (Projectile.ai[1] > 5)
                 {
                     Projectile.ai[1] = 0;
-                    AnimationRotation = -0.2f * player.direction;
+                    AnimationRotation = -0.15f * player.direction;
                     Scale = new Vector2(0.65f, 1.6f);
                     SoundEngine.PlaySound(SoundID.NPCHit9.WithPitchOffset(Main.rand.NextFloat(-1f, -0.5f)), player.Center);
                     player.CheckMana(player.HeldItem.mana, true, true);
-                    Vector2 SpawnPosition = Projectile.Center + Projectile.rotation.ToRotationVector2() * 22;
+                    Vector2 spawnPosition = Projectile.Center + Projectile.rotation.ToRotationVector2() * 22;
                     if (Main.myPlayer == player.whoAmI)
                     {
-                        Projectile.NewProjectile(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * 1.2f, ProjectileType<GoryJaw>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.InheritSource(Projectile), spawnPosition, Projectile.rotation.ToRotationVector2() * 1.2f, ProjectileType<GoryJaw>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
                         for (int i = 0; i < 7; i++)
                         {
-                            Dust.NewDustPerfect(SpawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(PiOver2, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(3, 8), Scale: 1.5f).noGravity = true;
-                            Dust.NewDustPerfect(SpawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(-PiOver2, -PiOver4)).ToRotationVector2() * Main.rand.NextFloat(3, 8), Scale: 1.5f).noGravity = true;
+                            Dust.NewDustPerfect(spawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(PiOver2, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(3, 8), Scale: 1.5f).noGravity = true;
+                            Dust.NewDustPerfect(spawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(-PiOver2, -PiOver4)).ToRotationVector2() * Main.rand.NextFloat(3, 8), Scale: 1.5f).noGravity = true;
                         }
                         Projectile.ai[2] += 15;
                     }
@@ -110,9 +109,8 @@ public class CrimCannonGraphics : HeldProjectileGun
     }
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D texture = TextureAssets.Projectile[Type].Value;
         Rectangle frameRect = new Rectangle(0, Projectile.frame * Projectile.height, Projectile.width, Projectile.height);
-        Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, frameRect, lightColor, Projectile.rotation, new Vector2(Projectile.width / 2 - 25, Projectile.height / 2), Scale, Main.player[Projectile.owner].direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+        Main.EntitySpriteDraw(Helper.GetTexture(Texture).Value, Projectile.Center - Main.screenPosition, frameRect, lightColor, Projectile.rotation, new Vector2(Projectile.width / 2 - 25, Projectile.height / 2), Scale, Main.player[Projectile.owner].direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
         return false;
     }
 }

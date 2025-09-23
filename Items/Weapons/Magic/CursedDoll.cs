@@ -1,7 +1,6 @@
 ﻿using EbonianMod.Items.Materials;
 using EbonianMod.Projectiles.Bases;
 using EbonianMod.Projectiles.Friendly.Corruption;
-using EbonianMod.Projectiles.Friendly.Crimson;
 
 namespace EbonianMod.Items.Weapons.Magic;
 
@@ -24,6 +23,7 @@ internal class CursedDoll : ModItem
         Item.noMelee = true;
         Item.channel = true;
         Item.mana = 25;
+        Item.crit = 1;
     }
     public override void AddRecipes()
     {
@@ -38,19 +38,9 @@ internal class CursedDoll : ModItem
 }
 public class CursedDollProjectile : HeldProjectileGun
 {
+    Vector2 Scale = new Vector2(0, 0);
     public override string Texture => "EbonianMod/Items/Weapons/Magic/CursedDoll";
-
-    public override void OnSpawn(IEntitySource source)
-    {
-        Player player = Main.player[Projectile.owner];
-        player.CheckMana(-player.HeldItem.mana, true);
-        Projectile.rotation = Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation();
-        Projectile.frame = 5;
-        Projectile.netUpdate = true; // TEST
-    }
-
     public override bool? CanDamage() => false;
-
     public override void SetDefaults()
     {
         base.SetDefaults();
@@ -59,7 +49,14 @@ public class CursedDollProjectile : HeldProjectileGun
         Projectile.Size = new Vector2(56, 38);
         Projectile.penetrate = -1;
     }
-    Vector2 Scale = new Vector2(0, 0);
+    public override void OnSpawn(IEntitySource source)
+    {
+        Player player = Main.player[Projectile.owner];
+        player.CheckMana(-player.HeldItem.mana, true);
+        Projectile.rotation = Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation();
+        Projectile.frame = 5;
+        Projectile.netUpdate = true; // TEST
+    }
     public override void AI()
     {
         base.AI();
@@ -93,8 +90,7 @@ public class CursedDollProjectile : HeldProjectileGun
     public override bool PreDraw(ref Color lightColor)
     {
         Player player = Main.player[Projectile.owner];
-        Texture2D texture = TextureAssets.Projectile[Type].Value;
-        Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(Projectile.width / 2 - 30, Projectile.height / 2 + 10 * player.direction), Scale, player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+        Main.EntitySpriteDraw(Helper.GetTexture(Texture).Value, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(Projectile.width / 2 - 30, Projectile.height / 2 + 10 * player.direction), Scale, player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
         return false;
     }
 }

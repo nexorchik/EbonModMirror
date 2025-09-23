@@ -4,7 +4,6 @@ namespace EbonianMod.Projectiles.Bases;
 public abstract class HeldProjectile : ModProjectile
 {
     protected int ItemType;
-    protected Vector2 PositionOffset;
 
     public override void SetDefaults()
     {
@@ -22,8 +21,7 @@ public abstract class HeldProjectile : ModProjectile
 
         if (!player.active || player.dead || player.CCed || player.HeldItem.type != ItemType) Projectile.Kill();
 
-        Projectile.Center = player.MountedCenter + PositionOffset;
-
         player.direction = player.Center.X < Main.MouseWorld.X ? 1 : -1;
+        Projectile.Center = player.MountedCenter;
     }
 }

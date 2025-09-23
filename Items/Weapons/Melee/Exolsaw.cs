@@ -1,9 +1,4 @@
-﻿using EbonianMod.Dusts;
-using System.Collections.Generic;
-using Terraria;
-using static System.Net.Mime.MediaTypeNames;
-
-namespace EbonianMod.Items.Weapons.Melee;
+﻿namespace EbonianMod.Items.Weapons.Melee;
 
 public class Exolsaw : ModItem
 {
@@ -13,26 +8,25 @@ public class Exolsaw : ModItem
         Item.noUseGraphic = true;
         Item.consumable = false;
         Item.Size = new(20);
-        Item.useAnimation = 17;
-        Item.crit = 15;
-        Item.useTime = 17;
+        Item.useAnimation = 30;
+        Item.useTime = 30;
+        Item.crit = 12;
         Item.DamageType = DamageClass.Melee;
-        Item.damage = 19;
+        Item.damage = 13;
         Item.UseSound = SoundID.Item1;
         Item.autoReuse = true;
         Item.value = Item.buyPrice(0, 8, 0, 0);
-        Item.shoot = ProjectileType<ExolsawP>();
+        Item.shoot = ProjectileType<ExolsawProjectile>();
         Item.rare = ItemRarityID.Orange;
-        Item.shootSpeed = 10;
     }
 }
-public class ExolsawP : ModProjectile
+public class ExolsawProjectile : ModProjectile
 {
+    public override string Texture => "EbonianMod/Items/Weapons/Melee/ExolsawProjectile";
     public override void SetStaticDefaults()
     {
         Main.projFrames[Type] = 2;
     }
-    public override string Texture => "EbonianMod/Items/Weapons/Melee/ExolsawP";
     public override void SetDefaults()
     {
         Projectile.width = 10;
@@ -46,29 +40,14 @@ public class ExolsawP : ModProjectile
         Projectile.usesLocalNPCImmunity = true;
         Projectile.timeLeft = 500;
     }
-    public override bool PreDraw(ref Color lightColor)
+    public override void OnSpawn(IEntitySource source)
     {
-        Texture2D tex = TextureAssets.Projectile[Type].Value;
-        Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, new Rectangle(0, 42 * Projectile.frame, 42, 42), lightColor, Projectile.rotation, new Vector2(21), Projectile.scale, SpriteEffects.None);
-        return false;
+        Projectile.Center = Main.MouseWorld;
     }
     public override void AI()
     {
         Player player = Main.player[Projectile.owner];
         Dust.NewDustPerfect(Projectile.Center + Main.rand.NextVector2Circular(21, 21), DustID.Torch, Vector2.Zero, Scale: Main.rand.NextFloat(0.9f, 2f)).noGravity = true;
-
-        Projectile.rotation += MathHelper.ToRadians(25);
-        Projectile.timeLeft = 10;
-        Projectile.ai[0]++;
-        if (Projectile.ai[0] < 30)
-            Projectile.velocity *= 1.02f;
-        if (Projectile.ai[0] > 30 && Projectile.ai[0] < 50)
-            Projectile.velocity *= 0.86f;
-        if (Projectile.ai[0] > 50)
-            Projectile.velocity = Vector2.Lerp(Projectile.velocity, Helper.FromAToB(Projectile.Center, player.Center) * 30f, 0.1f);
-
-        if (Projectile.ai[0] > 50 && Projectile.Center.Distance(player.Center) < 50)
-            Projectile.Kill();
     }
     public override void OnHitNPC(NPC target, NPC.HitInfo hitinfo, int damage)
     {
@@ -82,7 +61,13 @@ public class ExolsawP : ModProjectile
     {
         Player player = Main.player[Projectile.owner];
         for (int i = 0; i < 40; i++)
-            Dust.NewDustPerfect(Projectile.Center + Main.rand.NextVector2Circular(41, 41), DustID.Torch, Projectile.velocity * Main.rand.NextFloat(), Scale: Main.rand.NextFloat(0.9f, 2f)).noGravity = true;
+            Dust.NewDustPerfect(Projectile.Center + Main.rand.NextVector2Circular(41, 41), DustID.Torch, Main.rand.NextFloat(0, Pi * 2).ToRotationVector2(), Scale: Main.rand.NextFloat(0.9f, 2f)).noGravity = true;
         Collision.HitTiles(Projectile.position + Projectile.velocity, Projectile.velocity, Projectile.width, Projectile.height);
+    }
+    public override bool PreDraw(ref Color lightColor)
+    {
+        Main.EntitySpriteDraw(Helper.GetTexture(Texture).Value, Projectile.Center - Main.screenPosition, new Rectangle(0, 42 * Projectile.frame, 42, 42), lightColor, Projectile.rotation, new Vector2(21), Projectile.scale, SpriteEffects.None);
+        Main.EntitySpriteDraw(Helper.GetTexture("EbonianMod/Items/Weapons/Melee/ExolsawGlow").Value, Projectile.Center - Main.screenPosition, new Rectangle(0, 42 * Projectile.frame, 42, 42), Color.White, Projectile.rotation, new Vector2(21), Projectile.scale, SpriteEffects.None);
+        return false;
     }
 }

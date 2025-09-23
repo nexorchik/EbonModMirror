@@ -1,15 +1,9 @@
 ﻿using EbonianMod.Buffs;
-using EbonianMod.Items.Accessories;
 using EbonianMod.Items.Consumables.Food;
 using EbonianMod.Items.Weapons.Melee;
 using EbonianMod.NPCs.ArchmageX;
 using EbonianMod.NPCs.Aureus;
 using EbonianMod.NPCs.Crimson.Fleshformator;
-using EbonianMod.Projectiles;
-using EbonianMod.Projectiles.ArchmageX;
-using System;
-using Terraria;
-using Terraria.Graphics.Effects;
 
 
 namespace EbonianMod;
@@ -20,17 +14,17 @@ public class EbonianPlayer : ModPlayer
     public static EbonianPlayer Instance;
     public Vector2 stabDirection;
     public bool rolleg, ToxicGland;
-    public bool doomMinion, xMinion, cClawMinion, titteringMinion, sudamaMinion;
+    public bool doomMinion, spiritMinion, ClawMinion, titteringMinion, sudamaMinion, InfernalDisc;
     public override void ResetEffects()
     {
         if (NPC.AnyNPCs(NPCType<ArchmageX>()) || Player.ownedProjectileCounts[ProjectileType<ArchmageXSpawnAnim>()] > 0)
             Player.noBuilding = true;
         rolleg = false;
         doomMinion = false;
-        xMinion = false;
+        spiritMinion = false;
         sudamaMinion = false;
         titteringMinion = false;
-        cClawMinion = false;
+        ClawMinion = false;
         if (!NPC.AnyNPCs(NPCType<Fleshformator>()))
             fleshformators = 0;
         ToxicGland = false;

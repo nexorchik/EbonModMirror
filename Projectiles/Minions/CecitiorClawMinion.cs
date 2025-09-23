@@ -35,9 +35,9 @@ public class CecitiorClawMinion : ModProjectile
         EbonianPlayer modPlayer = player.GetModPlayer<EbonianPlayer>();
         if (player.dead)
         {
-            modPlayer.cClawMinion = false;
+            modPlayer.ClawMinion = false;
         }
-        if (modPlayer.cClawMinion)
+        if (modPlayer.ClawMinion)
         {
             Projectile.timeLeft = 10;
         }

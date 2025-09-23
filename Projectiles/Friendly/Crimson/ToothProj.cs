@@ -16,6 +16,13 @@ public class ToothProj : ModProjectile
         Projectile.timeLeft = 290;
         Projectile.frame = 2;
     }
+    public override void AI()
+    {
+        Dust.NewDustPerfect(Projectile.Center, DustID.Blood, Main.rand.NextFloat(0, Pi * 2).ToRotationVector2(), Scale: 1.5f).noGravity = true;
+        Projectile.rotation = Projectile.velocity.ToRotation();
+        if (Projectile.ai[0] > -0.5f) Projectile.ai[0] -= 0.02f;
+        Projectile.velocity = new Vector2(Projectile.velocity.X, Projectile.velocity.Y - Projectile.ai[0]);
+    }
     public override void OnKill(int timeLeft)
     {
         for (int i = 0; i < 14; i++)
@@ -23,19 +30,11 @@ public class ToothProj : ModProjectile
             Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.Blood, Main.rand.NextFloat(-1, 1), Main.rand.NextFloat(-1, 1), Scale: 1.5f);
         }
     }
-    float Gravity;
 
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
     {
         SoundEngine.PlaySound(SoundID.NPCHit9.WithPitchOffset(Main.rand.NextFloat(-0.5f, 0f)), Projectile.Center);
         SoundEngine.PlaySound(EbonianSounds.chomp1.WithPitchOffset(Main.rand.NextFloat(0f, 1f)), Projectile.Center);
         for (int i = 0; i < 3; i++) Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center, Main.rand.NextFloat(0, Pi * 2).ToRotationVector2() * Main.rand.Next(6, 10), ProjectileType<Gibs>(), Projectile.damage / 8, 0);
-    }
-    public override void AI()
-    {
-        Dust.NewDustPerfect(Projectile.Center, DustID.Blood, Main.rand.NextFloat(0, Pi * 2).ToRotationVector2(), Scale: 1.5f).noGravity = true;
-        Projectile.rotation = Projectile.velocity.ToRotation();
-        if (Gravity > -0.5f) Gravity -= 0.01f;
-        Projectile.velocity = new Vector2(Projectile.velocity.X, Projectile.velocity.Y - Gravity);
     }
 }

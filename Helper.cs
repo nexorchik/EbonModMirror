@@ -318,10 +318,7 @@ public static class Helper
     }
     public static Asset<Texture2D> GetTexture(string path, AssetRequestMode assetRequestMode = AssetRequestMode.AsyncLoad)
     {
-        if (path.StartsWith("EbonianMod/"))
-            return Request<Texture2D>(path, assetRequestMode);
-        else
-            return Request<Texture2D>("EbonianMod/" + path, assetRequestMode);
+        return path.StartsWith("EbonianMod/") ? Request<Texture2D>(path, assetRequestMode) : Request<Texture2D>("EbonianMod/" + path, assetRequestMode);
     }
     public static Asset<Texture2D> GetTextureAlt(string path, AssetRequestMode assetRequestMode = AssetRequestMode.AsyncLoad)
     {

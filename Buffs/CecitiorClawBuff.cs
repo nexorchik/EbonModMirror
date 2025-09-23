@@ -14,9 +14,9 @@ public class CecitiorClawBuff : ModBuff
         EbonianPlayer modPlayer = player.GetModPlayer<EbonianPlayer>();
         if (player.whoAmI == Main.myPlayer && player.ownedProjectileCounts[ProjectileType<CecitiorClawMinion>()] > 0)
         {
-            modPlayer.cClawMinion = true;
+            modPlayer.ClawMinion = true;
         }
-        if (!modPlayer.cClawMinion)
+        if (!modPlayer.ClawMinion)
         {
             player.DelBuff(buffIndex);
             buffIndex--;

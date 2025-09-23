@@ -14,9 +14,9 @@ public class XTomeBuff : ModBuff
         EbonianPlayer modPlayer = player.GetModPlayer<EbonianPlayer>();
         if (player.ownedProjectileCounts[ProjectileType<XTomeSummon>()] > 0)
         {
-            modPlayer.xMinion = true;
+            modPlayer.spiritMinion = true;
         }
-        if (!modPlayer.xMinion)
+        if (!modPlayer.spiritMinion)
         {
             player.DelBuff(buffIndex);
             buffIndex--;

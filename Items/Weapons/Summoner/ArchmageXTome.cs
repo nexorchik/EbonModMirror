@@ -84,9 +84,9 @@ public class XTomeSummon : ModProjectile
         EbonianPlayer modPlayer = player.GetModPlayer<EbonianPlayer>();
         if (player.dead)
         {
-            modPlayer.xMinion = false;
+            modPlayer.spiritMinion = false;
         }
-        if (modPlayer.xMinion)
+        if (modPlayer.spiritMinion)
         {
             Projectile.timeLeft = 10;
         }

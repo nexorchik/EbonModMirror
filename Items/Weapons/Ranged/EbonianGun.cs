@@ -10,7 +10,7 @@ public class EbonianGun : ModItem
         Item.knockBack = 10f;
         Item.width = 72;
         Item.height = 24;
-        Item.crit = 15;
+        Item.crit = 6;
         Item.damage = 44;
         Item.DamageType = DamageClass.Ranged;
         Item.useStyle = ItemUseStyleID.Shoot;
@@ -42,21 +42,18 @@ public class EbonianGun : ModItem
 public class EbonianGunP : HeldProjectileGun
 {
     public override string Texture => "EbonianMod/Items/Weapons/Ranged/EbonianGun";
-
     public override bool? CanDamage() => false;
-
-
     public override void SetDefaults()
     {
         base.SetDefaults();
         ItemType = ItemType<EbonianGun>();
         RotationSpeed = 0.25f;
         Projectile.Size = new(72, 24);
+        CursorOffset = new Vector2(0, 12);
     }
-
     public override void OnSpawn(IEntitySource source)
     {
-        Projectile.rotation = Helper.FromAToB(Main.player[Projectile.owner].Center, Main.MouseWorld).ToRotation();
+        Projectile.rotation = (Main.MouseWorld - Main.player[Projectile.owner].Center).ToRotation();
     }
 
     float HoldOffset;
@@ -78,7 +75,7 @@ public class EbonianGunP : HeldProjectileGun
             SoundEngine.PlaySound(SoundID.Item11.WithPitchOffset(Main.rand.NextFloat(-1f, -0.5f)), player.Center);
             SoundEngine.PlaySound(SoundID.Item17.WithPitchOffset(Main.rand.NextFloat(-0.5f, -0.2f)), player.Center);
             if (player.whoAmI == Main.myPlayer)
-                Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Projectile.Center + Projectile.rotation.ToRotationVector2() * 47 - new Vector2(0, 16 * player.direction).RotatedBy(Projectile.rotation), Projectile.rotation.ToRotationVector2() * 10, ProjectileType<CorruptionHitscan>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Projectile.Center + new Vector2(45, -12 * player.direction).RotatedBy(Projectile.rotation), Projectile.rotation.ToRotationVector2() * 10, ProjectileType<CorruptionHitscan>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             HoldOffset = 11;
             Projectile.ai[0] = 0;
         }
@@ -89,8 +86,7 @@ public class EbonianGunP : HeldProjectileGun
     public override bool PreDraw(ref Color lightColor)
     {
         Player player = Main.player[Projectile.owner];
-        Texture2D tex = TextureAssets.Projectile[Type].Value;
-        Main.EntitySpriteDraw(tex, Projectile.Center + player.GFX() - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(Projectile.width / 2 - HoldOffset, Projectile.height / 2 + 4 * player.direction), Projectile.scale, player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
+        Main.EntitySpriteDraw(Helper.GetTexture(Texture).Value, Projectile.Center - new Vector2(0, 4) + player.GFX() - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(Projectile.width / 2 - HoldOffset, Projectile.height / 2), Projectile.scale, player.direction == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically);
         return false;
     }
 }
