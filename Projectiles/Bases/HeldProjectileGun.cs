@@ -12,7 +12,7 @@ public abstract class HeldProjectileGun : HeldProjectile
         Player player = Main.player[Projectile.owner];
 
         if (player.whoAmI == Main.myPlayer)
-            Projectile.rotation = Utils.AngleLerp(Projectile.rotation, Helper.FromAToB(Projectile.Center, Main.MouseWorld + CursorOffset.RotatedBy(Projectile.rotation) * player.direction).ToRotation(), RotationSpeed) + AnimationRotation;
+            Projectile.rotation = Utils.AngleLerp(Projectile.rotation, Helper.FromAToB(Projectile.Center, Main.MouseWorld + CursorOffset.RotatedBy(Projectile.rotation) * player.direction).ToRotation(), RotationSpeed) + AnimationRotation * AttackDelayMultiplier;
         player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - PiOver2);
 
         AnimationRotation = Lerp(AnimationRotation, 0, AnimationRotationSpeed);

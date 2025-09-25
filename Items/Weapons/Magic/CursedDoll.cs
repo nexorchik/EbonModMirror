@@ -10,14 +10,12 @@ internal class CursedDoll : ModItem
     {
         Item.DamageType = DamageClass.Magic;
         Item.damage = 270;
-        Item.useTime = 70;
-        Item.mana = 1;
-        Item.useAnimation = 25;
+        Item.useTime = 75;
         Item.shoot = ProjectileType<CursedDollProjectile>();
-        Item.shootSpeed = 1f;
+        Item.shootSpeed = 1;
         Item.rare = ItemRarityID.Green;
-        Item.useStyle = 5;
-        Item.value = Item.buyPrice(0, 5, 0, 0);
+        Item.useStyle = 1;
+        Item.value = Item.buyPrice(0, 13, 50, 0);
         Item.autoReuse = false;
         Item.noUseGraphic = true;
         Item.noMelee = true;
@@ -51,11 +49,12 @@ public class CursedDollProjectile : HeldProjectileGun
     }
     public override void OnSpawn(IEntitySource source)
     {
+        CalculateAttackSpeedParameters(75);
         Player player = Main.player[Projectile.owner];
         player.CheckMana(-player.HeldItem.mana, true);
         Projectile.rotation = Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation();
         Projectile.frame = 5;
-        Projectile.netUpdate = true; // TEST
+        Projectile.netUpdate = true;
     }
     public override void AI()
     {
@@ -69,7 +68,7 @@ public class CursedDollProjectile : HeldProjectileGun
 
         Scale = Vector2.Lerp(Scale, new Vector2(1, 1), 0.14f);
 
-        if (Projectile.ai[0]++ >= 80)
+        if (Projectile.ai[0]++ >= 75 * AttackDelayMultiplier)
         {
             Scale = new Vector2(0.65f, 1.6f);
             SoundEngine.PlaySound(SoundID.NPCHit28.WithPitchOffset(Main.rand.NextFloat(0.2f, 0.5f)) with { Volume = 0.1f }, player.MountedCenter);

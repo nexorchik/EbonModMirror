@@ -8,6 +8,7 @@ public class SalvagedThruster : ModItem
     {
         Item.DamageType = DamageClass.Ranged;
         Item.damage = 4;
+        Item.useTime = 100;
         Item.shoot = ProjectileType<SalvagedThrusterProjectile>();
         Item.shootSpeed = 1f;
         Item.rare = ItemRarityID.Green;
@@ -41,17 +42,16 @@ public class SalvagedThrusterProjectile : HeldProjectileGun
     {
         base.SetDefaults();
         ItemType = ItemType<SalvagedThruster>();
-        RotationSpeed = 0.025f;
         Projectile.Size = new Vector2(44, 30);
         Projectile.penetrate = -1;
         Projectile.usesLocalNPCImmunity = true;
-        Projectile.localNPCHitCooldown = 4;
         Projectile.frame = 0;
         Projectile.ArmorPenetration = 100;
     }
     public override void OnSpawn(IEntitySource source)
     {
-        Projectile.rotation = Helper.FromAToB(Main.player[Projectile.owner].Center, Main.MouseWorld).ToRotation();
+        CalculateAttackSpeedParameters(100);
+        Projectile.rotation = (Main.MouseWorld - Main.player[Projectile.owner].Center).ToRotation();
     }
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
     {
@@ -65,6 +65,8 @@ public class SalvagedThrusterProjectile : HeldProjectileGun
         Player player = Main.player[Projectile.owner];
 
         player.heldProj = Projectile.whoAmI;
+        RotationSpeed = AttackSpeedMultiplier / 40;
+        Projectile.localNPCHitCooldown = (int)(Clamp(4 * AttackDelayMultiplier, 2, 4));
 
         IsReady = Scale.Length() > 1.4f;
         if (Projectile.timeLeft % 10 == 0)

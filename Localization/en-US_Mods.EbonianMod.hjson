@@ -379,6 +379,11 @@ Projectiles: {
 	SalvagedThrusterProjectile.DisplayName: Salvaged Thruster Projectile
 	PotatoProjectile.DisplayName: Potato Projectile
 	ExolsawProjectile.DisplayName: Exolsaw Projectile
+	CrimCannonProjectile.DisplayName: Crim Cannon Projectile
+	BaseballBatProjectile.DisplayName: Baseball Bat Projectile
+	EbonianGunProjectile.DisplayName: Ebonian Gun Projectile
+	EbonianRocketLauncherProjectile.DisplayName: Ebonian Rocket Launcher Projectile
+	CoreProjectile.DisplayName: Core Projectile
 }
 
 NPCs: {

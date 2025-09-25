@@ -1,15 +1,23 @@
 ﻿
+
 namespace EbonianMod.Projectiles.Bases;
 
 public abstract class HeldProjectile : ModProjectile
 {
     protected int ItemType;
+    protected float AttackDelayMultiplier, AttackSpeedMultiplier;
 
     public override void SetDefaults()
     {
         Projectile.friendly = true;
         Projectile.tileCollide = false;
         Projectile.ignoreWater = true;
+    }
+    protected void CalculateAttackSpeedParameters(float baseValue)
+    {
+        float itemTime = Main.player[Projectile.owner].itemTime;
+        AttackDelayMultiplier = itemTime / baseValue;
+        AttackSpeedMultiplier = baseValue / itemTime;
     }
     public override void AI()
     {

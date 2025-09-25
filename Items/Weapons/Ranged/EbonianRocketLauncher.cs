@@ -10,19 +10,19 @@ public class EbonianRocketLauncher : ModItem
     public override bool CanConsumeAmmo(Item ammo, Player player) => false;
     public override void SetDefaults()
     {
-        Item.width = 50;
-        Item.height = 40;
+        Item.Size = new Vector2(50, 40);
         Item.crit = 10;
         Item.damage = 96;
+        Item.useTime = 110;
         Item.DamageType = DamageClass.Ranged;
-        Item.shoot = ProjectileType<EbonianRocketLauncherGraphics>();
+        Item.shoot = ProjectileType<EbonianRocketLauncherProjectile>();
         Item.value = Item.buyPrice(0, 17, 0, 0);
         Item.rare = ItemRarityID.Green;
         Item.autoReuse = false;
         Item.noUseGraphic = true;
         Item.channel = true;
         Item.noMelee = true;
-        Item.useStyle = 5;
+        Item.useStyle = 1;
         Item.useAmmo = AmmoID.Rocket;
     }
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
@@ -37,7 +37,7 @@ public class EbonianRocketLauncher : ModItem
     }
 }
 
-public class EbonianRocketLauncherGraphics : HeldProjectileGun
+public class EbonianRocketLauncherProjectile : HeldProjectileGun
 {
     float HoldOffset;
     Vector2 Scale = new Vector2(0.2f, 0.4f);
@@ -53,7 +53,8 @@ public class EbonianRocketLauncherGraphics : HeldProjectileGun
 
     public override void OnSpawn(IEntitySource source)
     {
-        Projectile.rotation = Helper.FromAToB(Main.player[Projectile.owner].Center, Main.MouseWorld).ToRotation();
+        CalculateAttackSpeedParameters(110);
+        Projectile.rotation = (Main.MouseWorld - Main.player[Projectile.owner].Center).ToRotation();
     }
 
     public override void AI()
@@ -65,24 +66,22 @@ public class EbonianRocketLauncherGraphics : HeldProjectileGun
 
         HoldOffset = Lerp(HoldOffset, 24, 0.1f);
 
-        Projectile.ai[0]++;
-        if (Projectile.ai[0] == 110)
+        if (Projectile.ai[0]++ >= 110 * AttackDelayMultiplier)
         {
             Projectile.ai[0] = 0;
             Projectile.ai[1] = 4;
-            Projectile.ai[2] = 0.1f;
+            Projectile.ai[2] = 0;
         }
         if (Projectile.ai[1] > 0)
         {
-            Projectile.ai[2] -= 0.01f;
-            if (Projectile.ai[2] <= 0)
+            if (Projectile.ai[2]++ > 10 * AttackDelayMultiplier)
             {
                 Shoot();
-                Projectile.ai[2] = 0.1f;
+                Projectile.ai[2] = 0;
                 Projectile.ai[1]--;
             }
         }
-        if (!Main.player[Projectile.owner].channel)
+        if (!player.channel)
             Projectile.Kill();
     }
     void Shoot()
@@ -91,11 +90,11 @@ public class EbonianRocketLauncherGraphics : HeldProjectileGun
         Projectile.UseAmmo(AmmoID.Rocket);
         SoundEngine.PlaySound(SoundID.NPCDeath13.WithPitchOffset(Main.rand.NextFloat(-1, -0.5f)), Projectile.Center);
         HoldOffset = 5;
-        Vector2 SpawnPosition = Projectile.Center + new Vector2(Projectile.rotation.ToRotationVector2().X, Projectile.rotation.ToRotationVector2().Y) * 42 + (Projectile.rotation + 90 * -Main.player[Projectile.owner].direction).ToRotationVector2() * 20;
+        Vector2 shotPoint = Projectile.Center + new Vector2(Projectile.rotation.ToRotationVector2().X, Projectile.rotation.ToRotationVector2().Y) * 42 + (Projectile.rotation + 90 * -Main.player[Projectile.owner].direction).ToRotationVector2() * 20;
         for (int i = 0; i < 10; i++)
-            Dust.NewDustPerfect(SpawnPosition, DustID.CorruptGibs, (Projectile.rotation + Main.rand.NextFloat(PiOver4, -PiOver4)).ToRotationVector2() * Main.rand.NextFloat(2, 10), 150, Scale: Main.rand.NextFloat(1, 3)).noGravity = true;
+            Dust.NewDustPerfect(shotPoint, DustID.CorruptGibs, (Projectile.rotation + Main.rand.NextFloat(PiOver4, -PiOver4)).ToRotationVector2() * Main.rand.NextFloat(2, 10), 150, Scale: Main.rand.NextFloat(1, 3)).noGravity = true;
         if (player.whoAmI == Main.myPlayer)
-            Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), SpawnPosition, Projectile.rotation.ToRotationVector2() * 4, ProjectileType<EbonianRocket>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+            Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), shotPoint, Projectile.rotation.ToRotationVector2() * 4, ProjectileType<EbonianRocket>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
         Scale = new Vector2(1f, 1.8f);
     }
     public override bool PreDraw(ref Color lightColor)

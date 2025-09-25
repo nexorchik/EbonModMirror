@@ -33,18 +33,19 @@ public class CorebreakerHitscan : ModProjectile
         }
         foreach (Projectile projectile in Main.ActiveProjectiles)
         {
-            if (projectile.type == ProjectileType<CorebreakerP>() && Projectile.timeLeft < 345)
+            if (projectile.type == ProjectileType<CoreProjectile>() && Projectile.timeLeft < 345)
+            {
                 if (Projectile.Distance(projectile.Center) < 45)
                 {
                     if (Main.myPlayer == projectile.owner)
                     {
                         projectile.Kill();
-                        Projectile CurrentProjectile = Projectile.NewProjectileDirect(NPC.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<FlameExplosionWSprite>(), Projectile.damage * 5, 0);
-                        CurrentProjectile.scale *= 1.6f;
-                        CurrentProjectile.CritChance = 100;
-                        CurrentProjectile.friendly = true;
-                        CurrentProjectile.hostile = false;
-                        CurrentProjectile.SyncProjectile();
+                        Projectile currentProjectile = Projectile.NewProjectileDirect(NPC.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<FlameExplosionWSprite>(), Projectile.damage * 5, 0);
+                        currentProjectile.scale *= 1.6f;
+                        currentProjectile.CritChance = 100;
+                        currentProjectile.friendly = true;
+                        currentProjectile.hostile = false;
+                        currentProjectile.SyncProjectile();
                     }
                     if (Projectile.velocity.Length() > 0)
                     {
@@ -56,6 +57,7 @@ public class CorebreakerHitscan : ModProjectile
                         Projectile.netUpdate = true;
                     }
                 }
+            }
         }
     }
     public override bool PreDraw(ref Color lightColor)

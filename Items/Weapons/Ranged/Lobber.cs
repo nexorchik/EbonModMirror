@@ -10,15 +10,14 @@ public class Lobber : ModItem
     public override void SetDefaults()
     {
         Item.damage = 80;
-        Item.useTime = 70;
-        Item.value = Item.buyPrice(0, 40, 0, 0);
-        Item.useAnimation = 30;
+        Item.value = Item.buyPrice(0, 37, 0, 0);
+        Item.useTime = 20;
         Item.DamageType = DamageClass.Ranged;
-        Item.useStyle = 5;
+        Item.useStyle = 1;
         Item.knockBack = 10;
         Item.value = 1000;
         Item.rare = ItemRarityID.Red;
-        Item.shootSpeed = 14;
+        Item.shootSpeed = 1;
         Item.autoReuse = false;
         Item.noUseGraphic = true;
         Item.channel = true;
@@ -26,28 +25,22 @@ public class Lobber : ModItem
         Item.useAmmo = AmmoID.Rocket;
         Item.crit = 25;
     }
-
-
     public override bool AltFunctionUse(Player player)
     {
         return true;
     }
-
     public override bool CanUseItem(Player player)
     {
         Item.shoot = player.altFunctionUse == 2 ? ProjectileType<LobberProjectile2>() : ProjectileType<LobberProjectile>();
         return base.CanUseItem(player);
     }
-
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
     {
         velocity.Normalize();
         Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
         return false;
     }
-
     public override bool? CanAutoReuseItem(Player player) => false;
-
     public override void AddRecipes()
     {
         CreateRecipe().AddIngredient(ItemID.GrenadeLauncher).AddIngredient(ItemType<CecitiorMaterial>(), 10).AddIngredient(ItemType<TerrortomaMaterial>(), 10).AddTile(TileID.MythrilAnvil).Register();
@@ -68,11 +61,14 @@ public class LobberProjectile : HeldProjectileGun
         RotationSpeed = 0.2f;
         CursorOffset = new Vector2(0, 25);
         Projectile.Size = new Vector2(56, 48);
+        Projectile.frame = 1;
     }
     public override void OnSpawn(IEntitySource source)
     {
+        CalculateAttackSpeedParameters(20);
         Player player = Main.player[Projectile.owner];
-        Projectile.rotation = Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation() + player.direction * PiOver2;
+        Projectile.rotation = (Main.MouseWorld - player.Center).ToRotation() + player.direction * PiOver2;
+        Projectile.frameCounter = (int)(-10 * AttackDelayMultiplier);
     }
 
     public override void AI()
@@ -83,34 +79,29 @@ public class LobberProjectile : HeldProjectileGun
 
         player.heldProj = Projectile.whoAmI;
 
-        Projectile.ai[0]++;
-
-        if (Projectile.ai[0] > 15)
+        if (Projectile.frameCounter++ > (int)(5 * AttackDelayMultiplier))
         {
-            Projectile.frameCounter++;
-            if (Projectile.frameCounter > 5)
+            if (Projectile.frame == 1)
             {
-                if (Projectile.frame == 0)
+                Scale = new Vector2(0.65f, 1.6f);
+                if (player.whoAmI == Main.myPlayer)
                 {
-                    Scale = new Vector2(0.65f, 1.6f);
+                    AnimationRotation = -0.2f * player.direction;
+                    Vector2 spawnPosition = Projectile.Center + new Vector2(30, -25 * player.direction).RotatedBy(Projectile.rotation);
                     if (player.whoAmI == Main.myPlayer)
-                    {
-                        AnimationRotation = -0.2f * player.direction;
-                        Vector2 spawnPosition = Projectile.Center + new Vector2(30, -25 * player.direction).RotatedBy(Projectile.rotation);
-                        if (player.whoAmI == Main.myPlayer)
-                            Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), spawnPosition, Projectile.rotation.ToRotationVector2() * 16, ProjectileType<CrimsonBall>(), (int)(Projectile.damage * 0.8f), Projectile.knockBack, Projectile.owner);
-                        for (int i = 0; i < 14; i++)
-                            Dust.NewDustPerfect(spawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(-PiOver4, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(2, 8), Scale: 1.5f).noGravity = true;
-                    }
-                    SoundEngine.PlaySound(SoundID.NPCDeath13.WithPitchOffset(Main.rand.NextFloat(0, 0.3f)), player.Center);
-                    Projectile.UseAmmo(AmmoID.Rocket);
+                        Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), spawnPosition, Projectile.rotation.ToRotationVector2() * 16, ProjectileType<CrimsonBall>(), (int)(Projectile.damage * 0.8f), Projectile.knockBack, Projectile.owner);
+                    for (int i = 0; i < 14; i++)
+                        Dust.NewDustPerfect(spawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(-PiOver4, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(2, 8), Scale: 1.5f).noGravity = true;
                 }
-                Projectile.frameCounter = 0;
-                Projectile.frame++;
-                if (Projectile.frame > 3)
-                    Projectile.frame = 0;
+                SoundEngine.PlaySound(SoundID.NPCDeath13.WithPitchOffset(Main.rand.NextFloat(0, 0.3f)), player.Center);
+                Projectile.UseAmmo(AmmoID.Rocket);
             }
+            Projectile.frameCounter = 0;
+            Projectile.frame++;
+            if (Projectile.frame > 3)
+                Projectile.frame = 0;
         }
+
         Scale = Vector2.Lerp(Scale, new Vector2(1, 1), 0.14f);
 
         if (!Main.player[Projectile.owner].channel)
@@ -138,6 +129,7 @@ public class LobberProjectile2 : HeldProjectileGun
     }
     public override void OnSpawn(IEntitySource source)
     {
+        CalculateAttackSpeedParameters(20);
         Player player = Main.player[Projectile.owner];
         Projectile.rotation = (Main.MouseWorld - player.Center).ToRotation() + player.direction * PiOver2;
         Projectile.ai[2] = 1;
@@ -152,22 +144,22 @@ public class LobberProjectile2 : HeldProjectileGun
 
         if (Projectile.frame < 6)
         {
-            if (Projectile.ai[0] < 120)
+            if (Projectile.ai[0] < 119)
             {
-                Projectile.ai[0]++;
-                Projectile.frameCounter++;
-                if (Projectile.frameCounter > 20)
+                Projectile.ai[0] += AttackSpeedMultiplier;
+                if (Projectile.frameCounter++ > 20 * AttackDelayMultiplier)
                 {
                     Projectile.frameCounter = 0;
                     Projectile.frame++;
                 }
             }
-            if (Projectile.ai[0] == 119)
+            else if(Projectile.ai[0] != 1000)
             {
                 SoundEngine.PlaySound(SoundID.MaxMana.WithPitchOffset(-0.3f), Projectile.Center);
+                Projectile.ai[0] = 1000;
                 Projectile.ai[1] = 1;
             }
-            float charge = Projectile.ai[0];
+            float charge = Clamp(Projectile.ai[0], 5, 120);
             float scaleNoise = charge / 82;
             Scale = Vector2.Lerp(Scale, new Vector2(Main.rand.NextFloat(2f - scaleNoise, scaleNoise), Main.rand.NextFloat(2f - scaleNoise, scaleNoise)), scaleNoise / 10);
             if (!Main.mouseRight && player.whoAmI == Main.myPlayer)

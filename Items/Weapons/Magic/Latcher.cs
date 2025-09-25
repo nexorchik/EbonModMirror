@@ -9,9 +9,7 @@ public class Latcher : ModItem
     {
         Item.DamageType = DamageClass.Magic;
         Item.damage = 80;
-        Item.useTime = 1;
-        Item.mana = 1;
-        Item.useAnimation = 100;
+        Item.useTime = 50;
         Item.shoot = ProjectileType<LatcherGraphics>();
         Item.shootSpeed = 1f;
         Item.rare = ItemRarityID.Green;
@@ -47,6 +45,7 @@ public class LatcherGraphics : HeldProjectileGun
     Vector2 Scale = new Vector2(0, 0);
     public override void OnSpawn(IEntitySource source)
     {
+        CalculateAttackSpeedParameters(50);
         Player player = Main.player[Projectile.owner];
         Projectile.rotation = Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation() + player.direction * Pi;
     }
@@ -60,26 +59,23 @@ public class LatcherGraphics : HeldProjectileGun
         Projectile.Size = new Vector2(60, 38);
     }
 
-    bool CanShoot = true;
-
     public override void AI()
     {
         base.AI();
 
         Player player = Main.player[Projectile.owner];
 
-        if (player.ownedProjectileCounts[ProjectileType<LatcherP>()] < 1 && !CanShoot)
+        if (player.ownedProjectileCounts[ProjectileType<LatcherP>()] < 1 && Projectile.ai[1] == 1)
             Projectile.Kill();
 
         Projectile.ai[0]++;
-        if (!CanShoot)
-            RotationSpeed = 0.02f;
+        if (Projectile.ai[1] == 1) RotationSpeed = 0.02f;
         else
         {
-            RotationSpeed = 0.08f;
-            if (!player.channel && Projectile.ai[0] > 40)
+            RotationSpeed = 0.08f * AttackSpeedMultiplier;
+            if (!player.channel && Projectile.ai[0] > 45 * AttackDelayMultiplier)
             {
-                CanShoot = false;
+                Projectile.ai[1] = 1;
                 Scale = new Vector2(0.65f, 1.6f);
                 if (player.whoAmI == Main.myPlayer)
                     Projectile.NewProjectile(Projectile.InheritSource(Projectile), Projectile.Center + Projectile.rotation.ToRotationVector2() * 30, Projectile.rotation.ToRotationVector2() * 37, ProjectileType<LatcherP>(), 1, Projectile.knockBack, Projectile.owner, ai2: Projectile.rotation);

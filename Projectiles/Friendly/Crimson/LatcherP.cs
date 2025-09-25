@@ -70,7 +70,7 @@ public class LatcherP : ModProjectile
     public override void AI()
     {
         Player player = Main.player[Projectile.owner];
-        Projectile.rotation = Utils.AngleLerp(Projectile.rotation, Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation(), 0.02f);
+        Projectile.rotation = Utils.AngleLerp(Projectile.rotation, (Main.MouseWorld - player.Center).ToRotation(), 0.02f);
         Projectile.ai[0]++;
         if (IsAttached && TargetIndex > -1)
         {
@@ -84,16 +84,14 @@ public class LatcherP : ModProjectile
             player.velocity += Helper.FromAToB(player.Center, Projectile.Center, true) * Speed;
             player.SyncPlayerControls();
             Projectile.Center = Target.Center + PositionOffset;
-            if (Vector2.Distance(player.Center, Target.Center) < 100)
+            if (Vector2.Distance(player.Center, Target.Center) < 40)
             {
                 SoundEngine.PlaySound(EbonianSounds.chomp2.WithPitchOffset(Main.rand.NextFloat(0.2f, 0.4f)), Projectile.Center);
                 SoundEngine.PlaySound(EbonianSounds.chomp1.WithPitchOffset(Main.rand.NextFloat(-0.6f, -0.2f)), Projectile.Center);
                 player.velocity *= 0.4f;
                 Target.SimpleStrikeNPC((int)player.velocity.Length() * Main.rand.Next(7, 8), 0, false);
                 for (int i = 0; i < 15; i++)
-                {
                     Dust.NewDustPerfect(Target.Center, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(-PiOver4, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(2, 6) * player.direction, Scale: 1.5f);
-                }
                 Projectile.Kill();
             }
             if (Target.life <= 0)
@@ -110,7 +108,7 @@ public class LatcherP : ModProjectile
     public override bool PreDraw(ref Color lightColor)
     {
         Player player = Main.player[Projectile.owner];
-        Vector2 neckOrigin = player.Center + Projectile.rotation.ToRotationVector2() * 36;
+        Vector2 neckOrigin = player.Center + Projectile.rotation.ToRotationVector2() * 46;
         Vector2 center = Projectile.Center;
         Vector2 distToProj = neckOrigin - Projectile.Center;
         float projRotation = distToProj.ToRotation() - 1.57f;

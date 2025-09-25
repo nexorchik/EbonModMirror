@@ -2,7 +2,7 @@
 
 namespace EbonianMod.Projectiles.Friendly.Underworld;
 
-public class CorebreakerP : ModProjectile
+public class CoreProjectile : ModProjectile
 {
     public override void SetDefaults()
     {
@@ -26,10 +26,10 @@ public class CorebreakerP : ModProjectile
     }
     void ExplosionSpawn()
     {
-        Projectile CurrentProjectile = Projectile.NewProjectileDirect(NPC.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<FlameExplosionWSprite>(), Projectile.damage, 0);
-        CurrentProjectile.friendly = true;
-        CurrentProjectile.hostile = false;
-        CurrentProjectile.netUpdate = true; // TEST
+        Projectile currentProjectile = Projectile.NewProjectileDirect(NPC.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<FlameExplosionWSprite>(), Projectile.damage, 0);
+        currentProjectile.friendly = true;
+        currentProjectile.hostile = false;
+        currentProjectile.netUpdate = true;
         SoundEngine.PlaySound(SoundID.Item14, Projectile.Center);
     }
 }

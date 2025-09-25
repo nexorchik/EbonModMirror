@@ -12,12 +12,13 @@ public class Fangnum : ModItem
         Item.height = 24;
         Item.crit = 10;
         Item.damage = 23;
+        Item.useTime = 50;
+        Item.useAnimation = 30;
         Item.DamageType = DamageClass.Ranged;
-        Item.useStyle = ItemUseStyleID.Shoot;
         Item.rare = ItemRarityID.LightRed;
-        Item.useAnimation = 70;
         Item.shoot = ProjectileType<FangnumProjectile>();
-        Item.value = Item.buyPrice(0, 10, 0, 0);
+        Item.useStyle = 1;
+        Item.value = Item.buyPrice(0, 4, 0, 0);
         Item.autoReuse = false;
         Item.noUseGraphic = true;
         Item.channel = true;
@@ -56,6 +57,7 @@ public class FangnumProjectile : HeldProjectileGun
     }
     public override void OnSpawn(IEntitySource source)
     {
+        CalculateAttackSpeedParameters(50);
         Projectile.rotation = (Main.MouseWorld - Projectile.Center).ToRotation();
     }
     public override void AI()
@@ -66,13 +68,12 @@ public class FangnumProjectile : HeldProjectileGun
 
         player.heldProj = Projectile.whoAmI;
 
-        Projectile.ai[0]++;
-        if (Projectile.ai[0] == 50)
+        if (Projectile.ai[0]++ >= 50 * AttackDelayMultiplier)
         {
             AnimationRotation = -0.3f * player.direction;
             Projectile.UseAmmo(AmmoID.Bullet);
             SoundEngine.PlaySound(SoundID.Item38.WithPitchOffset(Main.rand.NextFloat(0.5f, 1f)), player.Center);
-            Vector2 shotPoint = Projectile.Center + new Vector2(42, -11 * player.direction).RotatedBy(Projectile.rotation);
+            Vector2 shotPoint = Projectile.Center + new Vector2(40, -7 * player.direction).RotatedBy(Projectile.rotation);
             if (player.whoAmI == Main.myPlayer)
                 Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), shotPoint, Projectile.rotation.ToRotationVector2() * 20, ProjectileType<ToothProj>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             for (int i = 0; i < 7; i++)

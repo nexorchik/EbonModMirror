@@ -1,7 +1,5 @@
-﻿
-using EbonianMod.Projectiles.Bases;
+﻿using EbonianMod.Projectiles.Bases;
 using EbonianMod.Projectiles.Friendly.Underworld;
-using System.IO;
 
 namespace EbonianMod.Items.Weapons.Ranged;
 
@@ -12,10 +10,11 @@ public class Corebreaker : ModItem
         Item.knockBack = 10f;
         Item.crit = 6;
         Item.damage = 21;
+        Item.useTime = 120;
         Item.DamageType = DamageClass.Ranged;
         Item.useStyle = ItemUseStyleID.Shoot;
         Item.rare = ItemRarityID.Yellow;
-        Item.shootSpeed = 2f;
+        Item.shootSpeed = 1;
         Item.value = Item.buyPrice(0, 17, 0, 0);
         Item.shoot = ProjectileType<CorebreakerProjectile>();
         Item.autoReuse = false;
@@ -32,7 +31,6 @@ public class Corebreaker : ModItem
 }
 public class CorebreakerProjectile : HeldProjectileGun
 {
-    bool AltAttack = true;
     float HoldOffset;
     public override string Texture => "EbonianMod/Items/Weapons/Ranged/Corebreaker";
     public override bool? CanDamage() => false;
@@ -46,19 +44,10 @@ public class CorebreakerProjectile : HeldProjectileGun
     }
     public override void OnSpawn(IEntitySource source)
     {
+        CalculateAttackSpeedParameters(120);
         Projectile.rotation = Helper.FromAToB(Main.player[Projectile.owner].Center, Main.MouseWorld).ToRotation();
         Projectile.ai[1] = 40;
         Projectile.ai[0] = 50;
-    }
-    public override void SendExtraAI(BinaryWriter writer)
-    {
-        base.SendExtraAI(writer);
-        writer.Write(AltAttack);
-    }
-    public override void ReceiveExtraAI(BinaryReader reader)
-    {
-        base.ReceiveExtraAI(reader);
-        AltAttack = reader.ReadBoolean();
     }
     public override void AI()
     {
@@ -66,52 +55,37 @@ public class CorebreakerProjectile : HeldProjectileGun
 
         Player player = Main.player[Projectile.owner];
         HoldOffset = Lerp(HoldOffset, 24, 0.13f);
-        if (!AltAttack)
+        Projectile.ai[1]++;
+        if (Projectile.ai[0]++ >= 120 * AttackDelayMultiplier)
         {
-            Projectile.ai[0]++;
-            if (Projectile.ai[0] >= 120)
-            {
-                Vector2 shotPoint = Projectile.Center + Projectile.rotation.ToRotationVector2() * 45;
-                SoundEngine.PlaySound(SoundID.Item40.WithPitchOffset(Main.rand.NextFloat(-1f, -0.5f)), player.Center);
-                SoundEngine.PlaySound(SoundID.Item38.WithPitchOffset(Main.rand.NextFloat(-0.8f, -0.4f)), player.Center);
-                for (int i = 0; i < 30; i++)
-                    Dust.NewDustPerfect(shotPoint, DustID.Torch, (Projectile.rotation + Main.rand.NextFloat(-PiOver4, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(0.3f, 8), Scale: Main.rand.NextFloat(1f, 4f)).noGravity = true;
-                if (player.whoAmI == Main.myPlayer)
-                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), shotPoint, (Main.MouseWorld - Projectile.Center) / 35, ProjectileType<CorebreakerP>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                AnimationRotation = -0.4f * player.direction;
-                HoldOffset = 0;
-                Projectile.ai[0] = 0;
-                Projectile.netUpdate = true;
-            }
-            if (Main.mouseRight && Main.myPlayer == Projectile.owner)
-            {
-                HoldOffset = 0;
-                Vector2 shotPoint = Projectile.Center + Projectile.rotation.ToRotationVector2() * 45;
-                SoundEngine.PlaySound(SoundID.Item62.WithPitchOffset(Main.rand.NextFloat(0.5f, 1.2f)), player.Center);
-                SoundEngine.PlaySound(SoundID.Item98.WithPitchOffset(Main.rand.NextFloat(-1f, -0.5f)), player.Center);
-                for (int i = 0; i < 30; i++)
-                {
-                    Dust.NewDustPerfect(shotPoint, DustID.Smoke, (Projectile.rotation + Main.rand.NextFloat(PiOver2, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(1, 8), Scale: Main.rand.NextFloat(0.5f, 3f)).noGravity = true;
-                    Dust.NewDustPerfect(shotPoint, DustID.Smoke, (Projectile.rotation + Main.rand.NextFloat(-PiOver2, -PiOver4)).ToRotationVector2() * Main.rand.NextFloat(1, 8), Scale: Main.rand.NextFloat(0.5f, 3f)).noGravity = true;
-                }
-                if (player.whoAmI == Main.myPlayer)
-                    Projectile.NewProjectile(Projectile.InheritSource(Projectile), shotPoint, Projectile.rotation.ToRotationVector2() * 4, ProjectileType<CorebreakerHitscan>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                if (!AltAttack)
-                {
-                    AltAttack = true;
-                    Projectile.netUpdate = true;
-                }
-            }
+            Vector2 shotPoint = Projectile.Center + Projectile.rotation.ToRotationVector2() * 45;
+            SoundEngine.PlaySound(SoundID.Item40.WithPitchOffset(Main.rand.NextFloat(-1f, -0.5f)), player.Center);
+            SoundEngine.PlaySound(SoundID.Item38.WithPitchOffset(Main.rand.NextFloat(-0.8f, -0.4f)), player.Center);
+            for (int i = 0; i < 30; i++)
+                Dust.NewDustPerfect(shotPoint, DustID.Torch, (Projectile.rotation + Main.rand.NextFloat(-PiOver4, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(0.3f, 8), Scale: Main.rand.NextFloat(1f, 4f)).noGravity = true;
+            if (player.whoAmI == Main.myPlayer)
+                Projectile.NewProjectile(Projectile.InheritSource(Projectile), shotPoint, (Main.MouseWorld - Projectile.Center) / 35, ProjectileType<CoreProjectile>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+            AnimationRotation = -0.4f * player.direction;
+            HoldOffset = 0;
+            Projectile.ai[0] = 0;
+            Projectile.netUpdate = true;
         }
-        else
+        if (Main.mouseRight && Projectile.ai[1] >= 80 * AttackDelayMultiplier && Main.myPlayer == Projectile.owner)
         {
-            Projectile.ai[1]++;
-            if (Projectile.ai[1] >= 60)
+            HoldOffset = 0;
+            Vector2 shotPoint = Projectile.Center + Projectile.rotation.ToRotationVector2() * 45;
+            SoundEngine.PlaySound(SoundID.Item62.WithPitchOffset(Main.rand.NextFloat(0.5f, 1.2f)), player.Center);
+            SoundEngine.PlaySound(SoundID.Item98.WithPitchOffset(Main.rand.NextFloat(-1f, -0.5f)), player.Center);
+            for (int i = 0; i < 30; i++)
             {
-                AltAttack = false;
-                Projectile.ai[1] = 0;
-                Projectile.netUpdate = true;
+                Dust.NewDustPerfect(shotPoint, DustID.Smoke, (Projectile.rotation + Main.rand.NextFloat(PiOver2, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(1, 8), Scale: Main.rand.NextFloat(0.5f, 3f)).noGravity = true;
+                Dust.NewDustPerfect(shotPoint, DustID.Smoke, (Projectile.rotation + Main.rand.NextFloat(-PiOver2, -PiOver4)).ToRotationVector2() * Main.rand.NextFloat(1, 8), Scale: Main.rand.NextFloat(0.5f, 3f)).noGravity = true;
             }
+            if (player.whoAmI == Main.myPlayer)
+                Projectile.NewProjectile(Projectile.InheritSource(Projectile), shotPoint, Projectile.rotation.ToRotationVector2() * 4, ProjectileType<CorebreakerHitscan>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+            Projectile.ai[0] = 0;
+            Projectile.ai[1] = 0;
+            Projectile.netUpdate = true;
         }
         if (!Main.player[Projectile.owner].channel)
             Projectile.Kill();

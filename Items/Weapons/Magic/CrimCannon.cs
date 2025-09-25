@@ -9,11 +9,9 @@ public class CrimCannon : ModItem
     {
         Item.DamageType = DamageClass.Magic;
         Item.damage = 3;
-        Item.useTime = 70;
-        Item.mana = 1;
-        Item.useAnimation = 25;
-        Item.shoot = ProjectileType<CrimCannonGraphics>();
-        Item.shootSpeed = 1f;
+        Item.useTime = 50;
+        Item.shootSpeed = 1;
+        Item.shoot = ProjectileType<CrimCannonProjectile>();
         Item.rare = ItemRarityID.Green;
         Item.useStyle = 5;
         Item.value = Item.buyPrice(0, 5, 0, 0);
@@ -36,17 +34,10 @@ public class CrimCannon : ModItem
     }
 }
 
-public class CrimCannonGraphics : HeldProjectileGun
+public class CrimCannonProjectile : HeldProjectileGun
 {
     public override string Texture => "EbonianMod/Items/Weapons/Magic/CrimCannonReload";
     public override bool? CanDamage() => false;
-    public override void OnSpawn(IEntitySource source)
-    {
-        Player player = Main.player[Projectile.owner];
-        player.CheckMana(player.HeldItem.mana, true);
-        Projectile.rotation = Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation();
-        Projectile.ai[0] = 9;
-    }
     public override void SetDefaults()
     {
         base.SetDefaults();
@@ -54,6 +45,16 @@ public class CrimCannonGraphics : HeldProjectileGun
         RotationSpeed = 0.08f;
         CursorOffset = new Vector2(0, -5);
         Projectile.Size = new Vector2(56, 38);
+    }
+    public override void OnSpawn(IEntitySource source)
+    {
+        CalculateAttackSpeedParameters(50);
+        Player player = Main.player[Projectile.owner];
+        player.CheckMana(player.HeldItem.mana, true);
+        if (player.whoAmI == Main.myPlayer)
+            Projectile.rotation = (Main.MouseWorld - player.Center).ToRotation();
+        Projectile.netUpdate = true;
+        Projectile.frameCounter = (int)(-15 * AttackDelayMultiplier);
     }
     Vector2 Scale = new Vector2(0, 1);
     public override void AI()
@@ -69,43 +70,30 @@ public class CrimCannonGraphics : HeldProjectileGun
 
         Scale = Vector2.Lerp(Scale, new Vector2(1, 1), 0.14f);
 
-        if (Projectile.ai[0] == 0)
+        if(Projectile.frameCounter++ > 4 * AttackDelayMultiplier)
         {
-            if (player.whoAmI == Main.myPlayer)
-                Projectile.rotation = (Main.MouseWorld - player.Center).ToRotation();
-            Projectile.frame = 5;
-            Projectile.netUpdate = true;
+            Projectile.frame++;
+            Projectile.frameCounter = 0;
         }
-
-        if (Projectile.ai[0]++ > 14)
+        if (Projectile.frame > 5)
         {
-            Projectile.ai[2]--;
-            if (Projectile.ai[2] <= 0)
+            Projectile.frame = 0;
+            AnimationRotation = -0.15f * player.direction;
+            Scale = new Vector2(0.65f, 1.6f);
+            SoundEngine.PlaySound(SoundID.NPCHit9.WithPitchOffset(Main.rand.NextFloat(-1f, -0.5f)), player.Center);
+            player.CheckMana(player.HeldItem.mana, true, true);
+            Vector2 shotPoint = Projectile.Center + Projectile.rotation.ToRotationVector2() * 22;
+            if (Main.myPlayer == player.whoAmI)
             {
-                Projectile.ai[2] += 6;
-                Projectile.ai[1]++;
-                if (Projectile.ai[1] > 5)
+                Projectile.NewProjectile(Projectile.InheritSource(Projectile), shotPoint, Projectile.rotation.ToRotationVector2() * 1.2f, ProjectileType<GoryJaw>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                for (int i = 0; i < 7; i++)
                 {
-                    Projectile.ai[1] = 0;
-                    AnimationRotation = -0.15f * player.direction;
-                    Scale = new Vector2(0.65f, 1.6f);
-                    SoundEngine.PlaySound(SoundID.NPCHit9.WithPitchOffset(Main.rand.NextFloat(-1f, -0.5f)), player.Center);
-                    player.CheckMana(player.HeldItem.mana, true, true);
-                    Vector2 spawnPosition = Projectile.Center + Projectile.rotation.ToRotationVector2() * 22;
-                    if (Main.myPlayer == player.whoAmI)
-                    {
-                        Projectile.NewProjectile(Projectile.InheritSource(Projectile), spawnPosition, Projectile.rotation.ToRotationVector2() * 1.2f, ProjectileType<GoryJaw>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                        for (int i = 0; i < 7; i++)
-                        {
-                            Dust.NewDustPerfect(spawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(PiOver2, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(3, 8), Scale: 1.5f).noGravity = true;
-                            Dust.NewDustPerfect(spawnPosition, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(-PiOver2, -PiOver4)).ToRotationVector2() * Main.rand.NextFloat(3, 8), Scale: 1.5f).noGravity = true;
-                        }
-                        Projectile.ai[2] += 15;
-                    }
+                    Dust.NewDustPerfect(shotPoint, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(PiOver2, PiOver4)).ToRotationVector2() * Main.rand.NextFloat(3, 8), Scale: 1.5f).noGravity = true;
+                    Dust.NewDustPerfect(shotPoint, DustID.Blood, (Projectile.rotation + Main.rand.NextFloat(-PiOver2, -PiOver4)).ToRotationVector2() * Main.rand.NextFloat(3, 8), Scale: 1.5f).noGravity = true;
                 }
             }
+            Projectile.frameCounter = (int)(-15 * AttackDelayMultiplier);
         }
-        Projectile.frame = (int)Projectile.ai[1];
     }
     public override bool PreDraw(ref Color lightColor)
     {

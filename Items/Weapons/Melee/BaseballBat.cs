@@ -23,7 +23,7 @@ public class BaseballBat : ModItem
         Item.DamageType = DamageClass.Melee;
         Item.useStyle = ItemUseStyleID.Swing;
         Item.rare = ItemRarityID.Green;
-        Item.shoot = ProjectileType<BaseballBatP>();
+        Item.shoot = ProjectileType<BaseballBatProjectile>();
     }
 
     public override void AddRecipes()
@@ -38,8 +38,8 @@ public class BaseballBat : ModItem
 
     public override bool CanUseItem(Player player)
     {
-        Item.shoot = player.altFunctionUse == 2 ? ProjectileType<Ball>() : ProjectileType<BaseballBatP>();
-        return Item.shoot == ProjectileType<BaseballBatP>()
+        Item.shoot = player.altFunctionUse == 2 ? ProjectileType<Ball>() : ProjectileType<BaseballBatProjectile>();
+        return Item.shoot == ProjectileType<BaseballBatProjectile>()
             || (Item.shoot == ProjectileType<Ball>()
             && player.ownedProjectileCounts[ProjectileType<Ball>()] < 4);
     }
@@ -56,7 +56,7 @@ public class BaseballBat : ModItem
         return false;
     }
 }
-public class BaseballBatP : HeldSword
+public class BaseballBatProjectile : HeldSword
 {
     public override string Texture => "EbonianMod/Items/Weapons/Melee/BaseballBat";
     public override bool? CanDamage() => Projectile.ai[1] < 0 && Projectile.timeLeft > 10;
@@ -92,9 +92,9 @@ public class BaseballBatP : HeldSword
 
             if (Main.mouseRight && Main.myPlayer == player.whoAmI && Projectile.localAI[1] < 0)
             {
-                Vector2 v = new Vector2(player.velocity.X, -5 + player.velocity.Y);
-                Projectile.NewProjectile(Projectile.InheritSource(Projectile), player.MountedCenter + v, v, ProjectileType<Ball>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
-                Projectile.localAI[1] = 20;
+                Vector2 velocity = new Vector2(player.velocity.X, -5 + player.velocity.Y);
+                Projectile.NewProjectile(Projectile.InheritSource(Projectile), player.MountedCenter + velocity, velocity, ProjectileType<Ball>(), Projectile.damage, Projectile.knockBack, player.whoAmI);
+                Projectile.localAI[1] = Pi / 9;
                 Projectile.netUpdate = true;
             }
             Projectile.rotation = Utils.AngleLerp(Projectile.rotation, Projectile.ai[0], 0.2f);
@@ -104,7 +104,7 @@ public class BaseballBatP : HeldSword
             }
             Projectile.timeLeft = 30;
         }
-        Vector2 StartRotationDirection = (Projectile.localAI[0] + Pi / 2).ToRotationVector2();
+        Vector2 startRotationDirection = (Projectile.localAI[0] + Pi / 2).ToRotationVector2();
         if (Projectile.ai[1] < 0)
         {
             if (Projectile.timeLeft == 29)
@@ -113,13 +113,13 @@ public class BaseballBatP : HeldSword
             }
             foreach (Projectile projectile in Main.ActiveProjectiles)
             {
-                if (Vector2.Distance(player.Center + StartRotationDirection * 30, projectile.Center) < 55 && projectile.type == ProjectileType<Ball>() && projectile.ai[1] == 0 && Projectile.ai[2] > 27)
+                if (Vector2.Distance(player.Center + startRotationDirection * 30, projectile.Center) < 55 && projectile.type == ProjectileType<Ball>() && projectile.ai[1] == 0 && Projectile.ai[2] > 27)
                 {
                     SoundEngine.PlaySound(SoundID.Item126.WithPitchOffset(Main.rand.NextFloat(-0.9f, -0.7f)), Projectile.Center);
                     SoundEngine.PlaySound(SoundID.Item10.WithPitchOffset(Main.rand.NextFloat(1f, 2f)), Projectile.Center);
                     float BaseVelocity = projectile.velocity.Length();
                     float VelocityPower = MathF.Pow(BaseVelocity, 2) / 9;
-                    projectile.velocity = StartRotationDirection * Clamp(VelocityPower, 14, 34);
+                    projectile.velocity = startRotationDirection * Clamp(VelocityPower, 14, 34);
                     projectile.timeLeft = 360;
                     projectile.Opacity = 1;
                     if (Projectile.localAI[0] > -3.3f && Projectile.localAI[0] < -2.9f)
@@ -144,7 +144,6 @@ public class BaseballBatP : HeldSword
         {
             player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation + Pi);
             player.itemAnimation = 2;
-            player.itemTime = 2;
         }
 
         Projectile.Center = player.MountedCenter;
@@ -152,8 +151,8 @@ public class BaseballBatP : HeldSword
         {
             Projectile.Kill();
             player.itemAnimation = 0;
-            player.itemTime = 0;
         }
+        else player.itemTime = 2;
     }
     public override bool PreDraw(ref Color lightColor)
     {

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System;
 
 namespace EbonianMod.Projectiles.Friendly.Generic;
 
@@ -29,10 +30,17 @@ public class PotatoProjectile : ModProjectile
     public override void OnSpawn(IEntitySource source)
     {
         Projectile.rotation = Projectile.velocity.ToRotation();
-        Projectile.extraUpdates = Projectile.velocity.Length() > 12.1f ? 2 : 1;
-        Fire = Projectile.extraUpdates == 2;
-        if (Fire)
+        if(MathF.Round(Projectile.velocity.Length()) == 16)
+        {
+            Fire = true;
+            Projectile.extraUpdates = 2;
             Projectile.velocity *= 1.3f;
+        }
+        else
+        {
+            Fire = false;
+            Projectile.extraUpdates = 1;
+        }
         Projectile.netUpdate = true;
     }
     public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone)
@@ -42,10 +50,8 @@ public class PotatoProjectile : ModProjectile
     }
     public override void AI()
     {
-        if (Fire)
-            Dust.NewDustPerfect(Projectile.Center, DustID.Torch, (Main.rand.NextFloat(0, Pi * 2)).ToRotationVector2() * Main.rand.NextFloat(0.7f, 2f), Scale: Main.rand.NextFloat(0.7f, 1.3f));
-        else if (Main.rand.NextBool())
-            Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Dirt, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), 0, default, Main.rand.NextFloat(0.25f, 1));
+        if (Fire) Dust.NewDustPerfect(Projectile.Center, DustID.Torch, (Main.rand.NextFloat(0, Pi * 2)).ToRotationVector2() * Main.rand.NextFloat(0.7f, 2f), Scale: Main.rand.NextFloat(0.7f, 1.3f));
+        else if (Main.rand.NextBool()) Dust.NewDustDirect(Projectile.position, Projectile.width, Projectile.height, DustID.Dirt, Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-1f, 1f), 0, default, Main.rand.NextFloat(0.25f, 1));
         if (Projectile.wet)
         {
             Fire = false;
