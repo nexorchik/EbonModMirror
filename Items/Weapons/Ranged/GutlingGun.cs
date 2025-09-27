@@ -81,9 +81,9 @@ public class GutlingGunP : ModProjectile
         Projectile.Center = pos;
         Projectile.rotation = Projectile.velocity.ToRotation();
         if (player.gravDir != -1)
-            player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.velocity.ToRotation() - MathHelper.PiOver2);
+            player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.velocity.ToRotation() - PiOver2);
         if (Main.myPlayer == Projectile.owner)
-            Projectile.velocity = Vector2.Lerp(Projectile.velocity, Helper.FromAToB(player.Center, Main.MouseWorld), 0.15f - MathHelper.Lerp(0.09f, 0f, Projectile.ai[0] / 4)).SafeNormalize(Vector2.UnitX);
+            Projectile.velocity = Vector2.Lerp(Projectile.velocity, Main.MouseWorld - player.Center, 0.15f - Lerp(0.09f, 0f, Projectile.ai[0] / 4)).SafeNormalize(Vector2.UnitX);
         if (Projectile.ai[0] > 2.7f)
             Projectile.ai[0] -= .6f;
         if (++Projectile.ai[1] > Projectile.ai[0])

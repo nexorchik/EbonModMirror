@@ -53,7 +53,6 @@ public class CrimCannonProjectile : HeldProjectileGun
         player.CheckMana(player.HeldItem.mana, true);
         if (player.whoAmI == Main.myPlayer)
             Projectile.rotation = (Main.MouseWorld - player.Center).ToRotation();
-        Projectile.netUpdate = true;
         Projectile.frameCounter = (int)(-15 * AttackDelayMultiplier);
     }
     Vector2 Scale = new Vector2(0, 1);

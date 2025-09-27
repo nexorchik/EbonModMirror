@@ -44,8 +44,9 @@ public class CorebreakerProjectile : HeldProjectileGun
     }
     public override void OnSpawn(IEntitySource source)
     {
+        Projectile.netUpdate = true;
         CalculateAttackSpeedParameters(120);
-        Projectile.rotation = Helper.FromAToB(Main.player[Projectile.owner].Center, Main.MouseWorld).ToRotation();
+        Projectile.rotation = (Main.MouseWorld - Main.player[Projectile.owner].Center).ToRotation();
         Projectile.ai[1] = 40;
         Projectile.ai[0] = 50;
     }

@@ -121,7 +121,11 @@ public class SpudCannon : ModItem
                     Projectile.ai[0] = 2000;
                 }
                 if (Scale.Length() < 1.416f)
+                {
                     Projectile.Kill();
+                    player.itemTime = 0;
+                    player.itemAnimation = 0;
+                }
             }
             if (Projectile.ai[1] > 0)
             {

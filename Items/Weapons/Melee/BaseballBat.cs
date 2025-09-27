@@ -30,12 +30,10 @@ public class BaseballBat : ModItem
     {
         CreateRecipe().AddIngredient(ItemID.Wood, 10).AddIngredient(RecipeGroupID.IronBar, 20).AddTile(TileID.Anvils).Register();
     }
-
     public override bool AltFunctionUse(Player player)
     {
         return true;
     }
-
     public override bool CanUseItem(Player player)
     {
         Item.shoot = player.altFunctionUse == 2 ? ProjectileType<Ball>() : ProjectileType<BaseballBatProjectile>();

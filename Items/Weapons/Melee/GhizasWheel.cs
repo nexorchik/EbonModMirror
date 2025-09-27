@@ -104,16 +104,16 @@ public class GhizasWheelP : ModProjectile
         }
     }
     float lerpT = 0.5f;
-    Vector2 mousePos;
+    Vector2 MousePosition;
     public override void SendExtraAI(BinaryWriter writer)
     {
         writer.Write(lerpT);
-        writer.WriteVector2(mousePos);
+        writer.WriteVector2(MousePosition);
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
         lerpT = reader.ReadSingle();
-        mousePos = reader.ReadVector2();
+        MousePosition = reader.ReadVector2();
     }
     public override void AI()
     {
@@ -142,20 +142,20 @@ public class GhizasWheelP : ModProjectile
         {
             if (Projectile.ai[2] <= 0)
             {
-                _sound.Volume = MathHelper.Lerp(_sound.Volume, 0f, 0.1f);
+                _sound.Volume = Lerp(_sound.Volume, 0f, 0.1f);
             }
             else
             {
-                _sound.Volume = MathHelper.Lerp(_sound.Volume, Projectile.ai[0] * 0.8f, 0.15f);
+                _sound.Volume = Lerp(_sound.Volume, Projectile.ai[0] * 0.8f, 0.15f);
             }
         }
         if (Projectile.ai[2] > 0)
         {
-            lerpT = MathHelper.Lerp(lerpT, 0.02f, 0.3f);
+            lerpT = Lerp(lerpT, 0.02f, 0.3f);
         }
         else
         {
-            lerpT = MathHelper.Lerp(lerpT, 0.5f, 0.1f);
+            lerpT = Lerp(lerpT, 0.5f, 0.1f);
         }
         Projectile.timeLeft = 10;
         Projectile.direction = Projectile.velocity.X > 0 ? 1 : -1;
@@ -165,25 +165,25 @@ public class GhizasWheelP : ModProjectile
         player.itemRotation = (Projectile.velocity.ToRotation()) * player.direction;
         pos += (Projectile.velocity.ToRotation()).ToRotationVector2() * holdOffset;
         Projectile.Center = pos;
-        Projectile.rotation = Projectile.velocity.ToRotation() + MathHelper.PiOver4;
+        Projectile.rotation = Projectile.velocity.ToRotation() + PiOver4;
         if (player.gravDir != -1)
-            player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.velocity.ToRotation() - MathHelper.PiOver2);
-        if (player.whoAmI == Main.myPlayer && Main.MouseWorld != mousePos)
+            player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.velocity.ToRotation() - PiOver2);
+        if (player.whoAmI == Main.myPlayer && Main.MouseWorld != MousePosition)
         {
-            mousePos = Main.MouseWorld;
+            MousePosition = Main.MouseWorld;
             Projectile.netUpdate = true;
         }
 
-        Projectile.velocity = Vector2.Lerp(Projectile.velocity, Helper.FromAToB(player.Center, mousePos), lerpT).SafeNormalize(Vector2.UnitX);
+        Projectile.velocity = Vector2.Lerp(Projectile.velocity, Helper.FromAToB(player.Center, MousePosition), lerpT).SafeNormalize(Vector2.UnitX);
 
-        Projectile.ai[0] = MathHelper.Clamp(MathHelper.Lerp(Projectile.ai[0], 1, 0.05f), 0, 1);
+        Projectile.ai[0] = Clamp(Lerp(Projectile.ai[0], 1, 0.05f), 0, 1);
 
         if (SoundEngine.TryGetActiveSound(slot, out var sound))
         {
-            sound.Volume = MathHelper.Lerp(sound.Volume, Projectile.ai[0] * 0.7f, 0.1f);
+            sound.Volume = Lerp(sound.Volume, Projectile.ai[0] * 0.7f, 0.1f);
         }
 
-        Projectile.ai[1] += MathHelper.ToRadians(Projectile.ai[0] * 9.2f);
+        Projectile.ai[1] += ToRadians(Projectile.ai[0] * 9.2f);
     }
     public override bool PreDraw(ref Color lightColor)
     {
@@ -192,8 +192,8 @@ public class GhizasWheelP : ModProjectile
         Main.spriteBatch.Draw(wheel, pos - Main.screenPosition, null, lightColor, Projectile.ai[1], wheel.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
         for (int i = 0; i < 15; i++)
         {
-            float alpha = MathHelper.Lerp(0.5f, 0, (float)i / 15) * Projectile.ai[0];
-            Main.spriteBatch.Draw(wheel, pos - Main.screenPosition, null, lightColor * alpha, Projectile.ai[1] + MathHelper.ToRadians(-i * 5), wheel.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
+            float alpha = Lerp(0.5f, 0, (float)i / 15) * Projectile.ai[0];
+            Main.spriteBatch.Draw(wheel, pos - Main.screenPosition, null, lightColor * alpha, Projectile.ai[1] + ToRadians(-i * 5), wheel.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
         }
         return true;
     }

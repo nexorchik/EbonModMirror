@@ -98,7 +98,7 @@ public class SanguineSlasherP : HeldSword
             pos += Projectile.velocity.ToRotation().ToRotationVector2() * holdOffset;
             if (player.gravDir != -1)
             {
-                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.velocity.ToRotation() - MathHelper.PiOver2);
+                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.velocity.ToRotation() - PiOver2);
                 Projectile.rotation = Projectile.velocity.ToRotation() + Pi / 2;
             }
             Projectile.Center = pos;
@@ -133,13 +133,13 @@ public class SanguineSlasherP : HeldSword
         {
             if (player.whoAmI == Main.myPlayer)
             {
-                Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center);
-                Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), player.Center, dir, Projectile.type, Projectile.damage, Projectile.knockBack, player.whoAmI, Projectile.ai[0] + 1, (Projectile.ai[1] == 0 ? 1 : -Projectile.ai[1]));
+                Vector2 direction = Vector2.Normalize(Main.MouseWorld - player.Center);
+                Projectile projectile = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), player.Center, direction, Projectile.type, Projectile.damage, Projectile.knockBack, player.whoAmI, Projectile.ai[0] + 1, (Projectile.ai[1] == 0 ? 1 : -Projectile.ai[1]));
                 if (Projectile.ai[1] != 0)
-                    proj.rotation = Projectile.rotation;
-                proj.Center = Projectile.Center;
-                proj.ai[0] = Projectile.ai[0] + 1;
-                proj.SyncProjectile();
+                    projectile.rotation = Projectile.rotation;
+                projectile.Center = Projectile.Center;
+                projectile.ai[0] = Projectile.ai[0] + 1;
+                projectile.SyncProjectile();
             }
         }
     }

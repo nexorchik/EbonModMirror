@@ -1,5 +1,8 @@
 ﻿
 
+using System.IO;
+using Terraria.Chat;
+
 namespace EbonianMod.Projectiles.Bases;
 
 public abstract class HeldProjectile : ModProjectile
@@ -13,11 +16,26 @@ public abstract class HeldProjectile : ModProjectile
         Projectile.tileCollide = false;
         Projectile.ignoreWater = true;
     }
+    Vector2 Direction;
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        writer.Write(AttackDelayMultiplier);
+        writer.Write(AttackSpeedMultiplier);
+        writer.WriteVector2(Direction);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        AttackDelayMultiplier = reader.ReadSingle();
+        AttackSpeedMultiplier = reader.ReadSingle();
+        Direction = reader.ReadVector2();
+    }
     protected void CalculateAttackSpeedParameters(float baseValue)
     {
-        float itemTime = Main.player[Projectile.owner].itemTime;
+        Player player = Main.player[Projectile.owner];
+        float itemTime = player.itemTime;
         AttackDelayMultiplier = itemTime / baseValue;
         AttackSpeedMultiplier = baseValue / itemTime;
+        Projectile.netUpdate = true;
     }
     public override void AI()
     {
@@ -29,7 +47,11 @@ public abstract class HeldProjectile : ModProjectile
 
         if (!player.active || player.dead || player.CCed || player.HeldItem.type != ItemType) Projectile.Kill();
 
-        player.direction = player.Center.X < Main.MouseWorld.X ? 1 : -1;
+        if (player.whoAmI == Main.myPlayer)
+        {
+            Direction = Main.MouseWorld - player.Center;
+        }
+        player.ChangeDir(Direction.X > 0 ? 1 : -1);
         Projectile.Center = player.MountedCenter;
     }
 }

@@ -52,20 +52,21 @@ public class EbonianScytheP : HeldSword
     }
     public override void ExtraAI()
     {
+        Main.NewText(Projectile.velocity.X);
         Player player = Main.player[Projectile.owner];
         int direction = (int)Projectile.ai[1];
         float swingProgress = Ease(Utils.GetLerpValue(0f, swingTime, Projectile.timeLeft));
         float defRot = Projectile.velocity.ToRotation();
-        float start = defRot - (MathHelper.PiOver2 + MathHelper.PiOver4);
-        float end = defRot + (MathHelper.PiOver2 + MathHelper.PiOver4);
-        float rotation = direction == 1 ? start + MathHelper.Pi * 3 / 2 * swingProgress : end - MathHelper.Pi * 3 / 2 * swingProgress;
-        Vector2 position = player.GetFrontHandPosition(stretch, rotation - MathHelper.PiOver2) +
+        float start = defRot - (PiOver2 + PiOver4);
+        float end = defRot + (PiOver2 + PiOver4);
+        float rotation = direction == 1 ? start + Pi * 3 / 2 * swingProgress : end - Pi * 3 / 2 * swingProgress;
+        Vector2 position = player.GetFrontHandPosition(stretch, rotation - PiOver2) +
             rotation.ToRotationVector2() * 15 * ScaleFunction(swingProgress);
         Projectile.Center = position;
-        Projectile.rotation = (position - player.Center).ToRotation() + MathHelper.PiOver4;
+        Projectile.rotation = (position - player.Center).ToRotation() + PiOver4;
         player.ChangeDir(Projectile.velocity.X < 0 ? -1 : 1);
         if (player.gravDir != -1)
-            player.SetCompositeArmFront(true, stretch, rotation - MathHelper.PiOver2);
+            player.SetCompositeArmFront(true, stretch, rotation - PiOver2);
     }
     public override void PostDraw(Color lightColor)
     {
@@ -75,7 +76,6 @@ public class EbonianScytheP : HeldSword
         float alpha = (float)Math.Sin(mult * Math.PI);
         Vector2 pos = player.Center + Projectile.velocity * 20f;
         Main.spriteBatch.Draw(slash, pos - Main.screenPosition, null, new Color(152, 187, 63) with { A = 0 } * alpha * 0.5f, Projectile.velocity.ToRotation(), slash.Size() / 2, Projectile.scale / 3.5f, SpriteEffects.None, 0f);
-
     }
     public override void OnKill(int timeLeft)
     {
