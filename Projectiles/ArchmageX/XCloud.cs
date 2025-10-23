@@ -80,9 +80,9 @@ public class XCloud : ModProjectile
 
         if (Projectile.timeLeft % 6 == 0)
             Dust.NewDustPerfect(Main.rand.NextVector2FromRectangle(Projectile.getRect()), DustType<SparkleDust>(), Main.rand.NextVector2Circular(2, 2), 0, Color.Indigo, Scale: Main.rand.NextFloat(0.1f, .15f));
-        if (Projectile.timeLeft <= 345)
+        if (Projectile.timeLeft <= 375)
             Projectile.ai[0]++;
-        if (Projectile.ai[0] <= 20 && savedDir == Vector2.Zero && Projectile.timeLeft > 60)
+        if (Projectile.ai[0] <= 20 && savedDir == Vector2.Zero && Projectile.timeLeft >= 80)
         {
             savedDir = Helper.FromAToB(Projectile.Center, Main.player[(int)Projectile.ai[2]].Center);
             if (Projectile.ai[1] != 1)
@@ -90,9 +90,9 @@ public class XCloud : ModProjectile
             else
                 MPUtils.NewProjectile(null, Projectile.Center, savedDir, ProjectileType<SheepeningOrb>(), 20, 0, Main.myPlayer, Projectile.ai[2]);
         }
-        if (Projectile.ai[0] > (Projectile.ai[1] != 1 ? 55 : 100))
+        if (Projectile.ai[0] > ((int)Projectile.ai[1] != 1 ? 40 : 100) && Projectile.timeLeft >= 30)
         {
-            if (Projectile.ai[1] != 1)
+            if ((int)Projectile.ai[1] != 1)
                 MPUtils.NewProjectile(null, Projectile.Center, savedDir, ProjectileType<XLightningBolt>(), 20, 0);
             MPUtils.NewProjectile(null, Projectile.Center, Vector2.Zero, ProjectileType<XExplosion>(), 0, 0);
             savedDir = Vector2.Zero;
