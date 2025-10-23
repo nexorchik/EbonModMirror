@@ -166,7 +166,7 @@ public abstract class HeldSword : ModProjectile
         Player player = Main.player[Projectile.owner];
         float rot = Projectile.rotation - PiOver4;
         Vector2 start = player.Center;
-        Vector2 end = player.Center + rot.ToRotationVector2() * (Projectile.height + holdOffset * 0.8f);
+        Vector2 end = player.Center + rot.ToRotationVector2() * (Projectile.height + holdOffset * 0.8f) * Projectile.scale;
         float a = 0;
         return Collision.CheckAABBvLineCollision(targetHitbox.TopLeft(), targetHitbox.Size(), start, end, projHitbox.Width, ref a) && Collision.CanHitLine(Projectile.Center + Projectile.Center.FromAToB(end) * 20, 5, 5, targetHitbox.TopLeft(), targetHitbox.Width, targetHitbox.Height);
     }

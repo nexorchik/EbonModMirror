@@ -84,6 +84,7 @@ public class SanguineSlasherP : HeldSword
         }
         else // AI1 being 0 = Thrust (or well, bite here)
         {
+            Projectile.scale = 1.4f;
             Projectile.ai[2] = Lerp(Projectile.ai[2], 0, 0.2f);
             Projectile.spriteDirection = player.direction;
             visualOffset = new Vector2(-18, 14).RotatedBy(Projectile.velocity.ToRotation()) * Projectile.scale;
@@ -144,6 +145,13 @@ public class SanguineSlasherP : HeldSword
         }
     }
     bool _hit;
+    public override bool? CanDamage()
+    {
+        if (Projectile.ai[1] == 0 && Projectile.timeLeft > swingTime - 10)
+            return false;
+        return true;
+    }
+
     public override void OnHit(NPC target, NPC.HitInfo hitinfo, int damage)
     {
         Player player = Main.player[Projectile.owner];
