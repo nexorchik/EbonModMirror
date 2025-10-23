@@ -95,24 +95,13 @@ public class PlantGunP : ModProjectile
             Projectile.extraUpdates = 0;
             Projectile.netUpdate = true;
         }
-        if (Projectile.timeLeft % 30 == Projectile.ai[2])
+        if (Projectile.timeLeft % 30 == (int)Projectile.ai[2])
         {
             float f = Main.rand.NextFloat(1, 5) * Main.rand.NextFloatDirection();
             if (Projectile.ai[2] < 15)
                 Projectile.ai[2] = Main.rand.Next(15, 30);
             else
                 Projectile.ai[2] = Main.rand.Next(15);
-
-            Vector2 vel = Main.rand.NextVector2Unit();
-
-            if (canFire)
-            {
-                Projectile a = MPUtils.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center + -vel * 16, vel * 20, ProjectileType<PlantGunP2>(), Projectile.damage, Projectile.knockBack, Projectile.owner, f, Main.rand.NextFloat(0.8f, 0.9f), -f);
-                if (Projectile.hostile)
-                    a.SetToHostile();
-            }
-
-            canFire = true;
         }
 
         if (--Projectile.ai[1] <= 0)
@@ -135,7 +124,7 @@ public class PlantGunP : ModProjectile
 
         for (float i = 0; i < 1; i += 0.25f)
         {
-            Dust d = Dust.NewDustPerfect(Projectile.Center + Projectile.velocity * i, DustType<SpitvineDust>(), Vector2.Zero, Scale: 2);
+            Dust d = Dust.NewDustPerfect(Projectile.Center + Projectile.velocity.RotatedByRandom(1) * i, DustType<JunglePinkDust>(), Projectile.velocity.SafeNormalize(Vector2.UnitX).RotatedByRandom(1)*0.01f, Scale: 1);
             d.noGravity = true;
             d.customData = 2;
         }
@@ -162,16 +151,16 @@ public class PlantGunP2 : ModProjectile
         if (Projectile.oldPos.Length > 0 && Projectile.velocity.Length() > 1)
         for (int i = 0; i < Projectile.oldPos.Length; i++)
         {
-            float s = MathHelper.Lerp(0.01f, 1.8f, (float)i / Projectile.oldPos.Length);
+            float s = MathHelper.Lerp(0.01f, 1.8f, (float)i / Projectile.oldPos.Length)*0.5f;
 
-            Dust d = Dust.NewDustPerfect(Projectile.oldPos[i] + Projectile.Size / 2, DustType<SpitvineDust>(), Vector2.Zero, Scale: s);
+            Dust d = Dust.NewDustPerfect(Projectile.oldPos[i] + Projectile.Size / 2, DustType<JunglePinkDust>(), Vector2.Zero, Scale: s);
             d.noGravity = true;
             d.customData = 1;
 
             if (i > 0)
                 for (float j = 0; j < 1; j += 0.25f)
                 {
-                    Dust d2 = Dust.NewDustPerfect(Vector2.Lerp(Projectile.oldPos[i], Projectile.oldPos[i - 1], j) + Projectile.Size / 2, DustType<SpitvineDust>(), Vector2.Zero, Scale: s);
+                    Dust d2 = Dust.NewDustPerfect(Vector2.Lerp(Projectile.oldPos[i], Projectile.oldPos[i - 1], j) + Projectile.Size / 2, DustType<JunglePinkDust>(), Vector2.Zero, Scale: s);
                     d2.noGravity = true;
                     d2.customData = 1;
                 }
