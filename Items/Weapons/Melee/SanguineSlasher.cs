@@ -147,7 +147,7 @@ public class SanguineSlasherP : HeldSword
     bool _hit;
     public override bool? CanDamage()
     {
-        if (Projectile.ai[1] == 0 && Projectile.timeLeft > swingTime - 10)
+        if (Projectile.ai[1] == 0 && (Projectile.timeLeft > swingTime - 10  || Projectile.timeLeft < swingTime - 16))
             return false;
         return true;
     }
