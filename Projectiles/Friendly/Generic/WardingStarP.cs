@@ -33,48 +33,53 @@ namespace EbonianMod.Projectiles.Friendly.Generic
             Projectile.ai[1]++;
             Projectile.ai[2] = MathHelper.Lerp(Projectile.ai[2], 0, 0.1f);
             Player player = Main.player[Projectile.owner];
-            if (player.whoAmI == Main.myPlayer)
+            Projectile.timeLeft = 10;
+            if ((int)Projectile.ai[1] == 60)
             {
-                if ((int)Projectile.ai[1] == 60)
+                SoundStyle style = SoundID.Item82;
+                style.Volume = 0.5f;
+                SoundEngine.PlaySound(style, Projectile.Center);
+                Projectile.ai[2] = 1;
+                if (player.whoAmI == Main.myPlayer)
+                for (int i = -1; i < 2; i++)
                 {
-                    SoundStyle style = SoundID.Item82;
-                    style.Volume = 0.5f;
-                    SoundEngine.PlaySound(style, Projectile.Center);
-                    Projectile.ai[2] = 1;
-                    for (int i = -1; i < 2; i++)
-                    {
-                        if (i == 0) continue;
-                        Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Helper.FromAToB(player.Center, Main.MouseWorld) * 7, ModContent.ProjectileType<WardingStarP2>(), Projectile.damage, Projectile.knockBack, Projectile.owner, i * 0.5f);
-                    }
-                    Color newColor7 = Color.MediumPurple;
-                    for (int num613 = 0; num613 < 3; num613++)
-                    {
-                        Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 58, Helper.FromAToB(player.Center, Main.MouseWorld).X * 0.1f, Helper.FromAToB(player.Center, Main.MouseWorld).Y * 0.1f, 150, default(Color), 0.8f);
-                    }
-                    for (float num614 = 0f; num614 < 0.5f; num614 += 0.125f)
-                    {
-                        Dust.NewDustPerfect(Projectile.Center, 278, Vector2.UnitY.RotatedBy(num614 * Main.rand.NextFloat(2) * ((float)Math.PI * 2f) + Main.rand.NextFloat() * 0.5f) * (4f + Main.rand.NextFloat() * 4f), 150, newColor7).noGravity = true;
-                    }
-                    for (float num615 = 0f; num615 < 0.5f; num615 += 0.25f)
-                    {
-                        Dust.NewDustPerfect(Projectile.Center, 278, Vector2.UnitY.RotatedBy(num615 * Main.rand.NextFloat(2) * ((float)Math.PI * 2f) + Main.rand.NextFloat() * 0.5f) * (2f + Main.rand.NextFloat() * 3f), 150, Color.Gold).noGravity = true;
-                    }
-
-                    if (!player.CheckMana(player.HeldItem.mana, true, true))
-                        Projectile.Kill();
-                    player.manaRegenDelay = (int)player.maxRegenDelay;
-
-                    Projectile.ai[1] = 0;
+                    if (i == 0) continue;
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Helper.FromAToB(player.Center, Main.MouseWorld) * 7, ModContent.ProjectileType<WardingStarP2>(), Projectile.damage, Projectile.knockBack, Projectile.owner, i * 0.5f);
                 }
-                Projectile.timeLeft++;
-                player.direction = Main.MouseWorld.X >= player.Center.X ? 1 : -1;
-                player.itemTime = 2;
-                player.itemAnimation = 2;
-                Projectile.ModProjectile.DrawHeldProjInFrontOfHeldItemAndArms = true;
-                player.heldProj = Projectile.whoAmI;
-                Projectile.Center = player.Center + Helper.FromAToB(player.Center, Main.MouseWorld) * 20;
-                if (!player.channel || player.statMana <= 0 || !player.CheckMana(1)) Projectile.Kill();
+                Color newColor7 = Color.MediumPurple;
+                for (int num613 = 0; num613 < 3; num613++)
+                {
+                    Dust.NewDust(Projectile.position, Projectile.width, Projectile.height, 58, Helper.FromAToB(player.Center, Main.MouseWorld).X * 0.1f, Helper.FromAToB(player.Center, Main.MouseWorld).Y * 0.1f, 150, default(Color), 0.8f);
+                }
+                for (float num614 = 0f; num614 < 0.5f; num614 += 0.125f)
+                {
+                    Dust.NewDustPerfect(Projectile.Center, 278, Vector2.UnitY.RotatedBy(num614 * Main.rand.NextFloat(2) * ((float)Math.PI * 2f) + Main.rand.NextFloat() * 0.5f) * (4f + Main.rand.NextFloat() * 4f), 150, newColor7).noGravity = true;
+                }
+                for (float num615 = 0f; num615 < 0.5f; num615 += 0.25f)
+                {
+                    Dust.NewDustPerfect(Projectile.Center, 278, Vector2.UnitY.RotatedBy(num615 * Main.rand.NextFloat(2) * ((float)Math.PI * 2f) + Main.rand.NextFloat() * 0.5f) * (2f + Main.rand.NextFloat() * 3f), 150, Color.Gold).noGravity = true;
+                }
+
+                if (!player.CheckMana(player.HeldItem.mana, true, true))
+                    Projectile.Kill();
+                player.manaRegenDelay = (int)player.maxRegenDelay;
+
+                Projectile.ai[1] = 0;
             }
+            if (player.whoAmI == Main.myPlayer)
+                player.direction = Main.MouseWorld.X >= player.Center.X ? 1 : -1;
+            player.itemTime = 2;
+            player.itemAnimation = 2;
+            Projectile.ModProjectile.DrawHeldProjInFrontOfHeldItemAndArms = true;
+            player.heldProj = Projectile.whoAmI;
+            
+            if (player.whoAmI == Main.myPlayer)
+                Projectile.velocity =  (Main.MouseWorld - player.Center).SafeNormalize(Vector2.UnitX);
+            if (Projectile.velocity != Projectile.oldVelocity)
+                Projectile.netUpdate = true;
+            
+            Projectile.Center = player.Center + Projectile.velocity * 20;
+            if (!player.channel || player.statMana <= 0 || !player.CheckMana(1)) Projectile.Kill();
             Projectile.netUpdate = true;
         }
         public override void PostDraw(Color lightColor)

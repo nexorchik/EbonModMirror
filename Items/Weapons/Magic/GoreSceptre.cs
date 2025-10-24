@@ -123,7 +123,14 @@ public class GoreBeam : ModProjectile
         }
         int n = 25;
 
-        Vector2 start = player.Center + Helper.FromAToB(player.Center, Main.MouseWorld) * 40;
+        if (Main.myPlayer == Projectile.owner)
+        {
+            Projectile.velocity = Helper.FromAToB(player.Center, end);
+            if (Projectile.velocity != Projectile.oldVelocity)
+                Projectile.netUpdate = true;
+        }
+        
+        Vector2 start = player.Center + Projectile.velocity * 40;
         if (!RunOnce)
         {
             n = 5;
@@ -152,8 +159,8 @@ public class GoreBeam : ModProjectile
             player.itemAnimation = 2; if (player.HeldItem.type != ItemType<GoreSceptre>()) { player.itemTime = 0; player.itemAnimation = 0; Projectile.Kill(); }
             player.itemRotation = Helper.FromAToB(player.Center, end).ToRotation() + (player.direction == -1 ? MathHelper.Pi : 0);
             if (player.gravDir != -1)
-                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Helper.FromAToB(player.Center, Main.MouseWorld).ToRotation() - MathHelper.PiOver2);
-            Projectile.velocity = Helper.FromAToB(player.Center, end);
+                player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Helper.FromAToB(player.Center, end).ToRotation() - MathHelper.PiOver2);
+            
             Projectile.rotation = Projectile.velocity.ToRotation();
 
             if (player.Distance(end) < 200)
