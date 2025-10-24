@@ -1,5 +1,6 @@
 using EbonianMod.Dusts;
 using EbonianMod.Items.Pets.LilPilg;
+using EbonianMod.Items.Weapons.Ranged;
 using EbonianMod.NPCs.Overworld.Starine;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -196,6 +197,11 @@ public class Starine_Skipper : ModNPC
         }
 
     }
+    public override void ModifyNPCLoot(NPCLoot npcLoot)
+    {
+        npcLoot.Add(ItemDropRule.Common(ItemType<LilPilgI>(), 100));
+        npcLoot.Add(ItemDropRule.Common(ItemType<Starcaller>(), 60));
+    }
 }
 public class Starine_Sightseer : ModNPC
 {
@@ -241,7 +247,8 @@ public class Starine_Sightseer : ModNPC
     }
     public override void ModifyNPCLoot(NPCLoot npcLoot)
     {
-        npcLoot.Add(ItemDropRule.Common(ItemType<LilPilgI>(), 60));
+        npcLoot.Add(ItemDropRule.Common(ItemType<LilPilgI>(), 100));
+        npcLoot.Add(ItemDropRule.Common(ItemType<Starcaller>(), 60));
     }
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
