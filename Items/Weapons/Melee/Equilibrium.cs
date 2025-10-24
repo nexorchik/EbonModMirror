@@ -136,7 +136,9 @@ public class EquilibriumP : HeldSword
                     proj.timeLeft = swingTime - 18 * 5;
                     proj.netUpdate = true;
                 }
+
                 Projectile.active = false;
+                Projectile.netUpdate = true;
                 return;
             }
         }

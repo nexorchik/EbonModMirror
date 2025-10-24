@@ -110,6 +110,8 @@ public class EbonianRocket : ModProjectile
             Projectile.netUpdate = true;
         }
         Projectile.ai[0]++;
+        if (Projectile.ai[0] < 2)
+            Projectile.rotation = Projectile.velocity.ToRotation();
         if (Projectile.ai[0] > 40)
         {
             if ((int)Projectile.ai[0] == 41)
@@ -118,7 +120,6 @@ public class EbonianRocket : ModProjectile
                     Projectile.velocity = Projectile.rotation.ToRotationVector2();
                 Projectile.netUpdate = true;
             }
-            Projectile.rotation = Projectile.velocity.ToRotation();
             if ((int)Projectile.ai[1] == 2)
             {
                 Projectile.damage = 0;
