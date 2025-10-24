@@ -97,14 +97,14 @@ namespace EbonianMod.Projectiles.Friendly.Generic;
             else if (Projectile.ai[0] > 70)
                 Projectile.ai[2] = MathHelper.SmoothStep(1, 0, (Projectile.ai[0] - (70)) / 30);
 
-            if (Projectile.ai[0] >= 30 && Projectile.ai[0] <= 70 && Projectile.ai[0] % 15 == 0)
+            if (Projectile.ai[0] >= 30 && Projectile.ai[0] <= 70 && (int)Projectile.ai[0] % 15 == 0 && Main.myPlayer == Projectile.owner)
             {
-                Vector2 offset = Main.rand.NextVector2Circular(40, 10);
-                MPUtils.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + offset, Projectile.velocity * 3.5f, ModContent.ProjectileType<StarcallerBolt>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0, 1, -0.01f);
-                MPUtils.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + offset, Projectile.velocity, ModContent.ProjectileType<StarcallerShotVFX>(), 0, 0, Projectile.owner, ai2: 1);
+                Vector2 offset = Main.rand.NextVector2Circular(30, 10);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + offset, Projectile.velocity * 3.5f, ModContent.ProjectileType<StarcallerBolt>(), Projectile.damage, Projectile.knockBack, Projectile.owner, 0, 1, -0.01f);
+                Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + offset, Projectile.velocity, ModContent.ProjectileType<StarcallerShotVFX>(), 0, 0, Projectile.owner, ai2: 1);
             }
 
-            if (Projectile.ai[0] == 12)
+            if ((int)Projectile.ai[0] == 12)
                 SoundEngine.PlaySound(EbonianSounds.cursedToyCharge with { PitchVariance = 0.25f, Pitch = -0.1f, MaxInstances = 0 }, Projectile.Center);
 
             Projectile.ai[1] = MathHelper.Lerp(Projectile.ai[1], MathF.Sin(Projectile.ai[0] * .05f) * 0.05f, 0.25f);
@@ -113,12 +113,10 @@ namespace EbonianMod.Projectiles.Friendly.Generic;
         {
             Texture2D tex = Assets.Extras.Extras2.star_02.Value;
             Vector2 scale = new Vector2(1f + Projectile.ai[1], 0.25f - Projectile.ai[1] * 0.5f);
-            Main.spriteBatch.Reload(BlendState.Additive);
             Main.spriteBatch.Reload(EbonianMod.SpriteRotation.Value);
             EbonianMod.SpriteRotation.Value.Parameters["rotation"].SetValue(MathHelper.ToRadians(Main.GlobalTimeWrappedHourly * 125));
-            EbonianMod.SpriteRotation.Value.Parameters["scale"].SetValue(scale * 0.2f * Projectile.ai[2]);
-            Vector4 col = (new Color(44, 137, 215) * Projectile.ai[2]).ToVector4();
-            col.W = Projectile.ai[2] * 0.15f;
+            EbonianMod.SpriteRotation.Value.Parameters["scale"].SetValue(scale * 0.5f * Projectile.ai[2]);
+            Vector4 col = (new Color(44, 137, 215,0) * Projectile.ai[2]).ToVector4();
             EbonianMod.SpriteRotation.Value.Parameters["uColor"].SetValue(col * 0.75f);
             for (int i = 0; i < 60; i++)
             {
@@ -127,7 +125,6 @@ namespace EbonianMod.Projectiles.Friendly.Generic;
                 Main.spriteBatch.Draw(tex, pos - Main.screenPosition, null, Color.White, Projectile.velocity.ToRotation() + MathHelper.PiOver2, tex.Size() / 2, s, SpriteEffects.None, 0);
                 Main.spriteBatch.Draw(tex, pos - Main.screenPosition, null, Color.White, Projectile.velocity.ToRotation() + MathHelper.PiOver2, tex.Size() / 2, s, SpriteEffects.FlipHorizontally, 0);
             }
-            Main.spriteBatch.Reload(BlendState.AlphaBlend);
             Main.spriteBatch.Reload(effect: null);
             return false;
         }

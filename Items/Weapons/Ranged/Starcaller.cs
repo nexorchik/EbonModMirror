@@ -147,8 +147,15 @@ public class StarcallerP : ModProjectile
             {
                 SoundEngine.PlaySound(EbonianSounds.bowRelease with { PitchVariance = 0.25f, Volume = 0.7f }, Projectile.Center);
                 SoundEngine.PlaySound(EbonianSounds.cursedToyCharge with { PitchVariance = 0.25f, Pitch = 0.5f, Volume = 0.25f }, Projectile.Center);
-                MPUtils.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Projectile.velocity * 3.5f, ModContent.ProjectileType<StarcallerBolt>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
-                MPUtils.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center + Projectile.velocity * 15, Projectile.velocity, ModContent.ProjectileType<StarcallerShotVFX>(), 0, 0, Projectile.owner);
+                if (Projectile.owner == Main.myPlayer)
+                {
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center,
+                        Projectile.velocity * 3.5f, ModContent.ProjectileType<StarcallerBolt>(), Projectile.damage,
+                        Projectile.knockBack, Projectile.owner);
+                    Projectile.NewProjectile(Projectile.GetSource_FromThis(),
+                        Projectile.Center + Projectile.velocity * 15, Projectile.velocity,
+                        ModContent.ProjectileType<StarcallerShotVFX>(), 0, 0, Projectile.owner);
+                }
 
                 arrowAlpha = 0;
             }

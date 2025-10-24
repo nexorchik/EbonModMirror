@@ -384,6 +384,10 @@ Projectiles: {
 	// EbonianGunProjectile.DisplayName: Ebonian Gun Projectile
 	// EbonianRocketLauncherProjectile.DisplayName: Ebonian Rocket Launcher Projectile
 	// CoreProjectile.DisplayName: Core Projectile
+	// StarcallerP.DisplayName: Starcaller P
+	// StarcallerBolt.DisplayName: Starcaller Bolt
+	// StarcallerPortal.DisplayName: Starcaller Portal
+	// StarcallerShotVFX.DisplayName: Starcaller Shot V F X
 }
 
 NPCs: {
@@ -1679,6 +1683,11 @@ Items: {
 
 	Lobber: {
 		// DisplayName: Lobber
+		// Tooltip: ""
+	}
+
+	Starcaller: {
+		// DisplayName: Starcaller
 		// Tooltip: ""
 	}
 }
