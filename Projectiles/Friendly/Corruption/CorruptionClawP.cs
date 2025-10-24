@@ -120,7 +120,7 @@ public class CorruptionClawP : ModProjectile
                 Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), player.Center, dir, Projectile.type, Projectile.damage, Projectile.knockBack, player.whoAmI, 0, ai);
                 proj.rotation = Projectile.rotation;
                 proj.Center = Projectile.Center;
-                proj.SyncProjectile();
+                proj.netUpdate = true;
             }
         }
     }
@@ -158,7 +158,8 @@ public class CorruptionClawP : ModProjectile
             else if (Projectile.timeLeft <= 5 && Projectile.ai[1] == 2)
                 Projectile.Center = Vector2.Lerp(Projectile.Center, player.Center, 0.25f);
             Projectile.rotation = (position - player.Center).ToRotation();
-            player.ChangeDir(Main.MouseWorld.X < player.Center.X ? -1 : 1);
+            if (player.whoAmI == Main.myPlayer)
+                player.ChangeDir(Main.MouseWorld.X < player.Center.X ? -1 : 1);
         }
         if (Projectile.ai[1] == 1)
         {
@@ -171,6 +172,8 @@ public class CorruptionClawP : ModProjectile
                     player.ChangeDir(Main.MouseWorld.X < player.Center.X ? -1 : 1);
                     lastPos = Main.MouseWorld;
                 }
+
+                Projectile.netUpdate = true;
                 Projectile.ai[2] = 1;
             }
             if (Projectile.timeLeft == 20)

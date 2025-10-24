@@ -1,6 +1,7 @@
 ﻿using EbonianMod.Common.Systems.Verlets;
 using EbonianMod.Items.Weapons.Melee;
 using System;
+using System.IO;
 
 namespace EbonianMod.Projectiles.Friendly.Crimson;
 
@@ -94,6 +95,14 @@ public class SpinaxP : ModProjectile
         return false;
     }
     Vector2 lastPos;
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        writer.WriteVector2(lastPos);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        lastPos = reader.ReadVector2();
+    }
     public override void OnKill(int timeLeft)
     {
         Player player = Main.player[Projectile.owner];
@@ -144,14 +153,16 @@ public class SpinaxP : ModProjectile
             else if (Projectile.timeLeft <= 5 && Projectile.ai[1] == 1)
                 Projectile.Center = Vector2.Lerp(Projectile.Center, player.Center, 0.25f);
             Projectile.rotation = (position - player.Center).ToRotation();
-            player.ChangeDir(Main.MouseWorld.X < player.Center.X ? -1 : 1);
+            if (Main.myPlayer == Projectile.owner)
+                player.ChangeDir(Main.MouseWorld.X < player.Center.X ? -1 : 1);
         }
         if (Projectile.ai[1] == -1)
         {
             if (Projectile.ai[0] == 0)
             {
                 Projectile.rotation = 0;
-                player.ChangeDir(Main.MouseWorld.X < player.Center.X ? -1 : 1);
+                if (Main.myPlayer == Projectile.owner)
+                    player.ChangeDir(Main.MouseWorld.X < player.Center.X ? -1 : 1);
                 SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
                 Projectile.ai[0] = 1;
             }
@@ -169,8 +180,13 @@ public class SpinaxP : ModProjectile
                 SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
                 Projectile.timeLeft = 25;
                 swingTime = 25;
-                player.ChangeDir(Main.MouseWorld.X < player.Center.X ? -1 : 1);
-                lastPos = Main.MouseWorld;
+                if (Main.myPlayer == Projectile.owner)
+                {
+                    player.ChangeDir(Main.MouseWorld.X < player.Center.X ? -1 : 1);
+                    lastPos = Main.MouseWorld;
+                }
+                Projectile.netUpdate = true;
+
                 Projectile.ai[2] = 1;
             }
             float progress = Utils.GetLerpValue(0, swingTime, Projectile.timeLeft);
