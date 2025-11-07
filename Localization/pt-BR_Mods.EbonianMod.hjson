@@ -768,7 +768,18 @@ NPCs: {
 		Bestiary: Alimentado pela magia derivada das estrelas, ele usa suas patas traseiras bem desenvolvidas para pular e saltar pela noite, geralmente chutando presas desavisadas para aleijá-las.
 	}
 
-	Vivine.DisplayName: Vivideira
+	Vivine: {
+		DisplayName: Vivideira
+		Bestiary: Uma espécie de flor carnívora tripodal nativa das cavernas úmidas da selva. Cospe uma substância corrosiva rosa nas suas presas, aproximando-se apenas para sugar a pasta pré-digerida.
+	}
+
+	HoarfrostCoiler: {
+	    DisplayName: Constritor de Geada
+	    Bestiary: Um antigo golem de gelo serpentino que costumava guardar um reino enterrado sob a tundra.
+	}
+	
+	// HoarfrostCoilerBody.DisplayName: Hoarfrost Coiler Body
+	// HoarfrostCoilerTail.DisplayName: Hoarfrost Coiler Tail
 }
 
 Items: {

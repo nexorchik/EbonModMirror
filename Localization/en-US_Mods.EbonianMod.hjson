@@ -771,7 +771,17 @@ NPCs: {
 		Bestiary: Powered by magic derived from the stars, it uses its well-developed back legs to hop and skip about the night, usually kicking off unsuspecting prey to cripple them.
 	}
 
-	Vivine.DisplayName: Vivine
+	Vivine: {
+		DisplayName: Vivine
+		Bestiary: A type of tripod carnivorous flower native to the jungle's moist caverns. Spits a pink corrosive substance at prey, approaching only to slurp up the pre-digested slurry.
+	}
+
+	HoarfrostCoiler: {
+	    DisplayName: Hoarfrost Coiler
+	    Bestiary: An ancient serpentine ice golem that used to guard a buried kingdom under the tundra.
+	}
+	HoarfrostCoilerBody.DisplayName: Hoarfrost Coiler Body
+	HoarfrostCoilerTail.DisplayName: Hoarfrost Coiler Tail
 }
 
 Items: {
