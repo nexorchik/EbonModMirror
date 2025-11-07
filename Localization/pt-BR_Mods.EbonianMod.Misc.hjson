@@ -6,4 +6,5 @@ Types: {
 	Organ: Type: Orgão
 	HotGarbage: Type: Lixeira
 	Animal: Type: Animal de Fazenda
+	Obj: Type: Objeto Possuído
 }

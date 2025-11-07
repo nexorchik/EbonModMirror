@@ -6,4 +6,5 @@ Types: {
 	Organ: Type: Organ
 	HotGarbage: Type: Dumpster
 	Animal: Type: Farm Animal
+	Obj: Type: Possessed Object
 }

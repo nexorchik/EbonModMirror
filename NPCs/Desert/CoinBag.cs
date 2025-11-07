@@ -1,10 +1,21 @@
 ﻿using EbonianMod.Projectiles.Enemy.Desert;
+using Terraria.GameContent.Bestiary;
 
 namespace EbonianMod.NPCs.Desert;
 
 public class CoinBag : ModNPC
 {
     public override string Texture => Helper.Empty;
+
+    public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+    {
+        bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+            BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Desert,
+            new FlavorTextBestiaryInfoElement("Mods.EbonianMod.Misc.Types.Obj"),
+            new FlavorTextBestiaryInfoElement(NPC.BestiaryKey()),
+        });
+    }
+
 
     public override void SetDefaults()
     {
