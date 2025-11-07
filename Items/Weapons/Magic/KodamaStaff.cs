@@ -16,7 +16,7 @@ public class KodamaStaff : ModItem
 
     public override void SetDefaults()
     {
-        Item.damage = 19;
+        Item.damage = 9;
         Item.width = 40;
         Item.height = 40;
         Item.mana = 5;
@@ -38,6 +38,12 @@ public class KodamaStaff : ModItem
         if (!player.ItemTimeIsZero)
             Lighting.AddLight(player.itemLocation, 197f / 255f, 226f / 255f, 105f / 255f);
     }
+
+    public override void AddRecipes()
+    {
+        CreateRecipe().AddIngredient(ItemID.LivingWoodWand).AddIngredient(ItemID.Emerald, 30).AddTile(TileID.Anvils);
+    }
+
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
     {
         Vector2 mouse = Main.MouseWorld - player.RotatedRelativePoint(player.MountedCenter, reverseRotation: true) - new Vector2(0, 1000);
