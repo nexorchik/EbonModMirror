@@ -52,8 +52,8 @@ Projectiles: {
 	HeadGoreSceptre.DisplayName: Coração
 	Fangs.DisplayName: Presa
 	VileMeatChunk.DisplayName: Pedaço de Carne Infame
-	TerrortomaFlail_Clingers.DisplayName: 
-	TerrortomaFlail.DisplayName: Mangual do Terror
+	TerrortomaFlail_Clingers.DisplayName: TerrortomaFlail.DisplayName: Mangual do Terror
+	// TerrortomaFlail.DisplayName: Terrorflail
 	CorruptThorn.DisplayName: Espinho Corrompido
 	EBoulder2.DisplayName: Rochedo
 	EBoulder.DisplayName: Rochedo
@@ -176,13 +176,13 @@ Projectiles: {
 	XRift.DisplayName: Fenda
 	XKnife.DisplayName: Ametista
 	XCloud.DisplayName: Nuvem de Chamas das Sombras
-	XLightningBolt.DisplayName: Relâmpago Chamas das Sombras 
+	XLightningBolt.DisplayName: Relâmpago Chamas das Sombras
 	XTelegraphLine.DisplayName: Linha de Telégrafo
 	RegorgerBolt.DisplayName: Raio do Risinho
 	RegorgerTelegraph.DisplayName: Telégrafo do Risinho
 	GhizasWheelP.DisplayName: Roda Corrosiva
 	VileTearTelegraph.DisplayName: Telégrafo da Lágrima Infame
-	AmbientGibs.DisplayName: Miúdos 
+	AmbientGibs.DisplayName: Miúdos
 	XCloudVFXExtra.DisplayName: Nuvem
 	EquilibriumP.DisplayName: Equilíbrio
 	EquilibriumP2.DisplayName: Equilíbrio
@@ -299,11 +299,11 @@ Projectiles: {
 	CorebreakerSecondary.DisplayName: Quebra-Núcleo
 	AExplosion.DisplayName: Explosão
 	AureusBeam.DisplayName: Feixe do Aureus
-	AureusGalaxy.DisplayName: Galaxia do Aureus 
+	AureusGalaxy.DisplayName: Galaxia do Aureus
 	AureusMissile.DisplayName: Míssil do Aureus
 	AureusPlanet.DisplayName: Planeta do Aureus
 	AureusSpawn.DisplayName: Invocação do Aureus
-	AureusVortex.DisplayName: Vórtice do Aureus 
+	AureusVortex.DisplayName: Vórtice do Aureus
 	ProjectileGraphics.DisplayName: Gráfico do Projétil
 	Ash.DisplayName: Cinzas
 	AshBlast.DisplayName: Explosão de Cinzas
@@ -315,7 +315,7 @@ Projectiles: {
 	BatGraphics.DisplayName: Taco
 	Kodama.DisplayName: Kodama
 	KodamaSummoningRitual.DisplayName: Ritual de Invocação da Kodama
-	KodamaF.DisplayName: Kodama 
+	KodamaF.DisplayName: Kodama
 	BelladonnaBush.DisplayName: Arbusto da Beladona
 	Blueberry.DisplayName: Mirtilo
 	Nightshade.DisplayName: Erva-Moura
@@ -346,7 +346,7 @@ Projectiles: {
 	FlyladDeath.DisplayName: Morte do Rapazinho Alado
 	RustyWaraxeP.DisplayName: Machado de Guerra Enferrujado
 	BorealSpike.DisplayName: Espinho Boreal
-	SudamaF.DisplayName: Sudama 
+	SudamaF.DisplayName: Sudama
 	BotanistHeadProjectile.DisplayName: Cabeça do Botânico
 	BaseballBatP.DisplayName: Taco de Beisebol
 	FallingStarTinyHostile.DisplayName: Estrelinha
@@ -365,13 +365,29 @@ Projectiles: {
 	HostileCorruptExplosion.DisplayName: Explosão Corrompida
 	XAmethystFriendly.DisplayName: Ametista
 	GarbageLightningF.DisplayName: Relampago de Lixo
-	CursedDollProjectile.DisplayName: Projétil do Boneco Amaldiçoado 
+	CursedDollProjectile.DisplayName: Projétil do Boneco Amaldiçoado
 	CursedRay.DisplayName: Raio Amaldiçoado
 	DollPin.DisplayName: Alfinete do Boneco
 	GoryJaw.DisplayName: Mandibula Sangrenta
 	DollHitscan.DisplayName: Escaneamento do Boneco
 	SheepeningPlayerProjectile.DisplayName: Ovelha
 	XLargeAmethystAlt.DisplayName: Grande Ametista
+	// CorebreakerProjectile.DisplayName: Corebreaker Projectile
+	// FangnumProjectile.DisplayName: Fangnum Projectile
+	// LobberProjectile.DisplayName: Lobber Projectile
+	// LobberProjectile2.DisplayName: Lobber Projectile2
+	// SalvagedThrusterProjectile.DisplayName: Salvaged Thruster Projectile
+	// PotatoProjectile.DisplayName: Potato Projectile
+	// ExolsawProjectile.DisplayName: Exolsaw Projectile
+	// CrimCannonProjectile.DisplayName: Crim Cannon Projectile
+	// BaseballBatProjectile.DisplayName: Baseball Bat Projectile
+	// EbonianGunProjectile.DisplayName: Ebonian Gun Projectile
+	// EbonianRocketLauncherProjectile.DisplayName: Ebonian Rocket Launcher Projectile
+	// CoreProjectile.DisplayName: Core Projectile
+	// StarcallerP.DisplayName: Starcaller
+	// StarcallerBolt.DisplayName: Starcaller Bolt
+	// StarcallerPortal.DisplayName: Starcaller Portal
+	// StarcallerShotVFX.DisplayName: Starcaller
 }
 
 NPCs: {
@@ -465,7 +481,7 @@ NPCs: {
 		DisplayName: Observador
 		Bestiary:
 			'''
-			Órgãos oculares usados ​​pelo Cegueiro. A criatura foi criada apressadamente, deixando muitas falhas em sua existência, como a falta de olhos protegidos.
+			Órgãos oculares usados pelo Cegueiro. A criatura foi criada apressadamente, deixando muitas falhas em sua existência, como a falta de olhos protegidos.
 
 			É de se imaginar o quanto seria doloroso levar limão ai.
 			'''
@@ -482,7 +498,6 @@ NPCs: {
 	Fleshformator: {
 		DisplayName: Formador de Carne
 		Bestiary: Os Formadores de Carne são os limpadores do Carmesim. Ao nascerem, eles vagam a partir de seu ponto de partida e se fixam em uma área rica em nutrientes para agarrar qualquer coisa que encontrem e devorá-la. Ninguém jamais viu o que há na outra extremidade de um Formador de Carne.
-
 	}
 
 	LetsGoo: {
@@ -495,7 +510,6 @@ NPCs: {
 	RotlingHead: {
 		DisplayName: Apodrecido
 		Bestiary: O Apodrecido é um pequeno verme que nasce da energia residual em decomposição deixada por criaturas corrompidas mortas há muito tempo.
-
 	}
 
 	RotlingTail.DisplayName: Apodrecido
@@ -522,7 +536,7 @@ NPCs: {
 
 	Bloodhound: {
 		DisplayName: Cão de Carcaça
-		Bestiary: A tentativa dos Carmesim de aprender com os cães. Esses caçadores são frequentemente usados ​​para seguir almas desavisadas para fora do Carmesim, de volta para seus lares, em busca de mais biomassa.
+		Bestiary: A tentativa dos Carmesim de aprender com os cães. Esses caçadores são frequentemente usados para seguir almas desavisadas para fora do Carmesim, de volta para seus lares, em busca de mais biomassa.
 	}
 
 	ClumpOfMeat: {
@@ -538,6 +552,7 @@ NPCs: {
 	FleshBrickBig: {
 		DisplayName: Sedimentário
 		Bestiary: Acredita-se que os Sedimentários sejam paredes dos abismos da corrupção em um estágio inicial de desenvolvimento. Como tudo na corrupção, até mesmo a lama e as pedras sobre as quais você caminha podem ser rastreadas até o próprio organismo-colmeia.
+	}
 
 	FleshBrickMedium.DisplayName: Sedimentário
 	FleshBrickSmall.DisplayName: Sedimentário
@@ -552,11 +567,7 @@ NPCs: {
 
 	Rolypoly: {
 		DisplayName: Gongolo
-		Bestiary:
-			'''
-			Agrupados, esses vermes corrompidos compartilham uma mente coletiva e muito maior, à custa de sua mobilidade.
-No entanto, quando se tornam permanentemente emaranhados, suas mentes combinadas concluem que tal forma é bastante estúpida.
-			'''
+		Bestiary: Agrupados, esses vermes corrompidos compartilham uma mente coletiva e muito maior, à custa de sua mobilidade. No entanto, quando se tornam permanentemente emaranhados, suas mentes combinadas concluem que tal forma é bastante estúpida.
 	}
 
 	JuvenileBrain: {
@@ -575,7 +586,7 @@ No entanto, quando se tornam permanentemente emaranhados, suas mentes combinadas
 
 	Consumer: {
 		DisplayName: Mandíbula-Podre
-		Bestiary: Os Mandíbulas-Podres são implacáveis ​​e mergulham em direção à presa num piscar de olhos. Suas mordidas podem quebrar ossos grandes e cascas resistentes sem esforço, e muitas vezes não deixam restos ao devorar suas presas.
+		Bestiary: Os Mandíbulas-Podres são implacáveis e mergulham em direção à presa num piscar de olhos. Suas mordidas podem quebrar ossos grandes e cascas resistentes sem esforço, e muitas vezes não deixam restos ao devorar suas presas.
 	}
 
 	Regorger: {
@@ -601,6 +612,7 @@ No entanto, quando se tornam permanentemente emaranhados, suas mentes combinadas
 	BloodHunter: {
 		DisplayName: Caçador de Sangue
 		Bestiary: Um aracnídeo horripilante do Carmesim. Prefere uma abordagem menos direta em comparação com suas primatas aranhas, mantendo distância com suas pinças e uma cauda ferruda que produz um veneno potente.
+	}
 
 	ArchmageXDeathAnim.DisplayName: Xareus
 	Conglomerate.DisplayName: Conglomerado
@@ -631,7 +643,7 @@ No entanto, quando se tornam permanentemente emaranhados, suas mentes combinadas
 
 	JelleyeFish: {
 		DisplayName: Água-Viva Ocular
-		Bestiary: Tentáculos carnudos flutuam sobre o terreno salpicado de sangue do Carmesim. Originárias das águas sanguíneas do Carmesim, essas abominações mutantes evoluíram para desenvolver continuamente inúmeros olhos inconsoláveis ​​e flutuar no ar pútrido, assim como seus ancestrais aquáticos. Só não faça sashimi com eles.
+		Bestiary: Tentáculos carnudos flutuam sobre o terreno salpicado de sangue do Carmesim. Originárias das águas sanguíneas do Carmesim, essas abominações mutantes evoluíram para desenvolver continuamente inúmeros olhos inconsoláveis e flutuar no ar pútrido, assim como seus ancestrais aquáticos. Só não faça sashimi com eles.
 	}
 
 	MiniSpectator: {
@@ -707,8 +719,7 @@ No entanto, quando se tornam permanentemente emaranhados, suas mentes combinadas
 
 	Starlad: {
 		DisplayName: Rapazinho Estelar
-		Bestiary: Possuindo energia astral forte o suficiente para atravessar a noite, os Rapazinhos Estelares
- são a espinha dorsal pródiga dessa espécie invasora e os primeiros sinais da chegada da Bruxa.
+		Bestiary: Possuindo energia astral forte o suficiente para atravessar a noite, os Rapazinhos Estelares são a espinha dorsal pródiga dessa espécie invasora e os primeiros sinais da chegada da Bruxa.
 	}
 
 	BorealDancer: {
@@ -950,7 +961,7 @@ Items: {
 	}
 
 	GarbageRemote: {
-		Tooltip: "Permite a comunicação com a única IA a atingir a singularidade"
+		Tooltip: Permite a comunicação com a única IA a atingir a singularidade
 		DisplayName: Computador Quântico Empoeirado
 		NoteForTranslators: The 'Be warned.' HAS to match in both the Warning and Tooltip
 	}
@@ -1020,7 +1031,7 @@ Items: {
 	}
 
 	ReiMask: {
-		DisplayName: Máscara da Voidrunner 
+		DisplayName: Máscara da Voidrunner
 		Tooltip:
 			'''
 			Aumenta um pouco a velocidade de movimento
@@ -1641,6 +1652,21 @@ Items: {
 	CursedDoll: {
 		DisplayName: Boneco Amaldiçoado
 		Tooltip: ""
+	}
+
+	Fangnum: {
+		// DisplayName: Fangnum
+		// Tooltip: ""
+	}
+
+	Lobber: {
+		// DisplayName: Lobber
+		// Tooltip: ""
+	}
+
+	Starcaller: {
+		// DisplayName: Starcaller
+		// Tooltip: ""
 	}
 }
 
