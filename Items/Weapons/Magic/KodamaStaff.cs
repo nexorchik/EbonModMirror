@@ -42,7 +42,7 @@ public class KodamaStaff : ModItem
     }
     public override void AddRecipes()
     {
-        CreateRecipe().AddIngredient(ItemID.LivingWoodWand).AddIngredient(ItemID.Emerald, 30).AddTile(TileID.Anvils);
+        CreateRecipe().AddIngredient(ItemID.LivingWoodWand).AddIngredient(ItemID.Emerald, 15).AddTile(TileID.Anvils);
     }
 
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
