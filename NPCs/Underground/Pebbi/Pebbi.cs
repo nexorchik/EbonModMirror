@@ -26,6 +26,7 @@ namespace EbonianMod.NPCs.Underground.Pebbi
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
             {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Caverns,
+                new FlavorTextBestiaryInfoElement("Mods.EbonianMod.Misc.Types.Construct"),
                 new FlavorTextBestiaryInfoElement(NPC.BestiaryKey())
             });
         }
@@ -96,6 +97,7 @@ namespace EbonianMod.NPCs.Underground.Pebbi
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
             {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Caverns,
+                new FlavorTextBestiaryInfoElement("Mods.EbonianMod.Misc.Types.Construct"),
                 new FlavorTextBestiaryInfoElement(NPC.BestiaryKey())
             });
         }
@@ -167,6 +169,7 @@ namespace EbonianMod.NPCs.Underground.Pebbi
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
             {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Caverns,
+                new FlavorTextBestiaryInfoElement("Mods.EbonianMod.Misc.Types.Construct"),
                 new FlavorTextBestiaryInfoElement(NPC.BestiaryKey())
             });
         }
