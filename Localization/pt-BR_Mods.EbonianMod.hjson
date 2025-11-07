@@ -665,9 +665,10 @@ NPCs: {
 	}
 
 	CoinBag: {
-	    DisplayName: Saco Possuído
-	    Bestiary: Um saco de moedas que parece estar possuído por um espírito excessivamente caridoso.
+		DisplayName: Saco Possuído
+		Bestiary: Um saco de moedas que parece estar possuído por um espírito excessivamente caridoso.
 	}
+
 	Chalice.DisplayName: cálice
 	Sudama.DisplayName: Sudama
 	Aureus.DisplayName: Aureus

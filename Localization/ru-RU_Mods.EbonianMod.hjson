@@ -677,7 +677,11 @@ NPCs: {
 			'''
 	}
 
-	CoinBag.DisplayName: Одержимый мешок
+	CoinBag: {
+		DisplayName: Одержимый мешок
+		// Bestiary: A bag of coins that seems to be possessed by an overeagerly charitable spirit.
+	}
+
 	Chalice.DisplayName: Кубок
 	Sudama.DisplayName: Судама
 	Aureus.DisplayName: Ауреус

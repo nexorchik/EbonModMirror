@@ -668,9 +668,10 @@ NPCs: {
 	}
 
 	CoinBag: {
-	    DisplayName: Possessed Bag
-	    Bestiary: A bag of coins that seems to be possessed by an overeagerly charitable spirit. 
+		DisplayName: Possessed Bag
+		Bestiary: A bag of coins that seems to be possessed by an overeagerly charitable spirit.
 	}
+
 	Chalice.DisplayName: Chalice
 	Sudama.DisplayName: Sudama
 	Aureus.DisplayName: Aureus
