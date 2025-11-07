@@ -1,6 +1,7 @@
 ﻿using EbonianMod.Gores;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,6 +32,24 @@ public class Flylad : ModNPC
     float widthMod = 1f;
 
     float maxVelocity = 5f;
+
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        base.SendExtraAI(writer);
+        writer.Write((int)state);
+        writer.Write(counter);
+        writer.Write(timer);
+        writer.Write(maxVelocity);
+    }
+
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        base.ReceiveExtraAI(reader);
+        state = (StateID)reader.Read();
+        counter = reader.ReadSingle();
+        timer = reader.ReadSingle();
+        maxVelocity = reader.ReadSingle();
+    }
 
     public override void SetStaticDefaults()
     {
@@ -71,6 +90,7 @@ public class Flylad : ModNPC
 
     public override void AI()
     {
+        NPC.knockBackResist = 0f;
         Player player = Main.player[NPC.target];
 
         if (state == StateID.Spawn)
@@ -110,6 +130,7 @@ public class Flylad : ModNPC
             {
                 state = StateID.HitGround;
                 SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
+                NPC.netUpdate = true;
             }
         }
 
@@ -134,7 +155,7 @@ public class Flylad : ModNPC
 
             NPC.ai[0]++;
 
-            if (NPC.ai[0] >= 60f)
+            if (NPC.ai[0] >= 140f)
             {
                 NPC.velocity.Y -= 10f;
                 NPC.ai[0] = 0f;
@@ -152,6 +173,8 @@ public class Flylad : ModNPC
                     SoundEngine.PlaySound(SoundID.DD2_WyvernDiveDown, NPC.Center);
                     state = StateID.GroundPound;
                 }
+
+                NPC.netUpdate = true;
             }
 
             if (NPC.Distance(player.Center) >= 300f)
@@ -245,7 +268,7 @@ public class Flylad : ModNPC
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
         if (Main.invasionType > 0) return 0;
-        return ((spawnInfo.Player.ZoneNormalSpace ? 0.2f : 0.15f) + Star.starfallBoost * 0.05f)
+        return ((spawnInfo.Player.ZoneNormalSpace ? 0.15f : 0.05f) + Star.starfallBoost * 0.05f)
             * ((spawnInfo.Player.ZoneForest || spawnInfo.Player.ZoneNormalSpace) && !Main.dayTime).ToInt();
     }
     public override void ModifyNPCLoot(NPCLoot npcLoot)
