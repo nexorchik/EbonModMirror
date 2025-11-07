@@ -20,7 +20,7 @@ public class WormKing : ModNPC
             CustomTexturePath = "EbonianMod/NPCs/Corruption/WormKing/WormKing_Bestiary",
             Position = new Vector2(0, 30f),
             PortraitPositionXOverride = 0f,
-            PortraitPositionYOverride = 45f
+            PortraitPositionYOverride = 55f
         };
         NPCID.Sets.NPCBestiaryDrawOffset.Add(NPC.type, drawModifier);
         Main.npcFrameCount[Type] = 8;

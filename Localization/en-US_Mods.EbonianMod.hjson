@@ -384,7 +384,7 @@ Projectiles: {
 	EbonianGunProjectile.DisplayName: Ebonian Gun Projectile
 	EbonianRocketLauncherProjectile.DisplayName: Ebonian Rocket Launcher Projectile
 	CoreProjectile.DisplayName: Core Projectile
-	StarcallerP.DisplayName: Starcaller 
+	StarcallerP.DisplayName: Starcaller
 	StarcallerBolt.DisplayName: Starcaller Bolt
 	StarcallerPortal.DisplayName: Starcaller Portal
 	StarcallerShotVFX.DisplayName: Starcaller
