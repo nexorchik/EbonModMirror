@@ -43,6 +43,8 @@ public class Hookworm : ModNPC
         NPC.noGravity = true;
         NPC.noTileCollide = true;
         NPC.knockBackResist = 0.1f;
+        NPC.HitSound = SoundID.NPCHit1;
+        NPC.DeathSound = SoundID.NPCDeath1;
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
@@ -266,5 +268,17 @@ public class Hookworm : ModNPC
             mandibleRotation = Utils.AngleLerp(mandibleRotation, MathF.Sin(Main.GlobalTimeWrappedHourly) * 0.1f, 0.3f);
             fangRotation = Utils.AngleLerp(fangRotation, MathF.Sin(Main.GlobalTimeWrappedHourly * 2) * 0.1f, 0.3f);
         }
+    }
+    public override bool CheckDead()
+    {
+        if (Main.dedServ)
+            return true;
+        for (int i = 0; i < 4;i++)
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Circular(7,7), Find<ModGore>("EbonianMod/Hookworm" + i).Type, NPC.scale);
+        
+        for (int j = 0; j < 2;j++)
+        for (int i = 4; i < 7;i++)
+            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Circular(7,7), Find<ModGore>("EbonianMod/Hookworm" + i).Type, NPC.scale);
+        return true;
     }
 }
