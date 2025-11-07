@@ -90,7 +90,7 @@ public class AsteroidHerder : CommonNPC
     }
     public override void ModifyNPCLoot(NPCLoot npcLoot)
     {
-        npcLoot.Add(ItemDropRule.Common(ItemType<LilPilgI>(), 100));
+        npcLoot.Add(ItemDropRule.Common(ItemType<LilPilgI>(), 40));
         npcLoot.Add(ItemDropRule.Common(8, ItemType<StarBit>()));
     }
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
@@ -196,7 +196,7 @@ public class AsteroidHerder : CommonNPC
                         }
                         else
                         {
-                            deathSound = SoundEngine.PlaySound(EbonianSounds.herderDying.WithVolumeScale(2), NPC.Center, (_) => NPC.AnyNPCs(Type));
+                            deathSound = SoundEngine.PlaySound(EbonianSounds.herderDying.WithVolumeScale(2), NPC.Center, (_) => NPC.active && !Main.gameInactive);
                         }
                     }
                     AITimer++;
