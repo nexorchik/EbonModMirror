@@ -229,7 +229,6 @@ public class ArchmageCutsceneMartian : ModNPC
                 while (atts++ < 400 && (Main.tile[NPC.Center.ToTileCoordinates().X, NPC.Center.ToTileCoordinates().Y].HasTile || Helper.TRay.CastLength(NPC.Center, Vector2.UnitY, 700) < 650))
                     NPC.Center -= Vector2.UnitY * 8;
                 startP = NPC.Center;
-                Main.NewText("time to despawn");
                 foreach (NPC npc in Main.ActiveNPCs)
                 {
                     if (npc.type == NPCID.MartianSaucer)
@@ -240,7 +239,6 @@ public class ArchmageCutsceneMartian : ModNPC
                     if (!npc.friendly && npc.type != Type && npc.aiStyle != NPCAIStyleID.CelestialPillar)
                         npc.active = false;
                 }
-                Main.NewText("i made it past the despawning");
                 foreach (Projectile p in Main.ActiveProjectiles)
                 {
                     if (p.active && !p.friendly)

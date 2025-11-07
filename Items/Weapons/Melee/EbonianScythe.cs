@@ -52,7 +52,6 @@ public class EbonianScytheP : HeldSword
     }
     public override void ExtraAI()
     {
-        Main.NewText(Projectile.velocity.X);
         Player player = Main.player[Projectile.owner];
         int direction = (int)Projectile.ai[1];
         float swingProgress = Ease(Utils.GetLerpValue(0f, swingTime, Projectile.timeLeft));
