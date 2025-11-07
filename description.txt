@@ -6,7 +6,7 @@
 	
 [i:59] Compatible with Fargo's Best of Both Worlds.
 
-[i:4] NO MULTIPLAYER COMPATIBILITY!!!!!!!!!!!
+[i:4] Multiplayer Compatible! If you run into any issues, report them in the discord server.
 
 Credits:
 [i:486] Programmers: Ebonfly, Darkmango, Ralken, Quarzz
