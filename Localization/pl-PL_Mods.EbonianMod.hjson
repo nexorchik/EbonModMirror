@@ -776,7 +776,11 @@ NPCs: {
 		// Bestiary: A type of tripod carnivorous flower native to the jungle's moist caverns. Spits a pink corrosive substance at prey, approaching only to slurp up the pre-digested slurry.
 	}
 
-	// HoarfrostCoiler.DisplayName: Hoarfrost Coiler
+	HoarfrostCoiler: {
+		// DisplayName: Hoarfrost Coiler
+		// Bestiary: An ancient serpentine ice golem that used to guard a buried kingdom under the tundra.
+	}
+
 	// HoarfrostCoilerBody.DisplayName: Hoarfrost Coiler Body
 	// HoarfrostCoilerTail.DisplayName: Hoarfrost Coiler Tail
 }

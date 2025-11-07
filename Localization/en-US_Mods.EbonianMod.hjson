@@ -777,9 +777,10 @@ NPCs: {
 	}
 
 	HoarfrostCoiler: {
-	    DisplayName: Hoarfrost Coiler
-	    Bestiary: An ancient serpentine ice golem that used to guard a buried kingdom under the tundra.
+		DisplayName: Hoarfrost Coiler
+		Bestiary: An ancient serpentine ice golem that used to guard a buried kingdom under the tundra.
 	}
+
 	HoarfrostCoilerBody.DisplayName: Hoarfrost Coiler Body
 	HoarfrostCoilerTail.DisplayName: Hoarfrost Coiler Tail
 }

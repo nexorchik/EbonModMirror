@@ -774,10 +774,10 @@ NPCs: {
 	}
 
 	HoarfrostCoiler: {
-	    DisplayName: Constritor de Geada
-	    Bestiary: Um antigo golem de gelo serpentino que costumava guardar um reino enterrado sob a tundra.
+		DisplayName: Constritor de Geada
+		Bestiary: Um antigo golem de gelo serpentino que costumava guardar um reino enterrado sob a tundra.
 	}
-	
+
 	// HoarfrostCoilerBody.DisplayName: Hoarfrost Coiler Body
 	// HoarfrostCoilerTail.DisplayName: Hoarfrost Coiler Tail
 }

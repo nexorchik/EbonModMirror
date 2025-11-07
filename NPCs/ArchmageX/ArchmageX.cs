@@ -555,7 +555,7 @@ public class ArchmageX : CommonNPC
             foreach (Player _pla in Main.ActivePlayers)
             {
                 float dist = _pla.Distance(GetArenaRect().Center());
-                if (dist < 1500)
+                if (dist < 1400)
                 {
                     if (dist > 550)
                     {
