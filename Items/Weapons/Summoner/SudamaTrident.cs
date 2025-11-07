@@ -1,4 +1,5 @@
-﻿using EbonianMod.Projectiles.Enemy.Overworld;
+﻿using EbonianMod.Items.Weapons.Magic;
+using EbonianMod.Projectiles.Enemy.Overworld;
 using EbonianMod.Projectiles.Friendly.Corruption;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -14,6 +15,7 @@ public class SudamaTrident : ModItem
     public override void SetStaticDefaults()
     {
         Item.staff[Item.type] = true;
+        ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<KodamaStaff>();
     }
     public override void SetDefaults()
     {

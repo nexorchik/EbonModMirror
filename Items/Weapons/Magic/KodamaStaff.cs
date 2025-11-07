@@ -1,4 +1,5 @@
-﻿using EbonianMod.Projectiles.Enemy.Overworld;
+﻿using EbonianMod.Items.Weapons.Summoner;
+using EbonianMod.Projectiles.Enemy.Overworld;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ public class KodamaStaff : ModItem
     public override void SetStaticDefaults()
     {
         Item.staff[Item.type] = true;
+        ItemID.Sets.ShimmerTransformToItem[Type] = ModContent.ItemType<SudamaTrident>();
     }
 
     public override void SetDefaults()
@@ -38,7 +40,6 @@ public class KodamaStaff : ModItem
         if (!player.ItemTimeIsZero)
             Lighting.AddLight(player.itemLocation, 197f / 255f, 226f / 255f, 105f / 255f);
     }
-
     public override void AddRecipes()
     {
         CreateRecipe().AddIngredient(ItemID.LivingWoodWand).AddIngredient(ItemID.Emerald, 30).AddTile(TileID.Anvils);
