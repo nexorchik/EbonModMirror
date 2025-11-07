@@ -191,7 +191,7 @@ public class AsteroidHerder : CommonNPC
                     {
                         if (SoundEngine.TryGetActiveSound(deathSound, out var _activeSound))
                         {
-                            _activeSound.Pitch = Lerp(0, 2, InOutCirc.Invoke(AITimer / 95f));
+                            _activeSound.Pitch = Lerp(0, 1.5f, InOutCirc.Invoke(AITimer / 95f));
                             _activeSound.Position = NPC.Center;
                         }
                         else
