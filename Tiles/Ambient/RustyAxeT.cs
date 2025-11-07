@@ -27,11 +27,6 @@ public class RustyAxeT : ModTile
 
         AddMapEntry(Color.Cyan);
     }
-    public override void RandomUpdate(int i, int j)
-    {
-        if (Main.mouseRight)
-            Main.LocalPlayer.Center = new Vector2(i, j) * 16;
-    }
     public override IEnumerable<Item> GetItemDrops(int i, int j)
     {
         yield return new Item(ItemType<RustyWaraxe>());
