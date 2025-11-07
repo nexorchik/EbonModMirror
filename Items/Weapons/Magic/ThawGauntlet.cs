@@ -102,7 +102,7 @@ public class ThawGauntletP2 : ModProjectile
 {
     public override void OnKill(int timeLeft)
     {
-        SoundEngine.PlaySound(SoundID.Item27, Projectile.Center);
+        SoundEngine.PlaySound(SoundID.Item27.WithVolumeScale(0.7f), Projectile.Center);
         Helper.SpawnDust(Projectile.Center, Projectile.Size, DustID.Ice, Vector2.Zero, 25, new Action<Dust>((target) => { target.noGravity = true; target.scale = Main.rand.NextFloat(0.6f, 0.9f); }
         ));
     }

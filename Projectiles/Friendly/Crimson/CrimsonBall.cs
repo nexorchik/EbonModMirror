@@ -22,7 +22,6 @@ public class CrimsonBall : ModProjectile
     {
         CameraSystem.ScreenShakeAmount = 5;
         SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode, Projectile.Center);
-        if (Main.myPlayer != Projectile.owner) return;
         Projectile.NewProjectile(null, Projectile.Center, Vector2.Zero, ModContent.ProjectileType<CFlareExplosion>(), 0, 0);
         for (int i = 0; i < 5; i++)
         {
