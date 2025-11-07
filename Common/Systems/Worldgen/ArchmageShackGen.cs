@@ -60,8 +60,11 @@ public class ArchmageShackGen : ModSystem
                     Main.tile[i, j].ClearTile();
                 }
 
-                Tile tile = Main.tile[i, j];
-                tile.BlueWire = true;
+                if (i > x -2 && i < x + 4 && j > _y -1)
+                {
+                    Tile tile = Main.tile[i, j];
+                    tile.BlueWire = true;
+                }
             }
         }
     }
