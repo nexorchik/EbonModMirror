@@ -1,0 +1,10 @@
+Types: {
+	Xareus: Type: Feiticeiro 'Mestre'
+	Staff: Type: Varinha Mágica
+	Cecitoma: Type: Construção Orgânica
+	Evil: Type: Criatura Infectada
+	Organ: Type: Orgão
+	HotGarbage: Type: Lixeira
+	Animal: Type: Animal de Fazenda
+
+}

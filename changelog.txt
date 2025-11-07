@@ -23,7 +23,8 @@ v 2.0
 - Resprited the Trumpet, Screecher, and Rolypoly
 - Gave the Crimorrhage a telegraph before it fires ichor
 - Gutling animation and SFX improvements
-- Fixed some missing translation support and implemented russian translation (Thank you Nana Team)
+- Fixed some missing translation support and implemented Russian localization (Thank you Nana Team)
+- Implemented Portuguese localization (thanks Mjoon)
 - Potatoes now drop with a 1/70 chance instead of 1/200 but only when the dirt tile is destroyed. (Previously it would drop if you simply strike the tile without destroying it)
 - Bloodhunters now move slower
 - Practically every weapon got rebalanced, redundant to list them
