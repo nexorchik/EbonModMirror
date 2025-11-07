@@ -78,8 +78,7 @@ public class AureusBeam : ModProjectile
         float progress = Utils.GetLerpValue(0, 165, Projectile.timeLeft);
         float i_progress = MathHelper.Clamp(MathHelper.SmoothStep(1, 0.2f, progress) * 50, 0, 1 / MathHelper.Clamp(startSize, 1, 2));
 
-        EbonianMod.primitivePixelationDrawCache.Add(() =>
-        DrawVertices(Projectile.velocity.ToRotation(), texture, texture2, i_progress, 3));
+        DrawVertices(Projectile.velocity.ToRotation(), texture, texture2, i_progress, 3);
         return false;
     }
     void DrawVertices(float rotation, Texture2D texture, Texture2D texture2, float i_progress, float alphaOffset)
@@ -119,7 +118,7 @@ public class AureusBeam : ModProjectile
         }
 
         Main.spriteBatch.End();
-        Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
+        Main.spriteBatch.Begin(sbParams with {blendState = BlendState.Additive, samplerState = SamplerState.PointWrap});
         if (vertices.Count >= 3 && vertices2.Count >= 3)
         {
             for (int i = 0; i < 2; i++)
