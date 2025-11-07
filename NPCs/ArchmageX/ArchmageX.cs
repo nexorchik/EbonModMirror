@@ -451,7 +451,10 @@ public class ArchmageX : CommonNPC
             foreach (NPC npc in Main.ActiveNPCs)
             {
                 if (npc.type == NPCType<ArchmageStaffNPC>())
+                {
                     npc.ai[2] = 2400;
+                    npc.netUpdate = true;
+                }
             }
             EbonianSystem.xareusFightCooldown = 300;
             GetInstance<EbonianSystem>().downedXareus = true;
@@ -551,33 +554,39 @@ public class ArchmageX : CommonNPC
         {
             foreach (Player _pla in Main.ActivePlayers)
             {
-                if (_pla.Distance(GetArenaRect().Center()) > 550)
+                float dist = _pla.Distance(GetArenaRect().Center());
+                if (dist < 1500)
                 {
-                    MPUtils.NewProjectile(null, _pla.Center, Vector2.Zero, ProjectileType<XExplosion>(), 0, 0);
-                    MPUtils.NewProjectile(null, GetArenaRect().Center(), Vector2.Zero, ProjectileType<XExplosion>(), 0, 0);
-
-                    if (Main.zenithWorld)
+                    if (dist > 550)
                     {
-                        _pla.Hurt(PlayerDeathReason.ByNPC(NPC.whoAmI), 200, 1);
+                        MPUtils.NewProjectile(null, _pla.Center, Vector2.Zero, ProjectileType<XExplosion>(), 0, 0);
+                        MPUtils.NewProjectile(null, GetArenaRect().Center(), Vector2.Zero, ProjectileType<XExplosion>(),
+                            0, 0);
 
-                        _pla.Male = !_pla.Male;
-                        if (Main.netMode == 1)
+                        if (Main.zenithWorld)
                         {
-                            NetMessage.SendData(4, -1, -1, null, _pla.whoAmI);
+                            _pla.Hurt(PlayerDeathReason.ByNPC(NPC.whoAmI), 200, 1);
+
+                            _pla.Male = !_pla.Male;
+                            if (Main.netMode == 1)
+                            {
+                                NetMessage.SendData(4, -1, -1, null, _pla.whoAmI);
+                            }
                         }
+
+                        Helper.TPNoDust(GetArenaRect().Center(), _pla);
                     }
-                    Helper.TPNoDust(GetArenaRect().Center(), _pla);
-                }
-                else
-                {
-                    while (_pla.Center.X < GetArenaRect().X)
-                        _pla.Center += Vector2.UnitX * 2;
+                    else
+                    {
+                        while (_pla.Center.X < GetArenaRect().X)
+                            _pla.Center += Vector2.UnitX * 2;
 
-                    while (_pla.Center.X > GetArenaRect().X + GetArenaRect().Width)
-                        _pla.Center -= Vector2.UnitX * 2;
+                        while (_pla.Center.X > GetArenaRect().X + GetArenaRect().Width)
+                            _pla.Center -= Vector2.UnitX * 2;
 
-                    while (_pla.Center.Y < GetArenaRect().Y)
-                        _pla.Center += Vector2.UnitY * 2;
+                        while (_pla.Center.Y < GetArenaRect().Y)
+                            _pla.Center += Vector2.UnitY * 2;
+                    }
                 }
             }
 
