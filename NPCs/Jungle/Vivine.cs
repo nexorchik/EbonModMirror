@@ -34,7 +34,8 @@ public class Vivine : ModNPC
         bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
         {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundJungle,
-                new FlavorTextBestiaryInfoElement("A type of tripod carnivorous flower native to the jungle's moist caverns. Spits a pink corrosive substance at prey, approaching only to slurp up the pre-digested slurry.")
+                new FlavorTextBestiaryInfoElement("Mods.EbonianMod.Misc.Types.Plant"),
+                new FlavorTextBestiaryInfoElement(NPC.BestiaryKey())
         });
     }
     public float AIState

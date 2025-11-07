@@ -31,6 +31,7 @@ public class Botanist : ModNPC
         bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
         {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
+                new FlavorTextBestiaryInfoElement("Mods.EbonianMod.Misc.Types.Plant"),
                 new FlavorTextBestiaryInfoElement(NPC.BestiaryKey())
         });
     }

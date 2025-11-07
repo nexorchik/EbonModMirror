@@ -29,6 +29,7 @@ namespace EbonianMod.NPCs.Snow
             bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
             {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.UndergroundSnow,
+                new FlavorTextBestiaryInfoElement("Mods.EbonianMod.Misc.Types.Construct"),
                 new FlavorTextBestiaryInfoElement(NPC.BestiaryKey())
             });
         }

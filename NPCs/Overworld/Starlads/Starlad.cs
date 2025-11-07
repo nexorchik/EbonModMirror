@@ -26,6 +26,7 @@ public class Starlad : ModNPC
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Visuals.Moon,
+                new FlavorTextBestiaryInfoElement("Mods.EbonianMod.Misc.Types.Fungus"),
                 new FlavorTextBestiaryInfoElement(NPC.BestiaryKey()),
             });
     }

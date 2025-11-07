@@ -46,6 +46,7 @@ public class AsteroidHerder : CommonNPC
         bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
         {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Sky,
+                new FlavorTextBestiaryInfoElement("Mods.EbonianMod.Misc.Types.Construct"),
                 new FlavorTextBestiaryInfoElement(NPC.BestiaryKey())
         });
     }

@@ -2,6 +2,9 @@ Types: {
 	Xareus: Type: Feiticeiro 'Mestre'
 	Staff: Type: Varinha Mágica
 	Cecitoma: Type: Construção Orgânica
+	Construct: Type: Construção
+	Plant: Type: Planta
+	Fungus: Type: Fungo Espacial
 	Evil: Type: Criatura Infectada
 	Organ: Type: Orgão
 	HotGarbage: Type: Lixeira

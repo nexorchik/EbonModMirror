@@ -27,6 +27,7 @@ namespace EbonianMod.NPCs.Overworld.CenturyFlower
             {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.DayTime,
+                new FlavorTextBestiaryInfoElement("Mods.EbonianMod.Misc.Types.Plant"),
                 new FlavorTextBestiaryInfoElement(NPC.BestiaryKey())
             });
         }

@@ -84,7 +84,8 @@ public class Flylad : ModNPC
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Visuals.Moon,
-                new FlavorTextBestiaryInfoElement("God I wish I was you, this mf has a FAT ass."),
+                new FlavorTextBestiaryInfoElement("Mods.EbonianMod.Misc.Types.Fungus"),
+                new FlavorTextBestiaryInfoElement(NPC.BestiaryKey()),
             });
     }
 

@@ -1,0 +1,13 @@
+Types: {
+	Xareus: Type: 'Mistrzowski' Czarownik
+	Staff: Type: Magiczna Różdżka
+	Cecitoma: Type: Organiczny Konstrukt
+	Construct: Type: Konstrukt
+	Plant: Type: Roślina
+	Fungus: Type: Grzyb Kosmiczny
+	Evil: Type: Zainfekowane Stworzenie
+	Organ: Type: Organ
+	HotGarbage: Type: Śmietnik
+	Animal: Type: Zwierze Hodowlane
+	Obj: Type: Nawiedzony Obiekt
+}

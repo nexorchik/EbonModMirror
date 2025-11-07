@@ -47,6 +47,7 @@ public class Belladonna : ModNPC
         bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
         {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Times.NightTime,
+                new FlavorTextBestiaryInfoElement("Mods.EbonianMod.Misc.Types.Plant"),
                 new FlavorTextBestiaryInfoElement("Mods.EbonianMod.NPCs.Belladonna.Bestiary")
         });
     }
