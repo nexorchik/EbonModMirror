@@ -2,6 +2,7 @@
 using EbonianMod.Common.Misc;
 using EbonianMod.Gores;
 using EbonianMod.Items.Accessories;
+using EbonianMod.Items.Pets.LilPilg;
 using EbonianMod.Items.Weapons.Magic;
 using EbonianMod.Projectiles.AsteroidShower;
 using EbonianMod.Projectiles.VFXProjectiles;
@@ -89,6 +90,7 @@ public class AsteroidHerder : CommonNPC
     }
     public override void ModifyNPCLoot(NPCLoot npcLoot)
     {
+        npcLoot.Add(ItemDropRule.Common(ItemType<LilPilgI>(), 100));
         npcLoot.Add(ItemDropRule.Common(8, ItemType<StarBit>()));
     }
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
