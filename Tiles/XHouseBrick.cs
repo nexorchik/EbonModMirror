@@ -20,6 +20,7 @@ public class XHouseBrick : ModTile
     {
         Tile tile = Main.tile[i, j];
         tile.IsActuated = !Main.tile[i, j].IsActuated;
+        NetMessage.SendTileSquare(-1, i, j);
     }
     public override bool CanExplode(int i, int j)
     {
