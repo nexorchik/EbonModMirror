@@ -82,7 +82,13 @@ public partial class Cecitior : ModNPC
         writer.WriteVector2(openOffset);
         writer.Write((short)OldState);
         for (int i = 0; i < claw.Length; i++)
-            writer.WriteVector2(claw[i].position);
+        {
+            if (claw == null)
+                writer.WriteVector2(NPC.Center);
+            else
+                writer.WriteVector2(claw[i].position);
+        }
+
         writer.WriteVector2(savedPos);
         writer.WriteVector2(savedClawPos);
         writer.Write(oldHP);
@@ -99,7 +105,13 @@ public partial class Cecitior : ModNPC
         openOffset = reader.ReadVector2();
         OldState = reader.ReadInt16();
         for (int i = 0; i < claw.Length; i++)
-            claw[i].position = reader.ReadVector2();
+        {
+            if (claw == null)
+                reader.ReadVector2();
+            else
+                claw[i].position = reader.ReadVector2();
+        }
+
         savedPos = reader.ReadVector2();
         savedClawPos = reader.ReadVector2();
         oldHP = reader.ReadInt32();

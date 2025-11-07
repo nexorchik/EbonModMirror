@@ -34,8 +34,6 @@ public partial class Cecitior : ModNPC
     {
         if (AITimer == 1)
         {
-            if (!Main.dedServ)
-                Music = MusicLoader.GetMusicSlot(Mod, "Sounds/Music/EvilMiniboss");
             CameraSystem.ChangeCameraPos(NPC.Center, 260, new ZoomInfo(2, 1.1f, InOutElastic, InOutCirc), 1.5f, InOutQuart);
             for (int i = 0; i < 200; i++)
             {
