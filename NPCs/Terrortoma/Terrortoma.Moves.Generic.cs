@@ -93,7 +93,12 @@ public partial class Terrortoma : ModNPC
             rotation += Clamp(ToRadians(NPC.velocity.Y), 0, ToRadians(15));
             if (Helper.TRay.CastLength(NPC.Center, Vector2.UnitY, 1920) < NPC.width / 2)
             {
-                MPUtils.NewProjectile(NPC.InheritSource(NPC), Helper.TRay.Cast(NPC.Center, Vector2.UnitY, 1920), Vector2.Zero, ProjectileType<TExplosion>(), 0, 0).scale = 2f;
+                Projectile p = Projectile.NewProjectileDirect(NPC.InheritSource(NPC),
+                    Helper.TRay.Cast(NPC.Center, Vector2.UnitY, 1920), Vector2.Zero, ProjectileType<TExplosion>(), 0,
+                    0);
+                p.scale = 2f;
+                p.netUpdate = true;
+                
                 SoundEngine.PlaySound(EbonianSounds.eggplosion);
                 SoundEngine.PlaySound(EbonianSounds.evilOutro);
                 NPC.immortal = false;
