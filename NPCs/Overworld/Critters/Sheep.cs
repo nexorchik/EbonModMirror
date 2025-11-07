@@ -93,6 +93,7 @@ public class Sheep : ModNPC
     bool spawn;
     public override void AI()
     {
+        NPC.spriteDirection = NPC.direction;
         if (!spawn)
         {
             if (NPC.ai[2] > 0)
