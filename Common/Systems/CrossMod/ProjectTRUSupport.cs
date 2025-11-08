@@ -33,15 +33,16 @@
                 );
 
                 tru.Call("AddArmorSetBonusPreview",
-                    ModContent.ItemType<Items.Armor.Cecitoma.CeciArmor>(),
+                    ModContent.ItemType<Items.Armor.Cecitoma.Cecihead>(),
                     () => Language.GetTextValue("Mods.EbonianMod.Items.Cecihead.SetBonus")
                 );
 
                 tru.Call("AddArmorSetBonusPreview",
-                    ModContent.ItemType<Items.Armor.Cecitoma.TerrorArmor>(),
+                    ModContent.ItemType<Items.Armor.Cecitoma.Terrorhead>(),
                     () => Language.GetTextValue("Mods.EbonianMod.Items.Terrorhead.SetBonus")
                 );
             }
         }
     }
 }
+
