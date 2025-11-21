@@ -6,6 +6,7 @@ using EbonianMod.Common.UI.Dialogue;
 using EbonianMod.Dusts;
 using EbonianMod.Items.Armor.Vanity;
 using EbonianMod.Items.BossTreasure;
+using EbonianMod.Items.Misc;
 using EbonianMod.Items.Pets;
 using EbonianMod.Items.Tiles.Trophies;
 using EbonianMod.Items.Weapons.Magic;
@@ -22,6 +23,15 @@ using Terraria.GameContent.Bestiary;
 using Terraria.Graphics.CameraModifiers;
 
 namespace EbonianMod.NPCs.ArchmageX;
+
+public class PebbleDropRule : IItemDropRuleCondition, IProvideItemConditionDescription
+{
+    public bool CanDrop(DropAttemptInfo info) => info.player.HasBuff<Sheepened>();
+
+    public bool CanShowItemDropInUI() => true;
+
+    public string GetConditionDescription() => (string) null;
+}
 
 [AutoloadBossHead]
 public class ArchmageX : CommonNPC
@@ -70,6 +80,10 @@ public class ArchmageX : CommonNPC
     }
     public override void ModifyNPCLoot(NPCLoot npcLoot)
     {
+        LeadingConditionRule pebble = new LeadingConditionRule(new PebbleDropRule());
+        pebble.OnSuccess(new CommonDrop(ItemType<TheRock>(), 1));
+        npcLoot.Add(pebble);
+        
         LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
         notExpertRule.OnSuccess(new CommonDrop(ItemType<PhantasmalGreatsword>(), 4));
         notExpertRule.OnSuccess(new CommonDrop(ItemType<XareusPotion>(), 4));

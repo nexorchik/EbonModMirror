@@ -126,6 +126,7 @@ Projectiles: {
 	ESwordWave.DisplayName: Fala Ostrza
 	IgnosEye.DisplayName: Oko Ignosa
 	MagmaArrowHostile.DisplayName: Magmowa Strzała
+	// TinyRykardSkull.DisplayName: Skull
 	ESickle.DisplayName: Kosa
 	OstertagiP.DisplayName: Ostertagi
 	OstertagiWorm.DisplayName: Robak
@@ -770,7 +771,18 @@ NPCs: {
 		Bestiary: Napędzany magią pochodzącą z gwiazd, wykorzystuje silnie rozwinięte tylne nogi do skakania i przemieszczania się nocą — często kopiąc niczego nieświadome ofiary, by je unieruchomić.
 	}
 
-	Vivine.DisplayName: Vivine
+	Vivine: {
+		DisplayName: Vivine
+		// Bestiary: A type of tripod carnivorous flower native to the jungle's moist caverns. Spits a pink corrosive substance at prey, approaching only to slurp up the pre-digested slurry.
+	}
+
+	HoarfrostCoiler: {
+		// DisplayName: Hoarfrost Coiler
+		// Bestiary: An ancient serpentine ice golem that used to guard a buried kingdom under the tundra.
+	}
+
+	// HoarfrostCoilerBody.DisplayName: Hoarfrost Coiler Body
+	// HoarfrostCoilerTail.DisplayName: Hoarfrost Coiler Tail
 }
 
 Items: {
@@ -1673,6 +1685,11 @@ Items: {
 	Starcaller: {
 		DisplayName: Przywoływacz Gwiazd
 		Tooltip: ""
+	}
+
+	TheRock: {
+		DisplayName: Kamień
+		Tooltip: To po prostu kamień, biały kamień
 	}
 }
 

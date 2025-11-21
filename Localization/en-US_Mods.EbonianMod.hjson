@@ -1686,6 +1686,11 @@ Items: {
 		DisplayName: Starcaller
 		Tooltip: ""
 	}
+
+	TheRock: {
+		DisplayName: The Rock
+		Tooltip: It's just a rock, a white rock
+	}
 }
 
 Buffs: {
