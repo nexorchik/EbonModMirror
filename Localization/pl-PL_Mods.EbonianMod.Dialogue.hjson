@@ -1,4 +1,4 @@
-// DotDotDot: ...
+DotDotDot: ...
 
 Wizard: {
 	WizardAboutX1: Ha! Marsjanie naprawdę nieźle załatwili starego Xareusa… Co za głupiec.
@@ -82,226 +82,226 @@ ArchmageXDialogue: {
 	XTaunt56: Czekaj… ptaki? Serio?? Pfft...
 
 	XAttack1: {
-		// Default: Phantasmal Spirits!
-		// Angry: KILL THAT THIEF!!!!!
-		// RepeatAngry: NOW!!!!
+		Default: Widma!
+		Angry: ZABIJCIE TEGO ZŁODZIEJA!!!!!
+		RepeatAngry: TERAZ!!!!
 	}
 
 	XAttack2: {
-		// Default: Shadowflame Eruption!
-		// Angry: BURN!!
-		// RepeatAngry: BURN, I SAID!
+		Default: Eksplozja Cienistego Płomienia!
+		Angry: PŁOŃ!!
+		RepeatAngry: POWIEDZIAŁEM, PŁOŃ!!
 	}
 
 	XAttack3: {
-		// Default: Glittering Amethysts!!
-		// Angry: RAAAAGHH!!!!!!
+		Default: Migoczące Ametysty!!
+		Angry: RAAAAGHH!!!!!!
 	}
 
 	XAttack4: {
-		// Default: Shimmering Fusillade!
-		// FirstTimeAngry: SHIMMERING.. WHATEVER JUST DIE!
-		// Angry: JUST DIE!!
+		Default: Salwa Blasku!
+		FirstTimeAngry: BLASKUJ… NIEWAŻNE, PO PROSTU GIŃ!
+		Angry: PO PROSTU GIŃ!!
 	}
 
 	XAttack5: {
-		// Helix: Helix of Shadowflame!
-		// Wave: Wave of Shadowflame!
-		// Angry: SHADOWFLAME!!
+		Helix: Helisa Cienistego Płoniemia!
+		Wave: Fala Cienistego Płomienia!
+		Angry: CIENISTY PŁOMIEŃ!!
 	}
 
 	XAttack6: {
-		// Default: Amethysts of Empowerment!
-		// Angry: STEAL THIS YOU BASTARD!!
-		// FirstTimeAngry: THIS IS VERY EXPENSIVE!
-		// RepeatAngry: GRAAAAAAAAAH!!!!!
+		Default: Ametysty Mocy!
+		Angry: SPRÓBUJ UKRAŚĆ TO, DRANIU!!
+		FirstTimeAngry: TO JEST BARDZO DROGIE!
+		RepeatAngry: GRAAAAAAAH!!!!!!
 	}
 
 	XAttack7: {
-		// Default: Glittering Amethysts!
-		// Angry: AHAHAHA!!!
+		Default: Migoczące Ametysty!
+		Angry: AHAHAHA!!!
 	}
 
 	XAttack8: {
-		// Default: The Archmage's Great Amethysts!
-		// Angry: GET AWAY FROM ME!
-		// RepeatAngry: I HATE YOU!!!
+		Default: Wielkie Ametysty Arcymaga!
+		Angry: ODSUŃ SIĘ ODE MNIE!
+		RepeatAngry: NIENAWIDZĘ CIĘ!!!
 	}
 
 	XAttack9: {
-		// Default: Shadowflame Tendrils!
-		// Angry: DIE!!!!
-		// Angry2: DIE!!!!!!!!!
-		// Angry3: PLEASE JUST DIE!!!!!!!!!!!!!!!!
-		// RepeatAngry: DIE ALREADY!!!!!!
+		Default: Macki Cienistego Płomienia!
+		Angry: GIŃ!!!!
+		Angry2: GIŃ!!!!!!!!!
+		Angry3: PROSZĘ PO PROSTU GIŃ!!!!!!!!!!!!!!!!
+		RepeatAngry: ZGIŃ W KOŃCU!!!!!!
 	}
 
 	XAttack10: {
-		// Default1: Bleat Now!
-		// Default2: "'Baa! Baa!'... That's you!"
-		// Default3: The Sheepening!
-		// Default4: To the slaughter with you!
-		// Default5: Polymorph!
-		// Angry: GET OUT OF MY SIGHT!
-		// RepeatAngry: GET OUT!!
+		Default1: Teraz Becz!
+		Default2: "'Bee! Bee!'... to właśnie ty!"
+		Default3: Zowczenie!
+		Default4: Na rzeź z tobą!
+		Default5: Przemiana!
+		Angry: ZEJDŹ MI Z OCZU!
+		RepeatAngry: WYNOŚ SIĘ!!
 	}
 
 	XAttack11: {
-		// Default: TAKE THIS!
-		// Continuation1: AND SOME OF THIS!
-		// Continuation2: AND SOME OF THAT!
-		// Continuation3: AND THAT!
-		// Continuation4: AND A LITTLE BIT OF THAT!
-		// Continuation5: AND THIS!
-		// Continuation6: AND A LITTLE BIT OF THIS!
+		Default: A MASZ!
+		Continuation1: I JESZCZE TO!
+		Continuation2: I TAMTO!
+		Continuation3: I TO!
+		Continuation4: I ODROBINĘ TEGO!
+		Continuation5: I TO TEŻ!
+		Continuation6: I TROCHĘ TEGO!
 	}
 
 	XAttack12: {
-		// Default: Phantasmal Blast!
-		// It: DESTROY IT!
-		// Him: DESTROY HIM!
-		// Her: DESTROY HER!
-		// RepeatAngry: COME ON!
+		Default: Widmowy Wybuch!
+		It: ZNISZCZ TO!
+		Him: ZNISZCZ GO!
+		Her: ZNISZCZ JĄ!
+		RepeatAngry: NO DALEJ!
 	}
 
 	XAttack13: {
-		// Default1: Hold up, I forgot to bring something...
-		// Default2: Don't mind me! I just forgot something...
-		// Default3: I seem to have forgotten something...
-		// Default4: Hehehehe...
-		// Angry: STAND STILL!
-		// RepeatAngry: I SAID STAND STILL!
+		Default1: Czekaj… zapomniałem czegoś…
+		Default2: Nie zwracaj uwagi! Po prostu coś zapomniałem...
+		Default3: Chyba o czymś zapomniałem...
+		Default4: Hehehehe...
+		Angry: NIE RUSZAJ SIĘ!
+		RepeatAngry: MÓWIŁEM, ŻEBYŚ SIĘ NIE RUSZAŁ!
 	}
 
-	// XAttack14.Angry: JUST LEAVE ME ALONE!
+	XAttack14.Angry: ZOSTAW MNIE W SPOKOJU!
 
 	XAttack15: {
-		// Default: Shadowflame Mist!
-		// Angry: YOU WILL BLEAT!
-		// RepeatAngry1: NOT ENOUGH BLEATING!
-		// RepeatAngry2: I SAID... YOU WILL BLEAT!
+		Default: Mgła Cienistego Płomienia!
+		Angry: BĘDZIESZ BECZAŁ!
+		RepeatAngry1: ZA MAŁO BECZENIA!
+		RepeatAngry2: MÓWIŁEM… ŻE BĘDZIESZ BECZAŁ!
 	}
 
 	XAttack16: {
-		// Angry: STOP DODGING!!
-		// RepeatAngry: STOP IT!!
+		Angry: PRZESTAŃ UNIKAĆ!!
+		RepeatAngry: PRZESTAŃ, MÓWIĘ!!
 	}
 
 	XAttack17: {
-		// Angry: I'M SO TIRED OF YOUR NONSENSE!
-		// FirstTimeAngry: Do you ever quit?!... LOOK WHAT YOU'RE MAKING ME DO!!!
-		// RepeatAngry: DAMN YOU!!
-		// Staff1: WHAT ARE YOU DOING?1
-		// Staff2: XAREUS?!
-		// Staff3: ???!
-		// Staff4: HUH?!
+		Angry: MAM DOŚĆ TWOICH GŁUPOT!
+		FirstTimeAngry: Ty się nigdy nie poddajesz?!... ZOBACZ, DO CZEGO MNIE DOPROWADZASZ!!!
+		RepeatAngry: NIECH TO SZLAG!!
+		Staff1: CO TY WYPIRAWIASZ?!
+		Staff2: XAREUS?!
+		Staff3: ???!
+		Staff4: CO?!
 	}
 
-	// XPhase2: None of this would've happened if you just kept your grubby hands away from my things!
-	// XPhase2End: Phew... Almost lost my cool there..
-	// XDespawn1: Your skill in losing is truly unmatched!
-	// XDespawn2: Just another moth to my glorious flame!
-	// XDespawn3: Hah! Another victory for the brilliant Archmage!
-	// XDespawn4: Would a purple laser pointer ALSO defeat you?
-	// XDespawn5: A predictable failure, THIEF!
-	// XDespawn6: Wait, you're actually THAT incompetent?! I pity you.
-	// XDespawn7: *Yawn*
-	// XDespawn8: GOOD GODDAMN RIDDANCE!
-	// XDespawn9: Phew... I mean, not even close!
-	// XDeath: DAMN YOU!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	XPhase2: Nic z tego by się nie wydarzyło, gdybyś trzymał swoje brudne łapska z dala od moich rzeczy!
+	XPhase2End: Uff... prawie straciłem panowanie nad sobą...
+	XDespawn1: Twoja umiejętność przegrywania nie ma sobie równych!
+	XDespawn2: Kolejna ćma lecąca do mojego wspaniałego płomienia!
+	XDespawn3: Ha! Kolejne zwycięstwo dla genialnego Arcymaga!
+	XDespawn4: Czy fioletowy wskaźnik laserowy też by cię pokonał?
+	XDespawn5: Przewidywalna porażka, ZŁODZIEJU!
+	XDespawn6: Czekaj, naprawdę jesteś AŻ TAK niekompetentny?! Żal mi cię.
+	XDespawn7: *Ziewa*
+	XDespawn8: DOBRZE, ŻE WRESZCIE ZNIKNĄŁEŚ!
+	XDespawn9: Uff... to znaczy, nawet nie byłeś blisko!
+	XDeath: NIECH TO SZLAG!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 	Martian: {
-		// Line1: SURPRISE ATTACK!!!
-		// Line2: WHILE YOU'VE BEEN FOOLING AROUND...
-		// Line3: I'VE AWOKEN MY TRUE POWER!!!
-		// Line4: And with this power...
-		// Line5: You...
-		// Line6: Will...
-		// Line7: Ow.
+		Line1: ATAK Z ZASKOCZENIA!!!
+		Line2: PODCZAS GDY TY SIĘ TU WYGŁUPIAŁEŚ...
+		Line3: JA PRZEBUDZIŁEM SWOJĄ PRAWDZIWĄ MOC!!!
+		Line4: A dzięki tej mocy...
+		Line5: Ty...
+		Line6: TY.......
+		Line7: Ał.
 	}
 }
 
 ArchstaffDialogue: {
 	Weapon: {
-		// Yell1: OW!
-		// Yell2: QUIT THAT!
-		// Yell3: I WASN'T DESTINED FOR THIS!
-		// Yell4: WHAT ARE YOU DOING?!
-		// Yell5: STOP!
-		// Yell6: STOP THAT!
-		// Yell7: QUIT IT!
-		// Yell8: STOP IT!
-		// Yell9: OUCH!
-		// Yell10: DAMN YOU!
-		// Happy1: YEAH!
-		// Happy2: WOOO!
-		// Happy3: TAKE THAT!
-		// Happy4: AHAHAHAHA!
-		// Happy5: WOOHOOO!
-		// Happy6: DIEE!
-		// Happy7: YEAH, DIE!
+		Yell1: AŁ!
+		Yell2: PRZESTAŃ!
+		Yell3: NIE BYŁEM PRZEZNACZONY DO CZEGOŚ TAKIEGO!
+		Yell4: CO TY WYRABIASZ?!
+		Yell5: PRZESTAŃ!
+		Yell6: MÓWIŁEM, PRZESTAŃ!
+		Yell7: DOŚĆ TEGO!
+		Yell8: PRZESTAŃ, MÓWIĘ!
+		Yell9: AUĆ!
+		Yell10: SZLAG Z TOBĄ!
+		Happy1: TAK JEST!
+		Happy2: WOOO!
+		Happy3: A MASZ!
+		Happy4: AHAHAHAHA!
+		Happy5: WOOHOOO!
+		Happy6: GIŃ!!
+		Happy7: TAK, UMIERAJ!
 	}
 
-	// InteractionLine: It shimmers intensely, aching for a glorious fight.
-	// Grab: Grab
-	// PsstLine: Psst.
-	// YouLine: You...
-	// ComeHereLine: Come here...
-	// ArchstaffLine1: Hmm...
-	// ArchstaffLine2: You seem.. capable..
-	// ArchstaffLine3: Yes, Yes, Finally! A new wielder!
-	// ArchstaffLine4: You see...
-	// ArchstaffLine5: My master is a... TERRIBLE magician.
-	// ArchstaffLine6: It's quite humiliating being limited by such an...
-	// ArchstaffLine7: Idiot!
-	// ArchstaffLine8: "'Archmage', pfft..."
-	// ArchstaffLine9: I was forged from pure powdered lightning, the finest amethysts from the realm of crystals,
-	// ArchstaffLine10: in the heat of a thousand suns, by the greatest goblin smiths of the omniverse!
-	// ArchstaffLine11: Like... Can you even imagine that?! An ARCHMAGE who refuses to use his own greatest weapon?!
-	// ArchstaffLine12: What a sick joke!
-	// ArchstaffLine13: And that dimwitted magician refuses to use my power, why?!
-	// ArchstaffLine14: Because he's scared of me scratching!
-	// ArchstaffLine15: I'M A WEAPON! I AM MEANT TO SCRATCH! I'M NOT A DISPLAY PIECE
-	// ArchstaffLine16: MY PURPOSE IS TO BE USED IN BATTLE BY THE GREATEST WIZARDS OF ALL TIME FOR GENERATIONS TO COME
-	// ArchstaffLine17: TO DIE IN COMBAT AND TO BE REMEMBERED AS THE TRUE GREATEST ARCHSTAFF OF EVERY REALITY!
-	// ArchstaffLine18: Oh right!
-	// ArchstaffLine19: You! Please.. Please take me! My master REFUSES to utilize my grandeur!
-	// ArchstaffLine20: He's not here! He won't even notice!
-	// ArchstaffMotivation1: Hahaha! Back for another GLORIOUS battle!? He's easily aggravated!
-	// ArchstaffMotivation2: Fighting you is most pleasing!
-	// ArchstaffMotivation3: Back for another unforgettable fight?
-	// ArchstaffMotivation4: Oh how I ACHE for a fight!
-	// ArchstaffMotivation5: That wasn't a... horrible attempt! He's not here, you can try again!
-	// ArchstaffMotivation6: You can do it! Ignore his ramblings!
-	// ArchstaffMotivation7: Try not to die this time!
-	// ArchstaffMotivation8: The Sheepening ray may look intimidating... Because it is!
-	// ArchstaffMotivation9: I've told him numerous times to get rid of the large amethyst spell! Such an annoyance..
-	// ArchstaffMotivation10: Why does he even throw his potions like that?
-	// ArchstaffMotivation11: He's eventually going to run out of amethysts... I think
-	// ArchstaffVictory1: Woah... He actually... Used me!
-	// ArchstaffVictory2: What a spectacular fight! And, and I was the heart of it all! The Grand Archstaff!
-	// ArchstaffVictory3: I can't remember the last time he actually used me to my fullest potential!
-	// ArchstaffVictory4: I suppose I have to thank you for this unforgettable battle!
-	// ArchstaffVictory5: The chaos! The bloodshed! The amethysts!! You may return at a later time if you wish for more!
-	// ArchstaffVictory6: Farewell!
-	// PostMartianLine1: I assume you are... aware..
-	// PostMartianLine2: ..of the passing of Master Xareus...
-	// PostMartianLine3: No.. no.. Tragedy won't break the Archstaff!
-	// PostMartianLine4: YOU! Become my new wielder!
-	// PostMartianLine5: You are obviously more worthy than Master Xareus! Together we will destroy galaxies!
-	// PostMartianLine6: Yes, yes! I can see it now! Your name, whatever it is, and the Great Archstaff of the Tragically Deceased Master Xareus!
-	// PostMartianLine7: Power beyond anything ever conceived by minds even eldritch!
-	// PostMartianLine8: Glory! And fame! We will be unstoppable!
-	// PostMartianLine9: RAAAAAAAAAAAAAAAAAAAAAAAAAAAGHHHHHHHHHH!!!!!!!!!!!!!!
+	InteractionLine: Błyszczy intensywnie, jakby pragnęło chwalebnej walki.
+	Grab: Chwyć
+	PsstLine: Psst.
+	YouLine: Ty...
+	ComeHereLine: Chodź tu...
+	ArchstaffLine1: Hmm...
+	ArchstaffLine2: Wyglądasz na.. zdolnego..
+	ArchstaffLine3: Tak, tak, wreszcie! Nowy dzierżyciel!
+	ArchstaffLine4: Widzisz...
+	ArchstaffLine5: Mój pan to... OKROPNY mag.
+	ArchstaffLine6: To wręcz upokarzające być ograniczanym przez takiego...
+	ArchstaffLine7: Idiotę!
+	ArchstaffLine8: "'Arcymag', pfft..."
+	ArchstaffLine9: Zostałem wykuty z czystego sproszkowanego pioruna, z najdoskonalszych ametystów z krainy kryształów,
+	ArchstaffLine10: w żarze tysiąca słońc, przez największych goblińskich kowali w całym omniversum!
+	ArchstaffLine11: Serio… potrafisz to sobie wyobrazić?! ARCYMAG, który nie używa własnej najpotężniejszej broni?!
+	ArchstaffLine12: Co za chory żart!
+	ArchstaffLine13: A ten tępy mag odmawia użycia mojej mocy, wiesz czemu?!
+	ArchstaffLine14: Bo boi się, że mnie zarysuje!
+	ArchstaffLine15: JESTEM BRONIĄ! MAM BYĆ ZARYSOWANY! NIE JESTEM DEKORACJĄ NA PÓŁKĘ!
+	ArchstaffLine16: MOIM CELEM JEST WALKA, BYĆ W RĘKACH NAJWIĘKSZYCH MAGÓW WSZECH CZASÓW PRZEZ POKOLENIA!
+	ArchstaffLine17: ZGINĄĆ W BOJU I ZOSTAĆ ZAPAMIĘTANYM JAKO NAJPOTĘŻNIEJSZA ARCYLASKA WSZECHŚWIATA!
+	ArchstaffLine18: A tak, racja!
+	ArchstaffLine19: Ty! Proszę… proszę, weź mnie! Mój pan ODMAWIA korzystania z mojego majestatu!
+	ArchstaffLine20: Nie ma go tutaj! Nawet się nie zorientuje!
+	ArchstaffMotivation1: Hahaha! Wróciłeś po KOLEJNĄ CHWALEBNĄ BITWĘ!? Łatwo go wyprowadzić z równowagi!
+	ArchstaffMotivation2: Walka z tobą to czysta przyjemność!
+	ArchstaffMotivation3: Znowu po niezapomniane starcie?
+	ArchstaffMotivation4: Och, jakże mnie świerzbi do walki!
+	ArchstaffMotivation5: To nie było… aż tak straszne podejście! Nie ma go, możesz spróbować jeszcze raz!
+	ArchstaffMotivation6: Dasz radę! Zignoruj jego bełkot!
+	ArchstaffMotivation7: Spróbuj nie umrzeć tym razem!
+	ArchstaffMotivation8: Promień Zowczenia może wyglądać groźnie… bo taki właśnie jest!
+	ArchstaffMotivation9: Mówiłem mu już tyle razy, żeby pozbył się tego zaklęcia z wielkim ametystem! Co za udręka…
+	ArchstaffMotivation10: Po co on w ogóle rzuca te swoje mikstury w taki sposób?
+	ArchstaffMotivation11: Prędzej czy później skończą mu się ametysty... chyba.
+	ArchstaffVictory1: Ooo... on naprawdę... mnie użył!
+	ArchstaffVictory2: Co za widowiskowa walka! I to ja byłem w samym jej sercu! Wielka Arcylaska!!
+	ArchstaffVictory3: Nie pamiętam, kiedy ostatnio użył mnie w pełni moich możliwości!
+	ArchstaffVictory4: Chyba muszę ci podziękować za tę niezapomnianą bitwę!
+	ArchstaffVictory5: Chaos! Rzeź! Ametysty!! Możesz wrócić później, jeśli zapragniesz więcej!
+	ArchstaffVictory6: Żegnaj!
+	PostMartianLine1: Zakładam, że jesteś... świadomy..
+	PostMartianLine2: ..śmierci Mistrza Xareusa...
+	PostMartianLine3: Nie.. Nie.. Taka tragedia nie złamie Arcylaski!
+	PostMartianLine4: TY! Zostań moim nowym dzierżycielem!
+	PostMartianLine5: Jesteś zdecydowanie godniejszy niż Mistrz Xareus! Razem zniszczymy całe galaktyki!
+	PostMartianLine6: Tak, tak! Już to widzę! Twoje imię, jakiekolwiek by nie było, i Wielka Arcylaska Tragicznie Zmarłego Mistrza Xareusa!
+	PostMartianLine7: Moc wykraczająca poza wszelkie wyobrażenie, nawet tych najbardziej plugawych umysłów!
+	PostMartianLine8: Chwała! Sława! Będziemy NIEPOWSTRZYMANI!
+	PostMartianLine9: RAAAAAAAAAAAAAAAAAAAAAAAAAAAHHHHHHHHHH!!!!!!!!!!!!!!
 }
 
 HotGarbageDialogue: {
-	// Nuke: NUKE DETONATION IN
-	// Evacuate: EVACUATE IMMEDIATELY!
-	// Unfunny: This is NOT funny PLEASE GET OUT!
-	// Dumbass: WHAT ARE YOU DOING!?
-	// Run: RUN
-	// Phew: Phew...
-	// GG: GOOD JOB!
-	// HereItComes: HERE IT COMES!!!
+	Nuke: DETONACJA NUKLEARNA ZA
+	Evacuate: PROSZĘ SIĘ NATYCHMIAST EWAKUOWAĆ!
+	Unfunny: to NIE jest śmieszne PROSZĘ ODEJDŹ!
+	Dumbass: CO TY WYPRAWIASZ!?
+	Run: UCIEKAJ
+	Phew: Ufff...
+	GG: DOBRA ROBOTA!
+	HereItComes: NADCHODZI!!!
 }

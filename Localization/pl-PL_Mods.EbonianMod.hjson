@@ -1,1856 +1,1844 @@
 Projectiles: {
-	// GreenShockwave.DisplayName: Shockwave
-	// GenericExplosion.DisplayName: Explosion
-	// EyeVFX.DisplayName: Eye
-	// CircleTelegraph.DisplayName: Shockwave
-	// BloodShockwave.DisplayName: Shockwave
-	// TSpike.DisplayName: Spike
-	// TFlameThrower3.DisplayName: Cursed Flames
-	// TFlameThrower2.DisplayName: Cursed Flames
-	// TFlameThrower.DisplayName: Cursed Flames
-	// TFang.DisplayName: Fang
-	// TExplosion.DisplayName: Explosion
-	// Ripple.DisplayName: Ripple
-	// DoomsdayDrone.DisplayName: Doomsday Drone
-	// WeakCursedBullet.DisplayName: Cursed Bullet
-	// CorebreakerP.DisplayName: Corebreaker Cannonball
-	// IchorBlast.DisplayName: Ichor Blast
-	// LatcherPCecitior.DisplayName: Latcher
-	// LatcherP.DisplayName: Latcher
-	// IchorGrenade.DisplayName: Gutling Grenade
-	// TerrorStaffP.DisplayName: Vile Egg
-	// EbonianRocket.DisplayName: Mawzooka Missile
-	// CorruptArrow.DisplayName: Corrupt Arrow
-	// BloodBullet.DisplayName: Blood Bullet
-	// EFireBreath2.DisplayName: Fire
-	// EFireBreath.DisplayName: Fire
-	// EFire.DisplayName: Fire
-	// Rolleg.DisplayName: Rolleg
-	// CecitiorEyeP.DisplayName: Spectral Gazer
-	// BloodLaser.DisplayName: Blood Blast
-	// Pipebomb.DisplayName: Pipebomb
-	// Mailbox.DisplayName: Mailbox
-	// Garbage.DisplayName: Garbage
-	// IchorFlintlockP.DisplayName: Fangnum
-	// EbonianGunP.DisplayName: Cursed Firearm
-	// BloodOrb.DisplayName: Blood Orb
-	// VileBladeP.DisplayName: Vile Blade
-	// SanguineSlasherP.DisplayName: Fleshfang
-	// ExolsawP.DisplayName: Infernal Disc
-	// EbonianScytheP.DisplayName: Grimrot Cutter
-	// InferosP.DisplayName: Infernomicon
-	// PanopticonP.DisplayName: Panopticon
-	// Hightoma.DisplayName: Tinytoma
-	// GarbageRemoteP.DisplayName: Dusty Quantum Computer
-	// TerrorVilethorn2.DisplayName: Vilethorn
-	// TerrorVilethorn1.DisplayName: Vilethorn
-	// TBeam.DisplayName: Beam
-	// TelegraphLine.DisplayName: Telegraph Line
-	// EbonFlyMinion.DisplayName: Ebonfly
-	// DroneBeam.DisplayName: Drone Beam
-	// HeadGoreSceptreEVILSOBBINGRN.DisplayName: Heart
-	// HeadGoreSceptre.DisplayName: Heart
-	// Fangs.DisplayName: Fang
-	// VileMeatChunk.DisplayName: Vile Meat Chunk
-	// TerrortomaFlail_Clingers.DisplayName: Terrorflail
-	// TerrortomaFlail.DisplayName: Terrorflail
-	// CorruptThorn.DisplayName: Corrupt Thorn
-	// EBoulder2.DisplayName: Boulder
-	// EBoulder.DisplayName: Boulder
-	// EBeam.DisplayName: Solar Rays
-	// CecitiorTeeth.DisplayName: Teeth
-	// Soder.DisplayName: Soda
-	// MetalCircle.DisplayName: Oildrum
-	// HotGarbageNuke.DisplayName: Nuclear Bomb
-	// GarbageFlame.DisplayName: Flame
-	// FatSmash.DisplayName: Shockwave
-	// PepperSprayProjectile.DisplayName: Pepper Spray
-	// IchorGlobSmall.DisplayName: Glob
-	// IchorGlob.DisplayName: Glob
-	// TinyFish.DisplayName: Tiny Fish
-	// RingOfFireP.DisplayName: Ring Of Fire
-	// RingOfFireP2.DisplayName: Ring Of Fire
-	// VilethornF2.DisplayName: Vilethorn
-	// VilethornF1.DisplayName: Vilethorn
-	// MeatCrusherP.DisplayName: Meat Crusher
-	// CrimsonSpearP.DisplayName: Vitriolic Voulge
-	// GoreBeam.DisplayName: Defibrillator
-	// RedSpark.DisplayName: Red Spark
-	// BloodShockwave2.DisplayName: Blood Shockwave
-	// InferosShockwave.DisplayName: Inferos Shockwave
-	// ExolFireSpiral.DisplayName: Exol Fire Spiral
-	// EGeyser.DisplayName: Geyser
-	// InferosShockwave2.DisplayName: Inferos Shockwave
-	// ESun.DisplayName: Sun
-	// EFire2.DisplayName: Fire
-	// ExolFireExplode.DisplayName: Exol Fire Explode
-	// InferosShockwave3.DisplayName: Inferos Shockwave
-	// FlameExplosion.DisplayName: Flame Explosion
-	// EFire3.DisplayName: Fire3
-	// ESkullEmoji.DisplayName: Skull Emoji
-	// EPentagramAsh.DisplayName: Pentagram Ash
-	// FlameExplosion2.DisplayName: Flame Explosion
-	// ETelegraph.DisplayName: Telegraph
-	// Noise.DisplayName: Noise
-	// NoiseOverlay.DisplayName: Noise Overlay
-	// EMine.DisplayName: Mine
-	// QuickFlare.DisplayName: Flare
-	// FireGrenadeP.DisplayName: Fire Grenade
-	// CursedFlameExplosion.DisplayName: Cursed Flame Explosion
-	// CrimCannonP.DisplayName: Bloodsoaked Dentures
-	// Gibs.DisplayName: Gibs
-	// SpinaxP.DisplayName: Spinax
-	// SelfStabP.DisplayName: Sacrificial Dagger
-	// BloodVignette.DisplayName: Blood Vignette
-	// EPlatform.DisplayName: Platform
-	// EGroundHazard.DisplayName: Ground Hazard
-	// RykardSkull.DisplayName: Skull
-	// MagmaBowP.DisplayName: Magma Bow
-	// MagmaArrow.DisplayName: Magma Arrow
-	// ReiCapeP.DisplayName: Voidrunner Mask
-	// ReiCapeTrail.DisplayName: Voidrunner Mask
-	// Djungelskog.DisplayName: Djungelskog
-	// ReiExplosion.DisplayName: Voidrunner Mask
-	// IgnosSlash.DisplayName: Ignos Slash
-	// IgnosSlashTelegraph.DisplayName: Ignos Slash Telegraph
-	// GarbageSignals.DisplayName: Garbage Signals
-	// GreenShockwave2.DisplayName: Shockwave
-	// OrangeRedShockwave.DisplayName: Shockwave
-	// YellowShockwave.DisplayName: Shockwave
-	// BigGrayShockwave.DisplayName: Shockwave
-	// RykardSkullSpiral.DisplayName: Skull
-	// FlameExplosion3.DisplayName: Flame Explosion
-	// VortexSkull.DisplayName: Skull
-	// IgnosLightning.DisplayName: Ignos Lightning
-	// IgArena.DisplayName: Ig Arena
-	// ESwordWave.DisplayName: Sword Wave
-	// IgnosEye.DisplayName: Ignos Eye
-	// MagmaArrowHostile.DisplayName: Magma Arrow
-	// TinyRykardSkull.DisplayName: Skull
-	// ESickle.DisplayName: Sickle
-	// OstertagiP.DisplayName: Ostertagi
-	// OstertagiWorm.DisplayName: Worm
-	// OstertagiExplosion.DisplayName: Cursed Flames Explosion
-	// ExolGreatArrow.DisplayName: Great Arrow
-	// EHomingBeam.DisplayName: Homing Beam
-	// FlameExplosionWSprite.DisplayName: Flame Explosion
-	// TFlameThrower4.DisplayName: Flame
-	// TerrorStaffPEvil.DisplayName: Terror Staff
-	// CecitiorBelch.DisplayName: Belch
-	// SerrationP.DisplayName: Serration
-	// SerrationSpike.DisplayName: Serration
-	// CecitiorClawSlash.DisplayName: Claw Slash
-	// CecitiorClawWave.DisplayName: Claw Wave
-	// ClawGore.DisplayName: Claw
-	// BloodExplosionWSprite.DisplayName: Blood Explosion
-	// CecitiorBombThing.DisplayName: Ichor Bomb
-	// IchorExplosion.DisplayName: Ichor Explosion
-	// CecitiorSpike.DisplayName: Cecitior Spike
-	// CecitiorTeethFriendly.DisplayName: Cecitior Teeth
-	// GutlingGunP.DisplayName: Gutling Gun
-	// CursedToyP.DisplayName: Cursed Doll
-	// CursedToyBeam.DisplayName: Cursed Doll
-	// BigGreenShockwave.DisplayName: Shockwave
-	// CorruptionClawP.DisplayName: Chained Claw
-	// DankDiggerProjectileWorm.DisplayName: Dank Digger
-	// XSpirit.DisplayName: Spirit
-	// XExplosion.DisplayName: Explosion
-	// VaccumWormP.DisplayName: Vaccum Worm
-	// XShadowflame.DisplayName: Shadowflame Eruption
-	// XAmethyst.DisplayName: Amethyst
-	// XBolt.DisplayName: Shimmering Fusillade
-	// XExplosionTiny.DisplayName: Explosion
-	// XSineLaser.DisplayName: Wave of Shadowflame
-	// XExplosionInvis.DisplayName: Explosion
-	// XExplosionInvisMask.DisplayName: Explosion
-	// PhantasmalGreatswordP.DisplayName: Archmage Xareus' Shadowflame Skysplitter
-	// PhantasmalGreatswordP2.DisplayName: Archmage Xareus' Shadowflame Skysplitter
-	// XAmethystCloseIn.DisplayName: Amethyst
-	// XLargeAmethyst.DisplayName: Great Amethyst
-	// XAmethystShard.DisplayName: Amethyst Shard
-	// XTentacle.DisplayName: Shadowflame Tendril
-	// player_sheep.DisplayName: Sheep
-	// SheepeningOrb.DisplayName: Sheepening Beam
-	// XManaPotion.DisplayName: Xareus' Potion
-	// XSpiritNoHome.DisplayName: Phantasmal Blast
-	// XRift.DisplayName: Rift
-	// XKnife.DisplayName: Amethyst
-	// XCloud.DisplayName: Shadowflame Cloud
-	// XLightningBolt.DisplayName: Shadowflame Lightning Bolt
-	// XTelegraphLine.DisplayName: Telegraph Line
-	// RegorgerBolt.DisplayName: Tittering Bolt
-	// RegorgerTelegraph.DisplayName: Tittering Telegraph
-	// GhizasWheelP.DisplayName: Corrosive Wheel
-	// VileTearTelegraph.DisplayName: Vile Tear Telegraph
-	// AmbientGibs.DisplayName: Gibs
-	// XCloudVFXExtra.DisplayName: Cloud
-	// EquilibriumP.DisplayName: Equilibrium
-	// EquilibriumP2.DisplayName: Equilibrium
-	// GarbageBag.DisplayName: Garbage Bag
-	// GarbageBarrel.DisplayName: Barrel
-	// GarbageGiantFlame.DisplayName: Flame
-	// GarbageMissile.DisplayName: Soda
-	// GarbageDrone.DisplayName: Drone
-	// GarbageLightning.DisplayName: Lightning
-	// GarbageTelegraph.DisplayName: Garbage Telegraph
-	// GarbageTelegraphSmall.DisplayName: Garbage Telegraph
-	// GarbageLaser.DisplayName: Flame
-	// GarbageLaser1.DisplayName: Flame
-	// GarbageLaser2.DisplayName: Flame
-	// GarbageLaser3.DisplayName: Flame
-	// HeatBlastVFX.DisplayName: Heat Blast
-	// GarbageLaserSmall1.DisplayName: Volcanic Eruption
-	// GarbageLaserSmall2.DisplayName: Volcanic Eruption
-	// GarbageLaserSmall3.DisplayName: Volcanic Eruption
-	// ChargeUp.DisplayName: Charge Up
-	// GluttonImpact.DisplayName: Impact
-	// GreenChargeUp.DisplayName: Green Charge Up
-	// ArchmageHead.DisplayName: Archmage Head
-	// ArchmageArm.DisplayName: Archmage Arm
-	// ArchmageDeath.DisplayName: Archmage Death
-	// ArchmageXSpawnAnim.DisplayName: Archmage Spawn Anim
-	// ArchmageChargeUp.DisplayName: Archmage Charge Up
-	// FangSlingerP.DisplayName: Fang Slinger
-	// ThornBowP.DisplayName: Thorny Bow
-	// ChainswordP.DisplayName: Junkyard Chainsword
-	// CBeam.DisplayName: Beam
-	// FlareExplosion.DisplayName: Flare
-	// CFlareExplosion.DisplayName: Flare
-	// ScreenFlash.DisplayName: Screen Flash
-	// CImplosionFlare.DisplayName: Flare
-	// ConglomerateScream.DisplayName: Conglomerate Scream
-	// CFlesh.DisplayName: Flesh
-	// CIchorBomb.DisplayName: Ichor Bomb
-	// CIchor.DisplayName: Ichor
-	// CecitiorClawMinion.DisplayName: Backscratcher
-	// AnimeSlash.DisplayName: Slash
-	// XAnimeSlash.DisplayName: Xareus Magic
-	// PipebombP.DisplayName: Pipebomb
-	// PotatoP.DisplayName: Potato
-	// CrimsonArrow.DisplayName: Crimson Arrow
-	// CHeart.DisplayName: Heart
-	// EHeartP.DisplayName: Cursed Flames
-	// CBeamInstant.DisplayName: Beam
-	// CursedScourgePro.DisplayName: Cursed Scourge
-	// BloodlashPro.DisplayName: Bloodlash
-	// XRiftSmall.DisplayName: Rift
-	// SpawnTheThing.DisplayName: Debug
-	// ArchmageStaffGore.DisplayName: Archstaff
-	// XTomeP.DisplayName: Amethyst Energy
-	// XTomeSummon.DisplayName: Phantasmal Spirit
-	// XBoltFriendly.DisplayName: Shimmering Bolt
-	// CursedFireball.DisplayName: Cursed Fireball
-	// XareusPotionExplosion.DisplayName: Xareus Potion
-	// XareusPotionPro.DisplayName: Xareus Potion
-	// HostileGibs.DisplayName: Gibs
-	// GarbageImpact.DisplayName: Impact
-	// GarbageDroneF.DisplayName: Drone
-	// GarbageFlailP.DisplayName: Peculiar Angle Grinder
-	// TitteringMinion.DisplayName: Tittering
-	// StaffOfXP.DisplayName: Archstaff
-	// XImpact.DisplayName: Impact
-	// XImpact2.DisplayName: Impact
-	// ToothToothbrushP.DisplayName: Tooth Toothbrush
-	// CecitiorPetP.DisplayName: Cecitior's Eye
-	// GarbagePetP.DisplayName: Garbage Bag
-	// SheepPetP.DisplayName: Sheep
-	// MailboxSentry.DisplayName: Mailbox Sentry
-	// PipebombPSentry.DisplayName: Pipebomb
-	// SalvagedThrusterP.DisplayName: Salvaged Thruster
-	// NastySnapperPro.DisplayName: Nasty Snapper Pro
-	// XBoltFriendly2.DisplayName: Bolt
-	// RedMistVFX.DisplayName: Red Mist V F X
-	// PhantasmalWave.DisplayName: Phantasmal Wave
-	// TFlameThrower2_Inverted.DisplayName: Flame
-	// TerrortomaScream.DisplayName: Terrortoma Scream
-	// TFlameThrowerHoming.DisplayName: Flame
-	// TerrortomeFlame.DisplayName: Terrortome Flame
-	// TerrortomeWorm.DisplayName: Terrortome Worm
-	// SawcitiorP.DisplayName: Sawcitior P
-	// ClawSlashGreen.DisplayName: Claw Slash Green
-	// CGhostCeci.DisplayName: C Ghost Ceci
-	// CBeamSmall.DisplayName: C Beam Small
-	// CWorm.DisplayName: C Worm
-	// BlurScream.DisplayName: Blur Scream
-	// Coins.DisplayName: Coins
-	// SilverBasherFlash.DisplayName: Silver Basher Flash
-	// SilverBasherP.DisplayName: Silver Basher P
-	// terrortomaFishingRodBobber.DisplayName: terrortoma Fishing Rod Bobber
-	// cecitiorFishingRodBobber.DisplayName: cecitior Fishing Rod Bobber
-	// VerletBeam.DisplayName: Verlet Beam
-	// CrimsonBall.DisplayName: Crimson Ball
-	// BallLauncherSprite.DisplayName: Ball Launcher Sprite
-	// CorruptionBalls.DisplayName: Corruption Balls
-	// BallLauncherSprite2.DisplayName: Ball Launcher Sprite2
-	// BallLauncherCharge.DisplayName: Ball Launcher Charge
-	// Ball.DisplayName: Ball
-	// LatcherSprite.DisplayName: Latcher Sprite
-	// DummyProjectile.DisplayName: Dummy Projectile
-	// Misery.DisplayName: Jetpack Boulder
-	// CrimCannonGraphics.DisplayName: Crim Cannon Graphics
-	// ToothProj.DisplayName: Tooth Proj
-	// CorebreakerGraphics.DisplayName: Corebreaker Graphics
-	// AImpact.DisplayName: A Impact
-	// AureusLaser.DisplayName: Aureus Laser
-	// AureusMine.DisplayName: Aureus Mine
-	// jumpscare.DisplayName: jumpscare
-	// MagnetSphere.DisplayName: Magnet Sphere
-	// CorebreakerPrimary.DisplayName: Corebreaker Primary
-	// CorebreakerSecondary.DisplayName: Corebreaker Secondary
-	// AExplosion.DisplayName: A Explosion
-	// AureusBeam.DisplayName: Aureus Beam
-	// AureusGalaxy.DisplayName: Aureus Galaxy
-	// AureusMissile.DisplayName: Aureus Missile
-	// AureusPlanet.DisplayName: Aureus Planet
-	// AureusSpawn.DisplayName: Aureus Spawn
-	// AureusVortex.DisplayName: Aureus Vortex
-	// ProjectileGraphics.DisplayName: Projectile Graphics
-	// Ash.DisplayName: Ash
-	// AshBlast.DisplayName: Ash Blast
-	// CorruptionHitscan.DisplayName: Corruption Hitscan
-	// CorebreakerHitscan.DisplayName: Corebreaker Hitscan
-	// EbonianRocketLauncherGraphics.DisplayName: Ebonian Rocket Launcher Graphics
-	// CongFisherateBobber.DisplayName: Cong Fisherate Bobber
-	// TFlameThrowerSine.DisplayName: T Flame Thrower Sine
-	// BatGraphics.DisplayName: Bat Graphics
-	// Kodama.DisplayName: Kodama
-	// KodamaSummoningRitual.DisplayName: Kodama Summoning Ritual
-	// KodamaF.DisplayName: Kodama F
-	// BelladonnaBush.DisplayName: Belladonna Bush
-	// Blueberry.DisplayName: Blueberry
-	// Nightshade.DisplayName: Nightshade
-	// Nightshade2.DisplayName: Nightshade2
-	// ShewStoneArrow.DisplayName: Shew Stone Arrow
-	// ShewStoneCrystal.DisplayName: Shew Stone Crystal
-	// ShewStoneRain.DisplayName: Shew Stone Rain
-	// ShewExplosion.DisplayName: Shew Explosion
-	// ShewRainExplosion.DisplayName: Shew Rain Explosion
-	// WardingStarP.DisplayName: Warding Star P
-	// WardingStarP2.DisplayName: Warding Star P2
-	// Blinkroot.DisplayName: Blinkbuddy
-	// LilPilg.DisplayName: Lil' Missionary
-	// BotanistP.DisplayName: Botanist P
-	// BorealBladeSlashP.DisplayName: Boreal Blade Slash P
-	// ThawGauntletP.DisplayName: Thaw Gauntlet P
-	// ThawGauntletP2.DisplayName: Thaw Gauntlet P2
-	// CenturySpewerSpore.DisplayName: Century Spewer Spore
-	// CenturyFlowerSpore.DisplayName: Century Flower Spore
-	// WardenSigil.DisplayName: Warden Sigil
-	// WardenStar.DisplayName: Warden Star
-	// GoldTippedArrow.DisplayName: Gold Tipped Arrow
-	// StarBitBlue.DisplayName: Star Bit Blue
-	// MagicChargeUp.DisplayName: Magic Charge Up
-	// FallingStarBig.DisplayName: Falling Star Big
-	// FallingStarTiny.DisplayName: Falling Star Tiny
-	// FlyladStarBomb.DisplayName: Flylad Star Bomb
-	// FlyladDeath.DisplayName: Flylad Death
-	// RustyWaraxeP.DisplayName: Rusty Waraxe P
-	// BorealSpike.DisplayName: Boreal Spike
-	// SudamaF.DisplayName: Sudama F
-	// BotanistHeadProjectile.DisplayName: Botanist Head
-	// BaseballBatP.DisplayName: Baseball Bat P
-	// FallingStarTinyHostile.DisplayName: Falling Star Tiny Hostile
-	// FallingStarBigHostile.DisplayName: Falling Star Big Hostile
-	// IchorArmorExplosion.DisplayName: Ichor Armor Explosion
-	// TerrorArmorRay.DisplayName: Terror Armor Ray
-	// BlindeyeBowP.DisplayName: Blindeye Bow P
-	// BlindeyeArrow.DisplayName: Blindeye Arrow
-	// Starine_Sparkle.DisplayName: Starine Sparkle
-	// LatcherGraphics.DisplayName: Latcher Graphics
-	// BallLauncherPrimary.DisplayName: Ball Launcher Primary
-	// SpudCannonP.DisplayName: Spud Cannon P
-	// PlantGunP.DisplayName: Plant Gun P
-	// PlantGunP2.DisplayName: Plant Gun P2
-	// VivineSpit.DisplayName: Vivine Spit
-	// HostileCorruptExplosion.DisplayName: Hostile Corrupt Explosion
-	// XAmethystFriendly.DisplayName: X Amethyst Friendly
-	// GarbageLightningF.DisplayName: Garbage Lightning F
-	// CursedDollProjectile.DisplayName: Cursed Doll Projectile
-	// CursedRay.DisplayName: Cursed Ray
-	// DollPin.DisplayName: Doll Pin
-	// GoryJaw.DisplayName: Gory Jaw
-	// DollHitscan.DisplayName: Doll Hitscan
-	// SheepeningPlayerProjectile.DisplayName: Sheep
-	// XLargeAmethystAlt.DisplayName: X Large Amethyst Alt
-	// CorebreakerProjectile.DisplayName: Corebreaker Projectile
-	// FangnumProjectile.DisplayName: Fangnum Projectile
-	// LobberProjectile.DisplayName: Lobber Projectile
-	// LobberProjectile2.DisplayName: Lobber Projectile2
-	// SalvagedThrusterProjectile.DisplayName: Salvaged Thruster Projectile
-	// PotatoProjectile.DisplayName: Potato Projectile
-	// ExolsawProjectile.DisplayName: Exolsaw Projectile
-	// CrimCannonProjectile.DisplayName: Crim Cannon Projectile
-	// BaseballBatProjectile.DisplayName: Baseball Bat Projectile
-	// EbonianGunProjectile.DisplayName: Ebonian Gun Projectile
-	// EbonianRocketLauncherProjectile.DisplayName: Ebonian Rocket Launcher Projectile
-	// CoreProjectile.DisplayName: Core Projectile
-	// StarcallerP.DisplayName: Starcaller
-	// StarcallerBolt.DisplayName: Starcaller Bolt
-	// StarcallerPortal.DisplayName: Starcaller Portal
-	// StarcallerShotVFX.DisplayName: Starcaller
+	GreenShockwave.DisplayName: Fala Uderzeniowa
+	GenericExplosion.DisplayName: Eksplozja
+	EyeVFX.DisplayName: Oko
+	CircleTelegraph.DisplayName: Fala Uderzeniowa
+	BloodShockwave.DisplayName: Fala Krwi
+	TSpike.DisplayName: Kolec
+	TFlameThrower3.DisplayName: Przeklęte Płomienie
+	TFlameThrower2.DisplayName: Przeklęte Płomienie
+	TFlameThrower.DisplayName: Przeklęte Płomienie
+	TFang.DisplayName: Kieł
+	TExplosion.DisplayName: Eksplozja
+	Ripple.DisplayName: Fala
+	DoomsdayDrone.DisplayName: Dron Zagłady
+	WeakCursedBullet.DisplayName: Przeklęty Pocisk
+	CorebreakerP.DisplayName: Kula Armatnia Kodołamacz
+	IchorBlast.DisplayName: Wybuch Ichoru
+	LatcherPCecitior.DisplayName: Przyssaniec
+	LatcherP.DisplayName: Przyssaniec
+	IchorGrenade.DisplayName: Granat Ichorowy
+	TerrorStaffP.DisplayName: Plugawy Jajoród
+	EbonianRocket.DisplayName: Pocisk Mawzooki
+	CorruptArrow.DisplayName: Skażona Strzała
+	BloodBullet.DisplayName: Krwawy Pocisk
+	EFireBreath2.DisplayName: Ogień
+	EFireBreath.DisplayName: Ogień
+	EFire.DisplayName: Ogień
+	Rolleg.DisplayName: Rolleg
+	CecitiorEyeP.DisplayName: Widmowy Obserwator
+	BloodLaser.DisplayName: Krwawy Promień
+	Pipebomb.DisplayName: Bomba Rurowa
+	Mailbox.DisplayName: Skrzynka Pocztowa
+	Garbage.DisplayName: Śmieci
+	IchorFlintlockP.DisplayName: Kłognat
+	EbonianGunP.DisplayName: Przeklęta Broń Palna
+	BloodOrb.DisplayName: Krwawa Kula
+	VileBladeP.DisplayName: Plugawy Miecz
+	SanguineSlasherP.DisplayName: Mięsny Kieł
+	ExolsawP.DisplayName: Piekielny Dysk
+	EbonianScytheP.DisplayName: Rozkładająca Kosa
+	InferosP.DisplayName: Infernomikon
+	PanopticonP.DisplayName: Panoptikon
+	Hightoma.DisplayName: Małatoma
+	GarbageRemoteP.DisplayName: Zakurzony Komputer Kwantowy
+	TerrorVilethorn2.DisplayName: Plugawy Cierń
+	TerrorVilethorn1.DisplayName: Plugawy Cierń
+	TBeam.DisplayName: Promień
+	TelegraphLine.DisplayName: Linia Ostrzegawcza
+	EbonFlyMinion.DisplayName: Plugomucha
+	DroneBeam.DisplayName: Promień z Drona
+	HeadGoreSceptreEVILSOBBINGRN.DisplayName: Serce
+	HeadGoreSceptre.DisplayName: Serce
+	Fangs.DisplayName: Kły
+	VileMeatChunk.DisplayName: Plugawy Kawałek Mięsa
+	TerrortomaFlail_Clingers.DisplayName: Plugawy Cep
+	TerrortomaFlail.DisplayName: Plugawy Cep
+	CorruptThorn.DisplayName: Skażony Cierń
+	EBoulder2.DisplayName: Głaz
+	EBoulder.DisplayName: Głaz
+	EBeam.DisplayName: Promienie Słoneczne
+	CecitiorTeeth.DisplayName: Zęby
+	Soder.DisplayName: Napój Gazowany
+	MetalCircle.DisplayName: Beczka z Olejem
+	HotGarbageNuke.DisplayName: Bomba Nuklearna
+	GarbageFlame.DisplayName: Płomień
+	FatSmash.DisplayName: Fala Uderzeniowa
+	PepperSprayProjectile.DisplayName: Gaz Pieprzowy
+	IchorGlobSmall.DisplayName: Kulka
+	IchorGlob.DisplayName: Kulka
+	TinyFish.DisplayName: Mała Rybka
+	RingOfFireP.DisplayName: Krąg Ognia
+	RingOfFireP2.DisplayName: Krąg Ognia
+	VilethornF2.DisplayName: Plugawy Cierń
+	VilethornF1.DisplayName: Plugawy Cierń
+	MeatCrusherP.DisplayName: Miażdżyciel Mięsa
+	CrimsonSpearP.DisplayName: Żrąca Włócznia
+	GoreBeam.DisplayName: Defibrylator
+	RedSpark.DisplayName: Czerwona Iskra
+	BloodShockwave2.DisplayName: Krwawa Fala
+	InferosShockwave.DisplayName: Fala Inferosa
+	ExolFireSpiral.DisplayName: Spiralny Ogień Exola
+	EGeyser.DisplayName: Gejzer
+	InferosShockwave2.DisplayName: Fala Inferosa
+	ESun.DisplayName: Słońce
+	EFire2.DisplayName: Ogień
+	ExolFireExplode.DisplayName: Wybuch Ognia Exola
+	InferosShockwave3.DisplayName: Fala Inferosa
+	FlameExplosion.DisplayName: Wybuch Płomieni
+	EFire3.DisplayName: Ogień
+	ESkullEmoji.DisplayName: Emoji Czaszki
+	EPentagramAsh.DisplayName: Popiół Pentagramu
+	FlameExplosion2.DisplayName: Wybuch Płomieni
+	ETelegraph.DisplayName: Telegraf
+	Noise.DisplayName: Szum
+	NoiseOverlay.DisplayName: Nakładka Szumu
+	EMine.DisplayName: Mina
+	QuickFlare.DisplayName: Flara
+	FireGrenadeP.DisplayName: Granat Ognia
+	CursedFlameExplosion.DisplayName: Wybuch Przeklętego Ognia
+	CrimCannonP.DisplayName: Krwawe Protezy
+	Gibs.DisplayName: klin
+	SpinaxP.DisplayName: Spinaks
+	SelfStabP.DisplayName: Rytualny Sztylet
+	BloodVignette.DisplayName: Krwawa Winieta
+	EPlatform.DisplayName: Platforma
+	EGroundHazard.DisplayName: Zagrożenie Naziemne
+	RykardSkull.DisplayName: Czaszka
+	MagmaBowP.DisplayName: Magmowy Łuk
+	MagmaArrow.DisplayName: Magmowa Strzała
+	ReiCapeP.DisplayName: Maska Pogromcy Pustki
+	ReiCapeTrail.DisplayName: Maska Pogromcy Pustki
+	Djungelskog.DisplayName: Djungelskog
+	ReiExplosion.DisplayName: Maska Pogromcy Pustki
+	IgnosSlash.DisplayName: Cięcie Ignosa
+	IgnosSlashTelegraph.DisplayName: Telegraf Cięcia Ignosa
+	GarbageSignals.DisplayName: Sygnały Śmieci
+	GreenShockwave2.DisplayName: Fala Uderzeniowa
+	OrangeRedShockwave.DisplayName: Fala Uderzeniowa
+	YellowShockwave.DisplayName: Fala Uderzeniowa
+	BigGrayShockwave.DisplayName: Fala Uderzeniowa
+	RykardSkullSpiral.DisplayName: Czaszka
+	FlameExplosion3.DisplayName: Wybuch Płomieni
+	VortexSkull.DisplayName: Czaszka
+	IgnosLightning.DisplayName: Piorun Ignosa
+	IgArena.DisplayName: Arena Ig
+	ESwordWave.DisplayName: Fala Ostrza
+	IgnosEye.DisplayName: Oko Ignosa
+	MagmaArrowHostile.DisplayName: Magmowa Strzała
+	ESickle.DisplayName: Kosa
+	OstertagiP.DisplayName: Ostertagi
+	OstertagiWorm.DisplayName: Robak
+	OstertagiExplosion.DisplayName: Wybuch Przeklętych Płomieni
+	ExolGreatArrow.DisplayName: Wielka Strzała
+	EHomingBeam.DisplayName: Naprowadzany Promień
+	FlameExplosionWSprite.DisplayName: Wybuch Płomieni
+	TFlameThrower4.DisplayName: Płomień
+	TerrorStaffPEvil.DisplayName: Kostur Grozy
+	CecitiorBelch.DisplayName: Beknięcie
+	SerrationP.DisplayName: Ząbkowanie
+	SerrationSpike.DisplayName: Ząbkowany Kolec
+	CecitiorClawSlash.DisplayName: Cięcie Pazura
+	CecitiorClawWave.DisplayName: Fala Pazura
+	ClawGore.DisplayName: Pazur
+	BloodExplosionWSprite.DisplayName: Krwawy Wybuch
+	CecitiorBombThing.DisplayName: Bomba Ichorowa
+	IchorExplosion.DisplayName: Wybuch Ichoru
+	CecitiorSpike.DisplayName: Kolec Cecitiora
+	CecitiorTeethFriendly.DisplayName: Zęby Cecitiora
+	GutlingGunP.DisplayName: Karabin Maszynowy
+	CursedToyP.DisplayName: Przeklęta Lalka
+	CursedToyBeam.DisplayName: Przeklęta Lalka
+	BigGreenShockwave.DisplayName: Fala Uderzeniowa
+	CorruptionClawP.DisplayName: Zakuty Pazur
+	DankDiggerProjectileWorm.DisplayName: Brutalny Kopacz
+	XSpirit.DisplayName: Duch
+	XExplosion.DisplayName: Eksplozja
+	VaccumWormP.DisplayName: Robak Próżni
+	XShadowflame.DisplayName: Eksplozja Cienistego Płomienia
+	XAmethyst.DisplayName: Ametyst
+	XBolt.DisplayName: Salwa Blasku
+	XExplosionTiny.DisplayName: Eksplozja
+	XSineLaser.DisplayName: Fala Cienistego Płomienia
+	XExplosionInvis.DisplayName: Eksplozja
+	XExplosionInvisMask.DisplayName: Eksplozja
+	PhantasmalGreatswordP.DisplayName: Cieniopłomienny Rozłupywacz Nieba Arcymaga Xareusa
+	PhantasmalGreatswordP2.DisplayName: Cieniopłomienny Rozłupywacz Nieba Arcymaga Xareusa
+	XAmethystCloseIn.DisplayName: Ametyst
+	XLargeAmethyst.DisplayName: Wielki Ametyst
+	XAmethystShard.DisplayName: Odłamek Ametystu
+	XTentacle.DisplayName: Macka Cieniopłomienia
+	player_sheep.DisplayName: Owca
+	SheepeningOrb.DisplayName: Promień Zowczenia
+	XManaPotion.DisplayName: Mikstura Xareusa
+	XSpiritNoHome.DisplayName: Widmowy Wybuch
+	XRift.DisplayName: Szczelina
+	XKnife.DisplayName: Ametyst
+	XCloud.DisplayName: Chmura Cienistego Płomienia
+	XLightningBolt.DisplayName: Błyskawica Cienistego Płomienia
+	XTelegraphLine.DisplayName: Linia Telegrafowa
+	RegorgerBolt.DisplayName: Drgający Piorun
+	RegorgerTelegraph.DisplayName: Drgający Telegraf
+	GhizasWheelP.DisplayName: Korozyjne Koło
+	VileTearTelegraph.DisplayName: Telegraf Plugawych Łez
+	AmbientGibs.DisplayName: Szczątki
+	XCloudVFXExtra.DisplayName: Chmura
+	EquilibriumP.DisplayName: Równowaga
+	EquilibriumP2.DisplayName: Równowaga
+	GarbageBag.DisplayName: Worek ze Śmieciami
+	GarbageBarrel.DisplayName: Beczka
+	GarbageGiantFlame.DisplayName: Płomień
+	GarbageMissile.DisplayName: Napój Gazowany
+	GarbageDrone.DisplayName: Dron
+	GarbageLightning.DisplayName: Błyskawica
+	GarbageTelegraph.DisplayName: Telegraf Śmieci
+	GarbageTelegraphSmall.DisplayName: Telegraf Śmieci
+	GarbageLaser.DisplayName: Płomień
+	GarbageLaser1.DisplayName: Płomień
+	GarbageLaser2.DisplayName: Płomień
+	GarbageLaser3.DisplayName: Płomień
+	HeatBlastVFX.DisplayName: Wybuch Ciepła
+	GarbageLaserSmall1.DisplayName: Erupcja Wulkaniczna
+	GarbageLaserSmall2.DisplayName: Erupcja Wulkaniczna
+	GarbageLaserSmall3.DisplayName: Erupcja Wulkaniczna
+	ChargeUp.DisplayName: Naładowanie
+	GluttonImpact.DisplayName: Uderzenie
+	GreenChargeUp.DisplayName: Zielone Naładowanie
+	ArchmageHead.DisplayName: Głowa Arcymaga
+	ArchmageArm.DisplayName: Ramię Arcymaga
+	ArchmageDeath.DisplayName: Śmierć Arcymaga
+	ArchmageXSpawnAnim.DisplayName: Animacja Spawnu Arcymaga
+	ArchmageChargeUp.DisplayName: Naładowanie Arcymaga
+	FangSlingerP.DisplayName: Miotacz Kłów
+	ThornBowP.DisplayName: Ciernisty Łuk
+	ChainswordP.DisplayName: Złomowy Piłomiecz
+	CBeam.DisplayName: Promień
+	FlareExplosion.DisplayName: Flara
+	CFlareExplosion.DisplayName: Flara
+	ScreenFlash.DisplayName: Błysk Ekranu
+	CImplosionFlare.DisplayName: Flara
+	ConglomerateScream.DisplayName: Krzyk Konglomeratu
+	CFlesh.DisplayName: Mięso
+	CIchorBomb.DisplayName: Bomba Ichorowa
+	CIchor.DisplayName: Ichor
+	CecitiorClawMinion.DisplayName: Drapacz Pleców
+	AnimeSlash.DisplayName: Cięcie
+	XAnimeSlash.DisplayName: Magia Xareusa
+	PipebombP.DisplayName: Bomba Rurowa
+	PotatoP.DisplayName: Ziemniak
+	CrimsonArrow.DisplayName: Szkarłatna Strzała
+	CHeart.DisplayName: Serce
+	EHeartP.DisplayName: Przeklęte Płomienie
+	CBeamInstant.DisplayName: Promień
+	CursedScourgePro.DisplayName: Przeklęta Plaga
+	BloodlashPro.DisplayName: Krwiożerczy Bicz
+	XRiftSmall.DisplayName: Szczelina
+	SpawnTheThing.DisplayName: Debug
+	ArchmageStaffGore.DisplayName: Arcylaska
+	XTomeP.DisplayName: Energia Ametystowa
+	XTomeSummon.DisplayName: Widmowy Duch
+	XBoltFriendly.DisplayName: Pocisk Blasku
+	CursedFireball.DisplayName: Przeklęta Kula Ognia
+	XareusPotionExplosion.DisplayName: Mikstura Xareusa
+	XareusPotionPro.DisplayName: Mikstura Xareusa
+	HostileGibs.DisplayName: Szczątki
+	GarbageImpact.DisplayName: Uderzenie
+	GarbageDroneF.DisplayName: Dron
+	GarbageFlailP.DisplayName: Dziwny Szlifierz Kątowy
+	TitteringMinion.DisplayName: Chichoczący
+	StaffOfXP.DisplayName: Arcylaska
+	XImpact.DisplayName: Uderzenie
+	XImpact2.DisplayName: Uderzenie
+	ToothToothbrushP.DisplayName: Zębkowa Szczotka do Zębów
+	CecitiorPetP.DisplayName: Oko Cecitiora
+	GarbagePetP.DisplayName: Worek ze Śmieciami
+	SheepPetP.DisplayName: Owca
+	MailboxSentry.DisplayName: Wieżyczka Skrzynki Pocztowej
+	PipebombPSentry.DisplayName: Bomba Rurowa
+	SalvagedThrusterP.DisplayName: Odzyskany Napęd
+	NastySnapperPro.DisplayName: Wredny Kłapacz
+	XBoltFriendly2.DisplayName: Pocisk
+	RedMistVFX.DisplayName: Czerwona Mgła V F X
+	PhantasmalWave.DisplayName: Widmowa Fala
+	TFlameThrower2_Inverted.DisplayName: Płomień
+	TerrortomaScream.DisplayName: Krzyk Terrortomy
+	TFlameThrowerHoming.DisplayName: Płomień
+	TerrortomeFlame.DisplayName: Płomień Terrortomy
+	TerrortomeWorm.DisplayName: Robak Terrortomy
+	SawcitiorP.DisplayName: Piłocitior P
+	ClawSlashGreen.DisplayName: Zielone Cięcie Pazura
+	CGhostCeci.DisplayName: C Duch Ceci
+	CBeamSmall.DisplayName: Mały Promień
+	CWorm.DisplayName: C Robak
+	BlurScream.DisplayName: Rozmazany Krzyk
+	Coins.DisplayName: Monety
+	SilverBasherFlash.DisplayName: Błysk Srebrnego Rozbijacza
+	SilverBasherP.DisplayName: Srebrny Rozbijacz P
+	terrortomaFishingRodBobber.DisplayName: Spławik Wędki Terrortomy
+	cecitiorFishingRodBobber.DisplayName: Spławik Wędki Cecitiora
+	VerletBeam.DisplayName: Promień Verlet
+	CrimsonBall.DisplayName: Szkarłatna Kula
+	BallLauncherSprite.DisplayName: Pocisk Wyrzutni Kul
+	CorruptionBalls.DisplayName: Kule Zepsucia
+	BallLauncherSprite2.DisplayName: Wyrzutnia Kul Sprite2
+	BallLauncherCharge.DisplayName: Ładowanie Wyrzutni Kul
+	Ball.DisplayName: Kula
+	LatcherSprite.DisplayName: Sprite Przyssańca
+	DummyProjectile.DisplayName: Atrapa Pocisku
+	Misery.DisplayName: Odrzutowy Głaz
+	CrimCannonGraphics.DisplayName: Grafika Krwawej Armaty
+	ToothProj.DisplayName: Pocisk Zębowy
+	CorebreakerGraphics.DisplayName: Grafika Kodołamacz
+	AImpact.DisplayName: Uderzenie A
+	AureusLaser.DisplayName: Laser Aureusa
+	AureusMine.DisplayName: Mina Aureusa
+	jumpscare.DisplayName: Jumpscare
+	MagnetSphere.DisplayName: Sfera Magnetyczna
+	CorebreakerPrimary.DisplayName: Główny Kodołamacz
+	CorebreakerSecondary.DisplayName: Pomocniczy Kodołamacz
+	AExplosion.DisplayName: Eksplozja A
+	AureusBeam.DisplayName: Promień Aureusa
+	AureusGalaxy.DisplayName: Galaktyka Aureusa
+	AureusMissile.DisplayName: Pocisk Aureusa
+	AureusPlanet.DisplayName: Planeta Aureusa
+	AureusSpawn.DisplayName: Pojawienie Aureusa
+	AureusVortex.DisplayName: Wir Aureusa
+	ProjectileGraphics.DisplayName: Grafika Pocisku
+	Ash.DisplayName: Popiół
+	AshBlast.DisplayName: Wybuch Popiołu
+	CorruptionHitscan.DisplayName: Promień Zepsucia
+	CorebreakerHitscan.DisplayName: Promień Kodołamacza
+	EbonianRocketLauncherGraphics.DisplayName: Grafika Plugo Wyrzutni Rakiet
+	CongFisherateBobber.DisplayName: Spławik Kong Ryborate
+	TFlameThrowerSine.DisplayName: Miotacz Płomieni Sine
+	BatGraphics.DisplayName: Grafika Nietoperza
+	Kodama.DisplayName: Kodama
+	KodamaSummoningRitual.DisplayName: Rytuał Przyzwania Kodamy
+	KodamaF.DisplayName: Kodama F
+	BelladonnaBush.DisplayName: Krzew Belladonny
+	Blueberry.DisplayName: Jagoda
+	Nightshade.DisplayName: Psianka
+	Nightshade2.DisplayName: Psianka
+	ShewStoneArrow.DisplayName: Kamienna Strzała
+	ShewStoneCrystal.DisplayName: Kamienny Kryształ
+	ShewStoneRain.DisplayName: Kamienny Deszcz
+	ShewExplosion.DisplayName: Wybuch
+	ShewRainExplosion.DisplayName: Deszczowy Wybuch
+	WardingStarP.DisplayName: Protekcyjna Gwiazda
+	WardingStarP2.DisplayName: Protekcyjna Gwiazda
+	Blinkroot.DisplayName: Migotliwy Towarzysz
+	LilPilg.DisplayName: Mała Misjonarka
+	BotanistP.DisplayName: Botanik
+	BorealBladeSlashP.DisplayName: Cięcie Borealnego Ostrza
+	ThawGauntletP.DisplayName: Rękawica Odwilży
+	ThawGauntletP2.DisplayName: Rękawica Odwilży
+	CenturySpewerSpore.DisplayName: Zarodnik Stulecia
+	CenturyFlowerSpore.DisplayName: Zarodnik Kwiatu Stulecia
+	WardenSigil.DisplayName: Pieczęć Strażnika
+	WardenStar.DisplayName: Gwiazda Strażnika
+	GoldTippedArrow.DisplayName: Złocona Strzała
+	StarBitBlue.DisplayName: Niebieski Odłamek Gwiazdy
+	MagicChargeUp.DisplayName: Magiczne Naładowanie
+	FallingStarBig.DisplayName: Wielka Spadająca Gwiazda
+	FallingStarTiny.DisplayName: Mała Spadająca Gwiazda
+	FlyladStarBomb.DisplayName: Gwiezdna Bomba Flylada
+	FlyladDeath.DisplayName: Śmierć Flylada
+	RustyWaraxeP.DisplayName: Zardzewiały Topór Wojenny
+	BorealSpike.DisplayName: Borealny Kolec
+	SudamaF.DisplayName: Sudama F
+	BotanistHeadProjectile.DisplayName: Głowa Botanika
+	BaseballBatP.DisplayName: Kij Baseballowy
+	FallingStarTinyHostile.DisplayName: Mała Spadająca Gwiazda (Wroga)
+	FallingStarBigHostile.DisplayName: Wielka Spadająca Gwiazda (Wroga)
+	IchorArmorExplosion.DisplayName: Wybuch Zbroi Ichorowej
+	TerrorArmorRay.DisplayName: Promień Zbroi Grozy
+	BlindeyeBowP.DisplayName: Ślepooki Łuk
+	BlindeyeArrow.DisplayName: Ślepooka Strzała
+	Starine_Sparkle.DisplayName: Iskra Gwiazdowa
+	LatcherGraphics.DisplayName: Grafika Przyssańca
+	BallLauncherPrimary.DisplayName: Główna Wyrzutnia Kul
+	SpudCannonP.DisplayName: Działko Ziemniaczane
+	PlantGunP.DisplayName: Roślinna Broń
+	PlantGunP2.DisplayName: Roślinna Broń
+	VivineSpit.DisplayName: Ślina Vivine
+	HostileCorruptExplosion.DisplayName: Wroga Eksplozja Zepsucia
+	XAmethystFriendly.DisplayName: Przyjazny Ametyst X
+	GarbageLightningF.DisplayName: Błyskawica Śmieci F
+	CursedDollProjectile.DisplayName: Pocisk Przeklętej Lalki
+	CursedRay.DisplayName: Przeklęty Promień
+	DollPin.DisplayName: Szpilka Lalki
+	GoryJaw.DisplayName: Krwawa Szczęka
+	DollHitscan.DisplayName: Promień Lalki
+	SheepeningPlayerProjectile.DisplayName: Owca
+	XLargeAmethystAlt.DisplayName: Wielki Ametyst X (Alternatywny)
+	CorebreakerProjectile.DisplayName: Pocisk Kodołamacza
+	FangnumProjectile.DisplayName: Pocisk Zębognata
+	LobberProjectile.DisplayName: Pocisk Lobbera
+	LobberProjectile2.DisplayName: Pocisk Lobbera 2
+	SalvagedThrusterProjectile.DisplayName: Pocisk Napędu Odzyskanego
+	PotatoProjectile.DisplayName: Pocisk Ziemniaka
+	ExolsawProjectile.DisplayName: Pocisk Piekielnej Piły
+	CrimCannonProjectile.DisplayName: Pocisk Krwawej Armaty
+	BaseballBatProjectile.DisplayName: Pocisk Kija Baseballowego
+	EbonianGunProjectile.DisplayName: Pocisk Plugo Broni
+	EbonianRocketLauncherProjectile.DisplayName: Pocisk Plugo Wyrzutni Rakiet
+	CoreProjectile.DisplayName: Pocisk Rdzeniowy
+	StarcallerP.DisplayName: Przywoływacz Gwiazd
+	StarcallerBolt.DisplayName: Pocisk Przywoływacza Gwiazd
+	StarcallerPortal.DisplayName: Portal Przywoływacza Gwiazd
+	StarcallerShotVFX.DisplayName: Strzał Przywoływacza Gwiazd
 }
 
 NPCs: {
 	HotGarbage: {
-		// DisplayName: Hot Garbage
+		DisplayName: Gorące Śmieci
 
 		BossChecklistIntegration: {
-			// SpawnInfo: Use a [i:{0}], often found in Gold Chests.
-			// EntryName: HotGarbage
+			SpawnInfo: Użyj [i:{0}], Często znajdywane w złotych skrzyniach.
+			EntryName: HotGarbage
 		}
 
-		/* Bestiary:
+		Bestiary:
 			'''
-			A heavily armed and armored dumpster, possibly for combat purposes, that has somehow been on fire since its conception.
+			Mocno uzbrojony i opancerzony kontener na śmieci, prawdopodobnie stworzony do celów bojowych, który z niewyjaśnionych przyczyn płonie nieprzerwanie od momentu swojego powstania.
 
 
-			A note on its side reads: "Please return to GenCorp Headquarters if lost."
-			''' */
+			Na jego boku widnieje notatka: "W razie zagubienia prosimy o zwrot do siedziby GenCorp."
+			'''
 	}
 
 	Glutton: {
-		// DisplayName: Glutton
-		// Bestiary: A towering beast with curious traits for a corruption entity, such as its shape and face. It appears to have been much simpler once, and the reason for its strengthening is unknown.
+		DisplayName: Obżartuch
+		Bestiary: Potężna bestia o zaskakujących cechach jak na istotę zepsucia. Jej kształt i twarz wydają się nietypowe. Wygląda na to, że kiedyś była znacznie prostsza, a powód jej obecnego wzmocnienia pozostaje nieznany.
 	}
 
 	Cecitior: {
-		// DisplayName: Cecitior
-		// BossChecklistIntegration.SpawnInfo: Kill a Massive Spectator, commonly found in Crimson.
-		// Bestiary: A fleshy, haphazardly made construct. Despite looking akin to many other crimson monsters, this entity seems to have been created recently for an indiscernible purpose.
+		DisplayName: Cecitior
+		BossChecklistIntegration.SpawnInfo: Zabij Potężnego Obserwatora, często spotykanego w Szkarłacie.
+		Bestiary: Mięsisty, niedbale skonstruowany twór. Choć przypomina wiele innych potworów szkarłatu, wydaje się, że został stworzony całkiem niedawno w nieznanym celu.
 	}
 
 	Terrortoma: {
-		// DisplayName: Terrortoma
-		// BossChecklistIntegration.SpawnInfo: Destroy a Giant Cocoon, commonly found in the Corruption.
-		// Bestiary: An unusual conglomerate of corrupted entities with the strange capability to show emotion. It is malformed, and not the intended result of the metamorphosis.
+		DisplayName: Terrortoma
+		BossChecklistIntegration.SpawnInfo: Zniszcz Gigantyczny Kokon, często spotykany w Zepsuciu
+		Bestiary: Nietypowy konglomerat skażonych istot o dziwnej zdolności okazywania emocji. Jest zniekształcony i nie stanowił zamierzonego efektu metamorfozy.
 	}
 
-	// TerrorClingerSummoner.DisplayName: Clinger
-	// TerrorClingerRanged.DisplayName: Clinger
+	TerrorClingerSummoner.DisplayName: Przyczepiec
+	TerrorClingerRanged.DisplayName: Przyczepiec
 
 	TerrorClingerMelee: {
-		// DisplayName: Clinger
-		// Bestiary: These creatures were the heads of infected corpses, they connect to the Terrortoma, creating a sort of small hive mind together.
+		DisplayName: Przyczepiec
+		Bestiary: Te stworzenia to głowy zainfekowanych trupów. Łączą się z Terrortomą, tworząc coś w rodzaju małego umysłu zbiorowego.
 	}
 
-	// CrimsonWormTail.DisplayName: Gutworm
+	CrimsonWormTail.DisplayName: Robak Jelitny
 
 	CrimsonWormHead: {
-		// DisplayName: Gutworm
-		// Bestiary: Gutworms would appear to be a mimicry of the Corruption's famished eaters, down to the endless hunger and inundation of ichor. They are usually quite rare, making their appearances in this region concerning at lowest.
+		DisplayName: Robak Jelitny
+		Bestiary: Robaki jelitne wydają się być imitacją wygłodniałych pożeraczy z Zepsucia, aż po ich nieposkromiony głód i przesiąknięcie ichorem. Zazwyczaj są niezwykle rzadkie, więc ich pojawienie się w tym regionie jest co najmniej niepokojące.
 	}
 
-	// CrimsonWormBody.DisplayName: Gutworm
-	// CrimeraTail.DisplayName: Scorn
+	CrimsonWormBody.DisplayName: Robak Jelitny
+	CrimeraTail.DisplayName: Pogarda
 
 	CrimeraHead: {
-		// DisplayName: Scorn
-		// Bestiary: A Crimera that has begun to evolve in the Crimson's time of need. It's limbs can now tunnel, and it can hurl up some of the dead blood cells which it's body generates at a breakneck pace.
+		DisplayName: Pogarda
+		Bestiary: Crimera, która zaczęła ewoluować w czasach potrzeby Szkarłatu. Jej kończyny potrafią teraz drążyć tunele, a ona sama może wypluwać martwe krwinki, które jej ciało wytwarza w zawrotnym tempie.
 	}
 
-	// CrimeraBody.DisplayName: Scorn
-	// Crimera.DisplayName: Crimera
+	CrimeraBody.DisplayName: Pogarda
+	Crimera.DisplayName: Crimera
 
 	VileSlime: {
-		// DisplayName: Muckling
-		// Bestiary: Resembling a slime, it uses its unassuming appearance to get close to any potential prey, and lashes out with a fast moving tentacle. It is worth noting that it isn't actually a slime at all.
+		DisplayName: Szlamulec
+		Bestiary: Przypomina szlam, wykorzystując swój niepozorny wygląd, by zbliżyć się do potencjalnej ofiary, po czym atakuje błyskawicznie poruszającą się macką. Warto jednak zaznaczyć, że w rzeczywistości wcale nie jest szlamem.
 	}
 
-	// RottenSpineTail.DisplayName: Rotten Spine
+	RottenSpineTail.DisplayName: Zgniły Kręgosłup
 
 	RottenSpineHead: {
-		// DisplayName: Rotten Spine
-		// Bestiary: Corruption evolution has taken its worms in a curious direction, creating a purely aggressive worm with a head on either side. How it sustains itself is unknown.
+		DisplayName: Zgniły Kręgosłup
+		Bestiary: Ewolucja Zepsucia poprowadziła jego robaki w osobliwym kierunku, tworząc czysto agresywnego robaka z głową po obu stronach. Sposób, w jaki się utrzymuje przy życiu, pozostaje nieznany.
 	}
 
-	// RottenSpineBody.DisplayName: Rotten Spine
-	// EbonianStrider.DisplayName: Regurgitator
+	RottenSpineBody.DisplayName: Zgniły Kręgosłup
+	EbonianStrider.DisplayName: Regurgitator
 
 	Ebonfly: {
-		// DisplayName: Ebonfly
-		// Bestiary: An insect that prefers to fly in groups. They feed by eating dead flesh off of other surfaces. Some say that one day they will grow too big for their wings and become the worms their homeland is known for. Whether this is true or not is debatable.
+		DisplayName: Plugomucha
+		Bestiary: Owadzia istota, która woli latać w grupach. Żywi się, zeskrobując martwe mięso z różnych powierzchni. Niektórzy twierdzą, że pewnego dnia urośnie zbyt duża na swoje skrzydła i przemieni się w robaki, z których słynie jej ojczyzna. Czy to prawda? Pozostaje to kwestią sporną.
 	}
 
 	EbonCrawler: {
-		// DisplayName: Waster
-		// Bestiary: The Waster is a product of the Corruption's failures. It is an evolutionary mishap, that's only purpose now is to unwillingly be a nest for the Ebonflies.
+		DisplayName: Marnotrawca
+		Bestiary: Marnotrawca jest efektem nieudanych prób ewolucji Zepsucia. To pomyłka natury, której jedynym celem jest teraz — wbrew własnej woli — służyć za gniazdo dla Plugomuch.
 	}
 
 	CecitiorEye: {
-		// DisplayName: Gazer
-		/* Bestiary:
+		DisplayName: Spoglądający
+		Bestiary:
 			'''
-			Ocular organs used by Cecitior. The creature is haphazardly created, leaving many flaws in its existence, such as the lack of defended eyes.
+			Narząd wzrokowy używany przez Cecitiora. Stworzenie to zostało wykonane pospiesznie i niedbale, co pozostawiło wiele wad w jego istnieniu — między innymi brak ochrony oczu.
 
-			One has to wonder how much of a pain it would be to get lemon there.
-			''' */
+			Trudno nie zastanowić się, jak bardzo bolałoby gdyby dostała się tam cytryna.
+			'''
 	}
 
-	// TinyBrain.DisplayName: Brain
-	// EbonianHeartNPC.DisplayName: Heart
+	TinyBrain.DisplayName: Mózg
+	EbonianHeartNPC.DisplayName: Serce
 
 	BabyCecity: {
-		// DisplayName: Crimorrhage
-		// Bestiary: An evolution of an Ichor Sticker that had its limbs overtaken by the spread of the biome. Despite their appearance, they have adapted well to their sporadic evolution and symbiosis, and use it to the fullest extent possible, even more so than the unhindered monster it once was.
+		DisplayName: Krwotok
+		Bestiary: Ewolucja Przyklejeńca Ichorowego, którego kończyny zostały całkowicie przejęte przez rozrost biomu. Mimo swojego wyglądu, dobrze przystosował się do tej chaotycznej przemiany i symbiozy, wykorzystując ją w pełni — nawet skuteczniej niż potwór, którym był wcześniej.
 	}
 
 	Fleshformator: {
-		// DisplayName: Fleshformator
-		// Bestiary: Fleshformators are bottom-feeders of the deep crimson. When they are born, they roam from their starting spot and latch onto a nutrient-rich area to grab onto anything they can and devour it. None have ever seen what is on the other end of a Fleshformator.
+		DisplayName: Mięsoformator
+		Bestiary: Mięsoformatory to padlinożercy głębokiego Szkarłatu. Po narodzinach opuszczają swoje miejsce pochodzenia i przyczepiają się do obszarów bogatych w składniki odżywcze, by pochwycić i pożreć wszystko, co tylko zdołają dosięgnąć. Nikt nigdy nie widział, co znajduje się po drugiej stronie Mięsoformatora.
 	}
 
 	LetsGoo: {
-		// DisplayName: Gnasher
-		// Bestiary: The Gnasher is nothing but muscle, jaws, and the instinctual desire to devour prey of any kind.
+		DisplayName: Kłapacz
+		Bestiary: Kłapacz to nic innego jak mięśnie, szczęki i pierwotny instynkt pożerania każdej napotkanej ofiary.
 	}
 
-	// RotlingBody.DisplayName: Rotling
+	RotlingBody.DisplayName: Zgnilec
 
 	RotlingHead: {
-		// DisplayName: Rotling
-		// Bestiary: The Rotling is a small worm birthed from the rotting residual energy left by long dead corruption creatures.
+		DisplayName: Zgnilec
+		Bestiary: Zgnilec to mały robak zrodzony z gnijących, resztek energii dawno martwych stworzeń Zepsucia.
 	}
 
-	// RotlingTail.DisplayName: Rotling
-	// DankDiggerBody.DisplayName: Dank Digger
+	RotlingTail.DisplayName: Zgnilec
+	DankDiggerBody.DisplayName: Dank Digger
 
 	DankDiggerHead: {
-		// DisplayName: Dank Digger
-		// Bestiary: The Dank Diggers are a sign you are in the Eater of Worlds' destructive wake- whenever a shadow scale breaks, the remnant regenerates as best as it can and makes a Dank Digger.
+		DisplayName: Brutalny Kopacz
+		Bestiary: Brutalni Kopacze są oznaką, że znalazłeś się w niszczycielskim śladzie Pożeracza Światów — za każdym razem, gdy pęka Cienista Łuska, jej pozostałość regeneruje się, jak tylko potrafi, tworząc nowego Brutalnego Kopacza.
 	}
 
-	// DankDiggerTail.DisplayName: Dank Digger
+	DankDiggerTail.DisplayName: Brutalny Kopacz
 
 	BloatedEbonfly: {
-		// DisplayName: Bloated Ebonfly
-		// Bestiary: A strange mutation of the Ebonfly. Eating something that has been lit ablaze by the cursed inferno, it has extended its natural lifespan, but also become far more volatile.
+		DisplayName: Nabrzmiała Plugomucha
+		Bestiary: Dziwna mutacja Plugomuchy. Po pożarciu czegoś, co zostało podpalone przeklętym ogniem, wydłużyła swój naturalny żywot, lecz stała się znacznie bardziej niestabilna.
 	}
 
 	MassiveSpectator: {
-		// DisplayName: Massive Spectator
-		// Bestiary: These towering eyes seem to be connected to something at the very base of the Crimson. They only appeared very recently, so not much else is known about them.
+		DisplayName: Potężny Obserwator
+		Bestiary: Te ogromne, unoszące się oczy wydają się być połączone z czymś znajdującym się głęboko u podstaw Szkarłatu. Pojawiły się dopiero niedawno, więc niewiele o nich wiadomo.
 	}
 
-	// TerrortomaBulb.DisplayName: Giant Cocoon
+	TerrortomaBulb.DisplayName: Gigantyczny Kokon
 
 	Bloodhound: {
-		// DisplayName: Bloodhound
-		// Bestiary: The Crimson's attempt to learn from dogs. These hunters are often used to follow unsuspecting souls out of the crimson back to their homes to find more biomass.
+		DisplayName: Krwawy Ogar
+		Bestiary: Próba szkarłatu nauczenia się czegoś od psów. Ci łowcy często śledzą niczego nieświadome dusze opuszczające Szkarłat, by dotrzeć za nimi do ich domów i zdobyć więcej biomasy.
 	}
 
 	ClumpOfMeat: {
-		// DisplayName: Clump Of Meat
-		// Bestiary: Latchers are surprisingly clever entities, often bunching up in order to mimic other things, only to burst apart and bombard the enemy all at once. These usually come in the form of slimes, but a few rare cases have detailed them taking humanoid shapes.
+		DisplayName: Bryła Mięsa
+		Bestiary: Przyssieńce to zaskakująco sprytne istoty — często zbierają się w grupy, by naśladować inne stworzenia, po czym nagle rozdzielają się i atakują wroga zmasowanym uderzeniem. Zazwyczaj przybierają formę szlamów, lecz w rzadkich przypadkach udokumentowano, że potrafią przybrać kształty humanoidalne.
 	}
 
 	Parasite: {
-		// DisplayName: Latcher
-		// Bestiary: These remnants of other crimson creatures are put to better use as small vessels to bring blood to more deserving crimson entities.
+		DisplayName: Przyssaniec
+		Bestiary: Te pozostałości po innych stworzeniach Szkarłatu są wykorzystywane znacznie lepiej — jako małe naczynia służące do przenoszenia krwi do bardziej "godnych" istot Szkarłatu.
 	}
 
 	FleshBrickBig: {
-		// DisplayName: Sedimentary
-		// Bestiary: Sedimentaries are theorized to be walls of the corruption's casms at an early stage in development. Like everything else in the corruption, even the mud and stone you walk on can be traced to the hive-organism itself.
+		DisplayName: Osadowiec
+		Bestiary: Przypuszcza się, że Osadowce to ściany przepaści Zepsucia we wczesnym stadium rozwoju. Jak wszystko w tym biomie, nawet błoto i kamienie, po których stąpasz, można powiązać z samym organizmem-ulepem.
 	}
 
-	// FleshBrickMedium.DisplayName: Sedimentary
-	// FleshBrickSmall.DisplayName: Sedimentary
-	// TrumpetTail.DisplayName: Trumpet
+	FleshBrickMedium.DisplayName: Osadowiec
+	FleshBrickSmall.DisplayName: Osadowiec
+	TrumpetTail.DisplayName: Trąbiel
 
 	TrumpetHead: {
-		// DisplayName: Trumpet
-		// Bestiary: A Trumpet's job within the corruption macroorganism is to tend to the fauna below it. Unlike most infected creatures, they seem completely unbothered by your presence.
+		DisplayName: Trąbiel
+		Bestiary: Zadaniem Trąbiela w makroorganizmie Zepsucia jest opieka nad fauną znajdującą się poniżej niego. W przeciwieństwie do większości zainfekowanych stworzeń, zdaje się zupełnie nie przejmować twoją obecnością.
 	}
 
-	// TrumpetBody.DisplayName: Trumpet
+	TrumpetBody.DisplayName: Trąbiel
 
 	Rolypoly: {
-		// DisplayName: Rolypoly
-		/* Bestiary:
+		DisplayName: Zwitek
+		Bestiary:
 			'''
-			Bundled together, these corrupt worms share a collective and much greater mind at the cost of their mobility.
-			However, by the time they become permanently entangled, their combined mind concludes that such a form is rather stupid.
-			''' */
+			Zgromadzone razem, te skażone robaki dzielą wspólny, znacznie potężniejszy umysł — kosztem swojej mobilności.
+			Jednak gdy ostatecznie splączą się na dobre, ich zbiorowy umysł dochodzi do wniosku, że taka forma jest… dość głupia.
+			'''
 	}
 
 	JuvenileBrain: {
-		// DisplayName: Neurobite
-		// Bestiary: It uses a primitive form of neurokinesis to trick its prey into seeing mirror images of itself. This confusion allows the Neuromaw to strike while its target is vulnerable to attack.
+		DisplayName: Neurogryz
+		Bestiary: Wykorzystuje prymitywną formę neurokinezy, by zwieść swoją ofiarę i sprawić, że widzi jej lustrzane odbicia. To zamieszanie pozwala Neuropaszczy zaatakować, gdy cel staje się bezbronny wobec ciosu.
 	}
 
 	WormKing: {
-		// DisplayName: Worm King
-		// Bestiary: The Worm King is the result of a Rolypoly left to grow unchecked. Acting as a hive mind, it controls the worm-like creatures of the corruption, with many adventurers mistaking it for a strange tree before meeting their end.
+		DisplayName: Król Robaków
+		Bestiary: Król Robaków to rezultat Zwitka pozostawionego samemu sobie, by rósł bez ograniczeń. Działa jak umysł zbiorowy, kontrolując robakopodobne stworzenia Zepsucia. Wielu poszukiwaczy przygód myli go z dziwnym drzewem — tuż przed swoim końcem.
 	}
 
-	// MiniTrumpetBody.DisplayName: Cornet
-	// MiniTrumpetHead.DisplayName: Cornet
-	// MiniTrumpetTail.DisplayName: Cornet
+	MiniTrumpetBody.DisplayName: Kornet
+	MiniTrumpetHead.DisplayName: Kornet
+	MiniTrumpetTail.DisplayName: Kornet
 
 	Consumer: {
-		// DisplayName: Rotjaw
-		// Bestiary: Rotjaws are relentless and will dive towards their prey in the blink of an eye. Their bites can shatter large bones and durable shells effortlessly, and they often leave no scraps behind when devouring their prey.
+		DisplayName: Zgniłopaszcza
+		Bestiary: Zgniłopaszcze są bezlitosne i rzucają się na ofiarę w mgnieniu oka. Ich szczęki potrafią bez trudu kruszyć grube kości i twarde pancerze, a po ich uczcie często nie zostaje żaden ślad ofiary.
 	}
 
 	Regorger: {
-		// DisplayName: Tittering
-		// Bestiary: A tittering's laugh echoes from afar, often fueling campfire tales that portray it as a mysterious cryptid. It remains unclear whether the creature's laughter is from genuine amusement or merely a biological reflex after spewing a beam of cursed flames.
+		DisplayName: Chichoczący
+		Bestiary: Śmiech Chichoczącego rozbrzmiewa z daleka, często inspirując opowieści przy ognisku, które przedstawiają go jako tajemniczego stwora z legend. Wciąż nie wiadomo, czy to rzeczywisty śmiech z rozbawienia, czy jedynie biologiczny odruch po wyrzuceniu z siebie promienia przeklętych płomieni.
 	}
 
 	Vileglider: {
-		// DisplayName: Vileglider
-		// Bestiary: Vilegliders strike when least expected, diving from above to swarm their prey. Their attacks are viciously precise, often leaving no trace of their victims behind.
+		DisplayName: Plugoszybowiec
+		Bestiary: Plugoszybowce atakują wtedy, gdy najmniej się tego spodziewasz - nurkują z góry, by osaczyć swoją ofiarę. Ich ataki są niezwykle precyzyjne i brutalne, często nie pozostawiając po ofiarach żadnego śladu.
 	}
 
 	ToxicAbomination: {
-		// DisplayName: Virulant
-		// Bestiary: It stores toxic gases from the carrion it consumes, using this buildup to launch itself at great speeds toward its next target, creating an explosion-like burst of force in the process.
+		DisplayName: Zaraziec
+		Bestiary: Gromadzi toksyczne gazy pochodzące z padliny, którą się żywi, wykorzystując ich nagromadzenie, by z ogromną prędkością wystrzelić się w kierunku następnego celu — tworząc przy tym wybuchową falę uderzeniową.
 	}
 
 	VileTear: {
-		// DisplayName: Grinner
-		// Bestiary: The Grinner is a rare sight, but its imposing size and ever-present smile strikes fear into those encountering it. It takes as much pleasure in scaring its victims as it does in devouring them whole.
+		DisplayName: Uśmiechacz
+		Bestiary: Uśmiechacz to rzadki widok, lecz jego potężne rozmiary i wiecznie przyklejony uśmiech budzą grozę u każdego, kto ma nieszczęście go spotkać. Czerpie równie wielką przyjemność ze straszenia swoich ofiar, co z pożerania ich w całości.
 	}
 
 	BloodHunter: {
-		// DisplayName: Blood Hunter
-		// Bestiary: A gruesome arachnid of the crimson. It prefers a less direct approach compared to its spider relatives, maintaining distance with its pincers, and a stinger tail producing a potent venom.
+		DisplayName: Łowca Krwi
+		Bestiary: Makabryczny pajęczak zamieszkujący Szkarłat. W przeciwieństwie do swoich krewniaków woli mniej bezpośrednie podejście — utrzymuje dystans, używając szczypiec oraz ogona zakończonego żądłem wytwarzającym silną truciznę.
 	}
 
-	// ArchmageXDeathAnim.DisplayName: Xareus
-	// Conglomerate.DisplayName: Conglomerate
+	ArchmageXDeathAnim.DisplayName: Xareus
+	Conglomerate.DisplayName: Konglomerat
 
 	Mosquito: {
-		// DisplayName: Bloodsucker
-		// Bestiary: A once nuisance turned into another monster. These creatures' bloodsucking ability makes them annoying alone, but dangerous in swarms, or for what lasting side effects they may bring.
+		DisplayName: Krwiożerca
+		Bestiary: Niegdyś drobna uciążliwość, dziś kolejny potwór. Zdolność tych stworzeń do wysysania krwi sprawia, że są irytujące w pojedynkę, ale śmiertelnie niebezpieczne w roju — zwłaszcza ze względu na długotrwałe skutki ich ukąszeń.
 	}
 
 	Screecher: {
-		// DisplayName: Shrieker
-		// Bestiary: Medium sized, skinless creatures that roam the crimson as walking alarms of a sort. Their nerves are nearly exposed, allowing them to sense even the slightest disturbance and alert the crimson to it.
+		DisplayName: Krzykacz
+		Bestiary: Średniej wielkości, bezskórne stworzenia przemierzające Szkarłat niczym chodzące alarmy. Ich niemal odsłonięte nerwy pozwalają im wyczuć najmniejsze poruszenie i natychmiast ostrzec cały biom.
 	}
 
-	// ArchmageCutsceneMartian.DisplayName: Archmage Xareus
+	ArchmageCutsceneMartian.DisplayName: Arcymag Xareus
 
 	ArchmageStaffNPC: {
-		// DisplayName: Archstaff
-		// Bestiary: Of all magical elements in the world, few are quite so great as the Archstaff. A handle forged of pure-iron and mythril, with spectral bars and fallen stars poured in, wrapped in the finest archcloth, and a massive gemstone of crystallized shimmer and amethyst, able to, unlike other staves, instantly transmutate mana into magical energies and otherworldly portals, rather than using it to get magical power out of the item itself. This staff, despite its wielder, is a testament to all things magical and a culmination of all of the history within the arts, dark and light alike.
+		DisplayName: Arcylaska
+		Bestiary: Spośród wszystkich magicznych artefaktów na świecie, niewiele dorównuje potędze Arcylaski. Rękojeść wykuta z czystego żelaza i mithrylu, przesiąknięta widmowymi prętami oraz esencją spadających gwiazd, owinięta najdoskonalszym arcyjedwabiem i zwieńczona potężnym klejnotem z krystalicznego blasku oraz ametystu — potrafi, w przeciwieństwie do innych kosturów, natychmiast przekształcać manę w magiczną energię i międzywymiarowe portale, zamiast czerpać z niej moc w tradycyjny sposób. Ta laska, niezależnie od swego posiadacza, jest świadectwem wszystkiego, co magiczne — stanowi ukoronowanie całej historii sztuk mistycznych, zarówno jasnych, jak i mrocznych.
 	}
 
-	// FleshDice.DisplayName: Flesh Dice
+	FleshDice.DisplayName: Kości Mięsa
 
 	Sheep: {
-		// DisplayName: Sheep
-		// Bestiary: Sheep are passive, friendly animals with a thick layer of wool and an appetite for grass, sheep's wool is quite common in many colorful items of clothing and especially comfort, to the surprise of very few
+		DisplayName: Owca
+		Bestiary: Owce to spokojne, przyjazne zwierzęta pokryte grubą warstwą wełny i znane z apetytu na trawę. Ich wełna jest powszechnie wykorzystywana w wielu barwnych elementach odzieży, a zwłaszcza w tych zapewniających ciepło i wygodę — co raczej nie dziwi nikogo.
 	}
 
 	JelleyeFish: {
-		// DisplayName: Jelleye Fish
-		// Bestiary: Fleshy tendrils drift afloat over the crimson's blood-spattered terrain. Originating from the sanguine waters of the crimson, these mutant abominations evolved to continuously grow numerous inconsolable eyes and float in the putrid air, not unlike their aquatic ancestors. Just don't make sashimi from these.
+		DisplayName: Ryba Okożel
+		Bestiary: Mięsiste macki unoszą się nad krwawymi terenami Szkarłatu. Wywodzą się z krwistych wód tego biomu — te zmutowane potworności ewoluowały tak, by nieustannie wyrastały im niezliczone, niespokojne oczy, unosząc się w cuchnącym powietrzu niczym ich wodni przodkowie. Lepiej nie próbuj robić z nich sashimi.
 	}
 
 	MiniSpectator: {
-		// DisplayName: Spectator
-		// Bestiary: An uncommon sight in the Crimson. In all recorded cases, Spectators have seemed to have no singular focus, analyzing crimson creatures, corruption creatures, and even pure creatures, with the same lack of intensity and eerie passiveness, to the point travelers claim they wish they could tell them jokes. Notably, the ones here are focused on you.
+		DisplayName: Obserwator
+		Bestiary: Rzadki widok w Szkarłacie. We wszystkich znanych przypadkach Obserwatorzy nie wydają się mieć konkretnego celu — analizują stworzenia Szkarłatu, Zepsucia, a nawet czyste istoty z tą samą, chłodną obojętnością, że podróżnicy żartują, iż chcieliby móc im opowiadać dowcipy. Warto zauważyć, że te, które widzisz… skupiają się właśnie na tobie.
 	}
 
 	ArchmageX: {
-		// DisplayName: Xareus
-		// BossLogDisplayName: The Archmage
-		// BossChecklistIntegration.SpawnInfo: Interact with the Archstaff in the Mysterious Shack, after unlocking the basement with a [i:LargeAmethyst].
-		/* Bestiary:
+		DisplayName: Xareus
+		BossLogDisplayName: Arcymag
+		BossChecklistIntegration.SpawnInfo: Wejdź w interakcję z Arcylaską w Tajemniczej Chatce po odblokowaniu piwnicy za pomocą [i:LargeAmethyst].
+		Bestiary:
 			'''
-			The most magnificent and brilliant sorcerer to ever walk this earth... An unmatched master of wizardry! A true magician! The Archmage!!
+			Najwspanialszy i najbłyskotliwszy czarodziej, jaki kiedykolwiek stąpał po tej ziemi… Niezrównany mistrz magii! Prawdziwy mag! Arcymag!!
 
 
-			All self-proclaimed, of course.
-			''' */
+			Wszystko to jest, rzecz jasna, z jego własnych słów.
+			'''
 	}
 
 	CoinBag: {
-		// DisplayName: Possessed Bag
-		// Bestiary: A bag of coins that seems to be possessed by an overeagerly charitable spirit.
+		DisplayName: Opętany Worek
+		Bestiary: Worek monet, który zdaje się być opętany przez nadgorliwie dobrodusznego ducha.
 	}
 
-	// Chalice.DisplayName: Chalice
-	// Sudama.DisplayName: Sudama
-	// Aureus.DisplayName: Aureus
-	// Kodama.DisplayName: Kodama
+	Chalice.DisplayName: Kielich
+	Sudama.DisplayName: Sudama
+	Aureus.DisplayName: Aureus
+	Kodama.DisplayName: Kodama
 
 	Botanist: {
-		// DisplayName: Botanist
-		// Bestiary: A strange forest monster with the ability to stretch its neck to an unnatural length before quickly slamming its head downward. Botanists tend to stalk their victims, disguised as an ordinary bush.
+		DisplayName: Botanik
+		Bestiary: Dziwaczny potwór leśny zdolny do rozciągnięcia swojej szyi do nienaturalnej długości, by następnie błyskawicznie uderzyć głową w dół. Botanicy mają w zwyczaju śledzić swoje ofiary, ukrywając się pod postacią zwyczajnego krzewu.
 	}
 
 	Belladonna: {
-		// DisplayName: Belladonna
-		// Bestiary: A type of plant humanoid, resembling a well-dressed botanist. Spends the day hibernating and photosynthesising, and emerges at night to spread her saplings: healing blueberries and explosive nightshades. True to her appearance, she takes great pride in her botany and vibrant complexion.
+		DisplayName: Belladonna
+		Bestiary: Roślinna humanoidka przypominająca elegancko ubranego botanika. Dni spędza na hibernacji i fotosyntezie, a nocą wychodzi, by rozprzestrzeniać swoje sadzonki, leczące jagody i wybuchowe wilcze jagody. Zgodnie ze swoim wyglądem, jest niezwykle dumna ze swojej wiedzy botanicznej i bujnej aparycji.
 	}
 
 	Pebbi1: {
-		// DisplayName: Slab Pebbi
-		// Bestiary: Pebbies are strange pieces of living rocks of many kinds, who swarm up to fend off travelers for no good reason. This one is quite speedy.
+		DisplayName: Kamyk Płytowy
+		Bestiary: Kamyki to dziwne, żywe fragmenty skał różnych rodzajów, które z niewiadomych powodów zbierają się w grupy, by odpędzać podróżników. Ten konkretny jest wyjątkowo szybki.
 	}
 
 	Pebbi2: {
-		// DisplayName: Chunk pebbi
-		// Bestiary: Pebbies are strange pieces of living rocks of many kinds, who swarm up to fend off travelers for no good reason. This one is quite hefty.
+		DisplayName: Kamyk Bryłowy
+		Bestiary: Kamyki to dziwne, żywe fragmenty skał różnych rodzajów, które z niewiadomych powodów zbierają się w grupy, by odpędzać podróżników. Ten jest wyjątkowo pękaty.
 	}
 
 	Pebbi3: {
-		// DisplayName: Geode Pebbi
-		// Bestiary: Pebbies are strange pieces of living rocks of many kinds, who swarm up to fend off travelers for no good reason. This one is quite rotund.
+		DisplayName: Kamyk Geodowy
+		Bestiary: Kamolce to dziwne, żywe fragmenty skał różnych rodzajów, które z niewiadomych powodów zbierają się w grupy, by odpędzać podróżników. Ten jest wyjątkowo pękaty.
 	}
 
 	BoxFish: {
-		// DisplayName: Yellow Boxfish
-		// Bestiary: A cubical fish whose entire existence is dedicated to perpetually swimming through the deep blue sea.
+		DisplayName: Żółta Kostnoryba
+		Bestiary: Sześcienna ryba, której całe istnienie sprowadza się do nieustannego pływania w głębokim błękicie oceanu.
 	}
 
 	BorealBlade: {
-		// DisplayName: Boreal Blade
-		// Bestiary: Also known as Knights of the Boreal, Boreal Blades are ice constructs animated by magic and the many souls frozen beneath the tundra.
+		DisplayName: Borealne Ostrze
+		Bestiary: Znani również jako Rycerze Borealu — Borealne Ostrza to lodowe konstrukty ożywione magią oraz duszami niezliczonych istot uwięzionych pod tundrą.
 	}
 
 	CenturyFlower: {
-		// DisplayName: Century Flower
-		// Bestiary: These unique plants are capable of spewing large clouds of spores, dangerous to much of the wildlife. Their age makes them extremely irrational and ill-tempered, spewing their suffocating spores at anything they deem to be less wise.
+		DisplayName: Kwiat Stulecia
+		Bestiary: Te unikalne rośliny potrafią wyrzucać ogromne chmury zarodników, niebezpiecznych dla większości fauny. Ich wiek czyni je wyjątkowo nieracjonalnymi i porywczymi — wypuszczają duszące zarodniki na wszystko, co uznają za mniej mądre od siebie.
 	}
 
 	AsteroidWarden: {
-		// DisplayName: Asteroid Warden
-		// Bestiary: These cosmic watchers thrive in the arcane star energy of the flowing river of starlight, and act as its first defenders from certain extraplanetary invaders.
+		DisplayName: Strażnik Asteroidy
+		Bestiary: Ci kosmiczni obserwatorzy żyją w arkanicznej energii gwiezdnej płynącej rzeki światła i pełnią rolę pierwszej linii obrony przed międzyplanetarnymi najeźdźcami.
 	}
 
-	// FallingStar.DisplayName: Fallen Star
+	FallingStar.DisplayName: Gwiazda z Nieba
 
 	Starlad: {
-		// DisplayName: Starlad
-		// Bestiary: Possessing astral energy strong enough to pierce through the night, the Starlads are both the prodigal backbone of this invasive species, and the first signs of the Witch's arrival.
+		DisplayName: Gwiezdniak
+		Bestiary: Posiadający energię astralną tak potężną, że przebija ciemność nocy. Gwiezdniacy są zarówno trzonem tej inwazyjnej rasy, jak i pierwszym znakiem nadejścia Wiedźmy.
 	}
 
 	BorealDancer: {
-		// DisplayName: Boreal Dancer
-		// Bestiary: Brought to life by souls claimed by the low temperatures of the tundra, Boreal Dancers enjoy an endlessly frigid dance.
+		DisplayName: Borealny Tancerz
+		Bestiary: Ożywiony przez dusze pochłonięte przez lodowate temperatury tundry. Borealni Tancerze oddają się bez końca swemu lodowemu tańcowi.
 	}
 
 	AsteroidHerder: {
-		// DisplayName: Asteroid Herder
-		// Bestiary: Guardians of the river of starlight, they feed off of its endless supply of mana and use it to herd a flock of stars.
+		DisplayName: Pasterz Asteroidy
+		Bestiary: Strażnicy rzeki światła gwiazd. Żywią się jej nieskończonym zapasem many, wykorzystując ją do zaganiania stad gwiazd.
 	}
 
 	Flylad: {
-		// DisplayName: Flylad
-		// Bestiary: Winged threat coming from galaxies far away. It specializes in firing out small star projectiles, and it sometimes slams its own body down to ensure its survival and the success of the invasion.
+		DisplayName: Lotnik
+		Bestiary: Uskrzydlone zagrożenie z odległych galaktyk. Specjalizuje się w wystrzeliwaniu małych gwiezdnych pocisków, a czasami rzuca się własnym ciałem w dół, by zapewnić sobie przetrwanie i sukces inwazji.
 	}
 
 	Minilad: {
-		// DisplayName: Laddie
-		// Bestiary: Contrary to popular belief, the Laddie is not actually a juvenile Starlad, but a smaller, more agile branch of the species that specializes in consuming stellar energy from the air.
+		DisplayName: Latek
+		Bestiary: Wbrew powszechnym przekonaniom, Latek wcale nie jest młodym Gwiezdniakiem, lecz mniejszą, bardziej zwinną odmianą gatunku, wyspecjalizowaną w pochłanianiu energii gwiezdnej z powietrza.
 	}
 
 	Obeselad: {
-		// DisplayName: Fatlad
-		// Bestiary: With it's wobbly legs and aloof face, the Fatlad would be the perfect tool to entertain children, if not for its brutal way of feeding by crushing small critters under its rotund body.
+		DisplayName: Grubolad
+		Bestiary: Z jego chybotliwymi nogami i nieobecnym wyrazem twarzy, Grubolad byłby idealną zabawką dla dzieci. Cóż, gdyby nie jego brutalny sposób odżywiania się, polegający na miażdżeniu drobnych stworzeń swoim pękatym ciałem.
 	}
 
-	// PebbiSwarm.DisplayName: Terrifying Pebbi Swarm Approaches Your Way
+	PebbiSwarm.DisplayName: Przerażający Rój Kamyków Zbliża Się w Twoją Stronę
 
 	Hookworm: {
-		// DisplayName: Hookworm
-		// Bestiary: An abnormal evolution of the giant worm with a gigantic set of mandibles, gotten from crushing the metals of the deep in their jaws. This allows them to tunnel at the same speed, but the lesser nutrients from eating stone has caused their flesh to become stringy and fragile.
+		DisplayName: Tęgoryjec
+		Bestiary: Nienormalna ewolucja gigantycznego robaka, posiadająca ogromne żuwaczki, które zyskała, miażdżąc w szczękach metale z głębin. Dzięki temu potrafi drążyć tunele z taką samą prędkością, jednak uboga dieta oparta na kamieniach sprawiła, że jego ciało stało się włókniste i kruche.
 	}
 
 	Starine_Sightseer: {
-		// DisplayName: Starine Sightseer
-		// Bestiary: Brilliant and peaceful. Hovering around certain spots, they seem to study the environment. Although they may seem helpless, they will defend themselves if necessary.
+		DisplayName: Obserwator Gwiazdowy
+		Bestiary: Olśniewający i spokojny. Unosi się w pobliżu określonych miejsc, jakby badał otoczenie. Choć sprawia wrażenie bezbronnego, potrafi się bronić, gdy zajdzie taka potrzeba.
 	}
 
 	Starine_Skipper: {
-		// DisplayName: Starine Skipper
-		// Bestiary: Powered by magic derived from the stars, it uses its well-developed back legs to hop and skip about the night, usually kicking off unsuspecting prey to cripple them.
+		DisplayName: Skoczek Gwiazdowy
+		Bestiary: Napędzany magią pochodzącą z gwiazd, wykorzystuje silnie rozwinięte tylne nogi do skakania i przemieszczania się nocą — często kopiąc niczego nieświadome ofiary, by je unieruchomić.
 	}
 
-	Vivine: {
-		// DisplayName: Vivine
-		// Bestiary: A type of tripod carnivorous flower native to the jungle's moist caverns. Spits a pink corrosive substance at prey, approaching only to slurp up the pre-digested slurry.
-	}
-
-	HoarfrostCoiler: {
-		// DisplayName: Hoarfrost Coiler
-		// Bestiary: An ancient serpentine ice golem that used to guard a buried kingdom under the tundra.
-	}
-
-	// HoarfrostCoilerBody.DisplayName: Hoarfrost Coiler Body
-	// HoarfrostCoilerTail.DisplayName: Hoarfrost Coiler Tail
+	Vivine.DisplayName: Vivine
 }
 
 Items: {
 	RingOfFire: {
-		/* Tooltip:
+		Tooltip:
 			'''
-			Ignores defense but never deals critical damage
-			Can't pop purple balloons
-			''' */
-		// DisplayName: Ring of Fire
+			Ignoruje obronę, ale nigdy nie zadaje obrażeń krytycznych
+			Nie potrafi przebijać fioletowych balonów
+			'''
+		DisplayName: Pierścień Ognia
 	}
 
 	ToxicarpMKII: {
-		/* Tooltip:
+		Tooltip:
 			'''
-			Shoots barrages of tiny fish, these fishes immediately realize they are not underwater and die
-			'Gnarwhal blast!'
-			''' */
-		// DisplayName: Gnarwhal
+			Wystrzeliwuje serie małych rybek, które natychmiast po wystrzeleniu orientują się, że nie są pod wodą i zdychają
+			'Gnarwalowy wybuch!'
+			'''
+		DisplayName: Gnarwal
 	}
 
 	ThornBow: {
-		// DisplayName: Thorny Bow
-		// Tooltip: ""
+		DisplayName: Ciernisty Łuk
+		Tooltip: ""
 	}
 
 	GutlingGun: {
-		// DisplayName: Gutling
-		// Tooltip: ""
+		DisplayName: Karabin Maszynowy
+		Tooltip: ""
 	}
 
 	EbonianRocketLauncher: {
-		// DisplayName: Mawzooka
-		/* Tooltip:
+		DisplayName: Mawzooka
+		Tooltip:
 			'''
-			Converts rockets into homing corrupted ones
-			Tile-destroying rockets lose that property
-			''' */
+			Przekształca rakiety w naprowadzane, pociski zepsucia
+			Rakiety niszczące bloki tracą tę właściwość
+			'''
 	}
 
 	EbonianGun: {
-		// Tooltip: Converts any bullets into high velocity demonite bullets
-		// DisplayName: Vile Musket
+		Tooltip: Przekształca wszystkie kule w pociski demonitu o dużej prędkości
+		DisplayName: Plugawy Muszkiet
 	}
 
 	EbonianGatling: {
-		// Tooltip: idk exists
-		// DisplayName: Corrupt Gatling
+		Tooltip: nwm istnieje
+		DisplayName: Karabin Maszynowy Zepsucia
 	}
 
 	Corebreaker: {
-		// DisplayName: Corebreaker
-		/* Tooltip:
+		DisplayName: Kodołamacz
+		Tooltip:
 			'''
-			Launches an explosive core
-			Right click to shoot a laser
-			''' */
+			Wystrzeliwuje wybuchowy rdzeń
+			Prawy przycisk myszy aby strzelić laserem
+			'''
 	}
 
 	TerrorFlail: {
-		// DisplayName: Flailotoma
-		// Tooltip: ""
+		DisplayName: Plugawy Cep
+		Tooltip: ""
 	}
 
 	SanguineSlasher: {
-		// Tooltip: Restores {0} health when biting an enemy
-		// DisplayName: Fleshfang
+		Tooltip: Przy gryzieniu wroga przywraca {0} punktów zdrowia
+		DisplayName: Mięśniokieł
 	}
 
 	MeatCrusher: {
-		// DisplayName: Meat Crusher
-		// Tooltip: Has a unique attack when striking the ground
+		DisplayName: Miażdżyciel Mięsa
+		Tooltip: Wykonuje unikalny atak przy uderzeniu w ziemię
 	}
 
 	Exolsaw: {
-		// DisplayName: Infernal Disc
-		// Tooltip: ""
+		DisplayName: Piekielny Dysk
+		Tooltip: ""
 	}
 
 	EbonianScythe: {
-		// Tooltip: Increases maximum movement speed while used
-		// DisplayName: Grimrot Cutter
+		Tooltip: Zwiększa maksymalną prędkość ruchu podczas używania
+		DisplayName: Rozkładająca Kosa
 	}
 
 	TerrorStaff: {
-		// DisplayName: Nest Sceptre
-		/* Tooltip:
+		DisplayName: Berło Gniazda
+		Tooltip:
 			'''
-			Summons Bloated Ebonflies that explode on nearby enemies
-			Does not consume minion slots
-			''' */
+			Przyzywa Nabrzmiałe Plugomuchy, które wybuchają w pobliżu wrogów
+			Nie zajmuje slotów na przywołańce
+			'''
 	}
 
 	Latcher: {
-		// DisplayName: Latcher
-		// Tooltip: Reels you into enemies and deals damage when you get too close
+		DisplayName: Przyssaniec
+		Tooltip: Przyciąga cię do wrogów i zadaje obrażenia, gdy znajdziesz się zbyt blisko
 	}
 
 	InferosVolI: {
-		// DisplayName: Infernomicon
-		// Tooltip: ""
+		DisplayName: Infernomikon
+		Tooltip: ""
 	}
 
 	GoreSceptre: {
-		// DisplayName: Defibrillator
-		/* Tooltip:
+		DisplayName: Defibrylator
+		Tooltip:
 			'''
-			Summons an electrified heart that shocks enemies
-			'CLEAR!'
-			''' */
+			Przyzywa naelektryzowane serce, które razi wrogów prądem
+			'CZYSTO!'
+			'''
 	}
 
 	EbonHiveI: {
-		// Tooltip: ""
-		// DisplayName: Corrupt Cluster
+		Tooltip: ""
+		DisplayName: Wiązka Zepsucia
 	}
 
 	Panopticon: {
-		// DisplayName: Flesh Cube
-		// Tooltip: Summons a Flesh Cube
+		DisplayName: Kostka Mięsa
+		Tooltip: Przyzywa Kostkę Mięsa
 	}
 
 	CursedCone: {
-		// DisplayName: Cursed Cone
-		// Tooltip: Summons the Tinytoma
+		DisplayName: Przeklęty Stożek
+		Tooltip: Przyzywa Tinytomę
 	}
 
 	DoomsdayRemote: {
-		// DisplayName: Red Button
-		/* Tooltip:
+		DisplayName: Czerwony Przycisk
+		Tooltip:
 			'''
-			Calls a drone strike at your cursor
-			One of many failed(?) GenCorp experiments
-			''' */
+			Przyzywa atak drona w miejscu kursora
+			Jedno z wielu nieudanych(?) eksperymentów GenCorp
+			'''
 	}
 
 	IchorFlintlock: {
-		// Tooltip: Converts bullets into teeth
-		// DisplayName: Fangnum
+		Tooltip: Przekształca kule w zęby
+		DisplayName: Zębognat
 	}
 
 	FangSlinger: {
-		// DisplayName: Fang Slinger
-		// Tooltip: ""
+		DisplayName: Miotacz Kłów
+		Tooltip: ""
 	}
 
 	CrimCannon: {
-		// Tooltip: Launches jaws that attach to enemies and bite them
-		// DisplayName: Bloodsoaked Dentures
+		Tooltip: Wystrzeliwuje szczęki, które przyczepiają się do wrogów i gryzą ich
+		DisplayName: Krwawe Protezy
 	}
 
 	PepperSpray: {
-		// DisplayName: Pepper Spray
-		// Tooltip: ""
+		DisplayName: Gaz Pieprzowy
+		Tooltip: ""
 	}
 
 	WormPaintingI: {
-		// Tooltip: By O. Digger
-		// DisplayName: The Worm
+		Tooltip: Od O. Digger
+		DisplayName: Robak
 	}
 
 	WaspPaintingI: {
-		/* Tooltip:
+		Tooltip:
 			'''
-			'Dedicated to a species long extinct'
-			By E. Fly
-			''' */
-		// DisplayName: The Wasp
+			'Poświęcona gatunkowi, który dawno wymarł'
+			Od E. Fly
+			'''
+		DisplayName: Osa
 	}
 
 	HotMusic: {
-		// Tooltip: Plays Trash Compactor by Yuri O
-		// DisplayName: Music Box (Hot Garbage)
+		Tooltip: Gra Trash Compactor od Yuri O
+		DisplayName: Pozytywka (Gorące Śmieci)
 	}
 
 	ExolMusicI: {
-		// Tooltip: Plays Rage by Yuri O
-		// DisplayName: Music Box (Inferos)
+		Tooltip: Gra Rage od Yuri O
+		DisplayName: Pozytywka (Inferos)
 	}
 
 	EvilMusicI: {
-		// Tooltip: Plays Forces of Evil by Yuri O
-		// DisplayName: Music Box (Terrortoma & Cecitior)
+		Tooltip: Gra Forces of Evil od Yuri O
+		DisplayName: Pozytywka (Terrortoma & Cecitior)
 	}
 
 	DappertomaI: {
-		// Tooltip: By Sr. Thomas
-		// DisplayName: Elegantoma
+		Tooltip: Od Sr. Thomas
+		DisplayName: Elegantoma
 	}
 
 	DapperCecitiorI: {
-		// Tooltip: By Sr. Unsighted
-		// DisplayName: Sightly Fella
+		Tooltip: Od Sr. Unsighted
+		DisplayName: Przystojniak
 	}
 
 	GarbageRemote: {
-		// Tooltip: "Allows communication with the only AI to ever reach singularity "
-		// DisplayName: Dusty Quantum Computer
-		// NoteForTranslators: The 'Be warned.' HAS to match in both the Warning and Tooltip
+		Tooltip: "Umożliwia komunikację z jedyną sztuczną inteligencją, która osiągnęła osobowość "
+		DisplayName: Zakurzony komputer kwantowy
+		NoteForTranslators: The 'Be warned.' HAS to match in both the Warning and Tooltip
 	}
 
 	ExolWings: {
-		// Tooltip: ""
-		// DisplayName: Infernal Wings
+		Tooltip: ""
+		DisplayName: Piekielne Skrzydła
 	}
 
 	EbonianHeart: {
-		/* Tooltip:
+		Tooltip:
 			'''
-			Reduces defense by {0}
-			Increases the max number of minions by {1}
-			Increases summon damage by {2}%
-			Summons a corrupted heart that follows you and shoots cursed flames at nearby enemies
-			''' */
-		// DisplayName: Rotten Heart
+			Zmniejsza obronę o {0}
+			Zwiększa maksymalną liczbę przyzwańców o {1}
+			Zwiększa obrażenia od przyzwań o {2}%
+			Przyzywa Serce Zepsucia, które podąża za tobą i strzela przeklętymi płomieniami w pobliskich wrogów
+			'''
+		DisplayName: Zgniłe Serce
 	}
 
 	BrainAcc: {
-		/* Tooltip:
+		Tooltip:
 			'''
-			Increases life regen
-			Summons multiple brains to act as a shield against non-piercing attacks
-			''' */
-		// DisplayName: Seeping Brain
+			Zwiększa regenerację życia
+			Przyzywa wiele mózgów, które działają jak tarcza przeciwko atakom nieprzebijającym
+			'''
+		DisplayName: Sączący Się Mózg
 	}
 
 	IchorGlobScepter: {
-		// Tooltip: Shoots out an icky glob that splits into 3 smaller chunks
-		// DisplayName: Glob Sceptre
+		Tooltip: Wystrzeliwuje obrzydliwą maź, która rozdziela się na 3 mniejsze kawałki
+		DisplayName: Berło Globu
 	}
 
 	VileNoodleBox: {
-		/* Tooltip:
+		Tooltip:
 			'''
-			Provides you 100% guaranteed literal heartburn
-			The noodles seem to wiggle
-			''' */
-		// DisplayName: Vile Noodle Box
+			Gwarantuje ci dosłownie 100% pewną zgagę
+			Kluski wydają się poruszać
+			'''
+		DisplayName: Pudełko Plugawych Klusek
 	}
 
 	CorruptionStaff: {
-		// Tooltip: Conjures homing vilethorns
-		// DisplayName: Thorn-A-Part
+		Tooltip: Przyzywa naprowadzające plugawe ciernie
+		DisplayName: Rozdzieracz Cierni
 	}
 
 	CrimsonSpear: {
-		// DisplayName: Vitriolic Voulge
-		// Tooltip: Gets more powerful with extended use
+		DisplayName: Żrąca włócznia
+		Tooltip: Z czasem staje się potężniejsza przy dłuższym użyciu
 	}
 
 	Spinax: {
-		// DisplayName: Spinax
-		// Tooltip: An ancient dinosaur spine imbued with the power of the crimson
+		DisplayName: Spinaks
+		Tooltip: Starożytny kręgosłup dinozaura, nasycony mocą szkarłatu
 	}
 
 	SelfStab: {
-		// DisplayName: Sacrificial Dagger
-		// Tooltip: Massively boosts all your damage, at a cost
+		DisplayName: Rytualny Sztylet
+		Tooltip: Massively boosts all your damage, at a cost
 	}
 
 	MagmaBow: {
-		// DisplayName: Pentabow
-		// Tooltip: Shoots 5 volcanic arrows
+		DisplayName: Pięciostrzałowy Łuk
+		Tooltip: Wystrzeliwuje 5 wulkanicznych strzał
 	}
 
 	ReiMask: {
-		// DisplayName: Voidrunner Mask
-		/* Tooltip:
+		DisplayName: Maska Pogromcy Pustki
+		Tooltip:
 			'''
-			Slightly increases movement speed
-			Allows teleportation by pressing {ReiM_Keybind} while hovering over an enemy
-			''' */
+			Nieznacznie zwiększa prędkość ruchu
+			Pozwala teleportować się po naciśnięciu {ReiM_Keybind}, gdy najedziesz kursorem na wroga
+			'''
 	}
 
 	DjungelskogI: {
-		// DisplayName: Djungelskog
-		// Tooltip: Summons a Djungelskog
+		DisplayName: Djungelskog
+		Tooltip: Przyzywa Djungelskoga
 	}
 
 	Ostertagi: {
-		// DisplayName: Ostertagi
-		// Tooltip: Boosts damage and attacking speed, at a cost
+		DisplayName: Ostertagi
+		Tooltip: Zwiększają obrażenia i szybkość ataku — ale za pewną cenę
 	}
 
 	Potato: {
-		// DisplayName: Potato
-		// Tooltip: So, how are you holding up?
+		DisplayName: Ziemniak
+		Tooltip: Więc… jak się trzymasz?
 	}
 
 	ClementinesCap: {
-		// DisplayName: Bloody Ballcap
-		// Tooltip: "'It's definitely seen better days'"
+		DisplayName: Zakrwawiona Czapka z Daszkiem
+		Tooltip: "'Z pewnością widziała lepsze dni'"
 	}
 
 	InfernoBreastplate: {
-		// DisplayName: Infernal Chestplate
-		// Tooltip: ""
+		DisplayName: Piekielny Napierśnik
+		Tooltip: ""
 	}
 
 	InfernoHeadgear: {
-		// DisplayName: Infernal Helm
-		// Tooltip: ""
+		DisplayName: Piekielny Hełm
+		Tooltip: ""
 	}
 
 	InfernoHeadgearAlt: {
-		// DisplayName: Infernal Mask
-		// Tooltip: ""
+		DisplayName: Piekielna Maska
+		Tooltip: ""
 	}
 
 	InfernoLeggings: {
-		// DisplayName: Infernal Leggings
-		// Tooltip: ""
+		DisplayName: Piekielne Nagolenniki
+		Tooltip: ""
 	}
 
 	Serration: {
-		// DisplayName: Serration
-		// Tooltip: Has a unique attack when striking the ground
+		DisplayName: Ząbkowanie
+		Tooltip: Wykonuje unikalny atak przy uderzeniu w ziemię
 	}
 
 	CecitiorBag: {
-		// DisplayName: Treasure Bag ({$Mods.EbonianMod.NPCs.Cecitior.DisplayName})
-		// Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+		DisplayName: Torba Skarbów ({$Mods.EbonianMod.NPCs.Cecitior.DisplayName})
+		Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 	}
 
 	TerrortomaBag: {
-		// DisplayName: Treasure Bag ({$Mods.EbonianMod.NPCs.Terrortoma.DisplayName})
-		// Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+		DisplayName: Torba Skarbów ({$Mods.EbonianMod.NPCs.Terrortoma.DisplayName})
+		Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 	}
 
 	CursedToy: {
-		// Tooltip: Generates projectiles from the sky
-		// DisplayName: Cursed Doll
+		Tooltip: Przywołuje pociski spadające z nieba
+		DisplayName: Przeklęta Lalka
 	}
 
 	CorruptionClaw: {
-		// Tooltip: Does a unique combo attack
-		// DisplayName: Chained Claw
+		Tooltip: Wykonuje unikalne kombinacje ataków
+		DisplayName: Związany Pazur
 	}
 
 	VaccumWorm: {
-		// Tooltip: Pulls in weaker enemies
-		// DisplayName: Vacuum Worm
+		Tooltip: Przyciąga słabszych wrogów
+		DisplayName: Próżniowy Robak
 	}
 
 	PhantasmalGreatsword: {
-		// DisplayName: Archmage Xareus' Shadowflame Skysplitter
-		/* Tooltip:
+		DisplayName: Cieniopłomienny Rozłupywacz Nieba Arcymaga Xareusa
+		Tooltip:
 			'''
-			Projects shadowflame versions of the sword on hit
-			Crafted by Archmage Xareus... As a wall decoration
-			''' */
+			Tworzy cieniopłomienne kopie miecza przy trafieniu
+			Wykuty przez Arcymaga Xareusa… jako ozdoba na ścianę
+			'''
 	}
 
 	GhizasWheel: {
-		// DisplayName: Corrosive Wheel
-		/* Tooltip:
+		DisplayName: Korozyjne Koło
+		Tooltip:
 			'''
-			Inflicts Cursed Inferno on hit 
-			Ignores defense
-			''' */
+			Nakłada klątwę Piekielnego Ognia przy trafieniu 
+			Ignoruje obronę przeciwnika
+			'''
 	}
 
 	Equilibrium: {
-		// Tooltip: ""
-		// DisplayName: Equilibrium
+		Tooltip: ""
+		DisplayName: Równowaga
 	}
 
 	Chainsword: {
-		// DisplayName: Junkyard Chainsword
-		// Tooltip: Ignores {0} points of enemy defense
+		DisplayName: Złomowy Piłomiecz
+		Tooltip: Ignoruje {0} punktów obrony przeciwnika
 	}
 
 	CecitiorClawSummon: {
-		// DisplayName: Backscratcher
-		// Tooltip: "'Hello, Peter'"
+		DisplayName: Drapacz pleców
+		Tooltip: "'Witaj, Peter'"
 	}
 
 	HotShield: {
-		// DisplayName: Dumpster Lid
-		// Tooltip: Decreases movement speed by {0}%
+		DisplayName: Pokrywa od Śmietnika
+		Tooltip: Zmniejsza prędkość ruchu o {0}%
 	}
 
 	CecitiorMaterial: {
-		// DisplayName: Fleshy Blob
-		// Tooltip: Writhing pieces of Crimson flesh
+		DisplayName: Mięsisty Glob
+		Tooltip: Wijące się kawałki Szkarłatnego mięsa
 	}
 
 	TerrortomaMaterial: {
-		// DisplayName: Cellular Matter
-		// Tooltip: Writhing pieces of Corrupt matter
+		DisplayName: Komórkowa Substancja
+		Tooltip: Wijące się fragmenty Zepsutej materii
 	}
 
 	ToothToothbrush: {
-		// DisplayName: Tooth Toothbrush
-		// Tooltip: Has a unique attack when striking the ground
+		DisplayName: Zębkowa Szczotka do Zębów
+		Tooltip: Wykonuje unikalny atak przy uderzeniu w ziemię
 	}
 
 	PipebombI: {
-		// DisplayName: Pipebomb
-		/* Tooltip:
+		DisplayName: Bomba Rurowa
+		Tooltip:
 			'''
-			Can be used to harm Town NPCs
-			'I wonder what happens if I-'
-			''' */
+			Może być użyta do ranienia NPC-tów z Osady
+			'Zastanawiam się, co się stanie, jeśli-'
+			'''
 	}
 
 	SpudCannon: {
-		// DisplayName: Spud Cannon
-		// Tooltip: Uses potatoes as ammo
+		DisplayName: Działo Ziemniaczane
+		Tooltip: Używa ziemniaków jako amunicji
 	}
 
 	CursedScourge: {
-		// DisplayName: Cursed Scourge
-		// Tooltip: ""
+		DisplayName: Przeklęty Bicz
+		Tooltip: ""
 	}
 
 	Bloodlash: {
-		// DisplayName: Bloodlash
-		// Tooltip: ""
+		DisplayName: Krwawy Bicz
+		Tooltip: ""
 	}
 
 	ArchmageXTome: {
-		// DisplayName: Tome of the Grand Archmage's Infinite Wisdom
-		// Tooltip: Conjures Amethyst Energy to summon Phantasmal Spirits for you.
+		DisplayName: Tom Nieskończonej Mądrości Wielkiego Arcymaga
+		Tooltip: Przywołuje ametystową energię, by przyzwać dla ciebie widmowe duchy.
 	}
 
 	StaffOfXItem: {
-		// DisplayName: Staff Of X Item
-		// Tooltip: ""
+		DisplayName: Kostur przedmiotu X
+		Tooltip: ""
 	}
 
 	StaffOfX: {
-		// DisplayName: Archstaff of the Tragically Deceased Archmage Xareus
-		// Tooltip: Forged from pure powdered lightning, the finest amethysts from the realm of crystals... etc. etc.
+		DisplayName: Arcylaska Tragicznie Zmarłego Arcymaga Xareusa
+		Tooltip: Wykuta z czystego sproszkowanego pioruna, najznakomitszych ametystów z królestwa kryształów... itd., itd.
 	}
 
 	StaffofXWeapon: {
-		// DisplayName: Shrunken Variant of Xareus' Archstaff
-		// Tooltip: Lacks the grandeur of the True Archstaff.
+		DisplayName: Pomniejszona wersja Arcylaski Xareusa
+		Tooltip: Nie posiada majestatu prawdziwej Arcylaski.
 	}
 
 	XareusPotion: {
-		// DisplayName: Xareus' Potion of Infinite Mana
-		// Tooltip: Lethal to drink
+		DisplayName: Mikstura Nieskończonej Many Xareusa
+		Tooltip: Śmiertelna po wypiciu
 	}
 
 	ArchmageBag: {
-		// DisplayName: Treasure Bag ({$Mods.EbonianMod.NPCs.ArchmageX.DisplayName})
-		// Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+		DisplayName: Torba Skarbów ({$Mods.EbonianMod.NPCs.ArchmageX.DisplayName})
+		Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 	}
 
 	TerrortomaTrophy: {
-		// DisplayName: Terrortoma Trophy
-		// Tooltip: ""
+		DisplayName: Trofeum - Terratoma
+		Tooltip: ""
 	}
 
 	XTentacleAcc: {
-		// DisplayName: Xareus' Tentacle
-		// Tooltip: Empowers magical attacks with a bouncy amethyst
+		DisplayName: Macki Xareusa
+		Tooltip: Wzmacniają ataki magiczne za pomocą sprężystego ametystu
 	}
 
 	GarbageFlail: {
-		// DisplayName: Peculiar Angle Grinder
-		// Tooltip: Rotates
+		DisplayName: Dziwaczna Szlifierka Kątowa
+		Tooltip: Obraca się
 	}
 
 	TitteringStaff: {
-		// DisplayName: Tittering Staff
-		// Tooltip: Summons miniscule titterings that fire bolts of Cursed Inferno at nearby enemies
+		DisplayName: Chichoczący Kostur
+		Tooltip: Przyzywa maleńkie chichotki, które strzelają pociskami przeklętego ognia w pobliskich wrogów
 	}
 
 	GarbageBagI: {
-		// DisplayName: Treasure Bag ({$Mods.EbonianMod.NPCs.HotGarbage.DisplayName})
-		// Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+		DisplayName: Torba Skarbów ({$Mods.EbonianMod.NPCs.HotGarbage.DisplayName})
+		Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
 	}
 
 	CecitiorPet: {
-		// DisplayName: Cecitior's Eye
-		// Tooltip: Summons Cecitior's Eye
+		DisplayName: Oko Cecitiora
+		Tooltip: Przyzywa Oko Cecitiora
 	}
 
 	GarbagePet: {
-		// DisplayName: Garbage Bag
-		// Tooltip: Summons a Garbage Bag
+		DisplayName: Worek na Śmieci
+		Tooltip: Przyzywa Worek na Śmieci
 	}
 
 	SheepPet: {
-		// DisplayName: Fluffy Wool
-		// Tooltip: Summons a sheep
+		DisplayName: Puszysta Wełna
+		Tooltip: Przyzywa owcę
 	}
 
 	CecitiorTrophy: {
-		// DisplayName: Cecitior Trophy
-		// Tooltip: ""
+		DisplayName: Trofeum - Cecitior
+		Tooltip: ""
 	}
 
 	GarbageTrophy: {
-		// DisplayName: Hot Garbage Trophy
-		// Tooltip: ""
+		DisplayName: Trofeum - Gorące Śmieci
+		Tooltip: ""
 	}
 
 	XMusicI: {
-		// DisplayName: Music Box (Xareus)
-		// Tooltip: Plays Die Human Enemy by Yuri O
+		DisplayName: Pozytywka (Xareus)
+		Tooltip: Gra Die Human Enemy od Yuri O
 	}
 
 	XTrophy: {
-		// DisplayName: Xareus Trophy
-		// Tooltip: ""
+		DisplayName: Trofeum - Xareus
+		Tooltip: ""
 	}
 
 	SheepItem: {
-		// DisplayName: Sheep
-		// Tooltip: ""
+		DisplayName: Owca
+		Tooltip: ""
 	}
 
 	MailboxStaff: {
-		// DisplayName: Mailbox Staff
-		// Tooltip: Summons a Mailbox Sentry
+		DisplayName: Kostur Skrzynki Pocztowej
+		Tooltip: Przyzywa wieżyczkę w postaci skrzynki pocztowej
 	}
 
 	CecitiorRelic: {
-		// DisplayName: Cecitior Relic
-		// Tooltip: ""
+		DisplayName: Relikt Cecitiora
+		Tooltip: ""
 	}
 
 	GarbageRelic: {
-		// DisplayName: Hot Garbage Relic
-		// Tooltip: ""
+		DisplayName: Relikt Gorących Śmieci
+		Tooltip: ""
 	}
 
 	TerrortomaRelic: {
-		// DisplayName: Terrortoma Relic
-		// Tooltip: ""
+		DisplayName: Relikt Terrortomy
+		Tooltip: ""
 	}
 
 	XRelic: {
-		// DisplayName: Xareus Relic
-		// Tooltip: ""
+		DisplayName: Relikt Xareusa
+		Tooltip: ""
 	}
 
 	SalvagedThruster: {
-		// DisplayName: Salvaged Thruster
-		/* Tooltip:
+		DisplayName: Odzyskany Silnik Odrzutowy
+		Tooltip:
 			'''
-			Uses gel for ammo
-			'Slight bit of dust spam...'
-			''' */
+			Używa żelu jako amunicji
+			'Powoduje lekkie chmury kurzu...'
+			'''
 	}
 
 	NastySnapper: {
-		// DisplayName: Nasty Snapper
-		/* Tooltip:
+		DisplayName: Wstrętny Szczękozwierz
+		Tooltip:
 			'''
 			{$CommonItemTooltip.SummonTagDamage}
 			{$CommonItemTooltip.Whips}
-			'Smells kinda fishy'
-			''' */
+			'Trochę zalatuje rybą'
+			'''
 	}
 
 	WoolenBoots: {
-		// DisplayName: Woolen Boots
-		/* Tooltip:
+		DisplayName: Wełniane Buty
+		Tooltip:
 			'''
-			Increases whip damage by {0}%
-			Increases whip speed by {1}%
-			''' */
+			Zwiększają obrażenia od biczy o {0}%
+			Zwiększają szybkość biczy o {1}%
+			'''
 	}
 
 	WoolenCoat: {
-		// DisplayName: Woolen Coat
-		/* Tooltip:
+		DisplayName: Wełniany Płaszcz
+		Tooltip:
 			'''
-			Increases summon damage by {0}%
-			Increases your max number of minions by {1}
-			''' */
+			Zwiększa obrażenia od przyzwań o {0}%
+			Zwiększa maksymalną liczbę przyzwańców o {1}
+			'''
 	}
 
 	WoolenUshanka: {
-		// DisplayName: Woolen Ushanka
-		// Tooltip: Increases summon damage by {0}%
-		/* SetBonus:
+		DisplayName: Wełniana Uszanka
+		Tooltip: Zwiększa obrażenia od przyzwań o {0}%
+		SetBonus:
 			'''
-			Increases your max number of minions by {0}
-			Provides immunity to chill and freezing effects
-			''' */
+			Zwiększa maksymalną liczbę przyzwańców o {0}
+			Zapewnia odporność na efekty wychłodzenia i zamrożenia
+			'''
 	}
 
 	Wool: {
-		// DisplayName: Wool
-		// Tooltip: ""
+		DisplayName: Wełna
+		Tooltip: ""
 	}
 
 	XMask: {
-		// DisplayName: Xareus Mask
-		// Tooltip: ""
+		DisplayName: Maska Xareusa
+		Tooltip: ""
 	}
 
 	GarbageMask: {
-		// DisplayName: Garbage Mask
-		// Tooltip: ""
+		DisplayName: Maska Śmieci
+		Tooltip: ""
 	}
 
 	CeciMask: {
-		// DisplayName: Cecitior Mask
-		// Tooltip: ""
+		DisplayName: Maska Cecitiora
+		Tooltip: ""
 	}
 
 	TTomaMask: {
-		// DisplayName: Terrortoma Mask
-		// Tooltip: ""
+		DisplayName: Maska Terrortomy
+		Tooltip: ""
 	}
 
 	XHouseBrickReplicaItem: {
-		// DisplayName: Amethyst Brick
-		// Tooltip: ""
+		DisplayName: Amethystowa Cegłą
+		Tooltip: ""
 	}
 
 	Terrortome: {
-		// DisplayName: Terrortome
-		// Tooltip: ""
+		DisplayName: Terrortom
+		Tooltip: ""
 	}
 
 	Sawcitior: {
-		// DisplayName: Saw-citior
-		// Tooltip: Launches two saws that collide with each other
+		DisplayName: Piło-citior
+		Tooltip: Wystrzeliwuje dwie piły, które zderzają się ze sobą
 	}
 
 	Shears: {
-		// DisplayName: Shears
-		// Tooltip: Can be used to obtain wool from sheep
+		DisplayName: Szczypce
+		Tooltip: Mogą być użyte do pozyskiwania wełny z owiec
 	}
 
 	SheepItemNaked: {
-		// DisplayName: Sheep (Sheared)
-		// Tooltip: ""
+		DisplayName: Owca (ostrzyżona)
+		Tooltip: ""
 	}
 
 	WoolChairI: {
-		// DisplayName: Woolen Chair
-		// Tooltip: ""
+		DisplayName: Wełniane Krzesło
+		Tooltip: ""
 	}
 
 	WoolDoorI: {
-		// DisplayName: Woolen Door
-		// Tooltip: ""
+		DisplayName: Wełniane Drzwi
+		Tooltip: ""
 	}
 
 	WoolLampI: {
-		// DisplayName: Woolen Lamp
-		// Tooltip: ""
+		DisplayName: Wełniany Lampion
+		Tooltip: ""
 	}
 
 	WoolTableI: {
-		// DisplayName: Woolen Table
-		// Tooltip: ""
+		DisplayName: Wełniany Stół
+		Tooltip: ""
 	}
 
 	WoolWorkbenchI: {
-		// DisplayName: Woolen Workbench
-		// Tooltip: ""
+		DisplayName: Wełniany Stół Warsztatowy
+		Tooltip: ""
 	}
 
 	WoolWoodI: {
-		// DisplayName: Woolen Wood
-		// Tooltip: ""
+		DisplayName: Wełniane Drewno
+		Tooltip: ""
 	}
 
 	WoolWoodPlatformI: {
-		// DisplayName: Woolen Platform
-		// Tooltip: ""
+		DisplayName: Wełniana Platforma
+		Tooltip: ""
 	}
 
 	WoolWoodWallI: {
-		// DisplayName: Woolen Wall
-		// Tooltip: ""
+		DisplayName: Wełniana Ściana
+		Tooltip: ""
 	}
 
 	SilverBasher: {
-		// DisplayName: Silver Basher
-		// Tooltip: ""
+		DisplayName: Srebrny Młotobijca
+		Tooltip: ""
 	}
 
 	terrortomaFishingRod: {
-		// DisplayName: Blightcaster
-		// Tooltip: ""
+		DisplayName: Plugawoczar
+		Tooltip: ""
 	}
 
 	cecitiorFishingRod: {
-		// DisplayName: Bloodline
-		// Tooltip: ""
+		DisplayName: Linia krwi
+		Tooltip: ""
 	}
 
 	BallLauncher: {
-		// DisplayName: Lobber
-		/* Tooltip:
+		DisplayName: Miotacz
+		Tooltip:
 			'''
-			Right click to charge a burst attack
-			Uses rockets as ammo
-			''' */
+			Użyj prawego przycisku myszy, aby naładować atak wybuchowy
+			Używa rakiet jako amunicji
+			'''
 	}
 
 	CorruptrotI: {
-		// DisplayName: Corruptrot Block
-		// Tooltip: ""
+		DisplayName: Blok Zepsutozgnilizny
+		Tooltip: ""
 	}
 
 	FleshichorI: {
-		// DisplayName: Fleshichor Block
-		// Tooltip: ""
+		DisplayName: Blok Mięsnoichoru
+		Tooltip: ""
 	}
 
 	AureusSpawnItem: {
-		// DisplayName: Aureus Spawn Item
-		// Tooltip: ""
+		DisplayName: Przedmiot Przywołujący Aureusa
+		Tooltip: ""
 	}
 
 	ConglomerateEnergyDrink: {
-		// DisplayName: Conglomerate Energy Drink
-		// Tooltip: Contains 63% Conglorine, 22% Ichor B6, 13% Natural Cursed Flames, and other misc. ingredients.
+		DisplayName: Energetyk Konglomeratu
+		Tooltip: Zawiera 63% Kongloriny, 22% Ichoru B6, 13% naturalnych przeklętych płomieni oraz inne składniki.
 	}
 
 	CongFisherate: {
-		// DisplayName: Rotted Leechline
-		// Tooltip: ""
+		DisplayName: Zgniła pijawkolinia
+		Tooltip: ""
 	}
 
 	CeciChairI: {
-		// DisplayName: Fleshichor Chair
-		// Tooltip: ""
+		DisplayName: Mięsnoichorowe Krzesło
+		Tooltip: ""
 	}
 
 	CeciPlatformI: {
-		// DisplayName: Fleshichor Platform
-		// Tooltip: ""
+		DisplayName: Mięsnoichorowa Platforma
+		Tooltip: ""
 	}
 
 	CeciWallI: {
-		// DisplayName: Fleshichor Wall
-		// Tooltip: ""
+		DisplayName: Mięsnoichorowa Ściana
+		Tooltip: ""
 	}
 
 	TTomaChairI: {
-		// DisplayName: Corruptrot Chair
-		// Tooltip: ""
+		DisplayName: Zepsutozgniłe Krzesło
+		Tooltip: ""
 	}
 
 	TTomaPlatformI: {
-		// DisplayName: Corruptrot Platform
-		// Tooltip: ""
+		DisplayName: Zepsutozgniła Platforma
+		Tooltip: ""
 	}
 
 	TTomaWallI: {
-		// DisplayName: Corruptrot Wall
-		// Tooltip: ""
+		DisplayName: Zepsutozgniła Ściana
+		Tooltip: ""
 	}
 
 	Bat: {
-		// DisplayName: Bat
-		// Tooltip: ""
+		DisplayName: Pałka
+		Tooltip: ""
 	}
 
 	SudamaTrident: {
-		// DisplayName: Sudama Trident
-		// Tooltip: ""
+		DisplayName: Trójząb Sudamy
+		Tooltip: ""
 	}
 
 	KodamaStaff: {
-		// DisplayName: Kodama Staff
-		// Tooltip: ""
+		DisplayName: Kostur Kodamy
+		Tooltip: ""
 	}
 
 	BoxFishItem: {
-		// DisplayName: Yellow Boxfish
-		// Tooltip: ""
+		DisplayName: Żółta Kostnoryba
+		Tooltip: ""
 	}
 
 	ShewStone: {
-		// DisplayName: Shew Stone
-		// Tooltip: Right click to prematurely set an active crystal cluster off
+		DisplayName: Kamień Shew
+		Tooltip: Użyj prawego przycisku myszy, aby przedwcześnie aktywować działający klaster kryształów
 	}
 
 	WardingStar: {
-		// DisplayName: Warding Star
-		// Tooltip: ""
+		DisplayName: Protekcyjna Gwiazda
+		Tooltip: ""
 	}
 
 	BlinkrootI: {
-		// DisplayName: Blinkbud
-		// Tooltip: Summons a Blinkbuddy
+		DisplayName: Migotliwy Towarzysz
+		Tooltip: Przyzywa Migotliwego Towarzysza
 	}
 
 	LilPilgI: {
-		// DisplayName: Little Memory
-		// Tooltip: Summons a moonlit memory
+		DisplayName: Małe Wspomnienie
+		Tooltip: Przyzywa wspomnienie skąpane w blasku księżyca
 	}
 
 	ThawGauntlet: {
-		// DisplayName: Cold Touch
-		// Tooltip: ""
+		DisplayName: Zimny Dotyk
+		Tooltip: ""
 	}
 
 	CenturySprayer: {
-		// DisplayName: Century Sprayer
-		// Tooltip: Suffocates enemies
+		DisplayName: Stuletni Spryskiwacz
+		Tooltip: Dusi wrogów
 	}
 
 	GoldenTip: {
-		// DisplayName: Golden Tip
-		// Tooltip: Occasionally converts any arrow into a gold-tipped one that increases the value of the enemy it hits
+		DisplayName: Złota Końcówka
+		Tooltip: Od czasu do czasu zamienia dowolną strzałę w złotą, zwiększającą wartość trafionego wroga
 	}
 
 	StarBit: {
-		// DisplayName: Starbit
-		/* Tooltip:
+		DisplayName: Odłamek Gwiazdy
+		Tooltip:
 			'''
-			3% increased critical strike chance
-			Shoot a star bit on critical strikes
-			A delicacy among the stars!
-			''' */
+			Zwiększa szansę na trafienie krytyczne o 3%
+			Wystrzeliwuje odłamek gwiazdy przy trafieniu krytycznym
+			Przysmak wśród gwiazd!
+			'''
 	}
 
 	RoSTest: {
-		// DisplayName: This Item Deletes the Ebonian Mod Do Not Use This
-		// Tooltip: ""
+		DisplayName: Ten przedmiot usuwa Ebonian Moda — NIE UŻYWAJ TEGO
+		Tooltip: ""
 	}
 
 	RustyWaraxe: {
-		// DisplayName: Rusty Waraxe
-		// Tooltip: Critical hits cause deep cuts
+		DisplayName: Zardzewiały Topór Wojenny
+		Tooltip: Trafienia krytyczne powodują głębokie rany
 	}
 
 	BotanistHeadStaff: {
-		// DisplayName: Botanist Head
-		// Tooltip: ""
+		DisplayName: Głowa Botanika
+		Tooltip: ""
 	}
 
 	BaseballBat: {
-		// DisplayName: Baseball Bat
-		// Tooltip: ""
+		DisplayName: Kij Baseballowy
+		Tooltip: ""
 	}
 
 	Cecibody: {
-		// DisplayName: Sightless Breastplate
-		// Tooltip: Increases melee damage by {0}% and melee speed by {1}%
+		DisplayName: Bezwzrokowy Napierśnik
+		Tooltip: Zwiększa obrażenia w walce wręcz o {0}% oraz szybkość ataku wręcz o {1}%
 	}
 
 	Cecihead: {
-		// DisplayName: Sightless Hood
-		// Tooltip: Increases melee damage by {0}% and melee speed by {1}%
-		// SetBonus: Killing enemies has a 1/4 chance to trigger an ichor explosion
+		DisplayName: Bezwzrokowy Kaptur
+		Tooltip: Zwiększa obrażenia w walce wręcz o {0}% oraz szybkość ataku wręcz o {1}%
+		SetBonus: Zabicie wroga ma 1/4 szansy na wywołanie wybuchu ichoru
 	}
 
 	Cecilegs: {
-		// DisplayName: Sightless Leggings
-		// Tooltip: Increases melee damage by {0}% and melee critical strike chance by {1}%
+		DisplayName: Bezwzrokowe Nagolenniki
+		Tooltip: Zwiększają obrażenia w walce wręcz o {0}% oraz szansę na trafienie krytyczne w walce wręcz o {1}%
 	}
 
 	Terrorbody: {
-		// DisplayName: Tumorous Breastplate
-		// Tooltip: Increases magic damage by {0}% and maximum mana by {1}
+		DisplayName: Nowotworowy Napierśnik
+		Tooltip: Zwiększa obrażenia magiczne o {0}% oraz maksymalną manę o {1}
 	}
 
 	Terrorhead: {
-		// DisplayName: Tumorous Helmet
-		// Tooltip: Increases magic damage by {0}% and magic critical strike chance by {1}%
-		// SetBonus: Dealing enough damage unleashes a burst of cursed flame onto the target
+		DisplayName: Nowotworowy Hełm
+		Tooltip: Zwiększa obrażenia magiczne o {0}% oraz szansę na trafienie krytyczne magią o {1}%
+		SetBonus: Zadanie wystarczającej ilości obrażeń uwalnia wybuch przeklętego ognia na cel
 	}
 
 	Terrorlegs: {
-		// DisplayName: Tumorous Leggings
-		// Tooltip: Increases magic damage by {0}%
+		DisplayName: Nowotworowe Nagolenniki
+		Tooltip: Zwiększają obrażenia magiczne o {0}%
 	}
 
 	BlindeyeBow: {
-		// DisplayName: Blindeye Bow
-		// Tooltip: ""
+		DisplayName: Ślepooki Łuk
+		Tooltip: ""
 	}
 
 	Spitvine: {
-		// DisplayName: Spitvine
-		// Tooltip: ""
+		DisplayName: Plujpnącze
+		Tooltip: ""
 	}
 
 	CursedDoll: {
-		// DisplayName: Cursed Doll
-		// Tooltip: ""
+		DisplayName: Przeklęta Lalka
+		Tooltip: ""
 	}
 
 	Fangnum: {
-		// DisplayName: Fangnum
-		// Tooltip: ""
+		DisplayName: Zębognat
+		Tooltip: ""
 	}
 
 	Lobber: {
-		// DisplayName: Lobber
-		// Tooltip: ""
+		DisplayName: Lobber
+		Tooltip: ""
 	}
 
 	Starcaller: {
-		// DisplayName: Starcaller
-		// Tooltip: ""
+		DisplayName: Przywoływacz Gwiazd
+		Tooltip: ""
 	}
 }
 
 Buffs: {
 	ExolStun: {
-		// Description: Stunned
-		// DisplayName: Stunned
+		Description: Ogłuszony
+		DisplayName: Ogłuszony
 	}
 
 	PanopticonB: {
-		// Description: This prison... To orbit around... ME!?
-		// DisplayName: Flesh Cube
+		Description: To więzienie… ma krążyć wokół… MNIE!?
+		DisplayName: Kostka Mięsa
 	}
 
 	HightomaB: {
-		// Description: Not entirely lucid enough to try attacking you
-		// DisplayName: Tinytoma
+		Description: Niezbyt przytomna, by próbować cię zaatakować
+		DisplayName: Tinytoma
 	}
 
 	RollegB: {
-		// Description: Neko Shroomie
-		// DisplayName: Ooaoaaoa mmm))
+		Description: Neko Grzybek
+		DisplayName: Ooaoaaoa mmm))
 	}
 
 	SelfStabB: {
-		// DisplayName: Sacrificed
-		// Description: Massively boosted damage.
+		DisplayName: Poświęcony
+		Description: Znacznie zwiększone obrażenia.
 	}
 
 	DjungelskogB: {
-		// DisplayName: Djungelskog
-		// Description: En mjuk djungelkompis som gärna följer med på äventyr.
+		DisplayName: Djungelskog
+		Description: En mjuk djungelkompis som gärna följer med på äventyr.
 	}
 
 	OstertagiB: {
-		// DisplayName: Infected
-		// Description: Boosted damage and attacking speed.
+		DisplayName: Zainfekowany
+		Description: Zwiększone obrażenia i szybkość ataku.
 	}
 
 	Sheepened: {
-		// DisplayName: Sheepened
-		// Description: This is baad!
+		DisplayName: Zowczenie
+		Description: Jest źleeee!
 	}
 
 	XTomeBuff: {
-		// DisplayName: Phantasmal Spirits
-		// Description: You radiate amethyst energy that will fight for you.
+		DisplayName: Widmowe Duchy
+		Description: Emanujesz ametystową energią, która będzie dla ciebie walczyć.
 	}
 
 	CecitiorClawBuff: {
-		// DisplayName: Backscratcher
-		// Description: Crimson Claws sprout out of your back and fight for you.
+		DisplayName: Drapacz Pleców
+		Description: Szkarłatne pazury wyrastają z twoich pleców i walczą dla ciebie.
 	}
 
 	TitteringB: {
-		// DisplayName: Titterings
-		// Description: Small titterings fight for you.
+		DisplayName: Chichoczące
+		Description: Małe chichotki walczą dla ciebie.
 	}
 
 	CecitiorPetB: {
-		// DisplayName: Cecitior's Eye
-		// Description: Claws not included!
+		DisplayName: Oko Cecitiora
+		Description: Pazury nie są w zestawie!
 	}
 
 	GarbagePetB: {
-		// DisplayName: Garbage Bag
-		// Description: Smells foul.
+		DisplayName: Worek na Śmieci
+		Description: Odrażająco śmierdzi.
 	}
 
 	SheepPetB: {
-		// DisplayName: Sheep
-		// Description: May have been a victim of the Sheepening.
+		DisplayName: Owca
+		Description: Mogła paść ofiarą Zowczenia.
 	}
 
 	NastySnapperDebuff: {
-		// DisplayName: Nasty Snapper Debuff
-		// Description: Mods.EbonianMod.Buffs.NastySnapperDebuff.Description
+		DisplayName: Debuff - Wstrętny Szczękozwierz
+		Description: Mods.EbonianMod.Buffs.NastySnapperDebuff.Description
 	}
 
 	ConglomerateEnergyBuff: {
-		// DisplayName: Conglomerate Overdose
-		// Description: You really should drink less of this.
+		DisplayName: Przedawkowanie Konglomeratu
+		Description: Naprawdę powinieneś mniej tego pić.
 	}
 
 	BlinkrootB: {
-		// DisplayName: Blinkbuddy
-		// Description: He's trying his best to light your way.
+		DisplayName: Migotliwy Towarzysz
+		Description: Stara się jak może, by oświetlić ci drogę.
 	}
 
 	LilPilgB: {
-		// DisplayName: Lil' Missionary
-		// Description: She wants to teach you about the stars!
+		DisplayName: Mała Misjonarka
+		Description: Chce nauczyć cię o gwiazdach!
 	}
 
 	NPCSuffocating: {
-		// DisplayName: N P C Suffocating
-		// Description: Mods.EbonianMod.Buffs.NPCSuffocating.Description
+		DisplayName: N P C się dusi
+		Description: Mods.EbonianMod.Buffs.NPCSuffocating.Description
 	}
 
 	RustyCut: {
-		// DisplayName: Rusty Cut
-		// Description: Mods.EbonianMod.Buffs.RustyCut.Description
+		DisplayName: Zardzewiałe Cięcie
+		Description: Mods.EbonianMod.Buffs.RustyCut.Description
 	}
 
 	DoomsdayBuff: {
-		// DisplayName: Doomsday Buff
-		// Description: Mods.EbonianMod.Buffs.DoomsdayBuff.Description
+		DisplayName: Buff - Dzień Sądu
+		Description: Mods.EbonianMod.Buffs.DoomsdayBuff.Description
 	}
 
 	SudamaBuff: {
-		// DisplayName: Sudama
-		// Description: Sudamas fight for you.
+		DisplayName: Sudama
+		Description: Sudamy walczą dla ciebie.
 	}
 
 	PlantGunB: {
-		// DisplayName: Plant Gun B
-		// Description: Mods.EbonianMod.Buffs.PlantGunB.Description
+		DisplayName: Roślinny Karabin B
+		Description: Mods.EbonianMod.Buffs.PlantGunB.Description
 	}
 }
 
 Keybinds: {
-	// "Rei Dash.DisplayName": Timeslip (Voidrunner Mask Ability)
-	// "Time Slip.DisplayName": Timeslip (Voidrunner Mask Ability)
+	"Rei Dash.DisplayName": Pętla czasu (Umiejętność Maski Pogromcy Pustki)
+	"Time Slip.DisplayName": Pętla czasu (Umiejętność Maski Pogromcy Pustki)
 }
 
 Biomes: {
 	SpawnAnimMusic: {
-		// DisplayName: Spawn Anim Music
-		// TownNPCDialogueName: lol
+		DisplayName: Muzyka animacji pojawienia się
+		TownNPCDialogueName: lol
 	}
 
 	ShackMusic: {
-		// DisplayName: Shack Music
-		// TownNPCDialogueName: the Shack Music
+		DisplayName: Muzyka z Chatki
+		TownNPCDialogueName: Muzyka z Chatki
 	}
 }
 
 Configs: {
 	EbonianClientConfig: {
-		// DisplayName: Client Config
+		DisplayName: Konfiguracja Klienta
 
 		MuteBowPull: {
-			// Label: Mute the Bow Pull SFX
-			// Tooltip: Mutes the sound when using some bows added by the Ebonian Mod.
+			Label: Wycisz SFX Naciągania Łuku
+			Tooltip: Wycisza odgłos przy użyciu niektórych łuków dodanych przez Ebonian Moda.
 		}
 
 		BowPullVolume: {
-			// Label: Bow Pull Volume
-			// Tooltip: ""
+			Label: Głośność Naciągania Łuku
+			Tooltip: ""
 		}
 	}
 
 	EbonianServerConfig: {
-		// DisplayName: Server Config
+		DisplayName: Konfiguracja serwera
 
 		XareusDelay: {
-			// Label: Xareus Delay in frames (60 frames = 1 second)
-			// Tooltip: The delay before Xareus can be summoned again
+			Label: Opóźnienie Xareusa w klatkach (60 klatek = 1 sekunda)
+			Tooltip: Określa czas, jaki musi upłynąć, zanim Xareus może zostać ponownie przyzwany
 		}
 	}
 }
 
 DeathMessages: {
-	// NukeTP: "{0} thought they were smart."
-	// OstertagiDeath: "{0} didn't mind the worms."
-	// Suicide: "{0} decided to take the easy way out..."
-	// ParasiteDeath: "{0} became severely anemic."
-	// NukeDeath: "{0} advocated for the legalization of nuclear bombs."
+	NukeTP: "{0} myślał, że jest sprytny."
+	OstertagiDeath: "{0} nie miał nic przeciwko robakom."
+	Suicide: "{0} postanowił wybrać łatwiejsze wyjście..."
+	ParasiteDeath: "{0} nabawił się poważnej anemii."
+	NukeDeath: "{0} opowiadał się za legalizacją bomb nuklearnych."
 }
