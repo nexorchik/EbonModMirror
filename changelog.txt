@@ -1,52 +1,13 @@
-v 2.0
+v 2.0.1
 ## Additions
-- Implemented multiplayer compatibility!!!!!!!!!
-- Added Aureus
-- Added new weapons
-- Added new enemies
-- Added an ambient event, the River of Starlight, replacing highly intense meteor showers
-- Added Cecitior and Terrortoma based tilesets, armor-sets, and fishing rods
-- Yellow Boxfish.
+- The Rock
+- Polish translation
 
 ## Changes
-- Optimized most VFX
-- Ported Structure Helper files to match the 3.0 format
-
-- Updated the Voidrunner Mask's VFX
-- Corebreaker is no longer craftable
-- Reworked Cursed Firearm into a new weapon called the Vile Musket
-- Renamed Bloodcolt into Fangnum
-- Resprited Sawcitior
-- Gutling animation and SFX improvements
-- Potatoes now drop with a 1/70 chance instead of 1/200 but only when the dirt tile is destroyed. (Previously it would drop if you simply strike the tile without destroying it)
-- Practically every weapon got rebalanced or reworked, redundant to list them
-
-- Removed Cecitior and Terrortoma's pattern system and opted for a semi-random fight instead.
-- Updated Hot Garbage's VFX
-- Resprited the Trumpet, Screecher, and Rolypoly
-- Gave the Crimorrhage a telegraph before it fires ichor
-- Bloodhunters now move slower
-- Removed the Grinner 
-
-- Fixed some missing translation support and implemented Russian localization (Thank you Nana Team)
-- Implemented Portuguese localization (thanks Mjoon)
-
-- So many more undocumented changes :broken_heart:
+- Updated the Russian translation
+- Made Cecitior's idle time way shorter
+- Fatlads and flylads now only spawn in full moons
 
 ## Fixes
-- Multiplayer
-- Retro Lighting can now be used without issues
-- Wave quality can now be set to off without issues
-- Hot Garbage no longer slows down in water
-- Fixed the Peculiar Angle Grinder hitting through walls
-- Fixed some texture scrolling issues
-- Fixed Potatoes dropping from any tile
-- Fixed Cecitior's ambience not following him
-- Fixed Cecitior despawning when butchered
-- Fixed some sword hitboxes being weird
-- Fixed deltaTime calculation issues
-- Fixed Terrortoma only having 14k HP in Master Mode
-- Fixed Hot Garbage endlessly firing his nuke under certain conditions
-- Fixed minions not correctly targeting enemies when right clicking
-- Ostertagi and Sacrifical Dagger no longer show incorrect damage values
-- a lotttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt more
+- The sheepening ray in the Xareus phase 2 transition now correctly targets players
+- Fixed the Fleshfang's hitbox
