@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terraria.Enums;
 using Terraria.GameContent.Bestiary;
 
 namespace EbonianMod.NPCs.Overworld.Starlads;
@@ -202,7 +203,7 @@ public class Obeselad : ModNPC
     {
         if (Main.invasionType > 0) return 0;
         return ((spawnInfo.Player.ZoneNormalSpace ? 0.2f : 0.15f) + Star.starfallBoost * 0.05f)
-            * ((spawnInfo.Player.ZoneForest || spawnInfo.Player.ZoneNormalSpace) && !Main.dayTime).ToInt();
+            * ((spawnInfo.Player.ZoneForest || spawnInfo.Player.ZoneNormalSpace) && !Main.dayTime && Main.GetMoonPhase() == MoonPhase.Full).ToInt();
     }
     public override void ModifyNPCLoot(NPCLoot npcLoot)
     {

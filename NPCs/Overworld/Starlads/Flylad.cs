@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Terraria.Enums;
 using Terraria.GameContent.Bestiary;
 using Terraria.Graphics.CameraModifiers;
 
@@ -270,7 +271,7 @@ public class Flylad : ModNPC
     {
         if (Main.invasionType > 0) return 0;
         return ((spawnInfo.Player.ZoneNormalSpace ? 0.15f : 0.05f) + Star.starfallBoost * 0.05f)
-            * ((spawnInfo.Player.ZoneForest || spawnInfo.Player.ZoneNormalSpace) && !Main.dayTime).ToInt();
+            * ((spawnInfo.Player.ZoneForest || spawnInfo.Player.ZoneNormalSpace) && !Main.dayTime && Main.GetMoonPhase() == MoonPhase.Full).ToInt();
     }
     public override void ModifyNPCLoot(NPCLoot npcLoot)
     {
