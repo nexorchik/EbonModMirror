@@ -11,8 +11,9 @@
                 tru.Call("AddFeminineItems", ebon, new[]
                 {
                     "TerrorFlail", "ToothToothbrush", "EbonianRocketLauncher", "CecitiorClawSummon",
-                    "SpudCannon", "HotShield", "DoomsdayRemote", "Bat", "GarbageFlail",
-                    "ReiMask", "CursedToy", "StaffofXWeapon", "EbonianScythe", "WardingStar"
+                    "SpudCannon", "HotShield", "DoomsdayRemote", "BaseballBat", "GarbageFlail",
+                    "ReiMask", "CursedDoll", "StaffofXWeapon", "EbonianScythe", "WardingStar", 
+                    "BotanistHeadStaff"
                 });
 
                 tru.Call("AddNeuterItems", ebon, new[]
@@ -28,8 +29,20 @@
 
                 tru.Call("AddArmorSetBonusPreview",
                     ModContent.ItemType<Items.Armor.WoolArmor.WoolenUshanka>(),
-                    () => Language.GetTextValue("Mods.EbonianMod.Items.WoolenUshanka.SetBonus", 1));
+                    () => Language.GetTextValue("Mods.EbonianMod.Items.WoolenUshanka.SetBonus", 1)
+                );
+
+                tru.Call("AddArmorSetBonusPreview",
+                    ModContent.ItemType<Items.Armor.Cecitoma.Cecihead>(),
+                    () => Language.GetTextValue("Mods.EbonianMod.Items.Cecihead.SetBonus")
+                );
+
+                tru.Call("AddArmorSetBonusPreview",
+                    ModContent.ItemType<Items.Armor.Cecitoma.Terrorhead>(),
+                    () => Language.GetTextValue("Mods.EbonianMod.Items.Terrorhead.SetBonus")
+                );
             }
         }
     }
 }
+
