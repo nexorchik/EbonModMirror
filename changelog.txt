@@ -1,13 +1,1 @@
-v 2.0.1
-## Additions
-- The Rock
-- Polish translation
-
-## Changes
-- Updated the Russian translation
-- Made Cecitior's idle time way shorter
-- Fatlads and flylads now only spawn in full moons
-
-## Fixes
-- The sheepening ray in the Xareus phase 2 transition now correctly targets players
-- Fixed the Fleshfang's hitbox
+waow
