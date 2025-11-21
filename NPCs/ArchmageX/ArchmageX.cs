@@ -904,7 +904,7 @@ public class ArchmageX : CommonNPC
                     }
                     if (AITimer == 1030)
                     {
-                        MPUtils.NewProjectile(null, staffTip, Vector2.Zero, ProjectileType<SheepeningOrb>(), 1, 0, Main.myPlayer, -1, ai1: -1);
+                        MPUtils.NewProjectile(null, staffTip, Vector2.Zero, ProjectileType<SheepeningOrb>(), 1, 0,-1, player.whoAmI);
                     }
                     if (AITimer == 1110)
                         currentDialogue = DialogueSystem.NewDialogueBox(160, NPC.Center - new Vector2(0, 80), Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XPhase2End").Value, Color.Violet, -1, 0.6f, Color.Indigo * 0.5f, 2.3f, true, DialogueAnimationIDs.BopDown | DialogueAnimationIDs.ColorWhite, SoundID.DD2_OgreRoar.WithPitchOffset(0.9f + (phaseMult == 3 ? 0.1f : 0)), 5);
