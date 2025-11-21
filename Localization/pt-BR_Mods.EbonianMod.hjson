@@ -1685,8 +1685,8 @@ Items: {
 	}
 
 	TheRock: {
-		// DisplayName: The Rock
-		// Tooltip: It's just a rock, a white rock
+		DisplayName: A Pedra
+		Tooltip: É apenas uma pedra, uma pedra branca.
 	}
 }
 

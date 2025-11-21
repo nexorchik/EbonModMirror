@@ -1710,8 +1710,8 @@ Items: {
 	}
 
 	TheRock: {
-		// DisplayName: The Rock
-		// Tooltip: It's just a rock, a white rock
+		DisplayName: Камень
+		Tooltip: Это просто камень, белый камень
 	}
 }
 
