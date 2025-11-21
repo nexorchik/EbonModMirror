@@ -18,7 +18,7 @@ public partial class Cecitior : ModNPC
         if (AITimer < 70 && NPC.Distance(player.Center) > 200)
             NPC.velocity = Vector2.Lerp(NPC.velocity, Helper.FromAToB(NPC.Center, player.Center - new Vector2(0, 100) + Helper.FromAToB(player.Center, NPC.Center) * 100) * 15, 0.15f);
         else NPC.velocity *= 0.97f;
-        if (AITimer >= 140 * (NPC.life / (float)NPC.lifeMax) + 10)
+        if (AITimer >= 50 * (NPC.life / (float)NPC.lifeMax) + 10)
         {
             AIState = syncedRand.Next(2, phase2 ? 15 : 9);
             NPC.velocity = Vector2.Zero;
