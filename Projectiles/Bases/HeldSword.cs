@@ -159,12 +159,16 @@ public abstract class HeldSword : ModProjectile
             Main.EntitySpriteDraw(glow, Projectile.Center + visualOffset + off - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height), Color.White * glowAlpha, Projectile.rotation + (Projectile.ai[1] == -1 ? 0 : PiOver2 * 3), orig, Projectile.scale, Projectile.ai[1] == -1 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
             Main.spriteBatch.Reload(BlendState.AlphaBlend);
         }
+        
         return false;
     }
     public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
     {
         Player player = Main.player[Projectile.owner];
         float rot = Projectile.rotation - PiOver4;
+        if (Projectile.ai[1] == 0)
+            rot = Projectile.velocity.ToRotation();
+        
         Vector2 start = player.Center;
         Vector2 end = player.Center + rot.ToRotationVector2() * (Projectile.height + holdOffset * 0.8f) * Projectile.scale;
         float a = 0;

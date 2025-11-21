@@ -368,7 +368,7 @@ Projectiles: {
 	CursedDollProjectile.DisplayName: Проклятая кукла
 	CursedRay.DisplayName: Проклятый луч
 	DollPin.DisplayName: Кукольная булавка
-	GoryJaw.DisplayName: Кровавая челюсть 
+	GoryJaw.DisplayName: Кровавая челюсть
 	// DollHitscan.DisplayName: Doll Hitscan
 	SheepeningPlayerProjectile.DisplayName: Овца
 	// XLargeAmethystAlt.DisplayName: X Large Amethyst Alt
@@ -1697,7 +1697,7 @@ Items: {
 
 	Lobber: {
 		DisplayName: Ядролом
-		Tooltip: 
+		Tooltip:
 			'''
 			Зажмите ПКМ, чтобы выпустить сразу груду шаров
 			Использует ракеты в качестве боеприпасов
