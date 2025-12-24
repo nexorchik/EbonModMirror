@@ -54,6 +54,21 @@ public class ArchmageShackGen : ModSystem
         }
 
         Point paintingTL = Point.Zero;
+
+        int signs = 0;
+        for (int i = x - 60; i < x + 15; i++)
+        {
+            for (int j = _y - 30; j < _y + 85; j++)
+            {
+                if (Main.tile[i, j].TileType == TileID.TatteredWoodSign)
+                {
+                    int id = Sign.ReadSign(i, j);
+
+                    Sign.TextSign(id, Language.GetTextValue("Mods.EbonianMod.Misc.Signs.Shack" + (j > _y + 4).ToInt()));
+                }
+            }
+        }
+
         for (int i = x - 40; i < x + 15; i++)
         {
             for (int j = _y - 40; j < _y + 15; j++)
@@ -81,7 +96,6 @@ public class ArchmageShackGen : ModSystem
         if (paintingTL != Point.Zero)
         {
             WorldGen.PlaceTile(paintingTL.X+1, paintingTL.Y+1, (ushort)ModContent.TileType<WaspPainting>(), true);
-            //WorldGen.RangeFrame(paintingTL.X, paintingTL.Y, paintingTL.X+1, paintingTL.Y+1);
         }
     }
     public void GenHouse2(GenerationProgress progress, GameConfiguration _)

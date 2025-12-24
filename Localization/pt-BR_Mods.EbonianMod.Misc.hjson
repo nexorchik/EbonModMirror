@@ -11,3 +11,8 @@ Types: {
 	Animal: Type: Animal de Fazenda
 	Obj: Type: Objeto Possuído
 }
+
+Signs: {
+	// Shack0: DOMAIN OF THE GREAT ARCHMAGE
+	// Shack1: Shopping List: Amethysts, Flasks, Shadowflame Dust, Staff Food, Amethysts
+}

@@ -11,3 +11,8 @@ Types: {
 	Animal: Type: Zwierze Hodowlane
 	Obj: Type: Nawiedzony Obiekt
 }
+
+Signs: {
+	// Shack0: DOMAIN OF THE GREAT ARCHMAGE
+	// Shack1: Shopping List: Amethysts, Flasks, Shadowflame Dust, Staff Food, Amethysts
+}
