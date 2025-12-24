@@ -871,7 +871,7 @@ Items: {
 		DisplayName: Nest Sceptre
 		Tooltip:
 			'''
-			Summons Bloated Ebonflies that explode on nearby enemies
+			Summons Ebonflies that explode on nearby enemies
 			Does not consume minion slots
 			'''
 	}
