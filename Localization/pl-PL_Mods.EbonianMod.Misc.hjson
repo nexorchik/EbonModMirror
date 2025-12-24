@@ -13,6 +13,6 @@ Types: {
 }
 
 Signs: {
-	// Shack0: DOMAIN OF THE GREAT ARCHMAGE
-	// Shack1: Shopping List: Amethysts, Flasks, Shadowflame Dust, Staff Food, Amethysts
+	Shack0: DOMENA WSPANIAŁEGO ARCYMAGA
+	Shack1: Lista Zakupów: Ametysty, Fiolki, Popiół Cienistego Płomienia, Jedzenie dla Kostura, Ametysty
 }

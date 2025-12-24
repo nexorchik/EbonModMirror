@@ -82,23 +82,26 @@ public class BloatedEbonfly : ModNPC
     {
         writer.Write(AITimer);
         writer.WriteVector2(lastPos);
+        writer.Write(glowAlpha);
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
         AITimer = reader.ReadSingle();
         lastPos = reader.ReadVector2();
+        glowAlpha = reader.ReadSingle();
     }
     float glowAlpha = 0;
     Vector2 lastPos;
     float AITimer;
     public override void PostAI()
     {
-        if (NPC.ai[1] < 1)
+        Player targetPlayer = Main.player[NPC.target];
+        NPC.TargetClosest(false);
+        if (NPC.ai[1] < 1 && Main.netMode == 0)
         {
             NPC.scale = Main.rand.NextFloat(0.8f, 1.2f);
             NPC.Center += Main.rand.NextVector2CircularEdge(40, 40);
             NPC.velocity = Main.rand.NextVector2Unit();
-            NPC.netUpdate = true; // TEST
             NPC.ai[1] = 2;
         }
         if (NPC.ai[3] < -2)
@@ -122,10 +125,14 @@ public class BloatedEbonfly : ModNPC
         foreach (Player player in Main.ActivePlayers)
         {
             if (player.Center.Distance(NPC.Center) < 450 && NPC.ai[3] < 1)
+            {
                 NPC.ai[3] = 1;
+                NPC.netUpdate = true;
+            }
         }
         if (NPC.ai[3] < 1)
             lastPos = NPC.Center;
+        
         if ((NPC.dontTakeDamage && ++AITimer > 60 * 8) || NPC.ai[3] > 0)
             if (++NPC.ai[3] > 100 * NPC.scale)
             {
@@ -137,15 +144,17 @@ public class BloatedEbonfly : ModNPC
                 glowAlpha += 0.03f;
                 if (NPC.ai[3] > 150)
                 {
-                    Main.BestiaryTracker.Kills.RegisterKill(NPC);
+                    if (MPUtils.NotMPClient)
+                        Main.BestiaryTracker.Kills.RegisterKill(NPC);
                     MPUtils.NewProjectile(NPC.GetSource_Death(), NPC.Center, Vector2.Zero, ProjectileType<HostileCorruptExplosion>(), 50, 0);
                     NPC.dontTakeDamage = false;
                     if (MPUtils.NotMPClient)
                         NPC.StrikeInstantKill();
                 }
             }
+        
         if (!NPC.dontTakeDamage && NPC.velocity.Length() < 6 && NPC.ai[3] < 1)
-            NPC.velocity += NPC.Center.FromAToB(Main.LocalPlayer.Center, true) * .3f;
+            NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.Center.FromAToB(targetPlayer.Center, true) * .3f, 0.1f);
     }
     public override bool CheckDead()
     {

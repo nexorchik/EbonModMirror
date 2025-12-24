@@ -523,7 +523,7 @@ NPCs: {
 	DankDiggerTail.DisplayName: Cavador Fétido
 
 	BloatedEbonfly: {
-		DisplayName: Mosca-Ébano Inchada
+		DisplayName: Mosca-Ébano
 		Bestiary: Uma estranha mutação da Mosca-Ébano. Ao comer algo que foi incendiado pelo inferno amaldiçoado, ela prolongou sua expectativa de vida natural, mas também se torna muito mais volátil.
 	}
 

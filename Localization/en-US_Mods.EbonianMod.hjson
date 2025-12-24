@@ -522,7 +522,7 @@ NPCs: {
 	DankDiggerTail.DisplayName: Dank Digger
 
 	BloatedEbonfly: {
-		DisplayName: Bloated Ebonfly
+		DisplayName: Ebonfly
 		Bestiary: A strange mutation of the Ebonfly. Eating something that has been lit ablaze by the cursed inferno, it has extended its natural lifespan, but also become far more volatile.
 	}
 

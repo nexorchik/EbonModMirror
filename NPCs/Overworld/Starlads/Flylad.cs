@@ -3,11 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria.Enums;
 using Terraria.GameContent.Bestiary;
 using Terraria.Graphics.CameraModifiers;
+using Vector2 = Microsoft.Xna.Framework.Vector2;
 
 namespace EbonianMod.NPCs.Overworld.Starlads;
 public class Flylad : ModNPC
@@ -92,6 +94,13 @@ public class Flylad : ModNPC
 
     public override void AI()
     {
+        timer += 0.1f;
+        if (timer >= MathHelper.Pi)
+        {
+            timer = 0f;
+            NPC.netUpdate = true;
+        }
+
         NPC.knockBackResist = 0f;
         Player player = Main.player[NPC.target];
 
@@ -128,7 +137,7 @@ public class Flylad : ModNPC
                 widthMod = 0.5f;
             }
 
-            if (NPC.collideY || (NPC.velocity.Y > 0.5f && heightMod == 2))
+            if (NPC.collideY || (NPC.velocity.Y > 0.5f && heightMod >= 2))
             {
                 state = StateID.HitGround;
                 SoundEngine.PlaySound(SoundID.DD2_MonkStaffGroundImpact, NPC.Center);
@@ -143,17 +152,9 @@ public class Flylad : ModNPC
 
             NPC.spriteDirection = NPC.direction;
 
-            NPC.velocity += ((player.Center + new Vector2(0, -200)) - NPC.Center) * 0.02f;
+            if (NPC.Distance(player.Center + new Vector2(0, -200)) > 50f)
+                NPC.velocity = Vector2.Lerp(NPC.velocity, ((player.Center + new Vector2(0, -200)) - NPC.Center).SafeNormalize(Vector2.Zero)*5, 0.03f);
 
-            if (Math.Abs(NPC.velocity.X) >= maxVelocity)
-            {
-                NPC.velocity.X = maxVelocity * Math.Sign(NPC.velocity.X);
-            }
-
-            if (Math.Abs(NPC.velocity.Y) >= maxVelocity)
-            {
-                NPC.velocity.Y = maxVelocity * Math.Sign(NPC.velocity.Y);
-            }
 
             NPC.ai[0]++;
 
@@ -174,6 +175,7 @@ public class Flylad : ModNPC
 
                     SoundEngine.PlaySound(SoundID.DD2_WyvernDiveDown, NPC.Center);
                     state = StateID.GroundPound;
+                    NPC.netUpdate = true;
                 }
 
                 NPC.netUpdate = true;
@@ -216,9 +218,10 @@ public class Flylad : ModNPC
 
             NPC.ai[0]++;
 
-            if (NPC.ai[0] == 120f)
+            if ((int)NPC.ai[0] == 120f)
             {
                 NPC.velocity.Y -= 15f;
+                NPC.netUpdate = true;
             }
 
             NPC.velocity.Y += 0.5f;
@@ -228,11 +231,13 @@ public class Flylad : ModNPC
                 NPC.ai[0] = 0f;
                 NPC.ai[3] = 0;
                 state = StateID.Floating;
+                NPC.netUpdate = true;
             }
 
             if (NPC.collideY)
             {
                 NPC.velocity.Y = 0f;
+                NPC.netUpdate = true;
             }
         }
     }
@@ -264,7 +269,6 @@ public class Flylad : ModNPC
             }
         }
 
-        timer += 0.1f;
     }
 
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
@@ -306,11 +310,6 @@ public class Flylad : ModNPC
                 new Vector2(texture.Width / 2f, texture.Height), 1f + (float)Math.Cos(timer + MathHelper.PiOver4) * 0.2f, spriteEffects, 0);
         }
 
-        if (timer >= MathHelper.Pi)
-        {
-            timer = 0f;
-        }
-
         texture = TextureAssets.Npc[Type].Value;
 
         if (state == StateID.Stunned || state == StateID.GroundPound)
@@ -329,12 +328,6 @@ public class Flylad : ModNPC
             spriteBatch.Draw(texture, position + new Vector2(0, texture.Height / 2f - 10f) + (new Vector2((float)Math.Sin(timer + Math.PI + MathHelper.PiOver4) * 2f, (float)Math.Cos(timer + Math.PI + MathHelper.PiOver4) * 0.25f) * 15f), texture.Frame(), Color.White, NPC.rotation,
                 new Vector2(texture.Width / 2f, texture.Height), 1f + (float)Math.Cos(timer + Math.PI + MathHelper.PiOver4) * 0.2f, spriteEffects, 0);
         }
-
-        if (timer >= MathHelper.Pi)
-        {
-            timer = 0f;
-        }
-
         return false;
     }
 }

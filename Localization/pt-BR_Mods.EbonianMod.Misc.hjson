@@ -13,6 +13,6 @@ Types: {
 }
 
 Signs: {
-	// Shack0: DOMAIN OF THE GREAT ARCHMAGE
-	// Shack1: Shopping List: Amethysts, Flasks, Shadowflame Dust, Staff Food, Amethysts
+	Shack0: DOMÍNIO DO GRANDE ARQUEMAGO
+    Shack1: Lista de compras: Ametistas, Frascos, Pó de Chama Sombria, Comida para Cajados, Ametistas
 }
