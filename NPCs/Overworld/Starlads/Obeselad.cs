@@ -64,8 +64,8 @@ public class Obeselad : ModNPC
 
     public override void AI()
     {
-        Player player = Main.player[NPC.target];
-
+        heightMod += (1 - heightMod) / 5f;
+        widthMod += (1 - widthMod) / 5f;
         if (state == StateID.Spawn)
         {
             NPC.TargetClosest(true);
@@ -76,25 +76,46 @@ public class Obeselad : ModNPC
         NPC.spriteDirection = NPC.direction;
         Lighting.AddLight(NPC.Center, new Color(241, 212, 62).ToVector3() * 0.5f);
 
-        if (NPC.Center.Distance(player.Center) <= 30f && player.velocity.Y > 0)
-        {
-            state = StateID.Bounced;
-            SoundEngine.PlaySound(EbonianSounds.ObeseladBounce, NPC.Center);
 
-            Color newColor7 = Color.CornflowerBlue;
-            for (float num614 = 0f; num614 < 1f; num614 += 0.25f)
+        bool tooClose = false;
+        foreach (Player player in Main.ActivePlayers)
+        {
+            if (NPC.Center.Distance(player.Center) <= 30f && player.velocity.Y > 0)
             {
-                Dust.NewDustPerfect(NPC.Bottom, 278, -Vector2.UnitY.RotatedByRandom(PiOver2) * (4f + Main.rand.NextFloat() * 4f), 150, newColor7).noGravity = true;
+                state = StateID.Bounced;
+                SoundEngine.PlaySound(EbonianSounds.ObeseladBounce, NPC.Center);
+
+                Color newColor7 = Color.CornflowerBlue;
+                for (float num614 = 0f; num614 < 1f; num614 += 0.25f)
+                {
+                    Dust.NewDustPerfect(NPC.Bottom, 278,
+                            -Vector2.UnitY.RotatedByRandom(PiOver2) * (4f + Main.rand.NextFloat() * 4f), 150, newColor7)
+                        .noGravity = true;
+                }
+
+                for (float num615 = 0f; num615 < 1f; num615 += 0.25f)
+                {
+                    Dust.NewDustPerfect(NPC.Bottom, 278,
+                            -Vector2.UnitY.RotatedByRandom(PiOver2) * (2f + Main.rand.NextFloat() * 3f), 150,
+                            Color.Gold)
+                        .noGravity = true;
+                }
+
+                player.velocity.Y = -10f;
+                player.SyncPlayerControls();
             }
-            for (float num615 = 0f; num615 < 1f; num615 += 0.25f)
+
+            if (NPC.Center.Distance(player.Center) <= 100f)
             {
-                Dust.NewDustPerfect(NPC.Bottom, 278, -Vector2.UnitY.RotatedByRandom(PiOver2) * (2f + Main.rand.NextFloat() * 3f), 150, Color.Gold).noGravity = true;
+                tooClose = true;
             }
-            player.velocity.Y = -10f;
-            player.SyncPlayerControls();
         }
 
-        if (NPC.Center.Distance(player.Center) >= 100f)
+        if (tooClose)
+        {
+            NPC.velocity.X *= 0.9f;
+        }
+        else
         {
             if (state != StateID.Tripped && state != StateID.Bounced)
             {
@@ -109,21 +130,13 @@ public class Obeselad : ModNPC
                 {
                     NPC.velocity.X = -NPC.oldVelocity.X;
                     storedDirection = -storedDirection;
+                    NPC.netUpdate = true;
                 }
             }
             else
             {
                 NPC.velocity.X *= 0.7f;
             }
-        }
-        else
-        {
-            if (state != StateID.Tripped && state != StateID.Bounced)
-            {
-                NPC.TargetClosest(true);
-            }
-
-            NPC.velocity.X *= 0.9f;
         }
 
         if (NPC.velocity.X >= 1f)
@@ -135,6 +148,27 @@ public class Obeselad : ModNPC
         {
             NPC.velocity.X = -1f;
         }
+
+        if (state == StateID.Bounced)
+        {
+            heightMod = 0.5f;
+            widthMod = 2f;
+            state = StateID.Tripped;
+            NPC.netUpdate = true;
+        }
+
+        if (state == StateID.Tripped)
+        {
+            NPC.ai[3]++;
+            if (NPC.ai[3] > 40)
+            {
+                heightMod = 1.5f;
+                widthMod = 0.5f;
+                state = StateID.Walking;
+                NPC.netUpdate = true;
+            }
+        }
+        else NPC.ai[3] = 0;
     }
 
     public override bool CheckDead()
@@ -155,16 +189,11 @@ public class Obeselad : ModNPC
 
     public override void FindFrame(int frameHeight)
     {
-        heightMod += (1 - heightMod) / 5f;
-        widthMod += (1 - widthMod) / 5f;
 
         if (state == StateID.Bounced)
         {
-            heightMod = 0.5f;
-            widthMod = 2f;
 
             NPC.frame.Y = 8 * frameHeight;
-            state = StateID.Tripped;
         }
         else if (state == StateID.Tripped)
         {
@@ -177,11 +206,8 @@ public class Obeselad : ModNPC
 
                 if (NPC.frame.Y >= 16 * frameHeight)
                 {
-                    heightMod = 1.5f;
-                    widthMod = 0.5f;
 
                     NPC.frame.Y = 0 * frameHeight;
-                    state = StateID.Walking;
                 }
             }
         }
