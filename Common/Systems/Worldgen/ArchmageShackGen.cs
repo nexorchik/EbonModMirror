@@ -1,4 +1,5 @@
 ﻿using EbonianMod.Tiles;
+using EbonianMod.Tiles.Paintings;
 using StructureHelper.API;
 using System;
 using System.Collections.Generic;
@@ -41,7 +42,7 @@ public class ArchmageShackGen : ModSystem
             for (int j = _y; j < Main.maxTilesY / 2; j++)
             {
 
-                if (Main.tile[i, j].TileType == TileID.GemLocks)
+                if (Main.tile[i, j].TileType == TileID.GemLocks && Main.tile[i, j+5].TileType==ModContent.TileType<XHouseBrick>())
                 {
                     x = i;
                     _y = j;
@@ -51,6 +52,8 @@ public class ArchmageShackGen : ModSystem
             if (_y != 0)
                 break;
         }
+
+        Point paintingTL = Point.Zero;
         for (int i = x - 40; i < x + 15; i++)
         {
             for (int j = _y - 40; j < _y + 15; j++)
@@ -65,7 +68,20 @@ public class ArchmageShackGen : ModSystem
                     Tile tile = Main.tile[i, j];
                     tile.BlueWire = true;
                 }
+
+                if (Main.tile[i, j].TileType == TileID.Dirt && Main.tile[i, j + 3].TileType == TileID.Beds)
+                {
+                    Main.tile[i, j].ClearTile();
+                    if (paintingTL == Point.Zero)
+                        paintingTL = new Point(i, j);
+                }
             }
+        }
+
+        if (paintingTL != Point.Zero)
+        {
+            WorldGen.PlaceTile(paintingTL.X+1, paintingTL.Y+1, (ushort)ModContent.TileType<WaspPainting>(), true);
+            //WorldGen.RangeFrame(paintingTL.X, paintingTL.Y, paintingTL.X+1, paintingTL.Y+1);
         }
     }
     public void GenHouse2(GenerationProgress progress, GameConfiguration _)
