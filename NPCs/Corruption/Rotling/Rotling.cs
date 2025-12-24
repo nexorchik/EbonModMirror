@@ -35,11 +35,13 @@ public class RotlingHead : WormHead
             new FlavorTextBestiaryInfoElement("Mods.EbonianMod.NPCs.RotlingHead.Bestiary"),
         });
     }
-    public override void OnKill()
+
+    public override bool CheckDead()
     {
         if (Main.dedServ)
-            return;
+            return base.CheckDead();
         Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/EbonFlyGore2").Type, NPC.scale);
+        return base.CheckDead();
     }
     public override int BodyType => NPCType<RotlingBody>();
     public override int TailType => NPCType<RotlingTail>();

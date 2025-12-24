@@ -57,10 +57,12 @@ public class Sheep : ModNPC
     {
         return spawnInfo.Player.ZoneForest ? 0.1f : 0;
     }
-    public override void OnKill()
+
+    public override bool CheckDead()
     {
         if (Main.dedServ)
-            return;
+            return base.CheckDead();
+        
         if (!sheared)
         {
             Gore.NewGore(NPC.GetSource_Death(), NPC.position, Main.rand.NextVector2Circular(1, 1), Find<ModGore>("EbonianMod/SheepGore0").Type, NPC.scale);
@@ -73,8 +75,10 @@ public class Sheep : ModNPC
 
         for (int i = 0; i < 50; i++)
             Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, Main.rand.NextFloatDirection(), Main.rand.NextFloatDirection());
-
+        
+        return base.CheckDead();
     }
+    
     int dyeId = -1, lastClicked = 0;
     bool sheared;
     public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)

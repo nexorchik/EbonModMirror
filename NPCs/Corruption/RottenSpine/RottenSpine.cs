@@ -38,11 +38,12 @@ public class RottenSpineHead : WormHead
         }
     }
     public override bool useNormalMovement => true;
-    public override void OnKill()
+    public override bool CheckDead()
     {
         if (Main.dedServ)
-            return;
+            return base.CheckDead();
         Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/RottenSpineGore1").Type, NPC.scale);
+        return base.CheckDead();
     }
     public override void ExtraAI()
     {

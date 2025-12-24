@@ -44,12 +44,14 @@ public class DankDiggerHead : WormHead
         NPC.value = Item.buyPrice(0, 0, 2);
 
     }
-    public override void OnKill()
+
+    public override bool CheckDead()
     {
         if (Main.dedServ)
-            return;
+            return base.CheckDead();
         for (int i = 0; i < 4; i++)
             Gore.NewGore(NPC.GetSource_Death(), NPC.position, NPC.velocity, Find<ModGore>("EbonianMod/EbonFlyGore2").Type, NPC.scale);
+        return base.CheckDead();
     }
     public override void ExtraAI()
     {

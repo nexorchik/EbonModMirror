@@ -48,15 +48,16 @@ public class HoarfrostCoiler : WormHead
         NPC.DeathSound = SoundID.Item27;
 
     }
-    public override void OnKill()
+
+    public override bool CheckDead()
     {
         if (Main.dedServ)
-            return;
-        
+            return base.CheckDead();
         Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Circular(7,7), Find<ModGore>("EbonianMod/HoarfrostCoiler0").Type, NPC.scale);
         
         for (int i = 0; i < 4; i++)
             Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Circular(7,7), Find<ModGore>("EbonianMod/BorealDancer3").Type, NPC.scale);
+        return base.CheckDead();
     }
 
     private bool collisionState;
