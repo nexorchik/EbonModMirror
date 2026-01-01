@@ -274,7 +274,7 @@ public class Flylad : ModNPC
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
         if (Main.invasionType > 0) return 0;
-        return ((spawnInfo.Player.ZoneNormalSpace ? 0.15f : 0.05f) + Star.starfallBoost * 0.05f)
+        return ((spawnInfo.Player.ZoneNormalSpace ? 0.07f : 0.01f) + Star.starfallBoost * 0.01f)
             * ((spawnInfo.Player.ZoneForest || spawnInfo.Player.ZoneNormalSpace) && !Main.dayTime && Main.GetMoonPhase() == MoonPhase.Full).ToInt();
     }
     public override void ModifyNPCLoot(NPCLoot npcLoot)
