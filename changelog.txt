@@ -1,11 +1,3 @@
-v2.0.2
-## Additions
-- Text to the signs in the Archmage's Shack
-
+v2.0.3
 ## Changes
-- Nerfed the Flylad's movement speed
-
-## Fixes
-- Fixed issues with the Flylad, Fatlad, and explosive variant of the Ebonfly in multiplayer
-- Fixed the Archmage's Shack generating dirt instead of a painting
-- Fixed issues with the way gore spawns in multiplayer
+- Nerfed the Flylad's spawn rate
