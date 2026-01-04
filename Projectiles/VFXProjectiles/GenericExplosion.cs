@@ -5,7 +5,7 @@ namespace EbonianMod.Projectiles.VFXProjectiles;
 
 public class FlameExplosionWSprite : ModProjectile
 {
-    public override string Texture => "EbonianMod/Assets/Extras/ExplosionAnimation";
+    public override string Texture => "EbonianMod/Extras/Fire";
 
     public override bool ShouldUpdatePosition() => false;
     public override void SetStaticDefaults()
@@ -103,7 +103,7 @@ public class FlameExplosionWSprite : ModProjectile
         color = Color.Orange * Projectile.Opacity;
         for (int i = 0; i < 2; i++)
             Main.EntitySpriteDraw(texture, position, sourceRectangle, color, Projectile.rotation, origin, Projectile.scale - 0.8f, SpriteEffects.None, 0);
-        texture = Images.Extras.Textures.Vortex.Value;
+        texture = Assets.Extras.vortex.Value;
 
         sourceRectangle = new Rectangle(0, 0, texture.Width, texture.Height);
         origin = sourceRectangle.Size() / 2f;
@@ -116,8 +116,8 @@ public class FlameExplosionWSprite : ModProjectile
             Main.EntitySpriteDraw(texture, position, sourceRectangle, color, Projectile.rotation + magicRotation * i, origin, (Projectile.scale - 0.8f) * 0.5f, SpriteEffects.None, 0);
         }
 
-        Texture2D tex = Images.Extras.Textures.ConeFaint.Value;
-        Texture2D tex2 = Images.Extras.Textures.MagicLineLightning.Value;
+        Texture2D tex = Assets.Extras.cone5.Value;
+        Texture2D tex2 = Assets.Extras.Extras2.trace_04.Value;
         UnifiedRandom rand = new UnifiedRandom(seed);
         float max = 30 * Projectile.ai[2];
         float alpha = MathHelper.Lerp(0.5f, 0, Projectile.ai[1]) * 2;
@@ -138,7 +138,7 @@ public class FlameExplosionWSprite : ModProjectile
 }
 public class BloodExplosionWSprite : ModProjectile
 {
-    public override string Texture => "EbonianMod/Assets/Extras/ExplosionAnimation";
+    public override string Texture => "EbonianMod/Extras/Fire";
 
     public override bool ShouldUpdatePosition() => false;
 
@@ -222,7 +222,7 @@ public class BloodExplosionWSprite : ModProjectile
 
         Main.EntitySpriteDraw(texture, position, sourceRectangle, color, Projectile.rotation, origin, Projectile.scale - 0.8f, SpriteEffects.None, 0);
 
-        texture = Images.Extras.Textures.Vortex.Value;
+        texture = Assets.Extras.vortex.Value;
 
         sourceRectangle = new Rectangle(0, 0, texture.Width, texture.Height);
         origin = sourceRectangle.Size() / 2f;
@@ -268,7 +268,7 @@ public class CircleTelegraph : ModProjectile
     public override bool ShouldUpdatePosition() => false;
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D tex = Images.Extras.Textures.MagicFlare.Value;
+        Texture2D tex = Assets.Extras.Extras2.star_08.Value;
         float scale = MathHelper.Lerp(1, 0, Projectile.ai[0]);
 
         Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.Black * (Projectile.ai[0] * 0.5f), Main.GameUpdateCount * 0.02f, tex.Size() / 2, scale * 2, SpriteEffects.None, 0);
@@ -276,7 +276,7 @@ public class CircleTelegraph : ModProjectile
         Main.spriteBatch.Reload(BlendState.Additive);
         for (int i = 0; i < 3; i++)
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.Red * Projectile.ai[0], Main.GameUpdateCount * 0.02f, tex.Size() / 2, scale * 2, SpriteEffects.None, 0);
-        tex = Images.Extras.Textures.MagicStarRing.Value;
+        tex = Assets.Extras.Extras2.star_03.Value;
         Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.Red * Projectile.ai[0], Main.GameUpdateCount * -0.01f, tex.Size() / 2, scale * 4, SpriteEffects.None, 0);
         Main.spriteBatch.Reload(BlendState.AlphaBlend);
         return false;

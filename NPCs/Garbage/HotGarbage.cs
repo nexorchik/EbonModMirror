@@ -58,7 +58,7 @@ public class HotGarbage : ModNPC
         NPC.netAlways = true;
         if (!Main.dedServ)
         {
-            Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/Garbage");
+            Music = MusicLoader.GetMusicSlot(Mod, "Sounds/Music/Garbage");
         }
     }
     public override void ModifyNPCLoot(NPCLoot npcLoot)
@@ -91,9 +91,9 @@ public class HotGarbage : ModNPC
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 pos, Color lightColor)
     {
         Texture2D drawTexture = TextureAssets.Npc[Type].Value;
-        Texture2D glow = Images.ExtraSprites.Garbage.Textures.HotGarbage_Glow.Value;
-        Texture2D fire = Images.ExtraSprites.Garbage.Textures.HotGarbage_Fire.Value;
-        Texture2D fireball = Images.Extras.Textures.Fireball.Value;
+        Texture2D glow = Assets.ExtraSprites.Garbage.HotGarbage_Glow.Value;
+        Texture2D fire = Assets.ExtraSprites.Garbage.HotGarbage_Fire.Value;
+        Texture2D fireball = Assets.Extras.fireball.Value;
         Vector2 origin = new Vector2((drawTexture.Width / 3) * 0.5F, (drawTexture.Height / Main.npcFrameCount[NPC.type]) * 0.5F);
 
         Vector2 drawPos = new Vector2(
@@ -112,7 +112,7 @@ public class HotGarbage : ModNPC
     }
     public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
-        Texture2D flame = Images.ExtraSprites.Garbage.Textures.HotGarbage_FlameOverlay.Value;
+        Texture2D flame = Assets.ExtraSprites.Garbage.HotGarbage_FlameOverlay.Value;
         Vector2 origin = new Vector2((flame.Width / 3) * 0.5F, (flame.Height / Main.npcFrameCount[NPC.type]) * 0.5F);
 
         Vector2 drawPos = new Vector2(
@@ -122,13 +122,13 @@ public class HotGarbage : ModNPC
         SpriteEffects effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
         SpritebatchParameters sbParams = spriteBatch.Snapshot();
         spriteBatch.End();
-        spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, Effects.FlameEffect.Value, Main.GameViewMatrix.TransformationMatrix);
-        Effects.FlameEffect.Value.Parameters["uTime"].SetValue(-Main.GlobalTimeWrappedHourly * .4f);
-        Effects.FlameEffect.Value.Parameters["tex"].SetValue(Images.Extras.Textures.SmearNoise.Value);
-        Effects.FlameEffect.Value.Parameters["scale"].SetValue(5);
-        Effects.FlameEffect.Value.Parameters["wavinessMult"].SetValue(1);
-        Effects.FlameEffect.Value.Parameters["intensity"].SetValue(10);
-        Effects.FlameEffect.Value.Parameters["colOverride"].SetValue(new Vector4(1, 0.25f, 0, 1));
+        spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, EbonianMod.flame.Value, Main.GameViewMatrix.TransformationMatrix);
+        EbonianMod.flame.Value.Parameters["uTime"].SetValue(-Main.GlobalTimeWrappedHourly * .4f);
+        EbonianMod.flame.Value.Parameters["tex"].SetValue(Assets.Extras.smearNoise.Value);
+        EbonianMod.flame.Value.Parameters["scale"].SetValue(5);
+        EbonianMod.flame.Value.Parameters["wavinessMult"].SetValue(1);
+        EbonianMod.flame.Value.Parameters["intensity"].SetValue(10);
+        EbonianMod.flame.Value.Parameters["colOverride"].SetValue(new Vector4(1, 0.25f, 0, 1));
         spriteBatch.Draw(flame, NPC.Center - Main.screenPosition + new Vector2(0, 2 + NPC.gfxOffY), NPC.frame, Color.White, NPC.rotation, origin, NPC.scale, effects, 0);
         spriteBatch.End();
         spriteBatch.ApplySaved(sbParams);
@@ -456,7 +456,7 @@ public class HotGarbage : ModNPC
                     NPC.netUpdate = true;
                     pos = NPC.Center;
                     if (!Main.dedServ)
-                        Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/GarbageSiren");
+                        Music = MusicLoader.GetMusicSlot(Mod, "Sounds/Music/GarbageSiren");
                     CameraSystem.ChangeCameraPos(NPC.Center - new Vector2(0, 50), 130, null, 1.4f, InOutQuart);
                 }
                 if (AITimer == -30)
@@ -530,11 +530,11 @@ public class HotGarbage : ModNPC
             }
             if (!Main.dedServ)
             {
-                Main.musicNoCrossFade[MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/GarbageSiren")] = true;
+                Main.musicNoCrossFade[MusicLoader.GetMusicSlot(Mod, "Sounds/Music/GarbageSiren")] = true;
                 Main.musicNoCrossFade[0] = true;
                 if (AITimer >= 634)
                 {
-                    Main.musicFade[MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/GarbageSiren")] = 1;
+                    Main.musicFade[MusicLoader.GetMusicSlot(Mod, "Sounds/Music/GarbageSiren")] = 1;
                     Music = 0;
                 }
             }
@@ -1394,17 +1394,17 @@ public class HotGarbageNuke : ModProjectile
         Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         if (vertices.Count > 2)
         {
-            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.WavyLaserBright.Value, false);
+            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.wavyLaser2.Value, false);
         }
         Main.spriteBatch.ApplySaved(sbParams);
-        Texture2D pulse = Images.Extras.Textures.PulseCircleLarge.Value;
-        Texture2D ring = Images.Extras.Textures.Crosslight.Value;
-        Texture2D ring2 = Images.Extras.Textures.Slash.Value;
-        Texture2D chevron = Images.Extras.Textures.Chevron.Value;
-        Texture2D hazard = Images.Extras.Textures.Hazard.Value;
-        Texture2D textGlow = Images.Extras.Textures.TextGlow.Value;
-        Texture2D circle = Images.Extras.Textures.ExplosionLarge.Value;
-        Texture2D exclamation = Images.Extras.Textures.Exclamation.Value;
+        Texture2D pulse = Assets.Extras.PulseCircle2.Value;
+        Texture2D ring = Assets.Extras.crosslight.Value;
+        Texture2D ring2 = Assets.Extras.Extras2.slash_06.Value;
+        Texture2D chevron = Assets.Extras.chevron.Value;
+        Texture2D hazard = Assets.Extras.hazardUnblurred.Value;
+        Texture2D textGlow = Assets.Extras.textGlow.Value;
+        Texture2D circle = Assets.Extras.explosion2.Value;
+        Texture2D exclamation = Assets.Extras.exclamation.Value;
         float _alpha = Utils.GetLerpValue(0, 2, waveTimer);
         float alpha2 = Clamp((float)Math.Sin(_alpha * Math.PI) * 1, 0, 1f);
 

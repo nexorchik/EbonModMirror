@@ -4,7 +4,7 @@ namespace EbonianMod.Projectiles.Garbage;
 
 public class GarbageFlame : ModProjectile
 {
-    public override string Texture => "EbonianMod/Assets/Extras/Extras2/Fire";
+    public override string Texture => "EbonianMod/Extras/Extras2/fire_01";
     public override void SetStaticDefaults()
     {
         ProjectileID.Sets.TrailCacheLength[Type] = 25;

@@ -197,7 +197,7 @@ namespace EbonianMod.NPCs.Snow
         public override string Texture => Helper.Empty;
         public override bool PreDraw(ref Color lightColor)
         {
-            Texture2D tex = Images.Extras.Textures.Slice.Value;
+            Texture2D tex = Assets.Extras.Extras2.scratch_02.Value;
             float alpha = MathHelper.Lerp(1, 0, Projectile.ai[0]);
             Main.spriteBatch.Reload(BlendState.Additive);
             for (int i = 0; i < 2; i++)

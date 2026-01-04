@@ -356,7 +356,7 @@ public class TerrorClingerRanged : TerrorClingerGeneric // Disgusting
                 new Rectangle(0, 0, 26, 20), Lighting.GetColor((int)center.X / 16, (int)center.Y / 16), projRotation,
                 new Vector2(26 * 0.5f, 20 * 0.5f), 1f, SpriteEffects.None, 0);
         }
-        Texture2D tex = Images.ExtraSprites.Terrortoma.Textures.TerrorClingerRanged_Bloom.Value;
+        Texture2D tex = Assets.ExtraSprites.Terrortoma.TerrorClingerRanged_Bloom.Value;
         if (bloomAlpha > 0)
         {
             spriteBatch.Reload(BlendState.Additive);

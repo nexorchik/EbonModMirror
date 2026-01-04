@@ -45,7 +45,7 @@ public class ArchmageDeath : ModProjectile
 }
 public class ArchmageHead : ModProjectile
 {
-    public override string Texture => "EbonianMod/Assets/Extrasprites/ArchmageX/ArchmageX_Head";
+    public override string Texture => "EbonianMod/ExtraSprites/ArchmageX/ArchmageX_Head";
     public override void SetStaticDefaults()
     {
         Main.projFrames[Type] = 10;
@@ -62,7 +62,7 @@ public class ArchmageHead : ModProjectile
     public override bool PreDraw(ref Color lightColor)
     {
         Texture2D tex = TextureAssets.Projectile[Type].Value;
-        Texture2D glow = Images.ExtraSprites.ArchmageX.Textures.ArchmageX_HeadGlow.Value;
+        Texture2D glow = Assets.ExtraSprites.ArchmageX.ArchmageX_HeadGlow.Value;
         Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * 42, 34, 42), lightColor, Projectile.rotation, Projectile.Size / 2, Projectile.scale, SpriteEffects.None, 0);
         Main.spriteBatch.Draw(glow, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * 42, 34, 42), Color.White, Projectile.rotation, Projectile.Size / 2, Projectile.scale, SpriteEffects.None, 0);
         return false;
@@ -102,7 +102,7 @@ public class ArchmageHead : ModProjectile
 }
 public class ArchmageArm : ModProjectile
 {
-    public override string Texture => "EbonianMod/Assets/Extrasprites/ArchmageX/ArchmageX_Arm";
+    public override string Texture => "EbonianMod/ExtraSprites/ArchmageX/ArchmageX_Arm";
     public override void SetStaticDefaults()
     {
         EbonianMod.projectileFinalDrawList.Add(Type);
@@ -128,7 +128,7 @@ public class ArchmageArm : ModProjectile
 }
 public class ArchmageStaffGore : ModProjectile
 {
-    public override string Texture => "EbonianMod/Assets/Extrasprites/ArchmageX/StaffOfXItem";
+    public override string Texture => "EbonianMod/ExtraSprites/ArchmageX/StaffOfXItem";
     public override void SetStaticDefaults()
     {
         EbonianMod.projectileFinalDrawList.Add(Type);

@@ -199,11 +199,11 @@ public class EquilibriumP : HeldSword
         Vector2 scale = new Vector2(Projectile.scale * Projectile.scale + f * 0.05f, .65f * Projectile.scale + f * 0.15f) * .2f;
 
 
-        Main.spriteBatch.Reload(Effects.SpriteRotation.Value);
+        Main.spriteBatch.Reload(EbonianMod.SpriteRotation.Value);
 
-        Effects.SpriteRotation.Value.Parameters["scale"].SetValue(scale);
-        Effects.SpriteRotation.Value.Parameters["uColor"].SetValue((Color.White).ToVector4());
-        Effects.SpriteRotation.Value.Parameters["rotation"].SetValue(rot);
+        EbonianMod.SpriteRotation.Value.Parameters["scale"].SetValue(scale);
+        EbonianMod.SpriteRotation.Value.Parameters["uColor"].SetValue((Color.White).ToVector4());
+        EbonianMod.SpriteRotation.Value.Parameters["rotation"].SetValue(rot);
         for (float i = -2; i < 3; i++)
         {
             Main.EntitySpriteDraw(texture, Projectile.Center + Projectile.velocity.RotatedBy(MathHelper.PiOver2) * i * .5f - Main.screenPosition, null, lightColor, Projectile.velocity.ToRotation(), orig, Projectile.scale * (5f), Projectile.ai[1] == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
@@ -217,22 +217,22 @@ public class EquilibriumP : HeldSword
         swingProgressInv = MathHelper.Lerp(1, 0, swingProgress);
         f = MathHelper.Clamp(MathF.Sin((Projectile.ai[1] == 1 ? swingProgress : swingProgressInv) * MathF.PI) * .5f, 0, 1) * 2;
 
-        Texture2D tex = Images.Extras.Textures.Slash.Value;
+        Texture2D tex = Assets.Extras.Extras2.slash_06.Value;
 
         float rotOffset = Lerp(-1.7f, 0, MathF.Pow(MathF.Sin(swingProgress * Pi), 2));
 
-        Main.spriteBatch.Reload(Effects.SpriteRotation.Value);
-        Effects.SpriteRotation.Value.Parameters["scale"].SetValue(scale);
-        Effects.SpriteRotation.Value.Parameters["uColor"].SetValue((Color.Lerp(Color.Gold, Color.Maroon, 2 - f * 2) with { A = 0 } * (f * 0.025f)).ToVector4());
-        Effects.SpriteRotation.Value.Parameters["rotation"].SetValue(oldP[oldP.Count - 6] - MathHelper.PiOver2 + rotOffset);
+        Main.spriteBatch.Reload(EbonianMod.SpriteRotation.Value);
+        EbonianMod.SpriteRotation.Value.Parameters["scale"].SetValue(scale);
+        EbonianMod.SpriteRotation.Value.Parameters["uColor"].SetValue((Color.Lerp(Color.Gold, Color.Maroon, 2 - f * 2) with { A = 0 } * (f * 0.025f)).ToVector4());
+        EbonianMod.SpriteRotation.Value.Parameters["rotation"].SetValue(oldP[oldP.Count - 6] - MathHelper.PiOver2 + rotOffset);
         for (float i = -5; i < 5; i++)
             Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.velocity.RotatedBy(MathHelper.PiOver2) * i * 4 - Main.screenPosition, null, Color.White with { A = 0 }, Projectile.velocity.ToRotation(), tex.Size() / 2, Projectile.scale * (5f), Projectile.ai[1] == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
         Main.spriteBatch.Reload(effect: null);
 
-        Main.spriteBatch.Reload(Effects.SpriteRotation.Value);
-        Effects.SpriteRotation.Value.Parameters["scale"].SetValue(scale);
-        Effects.SpriteRotation.Value.Parameters["uColor"].SetValue((Color.Lerp(Color.GreenYellow, Color.SandyBrown, 2 - f * 2) with { A = 0 } * (f * 0.025f)).ToVector4());
-        Effects.SpriteRotation.Value.Parameters["rotation"].SetValue(oldP[oldP.Count - 6] - MathHelper.PiOver2 + rotOffset);
+        Main.spriteBatch.Reload(EbonianMod.SpriteRotation.Value);
+        EbonianMod.SpriteRotation.Value.Parameters["scale"].SetValue(scale);
+        EbonianMod.SpriteRotation.Value.Parameters["uColor"].SetValue((Color.Lerp(Color.GreenYellow, Color.SandyBrown, 2 - f * 2) with { A = 0 } * (f * 0.025f)).ToVector4());
+        EbonianMod.SpriteRotation.Value.Parameters["rotation"].SetValue(oldP[oldP.Count - 6] - MathHelper.PiOver2 + rotOffset);
         for (float i = -5; i < 5; i++)
             Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.velocity.RotatedBy(MathHelper.PiOver2) * i * 4 - Main.screenPosition, null, Color.White with { A = 0 }, Projectile.velocity.ToRotation(), tex.Size() / 2, Projectile.scale * (4f), Projectile.ai[1] == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
         Main.spriteBatch.Reload(effect: null);
@@ -318,21 +318,21 @@ public class EquilibriumP2 : HeldSword
         swingProgressInv = MathHelper.Lerp(1, 0, swingProgress);
         f = MathHelper.Clamp(MathF.Sin((Projectile.ai[1] == 1 ? swingProgress : swingProgressInv) * MathF.PI) * .5f, 0, 1) * 2;
 
-        Texture2D tex = Images.Extras.Textures.Slash.Value;
+        Texture2D tex = Assets.Extras.Extras2.slash_06.Value;
 
         float rotOffset = Lerp(-1.7f, 0, MathF.Pow(MathF.Sin(swingProgress * Pi), 2));
 
-        Main.spriteBatch.Reload(Effects.SpriteRotation.Value);
-        Effects.SpriteRotation.Value.Parameters["scale"].SetValue(scale);
-        Effects.SpriteRotation.Value.Parameters["uColor"].SetValue(((Projectile.ai[1] == -1 ? Color.Maroon : Color.LawnGreen) with { A = 0 } * (f) * (0.5f * f)).ToVector4());
-        Effects.SpriteRotation.Value.Parameters["rotation"].SetValue(oldP[oldP.Count - 6] - MathHelper.PiOver2 + rotOffset);
+        Main.spriteBatch.Reload(EbonianMod.SpriteRotation.Value);
+        EbonianMod.SpriteRotation.Value.Parameters["scale"].SetValue(scale);
+        EbonianMod.SpriteRotation.Value.Parameters["uColor"].SetValue(((Projectile.ai[1] == -1 ? Color.Maroon : Color.LawnGreen) with { A = 0 } * (f) * (0.5f * f)).ToVector4());
+        EbonianMod.SpriteRotation.Value.Parameters["rotation"].SetValue(oldP[oldP.Count - 6] - MathHelper.PiOver2 + rotOffset);
         Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.velocity.RotatedBy(MathHelper.PiOver2) - Main.screenPosition, null, Color.White with { A = 0 }, Projectile.velocity.ToRotation(), tex.Size() / 2, Projectile.scale * (5f), Projectile.ai[1] == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
         Main.spriteBatch.Reload(effect: null);
 
-        Main.spriteBatch.Reload(Effects.SpriteRotation.Value);
-        Effects.SpriteRotation.Value.Parameters["scale"].SetValue(scale);
-        Effects.SpriteRotation.Value.Parameters["uColor"].SetValue(((Projectile.ai[1] == -1 ? Color.Red : Color.DarkGreen) with { A = 0 } * (f) * (0.5f * f)).ToVector4());
-        Effects.SpriteRotation.Value.Parameters["rotation"].SetValue(oldP[oldP.Count - 6] - MathHelper.PiOver2 + rotOffset);
+        Main.spriteBatch.Reload(EbonianMod.SpriteRotation.Value);
+        EbonianMod.SpriteRotation.Value.Parameters["scale"].SetValue(scale);
+        EbonianMod.SpriteRotation.Value.Parameters["uColor"].SetValue(((Projectile.ai[1] == -1 ? Color.Red : Color.DarkGreen) with { A = 0 } * (f) * (0.5f * f)).ToVector4());
+        EbonianMod.SpriteRotation.Value.Parameters["rotation"].SetValue(oldP[oldP.Count - 6] - MathHelper.PiOver2 + rotOffset);
         Main.EntitySpriteDraw(tex, Projectile.Center + Projectile.velocity.RotatedBy(MathHelper.PiOver2) - Main.screenPosition, null, Color.White with { A = 0 }, Projectile.velocity.ToRotation(), tex.Size() / 2, Projectile.scale * (4f), Projectile.ai[1] == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0);
         Main.spriteBatch.Reload(effect: null);
         return false;

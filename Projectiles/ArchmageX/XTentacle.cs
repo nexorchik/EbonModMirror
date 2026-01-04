@@ -5,7 +5,7 @@ namespace EbonianMod.Projectiles.ArchmageX;
 
 public class XTentacle : ModProjectile
 {
-    public override string Texture => "EbonianMod/Assets/Extras/LaserPurple";
+    public override string Texture => "EbonianMod/Extras/laser_purple";
     public override void SetStaticDefaults()
     {
         ProjectileID.Sets.TrailCacheLength[Projectile.type] = 100;
@@ -112,7 +112,7 @@ public class XTentacle : ModProjectile
         {
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone);
-            Helper.DrawTexturedPrimitives(bars.ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.Tentacle.Value, false);
+            Helper.DrawTexturedPrimitives(bars.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.Tentacle.Value, false);
             Main.spriteBatch.End();
             Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         }

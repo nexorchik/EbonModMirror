@@ -37,7 +37,7 @@ public class Spitvine : ModItem
     }
     public override void PostDrawInWorld(SpriteBatch spriteBatch, Color lightColor, Color alphaColor, float rotation, float scale, int whoAmI)
     {
-        Texture2D tex = Images.ExtraSprites.Weapons.Textures.Spitvine_Glow.Value;
+        Texture2D tex = Assets.Items.Weapons.Ranged.Spitvine_Glow.Value;
         spriteBatch.Draw(tex, Item.Center - Main.screenPosition, null, Color.White, rotation, tex.Size() / 2, scale, SpriteEffects.None, 0);
     }
     public override void ModifyShootStats(Player player, ref Vector2 position, ref Vector2 velocity, ref int type, ref int damage, ref float knockback)

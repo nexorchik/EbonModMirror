@@ -171,7 +171,7 @@ public class SanguineSlasherP : HeldSword
 
         if (Projectile.ai[1] != 0)
         {
-            Texture2D slash = Images.Extras.Textures.Slash.Value;
+            Texture2D slash = Assets.Extras.Extras2.slash_06.Value;
             float mult = Ease(Utils.GetLerpValue(0f, swingTime, Projectile.timeLeft));
             float alpha = (float)Math.Sin(mult * Math.PI);
             Vector2 pos = player.Center + Projectile.velocity * 40f;

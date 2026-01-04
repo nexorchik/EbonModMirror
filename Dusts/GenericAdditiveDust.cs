@@ -4,7 +4,7 @@ namespace EbonianMod.Dusts;
 
 public class GenericAdditiveDust : ModDust
 {
-    public override string Texture => "EbonianMod/Assets/Extras/Empty";
+    public override string Texture => "EbonianMod/Extras/Empty";
     public override void OnSpawn(Dust dust)
     {
         dust.alpha = 255;
@@ -28,7 +28,7 @@ public class GenericAdditiveDust : ModDust
     {
         if (d.type == DustType<GenericAdditiveDust>() && d.active)
         {
-            Texture2D tex = Images.Extras.Textures.Explosion;
+            Texture2D tex = Assets.Extras.explosion.Value;
             if (d.customData is not null)
                 sb.Draw(tex, d.position - Main.screenPosition, null, Color.White * d.scale * 5, 0, tex.Size() / 2, d.scale * 0.85f * 2, SpriteEffects.None, 0);
             sb.Draw(tex, d.position - Main.screenPosition, null, d.color * (d.customData is not null ? ((int)d.customData == 2 ? d.scale * 10 : 1) : 1), 0, tex.Size() / 2, d.scale * 2, SpriteEffects.None, 0);
@@ -37,7 +37,7 @@ public class GenericAdditiveDust : ModDust
 }
 public class SparkleDust : ModDust
 {
-    public override string Texture => "EbonianMod/Assets/Extras/Empty";
+    public override string Texture => "EbonianMod/Extras/Empty";
     public override void OnSpawn(Dust dust)
     {
         dust.alpha = 255;
@@ -61,7 +61,7 @@ public class SparkleDust : ModDust
     {
         if (d.type == DustType<SparkleDust>() && d.active)
         {
-            Texture2D tex = Images.Extras.Textures.Crosslight.Value;
+            Texture2D tex = Assets.Extras.crosslight.Value;
             if (d.customData is not null)
                 sb.Draw(tex, d.position - Main.screenPosition, null, Color.White * d.scale * 5, 0, tex.Size() / 2, d.scale * 0.85f * 2, SpriteEffects.None, 0);
             sb.Draw(tex, d.position - Main.screenPosition, null, d.color * (d.customData is not null ? ((int)d.customData == 2 ? d.scale * 10 : 1) : 1), 0, tex.Size() / 2, d.scale * 2, SpriteEffects.None, 0);
@@ -70,7 +70,7 @@ public class SparkleDust : ModDust
 }
 public class LineDustFollowPoint : ModDust
 {
-    public override string Texture => "EbonianMod/Assets/Extras/Empty";
+    public override string Texture => "EbonianMod/Extras/Empty";
     public override void OnSpawn(Dust dust)
     {
         dust.alpha = 255;
@@ -103,7 +103,7 @@ public class LineDustFollowPoint : ModDust
     {
         if (d.type == DustType<LineDustFollowPoint>() && d.active)
         {
-            Texture2D tex = Images.Extras.Textures.MagicLine.Value;
+            Texture2D tex = Assets.Extras.Extras2.trace_01.Value;
 
             for (float i = 0; i < Clamp(10 * d.fadeIn * d.scale * 5, 0, 5); i++)
                 sb.Draw(tex, d.position - d.velocity * 2 * i - Main.screenPosition, null, d.color * (d.scale * 10 * SmoothStep(1, 0, i / 10f)), d.rotation, tex.Size() / 2, new Vector2(1, Clamp(d.velocity.Length() * 0.25f, 0, 2)) * d.scale * 2, SpriteEffects.None, 0);
@@ -114,7 +114,7 @@ public class LineDustFollowPoint : ModDust
 }
 public class IntenseDustFollowPoint : ModDust
 {
-    public override string Texture => "EbonianMod/Assets/Extras/Empty";
+    public override string Texture => "EbonianMod/Extras/Empty";
     public override void OnSpawn(Dust dust)
     {
         dust.alpha = 255;
@@ -154,8 +154,8 @@ public class IntenseDustFollowPoint : ModDust
     {
         if (d.type == DustType<IntenseDustFollowPoint>() && d.active)
         {
-            Texture2D tex = Images.Extras.Textures.Crosslight.Value;
-            Texture2D tex2 = Images.Extras.Textures.FlareBright.Value;
+            Texture2D tex = Assets.Extras.crosslight.Value;
+            Texture2D tex2 = Assets.Extras.flare.Value;
 
             for (float i = 0; i < Clamp(30 * d.scale * 10, 0, 30); i++)
                 sb.Draw(tex2, d.position + d.velocity * 2 - d.velocity * 0.15f * i - Main.screenPosition, null, d.color * (d.scale * 10 * SmoothStep(1, 0, i / 30f)) * d.fadeIn, d.rotation, tex2.Size() / 2, new Vector2(1, Clamp(d.velocity.Length() * 0.25f, 1, 3)) * d.scale, SpriteEffects.None, 0);

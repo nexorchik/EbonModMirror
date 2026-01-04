@@ -22,7 +22,7 @@ public class Noise : ModProjectile
         if (Projectile.ai[2] > 0)
             EbonianMod.blurDrawCache.Add(() =>
             {
-                Texture2D tex = Images.Extras.Textures.SeamlessNoiseRing.Value;
+                Texture2D tex = Assets.Extras.seamlessNoise2.Value;
                 Main.spriteBatch.Reload(BlendState.Additive);
                 Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.White * Projectile.ai[0] * Projectile.ai[2] * 0.6f, Main.GameUpdateCount * 0.1f * Projectile.ai[0], tex.Size() / 2, Projectile.ai[2] * 0.5f, SpriteEffects.None, 0);
                 Main.spriteBatch.Reload(BlendState.AlphaBlend);
@@ -63,8 +63,8 @@ public class NoiseOverlay : ModProjectile
     public override bool ShouldUpdatePosition() => false;
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D tex = Images.Extras.Textures.MagicGlowAndRing.Value;
-        Texture2D OrigTex = Images.Extras.Textures.SeamlessNoiseRing.Value;
+        Texture2D tex = Assets.Extras.Extras2.light_03.Value;
+        Texture2D OrigTex = Assets.Extras.seamlessNoise2.Value;
         Main.spriteBatch.Reload(BlendState.Additive);
         if (Projectile.ai[2] > 0)
         {

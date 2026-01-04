@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Terraria.Graphics.CameraModifiers;
 using Terraria.Graphics.Shaders;
-using EbonianMod.GeneratedAssets.DataStructures;
 
 namespace EbonianMod;
 
@@ -209,7 +208,7 @@ public static class Helper
     {
         if (vertices.Length < 6) return;
         GraphicsDevice device = Main.graphics.GraphicsDevice;
-        Effect effect = Effects.TrailShader.Value;
+        Effect effect = EbonianMod.TrailShader.Value;
         effect.Parameters["WorldViewProjection"].SetValue(GetMatrix());
         effect.CurrentTechnique.Passes["Default"].Apply();
         if (drawBacksides)
@@ -236,12 +235,10 @@ public static class Helper
     }
     public static void DrawTexturedPrimitives(VertexPositionColorTexture[] vertices, PrimitiveType type, Asset<Texture2D> texture, bool drawBacksides = true, bool actualColor = false) =>
         DrawTexturedPrimitives(vertices, type, texture.Value, drawBacksides, actualColor);
-    public static void DrawTexturedPrimitives(VertexPositionColorTexture[] vertices, PrimitiveType type, LazyAsset<Texture2D> texture, bool drawBacksides = true, bool actualColor = false) =>
-        DrawTexturedPrimitives(vertices, type, texture.Value, drawBacksides, actualColor);
     public static void DrawTexturedPrimitives(VertexPositionColorTexture[] vertices, PrimitiveType type, Texture2D texture, bool drawBacksides = true, bool actualColor = false)
     {
         GraphicsDevice device = Main.graphics.GraphicsDevice;
-        Effect effect = Effects.TrailShader.Value;
+        Effect effect = EbonianMod.TrailShader.Value;
         effect.Parameters["WorldViewProjection"].SetValue(GetMatrix());
         effect.Parameters["tex"].SetValue(texture);
         effect.Parameters["useActualCol"].SetValue(actualColor);
@@ -284,8 +281,8 @@ public static class Helper
             : Vector2.Normalize(oldPos[index + 1] - oldPos[index - 1])).RotatedBy(MathHelper.Pi / 2);
     }
     public static string BuffPlaceholder = "EbonianMod/Buffs/ExolStun";
-    public static string Empty = "EbonianMod/Assets/Extras/Empty";
-    public static string Placeholder = "EbonianMod/Assets/Extras/Placeholder";
+    public static string Empty = "EbonianMod/Extras/Empty";
+    public static string Placeholder = "EbonianMod/Extras/Placeholder";
     public static class TRay
     {
         public static Vector2 Cast(Vector2 start, Vector2 direction, float length, bool platformCheck = false)
@@ -577,10 +574,10 @@ public class MiscDrawingMethods
     public static void LocalDrawShinyText(DrawableTooltipLine line, float opacity = 1)
     {
         Main.spriteBatch.End();
-        Main.spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, Effects.CrystalShine.Value, Main.UIScaleMatrix);
+        Main.spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, EbonianMod.CrystalShine.Value, Main.UIScaleMatrix);
         var font = FontAssets.MouseText.Value;
-        Effects.CrystalShine.Value.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly);
-        Effects.CrystalShine.Value.Parameters["uOpacity"].SetValue(opacity);
+        EbonianMod.CrystalShine.Value.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly);
+        EbonianMod.CrystalShine.Value.Parameters["uOpacity"].SetValue(opacity);
         DynamicSpriteFontExtensionMethods.DrawString(Main.spriteBatch, font, line.Text, new Vector2(line.X, line.Y), Color.White);
         Main.spriteBatch.End();
         Main.spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Main.UIScaleMatrix);
@@ -588,10 +585,10 @@ public class MiscDrawingMethods
     public static void LocalDrawShinyText(string text, Vector2 pos, float opacity = 1)
     {
         Main.spriteBatch.End();
-        Main.spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, Effects.CrystalShine.Value, Main.UIScaleMatrix);
+        Main.spriteBatch.Begin(SpriteSortMode.Immediate, null, null, null, null, EbonianMod.CrystalShine.Value, Main.UIScaleMatrix);
         var font = FontAssets.MouseText.Value;
-        Effects.CrystalShine.Value.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly);
-        Effects.CrystalShine.Value.Parameters["uOpacity"].SetValue(opacity);
+        EbonianMod.CrystalShine.Value.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly);
+        EbonianMod.CrystalShine.Value.Parameters["uOpacity"].SetValue(opacity);
         DynamicSpriteFontExtensionMethods.DrawString(Main.spriteBatch, font, text, pos, Color.White);
         Main.spriteBatch.End();
         Main.spriteBatch.Begin(SpriteSortMode.Deferred, null, null, null, null, null, Main.UIScaleMatrix);

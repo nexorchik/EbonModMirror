@@ -23,8 +23,8 @@ public class XExplosionInvis : ModProjectile
         //EbonianMod.affectedByInvisibleMaskCache.Add(() =>
         {
             float alpha = MathHelper.Lerp(1, 0, Projectile.ai[0]);
-            Texture2D explosion = Images.Extras.Textures.Crosslight.Value;
-            Texture2D ring = Images.Extras.Textures.Crosslight.Value;
+            Texture2D explosion = Assets.Extras.crosslight.Value;
+            Texture2D ring = Assets.Extras.crosslight.Value;
             for (int i = 0; i < 3; i++)
             {
                 Main.spriteBatch.Draw(explosion, Projectile.Center - Main.screenPosition, null, Color.Indigo with { A = 0 } * alpha, Projectile.rotation, explosion.Size() / 2, Projectile.ai[0] * 0.9f * 2, SpriteEffects.None, 0);
@@ -68,7 +68,7 @@ public class XExplosionInvisMask : ModProjectile
     {
         EbonianMod.invisibleMaskCache.Add(() =>
         {
-            Texture2D explosion = Images.Extras.Textures.Explosion.Value;
+            Texture2D explosion = Assets.Extras.explosion.Value;
             Main.spriteBatch.Reload(BlendState.Additive);
             Main.spriteBatch.Draw(explosion, Projectile.Center - Main.screenPosition, null, Color.White, Projectile.rotation, explosion.Size() / 2, Projectile.ai[0], SpriteEffects.None, 0);
             Main.spriteBatch.Reload(BlendState.AlphaBlend);

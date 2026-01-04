@@ -53,8 +53,8 @@ public class Starlad : ModNPC
     public override bool PreDraw(SpriteBatch sb, Vector2 screenPos, Color drawColor)
     {
         SpriteEffects effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
-        Vector2 origin = new Vector2(TextureAssets.Npc[ModContent.NPCType<Starlad>()].Value.Width / 2, NPC.height / 2);
-        sb.Draw(TextureAssets.Npc[ModContent.NPCType<Starlad>()].Value, NPC.Center - screenPos + new Vector2(0, NPC.gfxOffY + 2), NPC.frame, Color.White, NPC.rotation, origin, NPC.scale, effects, 0f);
+        Vector2 origin = new Vector2(Assets.NPCs.Overworld.Starlads.Starlad.Value.Width / 2, NPC.height / 2);
+        sb.Draw(Assets.NPCs.Overworld.Starlads.Starlad.Value, NPC.Center - screenPos + new Vector2(0, NPC.gfxOffY + 2), NPC.frame, Color.White, NPC.rotation, origin, NPC.scale, effects, 0f);
         return false;
     }
     public override void FindFrame(int frameHeight)

@@ -24,16 +24,16 @@ public class HeatBlastVFX : ModProjectile
     public override bool ShouldUpdatePosition() => false;
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D tex1 = Images.Extras.Textures.MagicGlow.Value;
-        Texture2D tex2 = Images.Extras.Textures.Scorch.Value;
-        Texture2D tex3 = Images.Extras.Textures.Shockwave.Value;
+        Texture2D tex1 = Assets.Extras.Extras2.light_01.Value;
+        Texture2D tex2 = Assets.Extras.Extras2.scorch_03.Value;
+        Texture2D tex3 = Assets.Extras.circlething.Value;
         Main.spriteBatch.Reload(BlendState.Additive);
         float alpha = MathHelper.Lerp(1, 0, Projectile.ai[0]);
-        Main.spriteBatch.Reload(Effects.SpriteRotation.Value);
+        Main.spriteBatch.Reload(EbonianMod.SpriteRotation.Value);
         Vector2 scale = new Vector2(0.25f, 1);
-        Effects.SpriteRotation.Value.Parameters["scale"].SetValue(scale * 0.75f);
-        Effects.SpriteRotation.Value.Parameters["rotation"].SetValue(-Main.GameUpdateCount * 0.003f);
-        Effects.SpriteRotation.Value.Parameters["uColor"].SetValue(Color.OrangeRed.ToVector4() * alpha);
+        EbonianMod.SpriteRotation.Value.Parameters["scale"].SetValue(scale * 0.75f);
+        EbonianMod.SpriteRotation.Value.Parameters["rotation"].SetValue(-Main.GameUpdateCount * 0.003f);
+        EbonianMod.SpriteRotation.Value.Parameters["uColor"].SetValue(Color.OrangeRed.ToVector4() * alpha);
         for (int i = 0; i < 5; i++)
         {
             float s = Projectile.ai[0] * (i * 2) * 0.2f;

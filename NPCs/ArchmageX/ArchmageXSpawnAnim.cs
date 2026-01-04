@@ -55,7 +55,7 @@ public class ArchmageXSpawnAnim : ModProjectile
     {
         EbonianMod.xareusGoopCache.Add(() =>
         {
-            Texture2D tex3 = Images.Extras.Textures.Crosslight.Value;
+            Texture2D tex3 = Assets.Extras.crosslight.Value;
             for (int i = 0; i < 4; i++)
             {
                 Main.spriteBatch.Draw(tex3, Projectile.Center - Main.screenPosition, null, Color.White * (glareAlpha), 0, tex3.Size() / 2, (glareAlpha) * .6f, SpriteEffects.None, 0);
@@ -156,7 +156,7 @@ public class ArchmageXSpawnAnim : ModProjectile
 public class SpawnAnimMusic : ModBiome
 {
     public override SceneEffectPriority Priority => SceneEffectPriority.Event;
-    public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/ambience");
+    public override int Music => MusicLoader.GetMusicSlot(Mod, "Sounds/Music/ambience");
     public override bool IsBiomeActive(Player player)
     {
         return player.ownedProjectileCounts[ProjectileType<ArchmageXSpawnAnim>()] > 0;

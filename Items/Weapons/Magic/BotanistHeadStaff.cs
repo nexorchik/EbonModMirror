@@ -61,7 +61,7 @@ public class BotanistHeadStaff : ModItem
 
 public class BotanistHeadProjectile : ModProjectile
 {
-    public override string Texture => "EbonianMod/Assets/Extrasprites/Overworld/BotanistHead";
+    public override string Texture => "EbonianMod/ExtraSprites/Overworld/BotanistHead";
     public override void SetDefaults()
     {
         Projectile.width = 22;

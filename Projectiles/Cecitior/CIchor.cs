@@ -4,7 +4,7 @@ namespace EbonianMod.Projectiles.Cecitior;
 
 public class CIchor : ModProjectile
 {
-    public override string Texture => "EbonianMod/Assets/Extras/Empty";
+    public override string Texture => "EbonianMod/Extras/Empty";
     public override void SetStaticDefaults()
     {
         ProjectileID.Sets.TrailCacheLength[Type] = 30;
@@ -51,7 +51,7 @@ public class CIchor : ModProjectile
         Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         if (vertices.Count > 2)
         {
-            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.LaserBright.Value, false);
+            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.laser2.Value, false);
         }
         Main.spriteBatch.ApplySaved(sbParams);
         Main.spriteBatch.Reload(BlendState.AlphaBlend);

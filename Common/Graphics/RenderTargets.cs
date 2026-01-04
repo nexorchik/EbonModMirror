@@ -40,8 +40,8 @@ public class PixelationTarget : CommonRenderTarget, ILoadable
         sb.End();
 
         PrepareAndSet(ref _target, gd);
-        sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, Effects.ColorQuant.Value, Matrix.Identity);
-        Effects.ColorQuant.Value.Parameters["res"].SetValue(32);
+        sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointClamp, DepthStencilState.None, RasterizerState.CullCounterClockwise, EbonianMod.colorQuant.Value, Matrix.Identity);
+        EbonianMod.colorQuant.Value.Parameters["res"].SetValue(32);
         sb.Draw(_target2, new Rectangle(0, 0, (int)(Main.screenWidth / (1 + Main.GameZoomTarget)), (int)(Main.screenHeight / (1 + Main.GameZoomTarget))), Color.White);
         sb.End();
     }

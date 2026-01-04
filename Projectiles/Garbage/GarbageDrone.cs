@@ -187,7 +187,7 @@ public class GarbageLightningF : GarbageLightning
 }
 public class GarbageLightning : ModProjectile
 {
-    public override string Texture => "EbonianMod/Assets/Extras/Empty";
+    public override string Texture => "EbonianMod/Extras/Empty";
     int MAX_TIME = 40;
     public override void SetDefaults()
     {

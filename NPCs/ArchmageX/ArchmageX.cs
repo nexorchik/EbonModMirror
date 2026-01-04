@@ -106,14 +106,14 @@ public class ArchmageX : CommonNPC
             headYOff = Lerp(headYOff, MathF.Sin((AITimer + headOffIncrementOffset) * 0.025f) * 2, 0.2f);
         }
         Texture2D tex = TextureAssets.Npc[Type].Value;
-        Texture2D singularArm = Images.ExtraSprites.ArchmageX.Textures.ArchmageX_Arm.Value;
-        Texture2D head = Images.ExtraSprites.ArchmageX.Textures.ArchmageX_Head.Value;
-        Texture2D headGlow = Images.ExtraSprites.ArchmageX.Textures.ArchmageX_HeadGlow.Value;
+        Texture2D singularArm = Assets.ExtraSprites.ArchmageX.ArchmageX_Arm.Value;
+        Texture2D head = Assets.ExtraSprites.ArchmageX.ArchmageX_Head.Value;
+        Texture2D headGlow = Assets.ExtraSprites.ArchmageX.ArchmageX_HeadGlow.Value;
         Texture2D manaPot = TextureAssets.Projectile[ProjectileType<XManaPotion>()].Value;
-        Texture2D staff = Images.ExtraSprites.ArchmageX.Textures.StaffOfXItem.Value;
+        Texture2D staff = Assets.ExtraSprites.ArchmageX.StaffOfXItem.Value;
         Texture2D bigStaff = TextureAssets.Item[ItemType<StaffOfX>()].Value;
-        Texture2D heli = Images.ExtraSprites.ArchmageX.Textures.ArchmageXHeli.Value;
-        Texture2D heliGlow = Images.ExtraSprites.ArchmageX.Textures.ArchmageXHeli_Glow.Value;
+        Texture2D heli = Assets.ExtraSprites.ArchmageX.ArchmageXHeli.Value;
+        Texture2D heliGlow = Assets.ExtraSprites.ArchmageX.ArchmageXHeli_Glow.Value;
 
         Vector2 staffP = NPC.Center + rightArmRot.ToRotationVector2().RotatedBy(MathHelper.Pi - MathHelper.PiOver4 * 0.8f + (MathHelper.ToRadians((headYOff + 2) * 4) * NPC.direction)) * 0.25f;
         if (NPC.direction == 1)
@@ -139,11 +139,11 @@ public class ArchmageX : CommonNPC
         Vector4 col = (Color.White * heliAlpha).ToVector4();
         if (heliAlpha > 0)
         {
-            Main.spriteBatch.Reload(Effects.SpriteRotation.Value);
-            Effects.SpriteRotation.Value.Parameters["rotation"].SetValue(MathHelper.ToRadians(Main.GlobalTimeWrappedHourly * 1200));
-            Effects.SpriteRotation.Value.Parameters["scale"].SetValue(scale);
+            Main.spriteBatch.Reload(EbonianMod.SpriteRotation.Value);
+            EbonianMod.SpriteRotation.Value.Parameters["rotation"].SetValue(MathHelper.ToRadians(Main.GlobalTimeWrappedHourly * 1200));
+            EbonianMod.SpriteRotation.Value.Parameters["scale"].SetValue(scale);
             col.W = heliAlpha * 0.25f;
-            Effects.SpriteRotation.Value.Parameters["uColor"].SetValue(col);
+            EbonianMod.SpriteRotation.Value.Parameters["uColor"].SetValue(col);
 
 
             for (int i = 12; i > 0; i--)
@@ -156,11 +156,11 @@ public class ArchmageX : CommonNPC
         Main.spriteBatch.Reload(BlendState.AlphaBlend);
         if (heliAlpha > 0)
         {
-            Main.spriteBatch.Reload(Effects.SpriteRotation.Value);
-            Effects.SpriteRotation.Value.Parameters["rotation"].SetValue(MathHelper.ToRadians(Main.GlobalTimeWrappedHourly * 1200));
-            Effects.SpriteRotation.Value.Parameters["scale"].SetValue(scale);
+            Main.spriteBatch.Reload(EbonianMod.SpriteRotation.Value);
+            EbonianMod.SpriteRotation.Value.Parameters["rotation"].SetValue(MathHelper.ToRadians(Main.GlobalTimeWrappedHourly * 1200));
+            EbonianMod.SpriteRotation.Value.Parameters["scale"].SetValue(scale);
             col.W = heliAlpha;
-            Effects.SpriteRotation.Value.Parameters["uColor"].SetValue(col);
+            EbonianMod.SpriteRotation.Value.Parameters["uColor"].SetValue(col);
             for (int i = 12; i > 0; i--)
             {
                 Vector2 pos = heliP + new Vector2(i * 0.2f, 0).RotatedBy(heliR + MathHelper.PiOver2);
@@ -194,7 +194,7 @@ public class ArchmageX : CommonNPC
             arenaVFXOffset = 0;
         arenaVFXOffset = MathHelper.Clamp(arenaVFXOffset, float.Epsilon, 1 - float.Epsilon);
         List<VertexPositionColorTexture> verticesR = new List<VertexPositionColorTexture>();
-        Texture2D texture = Images.Extras.Textures.WavyLaserBright.Value;
+        Texture2D texture = Assets.Extras.wavyLaser2.Value;
         Vector2 startR = GetArenaRect().BottomRight() + Vector2.UnitY * 16 - Main.screenPosition;
         Vector2 offVert = (Helper.FromAToB(GetArenaRect().BottomRight() + Vector2.UnitY * 16, GetArenaRect().BottomRight() - Vector2.UnitY * 16 * 6, false));
         float rotVert = Helper.FromAToB(startR, startR + offVert).ToRotation();
@@ -229,7 +229,7 @@ public class ArchmageX : CommonNPC
         Rectangle rect = new Rectangle(GetArenaRect().X - (int)Main.screenPosition.X, GetArenaRect().Y - (int)Main.screenPosition.Y, GetArenaRect().Width, GetArenaRect().Height);
 
         for (int i = 0; i < 5; i++)
-            Main.spriteBatch.Draw(TextureAssets.MagicPixel.Value, rect, Color.Indigo * arenaFlash);
+            Main.spriteBatch.Draw(Assets.Extras.pixel.Value, rect, Color.Indigo * arenaFlash);
         Main.spriteBatch.ApplySaved(sbParams);
 
     }
@@ -746,7 +746,7 @@ public class ArchmageX : CommonNPC
                     }
                     if (AITimer == 350)
                     {
-                        Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/xareus");
+                        Music = MusicLoader.GetMusicSlot(Mod, "Sounds/Music/xareus");
                         headFrame.Y = AngryFace;
                         if (!EbonianSystem.heardXareusIntroMonologue && !GetInstance<EbonianSystem>().downedXareus)
                             currentDialogue = DialogueSystem.NewDialogueBox(100, NPC.Center - new Vector2(0, 80), Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XIntro3").Value, Color.Violet, -1, 0.6f, Color.Indigo * 0.5f, 4f, true, DialogueAnimationIDs.BopDown | DialogueAnimationIDs.ColorWhite, SoundID.DD2_OgreRoar.WithPitchOffset(0.9f + (phaseMult == 3 ? 0.1f : 0)), 5);

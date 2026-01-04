@@ -19,7 +19,7 @@ public class RegorgerTelegraph : ModProjectile
         Main.spriteBatch.Reload(BlendState.Additive);
         if (Projectile.ai[0] > 0)
         {
-            Texture2D tex = Images.Extras.Textures.LaserSegment.Value;
+            Texture2D tex = Assets.Extras.laser4.Value;
             Vector2 pos = Projectile.Center;
             Vector2 scale = new Vector2(1f, Projectile.ai[1]);
             float eAlpha = MathHelper.Lerp(1, 0, Projectile.ai[2]);
@@ -72,8 +72,8 @@ public class VileTearTelegraph : ModProjectile
         Main.spriteBatch.Reload(BlendState.Additive);
         if (Projectile.ai[0] > 0)
         {
-            Texture2D tex = Images.Extras.Textures.LaserSegment.Value;
-            Texture2D chevron = Images.Extras.Textures.ChevronSingle.Value;
+            Texture2D tex = Assets.Extras.laser4.Value;
+            Texture2D chevron = Assets.Extras.chevron_single.Value;
             Vector2 pos = Projectile.Center;
             Vector2 scale = new Vector2(1f, Projectile.ai[1]);
             float progress = Utils.GetLerpValue(0, 40, Projectile.timeLeft);

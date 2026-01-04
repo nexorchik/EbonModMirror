@@ -19,7 +19,7 @@ public class EbonianAchievement : UIPanel
         PaddingLeft = 9f;
         HoverColor = hoverColor;
         icon = new UIImageFramed(Request<Texture2D>("EbonianMod/" + TexturePath, ReLogic.Content.AssetRequestMode.ImmediateLoad), new Rectangle(0, 64 * index, 64, 64));
-        iconBorder = new UIImageFramed(Request<Texture2D>("EbonianMod/Assets/Extras/Sprites/iconBorder", ReLogic.Content.AssetRequestMode.ImmediateLoad), new Rectangle(0, 0, 64, 64));
+        iconBorder = new UIImageFramed(Request<Texture2D>("EbonianMod/Extras/Sprites/iconBorder", ReLogic.Content.AssetRequestMode.ImmediateLoad), new Rectangle(0, 0, 64, 64));
         iconBorder.Color = Color.Gray * 0.4f;
         Append(icon);
         Append(iconBorder);
@@ -51,8 +51,8 @@ public class EbonianAchievement : UIPanel
         Vector2 textScale = new(0.85f);
         Vector2 pos = new Vector2(iconSize.X + iconSize.Width + 7f, GetInnerDimensions().Y - 2f);
 
-        Texture2D topTex = Images.ExtraSprites.Textures.TopPanel");
-        Texture2D bottomTex = Images.ExtraSprites.Textures.BottomPanel");
+        Texture2D topTex = Assets.ExtraSprites.TopPanel");
+        Texture2D bottomTex = Assets.ExtraSprites.BottomPanel");
         Color _color = IsMouseHovering ? Color.Lerp(HoverColor * 0.8f, HoverColor, offset) : Color.Lerp(Color.Gray, Color.LightGray, offset);
         color = Color.Lerp(color, _color, 0.15f);
 
@@ -137,7 +137,7 @@ public class EbonianAchievementUIState : UIState
         uiTextBG.SetPadding(13f);
         uiTextBG.BackgroundColor = new Color(17, 17, 17) * 0.85f;
 
-        UIImage logo = new UIImage(Request<Texture2D>("EbonianMod/Assets/Extras/Sprites/Logo"))
+        UIImage logo = new UIImage(Request<Texture2D>("EbonianMod/Extras/Sprites/Logo"))
         {
             HAlign = 0.5f
         };
@@ -241,7 +241,7 @@ public class EbonianAchievementButtonUIState : UIState
         {
             location.X += 52f * Main.inventoryScale;
         }
-        uiOutline = new(Request<Texture2D>("EbonianMod/Assets/Extras/Sprites/smallIconOutline"), new Rectangle(0, 0, 40, 40));
+        uiOutline = new(Request<Texture2D>("EbonianMod/Extras/Sprites/smallIconOutline"), new Rectangle(0, 0, 40, 40));
         uiOutline.Width.Set(40, 0f);
         uiOutline.Height.Set(40f, 0f);
         //uiOutline.VAlign = 0.255f;
@@ -250,7 +250,7 @@ public class EbonianAchievementButtonUIState : UIState
         uiOutline.Top.Set(location.Y, 0);
         //uiOutline.Left.Set(0, 0.035f);
         uiOutline.Color = Color.Black * 0.5f;
-        hover = new(Request<Texture2D>("EbonianMod/Assets/Extras/Sprites/smallIconHover"), new Rectangle(0, 0, 32, 32));
+        hover = new(Request<Texture2D>("EbonianMod/Extras/Sprites/smallIconHover"), new Rectangle(0, 0, 32, 32));
         hover.Width.Set(32, 0f);
         hover.Height.Set(32f, 0f);
         hover.Left.Set(-1, 0);

@@ -32,8 +32,8 @@ public class MagicChargeUp : ModProjectile
             _ => Color.Gold,
         };
         if (seed == 0) { seed = Main.rand.Next(int.MaxValue / 2); return false; }
-        Texture2D tex = Images.Extras.Textures.ConeFaint.Value;
-        Texture2D tex2 = Images.Extras.Textures.Flare.Value;
+        Texture2D tex = Assets.Extras.cone5.Value;
+        Texture2D tex2 = Assets.Extras.Extras2.flare_01.Value;
         float max = Projectile.ai[0] <= 0 ? 33 : Projectile.ai[0];
         UnifiedRandom rand = new UnifiedRandom(seed);
         rand = new UnifiedRandom(seed + 1);
@@ -52,7 +52,7 @@ public class MagicChargeUp : ModProjectile
                 Main.spriteBatch.Draw(tex2, Projectile.Center - angle.ToRotationVector2() * 20 + offset - Main.screenPosition, null, Color.Lerp(Color.White, col, Projectile.localAI[1] * 2) with { A = 0 } * (ringScale * 0.7f), angle, tex2.Size() / 2, MathHelper.Clamp(Projectile.localAI[1] * 6.5f, 0, 1.2f) * scale, SpriteEffects.None, 0);
             }
         }
-        tex = Images.Extras.Textures.Slice.Value;
+        tex = Assets.Extras.Extras2.scratch_02.Value;
         rand = new UnifiedRandom(seed + 1);
         ringScale = MathHelper.Lerp(1.2f, 0, MathHelper.Clamp(Projectile.localAI[0] * 3.5f, 0, 1));
         if (ringScale > 0.01f)

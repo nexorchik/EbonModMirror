@@ -6,7 +6,7 @@ namespace EbonianMod.Projectiles.Terrortoma;
 
 public class TFlameThrower : ModProjectile //BREATH
 {
-    public override string Texture => "EbonianMod/Assets/Extras/Empty";
+    public override string Texture => "EbonianMod/Extras/Empty";
     public override void SetStaticDefaults()
     {
         ProjectileID.Sets.DrawScreenCheckFluff[Type] = 1000;
@@ -55,7 +55,7 @@ public class TFlameThrower : ModProjectile //BREATH
         Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         if (vertices.Count > 2)
         {
-            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.FlamesSeamless.Value, false);
+            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.FlamesSeamless.Value, false);
         }
         Main.spriteBatch.ApplySaved(sbParams);
         Main.spriteBatch.Reload(BlendState.AlphaBlend);
@@ -131,13 +131,13 @@ public class TFlameThrower2 : ModProjectile //FALL
         Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         if (vertices.Count > 2)
         {
-            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.LaserBright.Value, false);
+            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.laser2.Value, false);
         }
         Main.spriteBatch.ApplySaved(sbParams);
         Main.spriteBatch.Reload(BlendState.AlphaBlend);
         return false;
     }
-    public override string Texture => "EbonianMod/Assets/Extras/Empty";
+    public override string Texture => "EbonianMod/Extras/Empty";
     public override void SetDefaults()
     {
         Projectile.CloneDefaults(95);
@@ -207,13 +207,13 @@ public class TFlameThrower2_Inverted : ModProjectile //FALL
         Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         if (vertices.Count > 2)
         {
-            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.LaserBright.Value, false);
+            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.laser2.Value, false);
         }
         Main.spriteBatch.ApplySaved(sbParams);
         Main.spriteBatch.Reload(BlendState.AlphaBlend);
         return false;
     }
-    public override string Texture => "EbonianMod/Assets/Extras/Empty";
+    public override string Texture => "EbonianMod/Extras/Empty";
     public override void SetDefaults()
     {
         Projectile.CloneDefaults(95);
@@ -286,13 +286,13 @@ public class TFlameThrowerHoming : ModProjectile //HOME
         Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         if (vertices.Count > 2)
         {
-            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.LaserBright.Value, false);
+            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.laser2.Value, false);
         }
         Main.spriteBatch.ApplySaved(sbParams);
         Main.spriteBatch.Reload(BlendState.AlphaBlend);
         return false;
     }
-    public override string Texture => "EbonianMod/Assets/Extras/Empty";
+    public override string Texture => "EbonianMod/Extras/Empty";
     public override void SetDefaults()
     {
         Projectile.CloneDefaults(95);
@@ -380,7 +380,7 @@ public class TFlameThrower3 : ModProjectile //NORMAL
         Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         if (vertices.Count > 2)
         {
-            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.FlamesSeamless.Value, false);
+            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.FlamesSeamless.Value, false);
         }
         Main.spriteBatch.ApplySaved(sbParams);
         Main.spriteBatch.Reload(BlendState.AlphaBlend);
@@ -390,7 +390,7 @@ public class TFlameThrower3 : ModProjectile //NORMAL
     {
         target.AddBuff(BuffID.CursedInferno, Main.rand.Next(20, 100));
     }
-    public override string Texture => "EbonianMod/Assets/Extras/Empty";
+    public override string Texture => "EbonianMod/Extras/Empty";
     public override void SetDefaults()
     {
         Projectile.CloneDefaults(96);
@@ -457,13 +457,13 @@ public class TFlameThrower4 : ModProjectile //ACCELERATE
         Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         if (vertices.Count > 2)
         {
-            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.FlamesSeamless.Value, false);
+            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.FlamesSeamless.Value, false);
         }
         Main.spriteBatch.ApplySaved(sbParams);
         Main.spriteBatch.Reload(BlendState.AlphaBlend);
         return false;
     }
-    public override string Texture => "EbonianMod/Assets/Extras/Empty";
+    public override string Texture => "EbonianMod/Extras/Empty";
     public override void SetDefaults()
     {
         Projectile.CloneDefaults(96);
@@ -534,13 +534,13 @@ public class TFlameThrowerSine : ModProjectile
         Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         if (vertices.Count > 2)
         {
-            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.FlamesSeamless.Value, false);
+            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.FlamesSeamless.Value, false);
         }
         Main.spriteBatch.ApplySaved(sbParams);
         Main.spriteBatch.Reload(BlendState.AlphaBlend);
         return false;
     }
-    public override string Texture => "EbonianMod/Assets/Extras/Empty";
+    public override string Texture => "EbonianMod/Extras/Empty";
     public override void SetDefaults()
     {
         Projectile.CloneDefaults(96);

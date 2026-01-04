@@ -3,7 +3,7 @@
 public class ReiSmoke : ModDust
 {
     //OBSOLETE: ReiCape.cs uses its own particle system now.
-    public override string Texture => "EbonianMod/Assets/Extras/Empty";
+    public override string Texture => "EbonianMod/Extras/Empty";
     public override void OnSpawn(Dust dust)
     {
         dust.alpha = 255;
@@ -31,7 +31,7 @@ public class ReiSmoke : ModDust
         {
             if (d.type == DustType<ReiSmoke>() && d.active)
             {
-                Texture2D tex = Images.Extras.Textures.Fireball.Value;
+                Texture2D tex = Assets.Extras.fireball.Value;
                 sb.Draw(tex, d.position - Main.screenPosition, null, Color.White * d.scale * 10, 0, tex.Size() / 2, d.scale * 2, SpriteEffects.None, 0);
             }
         }

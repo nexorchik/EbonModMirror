@@ -6,7 +6,7 @@ namespace EbonianMod.Projectiles.ArchmageX;
 
 public class XLightningBolt : ModProjectile
 {
-    public override string Texture => "EbonianMod/Assets/Extras/Empty";
+    public override string Texture => "EbonianMod/Extras/Empty";
     int MAX_TIME = 40;
     public override void SetStaticDefaults()
     {
@@ -141,7 +141,7 @@ public class XLightningBolt : ModProjectile
 
         EbonianMod.xareusGoopCache.Add(() =>
         {
-            Texture2D tex = Images.Extras.Textures.SparkBright.Value;
+            Texture2D tex = Assets.Extras.Extras2.spark_08.Value;
             float s = 0f;
             List<VertexPositionColorTexture> vertices = new();
             List<VertexPositionColorTexture> vertices2 = new();

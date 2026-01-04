@@ -104,8 +104,8 @@ public class AsteroidHerder : CommonNPC
         }
         void DrawStars(bool after, float rotOff, float scaleMult = 1.25f)
         {
-            Texture2D star = Images.ExtraSprites.Asteroid.Textures.AsteroidHerder_Star.Value;
-            Texture2D star2 = Images.ExtraSprites.Asteroid.Textures.AsteroidHerder_StarSmall.Value;
+            Texture2D star = Assets.NPCs.Overworld.Asteroid.AsteroidHerder_Star.Value;
+            Texture2D star2 = Assets.NPCs.Overworld.Asteroid.AsteroidHerder_StarSmall.Value;
             int max = 8;
             for (int i = after ? max : 0; after ? i > 0 : i < max; i += (after ? -1 : 1))
             {
@@ -124,7 +124,7 @@ public class AsteroidHerder : CommonNPC
             }
         }
         Texture2D tex = TextureAssets.Npc[Type].Value;
-        Texture2D glow = Images.ExtraSprites.Asteroid.Textures.AsteroidHerder_Glow.Value;
+        Texture2D glow = Assets.NPCs.Overworld.Asteroid.AsteroidHerder_Glow.Value;
 
         float rotation = Main.GlobalTimeWrappedHourly + NPC.whoAmI * 14 + ToRadians(additionalRotation);
 

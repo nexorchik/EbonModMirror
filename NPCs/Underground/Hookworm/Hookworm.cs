@@ -6,7 +6,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using Terraria.GameContent.Bestiary;
-using EbonianMod.GeneratedAssets.DataStructures;
+using Terraria.ModLoader.Utilities;
 
 namespace EbonianMod.NPCs.Underground.Hookworm;
 public class Hookworm : ModNPC
@@ -53,19 +53,19 @@ public class Hookworm : ModNPC
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
         Texture2D tex = TextureAssets.Npc[Type].Value;
-        Texture2D backTex = Images.ExtraSprites.Underground.Textures.Hookworm_Back.Value;
-        Texture2D fang = Images.ExtraSprites.Underground.Textures.Hookworm_Fang.Value;
-        Texture2D mandible = Images.ExtraSprites.Underground.Textures.Hookworm_Mandible.Value;
+        Texture2D backTex = Assets.NPCs.Underground.Hookworm.Hookworm_Back.Value;
+        Texture2D fang = Assets.NPCs.Underground.Hookworm.Hookworm_Fang.Value;
+        Texture2D mandible = Assets.NPCs.Underground.Hookworm.Hookworm_Mandible.Value;
 
-        LazyAsset<Texture2D>[] segment = Images.ExtraSprites.Underground.Textures.HookwormSegment;
+        Texture2D[] segment = [Assets.NPCs.Underground.Hookworm.HookwormSegment0.Value, Assets.NPCs.Underground.Hookworm.HookwormSegment1.Value, Assets.NPCs.Underground.Hookworm.HookwormSegment2.Value, Assets.NPCs.Underground.Hookworm.HookwormSegment3.Value];
         Vector2 pos = NPC.Center;
         for (int i = 0; i < 4; i++)
         {
             Vector2 oldPos = pos;
             float width = tex.Width * 0.7f;
-            if (i > 0) width = segment[i - 1].Value.Width - 2;
+            if (i > 0) width = segment[i - 1].Width - 2;
             pos += new Vector2(-width, 0).RotatedBy(NPC.oldRot[2 + i * 3]);
-            Main.EntitySpriteDraw(segment[i], pos - screenPos, null, drawColor, Helper.FromAToB(oldPos, pos).ToRotation(), segment[i].Value.Size() / 2, NPC.scale, SpriteEffects.FlipHorizontally);
+            Main.EntitySpriteDraw(segment[i], pos - screenPos, null, drawColor, Helper.FromAToB(oldPos, pos).ToRotation(), segment[i].Size() / 2, NPC.scale, SpriteEffects.FlipHorizontally);
         }
 
         Main.EntitySpriteDraw(backTex, NPC.Center - screenPos, null, drawColor, NPC.rotation, backTex.Size() / 2, NPC.scale, SpriteEffects.None);

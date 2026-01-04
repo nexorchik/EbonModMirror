@@ -31,7 +31,7 @@ public class ConglomerateScream : ModProjectile
     }
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D tex = Images.Extras.Textures.ConeSmooth.Value;
+        Texture2D tex = Assets.Extras.cone4.Value;
         UnifiedRandom rand = new UnifiedRandom(seed);
         float max = 40;
         float alpha = Lerp(0.5f, 0, Projectile.ai[1]) * 2;

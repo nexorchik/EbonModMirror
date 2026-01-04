@@ -93,7 +93,7 @@ public class IchorGlob : ModProjectile
     {
 
         if (seed == 0) seed = Main.rand.Next(int.MaxValue / 2);
-        Texture2D tex = Images.Extras.Textures.SliceBright.Value;
+        Texture2D tex = Assets.Extras.Extras2.scratch_03.Value;
         float max = 40;
         UnifiedRandom rand = new UnifiedRandom(seed);
         float ringScale = MathHelper.Lerp(1, 0, MathHelper.Clamp(Projectile.ai[2] * 3.5f, 0, 1));

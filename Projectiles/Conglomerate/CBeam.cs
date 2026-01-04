@@ -21,7 +21,7 @@ public class CBeam : ModProjectile
         Projectile.localNPCHitCooldown = 10;
     }
 
-    public override string Texture => "EbonianMod/Assets/Extras/Empty";
+    public override string Texture => "EbonianMod/Extras/Empty";
     public override void SetStaticDefaults()
     {
         ProjectileID.Sets.TrailingMode[Type] = 2;
@@ -115,17 +115,17 @@ public class CBeam : ModProjectile
         visual2 -= 0.02425f * 1.4f;
         visual3 -= 0.0446f * 1.4f;
 
-        Texture2D texture = Images.Extras.Textures.FlamesSeamless.Value;
-        Texture2D texture2 = Images.Extras.Textures.LintyTrail.Value;
-        Texture2D texture3 = Images.Extras.Textures.FlamesSeamless.Value;
-        Texture2D tex = Images.Extras.Textures.Explosion.Value;
+        Texture2D texture = Assets.Extras.FlamesSeamless.Value;
+        Texture2D texture2 = Assets.Extras.LintyTrail.Value;
+        Texture2D texture3 = Assets.Extras.FlamesSeamless.Value;
+        Texture2D tex = Assets.Extras.explosion.Value;
 
         float progress = Utils.GetLerpValue(0, 135, Projectile.timeLeft);
         float i_progress = Clamp(SmoothStep(1, 0.2f, progress) * 50, 0, 1 / Clamp(startSize, 1, 2)) * (1 + Projectile.ai[1]);
 
         float alpha = (0.35f + MathF.Sin(Main.GlobalTimeWrappedHourly * 6 + Projectile.whoAmI) * 0.1f) * Projectile.scale;
 
-        Texture2D tex2 = Images.Extras.Textures.Crosslight.Value;
+        Texture2D tex2 = Assets.Extras.crosslight.Value;
         if (Projectile.timeLeft < 134)
         {
             DrawVertices(Projectile.Center, Projectile.velocity.ToRotation(), texture, texture2, i_progress, 5f * additionalAlphaOffset, (Type == ProjectileType<CBeamSmall>() ? 0.05f : 0.0025f), 1, visual1 + new UnifiedRandom(seed).NextFloat());
@@ -206,8 +206,8 @@ public class CBeam : ModProjectile
             {
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.ZoomMatrix);
-                Helper.DrawTexturedPrimitives(vertices2.ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.SwirlyNoise.Value, false);
-                Helper.DrawTexturedPrimitives(vertices2.ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.Vein.Value, false);
+                Helper.DrawTexturedPrimitives(vertices2.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.swirlyNoise.Value, false);
+                Helper.DrawTexturedPrimitives(vertices2.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.vein.Value, false);
                 for (int i = 0; i < 2; i++)
                 {
                     Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, texture, false);
@@ -216,8 +216,8 @@ public class CBeam : ModProjectile
             });
             EbonianMod.invisibleMaskCache.Add(() =>
             {
-                Helper.DrawTexturedPrimitives(vertices3.ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.LaserMask.Value, false);
-                Helper.DrawTexturedPrimitives(vertices3.ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.SwirlyNoise.Value, false);
+                Helper.DrawTexturedPrimitives(vertices3.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.laserMask.Value, false);
+                Helper.DrawTexturedPrimitives(vertices3.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.swirlyNoise.Value, false);
             }); for (int i = 0; i < 2; i++)
                 Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, texture, false);
         }
@@ -226,7 +226,7 @@ public class CBeam : ModProjectile
 }
 public class CBeamSmall : ModProjectile
 {
-    public override string Texture => "EbonianMod/Assets/Extras/Empty";
+    public override string Texture => "EbonianMod/Extras/Empty";
 }
 public class CFlareExplosion : ModProjectile
 {
@@ -250,7 +250,7 @@ public class CFlareExplosion : ModProjectile
     public override bool PreDraw(ref Color lightColor)
     {
         if (seed == 0) return false;
-        Texture2D tex = Images.Extras.Textures.ConeFaint.Value;
+        Texture2D tex = Assets.Extras.cone5.Value;
         UnifiedRandom rand = new UnifiedRandom(seed);
         float max = 40;
         Main.spriteBatch.Reload(BlendState.Additive);

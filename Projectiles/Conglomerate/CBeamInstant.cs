@@ -82,9 +82,9 @@ public class CBeamInstant : ModProjectile
 
         List<VertexPositionColorTexture> verticesTelegraph1 = new List<VertexPositionColorTexture>();
         List<VertexPositionColorTexture> verticesTelegraph2 = new List<VertexPositionColorTexture>();
-        Texture2D texture = Images.Extras.Textures.FlamesSeamless.Value;
-        Texture2D texture2 = Images.Extras.Textures.BeamThin.Value;
-        Texture2D texture3 = Images.Extras.Textures.FlamesSeamless.Value;
+        Texture2D texture = Assets.Extras.FlamesSeamless.Value;
+        Texture2D texture2 = Assets.Extras.Ex1.Value;
+        Texture2D texture3 = Assets.Extras.FlamesSeamless.Value;
         Vector2 start = Projectile.Center - Main.screenPosition;
         Vector2 off = (Projectile.velocity.ToRotation().ToRotationVector2() * 1728);
         Vector2 end = start + off;

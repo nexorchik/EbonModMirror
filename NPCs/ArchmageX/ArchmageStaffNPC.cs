@@ -469,7 +469,7 @@ public class ArchmageStaffNPC : ModNPC
     {
         Texture2D tex = TextureAssets.Item[ItemType<StaffOfX>()].Value;
         Texture2D bloom = Helper.GetTexture("Items/Weapons/Magic/StaffOfX_Bloom").Value;
-        Texture2D streak = Images.Extras.Textures.Slice.Value;
+        Texture2D streak = Assets.Extras.Extras2.scratch_02.Value;
         if (NPC.IsABestiaryIconDummy)
         {
             NPC.rotation = PiOver4;
@@ -559,7 +559,7 @@ public class ArchmageStaffNPC : ModNPC
 public class ShackMusic : ModBiome
 {
     public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
-    public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/ambience2");
+    public override int Music => MusicLoader.GetMusicSlot(Mod, "Sounds/Music/ambience2");
     public override bool IsBiomeActive(Player player)
     {
         return CameraSystem.stickZoomLerpVal > 0.2f;

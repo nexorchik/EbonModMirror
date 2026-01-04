@@ -1,7 +1,6 @@
 ﻿using EbonianMod.Common.Misc;
 using EbonianMod.Items.Accessories;
 using EbonianMod.Items.Weapons.Magic;
-using EbonianMod.Projectiles.Friendly.Generic;
 using EbonianMod.Projectiles.VFXProjectiles;
 using System;
 using System.IO;
@@ -103,11 +102,11 @@ public class AsteroidWarden : CommonNPC
         }
         Player player = Main.player[NPC.target];
         Texture2D tex = TextureAssets.Npc[Type].Value; // https://cdn.discordapp.com/attachments/795335225034670100/1114973113281675367/u23t27yzz0y21.png
-        Texture2D head = Images.ExtraSprites.Asteroid.Textures.AsteroidWardenHead.Value;
-        Texture2D hand = Images.ExtraSprites.Asteroid.Textures.AsteroidWardenHand.Value;
-        Texture2D handGlow = Images.ExtraSprites.Asteroid.Textures.AsteroidWardenHand_Glow.Value;
-        Texture2D headGlow = Images.ExtraSprites.Asteroid.Textures.AsteroidWardenHead_Glow.Value;
-        Texture2D glow = Images.ExtraSprites.Asteroid.Textures.AsteroidWarden_Glow.Value;
+        Texture2D head = Assets.NPCs.Overworld.Asteroid.AsteroidWardenHead.Value;
+        Texture2D hand = Assets.NPCs.Overworld.Asteroid.AsteroidWardenHand.Value;
+        Texture2D handGlow = Assets.NPCs.Overworld.Asteroid.AsteroidWardenHand_Glow.Value;
+        Texture2D headGlow = Assets.NPCs.Overworld.Asteroid.AsteroidWardenHead_Glow.Value;
+        Texture2D glow = Assets.NPCs.Overworld.Asteroid.AsteroidWarden_Glow.Value;
 
         Vector2 handOrig = new Vector2(18 / 2, 20);
         Vector2 finalHandOff = new Vector2(0, 10).RotatedBy(AITimer3 + Pi);
@@ -131,14 +130,14 @@ public class AsteroidWarden : CommonNPC
     }
     public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
-        Texture2D vortex = Images.Extras.Textures.VortexBright.Value;
-        Texture2D star = Images.ExtraSprites.Projectiles.Textures.WardingStarP_Extra.Value;
+        Texture2D vortex = Assets.Extras.vortex3.Value;
+        Texture2D star = Assets.ExtraSprites.Projectiles.WardingStarP_Extra.Value;
         if (AIState == 2)
         {
             spriteBatch.Draw(vortex, NPC.Center + new Vector2(handOffset.X, 0) - screenPos, null, Color.CornflowerBlue with { A = 0 } * AITimer2 * 0.5f, Main.GlobalTimeWrappedHourly * 0.5f, vortex.Size() / 2, 0.15f, SpriteEffects.None, 0);
             spriteBatch.Draw(vortex, NPC.Center + new Vector2(handOffset.X, 0) - screenPos, null, Color.CornflowerBlue with { A = 0 } * AITimer2 * 0.5f, Main.GlobalTimeWrappedHourly * -0.5f, vortex.Size() / 2, 0.15f, SpriteEffects.None, 0);
             spriteBatch.Draw(star, NPC.Center + new Vector2(handOffset.X, 0) - screenPos, null, Color.White with { A = 0 } * AITimer2 * 0.5f * MathF.Pow(starScale, 3), -starRot, star.Size() / 2, starScale, SpriteEffects.None, 0);
-            star = TextureAssets.Projectile[ProjectileType<WardingStarP>()].Value;
+            star = Assets.Projectiles.Friendly.Generic.WardingStarP.Value;
             spriteBatch.Draw(star, NPC.Center + new Vector2(handOffset.X, 0) - screenPos, null, Color.White with { A = 0 } * AITimer2 * 0.5f * MathF.Pow(starScale, 3), starRot, star.Size() / 2, starScale, SpriteEffects.None, 0);
         }
     }
@@ -368,7 +367,7 @@ public class WardenSigil : ModProjectile // Hell torture
     }
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D vortex = Images.Extras.Textures.VortexBright.Value;
+        Texture2D vortex = Assets.Extras.vortex3.Value;
         Texture2D tex = TextureAssets.Projectile[Type].Value;
         Color col = Color.Lerp(Color.White, Color.Gold, 0.5f) with { A = 0 } * 0.5f;
         if (Projectile.ai[2] < 2)
@@ -381,13 +380,13 @@ public class WardenSigil : ModProjectile // Hell torture
         if (Projectile.ai[2] >= 3)
         {
             Main.spriteBatch.Reload(BlendState.Additive);
-            Main.spriteBatch.Reload(Effects.SpriteRotation.Value);
-            Effects.SpriteRotation.Value.Parameters["rotation"].SetValue(Main.GlobalTimeWrappedHourly * (Projectile.whoAmI % 2 == 0 ? -2 : 2) + Projectile.whoAmI * 7);
-            Effects.SpriteRotation.Value.Parameters["scale"].SetValue(new Vector2(1, 0.25f) * Projectile.ai[1]);
+            Main.spriteBatch.Reload(EbonianMod.SpriteRotation.Value);
+            EbonianMod.SpriteRotation.Value.Parameters["rotation"].SetValue(Main.GlobalTimeWrappedHourly * (Projectile.whoAmI % 2 == 0 ? -2 : 2) + Projectile.whoAmI * 7);
+            EbonianMod.SpriteRotation.Value.Parameters["scale"].SetValue(new Vector2(1, 0.25f) * Projectile.ai[1]);
             col = Color.Lerp(Color.White, Color.Gold, 0.5f);
             if (Projectile.ai[2] == 5)
                 col = Color.Lerp(Color.White, Color.Crimson, 0.5f);
-            Effects.SpriteRotation.Value.Parameters["uColor"].SetValue(col.ToVector4() * alpha);
+            EbonianMod.SpriteRotation.Value.Parameters["uColor"].SetValue(col.ToVector4() * alpha);
         }
         Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, col * alpha, 0, tex.Size() / 2, Projectile.ai[2] >= 4 ? 0.6f : 0.3f * Projectile.scale + (Projectile.ai[2] >= 4 ? 0 : (sigilStartup * .4f * (Projectile.ai[2] == 2 ? Projectile.ai[1] : 1))), SpriteEffects.None, 0);
         if (Projectile.ai[2] >= 3)

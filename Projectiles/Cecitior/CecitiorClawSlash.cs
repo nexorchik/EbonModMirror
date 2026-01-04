@@ -1,4 +1,4 @@
-﻿using EbonianMod.Common.Graphics;
+﻿using EbonianMod.Effects.Prims;
 using System;
 using System.Collections.Generic;
 
@@ -44,7 +44,7 @@ internal class CecitiorClawSlash : ModProjectile
     }
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D tex = Images.Extras.Textures.LaserSegment.Value;
+        Texture2D tex = Assets.Extras.laser4.Value;
         float s = 0f;
         List<VertexInfo2> vertices = new();
         List<VertexInfo2> vertices2 = new();
@@ -137,7 +137,7 @@ internal class ClawSlashGreen : ModProjectile
     }
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D tex = Images.Extras.Textures.LaserSegment.Value;
+        Texture2D tex = Assets.Extras.laser4.Value;
         float s = 0f;
         List<VertexInfo2> vertices = new();
         List<VertexInfo2> vertices2 = new();

@@ -50,7 +50,7 @@ namespace EbonianMod.NPCs.Overworld.CenturyFlower
         }
         public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
         {
-            Texture2D texture = Images.ExtraSprites.Overworld.Textures.CenturyFlower_Glow.Value;
+            Texture2D texture = Assets.NPCs.Overworld.CenturyFlower.CenturyFlower_Glow.Value;
             Texture2D origTexture = TextureAssets.Npc[NPC.type].Value;
             Vector2 orig = new Vector2(NPC.width / 2, NPC.height - 2);
             Main.spriteBatch.Draw(origTexture, NPC.Bottom + NPC.GFX() - screenPos, NPC.frame, drawColor, NPC.rotation, orig, NPC.scale, NPC.direction < 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0f);

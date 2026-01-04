@@ -39,7 +39,7 @@ public class BossLogSystem : ModSystem
 
         var customPortrait = (SpriteBatch sb, Rectangle rect, Color color) =>
         {
-            Texture2D texture = Images.ExtraSprites.BossLogPreviews.Textures.HotGarbagePreviewA.Value;
+            Texture2D texture = Assets.ExtraSprites.BossLogPreviews.HotGarbagePreviewA.Value;
             Vector2 centered = new(rect.X + rect.Width / 2 - texture.Width / 2, (float)(rect.Height / 0.82 - texture.Height / 0.82));
             sb.Draw(texture, centered, color);
         };
@@ -71,7 +71,7 @@ public class BossLogSystem : ModSystem
 
         var customPortrait = (SpriteBatch sb, Rectangle rect, Color color) =>
         {
-            Texture2D texture = Images.ExtraSprites.BossLogPreviews.Textures.ArchmageXPreview.Value;
+            Texture2D texture = Assets.ExtraSprites.BossLogPreviews.ArchmageXPreview.Value;
             Vector2 centered = new(rect.X + rect.Width / 2 - texture.Width / 2, (float)(rect.Height / 0.8 - texture.Height / 0.8));
             sb.Draw(texture, centered, color);
         };
@@ -102,7 +102,7 @@ public class BossLogSystem : ModSystem
 
         var customPortrait = (SpriteBatch sb, Rectangle rect, Color color) =>
         {
-            Texture2D texture = Images.ExtraSprites.BossLogPreviews.Textures.CecitiorPreview.Value;
+            Texture2D texture = Assets.ExtraSprites.BossLogPreviews.CecitiorPreview.Value;
             Vector2 centered = new(rect.X + rect.Width / 2 - texture.Width / 2, (float)(rect.Height / 0.6 - texture.Height / 0.6));
             sb.Draw(texture, centered, color);
         };
@@ -133,7 +133,7 @@ public class BossLogSystem : ModSystem
 
         var customPortrait = (SpriteBatch sb, Rectangle rect, Color color) =>
         {
-            Texture2D texture = Images.ExtraSprites.BossLogPreviews.Textures.TerrortomaPreview.Value;
+            Texture2D texture = Assets.ExtraSprites.BossLogPreviews.TerrortomaPreview.Value;
             Vector2 centered = new(rect.X + rect.Width / 2 - texture.Width / 2, (float)(rect.Height / 0.7 - texture.Height / 0.7));
             sb.Draw(texture, centered, color);
         };

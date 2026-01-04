@@ -64,7 +64,7 @@ public class AureusGalaxy : ModProjectile
 }
 public class AureusVortex : ModProjectile
 {
-    public override string Texture => "EbonianMod/Assets/Extras/Vortex";
+    public override string Texture => "EbonianMod/Extras/vortex";
     public override void SetDefaults()
     {
         Projectile.Size = new Vector2(200);
@@ -149,7 +149,7 @@ public class AExplosion : ModProjectile
     {
         float alpha = MathHelper.Lerp(1, 0, Projectile.ai[0]);
         float alpha2 = MathHelper.Lerp(0.5f, 0, Projectile.ai[0]);
-        Texture2D ring = Images.Extras.Textures.Crosslight.Value;
+        Texture2D ring = Assets.Extras.crosslight.Value;
         Main.spriteBatch.Draw(ring, Projectile.Center - Main.screenPosition, null, Color.Cyan with { A = 0 } * (alpha), Projectile.rotation, ring.Size() / 2, Projectile.ai[0] * 1.1f * 5, SpriteEffects.None, 0);
         Main.spriteBatch.Draw(ring, Projectile.Center - Main.screenPosition, null, Color.OrangeRed with { A = 0 }
         * alpha * (0.5f + Projectile.ai[2]), Projectile.rotation, ring.Size() / 2, Projectile.ai[0] * 7f, SpriteEffects.None, 0);

@@ -22,8 +22,8 @@
         public override bool PreDraw(ref Color lightColor)
         {
             if (seed == 0) return false;
-            Texture2D tex = Images.Extras.Textures.Slice.Value;
-            Texture2D tex2 = Images.Extras.Textures.Shockwave.Value;
+            Texture2D tex = Assets.Extras.Extras2.scratch_02.Value;
+            Texture2D tex2 = Assets.Extras.circlething.Value;
             UnifiedRandom rand = new UnifiedRandom(seed);
             float max = 40;
             float ringScale = Lerp(1, 0, Clamp(Projectile.ai[2] * 6.5f, 0, 1));
@@ -97,7 +97,7 @@
         public override bool PreDraw(ref Color lightColor)
         {
             if (seed == 0) return false;
-            Texture2D tex = Images.Extras.Textures.Slice.Value;
+            Texture2D tex = Assets.Extras.Extras2.scratch_02.Value;
             float alpha = Lerp(0.5f, 0, Projectile.ai[1]) * 2;
             UnifiedRandom rand = new UnifiedRandom(seed);
             float max = 40;

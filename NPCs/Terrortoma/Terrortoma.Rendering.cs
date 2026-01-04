@@ -22,9 +22,9 @@ public partial class Terrortoma : ModNPC
 
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 pos, Color lightColor)
     {
-        Texture2D laughTex = Images.ExtraSprites.Terrortoma.Textures.TerrortomaLaughing.Value;
+        Texture2D laughTex = Assets.ExtraSprites.Terrortoma.TerrortomaLaughing.Value;
         Texture2D tomaTex = TextureAssets.Npc[Type].Value;
-        Texture2D spawnTex = Images.ExtraSprites.Terrortoma.Textures.TerrortomaSpawn.Value;
+        Texture2D spawnTex = Assets.ExtraSprites.Terrortoma.TerrortomaSpawn.Value;
         Player player = Main.player[NPC.target];
         Vector2 drawOrigin = new Vector2(tomaTex.Width * 0.5f, NPC.height * 0.5f);
         if (NPC.IsABestiaryIconDummy)
@@ -44,7 +44,7 @@ public partial class Terrortoma : ModNPC
             }
             if (((AIState == EyeHomingFlames ? true : !isLaughing) && AIState != -12124 && AIState != Intro))
             {
-                Texture2D tex = Images.ExtraSprites.Terrortoma.Textures.Terrortoma_Bloom.Value;
+                Texture2D tex = Assets.ExtraSprites.Terrortoma.Terrortoma_Bloom.Value;
                 spriteBatch.Reload(BlendState.Additive);
                 spriteBatch.Draw(tex, NPC.Center - Main.screenPosition, null, Color.LawnGreen * bloomAlpha, NPC.rotation, tex.Size() / 2 - new Vector2(0, 2).RotatedBy(NPC.rotation), NPC.scale, SpriteEffects.None, 0);
                 spriteBatch.Reload(BlendState.AlphaBlend);
@@ -67,10 +67,10 @@ public partial class Terrortoma : ModNPC
     public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
         Player player = Main.player[NPC.target];
-        Texture2D tex = Images.ExtraSprites.Terrortoma.Textures.TerrorEye.Value;
-        Texture2D laughTex = Images.ExtraSprites.Terrortoma.Textures.TerrortomaLaughing.Value;
+        Texture2D tex = Assets.ExtraSprites.Terrortoma.TerrorEye.Value;
+        Texture2D laughTex = Assets.ExtraSprites.Terrortoma.TerrortomaLaughing.Value;
         Texture2D tomaTex = TextureAssets.Npc[Type].Value;
-        Texture2D spawnTex = Images.ExtraSprites.Terrortoma.Textures.TerrortomaSpawn.Value;
+        Texture2D spawnTex = Assets.ExtraSprites.Terrortoma.TerrortomaSpawn.Value;
         Vector2 eyeOGPosition = NPC.Center - new Vector2(-7, 14).RotatedBy(NPC.rotation);
         Vector2 eyePosition = NPC.Center - new Vector2(-7, 14).RotatedBy(NPC.rotation);
         Vector2 fromTo = Helper.FromAToB(eyeOGPosition, player.Center);
@@ -98,15 +98,15 @@ public partial class Terrortoma : ModNPC
             if (!isLaughing)
                 spriteBatch.Draw(tex, eyePosition - screenPos, null, drawColor, 0, Vector2.One * 2, 1, SpriteEffects.None, 0);
 
-            Texture2D tex2 = Images.Extras.Textures.Crosslight.Value;
+            Texture2D tex2 = Assets.Extras.crosslight.Value;
             if (glareAlpha > 0)
             {
                 Main.spriteBatch.Reload(BlendState.Additive);
                 Main.spriteBatch.Draw(tex2, isLaughing ? eyeOGPosition : eyePosition - Main.screenPosition, null, Color.LawnGreen * glareAlpha, 0, tex2.Size() / 2, glareAlpha * 0.2f, SpriteEffects.None, 0);
                 if (AIState == Death)
                 {
-                    Texture2D tex3 = Images.Extras.Textures.Flare.Value;
-                    Texture2D tex4 = Images.Extras.Textures.MagicStar.Value;
+                    Texture2D tex3 = Assets.Extras.Extras2.flare_01.Value;
+                    Texture2D tex4 = Assets.Extras.Extras2.star_02.Value;
                     Main.spriteBatch.Draw(tex2, eyePosition - Main.screenPosition, null, Color.Olive * (glareAlpha - 1), Main.GameUpdateCount * 0.03f, tex2.Size() / 2, (glareAlpha - 1) * 0.5f, SpriteEffects.None, 0);
                     Main.spriteBatch.Draw(tex3, eyePosition - Main.screenPosition, null, Color.Green * (glareAlpha - 2), Main.GameUpdateCount * -0.03f, tex3.Size() / 2, (glareAlpha - 2) * 0.45f * 2, SpriteEffects.None, 0);
                     Main.spriteBatch.Draw(tex4, eyePosition - Main.screenPosition, null, Color.Green * (glareAlpha - 3), Main.GameUpdateCount * -0.03f, tex4.Size() / 2, (glareAlpha - 3) * 0.75f * 2, SpriteEffects.None, 0);

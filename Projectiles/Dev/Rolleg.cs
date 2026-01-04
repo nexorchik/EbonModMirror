@@ -40,7 +40,7 @@ public class Rolleg : ModProjectile
         if (Projectile.ai[0] == 2)
         {
             sb.Reload(BlendState.Additive);
-            Texture2D cone2 = Images.Extras.Textures.ConeFuzzy.Value;
+            Texture2D cone2 = Assets.Extras.cone2.Value;
             float progress = Utils.GetLerpValue(0, 50, timer);
             float alpha = MathHelper.Clamp((float)Math.Sin(progress * MathHelper.Pi) * 3, 0, 1);
             sb.Draw(cone2, new Vector2(Projectile.Center.X - Main.screenPosition.X, -200), null, Main.DiscoColor * alpha, MathHelper.ToRadians(90), new Vector2(0, cone2.Height / 2), 1.1f * 4, SpriteEffects.None, 0);

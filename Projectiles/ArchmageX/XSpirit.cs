@@ -48,7 +48,7 @@ public class XSpirit : ModProjectile
     {
         Texture2D tex = TextureAssets.Projectile[Type].Value;
         Texture2D glow = Helper.GetTexture(Texture + "_Glow").Value;
-        Texture2D fireball = Images.Extras.Textures.Fireball.Value;
+        Texture2D fireball = Assets.Extras.fireball.Value;
         vfxOffset -= 0.015f;
         if (vfxOffset <= 0)
             vfxOffset = 1;
@@ -74,7 +74,7 @@ public class XSpirit : ModProjectile
         Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         if (vertices.Count > 2)
         {
-            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.WavyLaserBright.Value, false);
+            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.wavyLaser2, false);
         }
         Main.spriteBatch.ApplySaved(sbParams);
         Main.EntitySpriteDraw(fireball, Projectile.Center - Main.screenPosition, null, Color.Indigo with { A = 0 } * 0.5f, Projectile.rotation + MathHelper.PiOver2, new Vector2(fireball.Width / 2, fireball.Height / 4), 1.2f + (((MathF.Sin(Main.GlobalTimeWrappedHourly * 5) + 1) / 2) * 0.4f), SpriteEffects.None, 0);
@@ -142,7 +142,7 @@ public class XSpiritNoHome : ModProjectile
         float finalAlpha = 1 - Projectile.ai[1];
         Texture2D tex = TextureAssets.Projectile[Type].Value;
         Texture2D glow = Helper.GetTexture(Texture + "_Glow").Value;
-        Texture2D fireball = Images.Extras.Textures.Fireball.Value;
+        Texture2D fireball = Assets.Extras.fireball.Value;
         vfxOffset += 0.05f;
         if (vfxOffset >= 1)
             vfxOffset = 0;
@@ -168,7 +168,7 @@ public class XSpiritNoHome : ModProjectile
         Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         if (vertices.Count > 2)
         {
-            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.LintyTrail.Value, false);
+            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.LintyTrail.Value, false);
         }
         Main.spriteBatch.ApplySaved(sbParams);
         Main.EntitySpriteDraw(fireball, Projectile.Center - Main.screenPosition, null, Color.Indigo with { A = 0 } * 0.5f * finalAlpha, Projectile.velocity.ToRotation() + MathHelper.PiOver2, new Vector2(fireball.Width / 2, fireball.Height / 4), 1.2f + (((MathF.Sin(Main.GlobalTimeWrappedHourly * 5) + 1) / 2) * 0.4f), SpriteEffects.None, 0);

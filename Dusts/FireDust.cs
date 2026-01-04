@@ -2,7 +2,7 @@
 
 public class FireDust : ModDust
 {
-    public override string Texture => "EbonianMod/Assets/Extras/Empty";
+    public override string Texture => "EbonianMod/Extras/Empty";
     public override void OnSpawn(Dust dust)
     {
         dust.alpha = 255;
@@ -25,9 +25,7 @@ public class FireDust : ModDust
     {
         if (d.type == DustType<FireDust>() && d.active)
         {
-            Texture2D tex = Images.Extras.Textures.Fire;
-            if (d.customData is not 1)
-                tex = Images.Extras.Textures.FireAlt;
+            Texture2D tex = Request<Texture2D>("EbonianMod/Extras/Extras2/fire_0" + d.customData).Value;
             sb.Draw(tex, d.position - Main.screenPosition, null, Color.White, 0, tex.Size() / 2, d.scale * 0.85f * 2, SpriteEffects.None, 0);
             sb.Draw(tex, d.position - Main.screenPosition, null, Color.OrangeRed, 0, tex.Size() / 2, d.scale * 2, SpriteEffects.None, 0);
         }
@@ -35,7 +33,7 @@ public class FireDust : ModDust
 }
 public class ColoredFireDust : ModDust
 {
-    public override string Texture => "EbonianMod/Assets/Extras/Empty";
+    public override string Texture => "EbonianMod/Extras/Empty";
     public override void OnSpawn(Dust dust)
     {
         dust.alpha = 255;
@@ -60,7 +58,7 @@ public class ColoredFireDust : ModDust
     {
         if (d.type == DustType<ColoredFireDust>() && d.active)
         {
-            Texture2D tex = Images.Extras.Textures.Fire.Value;
+            Texture2D tex = Assets.Extras.Extras2.fire_01.Value;
 
             EbonianMod.garbageFlameCache.Add(() =>
             {
@@ -72,7 +70,7 @@ public class ColoredFireDust : ModDust
 }
 public class SmokeDustAkaFireDustButNoGlow : ModDust
 {
-    public override string Texture => "EbonianMod/Assets/Extras/Empty";
+    public override string Texture => "EbonianMod/Extras/Empty";
     public override void OnSpawn(Dust dust)
     {
         dust.alpha = 255;
@@ -108,7 +106,7 @@ public class SmokeDustAkaFireDustButNoGlow : ModDust
             if (d.type == DustType<SmokeDustAkaFireDustButNoGlow>() && d.active)
             {
                 float alpha = MathHelper.Lerp(1, 0, d.scale * 2.857142857142857f);
-                Texture2D tex = d.dustIndex % 2 == 0 ? Images.Extras.Textures.Fire.Value : Images.Extras.Textures.FireAlt.Value;
+                Texture2D tex = d.dustIndex % 2 == 0 ? Assets.Extras.Extras2.fire_01.Value : Assets.Extras.Extras2.fire_02.Value;
                 sb.Draw(tex, d.position - Main.screenPosition, null, d.color * alpha, d.rotation, tex.Size() / 2, d.scale * 2, SpriteEffects.None, 0);
             }
         }
@@ -116,7 +114,7 @@ public class SmokeDustAkaFireDustButNoGlow : ModDust
 }
 public class SmokeDustAkaFireDustButNoGlow2 : ModDust
 {
-    public override string Texture => "EbonianMod/Assets/Extras/Empty";
+    public override string Texture => "EbonianMod/Extras/Empty";
     public override void OnSpawn(Dust dust)
     {
         dust.alpha = 255;
@@ -151,7 +149,7 @@ public class SmokeDustAkaFireDustButNoGlow2 : ModDust
         if (d.type == DustType<SmokeDustAkaFireDustButNoGlow2>() && d.active)
         {
             float alpha = MathHelper.Lerp(1, 0, d.scale * 2.857142857142857f);
-            Texture2D tex = d.dustIndex % 2 == 0 ? Images.Extras.Textures.Fire.Value : Images.Extras.Textures.FireAlt.Value;
+            Texture2D tex = d.dustIndex % 2 == 0 ? Assets.Extras.Extras2.fire_01.Value : Assets.Extras.Extras2.fire_02.Value;
             sb.Draw(tex, d.position - Main.screenPosition, null, d.color * alpha, d.rotation, tex.Size() / 2, d.scale * 2, SpriteEffects.None, 0);
         }
     }

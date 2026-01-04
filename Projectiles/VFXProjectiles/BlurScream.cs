@@ -33,7 +33,7 @@ public class BlurScream : ModProjectile
     {
         EbonianMod.blurDrawCache.Add(() =>
         {
-            Texture2D tex = Images.Extras.Textures.ConeFuzzyBlurMask.Value;
+            Texture2D tex = Assets.Extras.cone2_blur.Value;
             UnifiedRandom rand = new UnifiedRandom(seed);
             float max = 60;
             float alpha = MathHelper.Lerp(0.5f, 0, Projectile.ai[1]) * 2;
