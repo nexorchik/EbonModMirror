@@ -182,7 +182,7 @@ public class FallingStarBig : ModProjectile
             }
         }
         Item.NewItem(Projectile.GetSource_Loot(), Projectile.getRect(), ItemID.FallenStar, Stack: Main.rand.Next(10, 20));
-        if (true)
+        if (Main.rand.NextBool(20))
         {
             NPC.NewNPCDirect(null, Projectile.Center, NPCType<AsteroidHerder>());
             SoundEngine.PlaySound(EbonianSounds.reiTP.WithPitchOffset(-0.7f), Projectile.Center);
