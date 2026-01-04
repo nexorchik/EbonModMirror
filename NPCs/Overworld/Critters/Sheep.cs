@@ -4,6 +4,7 @@ using EbonianMod.Items.Misc.Critters;
 using Humanizer;
 using System.IO;
 using Terraria.GameContent.Bestiary;
+using Terraria.Graphics.Shaders;
 
 namespace EbonianMod.NPCs.Overworld.Critters;
 
@@ -62,6 +63,18 @@ public class Sheep : ModNPC
     {
         if (Main.dedServ)
             return base.CheckDead();
+        
+
+        if (dyeId > -1 && Main.netMode < 1)
+        {
+            for (int i = 0; i < 50; i++)
+            {
+                Dust d = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.WhiteTorch, Scale: 2);
+                d.shader = GameShaders.Armor.GetShaderFromItemId(dyeId);
+                d.noLight = true;
+                d.noGravity = true;
+            }
+        }
         
         if (!sheared)
         {

@@ -63,7 +63,18 @@ public class Ram : ModNPC
     {
         if (Main.dedServ)
             return base.CheckDead();
-        
+
+        if (dyeId > -1 && Main.netMode < 1)
+        {
+            for (int i = 0; i < 50; i++)
+            {
+                Dust d = Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.WhiteTorch, Scale: 2);
+                d.shader = GameShaders.Armor.GetShaderFromItemId(dyeId);
+                d.noLight = true;
+                d.noGravity = true;
+            }
+        }
+
         if (!sheared)
         {
             Gore.NewGore(NPC.GetSource_Death(), NPC.position, Main.rand.NextVector2Circular(1, 1), Find<ModGore>("EbonianMod/SheepGore0").Type, NPC.scale);
