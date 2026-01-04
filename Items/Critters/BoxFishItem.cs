@@ -6,7 +6,7 @@ using Terraria.DataStructures;
 using EbonianMod.NPCs.Overworld.Critters;
 using EbonianMod.NPCs.Ocean.Critters;
 
-namespace EbonianMod.Items.Misc.Critters
+namespace EbonianMod.Items.Critters
 {
     public class BoxFishItem : ModItem
     {

@@ -1,4 +1,4 @@
-using EbonianMod.Items.Misc.Critters;
+using EbonianMod.Items.Critters;
 using Terraria;
 using Terraria.GameContent.Bestiary;
 using Terraria.ID;
