@@ -145,13 +145,13 @@ public class Ram : ModNPC
             }
 
             if (Main.rand.NextBool(4) && NPC.Center.Distance(Main.LocalPlayer.Center) < 600)
-                SoundEngine.PlaySound(EbonianSounds.sheep, NPC.Center);
+                SoundEngine.PlaySound(EbonianSounds.sheep.WithPitchOffset(-0.3f), NPC.Center);
             NPC.netUpdate = true;
             spawn = true;
         }
         lastClicked--;
         if (Main.rand.NextBool(2000) && NPC.Center.Distance(Main.LocalPlayer.Center) < 600)
-            SoundEngine.PlaySound(EbonianSounds.sheep.WithVolumeScale(0.35f), NPC.Center);
+            SoundEngine.PlaySound(EbonianSounds.sheep.WithVolumeScale(0.35f).WithPitchOffset(-0.3f), NPC.Center);
         if (Main.netMode < 1 && Main.LocalPlayer.Center.Distance(NPC.Center) < 175 && new Rectangle((int)Main.MouseWorld.X, (int)Main.MouseWorld.Y, 5, 5).Intersects(NPC.getRect()) && Main.mouseRight && lastClicked < 0)
         {
             if (Main.LocalPlayer.HeldItem.dye > 0 && dyeId != Main.LocalPlayer.HeldItem.type && !sheared)
@@ -175,7 +175,7 @@ public class Ram : ModNPC
                     sheared = true;
                     Item.NewItem(null, NPC.getRect(), ItemType<Wool>(), Main.rand.Next(2, 5));
                     SoundEngine.PlaySound(EbonianSounds.shears, NPC.Center);
-                    SoundEngine.PlaySound(EbonianSounds.sheep, NPC.Center);
+                    SoundEngine.PlaySound(EbonianSounds.sheep.WithPitchOffset(-0.3f), NPC.Center);
                     for (int i = 0; i < 30; i++)
                     {
                         Dust.NewDustDirect(NPC.position, NPC.width, NPC.height, DustID.Smoke);
