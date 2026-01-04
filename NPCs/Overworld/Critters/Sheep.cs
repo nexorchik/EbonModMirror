@@ -1,5 +1,5 @@
 ﻿using EbonianMod.Items.Materials;
-using EbonianMod.Items.Misc
+using EbonianMod.Items.Misc;
 using EbonianMod.Items.Critters;
 using Humanizer;
 using System.IO;
