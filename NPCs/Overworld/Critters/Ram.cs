@@ -4,6 +4,7 @@ using EbonianMod.Items.Misc.Critters;
 using Humanizer;
 using System.IO;
 using Terraria.GameContent.Bestiary;
+using Terraria.Graphics.Shaders;
 
 namespace EbonianMod.NPCs.Overworld.Critters;
 
@@ -65,13 +66,13 @@ public class Ram : ModNPC
         
         if (!sheared)
         {
-            Gore.NewGore(NPC.GetSource_Death(), NPC.position, Main.rand.NextVector2Circular(1, 1), Find<ModGore>("EbonianMod/RamGore0").Type, NPC.scale);
-            Gore.NewGore(NPC.GetSource_Death(), NPC.position, Main.rand.NextVector2Circular(1, 1), Find<ModGore>("EbonianMod/RamGore1").Type, NPC.scale);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.position, Main.rand.NextVector2Circular(1, 1), Find<ModGore>("EbonianMod/SheepGore0").Type, NPC.scale);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.position, Main.rand.NextVector2Circular(1, 1), Find<ModGore>("EbonianMod/SheepGore1").Type, NPC.scale);
         }
-        Gore.NewGore(NPC.GetSource_Death(), NPC.position, Main.rand.NextVector2Circular(1, 1), Find<ModGore>("EbonianMod/RamGore2").Type, NPC.scale);
+        Gore.NewGore(NPC.GetSource_Death(), NPC.position, Main.rand.NextVector2Circular(1, 1), Find<ModGore>("EbonianMod/RamGore").Type, NPC.scale);
 
         for (int i = 0; i < 4; i++)
-            Gore.NewGore(NPC.GetSource_Death(), NPC.position, Main.rand.NextVector2Circular(1, 1), Find<ModGore>("EbonianMod/RamGore3").Type, NPC.scale);
+            Gore.NewGore(NPC.GetSource_Death(), NPC.position, Main.rand.NextVector2Circular(1, 1), Find<ModGore>("EbonianMod/SheepGore3").Type, NPC.scale);
 
         for (int i = 0; i < 50; i++)
             Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, Main.rand.NextFloatDirection(), Main.rand.NextFloatDirection());
