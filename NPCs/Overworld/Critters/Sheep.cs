@@ -105,7 +105,7 @@ public class Sheep : ModNPC
                 sheared = true;
                 NPC.ai[2] = 0;
             }
-            else if (Main.netMode > 0)
+            else if (Main.netMode < 1)
             {
                 WeightedRandom<int> dye = new();
                 dye.Add(ItemID.PinkDye, 0.01f);
@@ -140,7 +140,7 @@ public class Sheep : ModNPC
         lastClicked--;
         if (Main.rand.NextBool(2000) && NPC.Center.Distance(Main.LocalPlayer.Center) < 600)
             SoundEngine.PlaySound(EbonianSounds.sheep.WithVolumeScale(0.35f), NPC.Center);
-        if (Main.netMode > 0 && Main.LocalPlayer.Center.Distance(NPC.Center) < 175 && new Rectangle((int)Main.MouseWorld.X, (int)Main.MouseWorld.Y, 5, 5).Intersects(NPC.getRect()) && Main.mouseRight && lastClicked < 0)
+        if (Main.netMode < 1 && Main.LocalPlayer.Center.Distance(NPC.Center) < 175 && new Rectangle((int)Main.MouseWorld.X, (int)Main.MouseWorld.Y, 5, 5).Intersects(NPC.getRect()) && Main.mouseRight && lastClicked < 0)
         {
             if (Main.LocalPlayer.HeldItem.dye > 0 && dyeId != Main.LocalPlayer.HeldItem.type && !sheared)
             {
@@ -206,7 +206,7 @@ public class Sheep : ModNPC
         {
             string name = Main.LocalPlayer.name;
             name.ApplyCase(LetterCasing.LowerCase);
-            DrawData data = new(tex, NPC.Center + new Vector2(0, NPC.gfxOffY + 2) - Main.screenPosition, NPC.frame, drawColor, NPC.rotation, NPC.Size / 2, NPC.scale, (NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally) | (name == "dinnerbone" || name == "grumm" ? SpriteEffects.FlipVertically : SpriteEffects.None));
+            DrawData data = new(tex, NPC.Center + new Vector2(0, NPC.gfxOffY + 2) - Main.screenPosition, NPC.frame, drawColor, NPC.rotation, NPC.Size / 2, NPC.scale, (NPC.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally) | (name == "dinnerbone" || name == "grumm" ? SpriteEffects.FlipVertically : SpriteEffects.None));
             MiscDrawingMethods.DrawWithDye(spriteBatch, data, dyeId, NPC);
         }
     }
