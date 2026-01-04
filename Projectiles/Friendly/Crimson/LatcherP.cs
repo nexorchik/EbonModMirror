@@ -122,11 +122,11 @@ public class LatcherP : ModProjectile
             distance = distToProj.Length();
 
             //Draw chain
-            Main.spriteBatch.Draw(Assets.Projectiles.Friendly.Crimson.LatcherP_Chain.Value, center - Main.screenPosition,
+            Main.spriteBatch.Draw(Images.ExtraSprites.Projectiles.Textures.LatcherP_Chain.Value, center - Main.screenPosition,
                 null, new Color(Lighting.GetSubLight(center)), projRotation,
-                Assets.Projectiles.Friendly.Crimson.LatcherP_Chain.Value.Size() / 2, 1f, SpriteEffects.None, 0);
+                Images.ExtraSprites.Projectiles.Textures.LatcherP_Chain.Value.Size() / 2, 1f, SpriteEffects.None, 0);
         }
-        Main.spriteBatch.Draw(Assets.Projectiles.Friendly.Crimson.LatcherP_Chain.Value, Projectile.Center - Main.screenPosition, null, new Color(Lighting.GetSubLight(Projectile.Center)), projRotation, Assets.Projectiles.Friendly.Crimson.LatcherP_Chain.Value.Size() / 2, 1f, SpriteEffects.None, 0);
+        Main.spriteBatch.Draw(Images.ExtraSprites.Projectiles.Textures.LatcherP_Chain.Value, Projectile.Center - Main.screenPosition, null, new Color(Lighting.GetSubLight(Projectile.Center)), projRotation, Images.ExtraSprites.Projectiles.Textures.LatcherP_Chain.Value.Size() / 2, 1f, SpriteEffects.None, 0);
         return false;
     }
 }
@@ -260,9 +260,9 @@ public class LatcherPCecitior : ModProjectile
             distance = distToProj.Length();
 
             //Draw chain
-            Main.spriteBatch.Draw(Assets.Projectiles.Friendly.Crimson.LatcherP_Chain.Value, center - Main.screenPosition,
+            Main.spriteBatch.Draw(Images.ExtraSprites.Projectiles.Textures.LatcherP_Chain.Value, center - Main.screenPosition,
                 null, Lighting.GetColor((int)center.X / 16, (int)center.Y / 16), projRotation,
-                Assets.Projectiles.Friendly.Crimson.LatcherP_Chain.Value.Size() / 2, 1f, SpriteEffects.None, 0);
+                Images.ExtraSprites.Projectiles.Textures.LatcherP_Chain.Value.Size() / 2, 1f, SpriteEffects.None, 0);
         }
         return true;
     }

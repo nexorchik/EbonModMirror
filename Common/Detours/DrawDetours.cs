@@ -38,7 +38,7 @@ public class DrawDetours : ModSystem
 
         sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, Main.DefaultSamplerState, DepthStencilState.Default, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         if (EbonianSystem.FlashAlpha > 0)
-            Main.spriteBatch.Draw(Assets.Extras.Line.Value, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White * EbonianSystem.FlashAlpha * 2);
+            Main.spriteBatch.Draw(Images.Extras.Textures.Line.Value, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White * EbonianSystem.FlashAlpha * 2);
         sb.End();
     }
     void DrawNPC(Terraria.On_Main.orig_DrawNPC orig, global::Terraria.Main self, int iNPCIndex, bool behindTiles)
@@ -73,12 +73,12 @@ public class DrawDetours : ModSystem
 
         if (EbonianSystem.FlashAlpha > 0)
         {
-            Main.spriteBatch.Draw(Assets.Extras.Line.Value, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White * EbonianSystem.FlashAlpha * 2);
+            Main.spriteBatch.Draw(Images.Extras.Textures.Line.Value, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.White * EbonianSystem.FlashAlpha * 2);
         }
 
         if (EbonianSystem.DarkAlpha > 0)
         {
-            Main.spriteBatch.Draw(Assets.Extras.Line.Value, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black * EbonianSystem.DarkAlpha);
+            Main.spriteBatch.Draw(Images.Extras.Textures.Line.Value, new Rectangle(0, 0, Main.screenWidth, Main.screenHeight), Color.Black * EbonianSystem.DarkAlpha);
         }
         Main.spriteBatch.End();
 
@@ -88,8 +88,8 @@ public class DrawDetours : ModSystem
             if (RTHandler.jungleDustTarget.IsReady)
             {
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-                Main.graphics.GraphicsDevice.Textures[1] = Assets.Extras.jungleDustColor.Value;
-                EbonianMod.metaballGradient.Value.CurrentTechnique.Passes[0].Apply();
+                Main.graphics.GraphicsDevice.Textures[1] = Images.Extras.Textures.JungleDustColor.Value;
+                Effects.MetaballGradient.Value.CurrentTechnique.Passes[0].Apply();
                 Main.spriteBatch.Draw(RTHandler.jungleDustTarget.GetTarget(), Vector2.Zero, Color.White);
                 Main.spriteBatch.End();
             }
@@ -168,7 +168,7 @@ public class DrawDetours : ModSystem
         if (RTHandler.invisTarget.IsReady)
         {
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-            EbonianMod.invisibleMask.Value.CurrentTechnique.Passes[0].Apply();
+            Effects.InvisibleMask.Value.CurrentTechnique.Passes[0].Apply();
             gd.Textures[1] = RTHandler.invisTarget.GetTarget();
             sb.Draw(RTHandler.invisTarget._target2, Helper.ScreenRect, Color.White);
             sb.End();
@@ -195,26 +195,26 @@ public class DrawDetours : ModSystem
     }
     public static void DrawGarbageFlame(GarbageTarget target, SpriteBatch sb, GraphicsDevice gd)
     {
-        gd.Textures[1] = Assets.Extras.coherentNoise.Value;
-        EbonianMod.displacementMap.Value.CurrentTechnique.Passes[0].Apply();
-        EbonianMod.displacementMap.Value.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.75f);
-        EbonianMod.displacementMap.Value.Parameters["offsetY"].SetValue(Main.GlobalTimeWrappedHourly * 0.25f);
-        EbonianMod.displacementMap.Value.Parameters["offsetX"].SetValue(Main.GlobalTimeWrappedHourly * 0.5f);
-        EbonianMod.displacementMap.Value.Parameters["offset"].SetValue(0.0075f);
-        EbonianMod.displacementMap.Value.Parameters["alpha"].SetValue(0.1f);
+        gd.Textures[1] = Images.Extras.Textures.CoherentNoise.Value;
+        Effects.DisplacementMap.Value.CurrentTechnique.Passes[0].Apply();
+        Effects.DisplacementMap.Value.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.75f);
+        Effects.DisplacementMap.Value.Parameters["offsetY"].SetValue(Main.GlobalTimeWrappedHourly * 0.25f);
+        Effects.DisplacementMap.Value.Parameters["offsetX"].SetValue(Main.GlobalTimeWrappedHourly * 0.5f);
+        Effects.DisplacementMap.Value.Parameters["offset"].SetValue(0.0075f);
+        Effects.DisplacementMap.Value.Parameters["alpha"].SetValue(0.1f);
         sb.Draw(target.GetTarget(), Vector2.Zero, Color.White * 0.25f);
-        gd.Textures[1] = Assets.Extras.swirlyNoise.Value;
-        EbonianMod.displacementMap.Value.Parameters["offsetY"].SetValue(Main.GlobalTimeWrappedHourly * 0.34f);
+        gd.Textures[1] = Images.Extras.Textures.SwirlyNoise.Value;
+        Effects.DisplacementMap.Value.Parameters["offsetY"].SetValue(Main.GlobalTimeWrappedHourly * 0.34f);
         sb.Draw(target.GetTarget(), Vector2.Zero, Color.White * 0.25f);
 
-        gd.Textures[1] = Assets.Extras.coherentNoise.Value;
-        EbonianMod.displacementMap.Value.Parameters["offsetY"].SetValue(0);
-        EbonianMod.displacementMap.Value.Parameters["offsetX"].SetValue(Main.GlobalTimeWrappedHourly * 0.5f);
-        EbonianMod.displacementMap.Value.Parameters["offset"].SetValue(0.0075f);
-        EbonianMod.displacementMap.Value.Parameters["alpha"].SetValue(0.1f);
+        gd.Textures[1] = Images.Extras.Textures.CoherentNoise.Value;
+        Effects.DisplacementMap.Value.Parameters["offsetY"].SetValue(0);
+        Effects.DisplacementMap.Value.Parameters["offsetX"].SetValue(Main.GlobalTimeWrappedHourly * 0.5f);
+        Effects.DisplacementMap.Value.Parameters["offset"].SetValue(0.0075f);
+        Effects.DisplacementMap.Value.Parameters["alpha"].SetValue(0.1f);
         sb.Draw(target.GetTarget(), Vector2.Zero, Color.White * 0.25f);
-        gd.Textures[1] = Assets.Extras.swirlyNoise.Value;
-        EbonianMod.displacementMap.Value.Parameters["offsetX"].SetValue(Main.GlobalTimeWrappedHourly * 0.74f);
+        gd.Textures[1] = Images.Extras.Textures.SwirlyNoise.Value;
+        Effects.DisplacementMap.Value.Parameters["offsetX"].SetValue(Main.GlobalTimeWrappedHourly * 0.74f);
         sb.Draw(target.GetTarget(), Vector2.Zero, Color.White * 0.25f);
     }
     public static void DrawXareusGoop(SpriteBatch sb, GraphicsDevice gd)
@@ -223,14 +223,14 @@ public class DrawDetours : ModSystem
         if (RTHandler.xareusTarget.IsReady)
         {
             sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-            gd.Textures[1] = Assets.Extras.darkShadowflameGradient.Value;
-            gd.Textures[2] = Assets.Extras.space_full.Value;
-            gd.Textures[3] = Assets.Extras.seamlessNoiseHighContrast.Value;
-            gd.Textures[4] = Assets.Extras.alphaGradient.Value;
-            EbonianMod.metaballGradientNoiseTex.Value.CurrentTechnique.Passes[0].Apply();
-            EbonianMod.metaballGradientNoiseTex.Value.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.2f);
-            EbonianMod.metaballGradientNoiseTex.Value.Parameters["offsetX"].SetValue(1f);
-            EbonianMod.metaballGradientNoiseTex.Value.Parameters["offsetY"].SetValue(1f);
+            gd.Textures[1] = Images.Extras.Textures.DarkShadowflameGradient.Value;
+            gd.Textures[2] = Images.Extras.Textures.SpaceFull.Value;
+            gd.Textures[3] = Images.Extras.Textures.SeamlessNoiseHighContrast.Value;
+            gd.Textures[4] = Images.Extras.Textures.AlphaGradient.Value;
+            Effects.MetaballGradientNoiseTex.Value.CurrentTechnique.Passes[0].Apply();
+            Effects.MetaballGradientNoiseTex.Value.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly * 0.2f);
+            Effects.MetaballGradientNoiseTex.Value.Parameters["offsetX"].SetValue(1f);
+            Effects.MetaballGradientNoiseTex.Value.Parameters["offsetY"].SetValue(1f);
             sb.Draw(RTHandler.xareusTarget.GetTarget(), Vector2.Zero, Color.White);
             sb.End();
         }
@@ -250,9 +250,9 @@ public class DrawDetours : ModSystem
         gd.SetRenderTarget(Main.screenTarget);
         gd.Clear(Color.Transparent);
         sb.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend);
-        EbonianMod.Test2.Value.CurrentTechnique.Passes[0].Apply();
-        EbonianMod.Test2.Value.Parameters["tex0"].SetValue(Main.screenTargetSwap);
-        EbonianMod.Test2.Value.Parameters["i"].SetValue(0.02f);
+        Effects.Blur.Value.CurrentTechnique.Passes[0].Apply();
+        Effects.Blur.Value.Parameters["tex0"].SetValue(Main.screenTargetSwap);
+        Effects.Blur.Value.Parameters["i"].SetValue(0.02f);
         sb.Draw(EbonianMod.Instance.blurrender, Vector2.Zero, Color.White);
         sb.End();
     }

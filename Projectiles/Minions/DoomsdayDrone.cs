@@ -81,7 +81,7 @@ public class DroneBeam : ModProjectile
         Projectile.localNPCHitCooldown = 10;
     }
 
-    public override string Texture => "EbonianMod/Extras/Empty";
+    public override string Texture => "EbonianMod/Assets/Extras/Empty";
     public override void SetStaticDefaults()
     {
     }
@@ -137,8 +137,8 @@ public class DroneBeam : ModProjectile
 
         float mult = (0.55f + (float)Math.Sin(Main.GlobalTimeWrappedHourly/* * 2*/) * 0.1f);
         float scale = Projectile.scale * 2 * mult;
-        Texture2D texture = Assets.Extras.Line.Value;
-        Texture2D bolt = Assets.Extras.laser4.Value;
+        Texture2D texture = Images.Extras.Textures.Line.Value;
+        Texture2D bolt = Images.Extras.Textures.LaserSegment.Value;
         Vector2 start = Projectile.Center;
         Vector2 end = Projectile.Center + Projectile.velocity * /*Helper.TRay.CastLength(Projectile.Center, Projectile.velocity,*/ Main.screenWidth;//);
         float num = Vector2.Distance(start, end);
@@ -151,13 +151,13 @@ public class DroneBeam : ModProjectile
             Main.spriteBatch.Draw(bolt, vector2 - Main.screenPosition, null, Color.Maroon, rotation, bolt.Size() / 2, new Vector2(1, Projectile.scale), SpriteEffects.None, 0f);
             vector2 = start + i * vector;
         }
-        texture = Assets.Extras.Spotlight.Value;
+        texture = Images.Extras.Textures.Spotlight.Value;
 
         Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, null, Color.Maroon, 0, new Vector2(texture.Width, texture.Height) / 2, scale, SpriteEffects.None, 0f);
 
         Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, null, Color.White, 0, new Vector2(texture.Width, texture.Height) / 2, scale, SpriteEffects.None, 0f);
 
-        texture = Assets.Extras.Spotlight.Value;
+        texture = Images.Extras.Textures.Spotlight.Value;
         for (int i = 0; i < 5; i++)
             Main.spriteBatch.Draw(texture, end - Main.screenPosition, null, Color.Maroon, Projectile.rotation, new Vector2(texture.Width, texture.Height) / 2, scale, SpriteEffects.None, 0f);
 

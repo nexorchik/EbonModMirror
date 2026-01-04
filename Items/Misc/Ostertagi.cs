@@ -156,7 +156,7 @@ public class HostileCorruptExplosion : OstertagiExplosion
 
 public class OstertagiExplosion : ModProjectile
 {
-    public override string Texture => "EbonianMod/Extras/Fire";
+    public override string Texture => "EbonianMod/Assets/Extras/ExplosionAnimation";
 
     public override bool ShouldUpdatePosition() => false;
 
@@ -235,7 +235,7 @@ public class OstertagiExplosion : ModProjectile
 
         Main.EntitySpriteDraw(texture, position, sourceRectangle, color, Projectile.rotation, origin, (Projectile.scale - 0.8f), SpriteEffects.None, 0);
 
-        texture = Assets.Extras.vortex.Value;
+        texture = Images.Extras.Textures.Vortex.Value;
 
         sourceRectangle = new Rectangle(0, 0, texture.Width, texture.Height);
         origin = sourceRectangle.Size() / 2f;

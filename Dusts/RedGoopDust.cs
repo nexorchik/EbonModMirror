@@ -2,7 +2,7 @@
 
 public class RedGoopDust : ModDust
 {
-    public override string Texture => "EbonianMod/Extras/Empty";
+    public override string Texture => "EbonianMod/Assets/Extras/Empty";
     public override void OnSpawn(Dust dust)
     {
         dust.alpha = 255;
@@ -29,7 +29,7 @@ public class RedGoopDust : ModDust
         {
             if (d.type == DustType<RedGoopDust>() && d.active)
             {
-                Texture2D tex = Assets.Extras.fireball.Value;
+                Texture2D tex = Images.Extras.Textures.Fireball.Value;
                 sb.Draw(tex, d.position - Main.screenPosition, null, (d.customData is null ? Color.White : d.color) * MathHelper.Clamp(d.scale * 2, 0, 0.3f) * Clamp(d.velocity.Length(), 0, 1), d.velocity.ToRotation() + PiOver2, tex.Size() / 2, new Vector2(1, Clamp(d.velocity.Length(), 0, 1)) * d.scale, SpriteEffects.None, 0);
                 sb.Draw(tex, d.position - Main.screenPosition, null, (d.customData is null ? Color.White : d.color) * MathHelper.Clamp(d.scale * 2, 0, 0.3f) * Clamp(d.velocity.Length(), 0, 1), d.velocity.ToRotation() + PiOver2, tex.Size() / 2, new Vector2(1, Clamp(d.velocity.Length(), 0, 1)) * d.scale, SpriteEffects.None, 0);
             }

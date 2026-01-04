@@ -137,7 +137,7 @@ public class RottenSpineBody : WormBody
     {
         if (NPC.IsABestiaryIconDummy) return false;
         Texture2D main = TextureAssets.Npc[Type].Value;
-        Texture2D alt = Assets.NPCs.Corruption.RottenSpine.RottenSpineCoupling.Value;
+        Texture2D alt = Images.ExtraSprites.Corruption.Textures.RottenSpineCoupling.Value;
         Texture2D tex = NPC.ai[3] == 3 ? alt : main; // god bless this code
 
         if (FollowingNPC.type == NPCType<RottenSpineHead>())

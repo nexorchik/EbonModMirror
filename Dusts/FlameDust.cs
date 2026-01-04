@@ -2,7 +2,7 @@
 
 public class FlameDust : ModDust
 {
-    public override string Texture => "EbonianMod/Extras/Empty";
+    public override string Texture => "EbonianMod/Assets/Extras/Empty";
     public override void OnSpawn(Dust dust)
     {
         dust.alpha = 255;
@@ -24,7 +24,7 @@ public class FlameDust : ModDust
     {
         if (d.type == DustType<FlameDust>() && d.active)
         {
-            Texture2D tex = Assets.Extras.explosion.Value;
+            Texture2D tex = Images.Extras.Textures.Explosion.Value;
             sb.Draw(tex, d.position - Main.screenPosition, null, Color.White * Clamp(d.scale, 0, 2), 0, tex.Size() / 2, d.scale * 0.1f, SpriteEffects.None, 0);
         }
     }

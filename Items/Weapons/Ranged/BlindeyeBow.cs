@@ -99,7 +99,7 @@ public class BlindeyeBowP : ModProjectile
     };
     public override void PostDraw(Color lightColor)
     {
-        Texture2D tex = Assets.Projectiles.Friendly.Crimson.BlindeyeArrow.Value;
+        Texture2D tex = TextureAssets.Projectile[ModContent.ProjectileType<BlindeyeArrow>()].Value;
         Main.spriteBatch.Draw(tex, Projectile.Center + Vector2.Lerp(new Vector2(20, 0).RotatedBy(Projectile.rotation), Vector2.Zero, alpha) - Main.screenPosition, null, lightColor * alpha, Projectile.rotation + MathHelper.PiOver2, tex.Size() / 2, 1, SpriteEffects.None, 0);
     }
     public override void AI()

@@ -27,12 +27,7 @@ public class RiverOfStarlightSky : CustomSky
             int variant = Main.rand.Next(2);
             if (Main.rand.NextBool(50))
                 variant = 2;
-            stars[i].texture = variant switch
-            {
-                0 => Assets.ExtraSprites.star0,
-                1 => Assets.ExtraSprites.star1,
-                _ => Assets.ExtraSprites.star2,
-            };
+            stars[i].texture = Images.ExtraSprites.Textures.Star[variant];
             stars[i].pos = new Vector2(Main.rand.NextFloat(Main.screenWidth), Main.rand.NextFloat(Main.screenHeight * 0.25f));
             if (variant != 2)
                 stars[i].depth = Main.rand.NextFloat(0.1f, 0.5f);
@@ -77,9 +72,9 @@ public class RiverOfStarlightSky : CustomSky
             spriteBatch.Snapshot(out var sbParams);
             spriteBatch.End();
             spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, sbParams.depthStencilState, sbParams.rasterizerState, null, sbParams.matrix);
-            Texture2D Tex = Assets.Extras.gradation3.Value;
-            Texture2D Tex2 = Assets.Extras.swirlyNoise.Value;
-            Texture2D Tex3 = Assets.Extras.gradation2.Value;
+            Texture2D Tex = Images.Extras.Textures.SkyGradient.Value;
+            Texture2D Tex2 = Images.Extras.Textures.SwirlyNoise.Value;
+            Texture2D Tex3 = Images.Extras.Textures.SkyGradientFaint.Value;
             Vector2 Pos = new(Main.screenWidth / 2, Main.screenHeight / 2);
 
             for (int i = 0; i < stars.Length; i++)
@@ -90,12 +85,7 @@ public class RiverOfStarlightSky : CustomSky
                     int variant = Main.rand.Next(2);
                     if (Main.rand.NextBool(50))
                         variant = 2;
-                    stars[i].texture = variant switch
-                    {
-                        0 => Assets.ExtraSprites.star0,
-                        1 => Assets.ExtraSprites.star1,
-                        _ => Assets.ExtraSprites.star2,
-                    };
+                    stars[i].texture = Images.ExtraSprites.Textures.Star[variant];
                     if (variant != 2)
                         stars[i].depth = Main.rand.NextFloat(0.1f, 0.5f);
                     else
@@ -112,9 +102,9 @@ public class RiverOfStarlightSky : CustomSky
             for (int i = 0; i < 2; i++)
                 spriteBatch.Draw(Tex3, new Rectangle(0, -50, Main.screenWidth, Main.screenHeight + 200), null, Color.DodgerBlue * Intensity * 0.8f, 0, Vector2.Zero, SpriteEffects.None, 0);
 
-            EbonianMod.starlightRiver.Value.CurrentTechnique.Passes[0].Apply();
-            EbonianMod.starlightRiver.Value.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly);
-            EbonianMod.starlightRiver.Value.Parameters["colMult"].SetValue(3 * Intensity);
+            Effects.StarlightRiver.Value.CurrentTechnique.Passes[0].Apply();
+            Effects.StarlightRiver.Value.Parameters["uTime"].SetValue(Main.GlobalTimeWrappedHourly);
+            Effects.StarlightRiver.Value.Parameters["colMult"].SetValue(3 * Intensity);
             for (int i = 0; i < 2; i++)
                 spriteBatch.Draw(Tex2, new Rectangle(0, -50 + yOff, Main.screenWidth, Main.screenHeight + 300), null, Color.DodgerBlue * Intensity * 0.4f, 0, Vector2.Zero, SpriteEffects.FlipVertically, 0);
             spriteBatch.End();

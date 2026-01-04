@@ -84,8 +84,8 @@ namespace EbonianMod.Projectiles.Friendly.Generic
         }
         public override void PostDraw(Color lightColor)
         {
-            Main.spriteBatch.Draw(Assets.ExtraSprites.Projectiles.WardingStarP_Extra.Value, Projectile.Center - Main.screenPosition, null, Color.White, -Projectile.rotation, Assets.ExtraSprites.Projectiles.WardingStarP_Extra.Value.Size() / 2, 1, SpriteEffects.None, 0);
-            Main.spriteBatch.Draw(Assets.ExtraSprites.Projectiles.WardingStarP_Extra.Value, Projectile.Center - Main.screenPosition, null, Color.White with { A = 0 } * Projectile.ai[2], -Projectile.rotation, Assets.ExtraSprites.Projectiles.WardingStarP_Extra.Value.Size() / 2, 1, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(Images.ExtraSprites.Projectiles.Textures.WardingStarP_Extra.Value, Projectile.Center - Main.screenPosition, null, Color.White, -Projectile.rotation, Images.ExtraSprites.Projectiles.Textures.WardingStarP_Extra.Value.Size() / 2, 1, SpriteEffects.None, 0);
+            Main.spriteBatch.Draw(Images.ExtraSprites.Projectiles.Textures.WardingStarP_Extra.Value, Projectile.Center - Main.screenPosition, null, Color.White with { A = 0 } * Projectile.ai[2], -Projectile.rotation, Images.ExtraSprites.Projectiles.Textures.WardingStarP_Extra.Value.Size() / 2, 1, SpriteEffects.None, 0);
             Main.spriteBatch.Draw(TextureAssets.Projectile[Type].Value, Projectile.Center - Main.screenPosition, null, Color.White with { A = 0 } * Projectile.ai[2], Projectile.rotation, TextureAssets.Projectile[Type].Value.Size() / 2, 1, SpriteEffects.None, 0);
         }
     }
@@ -116,7 +116,7 @@ namespace EbonianMod.Projectiles.Friendly.Generic
         public override bool PreDraw(ref Color lightColor)
         {
             Texture2D baseTex = TextureAssets.Projectile[Type].Value;
-            Texture2D baseTex2 = Assets.ExtraSprites.Projectiles.WardingStarP2_Alt.Value;
+            Texture2D baseTex2 = Images.ExtraSprites.Projectiles.Textures.WardingStarP_Alt.Value;
             Texture2D tex = Projectile.ai[0] < 0 ? baseTex : baseTex2;
             var fadeMult = 1f / ProjectileID.Sets.TrailCacheLength[Projectile.type];
             for (int i = 0; i < Projectile.oldPos.Length; i++)

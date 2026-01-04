@@ -2,7 +2,7 @@
 
 public class BlurDust : ModDust
 {
-    public override string Texture => "EbonianMod/Extras/Empty";
+    public override string Texture => "EbonianMod/Assets/Extras/Empty";
     public override void OnSpawn(Dust dust)
     {
         dust.alpha = 255;
@@ -30,7 +30,7 @@ public class BlurDust : ModDust
         {
             EbonianMod.blurDrawCache.Add(() =>
             {
-                Texture2D tex = Assets.Extras.Extras2.fire_01_normal.Value;
+                Texture2D tex = Images.Extras.Textures.FireNormal.Value;
                 for (float i = 0; i < 30 * d.fadeIn; i++)
                 {
                     sb.Draw(tex, d.position - d.velocity * d.scale * i * 2 - Main.screenPosition, null, d.color * d.scale * SmoothStep(2, 0, i / 30f), 0, tex.Size() / 2, d.scale * 0.85f * 2, SpriteEffects.None, 0);

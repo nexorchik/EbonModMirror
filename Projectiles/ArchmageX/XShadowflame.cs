@@ -82,21 +82,21 @@ public class XShadowflame : ModProjectile
     public override bool PreDraw(ref Color lightColor)
     {
         if (Projectile.timeLeft > 867) return false;
-        Texture2D tex = Assets.Extras.rune_alt.Value;
-        Texture2D bloom = Assets.Extras.rune_alt_bloom.Value;
+        Texture2D tex = Images.Extras.Textures.Rune_alt.Value;
+        Texture2D bloom = Images.Extras.Textures.Rune_alt_bloom.Value;
 
         SpritebatchParameters sbParams = Main.spriteBatch.Snapshot();
         Main.spriteBatch.End();
-        Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, EbonianMod.SpriteRotation.Value, Main.GameViewMatrix.TransformationMatrix);
+        Main.spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone, Effects.SpriteRotation.Value, Main.GameViewMatrix.TransformationMatrix);
 
         Vector2 scale = new Vector2(0.65f, 0.25f) * 1.6f;
         float alpha = riftAlpha;
         float i = 1;
-        Main.spriteBatch.Reload(EbonianMod.SpriteRotation.Value);
-        EbonianMod.SpriteRotation.Value.Parameters["scale"].SetValue(new Vector2(scale.X * 0.75f, scale.Y / alpha.Safe() * 0.5f));
-        EbonianMod.SpriteRotation.Value.Parameters["rotation"].SetValue(-Main.GameUpdateCount * 0.035f * alpha);
-        EbonianMod.SpriteRotation.Value.Parameters["uColor"].SetValue(new Color(60, 2, 113).ToVector4() * alpha * alpha * 0.8f);
-        EbonianMod.SpriteRotation.Value.Parameters["hasPerspective"].SetValue(false);
+        Main.spriteBatch.Reload(Effects.SpriteRotation.Value);
+        Effects.SpriteRotation.Value.Parameters["scale"].SetValue(new Vector2(scale.X * 0.75f, scale.Y / alpha.Safe() * 0.5f));
+        Effects.SpriteRotation.Value.Parameters["rotation"].SetValue(-Main.GameUpdateCount * 0.035f * alpha);
+        Effects.SpriteRotation.Value.Parameters["uColor"].SetValue(new Color(60, 2, 113).ToVector4() * alpha * alpha * 0.8f);
+        Effects.SpriteRotation.Value.Parameters["hasPerspective"].SetValue(false);
         Main.spriteBatch.Draw(tex, Projectile.Center - Vector2.UnitY * riftAlpha * i * 2 * -Projectile.velocity.Y - Main.screenPosition, null, Color.White, Projectile.velocity.ToRotation() + MathHelper.PiOver2, tex.Size() / 2, riftAlpha, SpriteEffects.None, 0);
         Main.spriteBatch.Draw(bloom, Projectile.Center - Vector2.UnitY * riftAlpha * i * 2 * -Projectile.velocity.Y - Main.screenPosition, null, Color.White, Projectile.velocity.ToRotation() + MathHelper.PiOver2, tex.Size() / 2, riftAlpha, SpriteEffects.None, 0);
         Main.spriteBatch.Reload(effect: null);

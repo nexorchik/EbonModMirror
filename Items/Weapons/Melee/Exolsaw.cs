@@ -49,7 +49,7 @@ public class ExolsawP : ModProjectile
     public override bool PreDraw(ref Color lightColor)
     {
         Texture2D tex = TextureAssets.Projectile[Type].Value;
-        Texture2D glow = Assets.Items.Weapons.Melee.Exolsaw_Glow.Value;
+        Texture2D glow = Images.ExtraSprites.Weapons.Textures.Exolsaw_Glow.Value;
         Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, new Rectangle(0, 42 * Projectile.frame, 42, 42), lightColor, Projectile.rotation, new Vector2(21), Projectile.scale, SpriteEffects.None);
         Main.EntitySpriteDraw(glow, Projectile.Center - Main.screenPosition, new Rectangle(0, 42 * Projectile.frame, 42, 42), Color.White, Projectile.rotation, new Vector2(21), Projectile.scale, SpriteEffects.None);
         return false;

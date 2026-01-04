@@ -1,5 +1,4 @@
-﻿using AssGen;
-using EbonianMod.Items.Pets.LilPilg;
+﻿using EbonianMod.Items.Pets.LilPilg;
 using EbonianMod.Items.Weapons.Magic;
 using EbonianMod.NPCs.Corruption;
 using EbonianMod.Projectiles.VFXProjectiles;
@@ -81,8 +80,8 @@ public class Botanist : ModNPC
     }
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
-        Texture2D neck = Assets.ExtraSprites.Overworld.BotanistNeck.Value;
-        Texture2D head = Assets.ExtraSprites.Overworld.BotanistHead.Value;
+        Texture2D neck = Images.ExtraSprites.Overworld.Textures.BotanistNeck.Value;
+        Texture2D head = Images.ExtraSprites.Overworld.Textures.BotanistHead.Value;
 
         Vector2 baseC = NPC.Center + new Vector2(0, 6);
         Vector2 center = baseC;

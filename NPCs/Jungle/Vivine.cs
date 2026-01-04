@@ -125,7 +125,7 @@ public class Vivine : ModNPC
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
         var drawPos = NPC.Center - screenPos;
-        var texture = Assets.NPCs.Jungle.Vivine_Glow.Value;
+        var texture = Images.ExtraSprites.Jungle.Textures.Vivine_Glow.Value;
         var origTexture = TextureAssets.Npc[NPC.type].Value;
         var frame = new Rectangle(0, NPC.frame.Y, NPC.width, NPC.height);
         var orig = frame.Size() / 2f - new Vector2(0, 3);

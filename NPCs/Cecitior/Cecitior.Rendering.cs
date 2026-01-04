@@ -31,7 +31,7 @@ public partial class Cecitior : ModNPC
             rotation = rot;
         }
         NPC.rotation = Utils.AngleLerp(NPC.rotation, rotation, 0.35f);
-        Texture2D glow = Assets.ExtraSprites.Cecitior.Cecitior_Glow.Value;
+        Texture2D glow = Images.ExtraSprites.Cecitior.Textures.Cecitior_Glow.Value;
         Texture2D tex = TextureAssets.Npc[Type].Value;
         Vector2 shakeOffset = Main.rand.NextVector2Circular(shakeVal, shakeVal);
         if (verlet[0] is null)
@@ -161,10 +161,10 @@ public partial class Cecitior : ModNPC
             }
         }
 
-        Texture2D teeth = Assets.ExtraSprites.Cecitior.CecitiorTeeth.Value;
-        Texture2D partTeeth = Assets.ExtraSprites.Cecitior.CecitiorTeeth2.Value;
-        Texture2D part = Assets.ExtraSprites.Cecitior.Cecitior_Part.Value;
-        Texture2D partGlow = Assets.ExtraSprites.Cecitior.Cecitior_Part_Glow.Value;
+        Texture2D teeth = Images.ExtraSprites.Cecitior.Textures.CecitiorTeethR.Value;
+        Texture2D partTeeth = Images.ExtraSprites.Cecitior.Textures.CecitiorTeethL.Value;
+        Texture2D part = Images.ExtraSprites.Cecitior.Textures.Cecitior_Part.Value;
+        Texture2D partGlow = Images.ExtraSprites.Cecitior.Textures.Cecitior_Part_Glow.Value;
         if (open || NPC.frame.Y == 6 * 102)
         {
             spriteBatch.Draw(teeth, NPC.Center + shakeOffset - openOffset - new Vector2(0, -2) - screenPos, null, new Color(Lighting.GetSubLight(NPC.Center - openOffset)), NPC.rotation, teeth.Size() / 2, NPC.scale, SpriteEffects.None, 0);

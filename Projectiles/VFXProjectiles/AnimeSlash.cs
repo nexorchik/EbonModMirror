@@ -1,4 +1,4 @@
-﻿using EbonianMod.Effects.Prims;
+﻿using EbonianMod.Common.Graphics;
 using System.Collections.Generic;
 
 namespace EbonianMod.Projectiles.VFXProjectiles;
@@ -28,7 +28,7 @@ public class AnimeSlash : ModProjectile
     public List<Vector2> oldPosSaved = new List<Vector2>(30);
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D tex = Assets.Extras.laser2.Value;
+        Texture2D tex = Images.Extras.Textures.LaserBright.Value;
         float s = 0f;
         List<VertexInfo2> vertices = new();
         List<VertexInfo2> vertices2 = new();
@@ -138,7 +138,7 @@ public class XAnimeSlash : ModProjectile
     float animationOffset;
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D tex = Assets.Extras.wavyLaser.Value;
+        Texture2D tex = Images.Extras.Textures.WavyLaser.Value;
         float s = 0f;
         List<VertexPositionColorTexture> vertices = new();
         List<VertexPositionColorTexture> vertices2 = new();

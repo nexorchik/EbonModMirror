@@ -253,7 +253,7 @@ public class CrimsonWormBody : WormBody
     {
         if (isDed)
         {
-            Texture2D tex = Assets.ExtraSprites.Crimson.CrimsonWormBody_Destroyed.Value;
+            Texture2D tex = Images.ExtraSprites.Crimson.Textures.CrimsonWormBody_Destroyed.Value;
 
             spriteBatch.Draw(tex, Vector2.Lerp(NPC.Center, FollowingNPC.Center, 0.5f) - screenPos, NPC.frame, drawColor, Utils.AngleLerp(NPC.rotation, FollowingNPC.rotation, 0.5f), NPC.Size / 2, NPC.scale, SpriteEffects.None, 0);
 
@@ -273,9 +273,9 @@ public class CrimsonWormBody : WormBody
     {
         Texture2D tex = TextureAssets.Npc[Type].Value;
         if (NPC.ai[2] <= 6 && NPC.ai[2] > 3)
-            tex = Assets.ExtraSprites.Crimson.CrimsonWormBody2.Value;
+            tex = Images.ExtraSprites.Crimson.Textures.CrimsonWormBodyHalfIchor.Value;
         if (NPC.ai[2] > 6)
-            tex = Assets.ExtraSprites.Crimson.CrimsonWormBody3.Value;
+            tex = Images.ExtraSprites.Crimson.Textures.CrimsonWormBodyIchor.Value;
         if (isDed) return;
         scale = MathHelper.Lerp(scale, 1, 0.1f);
         if (timer2++ % 4 == 0)

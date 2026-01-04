@@ -12,7 +12,7 @@ class Ripple : ModProjectile
         });
         return false;
     }
-    public override string Texture => "EbonianMod/Extras/ripple";
+    public override string Texture => "EbonianMod/Assets/Extras/Ripple";
     public override void SetDefaults()
     {
         Projectile.width = 100;

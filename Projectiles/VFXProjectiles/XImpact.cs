@@ -38,15 +38,15 @@ public class XImpact : ModProjectile
     }
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D tex1 = Assets.Extras.Extras2.scratch_02.Value;
-        Texture2D tex2 = Assets.Extras.cone4.Value;
+        Texture2D tex1 = Images.Extras.Textures.Slice.Value;
+        Texture2D tex2 = Images.Extras.Textures.ConeSmooth.Value;
         UnifiedRandom rand = new UnifiedRandom(seed);
         float max = 50;
         float alpha = MathHelper.Lerp(0.5f, 0, Projectile.ai[1]) * 2;
-        Main.spriteBatch.Reload(EbonianMod.SpriteRotation.Value);
-        EbonianMod.SpriteRotation.Value.Parameters["rotation"].SetValue(rand.NextFloat(MathHelper.Pi, MathHelper.TwoPi) * (rand.NextFloatDirection() > 0 ? 1 : -1) + Projectile.ai[1]);
-        EbonianMod.SpriteRotation.Value.Parameters["scale"].SetValue(new Vector2(1, rand.NextFloat(0.2f, 0.8f)));
-        EbonianMod.SpriteRotation.Value.Parameters["uColor"].SetValue((Color.Indigo with { A = 0 }).ToVector4() * alpha * 0.5f);
+        Main.spriteBatch.Reload(Effects.SpriteRotation.Value);
+        Effects.SpriteRotation.Value.Parameters["rotation"].SetValue(rand.NextFloat(MathHelper.Pi, MathHelper.TwoPi) * (rand.NextFloatDirection() > 0 ? 1 : -1) + Projectile.ai[1]);
+        Effects.SpriteRotation.Value.Parameters["scale"].SetValue(new Vector2(1, rand.NextFloat(0.2f, 0.8f)));
+        Effects.SpriteRotation.Value.Parameters["uColor"].SetValue((Color.Indigo with { A = 0 }).ToVector4() * alpha * 0.5f);
         for (float i = 0; i < max; i++)
         {
             Texture2D tex = Main.rand.NextBool() ? tex1 : tex2;
@@ -121,15 +121,15 @@ public class XImpact2 : ModProjectile
     }
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D tex1 = Assets.Extras.Extras2.scratch_02.Value;
-        Texture2D tex2 = Assets.Extras.cone4.Value;
+        Texture2D tex1 = Images.Extras.Textures.Slice.Value;
+        Texture2D tex2 = Images.Extras.Textures.ConeSmooth.Value;
         UnifiedRandom rand = new UnifiedRandom(seed);
         float max = 35;
         float alpha = MathHelper.Lerp(0.5f, 0, Projectile.ai[1]) * 2;
-        Main.spriteBatch.Reload(EbonianMod.SpriteRotation.Value);
-        EbonianMod.SpriteRotation.Value.Parameters["rotation"].SetValue(rand.NextFloat(MathHelper.Pi, MathHelper.TwoPi) * (rand.NextFloatDirection() > 0 ? 1 : -1) + Projectile.ai[1]);
-        EbonianMod.SpriteRotation.Value.Parameters["scale"].SetValue(new Vector2(1, rand.NextFloat(0.2f, 0.8f)));
-        EbonianMod.SpriteRotation.Value.Parameters["uColor"].SetValue((Color.Indigo with { A = 0 }).ToVector4() * alpha * 0.5f);
+        Main.spriteBatch.Reload(Effects.SpriteRotation.Value);
+        Effects.SpriteRotation.Value.Parameters["rotation"].SetValue(rand.NextFloat(MathHelper.Pi, MathHelper.TwoPi) * (rand.NextFloatDirection() > 0 ? 1 : -1) + Projectile.ai[1]);
+        Effects.SpriteRotation.Value.Parameters["scale"].SetValue(new Vector2(1, rand.NextFloat(0.2f, 0.8f)));
+        Effects.SpriteRotation.Value.Parameters["uColor"].SetValue((Color.Indigo with { A = 0 }).ToVector4() * alpha * 0.5f);
         float off = MathHelper.SmoothStep(1.5f, 0.5f, Projectile.ai[2] / 17);
         for (float i = 0; i < max; i++)
         {

@@ -63,7 +63,7 @@ public class FleshBrickMedium : ModNPC
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
         Texture2D texture1 = TextureAssets.Npc[Type].Value;
-        Texture2D texture2 = Assets.ExtraSprites.Corruption.FleshBrickMedium1.Value;
+        Texture2D texture2 = Images.ExtraSprites.Corruption.Textures.FleshBrickMedium;
         Texture2D texture = NPC.ai[3] == 1 ? texture1 : texture2;
         for (int i = 0; i < 5; i++)
         {

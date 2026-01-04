@@ -33,49 +33,49 @@ internal class ConglomerateSky : CustomSky
                 SpritebatchParameters _sbParams = Main.spriteBatch.Snapshot();
                 Main.spriteBatch.End();
                 sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone);
-                EbonianMod.waterEffect.Value.CurrentTechnique.Passes[0].Apply();
-                gd.Textures[1] = Assets.Extras.swirlyNoise.Value;
-                gd.Textures[2] = Assets.Extras.waterNoise.Value;
-                gd.Textures[3] = Assets.Extras.vein.Value;
-                EbonianMod.waterEffect.Value.Parameters["time"].SetValue(Main.GlobalTimeWrappedHourly * 0.015f);
-                EbonianMod.waterEffect.Value.Parameters["totalAlpha"].SetValue(0.5f * intensity * EbonianSystem.conglomerateSkyFlash);
+                Effects.WaterEffect.Value.CurrentTechnique.Passes[0].Apply();
+                gd.Textures[1] = Images.Extras.Textures.SwirlyNoise.Value;
+                gd.Textures[2] = Images.Extras.Textures.WaterNoise.Value;
+                gd.Textures[3] = Images.Extras.Textures.Vein.Value;
+                Effects.WaterEffect.Value.Parameters["time"].SetValue(Main.GlobalTimeWrappedHourly * 0.015f);
+                Effects.WaterEffect.Value.Parameters["totalAlpha"].SetValue(0.5f * intensity * EbonianSystem.conglomerateSkyFlash);
 
-                EbonianMod.waterEffect.Value.Parameters["offset"].SetValue(.05f + Clamp(EbonianSystem.conglomerateSkyFlash, 0, 10) * 0.01f);
+                Effects.WaterEffect.Value.Parameters["offset"].SetValue(.05f + Clamp(EbonianSystem.conglomerateSkyFlash, 0, 10) * 0.01f);
 
-                EbonianMod.waterEffect.Value.Parameters["mainScale"].SetValue(.7f);
-                EbonianMod.waterEffect.Value.Parameters["secondaryScale"].SetValue(2f);
-                EbonianMod.waterEffect.Value.Parameters["tertiaryScale"].SetValue(3.5f);
+                Effects.WaterEffect.Value.Parameters["mainScale"].SetValue(.7f);
+                Effects.WaterEffect.Value.Parameters["secondaryScale"].SetValue(2f);
+                Effects.WaterEffect.Value.Parameters["tertiaryScale"].SetValue(3.5f);
 
-                EbonianMod.waterEffect.Value.Parameters["mainDirection"].SetValue(new Vector2(MathF.Sin(Main.GlobalTimeWrappedHourly * -0.0255f) * 0.4f, .45f));
-                EbonianMod.waterEffect.Value.Parameters["secondaryDirection"].SetValue(new Vector2(MathF.Sin(Main.GlobalTimeWrappedHourly * 0.025f) * 0.4f, -.45f));
-                EbonianMod.waterEffect.Value.Parameters["tertiaryDirection"].SetValue(new Vector2(-1.9f, 0));
+                Effects.WaterEffect.Value.Parameters["mainDirection"].SetValue(new Vector2(MathF.Sin(Main.GlobalTimeWrappedHourly * -0.0255f) * 0.4f, .45f));
+                Effects.WaterEffect.Value.Parameters["secondaryDirection"].SetValue(new Vector2(MathF.Sin(Main.GlobalTimeWrappedHourly * 0.025f) * 0.4f, -.45f));
+                Effects.WaterEffect.Value.Parameters["tertiaryDirection"].SetValue(new Vector2(-1.9f, 0));
                 //sb.Draw(Helper.GetExtraTexture("conglomerateSky2"), npc.Center - Main.screenPosition, null, Color.White * intensity * 0.5f, npc.rotation, Helper.GetExtraTexture("conglomerateSky2").Size() / 2, 2 + MathF.Sin(Main.GlobalTimeWrappedHourly * 3) * 0.1f, SpriteEffects.None, 0);
-                sb.Draw(Assets.Extras.conglomerateSky.Value, rect2, Color.White * intensity * 2);
+                sb.Draw(Images.Extras.Textures.ConglomerateSky.Value, rect2, Color.White * intensity * 2);
                 sb.ApplySaved(_sbParams);
             }
             SpritebatchParameters __sbParams = Main.spriteBatch.Snapshot();
             Main.spriteBatch.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone);
-            EbonianMod.waterEffect.Value.CurrentTechnique.Passes[0].Apply();
-            gd.Textures[1] = Assets.Extras.seamlessNoise.Value;
-            gd.Textures[2] = Assets.Extras.waterNoise.Value;
-            gd.Textures[3] = Assets.Extras.swirlyNoise.Value;
-            EbonianMod.waterEffect.Value.Parameters["time"].SetValue(Main.GlobalTimeWrappedHourly * 0.03f);
-            EbonianMod.waterEffect.Value.Parameters["totalAlpha"].SetValue(intensity * (0.3f * EbonianSystem.conglomerateSkyFlash));
+            Effects.WaterEffect.Value.CurrentTechnique.Passes[0].Apply();
+            gd.Textures[1] = Images.Extras.Textures.SeamlessNoise.Value;
+            gd.Textures[2] = Images.Extras.Textures.WaterNoise.Value;
+            gd.Textures[3] = Images.Extras.Textures.SwirlyNoise.Value;
+            Effects.WaterEffect.Value.Parameters["time"].SetValue(Main.GlobalTimeWrappedHourly * 0.03f);
+            Effects.WaterEffect.Value.Parameters["totalAlpha"].SetValue(intensity * (0.3f * EbonianSystem.conglomerateSkyFlash));
 
-            EbonianMod.waterEffect.Value.Parameters["offset"].SetValue(.05f);
-            EbonianMod.waterEffect.Value.Parameters["colOverride"].SetValue(GetInstance<EbonianSystem>().conglomerateSkyColorOverride.ToVector4());
+            Effects.WaterEffect.Value.Parameters["offset"].SetValue(.05f);
+            Effects.WaterEffect.Value.Parameters["colOverride"].SetValue(GetInstance<EbonianSystem>().conglomerateSkyColorOverride.ToVector4());
 
-            EbonianMod.waterEffect.Value.Parameters["mainScale"].SetValue(3);
-            EbonianMod.waterEffect.Value.Parameters["secondaryScale"].SetValue(3f);
-            EbonianMod.waterEffect.Value.Parameters["tertiaryScale"].SetValue(3);
+            Effects.WaterEffect.Value.Parameters["mainScale"].SetValue(3);
+            Effects.WaterEffect.Value.Parameters["secondaryScale"].SetValue(3f);
+            Effects.WaterEffect.Value.Parameters["tertiaryScale"].SetValue(3);
 
-            EbonianMod.waterEffect.Value.Parameters["mainDirection"].SetValue(new Vector2(MathF.Sin(Main.GlobalTimeWrappedHourly * -0.015f) * 0.1f, .45f));
-            EbonianMod.waterEffect.Value.Parameters["secondaryDirection"].SetValue(new Vector2(MathF.Sin(Main.GlobalTimeWrappedHourly * 0.015f) * 0.1f, -.55f));
-            EbonianMod.waterEffect.Value.Parameters["tertiaryDirection"].SetValue(new Vector2(2.9f, 0));
+            Effects.WaterEffect.Value.Parameters["mainDirection"].SetValue(new Vector2(MathF.Sin(Main.GlobalTimeWrappedHourly * -0.015f) * 0.1f, .45f));
+            Effects.WaterEffect.Value.Parameters["secondaryDirection"].SetValue(new Vector2(MathF.Sin(Main.GlobalTimeWrappedHourly * 0.015f) * 0.1f, -.55f));
+            Effects.WaterEffect.Value.Parameters["tertiaryDirection"].SetValue(new Vector2(2.9f, 0));
 
             //sb.Draw(Helper.GetExtraTexture("conglomerateSky2"), npc.Center - Main.screenPosition, null, Color.White * intensity * 0.5f, npc.rotation, Helper.GetExtraTexture("conglomerateSky2").Size() / 2, 2 + MathF.Sin(Main.GlobalTimeWrappedHourly * 3) * 0.1f, SpriteEffects.None, 0);
-            sb.Draw(Assets.Extras.conglomerateSky.Value, rect2, Color.White * intensity * 2);
+            sb.Draw(Images.Extras.Textures.ConglomerateSky.Value, rect2, Color.White * intensity * 2);
             sb.ApplySaved(__sbParams);
         }
         sb.ApplySaved(sbParams);

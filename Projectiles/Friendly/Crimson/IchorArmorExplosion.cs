@@ -25,9 +25,9 @@ public class IchorArmorExplosion : ModProjectile
     }
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D tex = Assets.Extras.Extras2.trace_04.Value;
-        Texture2D tex2 = Assets.Extras.Extras2.trace_05.Value;
-        Texture2D tex3 = Assets.Extras.speckle.Value;
+        Texture2D tex = Images.Extras.Textures.MagicLineLightning.Value;
+        Texture2D tex2 = Images.Extras.Textures.MagicLineBright.Value;
+        Texture2D tex3 = Images.Extras.Textures.Speckle.Value;
         UnifiedRandom rand = new UnifiedRandom(seed);
         float max = 30;
         float alpha = Lerp(0.5f, 0, Projectile.ai[1]) * 2;

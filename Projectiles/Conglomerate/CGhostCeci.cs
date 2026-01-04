@@ -59,10 +59,10 @@ public class CGhostCeci : ModProjectile
                 EbonianMod.blurDrawCache.Add(() =>
                 {
                     //for (int i = 0; i < 5; i++)
-                    Main.spriteBatch.Draw(Assets.Extras.cone2.Value_blur, Projectile.Center - Main.screenPosition, null, Color.White * Lerp(0, 1, Projectile.velocity.Length() / 20), Projectile.rotation - PiOver2, new Vector2(0, Assets.Extras.cone2.Value.Height / 2), new Vector2(3, 1.5f), SpriteEffects.None, 0);
+                    Main.spriteBatch.Draw(Images.Extras.Textures.ConeFuzzy.Value_blur, Projectile.Center - Main.screenPosition, null, Color.White * Lerp(0, 1, Projectile.velocity.Length() / 20), Projectile.rotation - PiOver2, new Vector2(0, Images.Extras.Textures.ConeFuzzy.Value.Height / 2), new Vector2(3, 1.5f), SpriteEffects.None, 0);
 
-                    Main.spriteBatch.Draw(Assets.Extras.seamlessNoise3, Projectile.Center - Main.screenPosition, null, Color.White * Lerp(0, 1, Projectile.velocity.Length() / 20) * 0.2f, Main.GameUpdateCount, Assets.Extras.seamlessNoise3.Size() / 2, .3f, SpriteEffects.None, 0);
-                    Main.spriteBatch.Draw(Assets.Extras.seamlessNoise3, Projectile.Center - Main.screenPosition, null, Color.White * Lerp(0, 1, Projectile.velocity.Length() / 20) * 0.2f, Main.GameUpdateCount * 0.3f, Assets.Extras.seamlessNoise3.Size() / 2, .3f, SpriteEffects.None, 0);
+                    Main.spriteBatch.Draw(Images.Extras.Textures.seamlessNoise3, Projectile.Center - Main.screenPosition, null, Color.White * Lerp(0, 1, Projectile.velocity.Length() / 20) * 0.2f, Main.GameUpdateCount, Images.Extras.Textures.seamlessNoise3.Size() / 2, .3f, SpriteEffects.None, 0);
+                    Main.spriteBatch.Draw(Images.Extras.Textures.seamlessNoise3, Projectile.Center - Main.screenPosition, null, Color.White * Lerp(0, 1, Projectile.velocity.Length() / 20) * 0.2f, Main.GameUpdateCount * 0.3f, Images.Extras.Textures.seamlessNoise3.Size() / 2, .3f, SpriteEffects.None, 0);
                 });*/
 
             Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, Color.White * alpha * 0.2f, Projectile.rotation + rotOff, origin, Projectile.scale, SpriteEffects.None, 0);

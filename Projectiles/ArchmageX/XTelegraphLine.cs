@@ -71,9 +71,9 @@ public class XTelegraphLine : ModProjectile
 
             if (vertices.Count > 2 && vertices2.Count > 2 && vertices3.Count > 2)
             {
-                Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.LintyTrail.Value, false);
-                Helper.DrawTexturedPrimitives(vertices2.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.LintyTrail.Value, false);
-                Helper.DrawTexturedPrimitives(vertices3.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.LintyTrail.Value, false);
+                Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.LintyTrail.Value, false);
+                Helper.DrawTexturedPrimitives(vertices2.ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.LintyTrail.Value, false);
+                Helper.DrawTexturedPrimitives(vertices3.ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.LintyTrail.Value, false);
             }
         }
         Main.spriteBatch.Reload(BlendState.AlphaBlend);

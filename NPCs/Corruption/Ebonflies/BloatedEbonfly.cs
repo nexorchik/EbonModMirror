@@ -26,9 +26,9 @@ public class BloatedEbonfly : ModNPC
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
 
-        Texture2D tex = Assets.ExtraSprites.Corruption.BloatedEbonfly_Glow.Value;
+        Texture2D tex = Images.ExtraSprites.Corruption.Textures.BloatedEbonfly_Glow.Value;
         Texture2D tex2 = TextureAssets.Npc[Type].Value;
-        Texture2D tex3 = Assets.ExtraSprites.Corruption.BloatedEbonfly_Glow2.Value;
+        Texture2D tex3 = Images.ExtraSprites.Corruption.Textures.BloatedEbonfly_White.Value;
         SpriteEffects effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
         Main.EntitySpriteDraw(tex2, NPC.Center - screenPos, NPC.frame, drawColor, NPC.rotation, NPC.Size / 2, NPC.scale, effects, 0);
         Main.EntitySpriteDraw(tex, NPC.Center - screenPos, NPC.frame, Color.White, NPC.rotation, NPC.Size / 2, NPC.scale, effects, 0);

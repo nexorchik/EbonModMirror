@@ -5,7 +5,7 @@ namespace EbonianMod.Projectiles.Garbage;
 
 public class GarbageGiantFlame : ModProjectile
 {
-    public override string Texture => "EbonianMod/Extras/fireball";
+    public override string Texture => "EbonianMod/Assets/Extras/Fireball";
     public override void SetStaticDefaults()
     {
         ProjectileID.Sets.TrailCacheLength[Type] = 50;

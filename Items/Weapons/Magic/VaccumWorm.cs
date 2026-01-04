@@ -161,9 +161,9 @@ public class VaccumWormP : ModProjectile
     }
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D[] texture = new Texture2D[] { Assets.Extras.Extras2.slash_06.Value, Assets.Extras.Extras2.twirl_01.Value, Assets.Extras.Extras2.twirl_02.Value, Assets.Extras.Extras2.twirl_03.Value, };
+        Texture2D[] texture = new Texture2D[] { Images.Extras.Textures.Slash.Value, Images.Extras.Textures.TwirlyMagic.Value, Images.Extras.Textures.TwirlyMagicSlice.Value, Images.Extras.Textures.TwirlyMagicSlash.Value, };
 
-        Main.spriteBatch.Reload(EbonianMod.SpriteRotation.Value);
+        Main.spriteBatch.Reload(Effects.SpriteRotation.Value);
         for (int i = 0; i < windAlpha.Length; i++)
         {
             UnifiedRandom rand = new UnifiedRandom(804914729 + i);
@@ -171,10 +171,10 @@ public class VaccumWormP : ModProjectile
             if (windAlpha[i] <= 0.01f)
                 windAlpha[i] = Main.rand.NextFloat(0.6f, 1.1f);
             Vector2 scale = new Vector2(1, 0.25f) * 0.5f;
-            EbonianMod.SpriteRotation.Value.Parameters["scale"].SetValue(scale * 0.75f);
-            EbonianMod.SpriteRotation.Value.Parameters["rotation"].SetValue(-Main.GameUpdateCount * rand.NextFloat(0.03f, 0.05f) * (i + 1));
+            Effects.SpriteRotation.Value.Parameters["scale"].SetValue(scale * 0.75f);
+            Effects.SpriteRotation.Value.Parameters["rotation"].SetValue(-Main.GameUpdateCount * rand.NextFloat(0.03f, 0.05f) * (i + 1));
             Vector4 col = (Color.Lerp(Color.PaleGreen, Color.Lime, windAlpha[i]) with { A = 0 }).ToVector4();
-            EbonianMod.SpriteRotation.Value.Parameters["uColor"].SetValue(col);
+            Effects.SpriteRotation.Value.Parameters["uColor"].SetValue(col);
             Texture2D tex = texture[rand.Next(texture.Length)];
             Main.spriteBatch.Draw(tex, Projectile.Center + Main.rand.NextVector2Circular(3, 3) + Projectile.velocity * (20 + (rand.NextFloat(65) + (windAlpha[i] * 30)) * windAlpha[i]) - Main.screenPosition, null, Color.White with { A = 0 } * 0.5f * windAlpha[i], Projectile.velocity.ToRotation() + MathHelper.PiOver2, tex.Size() / 2, windAlpha[i] * rand.NextFloat(0.9f, 1f) * 2, SpriteEffects.FlipVertically, 0);
         }

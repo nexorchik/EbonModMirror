@@ -135,7 +135,7 @@ public class Fleshformator : ModNPC
     public override void PostDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
         Player player = Main.player[NPC.target];
-        Texture2D tex = Assets.ExtraSprites.UI.arrow.Value;
+        Texture2D tex = Images.ExtraSprites.UI.Textures.Arrow.Value;
         if (player.whoAmI == Main.myPlayer)
         {
             offset = Vector2.Lerp(offset, Vector2.Zero, 0.1f);

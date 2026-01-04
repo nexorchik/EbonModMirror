@@ -70,7 +70,7 @@ public class StarBitBlue : ModProjectile
                 break;
         }
         Vector2 ori = Projectile.Size / 2;
-        Texture2D trail = Assets.Extras.LintyTrail.Value;
+        Texture2D trail = Images.Extras.Textures.LintyTrail.Value;
         List<VertexPositionColorTexture> vertices = new();
         for (int j = 0; j < Projectile.oldPos.Length; j++)
         {

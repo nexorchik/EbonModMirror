@@ -1,6 +1,6 @@
 ﻿using EbonianMod.Common.Players;
 using EbonianMod.Common.Systems.Verlets;
-using EbonianMod.Effects.Prims;
+using EbonianMod.Common.Graphics;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -137,11 +137,11 @@ public class ReiCapeP : ModProjectile
             {
                 Main.spriteBatch.End();
                 Main.spriteBatch.Begin(SpriteSortMode.Immediate, MiscDrawingMethods.Subtractive, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
-                Main.spriteBatch.Draw(Assets.Extras.explosion.Value, v.startPos - Main.screenPosition, null, Color.White * playerAlpha, v.segments[0].Rotation(), Assets.Extras.explosion.Value.Size() / 2, new Vector2(0.08f, 0.07f), SpriteEffects.None, 0);
+                Main.spriteBatch.Draw(Images.Extras.Textures.Explosion.Value, v.startPos - Main.screenPosition, null, Color.White * playerAlpha, v.segments[0].Rotation(), Images.Extras.Textures.Explosion.Value.Size() / 2, new Vector2(0.08f, 0.07f), SpriteEffects.None, 0);
                 for (int j = 0; j < 3; j++)
                 {
-                    Helper.DrawTexturedPrimitives(vertex[j].ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.wavyLaser2, false);
-                    Helper.DrawTexturedPrimitives(vertex2[j].ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.Tentacle, false);
+                    Helper.DrawTexturedPrimitives(vertex[j].ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.WavyLaserBright, false);
+                    Helper.DrawTexturedPrimitives(vertex2[j].ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.Tentacle, false);
                 }
             }
         }
@@ -191,7 +191,7 @@ public class ReiCapeTrail : ModProjectile
 }
 public class ReiExplosion : ModProjectile
 {
-    public override string Texture => "EbonianMod/Extras/Fire";
+    public override string Texture => "EbonianMod/Assets/Extras/ExplosionAnimation";
     public override void SetDefaults()
     {
         Projectile.height = 200;
@@ -209,8 +209,8 @@ public class ReiExplosion : ModProjectile
     {
         if (lightColor != Color.Transparent) return;
         if (seed == 0) seed = Main.rand.Next(9421814);
-        Texture2D tex = Assets.Extras.cone2.Value;
-        Texture2D tex2 = Assets.Extras.Extras2.trace_02.Value;
+        Texture2D tex = Images.Extras.Textures.ConeFuzzy.Value;
+        Texture2D tex2 = Images.Extras.Textures.MagicLineJagged.Value;
         UnifiedRandom rand = new UnifiedRandom(seed);
         Main.spriteBatch.Reload(BlendState.Additive);
         float max = 40;
@@ -241,8 +241,8 @@ public class ReiExplosion : ModProjectile
     }
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D tex = Assets.Extras.explosion.Value;
-        Texture2D tex2 = Assets.Extras.Extras2.star_09.Value;
+        Texture2D tex = Images.Extras.Textures.Explosion.Value;
+        Texture2D tex2 = Images.Extras.Textures.MagicStarBright.Value;
         Main.spriteBatch.Reload(BlendState.Additive);
         Texture2D texture = TextureAssets.Projectile[Type].Value;
 

@@ -75,8 +75,8 @@ public class GarbageLaserSmall1 : ModProjectile
             List<VertexPositionColorTexture> vertices2 = new List<VertexPositionColorTexture>();
             List<VertexPositionColorTexture> vertices3 = new List<VertexPositionColorTexture>();
             List<VertexPositionColorTexture> vertices4 = new List<VertexPositionColorTexture>();
-            Texture2D texture = Assets.Extras.trail_01.Value;
-            Texture2D texture2 = Assets.Extras.Ex1.Value;
+            Texture2D texture = Images.Extras.Textures.Trail.Value;
+            Texture2D texture2 = Images.Extras.Textures.BeamThin.Value;
             float progress = Utils.GetLerpValue(0, maxTime, Projectile.timeLeft);
             float i_progress = MathHelper.Clamp(MathHelper.SmoothStep(1, 0, progress) * 50, 0, 1);
             Vector2 start = Projectile.Center - Main.screenPosition;
@@ -191,8 +191,8 @@ public class GarbageLaserSmall2 : ModProjectile
         {
             List<VertexPositionColorTexture> vertices = new List<VertexPositionColorTexture>();
             List<VertexPositionColorTexture> vertices2 = new List<VertexPositionColorTexture>();
-            Texture2D texture = Assets.Extras.FlamesSeamless.Value;
-            Texture2D texture2 = Assets.Extras.wavyLaser2.Value;
+            Texture2D texture = Images.Extras.Textures.FlamesSeamless.Value;
+            Texture2D texture2 = Images.Extras.Textures.WavyLaserBright.Value;
             float progress = Utils.GetLerpValue(0, maxTime, Projectile.timeLeft);
             float i_progress = MathHelper.Clamp(MathHelper.SmoothStep(1, 0, progress) * 50, 0, 1);
             Vector2 start = Projectile.Center - Main.screenPosition;
@@ -303,8 +303,8 @@ public class GarbageLaserSmall3 : ModProjectile
             List<VertexPositionColorTexture> vertices = new List<VertexPositionColorTexture>();
             List<VertexPositionColorTexture> vertices2 = new List<VertexPositionColorTexture>();
             List<VertexPositionColorTexture> vertices3 = new List<VertexPositionColorTexture>();
-            Texture2D texture = Assets.Extras.trail_04.Value;
-            Texture2D texture2 = Assets.Extras.FlamesSeamless.Value;
+            Texture2D texture = Images.Extras.Textures.TrailFuzzy.Value;
+            Texture2D texture2 = Images.Extras.Textures.FlamesSeamless.Value;
             float progress = Utils.GetLerpValue(0, maxTime, Projectile.timeLeft);
             float i_progress = MathHelper.Clamp(MathHelper.SmoothStep(1, 0, progress) * 50, 0, 1);
             Vector2 start = Projectile.Center - Main.screenPosition;

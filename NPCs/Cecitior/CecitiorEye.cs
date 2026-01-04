@@ -84,7 +84,7 @@ public class CecitiorEye : ModNPC
         Texture2D a = Helper.GetTexture("NPCs/Cecitior/CecitiorChain_base").Value;
         Texture2D glow = Helper.GetTexture("NPCs/Cecitior/CecitiorChain_base_Glow").Value;
         Texture2D b = TextureAssets.Npc[Type].Value;
-        Texture2D glow2 = Assets.ExtraSprites.Cecitior.CecitiorEye_Glow.Value;
+        Texture2D glow2 = Images.ExtraSprites.Cecitior.Textures.CecitiorEye_Glow.Value;
         if (verlet is null)
             verlet = new(NPC.Center, 7, 16, 1, true, true, 13);
         else

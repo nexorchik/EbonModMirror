@@ -56,15 +56,15 @@ public class ArchmageCutsceneMartian : ModNPC
     {
         if (NPC.IsABestiaryIconDummy || AITimer < 1) return false;
         Texture2D tex = TextureAssets.Npc[Type].Value;
-        Texture2D burnt = Assets.ExtraSprites.ArchmageX.ArchmageX_Burnt.Value;
-        Texture2D singularArm = Assets.ExtraSprites.ArchmageX.ArchmageX_Arm.Value;
-        Texture2D head = Assets.ExtraSprites.ArchmageX.ArchmageX_Head.Value;
-        Texture2D headGlow = Assets.ExtraSprites.ArchmageX.ArchmageX_HeadGlow.Value;
+        Texture2D burnt = Images.ExtraSprites.ArchmageX.Textures.ArchmageX_Burnt.Value;
+        Texture2D singularArm = Images.ExtraSprites.ArchmageX.Textures.ArchmageX_Arm.Value;
+        Texture2D head = Images.ExtraSprites.ArchmageX.Textures.ArchmageX_Head.Value;
+        Texture2D headGlow = Images.ExtraSprites.ArchmageX.Textures.ArchmageX_HeadGlow.Value;
 
-        Texture2D fireG = Assets.ExtraSprites.ArchmageX.XFire_Gray.Value;
-        Texture2D fireP = Assets.ExtraSprites.ArchmageX.XFire_Purple.Value;
+        Texture2D fireG = Images.ExtraSprites.ArchmageX.Textures.XFire_Gray.Value;
+        Texture2D fireP = Images.ExtraSprites.ArchmageX.Textures.XFire_Purple.Value;
         Texture2D martian = TextureAssets.Npc[NPCID.MartianSaucer].Value;
-        Texture2D staff = Assets.ExtraSprites.ArchmageX.StaffOfXItem.Value;
+        Texture2D staff = Images.ExtraSprites.ArchmageX.Textures.StaffOfXItem.Value;
 
         if (AITimer < 550)
         {
@@ -127,7 +127,7 @@ public class ArchmageCutsceneMartian : ModNPC
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
             if (vertices.Count > 2)
             {
-                Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.saucerBeam.Value, false);
+                Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.SaucerBeam.Value, false);
             }
             vertices.Clear();
             for (float i = 0; i < 1; i += 0.001f)
@@ -147,8 +147,8 @@ public class ArchmageCutsceneMartian : ModNPC
             Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.PointWrap, DepthStencilState.None, Main.Rasterizer, null, Main.GameViewMatrix.TransformationMatrix);
             if (vertices.Count > 2)
             {
-                Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.Tentacle.Value, false);
-                Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.FlamesSeamless.Value, false);
+                Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.Tentacle.Value, false);
+                Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.FlamesSeamless.Value, false);
             }
             Main.spriteBatch.ApplySaved(sbParams);
         }

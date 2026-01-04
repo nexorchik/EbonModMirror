@@ -37,7 +37,7 @@ public class ArchmageStaffTile : ModTile
         Texture2D tex = Helper.GetTexture("Items/Weapons/Magic/StaffOfX");
         Texture2D bloom = Helper.GetTexture("Items/Weapons/Magic/StaffOfX_Bloom");
         Texture2D interact = Helper.GetTexture("Items/Weapons/Magic/StaffOfX_InteractionHover");
-        Texture2D streak = Assets.Extras.Extras2.scratch_02.Value");
+        Texture2D streak = Images.Extras.Textures.Slice.Value");
         UnifiedRandom rand = new UnifiedRandom(i + j);
 
         SpritebatchParameters sbParams = Main.spriteBatch.SaveCurrent();

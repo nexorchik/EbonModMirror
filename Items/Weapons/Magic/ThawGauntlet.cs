@@ -157,7 +157,7 @@ public class ThawGauntletP2 : ModProjectile
         if (alpha > 0)
             alpha -= 0.1f;
         Texture2D tex = TextureAssets.Projectile[Type].Value;
-        Texture2D glow = Assets.Items.Weapons.Magic.ThawGauntletP2_Glow.Value;
+        Texture2D glow = Images.ExtraSprites.Projectiles.Textures.ThawGauntletIceCubeGlow.Value;
         Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2, Projectile.localAI[0], Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);
         Main.spriteBatch.Reload(BlendState.Additive);
         Main.spriteBatch.Draw(glow, Projectile.Center - Main.screenPosition, null, Color.White * alpha, Projectile.rotation, tex.Size() / 2, Projectile.localAI[0], Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally, 0);

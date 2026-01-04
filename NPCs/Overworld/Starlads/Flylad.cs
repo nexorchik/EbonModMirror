@@ -302,7 +302,7 @@ public class Flylad : ModNPC
             return true;
         }
 
-        texture = Assets.NPCs.Overworld.Starlads.FlyladStarBomb.Value;
+        texture = Images.ExtraSprites.Projectiles.Textures.FlyladStarBomb.Value;
 
         if (state == StateID.Stunned)
         {
@@ -321,7 +321,7 @@ public class Flylad : ModNPC
             spriteBatch.Draw(texture, position, NPC.frame, Color.White, NPC.rotation, NPC.frame.Size() / 2f, new Vector2(widthMod, heightMod), spriteEffects, 0);
         }
 
-        texture = Assets.NPCs.Overworld.Starlads.FlyladStarBomb.Value;
+        texture = Images.ExtraSprites.Projectiles.Textures.FlyladStarBomb.Value;
 
         if (state == StateID.Stunned)
         {

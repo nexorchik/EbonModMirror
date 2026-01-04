@@ -66,9 +66,9 @@ namespace EbonianMod.Items.Pets.LilPilg
             frames.Width = 24;
             frames.Height = 46;
 
-            Texture2D trail = Assets.ExtraSprites.Projectiles.LilPilg_Trail.Value;
+            Texture2D trail = Images.ExtraSprites.Projectiles.Textures.LilPilg_Trail.Value;
             Texture2D tex = TextureAssets.Projectile[Type].Value;
-            Texture2D glow = Assets.ExtraSprites.Projectiles.LilPilg_Glow.Value;
+            Texture2D glow = Images.ExtraSprites.Projectiles.Textures.LilPilg_Glow.Value;
             for (int i = 0; i < ProjectileID.Sets.TrailCacheLength[Type]; i++)
             {
                 float fadeMult = 1f / ProjectileID.Sets.TrailCacheLength[Type];

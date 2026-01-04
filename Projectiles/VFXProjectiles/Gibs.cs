@@ -15,7 +15,7 @@ public class Gibs : ModProjectile
             for (int i = 0; i < 2; i++)
                 Dust.NewDustPerfect(pos + Projectile.Size / 2, Projectile.ai[2] == 0 ? DustID.Blood : DustID.Torch, Main.rand.NextVector2Circular(3, 3));*/
     }
-    public override string Texture => "EbonianMod/Extras/explosion";
+    public override string Texture => "EbonianMod/Assets/Extras/Explosion";
     float vfxOffset;
     public override bool PreDraw(ref Color lightColor)
     {
@@ -51,7 +51,7 @@ public class Gibs : ModProjectile
         Main.spriteBatch.Begin(SpriteSortMode.Immediate, (Projectile.ai[2] == 0 ? BlendState.AlphaBlend : BlendState.Additive), SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         if (vertices.Count > 2)
         {
-            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.laser3_transparent.Value, false);
+            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.LaserFaintTransparent.Value, false);
         }
         Main.spriteBatch.ApplySaved(sbParams);
         return false;
@@ -110,7 +110,7 @@ public class HostileGibs : ModProjectile
             for (int i = 0; i < 2; i++)
                 Dust.NewDustPerfect(pos + Projectile.Size / 2, Projectile.ai[2] == 0 ? DustID.Blood : DustID.Torch, Main.rand.NextVector2Circular(3, 3));*/
     }
-    public override string Texture => "EbonianMod/Extras/explosion";
+    public override string Texture => "EbonianMod/Assets/Extras/Explosion";
     float vfxOffset;
     public override bool PreDraw(ref Color lightColor)
     {
@@ -149,7 +149,7 @@ public class HostileGibs : ModProjectile
         Main.spriteBatch.Begin(SpriteSortMode.Immediate, (Projectile.ai[2] == 0 ? BlendState.AlphaBlend : BlendState.Additive), SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         if (vertices.Count > 2)
         {
-            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.laser3_transparent.Value, false);
+            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.LaserFaintTransparent.Value, false);
         }
         Main.spriteBatch.ApplySaved(sbParams);
         return false;
@@ -208,7 +208,7 @@ public class AmbientGibs : ModProjectile
             for (int i = 0; i < 2; i++)
                 Dust.NewDustPerfect(pos + Projectile.Size / 2, DustID.Blood, Main.rand.NextVector2Circular(3, 3));
     }
-    public override string Texture => "EbonianMod/Extras/explosion";
+    public override string Texture => "EbonianMod/Assets/Extras/Explosion";
     float vfxOffset;
     public override bool PreDraw(ref Color lightColor)
     {
@@ -244,7 +244,7 @@ public class AmbientGibs : ModProjectile
         Main.spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.PointWrap, DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         if (vertices.Count > 2)
         {
-            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.Extras.laser3_transparent.Value, false);
+            Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Images.Extras.Textures.LaserFaintTransparent.Value, false);
         }
         Main.spriteBatch.ApplySaved(sbParams);
         return false;

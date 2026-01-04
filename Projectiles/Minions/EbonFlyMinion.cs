@@ -16,7 +16,7 @@ public class EbonFlyMinion : ModProjectile //this is literally ExampleMinion and
     public override bool PreDraw(ref Color lightColor)
     {
         Texture2D tex = TextureAssets.Projectile[Type].Value;
-        Texture2D glow = Assets.ExtraSprites.Corruption.BloatedEbonfly_Glow.Value;
+        Texture2D glow = Images.ExtraSprites.Corruption.Textures.BloatedEbonfly_Glow.Value;
         SpriteEffects effects = Projectile.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
         Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * 40, 40, 40), lightColor, Projectile.rotation, Projectile.Size / 2, Projectile.scale, effects, 0);
         Main.EntitySpriteDraw(glow, Projectile.Center - Main.screenPosition, new Rectangle(0, Projectile.frame * 40, 40, 40), Color.White, Projectile.rotation, Projectile.Size / 2, Projectile.scale, effects, 0);

@@ -5,7 +5,7 @@ namespace EbonianMod.Projectiles.Cecitior;
 
 internal class BloodLaser : ModProjectile
 {
-    public override string Texture => "EbonianMod/Extras/EbonianGatlingBullet";
+    public override string Texture => "EbonianMod/Assets/Extras/PillGlow";
     public override void SetStaticDefaults()
     {
         ProjectileID.Sets.TrailCacheLength[Type] = 10;
@@ -27,7 +27,7 @@ internal class BloodLaser : ModProjectile
     public override bool PreDraw(ref Color lightColor)
     {
         SpriteBatch spriteBatch = Main.spriteBatch;
-        Texture2D tex = Assets.Extras.EbonianGatlingBullet.Value;
+        Texture2D tex = Images.Extras.Textures.PillGlow.Value;
         var fadeMult = Helper.Safe(1f / Projectile.oldPos.Length);
         spriteBatch.Reload(BlendState.Additive);
         for (int i = 0; i < Projectile.oldPos.Length; i++)

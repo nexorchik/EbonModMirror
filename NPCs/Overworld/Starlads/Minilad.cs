@@ -70,7 +70,7 @@ public class Minilad : ModNPC
     {
         SpriteEffects effects = NPC.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
         Vector2 origin = new Vector2(NPC.width / 2, NPC.height / 2);
-        sb.Draw(Assets.NPCs.Overworld.Starlads.Minilad.Value, NPC.Center - screenPos, NPC.frame, Color.White, NPC.rotation, origin, NPC.scale, effects, 0f);
+        sb.Draw(TextureAssets.Npc[Type].Value, NPC.Center - screenPos, NPC.frame, Color.White, NPC.rotation, origin, NPC.scale, effects, 0f);
 
         return false;
     }

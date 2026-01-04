@@ -50,7 +50,7 @@ public class Kodama : ModProjectile
                 vertices.Add(Helper.AsVertex(pos + new Vector2(13 * Clamp(mult * 2, 0, 1), 0).RotatedBy(-PiOver2 + rotOffset), Color.White * alpha * (i < 3 ? 0 : 1), new Vector2((float)i / Projectile.oldPos.Length * 3 - Main.GlobalTimeWrappedHourly * 1.5f, 1)));
             }
             if (vertices.Count > 2)
-                Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Assets.ExtraSprites.Overworld.KodamaTrail.Value, false, true);
+                Helper.DrawTexturedPrimitives(vertices.ToArray(), PrimitiveType.TriangleStrip, Images.ExtraSprites.Overworld.Textures.KodamaTrail.Value, false, true);
         }
         );
         EbonianMod.finalDrawCache.Add(() =>
