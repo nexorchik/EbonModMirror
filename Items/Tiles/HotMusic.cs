@@ -8,7 +8,7 @@ internal class HotMusic : ModItem
     public override void SetStaticDefaults()
     {
         CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Sounds/Music/Garbage"), ItemType<HotMusic>(), TileType<ThisShitSomeHotGarbage>());
+        MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/Garbage"), ItemType<HotMusic>(), TileType<ThisShitSomeHotGarbage>());
     }
 
     public override void SetDefaults()

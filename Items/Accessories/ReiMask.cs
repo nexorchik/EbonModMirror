@@ -88,13 +88,13 @@ public class ReiMask : ModItem
                     Dust.NewDustPerfect(player.Center, DustID.Electric, Main.rand.NextVector2Circular(5, 5));
                 }
                 SoundEngine.PlaySound(SoundID.DD2_LightningAuraZap, player.Center);
-                //SoundEngine.PlaySound(new SoundStyle("EbonianMod/Sounds/reiFail2"), player.Center);
+                //SoundEngine.PlaySound(new SoundStyle("EbonianMod/Assets/Sounds/reiFail2"), player.Center);
             }*/
         }
         /*if (EbonianKeybinds.ReiDash.JustPressed && modPlayer.reiBoostCool > 0)
         {
             SoundEngine.PlaySound(SoundID.DD2_LightningAuraZap, player.Center);
-            //SoundEngine.PlaySound(new SoundStyle("EbonianMod/Sounds/reiFail2"), player.Center);
+            //SoundEngine.PlaySound(new SoundStyle("EbonianMod/Assets/Sounds/reiFail2"), player.Center);
             for (int i = 0; i < 5; i++)
             {
                 Dust.NewDustPerfect(player.Center, DustID.Electric, Main.rand.NextVector2Circular(5, 5));
