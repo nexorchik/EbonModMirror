@@ -2,14 +2,14 @@
 
 public class EbonianSounds : ModSystem
 {
-    public static SoundStyle Default = new SoundStyle("EbonianMod/Assets/Sounds/reiFail")
+    public static SoundStyle Default = new SoundStyle("EbonianMod/Sounds/reiFail")
     {
         MaxInstances = 10,
         PitchVariance = 0.3f,
     };
 
 
-    public const string path = "EbonianMod/Assets/Sounds/";
+    public const string path = "EbonianMod/Sounds/";
     public static SoundStyle None;
     public static SoundStyle bloodSpit => Default with
     {
