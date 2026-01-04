@@ -8,7 +8,7 @@ public class RamItem : ModItem
     {
         Item.CloneDefaults(ItemID.Bunny);
         Item.makeNPC = NPCType<Ram>();
-        Item.value = Item.buyPrice(0, 0, 10, 0);
+        Item.value = Item.buyPrice(0, 10, 0, 0);
     }
 }
 public class RamItemNaked : ModItem
@@ -17,7 +17,7 @@ public class RamItemNaked : ModItem
     {
         Item.CloneDefaults(ItemID.Bunny);
         Item.makeNPC = 0;
-        Item.value = Item.buyPrice(0, 0, 10, 0);
+        Item.value = Item.buyPrice(0, 10, 0, 0);
     }
     public override bool? UseItem(Player player)
     {
