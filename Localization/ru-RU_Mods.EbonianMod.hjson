@@ -654,6 +654,16 @@ NPCs: {
 		Bestiary: Овцы — пассивные, дружелюбные животные с толстым слоем шерсти и пристрастием к траве; овечья шерсть довольно часто используется во многих ярких предметах одежды и особенно для создания комфорта, к удивлению немногих.
 	}
 
+	Ram: {
+		// DisplayName: Ram
+		/* Bestiary:
+			'''
+			Rams, the dominant males of their herds, are very similar to typical sheep, with the only notable difference being their big horns.
+
+			      Due to GenCorp's high demand, their prices are incredibly high.
+			''' */
+	}
+
 	JelleyeFish: {
 		DisplayName: Глазомедуза
 		Bestiary: Мясистые щупальца плавают по залитой кровью местности багрянца. Появившись из кровавых вод багрового моря, эти мерзкие мутанты эволюционировали, чтобы постоянно отращивать многочисленные непросыхающие глаза и плавать в зловонном воздухе, а не в жидкости, как плавали их водные предки. Только не готовьте из них сашими.
@@ -1712,6 +1722,16 @@ Items: {
 	TheRock: {
 		DisplayName: Камень
 		Tooltip: Это просто камень, белый камень
+	}
+
+	RamItemNaked: {
+		// Tooltip: ""
+		// DisplayName: Ram Item Naked
+	}
+
+	RamItem: {
+		// Tooltip: ""
+		// DisplayName: Ram Item
 	}
 }
 

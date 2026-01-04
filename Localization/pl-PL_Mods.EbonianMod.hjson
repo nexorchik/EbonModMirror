@@ -644,6 +644,16 @@ NPCs: {
 		Bestiary: Owce to spokojne, przyjazne zwierzęta pokryte grubą warstwą wełny i znane z apetytu na trawę. Ich wełna jest powszechnie wykorzystywana w wielu barwnych elementach odzieży, a zwłaszcza w tych zapewniających ciepło i wygodę — co raczej nie dziwi nikogo.
 	}
 
+	Ram: {
+		// DisplayName: Ram
+		/* Bestiary:
+			'''
+			Rams, the dominant males of their herds, are very similar to typical sheep, with the only notable difference being their big horns.
+
+			      Due to GenCorp's high demand, their prices are incredibly high.
+			''' */
+	}
+
 	JelleyeFish: {
 		DisplayName: Ryba Okożel
 		Bestiary: Mięsiste macki unoszą się nad krwawymi terenami Szkarłatu. Wywodzą się z krwistych wód tego biomu — te zmutowane potworności ewoluowały tak, by nieustannie wyrastały im niezliczone, niespokojne oczy, unosząc się w cuchnącym powietrzu niczym ich wodni przodkowie. Lepiej nie próbuj robić z nich sashimi.
@@ -1690,6 +1700,16 @@ Items: {
 	TheRock: {
 		DisplayName: Kamień
 		Tooltip: To po prostu kamień, biały kamień
+	}
+
+	RamItemNaked: {
+		// Tooltip: ""
+		// DisplayName: Ram Item Naked
+	}
+
+	RamItem: {
+		// Tooltip: ""
+		// DisplayName: Ram Item
 	}
 }
 

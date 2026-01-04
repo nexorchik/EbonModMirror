@@ -641,6 +641,16 @@ NPCs: {
 		Bestiary: As ovelhas são animais calmos e amigáveis, com uma espessa camada de lã e apetite por grama. A lã de ovelha é bastante comum em muitas peças coloridas de vestuário, principalmente pelo seu conforto, para surpresa de muito poucos.
 	}
 
+	Ram: {
+		// DisplayName: Ram
+		/* Bestiary:
+			'''
+			Rams, the dominant males of their herds, are very similar to typical sheep, with the only notable difference being their big horns.
+
+			      Due to GenCorp's high demand, their prices are incredibly high.
+			''' */
+	}
+
 	JelleyeFish: {
 		DisplayName: Água-Viva Ocular
 		Bestiary: Tentáculos carnudos flutuam sobre o terreno salpicado de sangue do Carmesim. Originárias das águas sanguíneas do Carmesim, essas abominações mutantes evoluíram para desenvolver continuamente inúmeros olhos inconsoláveis e flutuar no ar pútrido, assim como seus ancestrais aquáticos. Só não faça sashimi com eles.
@@ -1687,6 +1697,16 @@ Items: {
 	TheRock: {
 		DisplayName: A Pedra
 		Tooltip: É apenas uma pedra, uma pedra branca.
+	}
+
+	RamItemNaked: {
+		// Tooltip: ""
+		// DisplayName: Ram Item Naked
+	}
+
+	RamItem: {
+		// Tooltip: ""
+		// DisplayName: Ram Item
 	}
 }
 
