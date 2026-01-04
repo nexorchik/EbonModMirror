@@ -1,0 +1,915 @@
+RingOfFire: {
+	Tooltip:
+		'''
+		Ignores defense but never deals critical damage
+		Can't pop purple balloons
+		'''
+	DisplayName: Ring of Fire
+}
+
+ToxicarpMKII: {
+	Tooltip:
+		'''
+		Shoots barrages of tiny fish, these fishes immediately realize they are not underwater and die
+		'Gnarwhal blast!'
+		'''
+	DisplayName: Gnarwhal
+}
+
+ThornBow: {
+	DisplayName: Thorny Bow
+	Tooltip: ""
+}
+
+GutlingGun: {
+	DisplayName: Gutling
+	Tooltip: ""
+}
+
+EbonianRocketLauncher: {
+	DisplayName: Mawzooka
+	Tooltip:
+		'''
+		Converts rockets into homing corrupted ones
+		Tile-destroying rockets lose that property
+		'''
+}
+
+EbonianGun: {
+	Tooltip: Converts any bullets into high velocity demonite bullets
+	DisplayName: Vile Musket
+}
+
+EbonianGatling: {
+	Tooltip: idk exists
+	DisplayName: Corrupt Gatling
+}
+
+Corebreaker: {
+	DisplayName: Corebreaker
+	Tooltip:
+		'''
+		Launches an explosive core
+		Right click to shoot a laser
+		'''
+}
+
+TerrorFlail: {
+	DisplayName: Flailotoma
+	Tooltip: ""
+}
+
+SanguineSlasher: {
+	Tooltip: Restores {0} health when biting an enemy
+	DisplayName: Fleshfang
+}
+
+MeatCrusher: {
+	DisplayName: Meat Crusher
+	Tooltip: Has a unique attack when striking the ground
+}
+
+Exolsaw: {
+	DisplayName: Infernal Disc
+	Tooltip: ""
+}
+
+EbonianScythe: {
+	Tooltip: Increases maximum movement speed while used
+	DisplayName: Grimrot Cutter
+}
+
+TerrorStaff: {
+	DisplayName: Nest Sceptre
+	Tooltip:
+		'''
+		Summons Ebonflies that explode on nearby enemies
+		Does not consume minion slots
+		'''
+}
+
+Latcher: {
+	DisplayName: Latcher
+	Tooltip: Reels you into enemies and deals damage when you get too close
+}
+
+InferosVolI: {
+	DisplayName: Infernomicon
+	Tooltip: ""
+}
+
+GoreSceptre: {
+	DisplayName: Defibrillator
+	Tooltip:
+		'''
+		Summons an electrified heart that shocks enemies
+		'CLEAR!'
+		'''
+}
+
+EbonHiveI: {
+	Tooltip: ""
+	DisplayName: Corrupt Cluster
+}
+
+Panopticon: {
+	DisplayName: Flesh Cube
+	Tooltip: Summons a Flesh Cube
+}
+
+CursedCone: {
+	DisplayName: Cursed Cone
+	Tooltip: Summons the Tinytoma
+}
+
+DoomsdayRemote: {
+	DisplayName: Red Button
+	Tooltip:
+		'''
+		Calls a drone strike at your cursor
+		One of many failed(?) GenCorp experiments
+		'''
+}
+
+IchorFlintlock: {
+	Tooltip: Converts bullets into teeth
+	DisplayName: Fangnum
+}
+
+FangSlinger: {
+	DisplayName: Fang Slinger
+	Tooltip: ""
+}
+
+CrimCannon: {
+	Tooltip: Launches jaws that attach to enemies and bite them
+	DisplayName: Bloodsoaked Dentures
+}
+
+PepperSpray: {
+	DisplayName: Pepper Spray
+	Tooltip: ""
+}
+
+WormPaintingI: {
+	Tooltip: By O. Digger
+	DisplayName: The Worm
+}
+
+WaspPaintingI: {
+	Tooltip:
+		'''
+		'Dedicated to a species long extinct'
+		By E. Fly
+		'''
+	DisplayName: The Wasp
+}
+
+HotMusic: {
+	Tooltip: Plays Trash Compactor by Yuri O
+	DisplayName: Music Box (Hot Garbage)
+}
+
+ExolMusicI: {
+	Tooltip: Plays Rage by Yuri O
+	DisplayName: Music Box (Inferos)
+}
+
+EvilMusicI: {
+	Tooltip: Plays Forces of Evil by Yuri O
+	DisplayName: Music Box (Terrortoma & Cecitior)
+}
+
+DappertomaI: {
+	Tooltip: By Sr. Thomas
+	DisplayName: Elegantoma
+}
+
+DapperCecitiorI: {
+	Tooltip: By Sr. Unsighted
+	DisplayName: Sightly Fella
+}
+
+GarbageRemote: {
+	Tooltip: "Allows communication with the only AI to ever reach singularity "
+	DisplayName: Dusty Quantum Computer
+	NoteForTranslators: The 'Be warned.' HAS to match in both the Warning and Tooltip
+}
+
+ExolWings: {
+	Tooltip: ""
+	DisplayName: Infernal Wings
+}
+
+EbonianHeart: {
+	Tooltip:
+		'''
+		Reduces defense by {0}
+		Increases the max number of minions by {1}
+		Increases summon damage by {2}%
+		Summons a corrupted heart that follows you and shoots cursed flames at nearby enemies
+		'''
+	DisplayName: Rotten Heart
+}
+
+BrainAcc: {
+	Tooltip:
+		'''
+		Increases life regen
+		Summons multiple brains to act as a shield against non-piercing attacks
+		'''
+	DisplayName: Seeping Brain
+}
+
+IchorGlobScepter: {
+	Tooltip: Shoots out an icky glob that splits into 3 smaller chunks
+	DisplayName: Glob Sceptre
+}
+
+VileNoodleBox: {
+	Tooltip:
+		'''
+		Provides you 100% guaranteed literal heartburn
+		The noodles seem to wiggle
+		'''
+	DisplayName: Vile Noodle Box
+}
+
+CorruptionStaff: {
+	Tooltip: Conjures homing vilethorns
+	DisplayName: Thorn-A-Part
+}
+
+CrimsonSpear: {
+	DisplayName: Vitriolic Voulge
+	Tooltip: Gets more powerful with extended use
+}
+
+Spinax: {
+	DisplayName: Spinax
+	Tooltip: An ancient dinosaur spine imbued with the power of the crimson
+}
+
+SelfStab: {
+	DisplayName: Sacrificial Dagger
+	Tooltip: Massively boosts all your damage, at a cost
+}
+
+MagmaBow: {
+	DisplayName: Pentabow
+	Tooltip: Shoots 5 volcanic arrows
+}
+
+ReiMask: {
+	DisplayName: Voidrunner Mask
+	Tooltip:
+		'''
+		Slightly increases movement speed
+		Allows teleportation by pressing {ReiM_Keybind} while hovering over an enemy
+		'''
+}
+
+DjungelskogI: {
+	DisplayName: Djungelskog
+	Tooltip: Summons a Djungelskog
+}
+
+Ostertagi: {
+	DisplayName: Ostertagi
+	Tooltip: Boosts damage and attacking speed, at a cost
+}
+
+Potato: {
+	DisplayName: Potato
+	Tooltip: So, how are you holding up?
+}
+
+ClementinesCap: {
+	DisplayName: Bloody Ballcap
+	Tooltip: "'It's definitely seen better days'"
+}
+
+InfernoBreastplate: {
+	DisplayName: Infernal Chestplate
+	Tooltip: ""
+}
+
+InfernoHeadgear: {
+	DisplayName: Infernal Helm
+	Tooltip: ""
+}
+
+InfernoHeadgearAlt: {
+	DisplayName: Infernal Mask
+	Tooltip: ""
+}
+
+InfernoLeggings: {
+	DisplayName: Infernal Leggings
+	Tooltip: ""
+}
+
+Serration: {
+	DisplayName: Serration
+	Tooltip: Has a unique attack when striking the ground
+}
+
+CecitiorBag: {
+	DisplayName: Treasure Bag ({$Mods.EbonianMod.NPCs.Cecitior.DisplayName})
+	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+}
+
+TerrortomaBag: {
+	DisplayName: Treasure Bag ({$Mods.EbonianMod.NPCs.Terrortoma.DisplayName})
+	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+}
+
+CursedToy: {
+	Tooltip: Generates projectiles from the sky
+	DisplayName: Cursed Doll
+}
+
+CorruptionClaw: {
+	Tooltip: Does a unique combo attack
+	DisplayName: Chained Claw
+}
+
+VaccumWorm: {
+	Tooltip: Pulls in weaker enemies
+	DisplayName: Vacuum Worm
+}
+
+PhantasmalGreatsword: {
+	DisplayName: Archmage Xareus' Shadowflame Skysplitter
+	Tooltip:
+		'''
+		Projects shadowflame versions of the sword on hit
+		Crafted by Archmage Xareus... As a wall decoration
+		'''
+}
+
+GhizasWheel: {
+	DisplayName: Corrosive Wheel
+	Tooltip:
+		'''
+		Inflicts Cursed Inferno on hit 
+		Ignores defense
+		'''
+}
+
+Equilibrium: {
+	Tooltip: ""
+	DisplayName: Equilibrium
+}
+
+Chainsword: {
+	DisplayName: Junkyard Chainsword
+	Tooltip: Ignores {0} points of enemy defense
+}
+
+CecitiorClawSummon: {
+	DisplayName: Backscratcher
+	Tooltip: "'Hello, Peter'"
+}
+
+HotShield: {
+	DisplayName: Dumpster Lid
+	Tooltip: Decreases movement speed by {0}%
+}
+
+CecitiorMaterial: {
+	DisplayName: Fleshy Blob
+	Tooltip: Writhing pieces of Crimson flesh
+}
+
+TerrortomaMaterial: {
+	DisplayName: Cellular Matter
+	Tooltip: Writhing pieces of Corrupt matter
+}
+
+ToothToothbrush: {
+	DisplayName: Tooth Toothbrush
+	Tooltip: Has a unique attack when striking the ground
+}
+
+PipebombI: {
+	DisplayName: Pipebomb
+	Tooltip:
+		'''
+		Can be used to harm Town NPCs
+		'I wonder what happens if I-'
+		'''
+}
+
+SpudCannon: {
+	DisplayName: Spud Cannon
+	Tooltip: Uses potatoes as ammo
+}
+
+CursedScourge: {
+	DisplayName: Cursed Scourge
+	Tooltip: ""
+}
+
+Bloodlash: {
+	DisplayName: Bloodlash
+	Tooltip: ""
+}
+
+ArchmageXTome: {
+	DisplayName: Tome of the Grand Archmage's Infinite Wisdom
+	Tooltip: Conjures Amethyst Energy to summon Phantasmal Spirits for you.
+}
+
+StaffOfXItem: {
+	DisplayName: Staff Of X Item
+	Tooltip: ""
+}
+
+StaffOfX: {
+	DisplayName: Archstaff of the Tragically Deceased Archmage Xareus
+	Tooltip: Forged from pure powdered lightning, the finest amethysts from the realm of crystals... etc. etc.
+}
+
+StaffofXWeapon: {
+	DisplayName: Shrunken Variant of Xareus' Archstaff
+	Tooltip: Lacks the grandeur of the True Archstaff.
+}
+
+XareusPotion: {
+	DisplayName: Xareus' Potion of Infinite Mana
+	Tooltip: Lethal to drink
+}
+
+ArchmageBag: {
+	DisplayName: Treasure Bag ({$Mods.EbonianMod.NPCs.ArchmageX.DisplayName})
+	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+}
+
+TerrortomaTrophy: {
+	DisplayName: Terrortoma Trophy
+	Tooltip: ""
+}
+
+XTentacleAcc: {
+	DisplayName: Xareus' Tentacle
+	Tooltip: Empowers magical attacks with a bouncy amethyst
+}
+
+GarbageFlail: {
+	DisplayName: Peculiar Angle Grinder
+	Tooltip: Rotates
+}
+
+TitteringStaff: {
+	DisplayName: Tittering Staff
+	Tooltip: Summons miniscule titterings that fire bolts of Cursed Inferno at nearby enemies
+}
+
+GarbageBagI: {
+	DisplayName: Treasure Bag ({$Mods.EbonianMod.NPCs.HotGarbage.DisplayName})
+	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+}
+
+CecitiorPet: {
+	DisplayName: Cecitior's Eye
+	Tooltip: Summons Cecitior's Eye
+}
+
+GarbagePet: {
+	DisplayName: Garbage Bag
+	Tooltip: Summons a Garbage Bag
+}
+
+SheepPet: {
+	DisplayName: Fluffy Wool
+	Tooltip: Summons a sheep
+}
+
+CecitiorTrophy: {
+	DisplayName: Cecitior Trophy
+	Tooltip: ""
+}
+
+GarbageTrophy: {
+	DisplayName: Hot Garbage Trophy
+	Tooltip: ""
+}
+
+XMusicI: {
+	DisplayName: Music Box (Xareus)
+	Tooltip: Plays Die Human Enemy by Yuri O
+}
+
+XTrophy: {
+	DisplayName: Xareus Trophy
+	Tooltip: ""
+}
+
+SheepItem: {
+	DisplayName: Sheep
+	Tooltip: ""
+}
+
+MailboxStaff: {
+	DisplayName: Mailbox Staff
+	Tooltip: Summons a Mailbox Sentry
+}
+
+CecitiorRelic: {
+	DisplayName: Cecitior Relic
+	Tooltip: ""
+}
+
+GarbageRelic: {
+	DisplayName: Hot Garbage Relic
+	Tooltip: ""
+}
+
+TerrortomaRelic: {
+	DisplayName: Terrortoma Relic
+	Tooltip: ""
+}
+
+XRelic: {
+	DisplayName: Xareus Relic
+	Tooltip: ""
+}
+
+SalvagedThruster: {
+	DisplayName: Salvaged Thruster
+	Tooltip:
+		'''
+		Uses gel for ammo
+		'Slight bit of dust spam...'
+		'''
+}
+
+NastySnapper: {
+	DisplayName: Nasty Snapper
+	Tooltip:
+		'''
+		{$CommonItemTooltip.SummonTagDamage}
+		{$CommonItemTooltip.Whips}
+		'Smells kinda fishy'
+		'''
+}
+
+WoolenBoots: {
+	DisplayName: Woolen Boots
+	Tooltip:
+		'''
+		Increases whip damage by {0}%
+		Increases whip speed by {1}%
+		'''
+}
+
+WoolenCoat: {
+	DisplayName: Woolen Coat
+	Tooltip:
+		'''
+		Increases summon damage by {0}%
+		Increases your max number of minions by {1}
+		'''
+}
+
+WoolenUshanka: {
+	DisplayName: Woolen Ushanka
+	Tooltip: Increases summon damage by {0}%
+	SetBonus:
+		'''
+		Increases your max number of minions by {0}
+		Provides immunity to chill and freezing effects
+		'''
+}
+
+Wool: {
+	DisplayName: Wool
+	Tooltip: ""
+}
+
+XMask: {
+	DisplayName: Xareus Mask
+	Tooltip: ""
+}
+
+GarbageMask: {
+	DisplayName: Garbage Mask
+	Tooltip: ""
+}
+
+CeciMask: {
+	DisplayName: Cecitior Mask
+	Tooltip: ""
+}
+
+TTomaMask: {
+	DisplayName: Terrortoma Mask
+	Tooltip: ""
+}
+
+XHouseBrickReplicaItem: {
+	DisplayName: Amethyst Brick
+	Tooltip: ""
+}
+
+Terrortome: {
+	DisplayName: Terrortome
+	Tooltip: ""
+}
+
+Sawcitior: {
+	DisplayName: Saw-citior
+	Tooltip: Launches two saws that collide with each other
+}
+
+Shears: {
+	DisplayName: Shears
+	Tooltip: Can be used to obtain wool from sheep
+}
+
+SheepItemNaked: {
+	DisplayName: Sheep (Sheared)
+	Tooltip: ""
+}
+
+WoolChairI: {
+	DisplayName: Woolen Chair
+	Tooltip: ""
+}
+
+WoolDoorI: {
+	DisplayName: Woolen Door
+	Tooltip: ""
+}
+
+WoolLampI: {
+	DisplayName: Woolen Lamp
+	Tooltip: ""
+}
+
+WoolTableI: {
+	DisplayName: Woolen Table
+	Tooltip: ""
+}
+
+WoolWorkbenchI: {
+	DisplayName: Woolen Workbench
+	Tooltip: ""
+}
+
+WoolWoodI: {
+	DisplayName: Woolen Wood
+	Tooltip: ""
+}
+
+WoolWoodPlatformI: {
+	DisplayName: Woolen Platform
+	Tooltip: ""
+}
+
+WoolWoodWallI: {
+	DisplayName: Woolen Wall
+	Tooltip: ""
+}
+
+SilverBasher: {
+	DisplayName: Silver Basher
+	Tooltip: ""
+}
+
+terrortomaFishingRod: {
+	DisplayName: Blightcaster
+	Tooltip: ""
+}
+
+cecitiorFishingRod: {
+	DisplayName: Bloodline
+	Tooltip: ""
+}
+
+BallLauncher: {
+	DisplayName: Lobber
+	Tooltip:
+		'''
+		Right click to charge a burst attack
+		Uses rockets as ammo
+		'''
+}
+
+CorruptrotI: {
+	DisplayName: Corruptrot Block
+	Tooltip: ""
+}
+
+FleshichorI: {
+	DisplayName: Fleshichor Block
+	Tooltip: ""
+}
+
+AureusSpawnItem: {
+	DisplayName: Aureus Spawn Item
+	Tooltip: ""
+}
+
+ConglomerateEnergyDrink: {
+	DisplayName: Conglomerate Energy Drink
+	Tooltip: Contains 63% Conglorine, 22% Ichor B6, 13% Natural Cursed Flames, and other misc. ingredients.
+}
+
+CongFisherate: {
+	DisplayName: Rotted Leechline
+	Tooltip: ""
+}
+
+CeciChairI: {
+	DisplayName: Fleshichor Chair
+	Tooltip: ""
+}
+
+CeciPlatformI: {
+	DisplayName: Fleshichor Platform
+	Tooltip: ""
+}
+
+CeciWallI: {
+	DisplayName: Fleshichor Wall
+	Tooltip: ""
+}
+
+TTomaChairI: {
+	DisplayName: Corruptrot Chair
+	Tooltip: ""
+}
+
+TTomaPlatformI: {
+	DisplayName: Corruptrot Platform
+	Tooltip: ""
+}
+
+TTomaWallI: {
+	DisplayName: Corruptrot Wall
+	Tooltip: ""
+}
+
+Bat: {
+	DisplayName: Bat
+	Tooltip: ""
+}
+
+SudamaTrident: {
+	DisplayName: Sudama Trident
+	Tooltip: ""
+}
+
+KodamaStaff: {
+	DisplayName: Kodama Staff
+	Tooltip: ""
+}
+
+BoxFishItem: {
+	DisplayName: Yellow Boxfish
+	Tooltip: ""
+}
+
+ShewStone: {
+	DisplayName: Shew Stone
+	Tooltip: Right click to prematurely set an active crystal cluster off
+}
+
+WardingStar: {
+	DisplayName: Warding Star
+	Tooltip: ""
+}
+
+BlinkrootI: {
+	DisplayName: Blinkbud
+	Tooltip: Summons a Blinkbuddy
+}
+
+LilPilgI: {
+	DisplayName: Little Memory
+	Tooltip: Summons a moonlit memory
+}
+
+ThawGauntlet: {
+	DisplayName: Cold Touch
+	Tooltip: ""
+}
+
+CenturySprayer: {
+	DisplayName: Century Sprayer
+	Tooltip: Suffocates enemies
+}
+
+GoldenTip: {
+	DisplayName: Golden Tip
+	Tooltip: Occasionally converts any arrow into a gold-tipped one that increases the value of the enemy it hits
+}
+
+StarBit: {
+	DisplayName: Starbit
+	Tooltip:
+		'''
+		3% increased critical strike chance
+		Shoot a star bit on critical strikes
+		A delicacy among the stars!
+		'''
+}
+
+RoSTest: {
+	DisplayName: This Item Deletes the Ebonian Mod Do Not Use This
+	Tooltip: ""
+}
+
+RustyWaraxe: {
+	DisplayName: Rusty Waraxe
+	Tooltip: Critical hits cause deep cuts
+}
+
+BotanistHeadStaff: {
+	DisplayName: Botanist Head
+	Tooltip: ""
+}
+
+BaseballBat: {
+	DisplayName: Baseball Bat
+	Tooltip: ""
+}
+
+Cecibody: {
+	DisplayName: Sightless Breastplate
+	Tooltip: Increases melee damage by {0}% and melee speed by {1}%
+}
+
+Cecihead: {
+	DisplayName: Sightless Hood
+	Tooltip: Increases melee damage by {0}% and melee speed by {1}%
+	SetBonus: Killing enemies has a 1/4 chance to trigger an ichor explosion
+}
+
+Cecilegs: {
+	DisplayName: Sightless Leggings
+	Tooltip: Increases melee damage by {0}% and melee critical strike chance by {1}%
+}
+
+Terrorbody: {
+	DisplayName: Tumorous Breastplate
+	Tooltip: Increases magic damage by {0}% and maximum mana by {1}
+}
+
+Terrorhead: {
+	DisplayName: Tumorous Helmet
+	Tooltip: Increases magic damage by {0}% and magic critical strike chance by {1}%
+	SetBonus: Dealing enough damage unleashes a burst of cursed flame onto the target
+}
+
+Terrorlegs: {
+	DisplayName: Tumorous Leggings
+	Tooltip: Increases magic damage by {0}%
+}
+
+BlindeyeBow: {
+	DisplayName: Blindeye Bow
+	Tooltip: ""
+}
+
+Spitvine: {
+	DisplayName: Spitvine
+	Tooltip: ""
+}
+
+CursedDoll: {
+	DisplayName: Cursed Doll
+	Tooltip: ""
+}
+
+Fangnum: {
+	DisplayName: Fangnum
+	Tooltip: ""
+}
+
+Lobber: {
+	DisplayName: Lobber
+	Tooltip: ""
+}
+
+Starcaller: {
+	DisplayName: Starcaller
+	Tooltip: ""
+}
+
+TheRock: {
+	DisplayName: The Rock
+	Tooltip: It's just a rock, a white rock
+}
+
+RamItemNaked: {
+	Tooltip: ""
+	DisplayName: Ram (Sheared)
+}
+
+RamItem: {
+	Tooltip: ""
+	DisplayName: Ram
+}

@@ -1,0 +1,402 @@
+HotGarbage: {
+	DisplayName: Hot Garbage
+
+	BossChecklistIntegration: {
+		SpawnInfo: Use a [i:{0}], often found in Gold Chests.
+		EntryName: HotGarbage
+	}
+
+	Bestiary:
+		'''
+		A heavily armed and armored dumpster, possibly for combat purposes, that has somehow been on fire since its conception.
+
+
+		A note on its side reads: "Please return to GenCorp Headquarters if lost."
+		'''
+}
+
+Glutton: {
+	DisplayName: Glutton
+	Bestiary: A towering beast with curious traits for a corruption entity, such as its shape and face. It appears to have been much simpler once, and the reason for its strengthening is unknown.
+}
+
+Cecitior: {
+	DisplayName: Cecitior
+	BossChecklistIntegration.SpawnInfo: Kill a Massive Spectator, commonly found in Crimson.
+	Bestiary: A fleshy, haphazardly made construct. Despite looking akin to many other crimson monsters, this entity seems to have been created recently for an indiscernible purpose.
+}
+
+Terrortoma: {
+	DisplayName: Terrortoma
+	BossChecklistIntegration.SpawnInfo: Destroy a Giant Cocoon, commonly found in the Corruption.
+	Bestiary: An unusual conglomerate of corrupted entities with the strange capability to show emotion. It is malformed, and not the intended result of the metamorphosis.
+}
+
+TerrorClingerSummoner.DisplayName: Clinger
+TerrorClingerRanged.DisplayName: Clinger
+
+TerrorClingerMelee: {
+	DisplayName: Clinger
+	Bestiary: These creatures were the heads of infected corpses, they connect to the Terrortoma, creating a sort of small hive mind together.
+}
+
+CrimsonWormTail.DisplayName: Gutworm
+
+CrimsonWormHead: {
+	DisplayName: Gutworm
+	Bestiary: Gutworms would appear to be a mimicry of the Corruption's famished eaters, down to the endless hunger and inundation of ichor. They are usually quite rare, making their appearances in this region concerning at lowest.
+}
+
+CrimsonWormBody.DisplayName: Gutworm
+CrimeraTail.DisplayName: Scorn
+
+CrimeraHead: {
+	DisplayName: Scorn
+	Bestiary: A Crimera that has begun to evolve in the Crimson's time of need. It's limbs can now tunnel, and it can hurl up some of the dead blood cells which it's body generates at a breakneck pace.
+}
+
+CrimeraBody.DisplayName: Scorn
+Crimera.DisplayName: Crimera
+
+VileSlime: {
+	DisplayName: Muckling
+	Bestiary: Resembling a slime, it uses its unassuming appearance to get close to any potential prey, and lashes out with a fast moving tentacle. It is worth noting that it isn't actually a slime at all.
+}
+
+RottenSpineTail.DisplayName: Rotten Spine
+
+RottenSpineHead: {
+	DisplayName: Rotten Spine
+	Bestiary: Corruption evolution has taken its worms in a curious direction, creating a purely aggressive worm with a head on either side. How it sustains itself is unknown.
+}
+
+RottenSpineBody.DisplayName: Rotten Spine
+EbonianStrider.DisplayName: Regurgitator
+
+Ebonfly: {
+	DisplayName: Ebonfly
+	Bestiary: An insect that prefers to fly in groups. They feed by eating dead flesh off of other surfaces. Some say that one day they will grow too big for their wings and become the worms their homeland is known for. Whether this is true or not is debatable.
+}
+
+EbonCrawler: {
+	DisplayName: Waster
+	Bestiary: The Waster is a product of the Corruption's failures. It is an evolutionary mishap, that's only purpose now is to unwillingly be a nest for the Ebonflies.
+}
+
+CecitiorEye: {
+	DisplayName: Gazer
+	Bestiary:
+		'''
+		Ocular organs used by Cecitior. The creature is haphazardly created, leaving many flaws in its existence, such as the lack of defended eyes.
+
+		One has to wonder how much of a pain it would be to get lemon there.
+		'''
+}
+
+TinyBrain.DisplayName: Brain
+EbonianHeartNPC.DisplayName: Heart
+
+BabyCecity: {
+	DisplayName: Crimorrhage
+	Bestiary: An evolution of an Ichor Sticker that had its limbs overtaken by the spread of the biome. Despite their appearance, they have adapted well to their sporadic evolution and symbiosis, and use it to the fullest extent possible, even more so than the unhindered monster it once was.
+}
+
+Fleshformator: {
+	DisplayName: Fleshformator
+	Bestiary: Fleshformators are bottom-feeders of the deep crimson. When they are born, they roam from their starting spot and latch onto a nutrient-rich area to grab onto anything they can and devour it. None have ever seen what is on the other end of a Fleshformator.
+}
+
+LetsGoo: {
+	DisplayName: Gnasher
+	Bestiary: The Gnasher is nothing but muscle, jaws, and the instinctual desire to devour prey of any kind.
+}
+
+RotlingBody.DisplayName: Rotling
+
+RotlingHead: {
+	DisplayName: Rotling
+	Bestiary: The Rotling is a small worm birthed from the rotting residual energy left by long dead corruption creatures.
+}
+
+RotlingTail.DisplayName: Rotling
+DankDiggerBody.DisplayName: Dank Digger
+
+DankDiggerHead: {
+	DisplayName: Dank Digger
+	Bestiary: The Dank Diggers are a sign you are in the Eater of Worlds' destructive wake- whenever a shadow scale breaks, the remnant regenerates as best as it can and makes a Dank Digger.
+}
+
+DankDiggerTail.DisplayName: Dank Digger
+
+BloatedEbonfly: {
+	DisplayName: Ebonfly
+	Bestiary: A strange mutation of the Ebonfly. Eating something that has been lit ablaze by the cursed inferno, it has extended its natural lifespan, but also become far more volatile.
+}
+
+MassiveSpectator: {
+	DisplayName: Massive Spectator
+	Bestiary: These towering eyes seem to be connected to something at the very base of the Crimson. They only appeared very recently, so not much else is known about them.
+}
+
+TerrortomaBulb.DisplayName: Giant Cocoon
+
+Bloodhound: {
+	DisplayName: Bloodhound
+	Bestiary: The Crimson's attempt to learn from dogs. These hunters are often used to follow unsuspecting souls out of the crimson back to their homes to find more biomass.
+}
+
+ClumpOfMeat: {
+	DisplayName: Clump Of Meat
+	Bestiary: Latchers are surprisingly clever entities, often bunching up in order to mimic other things, only to burst apart and bombard the enemy all at once. These usually come in the form of slimes, but a few rare cases have detailed them taking humanoid shapes.
+}
+
+Parasite: {
+	DisplayName: Latcher
+	Bestiary: These remnants of other crimson creatures are put to better use as small vessels to bring blood to more deserving crimson entities.
+}
+
+FleshBrickBig: {
+	DisplayName: Sedimentary
+	Bestiary: Sedimentaries are theorized to be walls of the corruption's casms at an early stage in development. Like everything else in the corruption, even the mud and stone you walk on can be traced to the hive-organism itself.
+}
+
+FleshBrickMedium.DisplayName: Sedimentary
+FleshBrickSmall.DisplayName: Sedimentary
+TrumpetTail.DisplayName: Trumpet
+
+TrumpetHead: {
+	DisplayName: Trumpet
+	Bestiary: A Trumpet's job within the corruption macroorganism is to tend to the fauna below it. Unlike most infected creatures, they seem completely unbothered by your presence.
+}
+
+TrumpetBody.DisplayName: Trumpet
+
+Rolypoly: {
+	DisplayName: Rolypoly
+	Bestiary:
+		'''
+		Bundled together, these corrupt worms share a collective and much greater mind at the cost of their mobility.
+		However, by the time they become permanently entangled, their combined mind concludes that such a form is rather stupid.
+		'''
+}
+
+JuvenileBrain: {
+	DisplayName: Neurobite
+	Bestiary: It uses a primitive form of neurokinesis to trick its prey into seeing mirror images of itself. This confusion allows the Neuromaw to strike while its target is vulnerable to attack.
+}
+
+WormKing: {
+	DisplayName: Worm King
+	Bestiary: The Worm King is the result of a Rolypoly left to grow unchecked. Acting as a hive mind, it controls the worm-like creatures of the corruption, with many adventurers mistaking it for a strange tree before meeting their end.
+}
+
+MiniTrumpetBody.DisplayName: Cornet
+MiniTrumpetHead.DisplayName: Cornet
+MiniTrumpetTail.DisplayName: Cornet
+
+Consumer: {
+	DisplayName: Rotjaw
+	Bestiary: Rotjaws are relentless and will dive towards their prey in the blink of an eye. Their bites can shatter large bones and durable shells effortlessly, and they often leave no scraps behind when devouring their prey.
+}
+
+Regorger: {
+	DisplayName: Tittering
+	Bestiary: A tittering's laugh echoes from afar, often fueling campfire tales that portray it as a mysterious cryptid. It remains unclear whether the creature's laughter is from genuine amusement or merely a biological reflex after spewing a beam of cursed flames.
+}
+
+Vileglider: {
+	DisplayName: Vileglider
+	Bestiary: Vilegliders strike when least expected, diving from above to swarm their prey. Their attacks are viciously precise, often leaving no trace of their victims behind.
+}
+
+ToxicAbomination: {
+	DisplayName: Virulant
+	Bestiary: It stores toxic gases from the carrion it consumes, using this buildup to launch itself at great speeds toward its next target, creating an explosion-like burst of force in the process.
+}
+
+VileTear: {
+	DisplayName: Grinner
+	Bestiary: The Grinner is a rare sight, but its imposing size and ever-present smile strikes fear into those encountering it. It takes as much pleasure in scaring its victims as it does in devouring them whole.
+}
+
+BloodHunter: {
+	DisplayName: Blood Hunter
+	Bestiary: A gruesome arachnid of the crimson. It prefers a less direct approach compared to its spider relatives, maintaining distance with its pincers, and a stinger tail producing a potent venom.
+}
+
+ArchmageXDeathAnim.DisplayName: Xareus
+Conglomerate.DisplayName: Conglomerate
+
+Mosquito: {
+	DisplayName: Bloodsucker
+	Bestiary: A once nuisance turned into another monster. These creatures' bloodsucking ability makes them annoying alone, but dangerous in swarms, or for what lasting side effects they may bring.
+}
+
+Screecher: {
+	DisplayName: Shrieker
+	Bestiary: Medium sized, skinless creatures that roam the crimson as walking alarms of a sort. Their nerves are nearly exposed, allowing them to sense even the slightest disturbance and alert the crimson to it.
+}
+
+ArchmageCutsceneMartian.DisplayName: Archmage Xareus
+
+ArchmageStaffNPC: {
+	DisplayName: Archstaff
+	Bestiary: Of all magical elements in the world, few are quite so great as the Archstaff. A handle forged of pure-iron and mythril, with spectral bars and fallen stars poured in, wrapped in the finest archcloth, and a massive gemstone of crystallized shimmer and amethyst, able to, unlike other staves, instantly transmutate mana into magical energies and otherworldly portals, rather than using it to get magical power out of the item itself. This staff, despite its wielder, is a testament to all things magical and a culmination of all of the history within the arts, dark and light alike.
+}
+
+FleshDice.DisplayName: Flesh Dice
+
+Sheep: {
+	DisplayName: Sheep
+	Bestiary: Sheep are passive, friendly animals with a thick layer of wool and an appetite for grass, sheep's wool is quite common in many colorful items of clothing and especially comfort, to the surprise of very few
+}
+
+Ram: {
+	DisplayName: Ram
+	Bestiary:
+		'''
+		Rams, the dominant males of their herds, are very similar to typical sheep, with the only notable difference being their big horns.
+
+		      Due to GenCorp's high demand, their prices are incredibly high.
+		'''
+}
+
+JelleyeFish: {
+	DisplayName: Jelleye Fish
+	Bestiary: Fleshy tendrils drift afloat over the crimson's blood-spattered terrain. Originating from the sanguine waters of the crimson, these mutant abominations evolved to continuously grow numerous inconsolable eyes and float in the putrid air, not unlike their aquatic ancestors. Just don't make sashimi from these.
+}
+
+MiniSpectator: {
+	DisplayName: Spectator
+	Bestiary: An uncommon sight in the Crimson. In all recorded cases, Spectators have seemed to have no singular focus, analyzing crimson creatures, corruption creatures, and even pure creatures, with the same lack of intensity and eerie passiveness, to the point travelers claim they wish they could tell them jokes. Notably, the ones here are focused on you.
+}
+
+ArchmageX: {
+	DisplayName: Xareus
+	BossLogDisplayName: The Archmage
+	BossChecklistIntegration.SpawnInfo: Interact with the Archstaff in the Mysterious Shack, after unlocking the basement with a [i:LargeAmethyst].
+	Bestiary:
+		'''
+		The most magnificent and brilliant sorcerer to ever walk this earth... An unmatched master of wizardry! A true magician! The Archmage!!
+
+
+		All self-proclaimed, of course.
+		'''
+}
+
+CoinBag: {
+	DisplayName: Possessed Bag
+	Bestiary: A bag of coins that seems to be possessed by an overeagerly charitable spirit.
+}
+
+Chalice.DisplayName: Chalice
+Sudama.DisplayName: Sudama
+Aureus.DisplayName: Aureus
+Kodama.DisplayName: Kodama
+
+Botanist: {
+	DisplayName: Botanist
+	Bestiary: A strange forest monster with the ability to stretch its neck to an unnatural length before quickly slamming its head downward. Botanists tend to stalk their victims, disguised as an ordinary bush.
+}
+
+Belladonna: {
+	DisplayName: Belladonna
+	Bestiary: A type of plant humanoid, resembling a well-dressed botanist. Spends the day hibernating and photosynthesising, and emerges at night to spread her saplings: healing blueberries and explosive nightshades. True to her appearance, she takes great pride in her botany and vibrant complexion.
+}
+
+Pebbi1: {
+	DisplayName: Slab Pebbi
+	Bestiary: Pebbies are strange pieces of living rocks of many kinds, who swarm up to fend off travelers for no good reason. This one is quite speedy.
+}
+
+Pebbi2: {
+	DisplayName: Chunk pebbi
+	Bestiary: Pebbies are strange pieces of living rocks of many kinds, who swarm up to fend off travelers for no good reason. This one is quite hefty.
+}
+
+Pebbi3: {
+	DisplayName: Geode Pebbi
+	Bestiary: Pebbies are strange pieces of living rocks of many kinds, who swarm up to fend off travelers for no good reason. This one is quite rotund.
+}
+
+BoxFish: {
+	DisplayName: Yellow Boxfish
+	Bestiary: A cubical fish whose entire existence is dedicated to perpetually swimming through the deep blue sea.
+}
+
+BorealBlade: {
+	DisplayName: Boreal Blade
+	Bestiary: Also known as Knights of the Boreal, Boreal Blades are ice constructs animated by magic and the many souls frozen beneath the tundra.
+}
+
+CenturyFlower: {
+	DisplayName: Century Flower
+	Bestiary: These unique plants are capable of spewing large clouds of spores, dangerous to much of the wildlife. Their age makes them extremely irrational and ill-tempered, spewing their suffocating spores at anything they deem to be less wise.
+}
+
+AsteroidWarden: {
+	DisplayName: Asteroid Warden
+	Bestiary: These cosmic watchers thrive in the arcane star energy of the flowing river of starlight, and act as its first defenders from certain extraplanetary invaders.
+}
+
+FallingStar.DisplayName: Fallen Star
+
+Starlad: {
+	DisplayName: Starlad
+	Bestiary: Possessing astral energy strong enough to pierce through the night, the Starlads are both the prodigal backbone of this invasive species, and the first signs of the Witch's arrival.
+}
+
+BorealDancer: {
+	DisplayName: Boreal Dancer
+	Bestiary: Brought to life by souls claimed by the low temperatures of the tundra, Boreal Dancers enjoy an endlessly frigid dance.
+}
+
+AsteroidHerder: {
+	DisplayName: Asteroid Herder
+	Bestiary: Guardians of the river of starlight, they feed off of its endless supply of mana and use it to herd a flock of stars.
+}
+
+Flylad: {
+	DisplayName: Flylad
+	Bestiary: Winged threat coming from galaxies far away. It specializes in firing out small star projectiles, and it sometimes slams its own body down to ensure its survival and the success of the invasion.
+}
+
+Minilad: {
+	DisplayName: Laddie
+	Bestiary: Contrary to popular belief, the Laddie is not actually a juvenile Starlad, but a smaller, more agile branch of the species that specializes in consuming stellar energy from the air.
+}
+
+Obeselad: {
+	DisplayName: Fatlad
+	Bestiary: With it's wobbly legs and aloof face, the Fatlad would be the perfect tool to entertain children, if not for its brutal way of feeding by crushing small critters under its rotund body.
+}
+
+PebbiSwarm.DisplayName: Terrifying Pebbi Swarm Approaches Your Way
+
+Hookworm: {
+	DisplayName: Hookworm
+	Bestiary: An abnormal evolution of the giant worm with a gigantic set of mandibles, gotten from crushing the metals of the deep in their jaws. This allows them to tunnel at the same speed, but the lesser nutrients from eating stone has caused their flesh to become stringy and fragile.
+}
+
+Starine_Sightseer: {
+	DisplayName: Starine Sightseer
+	Bestiary: Brilliant and peaceful. Hovering around certain spots, they seem to study the environment. Although they may seem helpless, they will defend themselves if necessary.
+}
+
+Starine_Skipper: {
+	DisplayName: Starine Skipper
+	Bestiary: Powered by magic derived from the stars, it uses its well-developed back legs to hop and skip about the night, usually kicking off unsuspecting prey to cripple them.
+}
+
+Vivine: {
+	DisplayName: Vivine
+	Bestiary: A type of tripod carnivorous flower native to the jungle's moist caverns. Spits a pink corrosive substance at prey, approaching only to slurp up the pre-digested slurry.
+}
+
+HoarfrostCoiler: {
+	DisplayName: Hoarfrost Coiler
+	Bestiary: An ancient serpentine ice golem that used to guard a buried kingdom under the tundra.
+}
+
+HoarfrostCoilerBody.DisplayName: Hoarfrost Coiler Body
+HoarfrostCoilerTail.DisplayName: Hoarfrost Coiler Tail
