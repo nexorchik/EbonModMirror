@@ -8,7 +8,7 @@ public class XMusicI : ModItem
     public override void SetStaticDefaults()
     {
         CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/xareus"), ItemType<XMusicI>(), TileType<XMusic>());
+        MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "/Assets/SoundsMusic/xareus"), ItemType<XMusicI>(), TileType<XMusic>());
     }
 
     public override void SetDefaults()

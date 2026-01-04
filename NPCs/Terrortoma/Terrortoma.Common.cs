@@ -52,7 +52,7 @@ public partial class Terrortoma : ModNPC
         NPC.BossBar = GetInstance<TerrortomaBar>();
         NPC.HitSound = SoundID.NPCHit1;
         NPC.DeathSound = SoundID.NPCDeath1;
-        Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/EvilMiniboss");
+        Music = MusicLoader.GetMusicSlot(Mod, "Sounds/Music/EvilMiniboss");
         NPC.buffImmune[24] = true;
         NPC.buffImmune[BuffID.CursedInferno] = true;
         NPC.buffImmune[BuffID.Confused] = true;

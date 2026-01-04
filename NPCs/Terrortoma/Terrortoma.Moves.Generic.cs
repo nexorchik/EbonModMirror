@@ -58,7 +58,7 @@ public partial class Terrortoma : ModNPC
             if (AITimer == 305)
             {
                 if (!Main.dedServ)
-                    Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/ambience");
+                    Music = MusicLoader.GetMusicSlot(Mod, "Sounds/Music/ambience");
                 SoundEngine.PlaySound(EbonianSounds.chargedBeamWindUp, NPC.Center);
                 MPUtils.NewProjectile(NPC.InheritSource(NPC), NPC.Center, (rotation + PiOver2).ToRotationVector2(), ProjectileType<VileTearTelegraph>(), 0, 0);
             }
