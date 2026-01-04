@@ -113,7 +113,7 @@ public partial class Cecitior : ModNPC
     public void MiscChecks()
     {
         if (!Main.dedServ && AIState >= Intro)
-            Music = MusicLoader.GetMusicSlot(Mod, "Sounds/Music/EvilMiniboss");
+            Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/EvilMiniboss");
         
         if (!deathAnim && NPC.life <= 1)
         {

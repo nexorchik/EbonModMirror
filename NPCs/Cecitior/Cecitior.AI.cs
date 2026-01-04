@@ -86,7 +86,7 @@ public partial class Cecitior : ModNPC
 
             case PreDeath:
                 if (!Main.dedServ)
-                    Music = MusicLoader.GetMusicSlot(Mod, "Sounds/Music/ambience");
+                    Music = MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/ambience");
                 DoDeathPart2();
                 break;
 

@@ -8,7 +8,7 @@ public class EvilMusicI : ModItem
     public override void SetStaticDefaults()
     {
         CreativeItemSacrificesCatalog.Instance.SacrificeCountNeededByItemId[Type] = 1;
-        MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "/Assets/SoundsMusic/EvilMiniboss"), ItemType<EvilMusicI>(), TileType<EvilMusic>());
+        MusicLoader.AddMusicBox(Mod, MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/EvilMiniboss"), ItemType<EvilMusicI>(), TileType<EvilMusic>());
     }
 
     public override void SetDefaults()

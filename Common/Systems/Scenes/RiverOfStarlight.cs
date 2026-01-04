@@ -9,7 +9,7 @@ using Terraria.Graphics.Effects;
 namespace EbonianMod.Common.Systems.Scenes;
 public class RiverOfStarlight : ModSceneEffect
 {
-    public override int Music => MusicLoader.GetMusicSlot(Mod, "Sounds/Music/Meteor");
+    public override int Music => MusicLoader.GetMusicSlot(Mod, "Assets/Sounds/Music/Meteor");
     public override SceneEffectPriority Priority => SceneEffectPriority.Environment;
     public override bool IsSceneEffectActive(Player player)
     {
