@@ -325,7 +325,7 @@ public class Nightshade : ModProjectile
         Texture2D a = TextureAssets.Projectile[Type].Value;
         Main.EntitySpriteDraw(a, Projectile.Center - Main.screenPosition, null, color, Projectile.rotation, a.Size() / 2, 1, SpriteEffects.None, 0);
     }
-    public override void Kill(int timeLeft)
+    public override void OnKill(int timeLeft)
     {
         MPUtils.NewProjectile(Terraria.Entity.InheritSource(Projectile), Projectile.Center, Vector2.Zero, ProjectileType<Nightshade2>(), 10, 0);
     }

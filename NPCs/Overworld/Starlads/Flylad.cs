@@ -443,7 +443,7 @@ public class FlyladStarBomb : ModProjectile
         {
             GoreType<StarG0>(),GoreType<StarG1>(),GoreType<StarG2>(),GoreType<StarG3>(),GoreType<StarG4>(),GoreType<StarG5>(),GoreType<StarG6>(),
         };
-    public override void Kill(int timeLeft)
+    public override void OnKill(int timeLeft)
     {
         SoundEngine.PlaySound(SoundID.DD2_WitherBeastDeath);
 

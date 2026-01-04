@@ -1007,7 +1007,7 @@ public class MagnetSphere : ModProjectile
         Projectile.velocity = Projectile.DirectionTo(Main.LocalPlayer.Center) * 2; //So multiplayer friendly!!!!!!!!!!!
     }
 
-    public override void Kill(int timeLeft)
+    public override void OnKill(int timeLeft)
     {
         PunchCameraModifier modifier = new PunchCameraModifier(Projectile.Center, (Main.rand.NextFloat() * ((float)Math.PI * 2f)).ToRotationVector2(), 20f, 5f, 100, 1000f, FullName);
         Main.instance.CameraModifiers.Add(modifier);
