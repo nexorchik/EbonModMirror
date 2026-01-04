@@ -1,0 +1,915 @@
+RingOfFire: {
+	Tooltip:
+		'''
+		Ignores defense but never deals critical damage
+		Can't pop purple balloons
+		'''
+	DisplayName: Anel de Fogo
+}
+
+ToxicarpMKII: {
+	Tooltip:
+		'''
+		Dispara rajadas de peixes minúsculos, esses peixes imediatamente percebem que não estão debaixo d'água e morrem.
+		'Explosão Narval Nodoso!'
+		'''
+	DisplayName: Narval Nodoso
+}
+
+ThornBow: {
+	DisplayName: Arco Espinhento
+	Tooltip: ""
+}
+
+GutlingGun: {
+	DisplayName: Metralhadora Estripadeira
+	Tooltip: ""
+}
+
+EbonianRocketLauncher: {
+	DisplayName: Maxilazuca
+	Tooltip:
+		'''
+		Converte foguetes em foguetes teleguiados corrompidos
+		Foguetes que destroem blocos perdem essa propriedade
+		'''
+}
+
+EbonianGun: {
+	Tooltip: Converte qualquer projétil em projéteis corrompidos
+	DisplayName: Mosquete Infame
+}
+
+EbonianGatling: {
+	Tooltip: existe sla
+	DisplayName: Gatling Corrompida
+}
+
+Corebreaker: {
+	DisplayName: Quebra-Núcleo
+	Tooltip:
+		'''
+		Lança um núcleo explosivo
+		Aperte com o botão direito para lançar um laser
+		'''
+}
+
+TerrorFlail: {
+	DisplayName: Mangual do Terror
+	Tooltip: ""
+}
+
+SanguineSlasher: {
+	Tooltip: Restora {0} pontos de vida quando mordendo um inimigo
+	DisplayName: Presa de Carne
+}
+
+MeatCrusher: {
+	DisplayName: Esmagador de Carne
+	Tooltip: Possui um ataque único ao atingir o solo
+}
+
+Exolsaw: {
+	DisplayName: Disco Infernal
+	Tooltip: ""
+}
+
+EbonianScythe: {
+	Tooltip: Aumenta velocidade maxima de movimento enquanto portada
+	DisplayName: Cortador Podre
+}
+
+TerrorStaff: {
+	DisplayName: Cetro do Ninho
+	Tooltip:
+		'''
+		Invoca moscas-ébano inchadas que explodem inimigos próximos
+		Não ocupa espaços de lacaios
+		'''
+}
+
+Latcher: {
+	DisplayName: Sanguessuga
+	Tooltip: Arrasta você em direção aos inimigos e causa dano quando você chega muito perto
+}
+
+InferosVolI: {
+	DisplayName: Infernomicon
+	Tooltip: ""
+}
+
+GoreSceptre: {
+	DisplayName: Desfibrilador
+	Tooltip:
+		'''
+		Invoca um coração eletrificado para eletrocutar inimigos
+		'AFASTAR!'
+		'''
+}
+
+EbonHiveI: {
+	Tooltip: ""
+	DisplayName: Aglomerado Corrompido
+}
+
+Panopticon: {
+	DisplayName: Cubo de Carne
+	Tooltip: Invoca um Cubo de Carne
+}
+
+CursedCone: {
+	DisplayName: Cone Amaldiçoado
+	Tooltip: Invoca o Terrortomazinho
+}
+
+DoomsdayRemote: {
+	DisplayName: Botão Vermelho
+	Tooltip:
+		'''
+		Chama um ataque de drones no local indicado
+		Um dos muitos experimentos fracassados(?) da GenCorp
+		'''
+}
+
+IchorFlintlock: {
+	Tooltip: Converte projéteis em dentes
+	DisplayName: Magnum Dentado
+}
+
+FangSlinger: {
+	DisplayName: Estilingue de Presa
+	Tooltip: ""
+}
+
+CrimCannon: {
+	Tooltip: Lança dentaduras que se prendem a inimigos e os mordem
+	DisplayName: Dentaduras Ensanguentadas
+}
+
+PepperSpray: {
+	DisplayName: Spray de Pimenta
+	Tooltip: ""
+}
+
+WormPaintingI: {
+	Tooltip: Por O. Digger
+	DisplayName: O verme
+}
+
+WaspPaintingI: {
+	Tooltip:
+		'''
+		'dedicado a uma espécie extinta há muito tempo'
+		Por E. Fly
+		'''
+	DisplayName: A Vespa
+}
+
+HotMusic: {
+	Tooltip: Toca "Trash Compactor" por Yuri O
+	DisplayName: Caixinha de Música (Lixão Quente)
+}
+
+ExolMusicI: {
+	Tooltip: Toca "Rage" por Yuri O
+	DisplayName: Caixinha de Música  (Inferos)
+}
+
+EvilMusicI: {
+	Tooltip: Toca "Forces of Evil" por Yuri O
+	DisplayName: Caixinha de Música  (Terrortoma & Cegueiro)
+}
+
+DappertomaI: {
+	Tooltip: Por Sr. Thomas
+	DisplayName: Elegantoma
+}
+
+DapperCecitiorI: {
+	Tooltip: Por Sr. Unsighted
+	DisplayName: Homem de Visão
+}
+
+GarbageRemote: {
+	Tooltip: Permite a comunicação com a única IA a atingir a singularidade
+	DisplayName: Computador Quântico Empoeirado
+	NoteForTranslators: The 'Be warned.' HAS to match in both the Warning and Tooltip
+}
+
+ExolWings: {
+	Tooltip: ""
+	DisplayName: Asas Infernais
+}
+
+EbonianHeart: {
+	Tooltip:
+		'''
+		Reduz defesa em {0}
+		Aumenta o número máximo de lacaios que você pode ter em {1}
+		Aumenta em {2}% os danos por invocação 
+		Invoca um coração corrompido que segue você e atira chamas amaldiçoadas em inimigos próximos
+		'''
+	DisplayName: Coração Podre
+}
+
+BrainAcc: {
+	Tooltip:
+		'''
+		Aumenta a regeneração de vida
+		Invoca vários cérebros para atuar como um escudo contra ataques não perfurantes
+		'''
+	DisplayName: Cerebro Vazando
+}
+
+IchorGlobScepter: {
+	Tooltip: Lança uma bola nojenta que se divide em 3 pedaços menores
+	DisplayName: Cetro de Gosma
+}
+
+VileNoodleBox: {
+	Tooltip:
+		'''
+		Oferece azia ardente 100% garantida
+		The noodles seem to wiggle
+		'''
+	DisplayName: Caixa de Macarrão Infame
+}
+
+CorruptionStaff: {
+	Tooltip: Conjura espinhos infames teleguiados
+	DisplayName: Espinho-Rasgado
+}
+
+CrimsonSpear: {
+	DisplayName: Venábulo Vitriólico
+	Tooltip: Fica mais potente com uso prolongado
+}
+
+Spinax: {
+	DisplayName: Machado Vertebral
+	Tooltip: Uma antiga espinha de dinossauro imbuída do poder do carmesim
+}
+
+SelfStab: {
+	DisplayName: Adaga de Sacrifício
+	Tooltip: Massively boosts all your damage, at a cost
+}
+
+MagmaBow: {
+	DisplayName: Arco Quintuplo
+	Tooltip: Atira 5 flechas vulcânicas
+}
+
+ReiMask: {
+	DisplayName: Máscara da Voidrunner
+	Tooltip:
+		'''
+		Aumenta um pouco a velocidade de movimento
+		Permite teletransporte pressionando {ReiM_Keybind} enquanto pairando sobre um inimigo
+		'''
+}
+
+DjungelskogI: {
+	DisplayName: Djungelskog
+	Tooltip: Invoca um Djungelskog
+}
+
+Ostertagi: {
+	DisplayName: Ostertagia
+	Tooltip: Aumenta o dano e a velocidade de ataque, a um custo
+}
+
+Potato: {
+	DisplayName: Batata
+	Tooltip: Então. Como vão as coisas?
+}
+
+ClementinesCap: {
+	DisplayName: Boné Sangrento
+	Tooltip: "'Definitivamente já viu dias melhores'"
+}
+
+InfernoBreastplate: {
+	DisplayName: Peitoral Infernal
+	Tooltip: ""
+}
+
+InfernoHeadgear: {
+	DisplayName: Elmo Infernal
+	Tooltip: ""
+}
+
+InfernoHeadgearAlt: {
+	DisplayName: Máscara Infernal
+	Tooltip: ""
+}
+
+InfernoLeggings: {
+	DisplayName: Perneiras Infernais
+	Tooltip: ""
+}
+
+Serration: {
+	DisplayName: Serrilhado
+	Tooltip: Possui um ataque único ao atingir o solo
+}
+
+CecitiorBag: {
+	DisplayName: Bolsa do Tesouro ({$Mods.EbonianMod.NPCs.Cecitior.DisplayName})
+	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+}
+
+TerrortomaBag: {
+	DisplayName: Bolsa do Tesouro ({$Mods.EbonianMod.NPCs.Terrortoma.DisplayName})
+	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+}
+
+CursedToy: {
+	Tooltip: Gera projéteis do céu
+	DisplayName: Boneco Amaldiçoado
+}
+
+CorruptionClaw: {
+	Tooltip: Possui um ataque combinado único
+	DisplayName: Garra Acorrentada
+}
+
+VaccumWorm: {
+	Tooltip: Suga inimigos fracos
+	DisplayName: Verme Aspirador
+}
+
+PhantasmalGreatsword: {
+	DisplayName: Cortador dos Céus de Chamas Sombrias do Arquimago Xareus
+	Tooltip:
+		'''
+		Projeta versões de chamas sombrias da espada ao acertar
+		Feito pelo Arquimago Xareus... Como decoração de parede
+		'''
+}
+
+GhizasWheel: {
+	DisplayName: Roda Corrosiva
+	Tooltip:
+		'''
+		Inflige Inferno Amaldiçoado ao acertar
+		Ignora defesa
+		'''
+}
+
+Equilibrium: {
+	Tooltip: ""
+	DisplayName: Equilibrio
+}
+
+Chainsword: {
+	DisplayName: Espada Motorizada do Ferro-velho
+	Tooltip: Ignora {0} pontos de defesa inimiga
+}
+
+CecitiorClawSummon: {
+	DisplayName: Coçador de Costas
+	Tooltip: "'Olá, Peter'"
+}
+
+HotShield: {
+	DisplayName: Tampa de Lixão
+	Tooltip: Diminui a velocidade de movimento em {0}%
+}
+
+CecitiorMaterial: {
+	DisplayName: Pedaço Carnudo
+	Tooltip: Pedaços contorcidos de carne carmesim
+}
+
+TerrortomaMaterial: {
+	DisplayName: Matéria Celular
+	Tooltip: Pedaços contorcidos de matéria corrompida
+}
+
+ToothToothbrush: {
+	DisplayName: Escova de Dentes de Dentes
+	Tooltip: Possui um ataque único ao atingir o solo
+}
+
+PipebombI: {
+	DisplayName: Bomba Caseira
+	Tooltip:
+		'''
+		Pode ser usado para causar dano aos NPCs de cidade
+		'O que será que acontece se eu-'
+		'''
+}
+
+SpudCannon: {
+	DisplayName: Canhão de batatas
+	Tooltip: Usa batatas como munição
+}
+
+CursedScourge: {
+	DisplayName: Flagelo Amaldiçoado
+	Tooltip: ""
+}
+
+Bloodlash: {
+	DisplayName: Chicote de Sangue
+	Tooltip: ""
+}
+
+ArchmageXTome: {
+	DisplayName: Tomo da Sabedoria Infinita do Grande Arquimago
+	Tooltip: Conjura Energia de Ametista para invocar Espíritos Fantasmagóricos para você.
+}
+
+StaffOfXItem: {
+	DisplayName: Vara de X Item
+	Tooltip: ""
+}
+
+StaffOfX: {
+	DisplayName: Arcocajado do Tragicamente Falecido Arquimago Xareus
+	Tooltip: Forjado a partir de puro pó de relâmpago, das melhores ametistas do reino dos cristais... etc. etc.
+}
+
+StaffofXWeapon: {
+	DisplayName: Variante Encolhida do Arquicajado de Xareus
+	Tooltip: Não tem a grandeza do Verdadeira Arquicajado.
+}
+
+XareusPotion: {
+	DisplayName: Poção de Mana Infinita de Xareus
+	Tooltip: Letal para beber
+}
+
+ArchmageBag: {
+	DisplayName: Bolsa do Tesouro ({$Mods.EbonianMod.NPCs.ArchmageX.DisplayName})
+	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+}
+
+TerrortomaTrophy: {
+	DisplayName: Troféu do Terrortoma
+	Tooltip: ""
+}
+
+XTentacleAcc: {
+	DisplayName: Tentáculo de Xareus
+	Tooltip: Fortalece ataques mágicos com uma ametista saltitante
+}
+
+GarbageFlail: {
+	DisplayName: Rebarbadora Peculiar
+	Tooltip: Gira
+}
+
+TitteringStaff: {
+	DisplayName: Cajado do Risinho
+	Tooltip: Invoca Risinhos minúsculos que disparam raios de Inferno Amaldiçoado em inimigos próximos
+}
+
+GarbageBagI: {
+	DisplayName: Bolsa do Tesouro ({$Mods.EbonianMod.NPCs.HotGarbage.DisplayName})
+	Tooltip: "{$CommonItemTooltip.RightClickToOpen}"
+}
+
+CecitiorPet: {
+	DisplayName: Olho do Cegueiro
+	Tooltip: Invoca um Olho do Cegueiro
+}
+
+GarbagePet: {
+	DisplayName: Saco de Lixo
+	Tooltip: Invoca um Saco de Lixo
+}
+
+SheepPet: {
+	DisplayName: Lâ Macia
+	Tooltip: Invoca uma ovelha
+}
+
+CecitiorTrophy: {
+	DisplayName: Troféu do Cegueiro
+	Tooltip: ""
+}
+
+GarbageTrophy: {
+	DisplayName: Troféu do Lixão Quente
+	Tooltip: ""
+}
+
+XMusicI: {
+	DisplayName: Caixinha de Música (Xareus)
+	Tooltip: Toca "Die Human Enemy" por Yuri O
+}
+
+XTrophy: {
+	DisplayName: Troféu do Xareus
+	Tooltip: ""
+}
+
+SheepItem: {
+	DisplayName: Ovelha
+	Tooltip: ""
+}
+
+MailboxStaff: {
+	DisplayName: Cajado da Caixa de Correio
+	Tooltip: Invoca uma Caixa de Correio sentinela
+}
+
+CecitiorRelic: {
+	DisplayName: Relíquia do Cegueiro
+	Tooltip: ""
+}
+
+GarbageRelic: {
+	DisplayName: Relíquia do Lixão Quente
+	Tooltip: ""
+}
+
+TerrortomaRelic: {
+	DisplayName: Relíquia do Terrortoma
+	Tooltip: ""
+}
+
+XRelic: {
+	DisplayName: Relíquia do Xareus
+	Tooltip: ""
+}
+
+SalvagedThruster: {
+	DisplayName: Propulsor Recuperado
+	Tooltip:
+		'''
+		Usa gel como munição
+		'Um pouquinho de spam de poeira...'
+		'''
+}
+
+NastySnapper: {
+	DisplayName: Chicote Nojento
+	Tooltip:
+		'''
+		{$CommonItemTooltip.SummonTagDamage}
+		{$CommonItemTooltip.Whips}
+		'Tem cheiro de peixe'
+		'''
+}
+
+WoolenBoots: {
+	DisplayName: Botas de Lã
+	Tooltip:
+		'''
+		Aumenta o dano do chicote em {0}%
+		Aumenta a velocidade do chicote em {1}%
+		'''
+}
+
+WoolenCoat: {
+	DisplayName: Casaco de Lã
+	Tooltip:
+		'''
+		Aumenta o dano de invocação em {0}%
+		Aumenta seu número máximo de lacaios em {1}
+		'''
+}
+
+WoolenUshanka: {
+	DisplayName: Ushanka de Lã
+	Tooltip: Aumenta o dano de invocação em {0}%
+	SetBonus:
+		'''
+		Aumenta seu número máximo de lacaios em {0}
+		Fornece imunidade aos efeitos do frio e do congelamento
+		'''
+}
+
+Wool: {
+	DisplayName: Lã
+	Tooltip: ""
+}
+
+XMask: {
+	DisplayName: Máscara do Xareus
+	Tooltip: ""
+}
+
+GarbageMask: {
+	DisplayName: Máscara de Lixo
+	Tooltip: ""
+}
+
+CeciMask: {
+	DisplayName: Máscara do Cegueiro
+	Tooltip: ""
+}
+
+TTomaMask: {
+	DisplayName: Máscara do Terrortoma
+	Tooltip: ""
+}
+
+XHouseBrickReplicaItem: {
+	DisplayName: Tijolo de Ametista
+	Tooltip: ""
+}
+
+Terrortome: {
+	DisplayName: Terrortomo
+	Tooltip: ""
+}
+
+Sawcitior: {
+	DisplayName: Cerra-gueiro
+	Tooltip: Lança duas serras que colidem uma com a outra
+}
+
+Shears: {
+	DisplayName: Tesoura de Tosquiar
+	Tooltip: Pode ser usado para obter lã de ovelhas
+}
+
+SheepItemNaked: {
+	DisplayName: Ovelha (Tosquiada)
+	Tooltip: ""
+}
+
+WoolChairI: {
+	DisplayName: Cadeira de Lã
+	Tooltip: ""
+}
+
+WoolDoorI: {
+	DisplayName: Porta de Lã
+	Tooltip: ""
+}
+
+WoolLampI: {
+	DisplayName: Lâmpada de Lã
+	Tooltip: ""
+}
+
+WoolTableI: {
+	DisplayName: Mesa de Lã
+	Tooltip: ""
+}
+
+WoolWorkbenchI: {
+	DisplayName: Bancada de Lã
+	Tooltip: ""
+}
+
+WoolWoodI: {
+	DisplayName: Madeira de Lã
+	Tooltip: ""
+}
+
+WoolWoodPlatformI: {
+	DisplayName: Plataforma de Lã
+	Tooltip: ""
+}
+
+WoolWoodWallI: {
+	DisplayName: Parede de Lã
+	Tooltip: ""
+}
+
+SilverBasher: {
+	DisplayName: Golpeador de Prata
+	Tooltip: ""
+}
+
+terrortomaFishingRod: {
+	DisplayName: Lançador da Praga
+	Tooltip: ""
+}
+
+cecitiorFishingRod: {
+	DisplayName: Linhagem de Sangue
+	Tooltip: ""
+}
+
+BallLauncher: {
+	DisplayName: Arremessador
+	Tooltip:
+		'''
+		Clique com o botão direito para carregar um ataque explosivo
+		Usa foguetes como munição
+		'''
+}
+
+CorruptrotI: {
+	DisplayName: Bloco de Podridão Corrompida
+	Tooltip: ""
+}
+
+FleshichorI: {
+	DisplayName: Bloco de Ichor Carnudo
+	Tooltip: ""
+}
+
+AureusSpawnItem: {
+	DisplayName: Invocador do Aureus
+	Tooltip: ""
+}
+
+ConglomerateEnergyDrink: {
+	DisplayName: Bebida Energética do Conglomerado
+	Tooltip: Contém 63% de Conglorina, 22% de Ichor B6, 13% de Chamas Amaldiçoadas Naturais e outros ingredientes diversos.
+}
+
+CongFisherate: {
+	DisplayName: Linha de Sanguessuga Podre
+	Tooltip: ""
+}
+
+CeciChairI: {
+	DisplayName: Cadeira de Ichor Carnudo
+	Tooltip: ""
+}
+
+CeciPlatformI: {
+	DisplayName: Plataforma de Ichor Carnudo
+	Tooltip: ""
+}
+
+CeciWallI: {
+	DisplayName: Parede de Ichor Carnudo
+	Tooltip: ""
+}
+
+TTomaChairI: {
+	DisplayName: Cadeira de Podridão Corrompida
+	Tooltip: ""
+}
+
+TTomaPlatformI: {
+	DisplayName: Plataforma de Podridão Corrompida
+	Tooltip: ""
+}
+
+TTomaWallI: {
+	DisplayName: Parede de Podridão Corrompida
+	Tooltip: ""
+}
+
+Bat: {
+	DisplayName: Taco
+	Tooltip: ""
+}
+
+SudamaTrident: {
+	DisplayName: Tridente da Sudama
+	Tooltip: ""
+}
+
+KodamaStaff: {
+	DisplayName: Cajado da Kodama
+	Tooltip: ""
+}
+
+BoxFishItem: {
+	DisplayName: Peixe-cofre-amarelo
+	Tooltip: ""
+}
+
+ShewStone: {
+	DisplayName: Pedra de Exibição
+	Tooltip: Clique com o botão direito para desativar prematuramente um conglomerado de cristal ativo
+}
+
+WardingStar: {
+	DisplayName: Estrela Sentinela
+	Tooltip: ""
+}
+
+BlinkrootI: {
+	DisplayName: Botão Brilhante
+	Tooltip: Invoca um Amiguinho Brilhante
+}
+
+LilPilgI: {
+	DisplayName: Pequena Memoria
+	Tooltip: Evoca uma memória iluminada pela lua
+}
+
+ThawGauntlet: {
+	DisplayName: Toque Frio
+	Tooltip: ""
+}
+
+CenturySprayer: {
+	DisplayName: Pulverizador Secular
+	Tooltip: Sufoca os inimigos
+}
+
+GoldenTip: {
+	DisplayName: Ponta de Flecha Dourada
+	Tooltip: Ocasionalmente converte qualquer flecha em uma com ponta de ouro que aumenta o valor do inimigo atingido
+}
+
+StarBit: {
+	DisplayName: Pedaço Estelar
+	Tooltip:
+		'''
+		3% de aumento na chance de acerto crítico
+		Atire um pedaço estelar em ataques críticos
+		Uma iguaria entre as estrelas!
+		'''
+}
+
+RoSTest: {
+	DisplayName: Este Item Exclui O Mod Eboniano. Não Use Isso.
+	Tooltip: ""
+}
+
+RustyWaraxe: {
+	DisplayName: Machado de Guerra Enferrujado
+	Tooltip: Golpes críticos causam cortes profundos
+}
+
+BotanistHeadStaff: {
+	DisplayName: Cabeça de Botânico
+	Tooltip: ""
+}
+
+BaseballBat: {
+	DisplayName: Taco de beisebol
+	Tooltip: ""
+}
+
+Cecibody: {
+	DisplayName: Peitoral Cego
+	Tooltip: Aumenta o dano de corpo a corpo em {0}% e a velocidade de armas de corpo a corpo em {1}%
+}
+
+Cecihead: {
+	DisplayName: Capuz Cego
+	Tooltip: Aumenta o dano de corpo a corpo em {0}% e a velocidade de armas de corpo a corpo em {1}%
+	SetBonus: Matar inimigos tem 1/4 de chance de desencadear uma explosão de ichor
+}
+
+Cecilegs: {
+	DisplayName: Perneiras Cegas
+	Tooltip: Aumenta o dano de corpo a corpo em {0}% e a chance de acerto crítico de armas de corpo a corpo em {1}%
+}
+
+Terrorbody: {
+	DisplayName: Peitoral Tumoral
+	Tooltip: Aumenta o dano mágico em {0}% e a mana máximo em {1}
+}
+
+Terrorhead: {
+	DisplayName: Capacete Tumoral
+	Tooltip: Aumenta o dano mágico em {0}% e a chance de acerto crítico mágico em {1}%
+	SetBonus: Causar dano suficiente libera uma explosão de chamas amaldiçoadas no alvo
+}
+
+Terrorlegs: {
+	DisplayName: Perneiras Tumorais
+	Tooltip: Aumenta o dano mágico em {0}%
+}
+
+BlindeyeBow: {
+	DisplayName: Arco do Olho Cego
+	Tooltip: ""
+}
+
+Spitvine: {
+	DisplayName: Vinha Cuspideira
+	Tooltip: ""
+}
+
+CursedDoll: {
+	DisplayName: Boneco Amaldiçoado
+	Tooltip: ""
+}
+
+Fangnum: {
+	// DisplayName: Fangnum
+	// Tooltip: ""
+}
+
+Lobber: {
+	// DisplayName: Lobber
+	// Tooltip: ""
+}
+
+Starcaller: {
+	// DisplayName: Starcaller
+	// Tooltip: ""
+}
+
+TheRock: {
+	DisplayName: A Pedra
+	Tooltip: É apenas uma pedra, uma pedra branca.
+}
+
+RamItemNaked: {
+	// Tooltip: ""
+	// DisplayName: Ram (Sheared)
+}
+
+RamItem: {
+	// Tooltip: ""
+	// DisplayName: Ram
+}

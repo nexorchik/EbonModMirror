@@ -1,0 +1,18 @@
+Types: {
+	Xareus: Type: Feiticeiro 'Mestre'
+	Staff: Type: Varinha Mágica
+	Cecitoma: Type: Construção Orgânica
+	Construct: Type: Construção
+	Plant: Type: Planta
+	Fungus: Type: Fungo Espacial
+	Evil: Type: Criatura Infectada
+	Organ: Type: Orgão
+	HotGarbage: Type: Lixeira
+	Animal: Type: Animal de Fazenda
+	Obj: Type: Objeto Possuído
+}
+
+Signs: {
+	Shack0: DOMÍNIO DO GRANDE ARQUEMAGO
+	Shack1: Lista de compras: Ametistas, Frascos, Pó de Chama Sombria, Comida para Cajados, Ametistas
+}

@@ -1,0 +1,166 @@
+Buffs: {
+	ExolStun: {
+		Description: Atordoado
+		DisplayName: Atordoado
+	}
+
+	PanopticonB: {
+		Description: Esta prisão... Para orbitar em torno... de MIM!?
+		DisplayName: Cubo de Carne
+	}
+
+	HightomaB: {
+		Description: Não está totalmente lúcido o suficiente para tentar atacá-lo
+		DisplayName: Terrortomazinho
+	}
+
+	RollegB: {
+		Description: Cogumelinho Neko
+		DisplayName: Ooaoaaoa mmm))
+	}
+
+	SelfStabB: {
+		DisplayName: Sacrificado
+		Description: Dano aumentado significativamente.
+	}
+
+	DjungelskogB: {
+		DisplayName: Djungelskog
+		Description: En mjuk djungelkompis som gärna följer med på äventyr.
+	}
+
+	OstertagiB: {
+		DisplayName: Infetado
+		Description: Dano e velocidade de ataque aumentados.
+	}
+
+	Sheepened: {
+		DisplayName: Ovelhificado
+		Description: Isto é realmééénte ruim!
+	}
+
+	XTomeBuff: {
+		DisplayName: Espíritos Fantasmagóricos
+		Description: Você irradia energia de ametista que lutará por você.
+	}
+
+	CecitiorClawBuff: {
+		DisplayName: Coçador de Costas
+		Description: Garras de Carmesins brotam de suas costas e lutam por você.
+	}
+
+	TitteringB: {
+		DisplayName: Risinhos
+		Description: Pequenos Risinhos lutam por você.
+	}
+
+	CecitiorPetB: {
+		DisplayName: Olho do Cegueiro
+		Description: Garras não incluídas!
+	}
+
+	GarbagePetB: {
+		DisplayName: Saco de Lixo
+		Description: Cheira horrívelmente.
+	}
+
+	SheepPetB: {
+		DisplayName: Ovelha
+		Description: Pode ter sido vítima da Ovelhificação.
+	}
+
+	NastySnapperDebuff: {
+		DisplayName: Debuff do Chicote Nojento
+		Description: Mods.EbonianMod.Buffs.NastySnapperDebuff.Description
+	}
+
+	ConglomerateEnergyBuff: {
+		DisplayName: Overdose de Conglomerado
+		Description: Você realmente deveria beber menos disso.
+	}
+
+	BlinkrootB: {
+		DisplayName: Amiguinho Brilhante
+		Description: Ele está tentando o seu melhor para iluminar seu caminho
+	}
+
+	LilPilgB: {
+		DisplayName: Pequena Missionária
+		Description: Ela quer te ensinar sobre as estrelas!
+	}
+
+	NPCSuffocating: {
+		DisplayName: N P C Suffocating
+		Description: Mods.EbonianMod.Buffs.NPCSuffocating.Description
+	}
+
+	RustyCut: {
+		DisplayName: Rusty Cut
+		Description: Mods.EbonianMod.Buffs.RustyCut.Description
+	}
+
+	DoomsdayBuff: {
+		DisplayName: Doomsday Buff
+		Description: Mods.EbonianMod.Buffs.DoomsdayBuff.Description
+	}
+
+	SudamaBuff: {
+		DisplayName: Sudama
+		Description: Sudamas lutam por você.
+	}
+
+	PlantGunB: {
+		DisplayName: Plant Gun B
+		Description: Mods.EbonianMod.Buffs.PlantGunB.Description
+	}
+}
+
+Keybinds: {
+	"Rei Dash.DisplayName": Deslizamento Temporal (Voidrunner Mask Ability)
+	"Time Slip.DisplayName": Deslizamento Temporal (Voidrunner Mask Ability)
+}
+
+Biomes: {
+	SpawnAnimMusic: {
+		DisplayName: Musica de Invocação
+		TownNPCDialogueName: lol
+	}
+
+	ShackMusic: {
+		DisplayName: Música da Cabana
+		TownNPCDialogueName: Música da Cabana
+	}
+}
+
+Configs: {
+	EbonianClientConfig: {
+		DisplayName: Configuração do cliente
+
+		MuteBowPull: {
+			Label: Silencie os efeitos sonoros do arco puxado
+			Tooltip: Silencia o som ao usar alguns arcos adicionados pelo Ebonian Mod.
+		}
+
+		BowPullVolume: {
+			Label: Volume de puxar arco
+			Tooltip: ""
+		}
+	}
+
+	EbonianServerConfig: {
+		DisplayName: Configuração do servidor
+
+		XareusDelay: {
+			Label: Atraso em quadros do Xareus (60 quadros = 1 segundo)
+			Tooltip: O atraso antes que Xareus possa ser convocado novamente
+		}
+	}
+}
+
+DeathMessages: {
+	NukeTP: "{0} pensou que era inteligente."
+	OstertagiDeath: "{0} Não se importou com os vermes."
+	Suicide: "{0} decidiu pegar o caminho mais fácil..."
+	ParasiteDeath: "{0} ficou gravemente anêmico."
+	NukeDeath: "{0} defendeu a legalização das bombas nucleares."
+}
