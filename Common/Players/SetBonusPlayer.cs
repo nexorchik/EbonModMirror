@@ -1,7 +1,7 @@
-﻿using EbonianMod.Items.Weapons.Magic;
-using EbonianMod.Projectiles.Friendly.Corruption;
-using EbonianMod.Projectiles.Friendly.Crimson;
-using EbonianMod.Projectiles.VFXProjectiles;
+﻿using EbonianMod.Content.Items.Weapons.Magic;
+using EbonianMod.Content.Projectiles.Friendly.Corruption;
+using EbonianMod.Content.Projectiles.Friendly.Crimson;
+using EbonianMod.Content.Projectiles.VFXProjectiles;
 using System;
 using System.Collections.Generic;
 using System.Linq;

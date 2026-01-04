@@ -1,8 +1,9 @@
-using EbonianMod.Items.Armor.Vanity;
-using EbonianMod.NPCs.ArchmageX;
-using EbonianMod.NPCs.Cecitior;
-using EbonianMod.NPCs.Garbage;
-using EbonianMod.NPCs.Terrortoma;
+using EbonianMod.Content.Items.Vanity;
+using EbonianMod.Content.NPCs.ArchmageX;
+using EbonianMod.Content.NPCs.Cecitior;
+using EbonianMod.Content.NPCs.Garbage;
+using EbonianMod.Content.NPCs.Terrortoma;
+using EbonianMod.Core.Systems.Boss;
 
 namespace EbonianMod.Common.Globals;
 public class GenericGlobalNPC : GlobalNPC
@@ -14,11 +15,11 @@ public class GenericGlobalNPC : GlobalNPC
             if (Main.rand.NextBool(10))
             {
                 WeightedRandom<string> _chat = new();
-                if (GetInstance<EbonianSystem>().xareusFuckingDies)
+                if (GetInstance<XareusSystem>().downedMartianXareus)
                     _chat.Add(Language.GetTextValue("Mods.EbonianMod.Dialogue.Wizard.WizardAboutX1"));
-                else if (GetInstance<EbonianSystem>().downedXareus)
+                else if (GetInstance<XareusSystem>().downedXareus)
                     _chat.Add(Language.GetTextValue("Mods.EbonianMod.Dialogue.Wizard.WizardAboutX2"));
-                else if (GetInstance<EbonianSystem>().timesDiedToXareus > 0)
+                else if (GetInstance<XareusSystem>().timesDiedToXareus > 0)
                 {
                     _chat.Add(Language.GetTextValue("Mods.EbonianMod.Dialogue.Wizard.WizardAboutX3"));
                     _chat.Add(Language.GetTextValue("Mods.EbonianMod.Dialogue.Wizard.WizardAboutX4"));
@@ -29,7 +30,7 @@ public class GenericGlobalNPC : GlobalNPC
                     _chat.Add(Language.GetTextValue("Mods.EbonianMod.Dialogue.Wizard.WizardAboutX6"));
                     _chat.Add(Language.GetTextValue("Mods.EbonianMod.Dialogue.Wizard.WizardAboutX7"));
                 }
-                if (GetInstance<EbonianSystem>().timesDiedToXareus > 0)
+                if (GetInstance<XareusSystem>().timesDiedToXareus > 0)
                     _chat.Add(Language.GetTextValue("Mods.EbonianMod.Dialogue.Wizard.WizardAboutX8"));
                 chat = _chat;
             }

@@ -201,7 +201,7 @@ Consumer: {
 
 Regorger: {
 	DisplayName: Tittering
-	Bestiary: A tittering's laugh echoes from afar, often fueling campfire tales that portray it as a mysterious cryptid. It remains unclear whether the creature's laughter is from genuine amusement or merely a biological reflex after spewing a beam of cursed flames.
+	Bestiary: A tittering's laugh echoes from afar, often fueling campfire tales that porTileRaycast it as a mysterious cryptid. It remains unclear whether the creature's laughter is from genuine amusement or merely a biological reflex after spewing a beam of cursed flames.
 }
 
 Vileglider: {

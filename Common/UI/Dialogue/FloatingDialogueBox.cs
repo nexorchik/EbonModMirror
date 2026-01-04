@@ -138,7 +138,7 @@ public class FloatingDialogueBox
             {
                 if (oldVisibleText != visibleText && visibleText != text)
                 {
-                    if (timeLeft % soundInterval == 0 && sound != EbonianSounds.None)
+                    if (timeLeft % soundInterval == 0 && sound != Sounds.None)
                         SoundEngine.PlaySound(sound, Center);
                     if (animationType != DialogueAnimationIDs.ColorWhite)
                     {

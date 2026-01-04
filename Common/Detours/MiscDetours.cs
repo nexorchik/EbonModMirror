@@ -1,4 +1,5 @@
-﻿using EbonianMod.NPCs.ArchmageX;
+﻿using EbonianMod.Content.NPCs.ArchmageX;
+using EbonianMod.Core.Systems.Boss;
 using Terraria.Graphics.Effects;
 
 namespace EbonianMod.Common.Detours;
@@ -17,21 +18,20 @@ public class MiscDetours : ModSystem
         orig(self, gameTime);
         if (!Main.dedServ)
         {
-            if (Main.FrameSkipMode == Terraria.Enums.FrameSkipMode.On) EbonianSystem.deltaTime = 1;
+            if (Main.FrameSkipMode == Terraria.Enums.FrameSkipMode.On) TimeSystem.deltaTime = 1;
             else
             {
                 float averageFrameRate = (Main.frameRate + oldFrameRate) / 2f;
-                EbonianSystem.deltaTime = Clamp((float)(gameTime.TotalGameTime.TotalSeconds - gameTime.ElapsedGameTime.TotalSeconds) / (averageFrameRate), 0.2f, 1.1f);
+                TimeSystem.deltaTime = Clamp((float)(gameTime.TotalGameTime.TotalSeconds - gameTime.ElapsedGameTime.TotalSeconds) / (averageFrameRate), 0.2f, 1.1f);
             }
         }
     }
     void EventClear(On_NPC.orig_SetEventFlagCleared orig, ref bool eventFlag, int gameEventId)
     {
-        if (gameEventId == 3 && !GetInstance<EbonianSystem>().xareusFuckingDies && GetInstance<EbonianSystem>().downedXareus)
+        if (gameEventId == 3 && !GetInstance<XareusSystem>().downedMartianXareus && GetInstance<XareusSystem>().downedXareus)
         {
             MPUtils.NewNPC(Main.player[0].Center, NPCType<ArchmageCutsceneMartian>(), false, -1);
-            //NPC.NewNPCDirect(null, Main.player[0].Center, NPCType<ArchmageCutsceneMartian>(), 0, -1);
-            GetInstance<EbonianSystem>().xareusFuckingDies = true;
+            GetInstance<XareusSystem>().downedMartianXareus = true;
         }
         orig(ref eventFlag, gameEventId);
     }

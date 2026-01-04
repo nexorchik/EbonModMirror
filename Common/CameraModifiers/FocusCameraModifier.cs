@@ -32,7 +32,7 @@ public class FocusCameraModifier : ICameraModifier
         cameraInfo.CameraPosition = Vector2.Lerp(cameraInfo.CameraPosition, Vector2.Lerp(cameraInfo.CameraPosition, _pos, lerpT), _snappingRate);
 
         if (!Main.gameInactive && !Main.gamePaused)
-            _framesLasted += EbonianSystem.deltaTime;
+            _framesLasted += TimeSystem.deltaTime;
         if (_framesLasted >= _framesToLast)
             Finished = true;
     }

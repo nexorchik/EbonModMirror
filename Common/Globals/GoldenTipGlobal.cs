@@ -1,5 +1,5 @@
 ﻿using EbonianMod.Common.Players;
-using EbonianMod.Projectiles.Friendly.Generic;
+using EbonianMod.Content.Projectiles.Friendly.Generic;
 
 namespace EbonianMod.Common.Globals;
 

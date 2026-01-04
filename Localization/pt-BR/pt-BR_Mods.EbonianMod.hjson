@@ -71,7 +71,7 @@ Buffs: {
 
 	NastySnapperDebuff: {
 		DisplayName: Debuff do Chicote Nojento
-		Description: Mods.EbonianMod.Buffs.NastySnapperDebuff.Description
+		Description: Mods.EbonianMod.Content.Buffs.NastySnapperDebuff.Description
 	}
 
 	ConglomerateEnergyBuff: {
@@ -91,17 +91,17 @@ Buffs: {
 
 	NPCSuffocating: {
 		DisplayName: N P C Suffocating
-		Description: Mods.EbonianMod.Buffs.NPCSuffocating.Description
+		Description: Mods.EbonianMod.Content.Buffs.NPCSuffocating.Description
 	}
 
 	RustyCut: {
 		DisplayName: Rusty Cut
-		Description: Mods.EbonianMod.Buffs.RustyCut.Description
+		Description: Mods.EbonianMod.Content.Buffs.RustyCut.Description
 	}
 
 	DoomsdayBuff: {
 		DisplayName: Doomsday Buff
-		Description: Mods.EbonianMod.Buffs.DoomsdayBuff.Description
+		Description: Mods.EbonianMod.Content.Buffs.DoomsdayBuff.Description
 	}
 
 	SudamaBuff: {
@@ -111,7 +111,7 @@ Buffs: {
 
 	PlantGunB: {
 		DisplayName: Plant Gun B
-		Description: Mods.EbonianMod.Buffs.PlantGunB.Description
+		Description: Mods.EbonianMod.Content.Buffs.PlantGunB.Description
 	}
 }
 

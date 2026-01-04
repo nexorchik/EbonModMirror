@@ -1,7 +1,7 @@
-﻿using EbonianMod.Items.Accessories;
-using EbonianMod.Projectiles;
-using EbonianMod.Projectiles.ArchmageX;
-using EbonianMod.Projectiles.Friendly.Generic;
+﻿using EbonianMod.Content.Items.Accessories;
+using EbonianMod.Content.Projectiles;
+using EbonianMod.Content.Projectiles.ArchmageX;
+using EbonianMod.Content.Projectiles.Friendly.Generic;
 using Terraria.Chat;
 
 namespace EbonianMod.Common.Players;

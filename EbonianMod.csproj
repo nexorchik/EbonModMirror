@@ -2,22 +2,14 @@
 	<Import Project="..\tModLoader.targets" />
 	<PropertyGroup>
 		<AssemblyName>EbonianMod</AssemblyName>
-		<LangVersion>latest</LangVersion>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<NoWarn>1701;1702;0436</NoWarn>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<NoWarn>1701;1702;0436</NoWarn>
+		<LangVersion>preview</LangVersion>
+		
+		<NoWarn>1701;1702;0436;X4717</NoWarn>
 	</PropertyGroup>
 
     <PropertyGroup>
         <DotNetName Condition=" '$(OS)' == 'Unix' ">/usr/bin/dotnet</DotNetName>
     </PropertyGroup>
-
-    <ItemGroup>
-		<Folder Include="NPCs\Misc\" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<!--<Reference Include="Daybreak">
@@ -44,9 +36,9 @@
 		<EffectFiles Include="**/*.fx" />
 	</ItemGroup>
 	<Target Name="BuildEffects" BeforeTargets="BuildMod">
-        <Exec  Condition="$([MSBuild]::IsOSPlatform('Windows'))" Command="@(EffectFiles->'&quot;./Effects/Compiler/fxc.exe&quot; &quot;%(RecursiveDir)%(FileName)%(Extension)&quot; /T fx_2_0 /nologo /Fo &quot;%(RecursiveDir)%(FileName).fxc&quot; &#xA;&#xD;')" IgnoreExitCode="true" />
+        <Exec  Condition="$([MSBuild]::IsOSPlatform('Windows'))" Command="@(EffectFiles->'&quot;./Assets/Effects/Compiler/fxc.exe&quot; &quot;%(RecursiveDir)%(FileName)%(Extension)&quot; /T fx_2_0 /nologo /Fo &quot;%(RecursiveDir)%(FileName).fxc&quot; &#xA;&#xD;')" IgnoreExitCode="true" />
 
-        <Exec  Condition="$([MSBuild]::IsOSPlatform('Linux'))" Command="@(EffectFiles->'wine &quot;./Effects/Compiler/fxc.exe&quot; &quot;%(RecursiveDir)%(FileName)%(Extension)&quot; /T fx_2_0 /nologo /Fo &quot;%(RecursiveDir)%(FileName).fxc&quot; &#xA;&#xD;')" IgnoreExitCode="true" />
+        <Exec  Condition="$([MSBuild]::IsOSPlatform('Linux'))" Command="@(EffectFiles->'wine &quot;./Assets/Effects/Compiler/fxc.exe&quot; &quot;%(RecursiveDir)%(FileName)%(Extension)&quot; /T fx_2_0 /nologo /Fo &quot;%(RecursiveDir)%(FileName).fxc&quot; &#xA;&#xD;')" IgnoreExitCode="true" />
 	</Target>
 
 </Project>

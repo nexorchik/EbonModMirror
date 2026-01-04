@@ -40,7 +40,7 @@ public class DialogueSystem : ModSystem
     {
         if (Main.dedServ) return null;
         if (sound == default)
-            sound = EbonianSounds.None;
+            sound = Sounds.None;
         int i = 0;
         while (DialogueBox[i].timeLeft > 0 && i < DialogueBox.Length - 1)
         {

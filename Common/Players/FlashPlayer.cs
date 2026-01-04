@@ -1,4 +1,4 @@
-﻿using EbonianMod.Items.Consumables.Food;
+﻿using EbonianMod.Content.Items.Consumables.Food;
 using System;
 using System.Collections.Generic;
 using System.Linq;

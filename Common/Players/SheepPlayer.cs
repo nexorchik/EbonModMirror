@@ -1,4 +1,4 @@
-﻿using EbonianMod.Projectiles.ArchmageX;
+﻿using EbonianMod.Content.Projectiles.ArchmageX;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +33,14 @@ public class SheepPlayer : ModPlayer
             Player.dashType = 0;
             Player.channel = false;
             Player.blockExtraJumps = true;
+        }
+    }
+    public override void ModifyHurt(ref Player.HurtModifiers modifiers)
+    {
+        if (sheep)
+        {
+            modifiers.DisableSound();
+            SoundEngine.PlaySound(SoundID.NPCHit1, Player.Center);
         }
     }
     public override bool CanStartExtraJump(ExtraJump jump)

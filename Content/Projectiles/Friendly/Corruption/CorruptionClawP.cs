@@ -1,0 +1,195 @@
+﻿using EbonianMod.Core.Systems.Verlets;
+using EbonianMod.Content.Items.Weapons.Melee;
+using System;
+using System.IO;
+
+namespace EbonianMod.Content.Projectiles.Friendly.Corruption;
+
+public class CorruptionClawP : ModProjectile
+{
+    public override string Texture => Helper.AssetPath + "Projectiles/Friendly/Corruption/" + Name;
+    public override void SetStaticDefaults()
+    {
+        ProjectileID.Sets.DontCancelChannelOnKill[Type] = true;
+        ProjectileID.Sets.TrailCacheLength[Type] = 5;
+        ProjectileID.Sets.TrailingMode[Type] = 0;
+    }
+    int swingTime = 30;
+    public override void SetDefaults()
+    {
+        Projectile.friendly = true;
+        Projectile.tileCollide = false;
+        Projectile.ignoreWater = true;
+        Projectile.DamageType = DamageClass.Melee;
+        Projectile.penetrate = -1;
+        Projectile.usesLocalNPCImmunity = true;
+        Projectile.localNPCHitCooldown = swingTime;
+        Projectile.timeLeft = swingTime;
+        Projectile.Size = new Vector2(36, 44);
+    }
+    public override bool? Colliding(Rectangle projHitbox, Rectangle targetHitbox)
+    {
+        bool hit = false;
+        for (float i = 0; i < 1; i += 0.1f)
+        {
+            Vector2 pos = Vector2.Lerp(Main.player[Projectile.owner].Center, Projectile.Center, i);
+            if (Collision.CheckAABBvAABBCollision(pos - Vector2.One * 15, Vector2.One * 30, targetHitbox.TopLeft(), targetHitbox.Size()))
+            {
+                hit = true;
+                break;
+            }
+        }
+        return hit || projHitbox.Intersects(targetHitbox);
+    }
+    public virtual float Ease(float x)
+    {
+        return x == 0
+? 0
+: x == 1
+? 1
+: x < 0.5 ? MathF.Pow(2, 20 * x - 10) / 2
+: (2 - MathF.Pow(2, -20 * x + 10)) / 2;
+    }
+    public virtual float ScaleFunction(float progress)
+    {
+        return 0.7f + (float)Math.Sin(progress * Math.PI) * 0.5f;
+    }
+    Verlet verlet;
+    public override bool PreDraw(ref Color lightColor)
+    {
+        Player player = Main.player[Projectile.owner];
+        float swingProgress = Ease(Utils.GetLerpValue(0f, swingTime, Projectile.timeLeft));
+        float off = 20 * ScaleFunction(swingProgress);
+        if (Projectile.ai[1] != 1 && Projectile.ai[1] != 0)
+            off = 20;
+        if (verlet is null)
+            verlet = new Verlet(player.Center, 8, 10);
+        else
+        {
+            verlet.Update(player.Center + Helper.FromAToB(player.Center, Projectile.Center) * off, Projectile.Center);
+            verlet.Draw(Main.spriteBatch, Helper.AssetPath+"Projectiles/Friendly/Corruption/CorruptionClawP_Rope");
+        }
+        Texture2D tex = Request<Texture2D>(Texture + "_Handle").Value;
+        Texture2D trail = Request<Texture2D>(Texture + "_Trail").Value;
+        Main.spriteBatch.Draw(tex, player.Center + Helper.FromAToB(player.Center, Projectile.Center) * off - Main.screenPosition, null, Color.White, Helper.FromAToB(player.Center, Projectile.Center).ToRotation() + MathHelper.PiOver4, tex.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
+
+
+        var fadeMult = Helper.Safe(1f / Projectile.oldPos.Length);
+        for (int i = 0; i < Projectile.oldPos.Length; i++)
+        {
+            float mult = (1f - fadeMult * i);
+            float mult2 = (1f - fadeMult * (i));
+            if (i > 0)
+            {
+                mult2 = (1f - fadeMult * (i - 1));
+                for (float j = 0; j < 5; j++)
+                {
+                    Vector2 pos = Vector2.Lerp(Projectile.oldPos[i], Projectile.oldPos[i - 1], (float)(j / 5));
+                    Main.spriteBatch.Draw(trail, pos + Projectile.Size / 2 - Main.screenPosition, null, Color.Lime * 0.1f * MathHelper.Lerp(mult2, mult, (float)(j / 5)), Projectile.oldRot[i] + MathHelper.PiOver4 + (Projectile.ai[1] == 0 ? 0 : MathHelper.PiOver2 * 3), trail.Size() / 2, MathHelper.Lerp(mult2, mult, (float)(j / 5)), Projectile.ai[1] == 0 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
+                }
+            }
+        }
+
+        Texture2D texture = TextureAssets.Projectile[Projectile.type].Value;
+        Vector2 orig = texture.Size() / 2;
+        Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, new Rectangle(0, 0, texture.Width, texture.Height), lightColor, Projectile.rotation + MathHelper.PiOver4 + (Projectile.ai[1] == 0 ? 0 : MathHelper.PiOver2 * 3), orig, Projectile.scale, Projectile.ai[1] == 0 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
+        return false;
+    }
+    public override void OnSpawn(IEntitySource source)
+    {
+        Player player = Main.player[Projectile.owner];
+    }
+    Vector2 lastPos;
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        writer.WriteVector2(lastPos);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        lastPos = reader.ReadVector2();
+    }
+    public override void OnKill(int timeLeft)
+    {
+        Player player = Main.player[Projectile.owner];
+        if (player.active && player.channel && !player.dead && !player.CCed && !player.noItems)
+        {
+            if (player.whoAmI == Main.myPlayer)
+            {
+                Vector2 dir = Vector2.Normalize(Main.MouseWorld - player.Center);
+                float ai = (Projectile.ai[1] + 1);
+                if (ai > 2) ai = 0;
+                Projectile proj = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), player.Center, dir, Projectile.type, Projectile.damage, Projectile.knockBack, player.whoAmI, 0, ai);
+                proj.rotation = Projectile.rotation;
+                proj.Center = Projectile.Center;
+                proj.netUpdate = true;
+            }
+        }
+    }
+    public override void AI()
+    {
+        Player player = Main.player[Projectile.owner];
+        if (!player.active || player.dead || player.CCed || player.noItems)
+        {
+            Projectile.Kill();
+            return;
+        }
+
+        player.itemTime = 2;
+        player.itemAnimation = 2;
+        if (player.HeldItem.type != ItemType<CorruptionClaw>()) { Projectile.Kill(); }
+        if (player.gravDir != -1)
+            player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Helper.FromAToB(player.Center, Projectile.Center).ToRotation() - MathHelper.PiOver2);
+        if (Projectile.ai[1] == 2 || Projectile.ai[1] == 0)
+        {
+            if (Projectile.ai[0] == 0)
+            {
+                SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
+                Projectile.ai[0] = 1;
+            }
+            int direction = Projectile.ai[1] == 0 ? -1 : 1;
+            float swingProgress = Ease(Utils.GetLerpValue(0f, swingTime, Projectile.timeLeft));
+            float defRot = Projectile.velocity.ToRotation();
+            float start = defRot - (MathHelper.PiOver2);
+            float end = defRot + (MathHelper.PiOver2);
+            float rotation = direction == 1 ? start + MathHelper.Pi * 1.5f * swingProgress : end - MathHelper.Pi * 1.5f * swingProgress;
+            Vector2 position = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, rotation - MathHelper.PiOver2) +
+                rotation.ToRotationVector2() * 350 * ScaleFunction(swingProgress) + Projectile.velocity * 140;
+            if (Projectile.timeLeft > 5 || Projectile.ai[1] == 0)
+                Projectile.Center = Vector2.Lerp(Projectile.Center, position, 0.15f);
+            else if (Projectile.timeLeft <= 5 && Projectile.ai[1] == 2)
+                Projectile.Center = Vector2.Lerp(Projectile.Center, player.Center, 0.25f);
+            Projectile.rotation = (position - player.Center).ToRotation();
+            if (player.whoAmI == Main.myPlayer)
+                player.ChangeDir(Main.MouseWorld.X < player.Center.X ? -1 : 1);
+        }
+        if (Projectile.ai[1] == 1)
+        {
+            if (Projectile.ai[2] == 0)
+            {
+                Projectile.timeLeft = 40;
+                swingTime = 20;
+                if (Main.myPlayer == Projectile.owner)
+                {
+                    player.ChangeDir(Main.MouseWorld.X < player.Center.X ? -1 : 1);
+                    lastPos = Main.MouseWorld;
+                }
+
+                Projectile.netUpdate = true;
+                Projectile.ai[2] = 1;
+            }
+            if (Projectile.timeLeft == 20)
+            {
+                swingTime = 20;
+                SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing, Projectile.Center);
+            }
+            float progress = Utils.GetLerpValue(0, swingTime, Projectile.timeLeft > 20 ? Projectile.timeLeft - 20 : Projectile.timeLeft);
+            float scale = MathHelper.Clamp((float)Math.Sin(progress * MathHelper.Pi) * 0.75f, 0, 1);
+            if (scale > 0.9f)
+                Projectile.ai[0] = 1;
+            float scale2 = (MathHelper.Lerp(1, 0, scale) - 0.5f) * 2;
+            if (lastPos != Vector2.Zero)
+                Projectile.Center = Vector2.SmoothStep(player.Center, player.Center + Helper.FromAToB(player.Center, lastPos) * 360 - new Vector2(0, scale2 * 200 * player.direction * (Projectile.timeLeft > 20 ? 1 : -1)).RotatedBy(Projectile.rotation), scale);
+            Projectile.rotation = Helper.FromAToB(player.Center, lastPos).ToRotation();
+        }
+    }
+}

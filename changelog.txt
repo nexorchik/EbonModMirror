@@ -1,3 +1,6 @@
 v3.0
 ## Additions:
 - Rams
+
+## Changes:
+- Reorganized the mod's codebase (this doesn't affect the mod in any way)

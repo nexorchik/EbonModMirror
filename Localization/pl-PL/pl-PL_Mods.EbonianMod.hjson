@@ -71,7 +71,7 @@ Buffs: {
 
 	NastySnapperDebuff: {
 		DisplayName: Debuff - Wstrętny Szczękozwierz
-		Description: Mods.EbonianMod.Buffs.NastySnapperDebuff.Description
+		Description: Mods.EbonianMod.Content.Buffs.NastySnapperDebuff.Description
 	}
 
 	ConglomerateEnergyBuff: {
@@ -91,17 +91,17 @@ Buffs: {
 
 	NPCSuffocating: {
 		DisplayName: N P C się dusi
-		Description: Mods.EbonianMod.Buffs.NPCSuffocating.Description
+		Description: Mods.EbonianMod.Content.Buffs.NPCSuffocating.Description
 	}
 
 	RustyCut: {
 		DisplayName: Zardzewiałe Cięcie
-		Description: Mods.EbonianMod.Buffs.RustyCut.Description
+		Description: Mods.EbonianMod.Content.Buffs.RustyCut.Description
 	}
 
 	DoomsdayBuff: {
 		DisplayName: Buff - Dzień Sądu
-		Description: Mods.EbonianMod.Buffs.DoomsdayBuff.Description
+		Description: Mods.EbonianMod.Content.Buffs.DoomsdayBuff.Description
 	}
 
 	SudamaBuff: {
@@ -111,7 +111,7 @@ Buffs: {
 
 	PlantGunB: {
 		DisplayName: Roślinny Karabin B
-		Description: Mods.EbonianMod.Buffs.PlantGunB.Description
+		Description: Mods.EbonianMod.Content.Buffs.PlantGunB.Description
 	}
 }
 

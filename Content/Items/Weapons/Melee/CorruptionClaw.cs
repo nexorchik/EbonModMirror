@@ -1,0 +1,40 @@
+﻿using EbonianMod.Content.Projectiles.Friendly.Corruption;
+
+namespace EbonianMod.Content.Items.Weapons.Melee;
+
+public class CorruptionClaw : ModItem
+{
+    public override string Texture => Helper.AssetPath + "Items/Weapons/Melee/CorruptionClaw";
+    public override void SetDefaults()
+    {
+        Item.knockBack = 10f;
+        Item.width = Item.height = 80;
+        Item.crit = 10;
+        Item.damage = 50;
+        Item.useAnimation = 40;
+        Item.useTime = 40;
+        Item.noUseGraphic = true;
+        Item.autoReuse = false;
+        Item.noMelee = true;
+        Item.value = Item.buyPrice(0, 25, 0, 0);
+        Item.channel = true;
+        Item.DamageType = DamageClass.Melee;
+        Item.useStyle = ItemUseStyleID.Swing;
+        Item.rare = ItemRarityID.LightRed;
+        Item.shootSpeed = 1f;
+        Item.shoot = ProjectileType<CorruptionClawP>();
+    }
+    public override bool? CanAutoReuseItem(Player player)
+    {
+        return false;
+    }
+    int attack = -1;
+    public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
+    {
+        attack++;
+        if (attack > 2)
+            attack = 0;
+        Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI, ai1: attack);
+        return false;
+    }
+}

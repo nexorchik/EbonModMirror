@@ -4,9 +4,9 @@ global using Microsoft.Xna.Framework.Graphics;
 global using static Microsoft.Xna.Framework.MathHelper;
 // Ebonian Mod
 global using EbonianMod.Common;
-global using EbonianMod.Common.Registries;
-global using EbonianMod.Common.Systems;
-global using EbonianMod.Common.Systems.Misc;
+global using EbonianMod.Core.Registries;
+global using EbonianMod.Core.Systems;
+global using EbonianMod.Core.Systems.Misc;
 global using EbonianMod.Core.Utilities;
 global using static EbonianMod.Core.Utilities.Easings;
 // ReLogic

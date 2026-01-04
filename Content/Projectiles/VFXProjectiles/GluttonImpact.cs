@@ -1,0 +1,67 @@
+﻿namespace EbonianMod.Content.Projectiles.VFXProjectiles;
+
+public class GluttonImpact : ModProjectile
+{
+    public override string Texture => Helper.Placeholder;
+    public override void SetDefaults()
+    {
+        Projectile.width = 300;
+        Projectile.height = 20;
+        Projectile.aiStyle = -1;
+        Projectile.friendly = false;
+        Projectile.hostile = true;
+        Projectile.timeLeft = 50;
+        Projectile.tileCollide = false;
+        Projectile.penetrate = -1;
+    }
+    public override bool ShouldUpdatePosition()
+    {
+        return false;
+    }
+    public override bool? CanDamage() => Projectile.timeLeft > 45;
+    int seed;
+    public override void OnSpawn(IEntitySource source)
+    {
+        seed = Main.rand.Next(int.MaxValue);
+        for (int k = 0; k < 50; k++)
+        {
+            Dust.NewDustPerfect(Projectile.Center, DustID.CursedTorch, Main.rand.NextVector2Unit(-MathHelper.Pi, MathHelper.Pi) * Main.rand.NextFloat(1, 30), 0, default, Main.rand.NextFloat(1, 3)).noGravity = true;
+            Dust.NewDustPerfect(Projectile.Center, DustID.Granite, Main.rand.NextVector2Unit(-MathHelper.Pi, MathHelper.Pi) * Main.rand.NextFloat(1, 30), 100, default, Main.rand.NextFloat(1, 2)).noGravity = true;
+        }
+    }
+    public override bool PreDraw(ref Color lightColor)
+    {
+        Texture2D tex = Assets.Extras.cone2.Value;
+        UnifiedRandom rand = new UnifiedRandom(seed);
+        float max = 30;
+        float alpha = MathHelper.Lerp(0.5f, 0, Projectile.ai[1]) * 2;
+        Main.spriteBatch.Reload(Effects.SpriteRotation.Value);
+        Effects.SpriteRotation.Value.Parameters["rotation"].SetValue(rand.NextFloat(MathHelper.Pi, MathHelper.TwoPi) * (rand.NextFloatDirection() > 0 ? 1 : -1) + Projectile.ai[1]);
+        Effects.SpriteRotation.Value.Parameters["scale"].SetValue(new Vector2(1, rand.NextFloat(0.2f, 0.8f)));
+        Effects.SpriteRotation.Value.Parameters["uColor"].SetValue((Color.LawnGreen with { A = 0 }).ToVector4() * alpha * 0.5f);
+        for (float i = 0; i < max; i++)
+        {
+            float angle = Helper.CircleDividedEqually(i, max * 2) + MathHelper.Pi;
+            float scale = rand.NextFloat(0.15f, .6f);
+            Vector2 offset = new Vector2(Main.rand.NextFloat(-10, 20) * Projectile.ai[1] * scale, 0).RotatedBy(angle);
+            for (float j = 0; j < 2; j++)
+                Main.spriteBatch.Draw(tex, Projectile.Center + offset - Main.screenPosition, null, Color.LawnGreen * alpha * 0.5f, angle, new Vector2(0, tex.Height / 2), new Vector2(Projectile.ai[1], alpha) * scale * 0.6f * 4, SpriteEffects.None, 0);
+        }
+        Main.spriteBatch.Reload(effect: null);
+        for (float i = 0; i < max; i++)
+        {
+            float angle = Helper.CircleDividedEqually(i, max * 2) + MathHelper.Pi;
+            float scale = rand.NextFloat(0.3f, .8f);
+            Vector2 offset = new Vector2(Main.rand.NextFloat(-10, 20) * Projectile.ai[1] * scale, 0).RotatedBy(angle);
+            for (float j = 0; j < 2; j++)
+                Main.spriteBatch.Draw(tex, Projectile.Center + offset - Main.screenPosition, null, Color.LawnGreen with { A = 0 } * alpha * 0.5f, angle, new Vector2(0, tex.Height / 2), new Vector2(Projectile.ai[1], alpha) * scale * 0.6f * 4, SpriteEffects.None, 0);
+        }
+        return false;
+    }
+    public override void AI()
+    {
+        Projectile.ai[1] = MathHelper.Lerp(Projectile.ai[1], 1, 0.15f);
+        if (Projectile.ai[1] > 1)
+            Projectile.Kill();
+    }
+}

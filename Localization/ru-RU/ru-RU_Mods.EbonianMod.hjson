@@ -111,7 +111,7 @@ Buffs: {
 
 	PlantGunB: {
 		// DisplayName: Plant Gun B
-		// Description: Mods.EbonianMod.Buffs.PlantGunB.Description
+		// Description: Mods.EbonianMod.Content.Buffs.PlantGunB.Description
 	}
 }
 
