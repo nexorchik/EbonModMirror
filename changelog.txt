@@ -3,4 +3,8 @@ v3.0
 - Rams
 
 ## Changes:
-- Reorganized the mod's codebase (this doesn't affect the mod in any way)
+- Reorganized the mod's codebase (this doesn't affect the mod in any direct way but there's a risk for oversights)
+
+##
+- Fixed the Defibrillator's VFX being weirdly flat
+- Fixed the Cold Touch spawning incorrectly
