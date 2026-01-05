@@ -57,7 +57,7 @@ public class Sheep : ModNPC
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
-        return spawnInfo.Player.ZoneForest ? 0.1f : 0;
+        return spawnInfo.Player.ZoneForest && !Main.bloodMoon ? 0.1f : 0;
     }
 
     public override bool CheckDead()
