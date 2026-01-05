@@ -49,10 +49,10 @@ public class Goat : ModNPC
 		if (Main.dedServ)
 			return base.CheckDead();
         
-		Gore.NewGore(NPC.GetSource_Death(), NPC.position, Main.rand.NextVector2Circular(1, 1), Find<ModGore>("EbonianMod/SheepGore2").Type, NPC.scale);
+		Gore.NewGore(NPC.GetSource_Death(), NPC.position, Main.rand.NextVector2Circular(1, 1), Find<ModGore>("EbonianMod/GoatGore0").Type, NPC.scale);
 
 		for (int i = 0; i < 4; i++)
-			Gore.NewGore(NPC.GetSource_Death(), NPC.position, Main.rand.NextVector2Circular(1, 1), Find<ModGore>("EbonianMod/SheepGore3").Type, NPC.scale);
+			Gore.NewGore(NPC.GetSource_Death(), NPC.position, Main.rand.NextVector2Circular(1, 1), Find<ModGore>("EbonianMod/GoatGore" + (i < 2 ? "1" : "2")).Type, NPC.scale);
 
 		for (int i = 0; i < 50; i++)
 			Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, Main.rand.NextFloatDirection(), Main.rand.NextFloatDirection());
