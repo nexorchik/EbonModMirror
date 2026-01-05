@@ -49,11 +49,13 @@ public class Ram : ModNPC
     {
         writer.Write(sheared);
         writer.Write(dyeId);
+        writer.Write(eatTime);
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
         sheared = reader.ReadBoolean();
         dyeId = reader.ReadInt32();
+        eatTime = reader.ReadInt32();
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
@@ -92,7 +94,7 @@ public class Ram : ModNPC
         return base.CheckDead();
     }
     
-    int dyeId = -1, lastClicked = 0;
+    int dyeId = -1, lastClicked, eatTime;
     bool sheared;
     public override void ModifyHitByItem(Player player, Item item, ref NPC.HitModifiers modifiers)
     {
@@ -190,6 +192,20 @@ public class Ram : ModNPC
         {
             NPC.catchItem = ItemType<RamItemNaked>();
         }
+        
+        Point coords = NPC.Center.ToTileCoordinates() + new Point(0, 1);
+        Tile tile = Main.tile[coords.X, coords.Y];
+        if (MPUtils.NotMPClient && Main.rand.NextBool(2000) && tile.TileType == TileID.Grass && tile.HasTile)
+        {
+            eatTime = Main.rand.Next(70, 120);
+            NPC.netUpdate = true;
+        }
+
+        if (--eatTime > 0)
+        {
+            NPC.velocity.X *= 0;
+        }
+        
         if (Main.netMode == 0)
             Collision.StepDown(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY);
     }
