@@ -36,12 +36,12 @@ namespace EbonianMod.Common.Globals
         public override bool InstancePerEntity => true;
         const float StrideLimit = 70.78f;
         public bool Jump = false;
-        public void FighterAI(NPC NPC, float jumpHeight, float strideSpeed, bool canJump, int jumpFrame = 1, int jumpOffset = 4, float turningVel = .06f)
+        public void FighterAI(NPC NPC, float jumpHeight, float strideSpeed)
         {
             NPC.TargetClosest(false);
             Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY, 1, false, 0);
             var player = Main.player[NPC.target];
-            if (NPC.collideX && NPC.frameCounter > 2 && NPC.ai[3] <= 0)
+            if (NPC.collideX && NPC.ai[3] <= 0)
             {
                 NPC.velocity.Y = -jumpHeight;
                 NPC.ai[3] = 1;

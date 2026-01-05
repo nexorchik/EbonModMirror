@@ -176,7 +176,7 @@ public class Belladonna : ModNPC
         {
             NPC.knockBackResist = 0.8f;
             AITimer++;
-            NPC.GetGlobalNPC<FighterGlobalAI>().FighterAI(NPC, 4, 1, true, -1, 0/*, 1, 0*/);
+            NPC.GetGlobalNPC<FighterGlobalAI>().FighterAI(NPC, 4, 1);
 
             if (player.Center.DistanceSQ(NPC.Center) < MathF.Pow(300, 2))
                 AITimer += 2;

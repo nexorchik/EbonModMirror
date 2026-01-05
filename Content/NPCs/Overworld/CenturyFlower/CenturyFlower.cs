@@ -98,7 +98,7 @@ namespace EbonianMod.Content.NPCs.Overworld.CenturyFlower
             if ((int)AIState == 0)
             {
                 if (MathF.Abs(NPC.Center.X - player.Center.X) > 50)
-                    NPC.GetGlobalNPC<FighterGlobalAI>().FighterAI(NPC, 6, 1, true, -1, 0);
+                    NPC.GetGlobalNPC<FighterGlobalAI>().FighterAI(NPC, 6, 1);
                 else
                     NPC.velocity.X *= 0.7f;
                 Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY);

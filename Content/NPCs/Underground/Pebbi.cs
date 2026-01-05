@@ -51,7 +51,7 @@ namespace EbonianMod.Content.NPCs.Underground
         const float JUMP_HEIGHT = 6, STRIDE_SPEED = 2f;
         public override void AI()
         {
-            NPC.GetGlobalNPC<FighterGlobalAI>().FighterAI(NPC, JUMP_HEIGHT, STRIDE_SPEED, true, 2, 0);
+            NPC.GetGlobalNPC<FighterGlobalAI>().FighterAI(NPC, JUMP_HEIGHT, STRIDE_SPEED);
             if (NPC.collideX && NPC.collideY)
                 NPC.velocity.Y -= 5f;
         }
@@ -134,7 +134,7 @@ namespace EbonianMod.Content.NPCs.Underground
         }
         public override void AI()
         {
-            NPC.GetGlobalNPC<FighterGlobalAI>().FighterAI(NPC, 4, 1f, true, 1, 0);
+            NPC.GetGlobalNPC<FighterGlobalAI>().FighterAI(NPC, 4, 1f);
             if (NPC.collideX && NPC.collideY)
                 NPC.velocity.Y -= 5f;
         }
