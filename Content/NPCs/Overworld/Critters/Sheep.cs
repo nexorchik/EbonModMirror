@@ -111,6 +111,7 @@ public class Sheep : ModNPC
         return base.CanBeHitByItem(player, item);
     }
     bool spawn;
+    private float eatingVfxOffset;
     public override void AI()
     {
         NPC.spriteDirection = NPC.direction;
@@ -196,16 +197,25 @@ public class Sheep : ModNPC
 
         Point coords = NPC.Center.ToTileCoordinates() + new Point(0, 1);
         Tile tile = Main.tile[coords.X, coords.Y];
-        if (MPUtils.NotMPClient && Main.mouseRight && tile.TileType == TileID.Grass && tile.HasTile)
+        if (MPUtils.NotMPClient && Main.rand.NextBool(2200) && tile.TileType == TileID.Grass && tile.HasTile)
         {
             eatTime = Main.rand.Next(70, 120);
             NPC.netUpdate = true;
         }
-
+        
         if (--eatTime > 0)
         {
-            NPC.velocity.X *= 0.0f;
+            if (eatTime % 4 == 0)
+            {
+                eatingVfxOffset = Main.rand.NextFloat() * 0.1f * NPC.direction;
+                Dust.NewDustPerfect(NPC.Center + new Vector2((NPC.width * 0.5f - 6) * NPC.direction , NPC.height * 0.5f), DustID.Grass,
+                    Vector2.UnitY.RotatedByRandom(1f) * Main.rand.NextFloat(-1f, -.1f), Scale:0.5f);
+            }
+
+            eatingVfxOffset = Lerp(eatingVfxOffset, 0, 0.1f);
+            NPC.velocity.X *= 0;
         }
+        else eatingVfxOffset = 0;
         
         if (Main.netMode == 0)
             Collision.StepDown(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY);
@@ -224,7 +234,7 @@ public class Sheep : ModNPC
 
         string name = Main.LocalPlayer.name;
         name.ApplyCase(LetterCasing.LowerCase);
-        spriteBatch.Draw(tex, NPC.Center + new Vector2(0, NPC.gfxOffY + 2) - Main.screenPosition, NPC.frame, drawColor, NPC.rotation, NPC.Size / 2, NPC.scale, (NPC.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally) | (name == "dinnerbone" || name == "grumm" ? SpriteEffects.FlipVertically : SpriteEffects.None), 0);
+        spriteBatch.Draw(tex, NPC.Center + new Vector2(0, NPC.gfxOffY + 2) - Main.screenPosition, NPC.frame, drawColor, NPC.rotation + eatingVfxOffset, NPC.Size / 2, NPC.scale, (NPC.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally) | (name == "dinnerbone" || name == "grumm" ? SpriteEffects.FlipVertically : SpriteEffects.None), 0);
 
         return false;
     }
@@ -236,7 +246,7 @@ public class Sheep : ModNPC
         {
             string name = Main.LocalPlayer.name;
             name.ApplyCase(LetterCasing.LowerCase);
-            DrawData data = new(tex, NPC.Center + new Vector2(0, NPC.gfxOffY + 2) - Main.screenPosition, NPC.frame, drawColor, NPC.rotation, NPC.Size / 2, NPC.scale, (NPC.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally) | (name == "dinnerbone" || name == "grumm" ? SpriteEffects.FlipVertically : SpriteEffects.None));
+            DrawData data = new(tex, NPC.Center + new Vector2(0, NPC.gfxOffY + 2) - Main.screenPosition, NPC.frame, drawColor, NPC.rotation + eatingVfxOffset, NPC.Size / 2, NPC.scale, (NPC.spriteDirection == 1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally) | (name == "dinnerbone" || name == "grumm" ? SpriteEffects.FlipVertically : SpriteEffects.None));
             RenderingUtils.DrawWithDye(spriteBatch, data, dyeId, NPC);
         }
     }
