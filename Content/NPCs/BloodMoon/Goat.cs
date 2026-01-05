@@ -4,11 +4,11 @@ using EbonianMod.Content.Items.Critters;
 using Terraria.GameContent.Bestiary;
 using Terraria.GameContent.UI;
 
-namespace EbonianMod.Content.NPCs.BloodMoon.Critters;
+namespace EbonianMod.Content.NPCs.BloodMoon;
 
 public class Goat : ModNPC
 {
-	public override string Texture => Helper.AssetPath + "NPCs/BloodMoon/Critters/" + Name;
+	public override string Texture => Helper.AssetPath + "NPCs/BloodMoon/" + Name;
 	public override void SetStaticDefaults()
 	{
 		Main.npcFrameCount[Type] = 8;

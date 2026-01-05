@@ -1,4 +1,4 @@
-using EbonianMod.Content.NPCs.BloodMoon.Critters;
+using EbonianMod.Content.NPCs.BloodMoon;
 
 namespace EbonianMod.Content.Items.Critters;
 
