@@ -82,9 +82,9 @@ public static partial class Helper
             device.DrawUserPrimitives(type, vertices, 0, GetPrimitiveCount(vertices.Length, type));
         }
     }
-    public static void DrawTexturedPrimitives(VertexPositionColorTexture[] vertices, PrimitiveType type, Asset<Texture2D> texture, bool drawBacksides = true, bool actualColor = false) =>
+    public static void DrawTexturedPrimitives(VertexPositionColorTexture[] vertices, PrimitiveType type, Asset<Texture2D> texture, bool drawBacksides = false, bool actualColor = false) =>
         DrawTexturedPrimitives(vertices, type, texture.Value, drawBacksides, actualColor);
-    public static void DrawTexturedPrimitives(VertexPositionColorTexture[] vertices, PrimitiveType type, Texture2D texture, bool drawBacksides = true, bool actualColor = false)
+    public static void DrawTexturedPrimitives(VertexPositionColorTexture[] vertices, PrimitiveType type, Texture2D texture, bool drawBacksides = false, bool actualColor = false)
     {
         GraphicsDevice device = Main.graphics.GraphicsDevice;
         Effect effect = Effects.TrailShader.Value;

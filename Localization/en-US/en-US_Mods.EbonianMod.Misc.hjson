@@ -10,6 +10,8 @@ Types: {
 	HotGarbage: Type: Dumpster
 	Animal: Type: Farm Animal
 	Obj: Type: Possessed Object
+	BaphometWorship: Blood Acolyte
+	BigBloodMoon: Malignant Aberration
 }
 
 Signs: {

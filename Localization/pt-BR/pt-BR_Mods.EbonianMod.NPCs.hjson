@@ -397,4 +397,13 @@ HoarfrostCoiler: {
 
 // HoarfrostCoilerBody.DisplayName: Hoarfrost Coiler Body
 // HoarfrostCoilerTail.DisplayName: Hoarfrost Coiler Tail
-// Goat.DisplayName: Goat
+
+Goat: {
+	// DisplayName: Goat
+	// Bestiary: the goat
+}
+
+Fanatic: {
+	// DisplayName: Fanatic
+	// Bestiary: Cloaked figures that show up during blood moons to enact eerie rituals. They don't seem to worship any known deity, instead, they sacrifice goats to the blood moon.
+}

@@ -10,6 +10,8 @@ Types: {
 	HotGarbage: Type: Lixeira
 	Animal: Type: Animal de Fazenda
 	Obj: Type: Objeto Possuído
+	// BaphometWorship: Blood Acolyte
+	// BigBloodMoon: Malignant Aberration
 }
 
 Signs: {
