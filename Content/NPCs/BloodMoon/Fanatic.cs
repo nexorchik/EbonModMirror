@@ -77,6 +77,28 @@ public class Fanatic : CommonNPC
 		}
 		return false;
 	}
+	
+	public override bool CheckDead()
+	{
+		if (Main.dedServ)
+			return base.CheckDead();
+        
+		if (Main.rand.NextBool(4))
+			Gore.NewGore(NPC.GetSource_Death(), NPC.position, Main.rand.NextVector2Circular(1, 1), Find<ModGore>("EbonianMod/FanaticHeadGoreAlt").Type, NPC.scale);
+		else
+			Gore.NewGore(NPC.GetSource_Death(), NPC.position, Main.rand.NextVector2Circular(1, 1), Find<ModGore>("EbonianMod/FanaticHeadGore").Type, NPC.scale);
+
+		for (int i = 0; i < 4; i++)
+			Gore.NewGore(NPC.GetSource_Death(), NPC.position, Main.rand.NextVector2Circular(1, 1), Find<ModGore>("EbonianMod/FanaticGore" + (i < 2 ? "1" : "2")).Type, NPC.scale);
+		
+		for (int i = 0; i < 4; i++)
+			Gore.NewGore(NPC.GetSource_Death(), NPC.position, Main.rand.NextVector2Circular(1, 1), Find<ModGore>("EbonianMod/FanaticGore2").Type, NPC.scale);
+
+		for (int i = 0; i < 50; i++)
+			Dust.NewDust(NPC.position, NPC.width, NPC.height, DustID.Blood, Main.rand.NextFloatDirection(), Main.rand.NextFloatDirection());
+        
+		return base.CheckDead();
+	}
 
 	enum States
 	{
