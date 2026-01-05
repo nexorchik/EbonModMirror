@@ -1,6 +1,6 @@
 v3.0
 ## Additions:
-- Rams
+- New critters: Rams, Goats
 
 ## Changes:
 - Reorganized the mod's codebase (this doesn't affect the mod in any direct way but there's a risk for oversights)

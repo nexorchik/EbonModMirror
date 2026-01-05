@@ -913,3 +913,8 @@ RamItem: {
 	// Tooltip: ""
 	// DisplayName: Ram
 }
+
+GoatItem: {
+	// DisplayName: Goat Item
+	// Tooltip: ""
+}

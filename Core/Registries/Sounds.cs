@@ -430,6 +430,13 @@ public class Sounds : ModSystem
         Variants = new int[] { 0, 1, 2 }
     };
 
+    public static SoundStyle goat => Default with
+    {
+        SoundPath = path + "goat",
+        PitchVariance = 0.5f,
+        Variants = new int[] { 0, 1, 2 }
+    };
+
 
     public static SoundStyle shears => Default with
     {
