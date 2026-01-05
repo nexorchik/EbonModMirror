@@ -58,7 +58,6 @@ public class ThawGauntletP : ModProjectile
     }
     public override bool PreDraw(ref Color lightColor)
     {
-        if (Projectile.timeLeft > 29) return false;
         Texture2D tex = TextureAssets.Projectile[Type].Value;
         Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, tex.Size() / 2, Projectile.scale, Main.player[Projectile.owner].direction == -1 ? SpriteEffects.FlipVertically : SpriteEffects.None, 0);
         return false;
@@ -81,9 +80,15 @@ public class ThawGauntletP : ModProjectile
                 Projectile.NewProjectile(Projectile.GetSource_FromThis(), Projectile.Center, Helper.FromAToB(player.Center, Main.MouseWorld) * 5, ModContent.ProjectileType<ThawGauntletP2>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
             Projectile.ai[1] = 1;
         }
-        player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);
-        if (Projectile.timeLeft < 29)
+        if (Projectile.timeLeft < 28)
             Projectile.timeLeft++;
+        
+        if (player.whoAmI == Main.myPlayer)
+            Projectile.velocity = Main.MouseWorld - player.Center;
+        if (Projectile.velocity != Projectile.oldVelocity)
+            Projectile.netUpdate = true;
+        Projectile.rotation = Projectile.velocity.ToRotation();
+        
         if (player.whoAmI == Projectile.owner && player.whoAmI == Main.myPlayer)
             player.direction = Main.MouseWorld.X >= player.Center.X ? 1 : -1;
         player.itemTime = 2;
@@ -91,12 +96,8 @@ public class ThawGauntletP : ModProjectile
         Projectile.ModProjectile.DrawHeldProjInFrontOfHeldItemAndArms = true;
         player.heldProj = Projectile.whoAmI;
         Projectile.Center = player.GetFrontHandPosition(Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);
-        if (player.whoAmI == Main.myPlayer)
-            Projectile.velocity = Main.MouseWorld - player.Center;
-        if (Projectile.velocity != Projectile.oldVelocity)
-            Projectile.netUpdate = true;
+        player.SetCompositeArmFront(true, Player.CompositeArmStretchAmount.Full, Projectile.rotation - MathHelper.PiOver2);
         if (!player.channel || player.statMana <= 0 || !player.CheckMana(1)) Projectile.Kill();
-        Projectile.rotation = Projectile.velocity.ToRotation();
     }
 }
 
