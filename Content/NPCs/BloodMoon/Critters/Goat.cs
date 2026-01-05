@@ -1,6 +1,8 @@
+using System;
 using System.IO;
 using EbonianMod.Content.Items.Critters;
 using Terraria.GameContent.Bestiary;
+using Terraria.GameContent.UI;
 
 namespace EbonianMod.Content.NPCs.BloodMoon.Critters;
 
@@ -60,21 +62,49 @@ public class Goat : ModNPC
 
 	public override void SendExtraAI(BinaryWriter writer)
 	{
+		writer.Write(screamTimer);
+		writer.Write(evilTimer);
 		writer.Write(screaming);
 	}
 
 	public override void ReceiveExtraAI(BinaryReader reader)
 	{
+		screamTimer = reader.ReadInt32();
+		evilTimer = reader.ReadInt32();
 		screaming = reader.ReadBoolean();
 	}
 
 	private bool screaming;
-	private int screamTimer;
+	private int screamTimer, evilTimer;
+
+	public override void EmoteBubblePosition(ref Vector2 position, ref SpriteEffects spriteEffects)
+	{
+		position.X += NPC.direction*18;
+		position.Y += 2;
+	}
 
 	public override void AI()
 	{
+		if (--evilTimer <= 0 && NPC.life < NPC.lifeMax)
+		{
+			EmoteBubble.NewBubble(EmoteID.EmotionAnger, new WorldUIAnchor(NPC), 50);
+			evilTimer = 700;
+		}
+
+		if (evilTimer > 0)
+		{
+			NPC.TargetClosest();
+			foreach (Player player in Main.ActivePlayers)
+			{
+				if (player.Distance(NPC.Center) < 20 && NPC.velocity.Length() > 2f)
+					player.Hurt(PlayerDeathReason.ByNPC(NPC.whoAmI), 0, NPC.direction, false, false, false, 0);
+			}
+			if (evilTimer % 120 == 0)
+				NPC.velocity = NPC.DirectionTo(Main.player[NPC.target].Center) * 5 + new Vector2(0, -5);
+		}
+		
 		NPC.spriteDirection = -NPC.direction;
-		if (Main.rand.NextBool(2100) && MPUtils.NotMPClient && screamTimer <= -40) 
+		if (Main.rand.NextBool(2100) && evilTimer< -100 && MPUtils.NotMPClient && screamTimer <= -40) 
 			foreach (Player player in Main.ActivePlayers)
 				if (NPC.Center.Distance(player.Center) < 600)
 				{
@@ -107,6 +137,8 @@ public class Goat : ModNPC
 		if (!NPC.velocity.Y.InRange(0, 0.2f))
 		{
 			NPC.frame.Y = frameHeight * 4;
+			if (evilTimer > 0 && MathF.Sign(NPC.velocity.X) == NPC.direction)
+				NPC.frame.Y = frameHeight * 7;
 		}
 		else
 		{
