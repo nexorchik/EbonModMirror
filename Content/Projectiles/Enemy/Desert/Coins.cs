@@ -94,7 +94,7 @@ public class Coins : ModProjectile
 
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D tex = Helper.GetTexture(Helper.AssetPath+"/Projectiles/Enemy/Desert/CoinSheet").Value;
+        Texture2D tex = Helper.GetTexture(Helper.AssetPath+"Projectiles/Enemy/Desert/CoinSheet").Value;
         Rectangle sourceRect = new Rectangle(0, 0, 0, 0);
 
         if (Coin == 0)

@@ -40,7 +40,7 @@ public class EbonianHeartNPC : ModNPC
         spriteBatch.Draw(Request<Texture2D>(Helper.AssetPath + "Items/Accessories/EbonianHeartNPC").Value, NPC.Center - pos,
                     NPC.frame, drawColor, NPC.rotation,
                     new Vector2(40 * 0.5f, 40 * 0.5f), 1f, SpriteEffects.None, 0);
-        spriteBatch.Draw(Helper.GetTexture(Helper.AssetPath+"Assets/Images/Items/Accessories/EbonianHeartNPC_Glow").Value, NPC.Center - pos,
+        spriteBatch.Draw(Helper.GetTexture(Helper.AssetPath+"Items/Accessories/EbonianHeartNPC_Glow").Value, NPC.Center - pos,
                     NPC.frame, Color.White, NPC.rotation,
                     new Vector2(40 * 0.5f, 40 * 0.5f), 1f, SpriteEffects.None, 0);
     }
@@ -133,7 +133,7 @@ public class EbonianHeartNPC : ModNPC
             else
             {
                 verlet.Update(NPC.Center, player.Center);
-                verlet.Draw(spriteBatch, Helper.AssetPath+"Assets/Images/Items/Accessories/HeartChain");
+                verlet.Draw(spriteBatch, Helper.AssetPath+"Items/Accessories/HeartChain");
             }
         }
         return false;

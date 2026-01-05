@@ -80,7 +80,7 @@ public class TinyBrain : ModNPC //the class name is a reference to my brain.
         else
         {
             verlet.Update(Main.player[(int)NPC.ai[1]].Center, NPC.Center);
-            verlet.Draw(spriteBatch, new VerletDrawData(new VerletTextureData(Helper.AssetPath+"Assets/Images/Items/Accessories/BrainAcc_Chain")));
+            verlet.Draw(spriteBatch, new VerletDrawData(new VerletTextureData(Helper.AssetPath+"Items/Accessories/BrainAcc_Chain")));
         }
         return true;
     }

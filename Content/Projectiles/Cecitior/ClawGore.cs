@@ -48,7 +48,7 @@ public class ClawGore : ModProjectile
             {
                 claw[i].verlet.Update(claw[i].position, Projectile.Center);
 
-                claw[i].verlet.Draw(Main.spriteBatch, new VerletDrawData(new VerletTextureData(Helper.AssetPath+"NPCs/Cecitior/Hook/CecitiorHook_0", _endTex: "NPCs/Cecitior/Hook/CecitiorHook_8"), _color: lightColor * Projectile.Opacity));
+                claw[i].verlet.Draw(Main.spriteBatch, new VerletDrawData(new VerletTextureData(Helper.AssetPath+"NPCs/Cecitior/Hook/CecitiorHook_0", _endTex: Helper.AssetPath+"NPCs/Cecitior/Hook/CecitiorHook_8"), _color: lightColor * Projectile.Opacity));
             }
         }
         return false;

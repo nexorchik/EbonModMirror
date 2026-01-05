@@ -178,11 +178,11 @@ public class CoinBag : ModNPC
 
         if (attacking > 0)
         {
-            tex = Helper.GetTexture(Helper.AssetPath+"/NPCs/Desert/CoinBagShake").Value;
+            tex = Helper.GetTexture(Helper.AssetPath+"NPCs/Desert/CoinBagShake").Value;
         }
         else
         {
-            tex = Helper.GetTexture(Helper.AssetPath+"/NPCs/Desert/CoinBagHop").Value;
+            tex = Helper.GetTexture(Helper.AssetPath+"NPCs/Desert/CoinBagHop").Value;
         }
 
         Rectangle sourceRect = new Rectangle(0, frame, 64, 64);

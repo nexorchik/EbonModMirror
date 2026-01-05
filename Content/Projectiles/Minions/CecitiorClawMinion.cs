@@ -123,7 +123,7 @@ public class CecitiorClawMinion : ModProjectile
             verlet.Update(player.Center, Projectile.Center);
             VerletDrawData data = new VerletDrawData(
                 new VerletTextureData(Helper.AssetPath+"NPCs/Crimson/Fleshformator/Fleshformator_Hook0",
-                _endTex: "NPCs/Crimson/Fleshformator/Fleshformator_Hook1"));
+                _endTex: Helper.AssetPath+"NPCs/Crimson/Fleshformator/Fleshformator_Hook1"));
             verlet.Draw(Main.spriteBatch, data);
         }
         return false;

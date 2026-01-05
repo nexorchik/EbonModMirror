@@ -110,7 +110,7 @@ public class Fleshformator : ModNPC
                 {
                     if (!Main.gamePaused)
                         verlet[i].Update(startPos[i], endPos[i]);
-                    verlet[i].Draw(spriteBatch, new VerletDrawData(new VerletTextureData(Helper.AssetPath+"NPCs/Crimson/Fleshformator/Fleshformator_Hook0", _endTex: "NPCs/Crimson/Fleshformator/Fleshformator_Hook1")));
+                    verlet[i].Draw(spriteBatch, new VerletDrawData(new VerletTextureData(Helper.AssetPath+"NPCs/Crimson/Fleshformator/Fleshformator_Hook0", _endTex: Helper.AssetPath+"NPCs/Crimson/Fleshformator/Fleshformator_Hook1")));
                 }
             }
         }

@@ -76,7 +76,7 @@ public class BabyCecity : ModNPC
                     if (!Main.gamePaused)
                         for (int j = 0; j < 2; j++)
                             verlet[i].Update(NPC.Center, ogPos[i]);
-                    verlet[i].Draw(spriteBatch, new VerletDrawData(new VerletTextureData(Helper.AssetPath+"NPCs/Crimson/BabyCecity/BabyCecity_Hook0", _endTex: "NPCs/Crimson/BabyCecity/BabyCecity_Hook2")));
+                    verlet[i].Draw(spriteBatch, new VerletDrawData(new VerletTextureData(Helper.AssetPath+"NPCs/Crimson/BabyCecity/BabyCecity_Hook0", _endTex: Helper.AssetPath+"NPCs/Crimson/BabyCecity/BabyCecity_Hook2")));
                 }
             }
         }

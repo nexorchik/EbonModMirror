@@ -143,19 +143,19 @@ public partial class Cecitior : ModNPC
                     {
                         if (AIState == Phase2ClawGrab && (int)AITimer2 == 1)
                         {
-                            claw[i].verlet.Draw(spriteBatch, new VerletDrawData(new VerletTextureData(Helper.AssetPath+"NPCs/Cecitior/Hook/CecitiorHook_0", _endTex: "NPCs/Cecitior/Hook/CecitiorHook_8")));
-                            claw[i].verlet.Draw(spriteBatch, new VerletDrawData(new VerletTextureData(Helper.AssetPath+"Extras/Empty", _endTex: "NPCs/Cecitior/Hook/CecitiorHook_8_Glow"), _color: Color.White));
+                            claw[i].verlet.Draw(spriteBatch, new VerletDrawData(new VerletTextureData(Helper.AssetPath+"NPCs/Cecitior/Hook/CecitiorHook_0", _endTex: Helper.AssetPath+"NPCs/Cecitior/Hook/CecitiorHook_8")));
+                            claw[i].verlet.Draw(spriteBatch, new VerletDrawData(new VerletTextureData(Helper.AssetPath+"Extras/Empty", _endTex: Helper.AssetPath+"NPCs/Cecitior/Hook/CecitiorHook_8_Glow"), _color: Color.White));
                         }
                         else
                         {
-                            claw[i].verlet.Draw(spriteBatch, new VerletDrawData(new VerletTextureData(Helper.AssetPath+"NPCs/Cecitior/Hook/CecitiorHook_0", _endTex: "NPCs/Cecitior/Hook/CecitiorHook_" + hookFrame)));
-                            claw[i].verlet.Draw(spriteBatch, new VerletDrawData(new VerletTextureData(Helper.AssetPath+"Extras/Empty", _endTex: "NPCs/Cecitior/Hook/CecitiorHook_" + hookFrame + "_Glow"), _color: Color.White));
+                            claw[i].verlet.Draw(spriteBatch, new VerletDrawData(new VerletTextureData(Helper.AssetPath+"NPCs/Cecitior/Hook/CecitiorHook_0", _endTex: Helper.AssetPath+"NPCs/Cecitior/Hook/CecitiorHook_" + hookFrame)));
+                            claw[i].verlet.Draw(spriteBatch, new VerletDrawData(new VerletTextureData(Helper.AssetPath+"Extras/Empty", _endTex: Helper.AssetPath+"NPCs/Cecitior/Hook/CecitiorHook_" + hookFrame + "_Glow"), _color: Color.White));
                         }
                     }
                     else
                     {
-                        claw[i].verlet.Draw(spriteBatch, new VerletDrawData(new VerletTextureData(Helper.AssetPath+"NPCs/Cecitior/Hook/CecitiorHook_0", _endTex: "NPCs/Cecitior/Hook/CecitiorHook_" + hookFrame)));
-                        claw[i].verlet.Draw(spriteBatch, new VerletDrawData(new VerletTextureData(Helper.AssetPath+"Extras/Empty", _endTex: "NPCs/Cecitior/Hook/CecitiorHook_" + hookFrame + "_Glow"), _color: Color.White));
+                        claw[i].verlet.Draw(spriteBatch, new VerletDrawData(new VerletTextureData(Helper.AssetPath+"NPCs/Cecitior/Hook/CecitiorHook_0", _endTex: Helper.AssetPath+"NPCs/Cecitior/Hook/CecitiorHook_" + hookFrame)));
+                        claw[i].verlet.Draw(spriteBatch, new VerletDrawData(new VerletTextureData(Helper.AssetPath+"Extras/Empty", _endTex: Helper.AssetPath+"NPCs/Cecitior/Hook/CecitiorHook_" + hookFrame + "_Glow"), _color: Color.White));
                     }
                 }
             }

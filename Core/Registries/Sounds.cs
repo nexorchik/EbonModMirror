@@ -10,6 +10,7 @@ public class Sounds : ModSystem
 
 
     public const string path = "EbonianMod/Assets/Sounds/";
+    public const string outroPath = "EbonianMod/Assets/Music/Outros";
     public static SoundStyle None;
     public static SoundStyle bloodSpit => Default with
     {
@@ -476,7 +477,7 @@ public class Sounds : ModSystem
 
     public static SoundStyle evilOutro => Default with
     {
-        SoundPath = path + "Music/Outros/evilOutro",
+        SoundPath = outroPath + "evilOutro",
         PitchVariance = 0,
         MaxInstances = 1,
         Type = SoundType.Music
@@ -484,7 +485,7 @@ public class Sounds : ModSystem
 
     public static SoundStyle xareusOutro => Default with
     {
-        SoundPath = path + "Music/Outros/xareusOutro",
+        SoundPath = outroPath + "xareusOutro",
         PitchVariance = 0,
         MaxInstances = 1,
         Type = SoundType.Music
