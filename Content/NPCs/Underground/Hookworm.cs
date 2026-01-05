@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using Terraria.GameContent.Bestiary;
 using Terraria.ModLoader.Utilities;
 
-namespace EbonianMod.Content.NPCs.Underground.Hookworm;
+namespace EbonianMod.Content.NPCs.Underground;
 public class Hookworm : ModNPC
 {
     public override string Texture => Helper.AssetPath + "NPCs/Underground/Hookworm/"+Name;

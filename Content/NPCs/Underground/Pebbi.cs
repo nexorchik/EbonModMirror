@@ -9,7 +9,7 @@ using Terraria.GameContent.ItemDropRules;
 using Terraria.ID;
 using Terraria.ModLoader;
 
-namespace EbonianMod.Content.NPCs.Underground.Pebbi
+namespace EbonianMod.Content.NPCs.Underground
 {
     public class Pebbi1 : ModNPC
     {

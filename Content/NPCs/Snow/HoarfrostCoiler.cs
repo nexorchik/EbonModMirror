@@ -2,7 +2,7 @@ using EbonianMod.Content.Projectiles.Enemy.Snow;
 using System;
 using Terraria.GameContent.Bestiary;
 
-namespace EbonianMod.Content.NPCs.Snow.Coiler;
+namespace EbonianMod.Content.NPCs.Snow;
 
 
 public class HoarfrostCoiler : WormHead
