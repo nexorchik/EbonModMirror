@@ -404,6 +404,8 @@ Goat: {
 }
 
 Fanatic: {
-	// DisplayName: Fanatic
+	// DisplayName: Goat-head Fanatic
 	// Bestiary: Cloaked figures that show up during blood moons to enact eerie rituals. They don't seem to worship any known deity, instead, they sacrifice goats to the blood moon.
 }
+
+// Cryptid.DisplayName: Cryptid
