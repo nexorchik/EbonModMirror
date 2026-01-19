@@ -249,7 +249,7 @@ public class Sounds : ModSystem
 
     public static SoundStyle genericExplosion => Default with
     {
-        SoundPath = path + "GenericExplosion"
+        SoundPath = path + "genericExplosion"
     };
 
 

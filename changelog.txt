@@ -6,6 +6,7 @@ v3.0
 ## Changes:
 - Reorganized the mod's codebase (this doesn't affect the mod in any direct way but there's a risk for oversights)
 
-##
+## Fixes:
 - Fixed the Defibrillator's VFX being weirdly flat
 - Fixed the Cold Touch spawning incorrectly
+- Fixed "Sounds/GenericExplosion" being missing
