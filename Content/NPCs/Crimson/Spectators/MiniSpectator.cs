@@ -112,21 +112,21 @@ public class MiniSpectator : ModNPC
         NPC.despawnEncouraged = false;
         Player player = Main.player[NPC.target];
         NPC.TargetClosest(false);
-        if (stalkBase == Vector2.Zero || Helper.TileRaycast.CastLength(stalkBase, Vector2.UnitY, 32) > 16)
+        if (stalkBase == Vector2.Zero || Helper.Raycast(stalkBase, Vector2.UnitY, 32).RayLength > 16)
         {
             NPC.netUpdate = true;
             Vector2 direction = Vector2.UnitY.RotatedBy(MathHelper.PiOver4 + MathHelper.PiOver4 * 0.25f);
             int attempts = 0;
             while (attempts++ <= 200)
             {
-                if (Helper.TileRaycast.CastLength(NPC.Center, Vector2.UnitY, 100) > 99)
+                if (Helper.Raycast(NPC.Center, Vector2.UnitY, 100).RayLength > 99)
                     NPC.Center += Vector2.UnitY;
                 if (attempts == 1)
                     direction = Vector2.UnitY.RotatedBy(-1 * MathHelper.PiOver4 - MathHelper.PiOver4 * 0.25f);
                 else
                     direction = Vector2.UnitY.RotatedByRandom(MathHelper.PiOver4);
             }
-            stalkBase = Helper.TileRaycast.Cast(NPC.Center, direction, 800) + new Vector2(0, 40);
+            stalkBase = Helper.Raycast(NPC.Center, direction, 800).Point + new Vector2(0, 40);
             return;
         }
         NPC.rotation = NPC.Center.FromAToB(player.Center).ToRotation() + MathHelper.Pi;

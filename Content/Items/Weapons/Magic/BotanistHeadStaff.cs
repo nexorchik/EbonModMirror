@@ -34,8 +34,8 @@ public class BotanistHeadStaff : ModItem
     }
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
     {
-        float dist = 300 - Helper.TileRaycast.CastLength(Main.MouseWorld, Vector2.UnitY, 300);
-        Vector2 target = Helper.TileRaycast.Cast(player.Center, player.FromAToB(Main.MouseWorld), player.Distance(Main.MouseWorld)) - new Vector2(0, dist);
+        float dist = 300 - Helper.Raycast(Main.MouseWorld, Vector2.UnitY, 300).RayLength;
+        Vector2 target = Helper.Raycast(player.Center, player.FromAToB(Main.MouseWorld), player.Distance(Main.MouseWorld)).Point - new Vector2(0, dist);
         Vector2 mouse = Vector2.Lerp(Main.MouseWorld, target, 0.5f) - player.RotatedRelativePoint(player.MountedCenter, reverseRotation: true);
         player.itemRotation = MathF.Atan2(mouse.Y * player.direction, mouse.X * player.direction);
         NetMessage.SendData(MessageID.PlayerControls, number: player.whoAmI);

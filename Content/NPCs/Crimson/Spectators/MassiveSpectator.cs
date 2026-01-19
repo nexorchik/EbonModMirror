@@ -144,20 +144,20 @@ public class MassiveSpectator : ModNPC
         if (NPC.AnyNPCs(NPCType<Cecitior.Cecitior>())) NPC.active = false;
         Player player = Main.player[NPC.target];
         NPC.TargetClosest(false);
-        if (!found && (stalkBase == Vector2.Zero || Helper.TileRaycast.CastLength(Helper.TileRaycast.Cast(NPC.Center, Vector2.UnitY, 400), Vector2.UnitY, 32, false) > 16))
+        if (!found && (stalkBase == Vector2.Zero || Helper.Raycast(Helper.Raycast(NPC.Center, Vector2.UnitY, 400).Point, Vector2.UnitY, 32, false).RayLength > 16))
         {
             NPC.netUpdate = true;
             Vector2 direction = Vector2.UnitY.RotatedBy(MathHelper.PiOver4 + MathHelper.PiOver4 * 0.25f);
             int attempts = 0;
-            while (Helper.TileRaycast.CastLength(NPC.Center, direction, 400) >= 399 && attempts++ <= 300)
+            while (Helper.Raycast(NPC.Center, direction, 400).RayLength >= 399 && attempts++ <= 300)
             {
                 NPC.Center += Vector2.UnitY * 4;
                 NPC.Center += Vector2.UnitX * Main.rand.NextFloat(-10, 10);
                 direction = Vector2.UnitY;
             }
-            if (Helper.TileRaycast.CastLength(Helper.TileRaycast.Cast(NPC.Center, direction, 400), Vector2.UnitY, 32) < 16)
+            if (Helper.Raycast(Helper.Raycast(NPC.Center, direction, 400).Point, Vector2.UnitY, 32).RayLength < 16)
             {
-                stalkBase = Helper.TileRaycast.Cast(NPC.Center, direction, 400) + new Vector2(0, 40);
+                stalkBase = Helper.Raycast(NPC.Center, direction, 400).Point + new Vector2(0, 40);
                 found = true;
             }
             return;

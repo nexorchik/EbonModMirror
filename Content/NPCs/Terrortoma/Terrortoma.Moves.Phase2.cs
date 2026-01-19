@@ -53,7 +53,7 @@ public partial class Terrortoma : ModNPC
         if (AITimer == 1)
             lastPos = player.Center + new Vector2(syncedRand.NextFloat(-50, 50), 0);
 
-        Vector2 to = Helper.TileRaycast.Cast(lastPos, Vector2.UnitY, 800, true) - new Vector2(0, 200);
+        Vector2 to = Helper.Raycast(lastPos, Vector2.UnitY, 800, true).Point - new Vector2(0, 200);
         if (NPC.Distance(to) > 100)
             NPC.velocity = Vector2.Lerp(NPC.velocity, Helper.FromAToB(NPC.Center, to) * 30, 0.1f);
         else NPC.velocity *= 0.9f;
@@ -112,7 +112,7 @@ public partial class Terrortoma : ModNPC
         if (AITimer == 1)
             lastPos = player.Center + new Vector2(syncedRand.NextFloat(-50, 50), 0);
 
-        Vector2 to = Helper.TileRaycast.Cast(lastPos, Vector2.UnitY, 800, true) - new Vector2(0, 300);
+        Vector2 to = Helper.Raycast(lastPos, Vector2.UnitY, 800, true).Point - new Vector2(0, 300);
         if (NPC.Distance(to) > 100)
             NPC.velocity = Vector2.Lerp(NPC.velocity, Helper.FromAToB(NPC.Center, to) * 30, 0.1f);
         else NPC.velocity *= 0.9f;
@@ -127,7 +127,7 @@ public partial class Terrortoma : ModNPC
             rotation = -PiOver4;
             if (AITimer < 20)
                 lastPos = player.Center;
-            Vector2 to = Helper.TileRaycast.Cast(lastPos + new Vector2(750, -200), Vector2.UnitY, 800, true) - new Vector2(200);
+            Vector2 to = Helper.Raycast(lastPos + new Vector2(750, -200), Vector2.UnitY, 800, true).Point - new Vector2(200);
             if (NPC.Distance(to) > 200)
                 NPC.velocity = Vector2.Lerp(NPC.velocity, Helper.FromAToB(NPC.Center, to) * 30, 0.1f);
             else NPC.velocity *= 0.9f;
@@ -143,7 +143,7 @@ public partial class Terrortoma : ModNPC
         }
         if (AITimer > 100)
         {
-            Vector2 to = Helper.TileRaycast.Cast(lastPos + new Vector2(-750, -400), Vector2.UnitY, 800, true) - new Vector2(200);
+            Vector2 to = Helper.Raycast(lastPos + new Vector2(-750, -400), Vector2.UnitY, 800, true).Point - new Vector2(200);
             if (NPC.Distance(to) > 200)
                 NPC.velocity = Vector2.Lerp(NPC.velocity, Helper.FromAToB(NPC.Center, to) * 30, 0.02f);
             else
@@ -158,8 +158,8 @@ public partial class Terrortoma : ModNPC
                 SoundEngine.PlaySound(SoundID.Item34, NPC.Center);
             if (AITimer % 9 == 0 && AITimer > 120 && NPC.Distance(to) > 200)
             {
-                MPUtils.NewProjectile(null, Helper.TileRaycast.Cast(NPC.Center, Vector2.UnitY, 300, true), -Vector2.UnitY, ProjectileType<TFlameThrower4>(), 23, 0);
-                MPUtils.NewProjectile(null, Helper.TileRaycast.Cast(NPC.Center, Vector2.UnitY, 300, true), Vector2.UnitY, ProjectileType<TFlameThrower4>(), 23, 0);
+                MPUtils.NewProjectile(null, Helper.Raycast(NPC.Center, Vector2.UnitY, 300, true).Point, -Vector2.UnitY, ProjectileType<TFlameThrower4>(), 23, 0);
+                MPUtils.NewProjectile(null, Helper.Raycast(NPC.Center, Vector2.UnitY, 300, true).Point, Vector2.UnitY, ProjectileType<TFlameThrower4>(), 23, 0);
             }
 
         }
@@ -207,7 +207,7 @@ public partial class Terrortoma : ModNPC
             NPC.velocity *= 0.8f;
         if (AITimer == 30)
         {
-            lastPos = Helper.TileRaycast.Cast(NPC.Center, Vector2.Clamp(Helper.FromAToB(NPC.Center, player.Center), new Vector2(-0.35f, 1), new Vector2(0.35f, 1)), 2028);
+            lastPos = Helper.Raycast(NPC.Center, Vector2.Clamp(Helper.FromAToB(NPC.Center, player.Center), new Vector2(-0.35f, 1), new Vector2(0.35f, 1)), 2028).Point;
             bloomAlpha = 1f;
         }
         if (AITimer > 100 && AITimer < 170)

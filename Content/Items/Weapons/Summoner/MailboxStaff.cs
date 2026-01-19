@@ -82,7 +82,7 @@ public class MailboxSentry : ModProjectile
         if (Projectile.ai[0] == 0)
         {
             player.UpdateMaxTurrets();
-            Projectile.Center = Helper.TileRaycast.Cast(Projectile.Center, Vector2.UnitY, 1000, true) - new Vector2(0, 37);
+            Projectile.Center = Helper.Raycast(Projectile.Center, Vector2.UnitY, 1000, true).Point - new Vector2(0, 37);
             Projectile.ai[0] = 1;
         }
         Collision.StepDown(ref Projectile.position, ref Projectile.velocity, Projectile.width, Projectile.height, ref Projectile.stepSpeed, ref Projectile.gfxOffY);

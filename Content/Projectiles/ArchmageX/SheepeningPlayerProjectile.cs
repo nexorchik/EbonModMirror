@@ -48,7 +48,7 @@ public class SheepeningPlayerProjectile : ModProjectile
             Projectile.timeLeft = Projectile.extraUpdates * 10;
         Projectile.Center = player.Bottom + new Vector2(0, -Projectile.height / 2);
         Projectile.direction = Projectile.spriteDirection = player.direction;
-        if (Helper.TileRaycast.CastLength(Projectile.Bottom, Vector2.UnitY, 50, true) > 1 || player.velocity.Y < 0)
+        if (Helper.Raycast(Projectile.Bottom, Vector2.UnitY, 50, true).RayLength > 1 || player.velocity.Y < 0)
         {
             Projectile.frame = 4;
         }

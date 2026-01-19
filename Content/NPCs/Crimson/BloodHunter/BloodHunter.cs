@@ -156,9 +156,9 @@ public class BloodHunter : ModNPC
     {
         Player player = Main.player[NPC.target];
         Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY, 1, false, 0);
-        if (NPC.Grounded(offsetX: 0.5f) && (NPC.collideX || Helper.TileRaycast.CastLength(NPC.Center, Vector2.UnitX, 1000) < NPC.width || Helper.TileRaycast.CastLength(NPC.Center, -Vector2.UnitX, 1000) < NPC.width) && player.Center.Y < NPC.Center.Y + NPC.height)
+        if (NPC.Grounded(offsetX: 0.5f) && (NPC.collideX || Helper.Raycast(NPC.Center, Vector2.UnitX, 1000).RayLength < NPC.width || Helper.Raycast(NPC.Center, -Vector2.UnitX, 1000).RayLength < NPC.width) && player.Center.Y < NPC.Center.Y + NPC.height)
             NPC.velocity.Y = -5;
-        if (Helper.TileRaycast.CastLength(NPC.Center, -Vector2.UnitY, NPC.height) < NPC.height - 1)
+        if (Helper.Raycast(NPC.Center, -Vector2.UnitY, NPC.height).RayLength < NPC.height - 1)
         {
             NPC.noTileCollide = true;
             if (!Collision.CanHit(NPC, player))

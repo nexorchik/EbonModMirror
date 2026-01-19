@@ -42,7 +42,7 @@ public class XShadowflame : ModProjectile
         Projectile.velocity.SafeNormalize(-Vector2.UnitY);
 
         if (Projectile.timeLeft == 868)
-            Projectile.Center = Helper.TileRaycast.Cast(Projectile.Center, -Projectile.velocity, 29 * 16);
+            Projectile.Center = Helper.Raycast(Projectile.Center, -Projectile.velocity, 29 * 16).Point;
         if (Projectile.timeLeft == 869 && Projectile.ai[0] == 0)
             SoundEngine.PlaySound(Sounds.cursedToyCharge, Projectile.Center);
 

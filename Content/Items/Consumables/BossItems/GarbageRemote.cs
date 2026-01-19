@@ -48,7 +48,7 @@ public class GarbageRemote : ModItem
     }
     public override bool Shoot(Player player, EntitySource_ItemUse_WithAmmo source, Vector2 position, Vector2 velocity, int type, int damage, float knockback)
     {
-        position = Helper.TileRaycast.Cast(player.Center + new Vector2(40 * player.direction, -50), Vector2.UnitY, 1000, true) - new Vector2(0, 23);
+        position = Helper.Raycast(player.Center + new Vector2(40 * player.direction, -50), Vector2.UnitY, 1000, true).Point - new Vector2(0, 23);
         velocity = Vector2.Zero;
 
         Projectile.NewProjectile(source, position, velocity, type, damage, knockback, player.whoAmI);
@@ -57,7 +57,7 @@ public class GarbageRemote : ModItem
     public override bool? UseItem(Player player)
     {
         if (Main.myPlayer != player.whoAmI)
-            Projectile.NewProjectile(null, Helper.TileRaycast.Cast(player.Center + new Vector2(40 * player.direction, -50), Vector2.UnitY, 1000, true) - new Vector2(0, 23), Vector2.Zero, Item.shoot, 0, 0, player.whoAmI);
+            Projectile.NewProjectile(null, Helper.Raycast(player.Center + new Vector2(40 * player.direction, -50), Vector2.UnitY, 1000, true).Point - new Vector2(0, 23), Vector2.Zero, Item.shoot, 0, 0, player.whoAmI);
 
         SoundEngine.PlaySound(Sounds.garbageSignal.WithVolumeScale(3), player.position);
         return null;

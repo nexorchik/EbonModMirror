@@ -215,7 +215,7 @@ public class Botanist : ModNPC
             }
             else if (AITimer < 90)
             {
-                Vector2 point = Helper.TileRaycast.Cast(NPC.Center + new Vector2(Clamp(MathF.Abs(Helper.FromAToB(NPC.Center, player.Center, false).X), 0, 100) * NPC.direction, -40), Vector2.UnitY, 200) + new Vector2(0, 8);
+                Vector2 point = Helper.Raycast(NPC.Center + new Vector2(Clamp(MathF.Abs(Helper.FromAToB(NPC.Center, player.Center, false).X), 0, 100) * NPC.direction, -40), Vector2.UnitY, 200).Point + new Vector2(0, 8);
                 Vector2 desiredP = Helper.FromAToB(NPC.Center, point, false);
                 headOffset.X = Lerp(headOffset.X, desiredP.X, Lerp(0, 0.7f, Clamp((AITimer - 50) / 5f, 0, 1)));
                 if (AITimer > 55)

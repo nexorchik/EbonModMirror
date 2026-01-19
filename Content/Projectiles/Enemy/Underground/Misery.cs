@@ -102,7 +102,7 @@ public class Misery : ModProjectile
 
             for (int i = 0; i < 10; i++)
                 Gore.NewGoreDirect(null, Projectile.Center, Main.rand.NextVector2Circular(20, 20), GoreID.Smoke1 + Main.rand.Next(3));
-            Projectile.NewProjectile(null, Helper.TileRaycast.Cast(Projectile.Center, Vector2.UnitY, 200), Vector2.Zero, ProjectileType<GarbageImpact>(), 100, 0);
+            Projectile.NewProjectile(null, Helper.Raycast(Projectile.Center, Vector2.UnitY, 200).Point, Vector2.Zero, ProjectileType<GarbageImpact>(), 100, 0);
         }
         return Projectile.ai[0] > 320;
     }

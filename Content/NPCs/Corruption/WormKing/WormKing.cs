@@ -156,12 +156,12 @@ public class WormKing : ModNPC
             NPC.netUpdate = true;
             Vector2 direction = Vector2.UnitY;
             int attempts = 0;
-            stalkBase = Helper.TileRaycast.Cast(NPC.Center + new Vector2(MathF.Sin(NPC.ai[3] * 0.02f) * 200, 0) - new Vector2(0, 500), direction, 2000) + new Vector2(0, 100);
+            stalkBase = Helper.Raycast(NPC.Center + new Vector2(MathF.Sin(NPC.ai[3] * 0.02f) * 200, 0) - new Vector2(0, 500), direction, 2000).Point + new Vector2(0, 100);
         }
-        if (AIState == Idle && Helper.TileRaycast.CastLength(NPC.Top + new Vector2(MathF.Sin(NPC.ai[3] * 0.02f) * 200, 0), -Vector2.UnitY, NPC.height * 3) < NPC.height * 2.9f)
+        if (AIState == Idle && Helper.Raycast(NPC.Top + new Vector2(MathF.Sin(NPC.ai[3] * 0.02f) * 200, 0), -Vector2.UnitY, NPC.height * 3).RayLength < NPC.height * 2.9f)
         {
             NPC.netUpdate = true;
-            stalkBase = Helper.TileRaycast.Cast(NPC.Center + new Vector2(MathF.Sin(NPC.ai[3] * 0.02f) * 200, 0) - new Vector2(0, 1400), Vector2.UnitY, 2000) + new Vector2(0, 100);
+            stalkBase = Helper.Raycast(NPC.Center + new Vector2(MathF.Sin(NPC.ai[3] * 0.02f) * 200, 0) - new Vector2(0, 1400), Vector2.UnitY, 2000).Point + new Vector2(0, 100);
             NPC.Center = stalkBase - new Vector2(0, 800);
         }
 
@@ -306,7 +306,7 @@ public class WormKing : ModNPC
                         NPC.velocity.Y += 3;
                         NPC.damage = 100;
                     }
-                    if (Helper.TileRaycast.CastLength(NPC.Center, -Vector2.UnitY, NPC.height * 2) < NPC.height && AITimer2 == 0)
+                    if (Helper.Raycast(NPC.Center, -Vector2.UnitY, NPC.height * 2).RayLength < NPC.height && AITimer2 == 0)
                     {
                         if (AITimer < 50)
                             AITimer = 51;

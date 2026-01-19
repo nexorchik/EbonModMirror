@@ -127,11 +127,11 @@ public class BabyCecity : ModNPC
     }
     public override void OnSpawn(IEntitySource source)
     {
-        NPC.Center = Helper.TileRaycast.Cast(NPC.Center, Vector2.UnitY, 1000) - Vector2.UnitY * Main.rand.NextFloat(200, 300);
+        NPC.Center = Helper.Raycast(NPC.Center, Vector2.UnitY, 1000).Point - Vector2.UnitY * Main.rand.NextFloat(200, 300);
         for (int i = 0; i < 2; i++)
         {
             dir[i] = -Helper.CircleDividedEqually(i + 1, 6).ToRotationVector2().RotatedBy(MathHelper.Pi);
-            ogPos[i] = Helper.TileRaycast.Cast(NPC.Center, dir[i], 350) + Vector2.UnitY * 30;
+            ogPos[i] = Helper.Raycast(NPC.Center, dir[i], 350).Point + Vector2.UnitY * 30;
         }
     }
     public override bool CheckDead()
@@ -156,11 +156,11 @@ public class BabyCecity : ModNPC
     {
         Player player = Main.player[NPC.target];
         NPC.direction = NPC.velocity.X < 0 ? -1 : 1;
-        if (Helper.TileRaycast.CastLength(NPC.Center, Vector2.UnitY, 600) >= 580)
+        if (Helper.Raycast(NPC.Center, Vector2.UnitY, 600).RayLength >= 580)
         {
             NPC.velocity.Y += 2;
-            ogPos[0].Y = MathHelper.Lerp(ogPos[0].Y, Helper.TileRaycast.Cast(new Vector2(ogPos[0].X, NPC.Center.Y) - new Vector2(0, 100), Vector2.UnitY, 600).Y + 16, MathHelper.SmoothStep(0.05f, 0.15f, (AITimer2 - 40) / 40));
-            ogPos[1].Y = MathHelper.Lerp(ogPos[1].Y, Helper.TileRaycast.Cast(new Vector2(ogPos[1].X, NPC.Center.Y) - new Vector2(0, 100), Vector2.UnitY, 600).Y + 16, MathHelper.SmoothStep(0.05f, 0.15f, (AITimer2 - 40) / 40));
+            ogPos[0].Y = MathHelper.Lerp(ogPos[0].Y, Helper.Raycast(new Vector2(ogPos[0].X, NPC.Center.Y) - new Vector2(0, 100), Vector2.UnitY, 600).Point.Y + 16, MathHelper.SmoothStep(0.05f, 0.15f, (AITimer2 - 40) / 40));
+            ogPos[1].Y = MathHelper.Lerp(ogPos[1].Y, Helper.Raycast(new Vector2(ogPos[1].X, NPC.Center.Y) - new Vector2(0, 100), Vector2.UnitY, 600).Point.Y + 16, MathHelper.SmoothStep(0.05f, 0.15f, (AITimer2 - 40) / 40));
         }
         NPC.rotation = NPC.Center.FromAToB(player.Center).ToRotation() - MathHelper.PiOver2;
         switch ((int)AIState)
@@ -180,7 +180,7 @@ public class BabyCecity : ModNPC
                 {
 
                     if (AITimer2 > 30 && AITimer2 % 2 == 0)
-                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.Center.FromAToB(Helper.TileRaycast.Cast(player.Center + new Vector2(0, -200), Vector2.UnitY, 800) - new Vector2(0, 100)) * 4, 0.2f);
+                        NPC.velocity = Vector2.Lerp(NPC.velocity, NPC.Center.FromAToB(Helper.Raycast(player.Center + new Vector2(0, -200), Vector2.UnitY, 800).Point - new Vector2(0, 100)) * 4, 0.2f);
                     else
                         NPC.velocity *= 0.95f;
                     if (NPC.ai[3] == 1)
@@ -202,7 +202,7 @@ public class BabyCecity : ModNPC
                                 if (AITimer2 < 60)
                                     ogPos[0] += new Vector2((NPC.velocity.X * rand.NextFloat(4, 5) * legOffset + Helper.FromAToB(ogPos[0], player.Center).X) * MathHelper.SmoothStep(1, 0, (AITimer2 - 40) * 20 / 40), 0);
 
-                                ogPos[0].Y = MathHelper.Lerp(ogPos[0].Y, Helper.TileRaycast.Cast(new Vector2(ogPos[0].X, NPC.Center.Y) - new Vector2(0, 100), Vector2.UnitY, 600).Y + 16, MathHelper.SmoothStep(0.05f, 0.15f, (AITimer2 - 40) / 40));
+                                ogPos[0].Y = MathHelper.Lerp(ogPos[0].Y, Helper.Raycast(new Vector2(ogPos[0].X, NPC.Center.Y) - new Vector2(0, 100), Vector2.UnitY, 600).Point.Y + 16, MathHelper.SmoothStep(0.05f, 0.15f, (AITimer2 - 40) / 40));
                             }
                         }
                     }
@@ -225,7 +225,7 @@ public class BabyCecity : ModNPC
                                 if (AITimer2 < 60)
                                     ogPos[1] += new Vector2((NPC.velocity.X * rand.NextFloat(4, 5) * legOffset + Helper.FromAToB(ogPos[1], player.Center).X) * MathHelper.SmoothStep(1, 0, (AITimer2 - 40) * 2 / 40), 0);
 
-                                ogPos[1].Y = MathHelper.Lerp(ogPos[1].Y, Helper.TileRaycast.Cast(new Vector2(ogPos[1].X, NPC.Center.Y) - new Vector2(0, 100), Vector2.UnitY, 600).Y + 16, MathHelper.SmoothStep(0.05f, 0.15f, (AITimer2 - 40) / 40));
+                                ogPos[1].Y = MathHelper.Lerp(ogPos[1].Y, Helper.Raycast(new Vector2(ogPos[1].X, NPC.Center.Y) - new Vector2(0, 100), Vector2.UnitY, 600).Point.Y + 16, MathHelper.SmoothStep(0.05f, 0.15f, (AITimer2 - 40) / 40));
                             }
                         }
                     }
@@ -245,11 +245,11 @@ public class BabyCecity : ModNPC
 
                 if (ogPos[0].Distance(NPC.Center) > 600)
                 {
-                    ogPos[0] = Vector2.Lerp(ogPos[0], new Vector2(NPC.Center.X, Helper.TileRaycast.Cast(ogPos[0], Vector2.UnitY, 800).Y + 16), 0.01f);
+                    ogPos[0] = Vector2.Lerp(ogPos[0], new Vector2(NPC.Center.X, Helper.Raycast(ogPos[0], Vector2.UnitY, 800).Point.Y + 16), 0.01f);
                 }
                 if (ogPos[1].Distance(NPC.Center) > 600)
                 {
-                    ogPos[1] = Vector2.Lerp(ogPos[1], new Vector2(NPC.Center.X, Helper.TileRaycast.Cast(ogPos[1], Vector2.UnitY, 800).Y + 16), 0.01f);
+                    ogPos[1] = Vector2.Lerp(ogPos[1], new Vector2(NPC.Center.X, Helper.Raycast(ogPos[1], Vector2.UnitY, 800).Point.Y + 16), 0.01f);
                 }
                 if (AITimer >= 400)
                 {
@@ -271,20 +271,20 @@ public class BabyCecity : ModNPC
 
                 if (ogPos[0].Distance(NPC.Center) > 600)
                 {
-                    ogPos[0] = Vector2.Lerp(ogPos[0], new Vector2(NPC.Center.X, Helper.TileRaycast.Cast(ogPos[0], Vector2.UnitY, 800).Y + 16), 0.01f);
+                    ogPos[0] = Vector2.Lerp(ogPos[0], new Vector2(NPC.Center.X, Helper.Raycast(ogPos[0], Vector2.UnitY, 800).Point.Y + 16), 0.01f);
                 }
                 else
-                    ogPos[0].Y = MathHelper.Lerp(ogPos[0].Y, Helper.TileRaycast.Cast(ogPos[0] - new Vector2(0, 400), Vector2.UnitY, 1200).Y + 16, 0.1f);
+                    ogPos[0].Y = MathHelper.Lerp(ogPos[0].Y, Helper.Raycast(ogPos[0] - new Vector2(0, 400), Vector2.UnitY, 1200).Point.Y + 16, 0.1f);
 
                 NPC.velocity *= 0.9f;
                 if (seed == 0)
                 {
                     if (ogPos[1].Distance(NPC.Center) > 600)
                     {
-                        ogPos[1] = Vector2.Lerp(ogPos[1], new Vector2(NPC.Center.X, Helper.TileRaycast.Cast(ogPos[1], Vector2.UnitY, 800).Y + 16), 0.01f);
+                        ogPos[1] = Vector2.Lerp(ogPos[1], new Vector2(NPC.Center.X, Helper.Raycast(ogPos[1], Vector2.UnitY, 800).Point.Y + 16), 0.01f);
                     }
                     else
-                        ogPos[1].Y = MathHelper.Lerp(ogPos[1].Y, Helper.TileRaycast.Cast(ogPos[1] - new Vector2(0, 400), Vector2.UnitY, 1200).Y + 16, 0.1f);
+                        ogPos[1].Y = MathHelper.Lerp(ogPos[1].Y, Helper.Raycast(ogPos[1] - new Vector2(0, 400), Vector2.UnitY, 1200).Point.Y + 16, 0.1f);
 
                     if (AITimer > 45)
                         AITimer2++;
@@ -325,7 +325,7 @@ public class BabyCecity : ModNPC
                     }
                     if (AITimer > 65)
                     {
-                        ogPos[1].Y = MathHelper.Lerp(ogPos[1].Y, Helper.TileRaycast.Cast(ogPos[1] - new Vector2(0, 300), Vector2.UnitY, 1000).Y + 16, 0.1f);
+                        ogPos[1].Y = MathHelper.Lerp(ogPos[1].Y, Helper.Raycast(ogPos[1] - new Vector2(0, 300), Vector2.UnitY, 1000).Point.Y + 16, 0.1f);
                     }
 
                     if (AITimer >= 90)

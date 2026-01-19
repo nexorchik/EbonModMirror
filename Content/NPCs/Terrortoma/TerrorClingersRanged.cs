@@ -288,7 +288,7 @@ public class TerrorClingerRanged : TerrorClingerGeneric // Disgusting
                             else if (AITimer > 80 && AITimer3 < 4)
                             {
 
-                                Vector2 to = Helper.TileRaycast.Cast(NPC.Center - new Vector2(0, 50), Vector2.UnitY, 800);
+                                Vector2 to = Helper.Raycast(NPC.Center - new Vector2(0, 50), Vector2.UnitY, 800).Point;
                                 if (AITimer2 < 0.5f)
                                     NPC.velocity = Vector2.Lerp(NPC.velocity, Helper.FromAToB(NPC.Center, to) * 40, 0.05f);
                                 AITimer2 = Lerp(AITimer2, 0, 0.1f);

@@ -359,7 +359,7 @@ public class HotGarbage : ModNPC
     {
         Player player = Main.player[NPC.target];
         Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY, 1, false, 0);
-        if (NPC.Grounded(offsetX: 0.5f) && (NPC.collideX || Helper.TileRaycast.CastLength(NPC.Center, Vector2.UnitX, 1000) < NPC.width || Helper.TileRaycast.CastLength(NPC.Center, -Vector2.UnitX, 1000) < NPC.width))
+        if (NPC.Grounded(offsetX: 0.5f) && (NPC.collideX || Helper.Raycast(NPC.Center, Vector2.UnitX, 1000).RayLength < NPC.width || Helper.Raycast(NPC.Center, -Vector2.UnitX, 1000).RayLength < NPC.width))
             NPC.velocity.Y = -10;
         if (NPC.Grounded(offsetX: 0.5f) && player.Center.Y < NPC.Center.Y - 300)
             NPC.velocity.Y = -20;
@@ -369,7 +369,7 @@ public class HotGarbage : ModNPC
             NPC.velocity.Y = -10;
         if (AIState == Idle)
         {
-            if (Helper.TileRaycast.CastLength(NPC.Center, -Vector2.UnitY, NPC.height) < NPC.height - 1 && !Collision.CanHit(NPC, player))
+            if (Helper.Raycast(NPC.Center, -Vector2.UnitY, NPC.height).RayLength < NPC.height - 1 && !Collision.CanHit(NPC, player))
             {
                 if (!NPC.noTileCollide)
                 {
@@ -583,7 +583,7 @@ public class HotGarbage : ModNPC
         {
             if (!NPC.collideY && AITimer2 < 150)
             {
-                if (Helper.TileRaycast.CastLength(NPC.Center, Vector2.UnitY, 80) > 50)
+                if (Helper.Raycast(NPC.Center, Vector2.UnitY, 80).RayLength > 50)
                     NPC.position.Y += NPC.velocity.Y * 0.5f;
                 NPC.frameCounter = 0;
             }
@@ -642,7 +642,7 @@ public class HotGarbage : ModNPC
             NPC.spriteDirection = NPC.direction = player.Center.X > NPC.Center.X ? 1 : -1;
             JumpCheck();
             if (AITimer == 50 && Main.rand.NextBool() && NextAttack2 != SpewFire)
-                MPUtils.NewProjectile(NPC.GetSource_FromThis(), Helper.TileRaycast.Cast(NPC.Center - new Vector2(Main.rand.NextFloat(-500, 500), 200), Vector2.UnitY, 600, true), Vector2.Zero, ProjectileType<Mailbox>(), 15, 0);
+                MPUtils.NewProjectile(NPC.GetSource_FromThis(), Helper.Raycast(NPC.Center - new Vector2(Main.rand.NextFloat(-500, 500), 200), Vector2.UnitY, 600, true).Point, Vector2.Zero, ProjectileType<Mailbox>(), 15, 0);
             NPC.velocity.X = Lerp(NPC.velocity.X, Helper.FromAToB(NPC.Center, player.Center + Helper.FromAToB(player.Center, NPC.Center) * 70, false).X * 0.043f, 0.12f);
             if (player.Distance(NPC.Center) < 70)
                 AITimer += 1;
@@ -1080,7 +1080,7 @@ public class HotGarbage : ModNPC
 
             if (AITimer > 60 && AITimer < 82)
             {
-                MPUtils.NewProjectile(NPC.GetSource_FromThis(), Helper.TileRaycast.Cast(NPC.Center - new Vector2(Main.rand.NextFloat(-2000, 2000), 200), Vector2.UnitY, 600, true), Vector2.Zero, ProjectileType<Mailbox>(), 15, 0);
+                MPUtils.NewProjectile(NPC.GetSource_FromThis(), Helper.Raycast(NPC.Center - new Vector2(Main.rand.NextFloat(-2000, 2000), 200), Vector2.UnitY, 600, true).Point, Vector2.Zero, ProjectileType<Mailbox>(), 15, 0);
             }
             if (AITimer >= 120)
             {
@@ -1220,9 +1220,9 @@ public class HotGarbage : ModNPC
             }
             else
                 flameAlpha = Lerp(flameAlpha, 0, 0.2f);
-            bool colliding = Helper.TileRaycast.CastLength(NPC.Center, Vector2.UnitY, NPC.width * 0.6f) < NPC.width * 0.3f ||
-                Helper.TileRaycast.CastLength(NPC.BottomRight, Vector2.UnitY, NPC.width * 0.6f) < NPC.width * 0.3f ||
-                Helper.TileRaycast.CastLength(NPC.BottomLeft, Vector2.UnitY, NPC.width * 0.6f) < NPC.width * 0.3f;
+            bool colliding = Helper.Raycast(NPC.Center, Vector2.UnitY, NPC.width * 0.6f).RayLength < NPC.width * 0.3f ||
+                Helper.Raycast(NPC.BottomRight, Vector2.UnitY, NPC.width * 0.6f).RayLength < NPC.width * 0.3f ||
+                Helper.Raycast(NPC.BottomLeft, Vector2.UnitY, NPC.width * 0.6f).RayLength < NPC.width * 0.3f;
             if (colliding && AITimer > 60 && AITimer < 320)
             {
                 if (AITimer3 != 3)

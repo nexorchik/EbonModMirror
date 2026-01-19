@@ -360,20 +360,20 @@ public partial class Cecitior : ModNPC
     public void DoBodySlam()
     {
         if (AITimer < 20)
-            NPC.velocity = Helper.FromAToB(NPC.Center, Helper.TileRaycast.Cast(player.Center, Vector2.UnitY, 1200, true) - new Vector2(0, 200), false) / 10f;
+            NPC.velocity = Helper.FromAToB(NPC.Center, Helper.Raycast(player.Center, Vector2.UnitY, 1200, true).Point - new Vector2(0, 200), false) / 10f;
         if (AITimer > 20 && AITimer < 45)
         {
             NPC.velocity *= 0.8f;
-            claw[0].position = Vector2.Lerp(claw[0].position, Helper.TileRaycast.Cast(NPC.Center + new Vector2(70, 0), new Vector2(0.2f, 1), 400, true) + new Vector2(0, 25), 0.1f);
-            claw[1].position = Vector2.Lerp(claw[1].position, Helper.TileRaycast.Cast(NPC.Center, new Vector2(-0.05f, 1), 400, true) + new Vector2(0, 25), 0.1f);
-            claw[2].position = Vector2.Lerp(claw[2].position, Helper.TileRaycast.Cast(NPC.Center + new Vector2(-75, 0), new Vector2(-0.25f, 1), 400, true) + new Vector2(0, 25), 0.1f);
+            claw[0].position = Vector2.Lerp(claw[0].position, Helper.Raycast(NPC.Center + new Vector2(70, 0), new Vector2(0.2f, 1), 400, true).Point + new Vector2(0, 25), 0.1f);
+            claw[1].position = Vector2.Lerp(claw[1].position, Helper.Raycast(NPC.Center, new Vector2(-0.05f, 1), 400, true).Point + new Vector2(0, 25), 0.1f);
+            claw[2].position = Vector2.Lerp(claw[2].position, Helper.Raycast(NPC.Center + new Vector2(-75, 0), new Vector2(-0.25f, 1), 400, true).Point + new Vector2(0, 25), 0.1f);
         }
         if (AITimer <= 60 && AITimer >= 50)
         {
             NPC.velocity.Y += 3;
             NPC.damage = 100;
         }
-        if (Helper.TileRaycast.CastLength(NPC.Center, Vector2.UnitY, NPC.height * 2, true) < NPC.height * 0.6f && (int)AITimer2 == 0 && AITimer > 45)
+        if (Helper.Raycast(NPC.Center, Vector2.UnitY, NPC.height * 2, true).RayLength < NPC.height * 0.6f && (int)AITimer2 == 0 && AITimer > 45)
         {
             if (AITimer < 60)
                 AITimer = 61;
@@ -428,7 +428,7 @@ public partial class Cecitior : ModNPC
                 NPC.damage = 100;
                 NPC.velocity.Y += 3;
             }
-            if (Helper.TileRaycast.CastLength(NPC.Center, Vector2.UnitY, NPC.height * 2, true) < NPC.height * 0.6f && (int)AITimer2 == 2)
+            if (Helper.Raycast(NPC.Center, Vector2.UnitY, NPC.height * 2, true).RayLength < NPC.height * 0.6f && (int)AITimer2 == 2)
             {
                 if (AITimer < 80)
                     AITimer = 81;

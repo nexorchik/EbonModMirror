@@ -59,7 +59,7 @@ public class TBeam : ModProjectile
         {
             for (int m = 0; m < 50; m++)
             {
-                Vector2 pos = Helper.TileRaycast.Cast(Projectile.Center, Projectile.velocity, Projectile.ai[0]);
+                Vector2 pos = Helper.Raycast(Projectile.Center, Projectile.velocity, Projectile.ai[0]).Point;
                 int x = pos.ToTileCoordinates().X;
                 int y = pos.ToTileCoordinates().Y;
 

@@ -58,7 +58,7 @@ internal class SerrationSpike : ModProjectile
 
             if (Projectile.ai[0] < 7 && Main.myPlayer == Projectile.owner)
             {
-                Projectile a = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), ((Projectile.ai[0] + 1) * 4) * Projectile.velocity + (Helper.TileRaycast.Cast(Projectile.Center - Vector2.UnitY * 30, Vector2.UnitY, 500, true)) + new Vector2(0, (Projectile.ai[0] + 1)), Projectile.velocity, ProjectileType<SerrationSpike>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.ai[0]);
+                Projectile a = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), ((Projectile.ai[0] + 1) * 4) * Projectile.velocity + Helper.Raycast(Projectile.Center - Vector2.UnitY * 30, Vector2.UnitY, 500, true).Point + new Vector2(0, (Projectile.ai[0] + 1)), Projectile.velocity, ProjectileType<SerrationSpike>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.ai[0]);
                 a.ai[0] = Projectile.ai[0] + 1;
                 a.SyncProjectile();
             }

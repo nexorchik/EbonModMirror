@@ -84,8 +84,7 @@ public class FanaticFlame : ModProjectile
 		else
 			Projectile.localAI[1] = Lerp(Projectile.localAI[1], 1, 0.1f);
 		
-		if (Helper.TileRaycast.CastLength(Projectile.Center, Projectile.velocity.SafeNormalize(Vector2.UnitY), 20) <
-		    16f)
+		if (Helper.Raycast(Projectile.Center, Projectile.velocity.SafeNormalize(Vector2.UnitY), 20).RayLength < 16f)
 			Projectile.velocity *= 0.85f;
 		
 		if (Projectile.frameCounter++ % 5 == 0)

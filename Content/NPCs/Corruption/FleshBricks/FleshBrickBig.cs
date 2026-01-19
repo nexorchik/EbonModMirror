@@ -98,7 +98,7 @@ public class FleshBrickBig : ModNPC
         float dir = 0;
         AITimer++;
         if (NPC.Center.Distance(player.Center) > 1000) return;
-        float off = Helper.TileRaycast.CastLength(NPC.Center, NPC.Center.FromAToB(player.Center), 400) < 399 ? -1 : 1;
+        float off = Helper.Raycast(NPC.Center, NPC.Center.FromAToB(player.Center), 400).RayLength < 399 ? -1 : 1;
         switch (AIState)
         {
             case Halt:

@@ -63,7 +63,7 @@ public class XLightningBolt : ModProjectile
 
         Vector2 start = Projectile.Center;
         Projectile.ai[2] = MathHelper.Min(Projectile.ai[2] + 1f, 20);
-        end = Projectile.Center + Projectile.rotation.ToRotationVector2() * (Helper.TileRaycast.CastLength(Projectile.Center, Projectile.rotation.ToRotationVector2(), 2000) + 32);
+        end = Projectile.Center + Projectile.rotation.ToRotationVector2() * (Helper.Raycast(Projectile.Center, Projectile.rotation.ToRotationVector2(), 2000).RayLength + 32);
 
         if (!RunOnce)
         {

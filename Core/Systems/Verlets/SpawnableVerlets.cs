@@ -43,7 +43,7 @@ public class S_VerletSystem : ModSystem
                         if (verlets[i].verlet.points[j].colLength < verlets[i].verlet.gravity)
                             verlets[i].verlet.points[j].colLength = verlets[i].verlet.gravity * 2;
                         Vector2 velocity = verlets[i].velocity;
-                        if (Helper.TileRaycast.CastLength(verlets[i].verlet.points[j].position, velocity.SafeNormalize(Vector2.UnitY), verlets[i].verlet.points[j].colLength * 2) >= verlets[i].verlet.points[j].colLength * 1.8f || !Collision.SolidCollision(verlets[i].verlet.points[j].position, (int)verlets[i].verlet.points[j].colLength, (int)verlets[i].verlet.points[j].colLength))
+                        if (Helper.Raycast(verlets[i].verlet.points[j].position, velocity.SafeNormalize(Vector2.UnitY), verlets[i].verlet.points[j].colLength * 2).RayLength >= verlets[i].verlet.points[j].colLength * 1.8f || !Collision.SolidCollision(verlets[i].verlet.points[j].position, (int)verlets[i].verlet.points[j].colLength, (int)verlets[i].verlet.points[j].colLength))
                             verlets[i].verlet.points[j].position += verlets[i].velocity * (rand.NextFloat(0.75f, 1f) * (j / (float)verlets[i].verlet.points.Count));
 
                         verlets[i].verlet.points[j].locked = false;

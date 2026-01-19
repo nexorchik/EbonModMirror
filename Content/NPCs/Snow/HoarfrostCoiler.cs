@@ -67,11 +67,11 @@ public class HoarfrostCoiler : WormHead
         Lighting.AddLight(NPC.Center, new Vector3(0f, .09f, .07f));
         Player player = Main.player[NPC.target];
         NPC.ai[3]--;
-        if (collisionState != (Helper.TileRaycast.CastLength(NPC.Center, NPC.velocity.SafeNormalize(Vector2.One), NPC.height*2) < NPC.height) 
+        if (collisionState != (Helper.Raycast(NPC.Center, NPC.velocity.SafeNormalize(Vector2.One), NPC.height*2).RayLength < NPC.height) 
             && NPC.ai[3] <= 0 && NPC.velocity.Y > 0 && NPC.Center.Y > player.Center.Y)
         {
             for (int i = -1; i< 2;i+=2)
-                MPUtils.NewProjectile(NPC.GetSource_FromThis(), Helper.TileRaycast.Cast(NPC.Center - new Vector2(0, 35), Vector2.UnitY, 300, true) + new Vector2(0, 3), Vector2.Zero, ProjectileType<BorealSpike>(), NPC.damage, 0, ai0: 2, ai1: i);
+                MPUtils.NewProjectile(NPC.GetSource_FromThis(), Helper.Raycast(NPC.Center - new Vector2(0, 35), Vector2.UnitY, 300, true).Point + new Vector2(0, 3), Vector2.Zero, ProjectileType<BorealSpike>(), NPC.damage, 0, ai0: 2, ai1: i);
 
             SoundEngine.PlaySound(SoundID.Item1.WithPitchOffset(Main.rand.NextFloat(0f, 1f)), NPC.Center);
             NPC.ai[3] = 60;
@@ -82,7 +82,7 @@ public class HoarfrostCoiler : WormHead
     {
         base.PostAI();
         if (NPC.ai[3] % 2 == 0)
-            collisionState = Helper.TileRaycast.CastLength(NPC.Center, NPC.velocity.SafeNormalize(Vector2.One), NPC.height*2) < NPC.height;
+            collisionState = Helper.Raycast(NPC.Center, NPC.velocity.SafeNormalize(Vector2.One), NPC.height * 2).RayLength < NPC.height;
     }
 
     public override void Init()

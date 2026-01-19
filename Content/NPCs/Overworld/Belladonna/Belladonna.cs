@@ -198,7 +198,7 @@ public class Belladonna : ModNPC
                 for (int i = 0; i < 3; i++)
                 {
                     Vector2 pos = NPC.Center - new Vector2(Main.rand.Next(-400, 400), 100f);
-                    Vector2 actualPos = Helper.TileRaycast.Cast(pos, Vector2.UnitY, 500f);
+                    Vector2 actualPos = Helper.Raycast(pos, Vector2.UnitY, 500f).Point;
                     MPUtils.NewProjectile(NPC.GetSource_FromAI(), actualPos - Vector2.UnitY * 20, Vector2.Zero, ProjectileType<BelladonnaBush>(), 0, 0);
                 }
             }

@@ -81,14 +81,14 @@ public class SerrationP : HeldSword
         if (lerpProg != 1 && lerpProg != -1)
             lerpProg = MathHelper.SmoothStep(lerpProg, 1, 0.1f);
         if (swingProgress > 0.25f && swingProgress < 0.85f)
-            if (Projectile.ai[0] == 0 && Helper.TileRaycast.CastLength(Projectile.Center, Vector2.UnitY, 100) < 15)
+            if (Projectile.ai[0] == 0 && Helper.Raycast(Projectile.Center, Vector2.UnitY, 100).RayLength < 15)
             {
                 Projectile.ai[0] = 1;
                 Helper.AddCameraModifier(new PunchCameraModifier(Projectile.Center, Main.rand.NextVector2Unit(), 5, 6, 30, 1000));
                 Projectile.timeLeft = 15;
                 SoundEngine.PlaySound(SoundID.Item70, Projectile.Center);
 
-                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Helper.TileRaycast.Cast(Projectile.Center - Vector2.UnitY * 30, Vector2.UnitY, 500, true), new Vector2((float)player.direction, 0), ProjectileType<SerrationSpike>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                Projectile.NewProjectile(Projectile.GetSource_FromAI(), Helper.Raycast(Projectile.Center - Vector2.UnitY * 30, Vector2.UnitY, 500, true).Point, new Vector2((float)player.direction, 0), ProjectileType<SerrationSpike>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
                 lerpProg = -1;
             }

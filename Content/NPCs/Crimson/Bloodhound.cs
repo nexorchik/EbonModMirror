@@ -64,7 +64,7 @@ public class Bloodhound : ModNPC
     public override void AI()
     {
         NPC.ai[0] = 2;
-        if (Helper.TileRaycast.CastLength(NPC.position + NPC.velocity * off, NPC.velocity, 60) > 50)
+        if (Helper.Raycast(NPC.position + NPC.velocity * off, NPC.velocity, 60).RayLength > 50)
             NPC.position.X += NPC.velocity.X * off;
         if (++timer >= 35)
         {

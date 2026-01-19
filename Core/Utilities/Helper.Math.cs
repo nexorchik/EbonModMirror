@@ -64,31 +64,36 @@ public static partial class Helper
 	public static Vector2 FromAToB(this Vector2 a, Entity b, bool normalize = true, bool reverse = false) => FromAToB(a, b.Center, normalize, reverse);
 	public static Vector2 FromAToB(this Entity a, Vector2 b, bool normalize = true, bool reverse = false) => FromAToB(a.Center, b, normalize, reverse);
 	
-	public static class TileRaycast
+	public struct RaycastData
+    {
+		public bool Success;
+		public Vector2 Point;
+		public float RayLength;
+    }
+
+	public static RaycastData Raycast(Vector2 origin, Vector2 direction, float length, bool checkPlatforms = false, bool CROTCH = false) //crotch needs to be removed later
 	{
-		public static Vector2 Cast(Vector2 start, Vector2 direction, float length, bool platformCheck = false)
-		{
-			direction = direction.SafeNormalize(Vector2.UnitY);
-			Vector2 output = start;
+        bool success = false;
+        direction.Normalize();
+		Vector2 point = origin;
 
-			for (int i = 0; i < length; i++)
+		for (int i = 0; i < length; i++)
+		{
+			if ((Collision.CanHitLine(point, 0, 0, point + direction, 0, 0) && (checkPlatforms ? !Collision.SolidTiles(point, 1, 1, checkPlatforms) && Main.tile[(int)point.X / 16, (int)point.Y / 16].TileType != TileID.Platforms : true)))
 			{
-				if ((Collision.CanHitLine(output, 0, 0, output + direction, 0, 0) && (platformCheck ? !Collision.SolidTiles(output, 1, 1, platformCheck) && Main.tile[(int)output.X / 16, (int)output.Y / 16].TileType != TileID.Platforms : true)))
-				{
-					output += direction;
-				}
-				else
-				{
-					break;
-				}
-			}
-
-			return output;
+				point += direction;
+            }
+			else
+			{
+                success = true;
+                break;
+            }
 		}
-		public static float CastLength(Vector2 start, Vector2 direction, float length, bool platformCheck = false)
-		{
-			Vector2 end = Cast(start, direction, length, platformCheck);
-			return (end - start).Length();
-		}
+        RaycastData data = new RaycastData();
+        data.Success = success;
+		if (success) data.Point = point;
+		else if (CROTCH) data.Point = origin + direction * length;
+		data.RayLength = (point - origin).Length();
+        return data;
 	}
 }
