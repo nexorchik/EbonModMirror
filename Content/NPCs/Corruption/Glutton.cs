@@ -224,7 +224,7 @@ public class Glutton : ModNPC
 
                 Helper.AddCameraModifier(new PunchCameraModifier(NPC.Center, Main.rand.NextVector2Unit(), 6, 6, 30, 1000));
                 SoundEngine.PlaySound(SoundID.Item70, NPC.Center);
-                Projectile a = MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Bottom + new Vector2(NPC.direction * 60, Helper.TileRaycast.CastLength(NPC.Bottom, Vector2.UnitY, 40, true)), new Vector2(0, 0), ProjectileType<GluttonImpact>(), 30, 2.5f, 0, 0);
+                Projectile a = MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Bottom + new Vector2(NPC.direction * 60, Helper.Raycast(NPC.Bottom, Vector2.UnitY, 40, true).RayLength), new Vector2(0, 0), ProjectileType<GluttonImpact>(), 30, 2.5f, 0, 0);
 
                 if (a is not null)
                 {
@@ -255,7 +255,7 @@ public class Glutton : ModNPC
 
                 Helper.AddCameraModifier(new PunchCameraModifier(NPC.Center, Main.rand.NextVector2Unit(), 6, 6, 30, 1000));
                 SoundEngine.PlaySound(SoundID.Item70, NPC.Center);
-                Projectile a = MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Bottom + new Vector2(NPC.direction * 60, Helper.TileRaycast.CastLength(NPC.Bottom, Vector2.UnitY, 40, true)), new Vector2(0, 0), ProjectileType<GluttonImpact>(), 30, 2.5f, 0, 0);
+                Projectile a = MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Bottom + new Vector2(NPC.direction * 60, Helper.Raycast(NPC.Bottom, Vector2.UnitY, 40, true).RayLength), new Vector2(0, 0), ProjectileType<GluttonImpact>(), 30, 2.5f, 0, 0);
 
                 if (a is not null)
                 {
@@ -283,7 +283,7 @@ public class Glutton : ModNPC
 
                 Helper.AddCameraModifier(new PunchCameraModifier(NPC.Center, Main.rand.NextVector2Unit(), 6, 6, 30, 1000));
                 SoundEngine.PlaySound(SoundID.Item70, NPC.Center);
-                Projectile a = MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Bottom + new Vector2(NPC.direction * 60, Helper.TileRaycast.CastLength(NPC.Bottom, Vector2.UnitY, 40, true)), new Vector2(0, 0), ProjectileType<GluttonImpact>(), 30, 2.5f, 0, 0);
+                Projectile a = MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Bottom + new Vector2(NPC.direction * 60, Helper.Raycast(NPC.Bottom, Vector2.UnitY, 40, true).RayLength), new Vector2(0, 0), ProjectileType<GluttonImpact>(), 30, 2.5f, 0, 0);
 
                 if (a is not null)
                 {

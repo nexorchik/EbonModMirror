@@ -44,7 +44,7 @@ public class TerrortomaBulb : ModNPC
 
         while (Main.tile[i, j].HasTile && ++atts < 300)
             NPC.Center -= Vector2.UnitY * 16;
-        NPC.Center = Helper.TileRaycast.Cast(NPC.Center, Vector2.UnitY, 1500) - new Vector2(0, 35);
+        NPC.Center = Helper.Raycast(NPC.Center, Vector2.UnitY, 1500).Point - new Vector2(0, 35);
     }
     public override void DrawBehind(int index)
     {

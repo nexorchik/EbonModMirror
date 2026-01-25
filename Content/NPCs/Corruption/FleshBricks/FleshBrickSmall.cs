@@ -117,7 +117,7 @@ public class FleshBrickSmall : ModNPC
         NPC.TargetClosest(false);
         AITimer++;
         if (NPC.Center.Distance(player.Center) > 1000) return;
-        float off = Helper.TileRaycast.CastLength(NPC.Center, NPC.Center.FromAToB(player.Center), 400) < 200 ? -1 : 1;
+        float off = Helper.Raycast(NPC.Center, NPC.Center.FromAToB(player.Center), 400).RayLength < 200 ? -1 : 1;
         float dir = 0;
         switch (AIState)
         {

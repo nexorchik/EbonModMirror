@@ -227,7 +227,7 @@ public class ArchmageCutsceneMartian : ModNPC
                     if (_player.active && !_player.dead)
                         _player.statLife = _player.statLifeMax2;
                 }
-                while (atts++ < 400 && (Main.tile[NPC.Center.ToTileCoordinates().X, NPC.Center.ToTileCoordinates().Y].HasTile || Helper.TileRaycast.CastLength(NPC.Center, Vector2.UnitY, 700) < 650))
+                while (atts++ < 400 && (Main.tile[NPC.Center.ToTileCoordinates().X, NPC.Center.ToTileCoordinates().Y].HasTile || Helper.Raycast(NPC.Center, Vector2.UnitY, 700).RayLength < 650))
                     NPC.Center -= Vector2.UnitY * 8;
                 startP = NPC.Center;
                 foreach (NPC npc in Main.ActiveNPCs)

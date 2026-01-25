@@ -78,14 +78,14 @@ public class ToothToothbrushP : HeldSword
         if (lerpProg != 1 && lerpProg != -1)
             lerpProg = MathHelper.SmoothStep(lerpProg, 1, 0.1f);
         if (swingProgress > 0.05f && swingProgress < 0.95f)
-            if (Projectile.ai[0] < 1 && Helper.TileRaycast.CastLength(Projectile.Center, Vector2.UnitY, 100) < 15)
+            if (Projectile.ai[0] < 1 && Helper.Raycast(Projectile.Center, Vector2.UnitY, 100).RayLength < 15)
             {
                 Projectile.ai[0] = 1;
                 Projectile.timeLeft = 15;
                 SoundEngine.PlaySound(SoundID.Item70, Projectile.Center);
                 if (player.whoAmI == Main.myPlayer)
                     for (int i = 0; i < 6; i++)
-                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Helper.TileRaycast.Cast(Projectile.Center - new Vector2(0, 30), Vector2.UnitY, 60) - new Vector2(0, 10), Main.rand.NextVector2Circular(15, 15), ProjectileType<Gibs>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
+                        Projectile.NewProjectile(Projectile.GetSource_FromAI(), Helper.Raycast(Projectile.Center - new Vector2(0, 30), Vector2.UnitY, 60).Point - new Vector2(0, 10), Main.rand.NextVector2Circular(15, 15), ProjectileType<Gibs>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
                 lerpProg = -1;
                 Projectile.netUpdate = true;

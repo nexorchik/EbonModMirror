@@ -153,6 +153,6 @@ public class XImpact2 : ModProjectile
             Projectile.Kill();
         if (Projectile.timeLeft == 29)
             if (++Projectile.ai[2] < 17)
-                Projectile.NewProjectile(null, Helper.TileRaycast.Cast(Projectile.Center + Projectile.velocity * 30 - new Vector2(0, 50), Vector2.UnitY, 100, true), Projectile.velocity, Projectile.type, Projectile.damage, Projectile.knockBack, Projectile.owner, 0, 0, Projectile.ai[2]);
+                Projectile.NewProjectile(null, Helper.Raycast(Projectile.Center + Projectile.velocity * 30 - new Vector2(0, 50), Vector2.UnitY, 100, true).Point, Projectile.velocity, Projectile.type, Projectile.damage, Projectile.knockBack, Projectile.owner, 0, 0, Projectile.ai[2]);
     }
 }

@@ -123,7 +123,7 @@ public class DroneBeam : ModProjectile
             Projectile.damage = damage;
         }
 
-        Vector2 end = Projectile.Center + Projectile.velocity * /*Helper.TileRaycast.CastLength(Projectile.Center, Projectile.velocity, */Main.screenWidth/*)*/;
+        Vector2 end = Projectile.Center + Projectile.velocity * /*Helper.Raycast(Projectile.Center, Projectile.velocity, */Main.screenWidth/*)*/;
 
         //Projectile.velocity = -Vector2.UnitY.RotatedBy(MathHelper.ToRadians(Projectile.ai[1]));
 
@@ -142,7 +142,7 @@ public class DroneBeam : ModProjectile
         Texture2D texture = Assets.Extras.Line.Value;
         Texture2D bolt = Assets.Extras.laser4.Value;
         Vector2 start = Projectile.Center;
-        Vector2 end = Projectile.Center + Projectile.velocity * /*Helper.TileRaycast.CastLength(Projectile.Center, Projectile.velocity,*/ Main.screenWidth;//);
+        Vector2 end = Projectile.Center + Projectile.velocity * /*Helper.Raycast(Projectile.Center, Projectile.velocity,*/ Main.screenWidth;//);
         float num = Vector2.Distance(start, end);
         Vector2 vector = (end - start) / num;
         Vector2 vector2 = start;

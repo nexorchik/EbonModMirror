@@ -409,22 +409,22 @@ public class ArchmageStaffNPC : ModNPC
     Rectangle GetArenaRect()
     {
         Vector2 sCenter = NPC.Center - new Vector2(0, 150);
-        float LLen = Helper.TileRaycast.CastLength(sCenter, -Vector2.UnitX, 29f * 16);
-        float RLen = Helper.TileRaycast.CastLength(sCenter, Vector2.UnitX, 29f * 16);
-        Vector2 U = Helper.TileRaycast.Cast(sCenter, -Vector2.UnitY, 380);
-        Vector2 D = Helper.TileRaycast.Cast(NPC.Center, Vector2.UnitY, 380);
+        float LLen = Helper.Raycast(sCenter, -Vector2.UnitX, 29f * 16).RayLength;
+        float RLen = Helper.Raycast(sCenter, Vector2.UnitX, 29f * 16).RayLength;
+        Vector2 U = Helper.Raycast(sCenter, -Vector2.UnitY, 380).Point;
+        Vector2 D = Helper.Raycast(NPC.Center, Vector2.UnitY, 380).Point;
         sCenter.Y = U.Y + Helper.FromAToB(U, D, false).Y * 0.5f;
         Vector2 L = sCenter;
         Vector2 R = sCenter;
         if (LLen > RLen)
         {
-            R = Helper.TileRaycast.Cast(sCenter, Vector2.UnitX, 29f * 16);
-            L = Helper.TileRaycast.Cast(R, -Vector2.UnitX, 34.5f * 32);
+            R = Helper.Raycast(sCenter, Vector2.UnitX, 29f * 16).Point;
+            L = Helper.Raycast(R, -Vector2.UnitX, 34.5f * 32).Point;
         }
         else
         {
-            R = Helper.TileRaycast.Cast(L, Vector2.UnitX, 34.5f * 32);
-            L = Helper.TileRaycast.Cast(sCenter, -Vector2.UnitX, 29f * 16);
+            R = Helper.Raycast(L, Vector2.UnitX, 34.5f * 32).Point;
+            L = Helper.Raycast(sCenter, -Vector2.UnitX, 29f * 16).Point;
         }
         Vector2 TopLeft = new Vector2(L.X, U.Y);
         Vector2 BottomRight = new Vector2(R.X, D.Y);

@@ -218,12 +218,12 @@ public class ThawGauntletP2 : ModProjectile
         {
             Projectile.direction = Projectile.spriteDirection = Projectile.velocity.X > 0 ? 1 : -1;
 
-            if (Helper.TileRaycast.CastLength(Projectile.Center, Vector2.UnitY, 12) <= 10)
+            if (Helper.Raycast(Projectile.Center, Vector2.UnitY, 12).RayLength <= 10)
             {
                 Projectile.velocity.Y = 0;
-                if (Helper.TileRaycast.CastLength(Projectile.Center, Vector2.UnitY, 12) > 2 && Helper.TileRaycast.CastLength(Projectile.Center, -Vector2.UnitY, 12) > 2 && Projectile.ai[2] < 3)
+                if (Helper.Raycast(Projectile.Center, Vector2.UnitY, 12).RayLength > 2 && Helper.Raycast(Projectile.Center, -Vector2.UnitY, 12).RayLength > 2 && Projectile.ai[2] < 3)
                 {
-                    Projectile.Center = Helper.TileRaycast.Cast(Projectile.Center - Vector2.UnitY * 10, Vector2.UnitY, 100) - new Vector2(0, 10);
+                    Projectile.Center = Helper.Raycast(Projectile.Center - Vector2.UnitY * 10, Vector2.UnitY, 100).Point - new Vector2(0, 10);
                     Tile tile = Framing.GetTileSafely(Projectile.Center.ToTileCoordinates16().ToPoint());
                     if (tile.HasTile && !tile.IsActuated && WorldGen.SolidTile(tile))
                         Projectile.ai[2]++;
@@ -241,7 +241,7 @@ public class ThawGauntletP2 : ModProjectile
                     Projectile.velocity.X = vel * Projectile.direction;
                 Projectile.localAI[1]++;
             }
-            if (Helper.TileRaycast.CastLength(Projectile.Center, Vector2.UnitY, 12) > 10)
+            if (Helper.Raycast(Projectile.Center, Vector2.UnitY, 12).RayLength > 10)
             {
                 if (Projectile.ai[2] > 0)
                 {

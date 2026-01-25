@@ -19,12 +19,12 @@ public class CorruptionBalls : ModProjectile
     }
     public override bool OnTileCollide(Vector2 oldVelocity)
     {
-        if (Helper.TileRaycast.CastLength(Projectile.Center, -Vector2.UnitY, Projectile.height * 1.5f) < Projectile.height)
+        if (Helper.Raycast(Projectile.Center, -Vector2.UnitY, Projectile.height * 1.5f).RayLength < Projectile.height)
         {
             Projectile.velocity.Y = 0;
             return false;
         }
-        if ((Helper.TileRaycast.CastLength(Projectile.Center, Vector2.UnitX, Projectile.height * 1.5f) < Projectile.width || Helper.TileRaycast.CastLength(Projectile.Center, -Vector2.UnitX, Projectile.height * 1.5f) < Projectile.width) && Helper.TileRaycast.CastLength(Projectile.Center, Vector2.UnitY, Projectile.height * 1.5f) > Projectile.height)
+        if ((Helper.Raycast(Projectile.Center, Vector2.UnitX, Projectile.height * 1.5f).RayLength < Projectile.width || Helper.Raycast(Projectile.Center, -Vector2.UnitX, Projectile.height * 1.5f).RayLength < Projectile.width) && Helper.Raycast(Projectile.Center, Vector2.UnitY, Projectile.height * 1.5f).RayLength > Projectile.height)
         {
             Projectile.velocity.X = 0;
             return false;

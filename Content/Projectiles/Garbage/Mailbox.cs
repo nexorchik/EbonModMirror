@@ -36,7 +36,7 @@ public class Mailbox : ModProjectile
         if (Projectile.ai[0] < 0.5f)
         {
             Projectile.scale = 0;
-            Projectile.Center = Helper.TileRaycast.Cast(Projectile.Center, Vector2.UnitY, 1000, true);
+            Projectile.Center = Helper.Raycast(Projectile.Center, Vector2.UnitY, 1000, true).Point;
             Projectile.ai[0] = 1;
             Projectile.netUpdate = true; // TEST
         }

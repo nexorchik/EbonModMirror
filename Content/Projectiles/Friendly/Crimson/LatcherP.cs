@@ -183,7 +183,7 @@ public class LatcherPCecitior : ModProjectile
 
     public override void AI()
     {
-        if (Helper.TileRaycast.CastLength(Projectile.Center, Vector2.UnitY, 30, true) < 20)
+        if (Helper.Raycast(Projectile.Center, Vector2.UnitY, 30, true).RayLength < 20)
         {
             Projectile.velocity = Vector2.Zero;
             if (Projectile.localAI[0] == 0)

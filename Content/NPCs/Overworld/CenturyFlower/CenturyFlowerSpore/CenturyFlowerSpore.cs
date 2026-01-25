@@ -62,7 +62,7 @@ namespace EbonianMod.Content.NPCs.Overworld.CenturyFlower.CenturyFlowerSpore
                 }
             }
         }
-        public override bool ShouldUpdatePosition() => !(Helper.TileRaycast.CastLength(Projectile.Center, Vector2.UnitY, 12) < 9 && Projectile.velocity.Y > 0);
+        public override bool ShouldUpdatePosition() => !(Helper.Raycast(Projectile.Center, Vector2.UnitY, 12).RayLength < 9 && Projectile.velocity.Y > 0);
         public override void AI()
         {
             Projectile.knockBack = 0;

@@ -261,7 +261,7 @@ public class AsteroidHerder : CommonNPC
                             starRadius = Lerp(starRadius, 1, 0.1f);
 
                             NPC.velocity.X = Lerp(NPC.velocity.X, Helper.FromAToB(NPC.Center, player.Center).X * 2.5f, 0.03f);
-                            NPC.velocity.Y = Lerp(NPC.velocity.Y, Helper.FromAToB(NPC.Center, Helper.TileRaycast.Cast(NPC.Center, Vector2.UnitY, 200) - new Vector2(0, 100 + MathF.Sin(movementFreq * 0.03f) * 25), false).Y * 0.05f, 0.1f);
+                            NPC.velocity.Y = Lerp(NPC.velocity.Y, Helper.FromAToB(NPC.Center, Helper.Raycast(NPC.Center, Vector2.UnitY, 200).Point - new Vector2(0, 100 + MathF.Sin(movementFreq * 0.03f) * 25), false).Y * 0.05f, 0.1f);
                         }
                         if (AITimer > 400)
                         {
@@ -375,7 +375,7 @@ public class AsteroidHerder : CommonNPC
                         if (AITimer < 40)
                         {
                             NPC.velocity.X = Lerp(NPC.velocity.X, Helper.FromAToB(NPC.Center, player.Center).X * 5f, 0.03f);
-                            NPC.velocity.Y = Lerp(NPC.velocity.Y, Helper.FromAToB(NPC.Center, Helper.TileRaycast.Cast(NPC.Center, Vector2.UnitY, 200) - new Vector2(0, 100 + MathF.Sin(movementFreq * 0.03f) * 25), false).Y * 0.05f, 0.3f);
+                            NPC.velocity.Y = Lerp(NPC.velocity.Y, Helper.FromAToB(NPC.Center, Helper.Raycast(NPC.Center, Vector2.UnitY, 200).Point - new Vector2(0, 100 + MathF.Sin(movementFreq * 0.03f) * 25), false).Y * 0.05f, 0.3f);
                         }
                         else
                             NPC.velocity *= 0.9f;

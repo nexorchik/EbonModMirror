@@ -287,7 +287,7 @@ public class TerrorClingerMelee : TerrorClingerGeneric // Disgusting
                                 else NPC.damage = 100;
                                 if (CenterAITimer == 41)
                                     bloomAlpha = 1f;
-                                NPC.Center = Vector2.Lerp(NPC.Center, center.Center + new Vector2(0, Helper.TileRaycast.CastLength(center.Center, Vector2.UnitY, 360)).RotatedBy((float)Math.Sin(CenterAITimer * 0.05f)), 0.1f);
+                                NPC.Center = Vector2.Lerp(NPC.Center, center.Center + new Vector2(0, Helper.Raycast(center.Center, Vector2.UnitY, 360).RayLength).RotatedBy((float)Math.Sin(CenterAITimer * 0.05f)), 0.1f);
                                 NPC.rotation = Helper.FromAToB(NPC.Center, center.Center + new Vector2(0, 340).RotatedBy((float)Math.Sin(CenterAITimer * 0.05f))).ToRotation();
                                 if (CenterAITimer > 369 + (center.life < center.lifeMax / 2 ? 50 : 0))
                                     NPC.damage = 0;
@@ -302,7 +302,7 @@ public class TerrorClingerMelee : TerrorClingerGeneric // Disgusting
                             {
                                 NPC.velocity = Vector2.Zero;
                                 alpha = 1f;
-                                lastPos = Helper.TileRaycast.Cast(NPC.Center, Vector2.Clamp(Helper.FromAToB(NPC.Center, player.Center), new Vector2(-0.45f, 1), new Vector2(0.45f, 1)), 2028);
+                                lastPos = Helper.Raycast(NPC.Center, Vector2.Clamp(Helper.FromAToB(NPC.Center, player.Center), new Vector2(-0.45f, 1), new Vector2(0.45f, 1)), 2028).Point;
                             }
                             if (AITimer > 30 && AITimer < 100)
                             {

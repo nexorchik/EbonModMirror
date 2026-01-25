@@ -92,10 +92,10 @@ public partial class Terrortoma : ModNPC
             Helper.DustExplosion(NPC.Center, Vector2.One, 2, Color.Gray * 0.35f, false, false, 0.4f, 0.5f, new Vector2(Main.rand.NextFloat(-7, 7), Main.rand.NextFloat(-6, -4)));
             NPC.velocity *= 1.025f;
             rotation += Clamp(ToRadians(NPC.velocity.Y), 0, ToRadians(15));
-            if (Helper.TileRaycast.CastLength(NPC.Center, Vector2.UnitY, 1920) < NPC.width / 2)
+            if (Helper.Raycast(NPC.Center, Vector2.UnitY, 1920).RayLength < NPC.width / 2)
             {
                 Projectile p = Projectile.NewProjectileDirect(NPC.InheritSource(NPC),
-                    Helper.TileRaycast.Cast(NPC.Center, Vector2.UnitY, 1920), Vector2.Zero, ProjectileType<TExplosion>(), 0,
+                    Helper.Raycast(NPC.Center, Vector2.UnitY, 1920).Point, Vector2.Zero, ProjectileType<TExplosion>(), 0,
                     0);
                 p.scale = 2f;
                 p.netUpdate = true;

@@ -78,13 +78,13 @@ public class FallingStarTiny : ModProjectile
         if (Projectile.ai[0] == 1)
         {
             Projectile.velocity *= 0.75f;
-            if (Helper.TileRaycast.CastLength(Projectile.Center, Vector2.UnitY, 60) > 40)
+            if (Helper.Raycast(Projectile.Center, Vector2.UnitY, 60).RayLength > 40)
                 Projectile.velocity.Y = 1f;
             else
                 Projectile.velocity.Y = 0;
         }
 
-        if (Helper.TileRaycast.CastLength(Projectile.Center, Vector2.UnitY, 60) < 10)
+        if (Helper.Raycast(Projectile.Center, Vector2.UnitY, 60).RayLength < 10)
         {
             Projectile.damage = 0;
             Projectile.velocity *= 0.35f;
@@ -211,7 +211,7 @@ public class FallingStarTinyHostile : ModProjectile
         if (Projectile.ai[0] == 1)
         {
             Projectile.velocity *= 0.75f;
-            if (Helper.TileRaycast.CastLength(Projectile.Center, Vector2.UnitY, 60) > 40)
+            if (Helper.Raycast(Projectile.Center, Vector2.UnitY, 60).RayLength > 40)
                 Projectile.velocity.Y = 1f;
             else
                 Projectile.velocity.Y = 0;

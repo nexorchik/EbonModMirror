@@ -638,7 +638,7 @@ public class ArchmageX : CommonNPC
             else if (len > 2)
                 interval = 2;
             if (AITimer % interval == 0)
-                Dust.NewDust(Helper.TileRaycast.Cast(NPC.BottomLeft, Vector2.UnitY, 700, true), NPC.width, 1, DustType<SparkleDust>(), newColor: Color.Indigo * 0.75f, Scale: 0.1f);
+                Dust.NewDust(Helper.Raycast(NPC.BottomLeft, Vector2.UnitY, 700, true).Point, NPC.width, 1, DustType<SparkleDust>(), newColor: Color.Indigo * 0.75f, Scale: 0.1f);
         }
 
         if (NPC.direction != NPC.oldDirection)
@@ -859,7 +859,7 @@ public class ArchmageX : CommonNPC
                             Vector2 _pos = GetArenaRect().Left();
                             Vector2 __pos = GetArenaRect().Right();
                             Vector2 pos = Vector2.Lerp(_pos + new Vector2(40, 0), __pos - new Vector2(16, 0), (float)i / 4);
-                            MPUtils.NewProjectile(null, Helper.TileRaycast.Cast(pos, Vector2.UnitY, GetArenaRect().Height + 10), -Vector2.UnitY, ProjectileType<XRift>(), 15, 0);
+                            MPUtils.NewProjectile(null, Helper.Raycast(pos, Vector2.UnitY, GetArenaRect().Height + 10).Point, -Vector2.UnitY, ProjectileType<XRift>(), 15, 0);
                         }
                     }
                     if (AITimer >= 480 && AITimer < 541 && AITimer % 15 == 0)
@@ -1222,7 +1222,7 @@ public class ArchmageX : CommonNPC
                                 Vector2 _pos = GetArenaRect().Left() + new Vector2(32, 0);
                                 Vector2 __pos = GetArenaRect().Right() + new Vector2(-32, 0);
                                 Vector2 pos = Vector2.Lerp(_pos + new Vector2(40, 0), __pos - new Vector2(16, 0), (float)i / 6);
-                                if (Helper.TileRaycast.CastLength(pos, -Vector2.UnitY, GetArenaRect().Height + 10) <= GetArenaRect().Height)
+                                if (Helper.Raycast(pos, -Vector2.UnitY, GetArenaRect().Height + 10).RayLength <= GetArenaRect().Height)
                                 {
                                     MPUtils.NewProjectile(null, pos + (i > 1 && i < 6 && phaseMult == 3 ? Main.rand.NextFloat(-50, 50) * Vector2.UnitX : Vector2.Zero), Vector2.UnitY, ProjectileType<XShadowflame>(), 15, 0, ai0: 1, ai1: 2);
                                 }
@@ -1239,7 +1239,7 @@ public class ArchmageX : CommonNPC
                                 Vector2 _pos = GetArenaRect().Left();
                                 Vector2 __pos = GetArenaRect().Right();
                                 Vector2 pos = Vector2.Lerp(_pos + new Vector2(40, 0), __pos - new Vector2(16, 0), (float)i / 6);
-                                if (Helper.TileRaycast.CastLength(pos, -Vector2.UnitY, GetArenaRect().Height + 10) <= GetArenaRect().Height)
+                                if (Helper.Raycast(pos, -Vector2.UnitY, GetArenaRect().Height + 10).RayLength <= GetArenaRect().Height)
                                 {
                                     MPUtils.NewProjectile(null, pos + (i > 1 && i < 6 && phaseMult == 3 ? Main.rand.NextFloat(-50, 50) * Vector2.UnitX : Vector2.Zero), Vector2.UnitY, ProjectileType<XShadowflame>(), 15, 0, ai0: 1, ai1: 2);
 
@@ -1371,7 +1371,7 @@ public class ArchmageX : CommonNPC
                                 rect.Y += 60;
                                 disposablePos[2] = Main.rand.NextVector2FromRectangle(rect);
                             }
-                            disposablePos[2] = Helper.TileRaycast.Cast(disposablePos[2], Vector2.UnitY, 1000, true) - new Vector2(0, NPC.height / 2 + 8);
+                            disposablePos[2] = Helper.Raycast(disposablePos[2], Vector2.UnitY, 1000, true).Point - new Vector2(0, NPC.height / 2 + 8);
                         }
                         MPUtils.NewProjectile(null, disposablePos[2], Vector2.Zero, ProjectileType<XExplosionInvis>(), 0, 0);
 
@@ -2213,10 +2213,10 @@ public class ArchmageX : CommonNPC
                     {
                         if (AITimer > 140 && AITimer < 241 && AITimer % 30 == 0)
                         {
-                            disposablePos[1] = Helper.TileRaycast.Cast(Vector2.Clamp(player.Center, GetArenaRect().BottomLeft() + new Vector2(30, -30), GetArenaRect().TopRight() + new Vector2(-30, 30)), -Vector2.UnitY, 600);
+                            disposablePos[1] = Helper.Raycast(Vector2.Clamp(player.Center, GetArenaRect().BottomLeft() + new Vector2(30, -30), GetArenaRect().TopRight() + new Vector2(-30, 30)), -Vector2.UnitY, 600).Point;
                             MPUtils.NewProjectile(null, disposablePos[1], Vector2.UnitY, ProjectileType<XRift>(), 15, 0);
 
-                            disposablePos[1] = Helper.TileRaycast.Cast(Vector2.Clamp(player.Center, GetArenaRect().BottomLeft() + new Vector2(30, -30), GetArenaRect().TopRight() + new Vector2(-30, 30)), Vector2.UnitY, 600);
+                            disposablePos[1] = Helper.Raycast(Vector2.Clamp(player.Center, GetArenaRect().BottomLeft() + new Vector2(30, -30), GetArenaRect().TopRight() + new Vector2(-30, 30)), Vector2.UnitY, 600).Point;
                             MPUtils.NewProjectile(null, disposablePos[1], -Vector2.UnitY, ProjectileType<XRift>(), 15, 0);
                         }
                     }
@@ -2265,7 +2265,7 @@ public class ArchmageX : CommonNPC
                         heliAlpha = MathHelper.Lerp(heliAlpha, 1, 0.1f);
                         NPC.noGravity = true;
                         if (AITimer > 40 && AITimer < 170)
-                            NPC.velocity = Vector2.Lerp(NPC.velocity, Helper.FromAToB(NPC.Center, Helper.TileRaycast.Cast(player.Center, Vector2.UnitY, 300, true) - new Vector2(0, 150), false) / 35, 0.025f);
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, Helper.FromAToB(NPC.Center, Helper.Raycast(player.Center, Vector2.UnitY, 300, true).Point - new Vector2(0, 150), false) / 35, 0.025f);
                         else if (AITimer >= 170 && AITimer < 240)
                             NPC.velocity *= 0.9f;
                         else if (AITimer > 240 && AITimer < 400)
@@ -2275,7 +2275,7 @@ public class ArchmageX : CommonNPC
                                 SoundEngine.PlaySound(Sounds.xSpirit, NPC.Center);
                                 MPUtils.NewProjectile(null, staffTip, Helper.FromAToB(staffTip, player.Center + player.velocity).RotatedByRandom(MathHelper.PiOver4 * 0.5f) * 2, ProjectileType<XBolt>(), 15, 0);
                             }
-                            NPC.velocity = Vector2.Lerp(NPC.velocity, Helper.FromAToB(NPC.Center, Helper.TileRaycast.Cast(player.Center, Vector2.UnitY, 300, true) - new Vector2(MathF.Sin(AITimer * 3) * 200, 150), false) / 25, 0.05f);
+                            NPC.velocity = Vector2.Lerp(NPC.velocity, Helper.FromAToB(NPC.Center, Helper.Raycast(player.Center, Vector2.UnitY, 300, true).Point - new Vector2(MathF.Sin(AITimer * 3) * 200, 150), false) / 25, 0.05f);
                         }
                         else
                             NPC.velocity *= 0.9f;
@@ -2492,7 +2492,7 @@ public class ArchmageX : CommonNPC
                     {
                         for (float i = 0; i <= 1; i += 0.2f)
                         {
-                            Vector2 pos = Helper.TileRaycast.Cast(new Vector2(GetArenaRect().X + 30 + (GetArenaRect().Width - 60) * i, GetArenaRect().Center.Y), -Vector2.UnitY, 700);
+                            Vector2 pos = Helper.Raycast(new Vector2(GetArenaRect().X + 30 + (GetArenaRect().Width - 60) * i, GetArenaRect().Center.Y), -Vector2.UnitY, 700).Point;
                             MPUtils.NewProjectile(null, pos, Vector2.UnitY, ProjectileType<XRift>(), 0, 0);
                         }
                     }
@@ -2500,7 +2500,7 @@ public class ArchmageX : CommonNPC
                     {
                         for (int i = 0; i < 2; i++)
                         {
-                            Vector2 pos = Helper.TileRaycast.Cast(new Vector2(GetArenaRect().X + 30 + (GetArenaRect().Width - 60) * Main.rand.NextFloat(), GetArenaRect().Center.Y), -Vector2.UnitY, 700);
+                            Vector2 pos = Helper.Raycast(new Vector2(GetArenaRect().X + 30 + (GetArenaRect().Width - 60) * Main.rand.NextFloat(), GetArenaRect().Center.Y), -Vector2.UnitY, 700).Point;
 
                             Vector2 vel = Vector2.UnitY.RotatedByRandom(MathHelper.PiOver4 * 0.7f);
                             SoundEngine.PlaySound(Sounds.xSpirit, pos);
@@ -2599,8 +2599,8 @@ public class ArchmageX : CommonNPC
                             MPUtils.NewProjectile(null, position - Helper.FromAToB(position, NPC.Center) * 20, Helper.FromAToB(staffTip + (rightArmRot - PiOver4).ToRotationVector2() * 50, disposablePos[0]) * .1f, ProjectileType<XBolt>(), 20, 0);
                         }
 
-                        if (AITimer > 164 && Helper.TileRaycast.CastLength(NPC.Center, Vector2.UnitY, NPC.height) < NPC.height - 2)
-                            if (AITimer3 == 0 && Helper.TileRaycast.CastLength(position, Vector2.UnitY, 100) < 30)
+                        if (AITimer > 164 && Helper.Raycast(NPC.Center, Vector2.UnitY, NPC.height).RayLength < NPC.height - 2)
+                            if (AITimer3 == 0 && Helper.Raycast(position, Vector2.UnitY, 100).RayLength < 30)
                             {
                                 AITimer3 = 1;
                                 AITimer2 = 15;
@@ -2615,7 +2615,7 @@ public class ArchmageX : CommonNPC
                                 chat.Add(Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XAttack17.Staff3").Value);
                                 chat.Add(Language.GetText("Mods.EbonianMod.Dialogue.ArchmageXDialogue.XAttack17.Staff4").Value);
                                 DialogueSystem.NewDialogueBox(40, position - new Vector2(-40 * NPC.direction, 70), chat, Color.White, -1, 0.6f, Color.Magenta * 0.6f, 8f, true, DialogueAnimationIDs.BopDown | DialogueAnimationIDs.ColorWhite, SoundID.DD2_CrystalCartImpact.WithPitchOffset(0.9f), 2);
-                                Projectile p = MPUtils.NewProjectile(null, Helper.TileRaycast.Cast(position - new Vector2(0, 20), Vector2.UnitY, 80), Vector2.Zero, ProjectileType<XImpact>(), 20, 0);
+                                Projectile p = MPUtils.NewProjectile(null, Helper.Raycast(position - new Vector2(0, 20), Vector2.UnitY, 80).Point, Vector2.Zero, ProjectileType<XImpact>(), 20, 0);
                                 if (p is not null)
                                 {
                                     p.friendly = false;
@@ -2665,10 +2665,10 @@ public class ArchmageX : CommonNPC
     Vector2 sCenter;
     Rectangle GetArenaRect()
     {
-        float LLen = Helper.TileRaycast.CastLength(sCenter, -Vector2.UnitX, 29f * 16);
-        float RLen = Helper.TileRaycast.CastLength(sCenter, Vector2.UnitX, 29f * 16);
-        Vector2 U = Helper.TileRaycast.Cast(sCenter, -Vector2.UnitY, 380);
-        Vector2 D = Helper.TileRaycast.Cast(NPC.Center, Vector2.UnitY, 380);
+        float LLen = Helper.Raycast(sCenter, -Vector2.UnitX, 29f * 16).RayLength;
+        float RLen = Helper.Raycast(sCenter, Vector2.UnitX, 29f * 16).RayLength;
+        Vector2 U = Helper.Raycast(sCenter, -Vector2.UnitY, 380).Point;
+        Vector2 D = Helper.Raycast(NPC.Center, Vector2.UnitY, 380).Point;
         sCenter.Y = U.Y + Helper.FromAToB(U, D, false).Y * 0.5f;
         Vector2 L = sCenter;
         Vector2 R = sCenter;
@@ -2676,13 +2676,13 @@ public class ArchmageX : CommonNPC
         {
             if (LLen > RLen)
             {
-                R = Helper.TileRaycast.Cast(sCenter, Vector2.UnitX, 29f * 16);
-                L = Helper.TileRaycast.Cast(R, -Vector2.UnitX, 34.5f * 32);
+                R = Helper.Raycast(sCenter, Vector2.UnitX, 29f * 16).Point;
+                L = Helper.Raycast(R, -Vector2.UnitX, 34.5f * 32).Point;
             }
             else
             {
-                R = Helper.TileRaycast.Cast(L, Vector2.UnitX, 34.5f * 32);
-                L = Helper.TileRaycast.Cast(sCenter, -Vector2.UnitX, 29f * 16);
+                R = Helper.Raycast(L, Vector2.UnitX, 34.5f * 32).Point;
+                L = Helper.Raycast(sCenter, -Vector2.UnitX, 29f * 16).Point;
             }
         }
         else

@@ -148,7 +148,7 @@ public class VerletPoint
     {
         if (collide)
         {
-            if (Helper.TileRaycast.CastLength(position, gravityDirection, colLength) >= colLength || !Collision.SolidCollision(position, (int)colLength, (int)colLength))
+            if (Helper.Raycast(position, gravityDirection, colLength).RayLength  >= colLength || !Collision.SolidCollision(position, (int)colLength, (int)colLength))
             {
                 lastPos = position;
                 position += gravityDirection * gravity;

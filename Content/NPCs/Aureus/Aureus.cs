@@ -204,7 +204,7 @@ public class Aureus : ModNPC
                 NPC.spriteDirection = NPC.direction = player.Center.X > NPC.Center.X ? 1 : -1;
 
                 Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY, 1, false, 0);
-                if (NPC.Grounded(offsetX: 0.5f) && (NPC.collideX || Helper.TileRaycast.CastLength(NPC.Center, Vector2.UnitX, 1000) < NPC.width || Helper.TileRaycast.CastLength(NPC.Center, -Vector2.UnitX, 1000) < NPC.width))
+                if (NPC.Grounded(offsetX: 0.5f) && (NPC.collideX || Helper.Raycast(NPC.Center, Vector2.UnitX, 1000).RayLength < NPC.width || Helper.Raycast(NPC.Center, -Vector2.UnitX, 1000).RayLength < NPC.width))
                     NPC.velocity.Y = -10;
                 if (NPC.Grounded(offsetX: 0.5f) && player.Center.Y < NPC.Center.Y - 300)
                     NPC.velocity.Y = -20;
@@ -213,7 +213,7 @@ public class Aureus : ModNPC
                 else if (NPC.Grounded(offsetX: 0.5f) && player.Center.Y < NPC.Center.Y - 100)
                     NPC.velocity.Y = -10;
 
-                if (Helper.TileRaycast.CastLength(NPC.Center, -Vector2.UnitY, NPC.height) < NPC.height - 1 && !Collision.CanHit(NPC, player))
+                if (Helper.Raycast(NPC.Center, -Vector2.UnitY, NPC.height).RayLength < NPC.height - 1 && !Collision.CanHit(NPC, player))
                 {
                     if (!NPC.noTileCollide)
                     {
@@ -281,7 +281,7 @@ public class Aureus : ModNPC
                     Main.instance.CameraModifiers.Add(new PunchCameraModifier(NPC.Center, Vector2.UnitY, 10, 30, 30, 2000));
                     SoundEngine.PlaySound(jumpSound, NPC.Center);
                     SoundEngine.PlaySound(Sounds.eggplosion, NPC.Center);
-                    Projectile.NewProjectile(null, Helper.TileRaycast.Cast(NPC.Center, Vector2.UnitY, 100), Vector2.Zero, ProjectileType<AImpact>(), 0, 0);
+                    Projectile.NewProjectile(null, Helper.Raycast(NPC.Center, Vector2.UnitY, 100).Point, Vector2.Zero, ProjectileType<AImpact>(), 0, 0);
                     NPC.velocity = Vector2.UnitY * -30;
                     AITimer3 = 1;
                 }
@@ -317,11 +317,11 @@ public class Aureus : ModNPC
                         NPC.velocity = -Vector2.UnitY * 3;
                         for (int i = -10; i < 10; i++)
                         {
-                            MPUtils.NewProjectile(NPC.InheritSource(NPC), Helper.TileRaycast.Cast(NPC.Center - new Vector2(i * 150, 400), Vector2.UnitY, 1000), Vector2.Zero, ProjectileType<AImpact>(), 50, 0);
+                            MPUtils.NewProjectile(NPC.InheritSource(NPC), Helper.Raycast(NPC.Center - new Vector2(i * 150, 400), Vector2.UnitY, 1000).Point, Vector2.Zero, ProjectileType<AImpact>(), 50, 0);
 
                             if (i != 0)
                             {
-                                MPUtils.NewProjectile(NPC.InheritSource(NPC), Helper.TileRaycast.Cast(NPC.Center - new Vector2(i * 150, 400), Vector2.UnitY, 1000), new Vector2(0, -20), ProjectileType<AureusLaser>(), 100, 0);
+                                MPUtils.NewProjectile(NPC.InheritSource(NPC), Helper.Raycast(NPC.Center - new Vector2(i * 150, 400), Vector2.UnitY, 1000).Point, new Vector2(0, -20), ProjectileType<AureusLaser>(), 100, 0);
                             }
                         }
                         ProjSpam();
@@ -478,7 +478,7 @@ public class Aureus : ModNPC
                         Main.instance.CameraModifiers.Add(new PunchCameraModifier(NPC.Center, Vector2.UnitY, 10, 30, 30, 2000));
                         SoundEngine.PlaySound(jumpSound, NPC.Center);
                         SoundEngine.PlaySound(Sounds.eggplosion, NPC.Center);
-                        Projectile.NewProjectile(null, Helper.TileRaycast.Cast(NPC.Center, Vector2.UnitY, 100), Vector2.Zero, ProjectileType<AImpact>(), 0, 0);
+                        Projectile.NewProjectile(null, Helper.Raycast(NPC.Center, Vector2.UnitY, 100).Point, Vector2.Zero, ProjectileType<AImpact>(), 0, 0);
                         NPC.velocity = Vector2.UnitY * -30;
                         AITimer3 = 1;
                     }
@@ -533,7 +533,7 @@ public class Aureus : ModNPC
                             NPC.velocity = -Vector2.UnitY * 3;
                             for (int i = -10; i < 10; i++)
                             {
-                                MPUtils.NewProjectile(NPC.InheritSource(NPC), Helper.TileRaycast.Cast(NPC.Center - new Vector2(i * 150, 400), Vector2.UnitY, 1000), Vector2.Zero, ProjectileType<AImpact>(), 50, 0);
+                                MPUtils.NewProjectile(NPC.InheritSource(NPC), Helper.Raycast(NPC.Center - new Vector2(i * 150, 400), Vector2.UnitY, 1000).Point, Vector2.Zero, ProjectileType<AImpact>(), 50, 0);
                             }
                             AITimer2 = 1;
                         }
@@ -561,7 +561,7 @@ public class Aureus : ModNPC
                     NPC.spriteDirection = NPC.direction = player.Center.X > NPC.Center.X ? 1 : -1;
 
                     Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY, 1, false, 0);
-                    if (NPC.Grounded(offsetX: 0.5f) && (NPC.collideX || Helper.TileRaycast.CastLength(NPC.Center, Vector2.UnitX, 1000) < NPC.width || Helper.TileRaycast.CastLength(NPC.Center, -Vector2.UnitX, 1000) < NPC.width))
+                    if (NPC.Grounded(offsetX: 0.5f) && (NPC.collideX || Helper.Raycast(NPC.Center, Vector2.UnitX, 1000).RayLength < NPC.width || Helper.Raycast(NPC.Center, -Vector2.UnitX, 1000).RayLength < NPC.width))
                         NPC.velocity.Y = -10;
                     if (NPC.Grounded(offsetX: 0.5f) && player.Center.Y < NPC.Center.Y - 300)
                         NPC.velocity.Y = -20;
@@ -570,7 +570,7 @@ public class Aureus : ModNPC
                     else if (NPC.Grounded(offsetX: 0.5f) && player.Center.Y < NPC.Center.Y - 100)
                         NPC.velocity.Y = -10;
 
-                    if (Helper.TileRaycast.CastLength(NPC.Center, -Vector2.UnitY, NPC.height) < NPC.height - 1 && !Collision.CanHit(NPC, player))
+                    if (Helper.Raycast(NPC.Center, -Vector2.UnitY, NPC.height).RayLength < NPC.height - 1 && !Collision.CanHit(NPC, player))
                     {
                         if (!NPC.noTileCollide)
                         {
@@ -627,7 +627,7 @@ public class Aureus : ModNPC
                         Main.instance.CameraModifiers.Add(new PunchCameraModifier(NPC.Center, Vector2.UnitY, 10, 30, 30, 2000));
                         SoundEngine.PlaySound(jumpSound, NPC.Center);
                         SoundEngine.PlaySound(Sounds.eggplosion, NPC.Center);
-                        Projectile.NewProjectile(null, Helper.TileRaycast.Cast(NPC.Center, Vector2.UnitY, 100), Vector2.Zero, ProjectileType<AImpact>(), 0, 0);
+                        Projectile.NewProjectile(null, Helper.Raycast(NPC.Center, Vector2.UnitY, 100).Point, Vector2.Zero, ProjectileType<AImpact>(), 0, 0);
                         NPC.velocity = Vector2.UnitY * -30;
                         AITimer3 = 1;
                     }
@@ -672,7 +672,7 @@ public class Aureus : ModNPC
                             NPC.velocity = -Vector2.UnitY * 3;
                             for (int i = -10; i < 10; i++)
                             {
-                                MPUtils.NewProjectile(NPC.InheritSource(NPC), Helper.TileRaycast.Cast(NPC.Center - new Vector2(i * 150, 400), Vector2.UnitY, 1000), Vector2.Zero, ProjectileType<AImpact>(), 50, 0);
+                                MPUtils.NewProjectile(NPC.InheritSource(NPC), Helper.Raycast(NPC.Center - new Vector2(i * 150, 400), Vector2.UnitY, 1000).Point, Vector2.Zero, ProjectileType<AImpact>(), 50, 0);
                             }
                             SoundEngine.PlaySound(primSlopSound, NPC.Center);
                             for (int i = -3; i < 4; i++)

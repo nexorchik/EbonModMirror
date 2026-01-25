@@ -128,7 +128,7 @@ public class StaffOfXP : HeldSword
                 Projectile.NewProjectile(null, Projectile.Center, Vector2.Zero, ProjectileType<XExplosion>(), 0, 0);
             }
         if (swingProgress > 0.25f && swingProgress < 0.85f)
-            if (Projectile.ai[0] == 0 && Helper.TileRaycast.CastLength(Projectile.Center, Vector2.UnitY, 100) < 30)
+            if (Projectile.ai[0] == 0 && Helper.Raycast(Projectile.Center, Vector2.UnitY, 100).RayLength < 30)
             {
                 Projectile.ai[0] = 1;
                 bloomAlpha = 1;
@@ -150,7 +150,7 @@ public class StaffOfXP : HeldSword
                 DialogueSystem.NewDialogueBox(40, Projectile.Center - new Vector2(0, 40), chat, Color.White, -1, 0.6f, Color.Magenta * 0.6f, 8f, true, DialogueAnimationIDs.BopDown | DialogueAnimationIDs.ColorWhite, SoundID.DD2_CrystalCartImpact.WithPitchOffset(0.9f), 2);
 
                 if (player.whoAmI == Main.myPlayer)
-                    Projectile.NewProjectile(null, Helper.TileRaycast.Cast(Projectile.Center, Vector2.UnitY, 80), Vector2.Zero, ProjectileType<XImpact>(), 0, 0);
+                    Projectile.NewProjectile(null, Helper.Raycast(Projectile.Center, Vector2.UnitY, 80).Point, Vector2.Zero, ProjectileType<XImpact>(), 0, 0);
 
                 lerpProg = -1;
             }

@@ -176,37 +176,37 @@ public class Fleshformator : ModNPC
                 switch (rand)
                 {
                     case 0:
-                        if (Helper.TileRaycast.CastLength(NPC.Center, Vector2.UnitY, 1500) < 1490)
+                        if (Helper.Raycast(NPC.Center, Vector2.UnitY, 1500).RayLength < 1490)
                         {
                             NPC.ai[3] = 0.5f;
-                            NPC.Center = Helper.TileRaycast.Cast(NPC.Center, Vector2.UnitY, 1500) - new Vector2(0, 14);
+                            NPC.Center = Helper.Raycast(NPC.Center, Vector2.UnitY, 1500).Point - new Vector2(0, 14);
                         }
                         rand = Main.rand.Next(4);
                         break;
                     case 1:
-                        if (Helper.TileRaycast.CastLength(NPC.Center, Vector2.UnitX, 1500) < 1490)
+                        if (Helper.Raycast(NPC.Center, Vector2.UnitX, 1500).RayLength < 1490)
                         {
                             NPC.ai[3] = 0.5f;
                             NPC.rotation = MathHelper.ToRadians(-90);
-                            NPC.Center = Helper.TileRaycast.Cast(NPC.Center, Vector2.UnitX, 1500) - new Vector2(14, 0);
+                            NPC.Center = Helper.Raycast(NPC.Center, Vector2.UnitX, 1500).Point - new Vector2(14, 0);
                         }
                         rand = Main.rand.Next(4);
                         break;
                     case 2:
-                        if (Helper.TileRaycast.CastLength(NPC.Center, -Vector2.UnitX, 1500) < 1490)
+                        if (Helper.Raycast(NPC.Center, -Vector2.UnitX, 1500).RayLength < 1490)
                         {
                             NPC.ai[3] = 0.5f;
                             NPC.rotation = MathHelper.ToRadians(90);
-                            NPC.Center = Helper.TileRaycast.Cast(NPC.Center, -Vector2.UnitX, 1500) + new Vector2(14, 0);
+                            NPC.Center = Helper.Raycast(NPC.Center, -Vector2.UnitX, 1500).Point + new Vector2(14, 0);
                         }
                         rand = Main.rand.Next(4);
                         break;
                     case 3:
-                        if (Helper.TileRaycast.CastLength(NPC.Center, -Vector2.UnitY, 1500) < 1490)
+                        if (Helper.Raycast(NPC.Center, -Vector2.UnitY, 1500).RayLength < 1490)
                         {
                             NPC.ai[3] = -0.5f;
                             NPC.rotation = MathHelper.ToRadians(180);
-                            NPC.Center = Helper.TileRaycast.Cast(NPC.Center, -Vector2.UnitY, 1500) + new Vector2(0, 14);
+                            NPC.Center = Helper.Raycast(NPC.Center, -Vector2.UnitY, 1500).Point + new Vector2(0, 14);
                         }
                         rand = Main.rand.Next(4);
                         break;

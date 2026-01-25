@@ -43,8 +43,10 @@ public class CorebreakerProjectile : HeldProjectileGun
         Projectile.width = 62;
         Projectile.height = 38;
     }
+    Texture2D texture;
     public override void OnSpawn(IEntitySource source)
     {
+        texture = Helper.GetTexture(Texture).Value;
         Projectile.netUpdate = true;
         CalculateAttackSpeedParameters(120);
         Projectile.rotation = (Main.MouseWorld - Main.player[Projectile.owner].Center).ToRotation();

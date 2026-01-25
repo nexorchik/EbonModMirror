@@ -14,7 +14,7 @@ public class CecitiorBombThing : ModProjectile
     }
     public override bool OnTileCollide(Vector2 oldVelocity)
     {
-        Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Helper.TileRaycast.Cast(Projectile.Center, Vector2.UnitY, 200), Vector2.Zero, ProjectileType<IchorExplosion>(), Projectile.damage, 0);
+        Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Helper.Raycast(Projectile.Center, Vector2.UnitY, 200).Point, Vector2.Zero, ProjectileType<IchorExplosion>(), Projectile.damage, 0);
         Terraria.Audio.SoundEngine.PlaySound(Sounds.eggplosion, Projectile.Center);
         return true;
     }

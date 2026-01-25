@@ -89,6 +89,6 @@ public class XTelegraphLine : ModProjectile
 
         Projectile.rotation = Projectile.velocity.ToRotation();
         if (Projectile.ai[0] == 0)
-            Projectile.ai[0] = Helper.TileRaycast.CastLength(Projectile.Center, Projectile.rotation.ToRotationVector2(), 2000);
+            Projectile.ai[0] = Helper.Raycast(Projectile.Center, Projectile.rotation.ToRotationVector2(), 2000).RayLength;
     }
 }

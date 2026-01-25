@@ -63,12 +63,12 @@ public class TrumpetHead : WormHead
             NPC.ai[2] = MathHelper.Lerp(NPC.ai[2], 1f, Acceleration);
         }
         NPC.rotation = NPC.velocity.ToRotation() + MathHelper.PiOver2;
-        /*if (Helper.TileRaycast.CastLength(NPC.Center, Vector2.UnitY, 1200) > 1000)
+        /*if (Helper.Raycast(NPC.Center, Vector2.UnitY, 1200) > 1000)
         {
             NPC.velocity = Vector2.Lerp(NPC.velocity, new Vector2(NPC.ai[2] * MoveSpeed, MoveSpeed), Acceleration);
         }
         else */
-        if (Helper.TileRaycast.CastLength(NPC.Center, Vector2.UnitY, 1200) < 200)
+        if (Helper.Raycast(NPC.Center, Vector2.UnitY, 1200).RayLength < 200)
         {
             NPC.velocity = Vector2.Lerp(NPC.velocity, new Vector2(NPC.ai[2] * MoveSpeed, -MoveSpeed), Acceleration);
         }

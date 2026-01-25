@@ -173,7 +173,7 @@ namespace EbonianMod.Content.Items.Pets.Blinkroot
                     }
                 }
             }
-            //if (TileRaycast.CastLength(Projectile.Center, Vector2.UnitY, Projectile.height, true) < Projectile.height * 0.75f)
+            //if (TileRaycast(Projectile.Center, Vector2.UnitY, Projectile.height, true) < Projectile.height * 0.75f)
             //Collision.StepUp(ref Projectile.position, ref Projectile.velocity, Projectile.width, Projectile.height, ref Projectile.stepSpeed, ref Projectile.gfxOffY);
         }
     }

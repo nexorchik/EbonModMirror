@@ -173,7 +173,7 @@ public class Rolypoly : ModNPC
                 float angle = Helper.CircleDividedEqually(i, amount - 1);
                 //NPC.Center + new Vector2(0, 75 * NPC.scale).RotatedBy(angle + rot)
                 float f = MathHelper.SmoothStep(0.5f, 1f, ((angle + rot).ToRotationVector2().Y + 1) * 0.5f);
-                Vector2 pos = Helper.TileRaycast.Cast(NPC.Center, (angle + rot).ToRotationVector2(), 128 * NPC.scale * f, false);
+                Vector2 pos = Helper.Raycast(NPC.Center, (angle + rot).ToRotationVector2(), 128 * NPC.scale * f, false).Point;
                 verlet.points[i].position = Vector2.Lerp(verlet.points[i].position, pos, 0.2f);
             }
             for (int i = 0; i < (NPC.scale > 0.55f ? 5 : 2); i++)

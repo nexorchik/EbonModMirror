@@ -87,7 +87,7 @@ public class MeatCrusherP : HeldSword
         //if (lerpProg < 1)
         //  lerpProg -= 0.2f;
         if (swingProgress > 0.25f && swingProgress < 0.85f)
-            if (Projectile.ai[0] == 0 && Helper.TileRaycast.CastLength(Projectile.Center, Vector2.UnitY, 100) < 15)
+            if (Projectile.ai[0] == 0 && Helper.Raycast(Projectile.Center, Vector2.UnitY, 100).RayLength < 15)
             {
                 Projectile.ai[0] = 1;
                 Helper.AddCameraModifier(new PunchCameraModifier(Projectile.Center, Main.rand.NextVector2Unit(), 5, 6, 30, 1000));

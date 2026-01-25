@@ -93,7 +93,7 @@ public class Rolleg : ModProjectile
         {
             case 0:
                 Projectile.rotation = MathHelper.Lerp(Projectile.rotation, 0, 0.1f);
-                if (Helper.TileRaycast.CastLength(Projectile.Center, Vector2.UnitY, 1000) < Projectile.height * 2)
+                if (Helper.Raycast(Projectile.Center, Vector2.UnitY, 1000).RayLength < Projectile.height * 2)
                 {
                     timer = 50;
                     foreach (NPC npc in Main.ActiveNPCs)

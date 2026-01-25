@@ -36,17 +36,17 @@ public class TerrorStaffP : ModProjectile
     }
     public override bool OnTileCollide(Vector2 oldVelocity)
     {
-        if (Helper.TileRaycast.CastLength(Projectile.Center, -Vector2.UnitY, Projectile.height * 1.5f) < Projectile.height)
+        if (Helper.Raycast(Projectile.Center, -Vector2.UnitY, Projectile.height * 1.5f).RayLength < Projectile.height)
         {
             Projectile.velocity.Y = 0;
             return false;
         }
-        if ((Helper.TileRaycast.CastLength(Projectile.Center, Vector2.UnitX, Projectile.height * 1.5f) < Projectile.width || Helper.TileRaycast.CastLength(Projectile.Center, -Vector2.UnitX, Projectile.height * 1.5f) < Projectile.width) && Helper.TileRaycast.CastLength(Projectile.Center, Vector2.UnitY, Projectile.height * 1.5f) > Projectile.height)
+        if ((Helper.Raycast(Projectile.Center, Vector2.UnitX, Projectile.height * 1.5f).RayLength < Projectile.width || Helper.Raycast(Projectile.Center, -Vector2.UnitX, Projectile.height * 1.5f).RayLength < Projectile.width) && Helper.Raycast(Projectile.Center, Vector2.UnitY, Projectile.height * 1.5f).RayLength > Projectile.height)
         {
             Projectile.velocity.X = 0;
             return false;
         }
-        Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Helper.TileRaycast.Cast(Projectile.Center, Vector2.UnitY, 200), Vector2.Zero, ProjectileType<TExplosion>(), 0, 0);
+        Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Helper.Raycast(Projectile.Center, Vector2.UnitY, 200).Point, Vector2.Zero, ProjectileType<TExplosion>(), 0, 0);
         Terraria.Audio.SoundEngine.PlaySound(Sounds.eggplosion, Projectile.Center);
         return true;
     }
@@ -83,18 +83,18 @@ public class TerrorStaffPEvil : ModProjectile
     }
     public override bool OnTileCollide(Vector2 oldVelocity)
     {
-        if (Helper.TileRaycast.CastLength(Projectile.Center, -Vector2.UnitY, Projectile.height * 1.5f) < Projectile.height)
+        if (Helper.Raycast(Projectile.Center, -Vector2.UnitY, Projectile.height * 1.5f).RayLength < Projectile.height)
         {
             Projectile.velocity.Y = 0;
             return false;
         }
-        if ((Helper.TileRaycast.CastLength(Projectile.Center, Vector2.UnitX, Projectile.height * 1.5f) < Projectile.width || Helper.TileRaycast.CastLength(Projectile.Center, -Vector2.UnitX, Projectile.height * 1.5f) < Projectile.width) && Helper.TileRaycast.CastLength(Projectile.Center, Vector2.UnitY, Projectile.height * 1.5f) > Projectile.height)
+        if ((Helper.Raycast(Projectile.Center, Vector2.UnitX, Projectile.height * 1.5f).RayLength < Projectile.width || Helper.Raycast(Projectile.Center, -Vector2.UnitX, Projectile.height * 1.5f).RayLength < Projectile.width) && Helper.Raycast(Projectile.Center, Vector2.UnitY, Projectile.height * 1.5f).RayLength > Projectile.height)
         {
             Projectile.velocity.X = 0;
             return false;
         }
 
-        Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Helper.TileRaycast.Cast(Projectile.Center, Vector2.UnitY, 200), Vector2.Zero, ProjectileType<TExplosion>(), 0, 0);
+        Projectile.NewProjectileDirect(Projectile.InheritSource(Projectile), Helper.Raycast(Projectile.Center, Vector2.UnitY, 200).Point, Vector2.Zero, ProjectileType<TExplosion>(), 0, 0);
         SoundEngine.PlaySound(Sounds.eggplosion, Projectile.Center);
         return true;
     }
