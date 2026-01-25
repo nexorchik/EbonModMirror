@@ -69,7 +69,6 @@ public static partial class Helper
 		public bool Success;
 		public Vector2 Point;
 		public float RayLength;
-		public static implicit operator Vector2(RaycastData data) => data.Point;
     }
 
 	public static RaycastData Raycast(Vector2 origin, Vector2 direction, float length, bool checkPlatforms = false, bool CRUTCH = false) //crutch needs to be removed later
