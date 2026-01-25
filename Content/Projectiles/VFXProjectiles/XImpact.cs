@@ -17,14 +17,8 @@ public class XImpact : ModProjectile
         Projectile.hide = false;
         Projectile.penetrate = -1;
     }
-    public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI)
-    {
-        //behindNPCsAndTiles.Add(index);
-    }
-    public override bool ShouldUpdatePosition()
-    {
-        return false;
-    }
+
+    public override bool ShouldUpdatePosition() => false;
     public override bool? CanDamage() => Projectile.timeLeft > 45;
     int seed;
     public override void OnSpawn(IEntitySource source)
@@ -71,7 +65,6 @@ public class XImpact : ModProjectile
     }
     public override void AI()
     {
-
         Projectile.ai[1] = MathHelper.Lerp(Projectile.ai[1], 1, 0.1f);
         if (Projectile.ai[1] > 1)
             Projectile.Kill();
