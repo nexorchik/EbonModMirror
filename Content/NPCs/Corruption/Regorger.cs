@@ -106,10 +106,13 @@ internal class Regorger : ModNPC
     }
     public override void OnSpawn(IEntitySource source)
     {
-        NPC.velocity = Main.rand.NextVector2Circular(10, 10);
-        NPC.lifeMax *= 6;
-        NPC.life = NPC.lifeMax;
-        NPC.netUpdate = true; // TEST
+        if (NPC.ai[3] >= 1)
+        {
+            NPC.velocity = Main.rand.NextVector2Circular(10, 10);
+            NPC.lifeMax *= 6;
+            NPC.life = NPC.lifeMax;
+            NPC.netUpdate = true;
+        }
     }
     public override void AI()
     {
