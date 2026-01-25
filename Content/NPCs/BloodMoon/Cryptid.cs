@@ -150,7 +150,7 @@ public class Cryptid : CommonNPC
 				if (NPC.Grounded() && AITimer > 3)
 				{
 					Projectile.NewProjectileDirect(NPC.GetSource_FromAI(),
-						Helper.TileRaycast.Cast(NPC.Center, Vector2.UnitY, 100) + new Vector2(NPC.direction * 18, 0), Vector2.Zero,
+						Helper.Raycast(NPC.Center, Vector2.UnitY, 100).Point + new Vector2(NPC.direction * 18, 0), Vector2.Zero,
 						ProjectileType<CryptidLanding>(), 20, 0);
 					NPC.velocity.X *= 0;
 					AITimer = 0;
@@ -192,7 +192,7 @@ public class Cryptid : CommonNPC
 				{
 					Vector2 dustVelocity = new Vector2(dustVelocityX, Main.rand.NextFloat(-10f, -2.5f) + MathF.Abs(dustVelocityX) * 0.2f);
 					Vector2 dustPosition = NPC.Bottom + new Vector2(Main.rand.NextFloatDirection() * AITimer * 3, 0);
-					dustPosition = Helper.TileRaycast.Cast(dustPosition - new Vector2(0, 40), Vector2.UnitY, 100);
+					dustPosition = Helper.Raycast(dustPosition - new Vector2(0, 40), Vector2.UnitY, 100).Point;
 					Dust.NewDustPerfect(dustPosition, DustID.Enchanted_Gold, dustVelocity);
 					
 				}
@@ -208,7 +208,7 @@ public class Cryptid : CommonNPC
 			{
 				if ((int)AITimer == 10)
 					Projectile.NewProjectileDirect(NPC.GetSource_FromAI(),
-						Helper.TileRaycast.Cast(NPC.Center, Vector2.UnitY, 100) + new Vector2(NPC.direction * 18, 0), Vector2.Zero,
+						Helper.Raycast(NPC.Center, Vector2.UnitY, 100).Point + new Vector2(NPC.direction * 18, 0), Vector2.Zero,
 						ProjectileType<CryptidLanding>(), 40, 0, ai2: 1);
 				if (++AITimer > 25)
 					SwitchState((int)States.Walk);

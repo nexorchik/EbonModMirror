@@ -19,8 +19,8 @@ public static partial class Helper
 		if (entity is NPC)
 			if ((entity as NPC).collideY)
 				return true;
-		if ((!Collision.CanHitLine(new Vector2(entity.Center.X, entity.Center.Y + entity.height / 2), 1, 1
-			     , new Vector2(entity.Center.X, entity.Center.Y + (entity.height * offset) / 2), 1, 1)
+		if ((!Collision.CanHitLine(new Vector2(entity.Center.X, entity.Center.Y), 1, 1
+			     , new Vector2(entity.Center.X, entity.Center.Y + entity.height * offset), 1, 1)
 		     || Collision.FindCollisionDirection(out int dir, entity.Center, 1, entity.height / 2)))
 			return true;
 		for (int i = 0; i < entity.width * offsetX; i += (int)(1 / (offsetX == 0 ? 1 : offsetX))) //full sprite check

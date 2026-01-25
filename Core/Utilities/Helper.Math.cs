@@ -71,7 +71,7 @@ public static partial class Helper
 		public float RayLength;
     }
 
-	public static RaycastData Raycast(Vector2 origin, Vector2 direction, float length, bool checkPlatforms = false, bool CROTCH = false) //crotch needs to be removed later
+	public static RaycastData Raycast(Vector2 origin, Vector2 direction, float length, bool checkPlatforms = false, bool CRUTCH = false) //crutch needs to be removed later
 	{
         bool success = false;
         direction.Normalize();
@@ -92,7 +92,7 @@ public static partial class Helper
         RaycastData data = new RaycastData();
         data.Success = success;
 		if (success) data.Point = point;
-		else if (CROTCH) data.Point = origin + direction * length;
+		else if (CRUTCH) data.Point = origin + direction * length;
 		data.RayLength = (point - origin).Length();
         return data;
 	}
