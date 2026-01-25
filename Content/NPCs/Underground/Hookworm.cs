@@ -31,6 +31,7 @@ public class Hookworm : ModNPC
         bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[]
         {
                 BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Caverns,
+                new FlavorTextBestiaryInfoElement("Mods.EbonianMod.Misc.Types.GiantBeast"),
                 new FlavorTextBestiaryInfoElement(NPC.BestiaryKey())
         });
     }
@@ -43,14 +44,21 @@ public class Hookworm : ModNPC
         NPC.aiStyle = -1;
         NPC.noGravity = true;
         NPC.noTileCollide = true;
+        NPC.value = Item.buyPrice(0, 10);
         NPC.knockBackResist = 0.1f;
         NPC.HitSound = SoundID.NPCHit1;
         NPC.DeathSound = SoundID.NPCDeath1;
     }
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
-        return spawnInfo.Player.ZoneNormalCaverns && NPC.downedBoss2 ? 0.05f : 0;
+        return spawnInfo.Player.ZoneNormalCaverns && NPC.downedBoss2 ? 0.008f : 0;
     }
+
+    public override void ModifyNPCLoot(NPCLoot npcLoot)
+    {
+        npcLoot.Add(ItemDropRule.Common(ItemID.WhoopieCushion, 45));
+    }
+
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor)
     {
         Texture2D tex = TextureAssets.Npc[Type].Value;
