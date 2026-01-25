@@ -11,4 +11,4 @@ v3.0
 - Fixed the Defibrillator's VFX being weirdly flat
 - Fixed the Cold Touch spawning incorrectly
 - Fixed "Sounds/GenericExplosion" being missing
-- Fixed the Tittering's special Terrortoma stats always being applied
+- Fixed the Tittering's Terrortoma-specific stats always being applied
