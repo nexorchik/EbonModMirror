@@ -1,0 +1,160 @@
+using EbonianMod.Content.Bossbars;
+using EbonianMod.Content.Dusts;
+using EbonianMod.Content.Items.Vanity;
+using EbonianMod.Content.Items.BossTreasure;
+using EbonianMod.Content.Items.Pets;
+using EbonianMod.Content.Items.Tiles.Trophies;
+using EbonianMod.Content.Items.Weapons.Magic;
+using EbonianMod.Content.Items.Weapons.Melee;
+using EbonianMod.Content.Items.Weapons.Ranged;
+using EbonianMod.Content.Items.Weapons.Summoner;
+using EbonianMod.Content.NPCs.ArchmageX;
+using EbonianMod.Content.NPCs.Corruption;
+using EbonianMod.Content.Projectiles.Garbage;
+using EbonianMod.Content.Projectiles.VFXProjectiles;
+using EbonianMod.Content.Tiles;
+using EbonianMod.Core.Systems.Cinematic;
+using ReLogic.Graphics;
+using ReLogic.Utilities;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using Terraria.GameContent.Bestiary;
+using Terraria.Graphics.CameraModifiers;
+
+namespace EbonianMod.Content.NPCs.Garbage;
+
+public partial class HotGarbage : ModNPC
+{
+    public override string Texture => Helper.AssetPath + "NPCs/Garbage/"+Name;
+    public override void SetStaticDefaults()
+    {
+        Main.npcFrameCount[Type] = 13;
+        NPCID.Sets.TrailCacheLength[NPC.type] = 10;
+        NPCID.Sets.TrailingMode[NPC.type] = 0;
+    }
+    public override void SetDefaults()
+    {
+        NPC.width = 80;
+        NPC.height = 74;
+        NPC.damage = 30;
+        NPC.defense = 11;
+        NPC.lifeMax = 2250;
+        NPC.value = Item.buyPrice(0, 10);
+        NPC.knockBackResist = 0f;
+        NPC.HitSound = SoundID.NPCHit4;
+        NPC.buffImmune[BuffID.OnFire] = true;
+        NPC.buffImmune[BuffID.OnFire3] = true;
+        NPC.buffImmune[BuffID.Frostburn] = true;
+        NPC.buffImmune[BuffID.Frostburn2] = true;
+        NPC.buffImmune[BuffID.Confused] = true;
+        NPC.aiStyle = -1;
+        NPC.noGravity = false;
+        NPC.waterMovementSpeed = 1f;
+        NPC.BossBar = GetInstance<GarbageBar>();
+        NPC.noTileCollide = false;
+        NPC.boss = true;
+        NPC.netAlways = true;
+        if (!Main.dedServ)
+        {
+            Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/Garbage");
+        }
+    }
+    public override void ModifyNPCLoot(NPCLoot npcLoot)
+    {
+        LeadingConditionRule notExpertRule = new LeadingConditionRule(new Conditions.NotExpert());
+        notExpertRule.OnSuccess(new CommonDrop(ItemType<Chainsword>(), 4));
+        notExpertRule.OnSuccess(new CommonDrop(ItemType<DoomsdayRemote>(), 4));
+        notExpertRule.OnSuccess(new CommonDrop(ItemType<MailboxStaff>(), 4));
+        notExpertRule.OnSuccess(new CommonDrop(ItemType<SalvagedThruster>(), 4));
+        notExpertRule.OnSuccess(new CommonDrop(ItemType<GarbageFlail>(), 4));
+        notExpertRule.OnSuccess(new CommonDrop(ItemType<NastySnapper>(), 4));
+        notExpertRule.OnSuccess(new CommonDrop(ItemType<PipebombI>(), 1, 20, 100));
+        npcLoot.Add(notExpertRule);
+
+        npcLoot.Add(ItemDropRule.Common(ItemType<GarbageMask>(), 4));
+        npcLoot.Add(ItemDropRule.Common(ItemType<GarbageTrophy>(), 4));
+        npcLoot.Add(ItemDropRule.MasterModeDropOnAllPlayers(ItemType<GarbagePet>(), 4));
+        npcLoot.Add(ItemDropRule.MasterModeCommonDrop(ItemType<GarbageRelic>()));
+
+        npcLoot.Add(ItemDropRule.BossBag(ItemType<GarbageBagI>()));
+    }
+    public override void SetBestiary(BestiaryDatabase database, BestiaryEntry bestiaryEntry)
+    {
+        bestiaryEntry.Info.AddRange(new IBestiaryInfoElement[] {
+            BestiaryDatabaseNPCsPopulator.CommonTags.SpawnConditions.Biomes.Surface,
+            new FlavorTextBestiaryInfoElement("Mods.EbonianMod.Misc.Types.HotGarbage"),
+            new FlavorTextBestiaryInfoElement("Mods.EbonianMod.NPCs.HotGarbage.Bestiary"),
+        });
+    }
+    public int AIState
+    {
+        get => (int)NPC.ai[0];
+        set => NPC.ai[0] = value;
+    }
+    public int AITimer
+    {
+        get => (int)NPC.ai[1];
+        set => NPC.ai[1] = value;
+    }
+    public float AITimer2
+    {
+        get => NPC.ai[2];
+        set => NPC.ai[2] = value;
+    }
+    public float AITimer3
+    {
+        get => NPC.ai[3];
+        set => NPC.ai[3] = value;
+    }
+    bool ded;
+    bool didAttacks;
+    Vector2 pos;
+    SlotId laserSlot;
+    float flameAlpha;
+    public override void SendExtraAI(BinaryWriter writer)
+    {
+        writer.Write((byte)NextAttack);
+        writer.Write((byte)NextAttack2);
+        writer.Write(ded);
+        writer.Write(didAttacks);
+        writer.WriteVector2(pos);
+    }
+    public override void ReceiveExtraAI(BinaryReader reader)
+    {
+        NextAttack = (int)reader.ReadByte();
+        NextAttack2 = (int)reader.ReadByte();
+        ded = reader.ReadBoolean();
+        didAttacks = reader.ReadBoolean();
+        pos = reader.ReadVector2();
+    }
+    public override bool CheckDead()
+    {
+        if (NPC.life <= 0 && !ded)
+        {
+            NPC.life = 1;
+            AIState = Death;
+            NPC.frameCounter = 0;
+            NPC.immortal = true;
+            NPC.dontTakeDamage = true;
+            CameraSystem.ScreenShakeAmount = 5;
+            ded = true;
+            AITimer = -75;
+            AITimer2 = -110;
+            NPC.velocity = Vector2.Zero;
+            NPC.frame.X = 160;
+            NPC.frame.Y = 0;
+            NPC.life = 1;
+            if (!Main.dedServ)
+                Music = 0;
+            NetMessage.SendData(MessageID.SyncNPC, number: NPC.whoAmI);
+            return false;
+        }
+        return true;
+    }
+    public override bool? CanFallThroughPlatforms()
+    {
+        Player player = Main.player[NPC.target];
+        return (NPC.Center.Y <= player.Center.Y - 100) || AIState == MassiveLaser;
+    }
+}

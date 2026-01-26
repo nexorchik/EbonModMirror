@@ -1,0 +1,174 @@
+using EbonianMod.Content.Projectiles.Garbage;
+using EbonianMod.Content.Projectiles.VFXProjectiles;
+using EbonianMod.Core.Systems.Cinematic;
+
+namespace EbonianMod.Content.NPCs.Garbage;
+
+public partial class HotGarbage : ModNPC
+{
+	void HandleLidAI() {
+		if (AIState == CloseLid)
+		{
+			AITimer++;
+			if (AITimer > 20)
+			{
+				AITimer = 0;
+				AIState = Idle;
+				NPC.netUpdate = true;
+			}
+		}
+		if (AIState == OpenLid)
+		{
+			AITimer++;
+			if (NextAttack2 == FallOver)
+				NPC.rotation -= ToRadians(-0.9f * 5 * NPC.direction);
+			if (AITimer == 1)
+			{
+				SoundEngine.PlaySound(SoundID.DD2_BookStaffCast, NPC.Center);
+				MPUtils.NewProjectile(NPC.InheritSource(NPC), NPC.Center, Vector2.Zero, ProjectileType<GreenShockwave>(), 0, 0);
+			}
+			if (AITimer >= 20)
+			{
+				AITimer = 0;
+				AIState = NextAttack2;
+
+				NPC.netUpdate = true;
+			}
+		}
+	}
+	
+	void DoDeath() {
+            NPC.rotation = Utils.AngleLerp(NPC.rotation, 0, 0.1f);
+            NPC.noTileCollide = false;
+            NPC.noGravity = false;
+            if (NPC.Grounded())
+            {
+                AITimer++;
+                flameAlpha = Lerp(flameAlpha, 1, 0.1f);
+                if (AITimer == -74)
+                {
+                    NPC.netUpdate = true;
+                    pos = NPC.Center;
+                    if (!Main.dedServ)
+                        Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/GarbageSiren");
+                    CameraSystem.ChangeCameraPos(NPC.Center - new Vector2(0, 50), 130, null, 1.4f, InOutQuart);
+                }
+                if (AITimer == -30)
+                {
+                    CameraSystem.ChangeZoom(80, new ZoomInfo(2.5f, 1f, InOutElastic, InOutCirc));
+                    MPUtils.NewProjectile(null, NPC.Center, Vector2.Zero, ProjectileType<ChargeUp>(), 0, 0);
+                }
+                if (AITimer > -30)
+                    AITimer2++;
+            }
+            else
+            {
+                if (AITimer < 20)
+                    NPC.velocity.Y++;
+            }
+            if (AITimer > 20)
+                JumpCheck();
+            if (AITimer == 0)
+            {
+                CameraSystem.ScreenShakeAmount = 20;
+
+            }
+            if (AITimer % 5 == 0 && AITimer <= 21 && AITimer >= 0)
+            {
+                if (NPC.frame.Y < 3 * 76)
+                {
+                    NPC.frame.Y += 76;
+                }
+            }
+            if (AITimer >= 40 && AITimer <= 20)
+            {
+                if (NPC.frameCounter % 5 == 0)
+                {
+                    if (NPC.frame.Y == 76)
+                        SoundEngine.PlaySound(SoundID.Item37, NPC.Center);
+                    if (NPC.frame.Y > 0)
+                    {
+                        NPC.frame.Y -= 76;
+                    }
+                }
+            }
+            if (AITimer2 >= 22 && AITimer2 < 40 && AITimer2 % 2 == 0)
+            {
+                for (int i = -1; i < 1; i++)
+                {
+                    Projectile a = MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + new Vector2(Main.rand.NextFloat(2, 4) * i, NPC.height / 2 - 8), new Vector2(-NPC.direction * Main.rand.NextFloat(1, 3), Main.rand.NextFloat(-5, -1)), ProjectileType<GarbageFlame>(), 15, 0);
+                    if (a is not null)
+                    {
+                        a.timeLeft = 170;
+                        a.SyncProjectile();
+                    }
+                }
+            }
+            bool nukeExist = false;
+            foreach (Projectile proj in Main.ActiveProjectiles)
+            {
+                if (proj.type == ProjectileType<HotGarbageNuke>()) nukeExist = true;
+            }
+            if (AITimer == 20 && !nukeExist)
+            {
+                for (int i = 0; i < 40; i++)
+                {
+                    Dust.NewDustPerfect(NPC.Center - new Vector2(Main.rand.NextFloat(-30, 30), 20), DustID.Smoke, -Vector2.UnitY.RotatedByRandom(PiOver4) * Main.rand.NextFloat(5, 20));
+                }
+                foreach (Projectile proj in Main.ActiveProjectiles)
+                {
+                    if (proj.hostile && proj.type != ProjectileType<HotGarbageNuke>()) proj.Kill();
+                }
+                SoundEngine.PlaySound(Sounds.firework.WithVolumeScale(2), NPC.Center);
+                MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Center - new Vector2(0, 50), Vector2.Zero, ProjectileType<HotGarbageNuke>(), 0, 0);
+            }
+            if (!Main.dedServ)
+            {
+                Main.musicNoCrossFade[MusicLoader.GetMusicSlot(Mod, "Assets/Music/GarbageSiren")] = true;
+                Main.musicNoCrossFade[0] = true;
+                if (AITimer >= 634)
+                {
+                    Main.musicFade[MusicLoader.GetMusicSlot(Mod, "Assets/Music/GarbageSiren")] = 1;
+                    Music = 0;
+                }
+            }
+            if (AITimer >= 665)
+            {
+                NPC.immortal = false;
+                NPC.dontTakeDamage = false;
+                NPC.StrikeInstantKill();
+            }
+            if (AITimer2 == 7)
+                SoundEngine.PlaySound(Sounds.exolDash, NPC.Center);
+            if (AITimer2 < 22 && AITimer2 >= 0)
+            {
+                NPC.velocity.X = Lerp(NPC.velocity.X, 14f * NPC.direction, 0.15f);
+            }
+            if (AITimer2 >= 22)
+            {
+                NPC.velocity *= 0.96f;
+            }
+            if (AITimer2 == 40 || AITimer2 < 0)
+            {
+                if (player.Center.Distance(pos) < 650)
+                {
+                    NPC.spriteDirection = Main.player[NPC.target].Center.X > NPC.Center.X ? 1 : -1;
+                    NPC.direction = Main.player[NPC.target].Center.X > NPC.Center.X ? 1 : -1;
+                }
+                else
+                {
+                    NPC.spriteDirection = pos.X > NPC.Center.X ? 1 : -1;
+                    NPC.direction = pos.X > NPC.Center.X ? 1 : -1;
+                }
+            }
+            if (AITimer2 >= 65)
+            {
+                NPC.netUpdate = true;
+                AITimer2 = -50;
+            }
+            if (AITimer % 20 == 0 && AITimer > 30 && AITimer < 630)
+            {
+                MPUtils.NewProjectile(NPC.GetSource_FromThis(), pos - Vector2.UnitY * 1000, new Vector2(Main.rand.NextFloat(-30, 30) * Main.rand.NextFloat(1f, 2f), Main.rand.NextFloat(-5, 1)), ProjectileType<GarbageGiantFlame>(), 15, 0, ai0: 1);
+            }
+    }
+}
