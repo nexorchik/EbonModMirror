@@ -81,8 +81,6 @@ public class Cryptid : CommonNPC
 		
 		Player player = Main.player[NPC.target];
 		float distanceToPlayer = player.Distance(NPC.Center);
-		if (Main.mouseRight)
-			SwitchState((int)States.ChargeExplosion);
 
 		void SwitchToLeap()
 		{
