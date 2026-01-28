@@ -265,7 +265,7 @@ public class GarbageRemoteP : ModProjectile
 
                 s -= i / (float)points.Count * 0.03f;
             }
-            Helper.DrawTexturedPrimitives(vertices, PrimitiveType.TriangleList, bolt);
+            Helper.DrawTexturedPrimitives(vertices, PrimitiveType.TriangleList, bolt, true);
         }
         Main.spriteBatch.Reload(SpriteSortMode.Deferred);
         Main.spriteBatch.Reload(BlendState.AlphaBlend);

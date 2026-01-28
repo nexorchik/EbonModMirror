@@ -290,7 +290,7 @@ public class GoreBeam : ModProjectile
 
                 s -= i / (float)points.Count * 0.03f;
             }
-            Helper.DrawTexturedPrimitives(vertices, PrimitiveType.TriangleList, bolt);
+            Helper.DrawTexturedPrimitives(vertices, PrimitiveType.TriangleList, bolt, true);
         }
         //for (int i = 0; i < 5; i++)
         //   Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, null, Color.Maroon, 0, new Vector2(texture.Width, texture.Height) / 2, scale * 0.2f, SpriteEffects.None, 0f);

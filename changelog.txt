@@ -13,4 +13,5 @@ v3.0
 - Fixed Cecitior's chomping attack rotating incorrectly
 - Fixed the Cold Touch spawning incorrectly
 - Fixed "Sounds/GenericExplosion" being missing
+- Fixed certain lightning visuals
 - Fixed the Tittering's Terrortoma-specific stats always being applied
