@@ -199,7 +199,7 @@ public partial class Cecitior : ModNPC
             openSound = SoundEngine.PlaySound(Sounds.cecitiorOpen, NPC.Center);
         if (open)
         {
-            if (AIByte != (phase2 ? 1 : 0))
+            if (AIByte % 2 != (phase2 ? 1 : 0))
                 openOffset += Vector2.UnitY * 5;
             else
                 openOffset += Vector2.UnitX * 6;
@@ -232,7 +232,7 @@ public partial class Cecitior : ModNPC
         {
             openOffset.Y = Lerp(openOffset.Y, 0, 0.3f);
         }
-        if (AIByte != (phase2 ? 1 : 0))
+        if (AIByte% 2 != (phase2 ? 1 : 0))
         {
             if (MathF.Abs(openOffset.Y) < 50 && AITimer > 25)
             {
