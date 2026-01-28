@@ -145,10 +145,10 @@ public class Cryptid : CommonNPC
 					NPC.velocity.X *= 0.98f;
 				}
 
-				if (NPC.Grounded() && AITimer > 3)
+				if (NPC.Grounded() && AITimer > 3 && NPC.velocity.Y > 0)
 				{
 					Projectile.NewProjectileDirect(NPC.GetSource_FromAI(),
-						Helper.Raycast(NPC.Center, Vector2.UnitY, 100).Point + new Vector2(NPC.direction * 18, 0), Vector2.Zero,
+						Helper.Raycast(NPC.Center, Vector2.UnitY, 500).Point + new Vector2(NPC.direction * 18, 0), Vector2.Zero,
 						ProjectileType<CryptidLanding>(), 20, 0);
 					NPC.velocity.X *= 0;
 					AITimer = 0;
