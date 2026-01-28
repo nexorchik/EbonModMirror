@@ -12,6 +12,7 @@ Types: {
 	Obj: Тип: Одержимый объект
 	// BaphometWorship: Blood Acolyte
 	// BigBloodMoon: Malignant Aberration
+	// GiantBeast: Giant Beast
 }
 
 Signs: {
