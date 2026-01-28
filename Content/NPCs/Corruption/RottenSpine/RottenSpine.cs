@@ -52,7 +52,7 @@ public class RottenSpineHead : WormHead
         Player player = Main.player[NPC.target];
 
         NPC.ai[2]++;
-        if ((int)NPC.ai[2] % 35 == 0 && (int)NPC.ai[2] % 550 > 200)
+        if ((int)NPC.ai[2] % 35 == 0 && (int)NPC.ai[2] % 550 > 200 && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
         {
             SoundEngine.PlaySound(SoundID.Item20, NPC.Center);
             Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.Center + NPC.rotation.ToRotationVector2().RotatedBy(-MathHelper.PiOver2) * NPC.height, -Vector2.UnitY.RotatedBy(NPC.rotation) * 10, ProjectileType<TFlameThrower>(), 10, 0).tileCollide = true;
@@ -210,10 +210,12 @@ public class RottenSpineTail : WormTail
     }
     public override void ExtraAI()
     {
+        NPC.TargetClosest(false);
+        Player player = Main.player[NPC.target];
         NPC.rotation = FollowingNPC.rotation;
         NPC.Center = FollowingNPC.Center - NPC.rotation.ToRotationVector2().RotatedBy(-MathHelper.PiOver2) * (FollowingNPC.height + 6);
         NPC.ai[2]++;
-        if ((int)NPC.ai[2] % 35 == 0 && (int)HeadSegment.ai[2] % 550 < 200)
+        if ((int)NPC.ai[2] % 35 == 0 && (int)HeadSegment.ai[2] % 550 < 200 && Collision.CanHitLine(NPC.position, NPC.width, NPC.height, player.position, player.width, player.height))
         {
             SoundEngine.PlaySound(SoundID.Item20, NPC.Center);
             Projectile.NewProjectileDirect(NPC.GetSource_FromThis(), NPC.Center + NPC.velocity, Vector2.UnitY.RotatedBy(NPC.rotation) * 10, ProjectileType<TFlameThrower>(), 10, 0).tileCollide = true; ;
