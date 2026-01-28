@@ -64,7 +64,7 @@ public static partial class Helper
 	public static Vector2 FromAToB(this Vector2 a, Entity b, bool normalize = true, bool reverse = false) => FromAToB(a, b.Center, normalize, reverse);
 	public static Vector2 FromAToB(this Entity a, Vector2 b, bool normalize = true, bool reverse = false) => FromAToB(a.Center, b, normalize, reverse);
 	
-	public struct RaycastData
+	public record struct RaycastData()
     {
 		public bool Success;
 		public Vector2 Point;
@@ -79,7 +79,7 @@ public static partial class Helper
 
 		for (int i = 0; i < length; i++)
 		{
-			if ((Collision.CanHitLine(point, 0, 0, point + direction, 0, 0) && (checkPlatforms ? !Collision.SolidTiles(point, 1, 1, checkPlatforms) && Main.tile[(int)point.X / 16, (int)point.Y / 16].TileType != TileID.Platforms : true)))
+			if ((Collision.CanHitLine(point, 1, 1, point + direction, 1, 1) && (checkPlatforms ? !Collision.SolidTiles(point, 1, 1, checkPlatforms) && Main.tile[(int)point.X / 16, (int)point.Y / 16].TileType != TileID.Platforms : true)))
 			{
 				point += direction;
             }
@@ -91,8 +91,8 @@ public static partial class Helper
 		}
         RaycastData data = new RaycastData();
         data.Success = success;
-		if (success) data.Point = point;
-		else if (CRUTCH) data.Point = origin + direction * length;
+        data.Point = point;
+		if (!success && CRUTCH) data.Point = origin + direction * length;
 		data.RayLength = (point - origin).Length();
         return data;
 	}
