@@ -3,7 +3,6 @@ using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Threading;
 using Terraria.GameContent.Bestiary;
-using static EbonianMod.Core.Utilities.Helper;
 
 public class Moonborn : ModNPC
 {
@@ -27,35 +26,50 @@ public class Moonborn : ModNPC
     }
     public class Leg
     {
-        public Vector2 Position, TargetPosition, JointPosition;
-        public float Speed;
-        public bool defaultState;
+        public Vector2 Position, TargetPosition;
+        public Vector2 WorldPosition, WorldJointPosition;
+        public float Speed, Distance, MaxDistance;
+        public bool DefaultState, IsMoving;
     }
+    bool Airborne;
     public Leg[] Legs = new Leg[6];
     public override void OnSpawn(IEntitySource source)
     {
         for (int i = 0; i < 6; i++)
         {
             Legs[i] = new Leg();
+            Legs[i].MaxDistance = 100;
         }
     }
 
     public override void AI()
     {
-        Player player = Main.player[NPC.target];
         NPC.TargetClosest(true);
+        Player player = Main.player[NPC.target];
 
-        RaycastData heightHit = Raycast(NPC.Center, Vector2.UnitY, 150);
-        Vector2 basePosition = heightHit.Point;
-
-        if(heightHit.Success)
+        Helper.RaycastData heightHit = Helper.Raycast(NPC.Center, Vector2.UnitY, 110, true);
+        Airborne = heightHit.Success;
+        if (Airborne)
         {
-            float distance = MathF.Abs(basePosition.X - player.Center.X);
+            float distanceToPlayer = MathF.Abs(NPC.Center.X - player.Center.X);
             float movementDirection = player.Center.X > NPC.Center.X ? 1 : -1;
-            NPC.Center = Vector2.Lerp(NPC.Center, new Vector2(NPC.Center.X, basePosition.Y - 100), 0.2f);
+
+            if (heightHit.RayLength > 16)
+            {
+                NPC.Center = Vector2.Lerp(NPC.Center, new Vector2(NPC.Center.X, heightHit.Point.Y - 100), 0.23f);
+            }
+            else
+            {
+                if(player.Center.Y < NPC.Center.Y + 100) NPC.Center -= new Vector2(0, 5);
+                if (player.Center.Y > NPC.Center.Y + 100) NPC.Center += new Vector2(0, 5);
+
+                //  NOTE: cannot use "else" here. Inclusion of "player.Center.Y == NPC.Center.Y + 100" case creates jitter  //
+            }
+
             if (NPC.velocity.Y < 0.4f)
             {
-                if (distance > 150 || MathF.Abs(NPC.velocity.X) > 4) NPC.velocity.X += movementDirection * distance / (NPC.velocity.X * movementDirection > 0 ? 7000 : 900);
+                NPC.velocity.Y = 0;
+                if (distanceToPlayer > 150 || MathF.Abs(NPC.velocity.X) > 4) NPC.velocity.X += movementDirection * distanceToPlayer / (NPC.velocity.X * movementDirection > 0 ? 7000 : 900);
                 else NPC.velocity.X = Lerp(NPC.velocity.X, movementDirection * 2, 0.03f);
             }
             else NPC.velocity.Y = Lerp(NPC.velocity.Y, 0, 0.18f);
@@ -66,9 +80,23 @@ public class Moonborn : ModNPC
             if (NPC.ai[0] < 0.5f)
                 NPC.ai[0] += 0.1f;
         }
+
+        //TEST CODE
+        if (Main.mouseRight) NPC.velocity.X = NPC.Center.X < Main.MouseWorld.X ? 5 : -5;
+        else NPC.velocity.X = 0;
+        //TEST CODE
+
         for (int i = 0, j = 1; i < 2; i++, j *= -1)
         {
-            Legs[i].JointPosition = NPC.Center + new Vector2(70, 0).RotatedBy((Legs[i].TargetPosition - NPC.Center).ToRotation() - j * MathF.Acos(Min((Legs[i].TargetPosition - NPC.Center).Length(), 126) / 126));
+            float lengthToPosition = Legs[i].Position.Length();
+            float lengthToTargetPosition = Legs[i].TargetPosition.Length();
+            Helper.RaycastData horizontalCast = Helper.Raycast(NPC.Center, new Vector2(j, 0), 60, CRUTCH: true);
+            Helper.RaycastData verticalCast = Helper.Raycast(horizontalCast.Point - new Vector2(j * 16, 0), Vector2.UnitY, 126, CRUTCH: true);
+            if(false) Legs[i].TargetPosition = (verticalCast.Success || (!verticalCast.Success && !horizontalCast.Success) ? verticalCast.Point : horizontalCast.Point);
+            Legs[i].Position = Vector2.Lerp(Legs[i].Position, Legs[i].TargetPosition - NPC.Center, 0.3f);
+
+            Legs[i].WorldPosition = NPC.Center + Legs[i].Position;
+            Legs[i].WorldJointPosition = NPC.Center + new Vector2(70, 0).RotatedBy(Legs[i].Position.ToRotation() - j * MathF.Acos(Min(lengthToPosition, 126) / 126));
         }
     }
 
@@ -78,8 +106,9 @@ public class Moonborn : ModNPC
         {
             for (int i = 0, j = 1; i < 2; i++, j *= -1)
             {
-                spriteBatch.Draw(Helper.GetTexture(Helper.AssetPath + "NPCs/BloodMoon/MoonbornLegSegment1").Value, NPC.Center - screenPos, null, NPC.HunterPotionColor(drawColor), (Legs[i].JointPosition - NPC.Center).ToRotation(), new Vector2(0, 8), NPC.scale, j == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
-                spriteBatch.Draw(Helper.GetTexture(Helper.AssetPath + "NPCs/BloodMoon/MoonbornLegSegment2").Value, Legs[i].JointPosition - screenPos, null, NPC.HunterPotionColor(drawColor), (Legs[i].TargetPosition - Legs[i].JointPosition).ToRotation(), new Vector2(7, 10), NPC.scale, j == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically, 0);
+                SpriteEffects flip = j == 1 ? SpriteEffects.None : SpriteEffects.FlipVertically;
+                spriteBatch.Draw(Assets.NPCs.BloodMoon.MoonbornLegSegment1.Value, NPC.Center - screenPos + NPC.GFX(), null, NPC.HunterPotionColor(drawColor), (Legs[i].WorldJointPosition - NPC.Center).ToRotation(), new Vector2(0, 8), NPC.scale, flip, 0);
+                spriteBatch.Draw(Assets.NPCs.BloodMoon.MoonbornLegSegment2.Value, Legs[i].WorldJointPosition - screenPos + NPC.GFX(), null, NPC.HunterPotionColor(drawColor), (Legs[i].WorldPosition - Legs[i].WorldJointPosition).ToRotation(), new Vector2(7, 10), NPC.scale, flip, 0);
             }
         }
         spriteBatch.Draw(TextureAssets.Npc[Type].Value, NPC.Center - screenPos, NPC.frame, NPC.HunterPotionColor(drawColor), NPC.rotation, NPC.Size / 2, NPC.scale, SpriteEffects.None, 0);
