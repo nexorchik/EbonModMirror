@@ -14,4 +14,5 @@ v3.0
 - Fixed the Cold Touch spawning incorrectly
 - Fixed "Sounds/GenericExplosion" being missing
 - Fixed certain lightning visuals
+- The Hoarfrost Coiler no longer drops out of place loot
 - Fixed the Tittering's Terrortoma-specific stats always being applied

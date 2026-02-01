@@ -92,11 +92,6 @@ public class HoarfrostCoiler : WormHead
         MoveSpeed = 12f;
         Acceleration = 0.1f;
     }
-    public override void ModifyNPCLoot(NPCLoot npcLoot)
-    {
-        npcLoot.Add(ItemDropRule.Common(ItemID.RottenChunk, 2, 1, 4));
-        npcLoot.Add(ItemDropRule.Common(ItemID.WormTooth, 2, 1, 2));
-    }
 }
 public class HoarfrostCoilerBody : WormBody
 {
