@@ -1,6 +1,6 @@
 ﻿using EbonianMod.Content.Dusts;
 
-namespace EbonianMod.Content.Projectiles.Garbage;
+namespace EbonianMod.Content.NPCs.Garbage.Projectiles;
 
 public class GarbageBag : ModProjectile
 {

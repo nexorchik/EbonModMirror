@@ -1,4 +1,4 @@
-﻿using EbonianMod.Content.Projectiles.Garbage;
+﻿using EbonianMod.Content.NPCs.Garbage.Projectiles;
 
 namespace EbonianMod.Content.Items.Weapons.Magic;
 

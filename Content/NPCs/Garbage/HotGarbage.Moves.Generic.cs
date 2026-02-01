@@ -1,4 +1,4 @@
-using EbonianMod.Content.Projectiles.Garbage;
+using EbonianMod.Content.NPCs.Garbage.Projectiles;
 using EbonianMod.Content.Projectiles.VFXProjectiles;
 using EbonianMod.Core.Systems.Cinematic;
 

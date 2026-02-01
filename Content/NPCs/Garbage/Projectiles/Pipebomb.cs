@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Linq;
 
-namespace EbonianMod.Content.Projectiles.Garbage;
+namespace EbonianMod.Content.NPCs.Garbage.Projectiles;
 
 public class Pipebomb : ModProjectile
 {

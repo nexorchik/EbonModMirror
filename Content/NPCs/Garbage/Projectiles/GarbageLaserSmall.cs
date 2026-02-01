@@ -3,7 +3,7 @@ using EbonianMod.Content.NPCs.Garbage;
 using System;
 using System.Collections.Generic;
 
-namespace EbonianMod.Content.Projectiles.Garbage;
+namespace EbonianMod.Content.NPCs.Garbage.Projectiles;
 
 public class GarbageLaserSmall1 : ModProjectile
 {

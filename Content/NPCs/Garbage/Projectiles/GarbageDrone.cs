@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-namespace EbonianMod.Content.Projectiles.Garbage;
+namespace EbonianMod.Content.NPCs.Garbage.Projectiles;
 
 public class GarbageDrone : ModProjectile
 {

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.IO;
 using Terraria.Graphics.CameraModifiers;
 
-namespace EbonianMod.Content.NPCs.Garbage;
+namespace EbonianMod.Content.NPCs.Garbage.Projectiles;
 
 public class HotGarbageNuke : ModProjectile
 {

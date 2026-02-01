@@ -1,7 +1,7 @@
 ﻿using EbonianMod.Content.Projectiles.VFXProjectiles;
 using System;
 
-namespace EbonianMod.Content.Projectiles.Garbage;
+namespace EbonianMod.Content.NPCs.Garbage.Projectiles;
 
 public class GarbageGiantFlame : ModProjectile
 {

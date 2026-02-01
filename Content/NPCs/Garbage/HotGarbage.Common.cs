@@ -10,7 +10,7 @@ using EbonianMod.Content.Items.Weapons.Ranged;
 using EbonianMod.Content.Items.Weapons.Summoner;
 using EbonianMod.Content.NPCs.ArchmageX;
 using EbonianMod.Content.NPCs.Corruption;
-using EbonianMod.Content.Projectiles.Garbage;
+using EbonianMod.Content.NPCs.Garbage.Projectiles;
 using EbonianMod.Content.Projectiles.VFXProjectiles;
 using EbonianMod.Content.Tiles;
 using EbonianMod.Core.Systems.Cinematic;
