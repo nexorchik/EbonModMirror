@@ -36,12 +36,9 @@ public class BorealSpike : ModProjectile
         if (Projectile.timeLeft < 79 && Projectile.timeLeft > 76 && Projectile.ai[0] < Projectile.localAI[0] && Projectile.frame < 14)
         {
             Projectile.ai[0]++;
-            MPUtils.NewProjectile(Projectile.GetSource_FromAI(), Helper.Raycast(Projectile.Center - new Vector2(-10 * Projectile.ai[1], 70), Vector2.UnitY, 5000, true).Point + new Vector2(0, 3), Vector2.Zero, ProjectileType<BorealSpike>(), Projectile.damage, Projectile.knockBack, Projectile.owner, ai1: Projectile.ai[1], ai2: Projectile.frame + 2);
+            MPUtils.NewProjectile(Projectile.GetSource_FromAI(), Helper.GetNearestSurface(new Vector2(Projectile.Center.X + Projectile.ai[1] * 10, Projectile.Center.Y - 10)), Vector2.Zero, ProjectileType<BorealSpike>(), Projectile.damage, Projectile.knockBack, Projectile.owner, ai1: Projectile.ai[1], ai2: Projectile.frame + 2);
         }
-        if (Projectile.timeLeft < 20)
-            Projectile.scale = Lerp(Projectile.scale, 0, 0.25f);
-        else
-            Projectile.scale = Lerp(Projectile.scale, 1, 0.3f);
+        Projectile.scale = Projectile.timeLeft < 20 ? Lerp(Projectile.scale, 0, 0.25f) : Lerp(Projectile.scale, 1, 0.3f);
     }
     public override bool PreDraw(ref Color lightColor)
     {

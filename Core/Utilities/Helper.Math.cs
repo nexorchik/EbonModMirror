@@ -70,8 +70,7 @@ public static partial class Helper
 		public Vector2 Point;
 		public float RayLength;
     }
-
-	public static RaycastData Raycast(Vector2 origin, Vector2 direction, float length, bool checkPlatforms = false, bool CRUTCH = false) //crutch needs to be removed later
+	public static RaycastData Raycast(Vector2 origin, Vector2 direction, float length, bool checkPlatforms = false, bool targetSolidness = false, bool CRUTCH = false) //crutch needs to be removed later
 	{
         bool success = false;
         direction.Normalize();
@@ -79,7 +78,7 @@ public static partial class Helper
 
 		for (int i = 0; i < length; i++)
 		{
-			if ((Collision.CanHitLine(point, 1, 1, point + direction, 1, 1) && (checkPlatforms ? !Collision.SolidTiles(point, 1, 1, checkPlatforms) && Main.tile[(int)point.X / 16, (int)point.Y / 16].TileType != TileID.Platforms : true)))
+			if (Collision.SolidTiles(point, 1, 1, checkPlatforms) == targetSolidness)
 			{
 				point += direction;
             }
@@ -91,9 +90,24 @@ public static partial class Helper
 		}
         RaycastData data = new RaycastData();
         data.Success = success;
-        data.Point = point;
-		if (!success && CRUTCH) data.Point = origin + direction * length;
-		data.RayLength = (point - origin).Length();
+        data.Point = !success && CRUTCH ? origin + direction * length : point;
+        data.RayLength = (point - origin).Length();
+
         return data;
 	}
+	public static Vector2 GetNearestSurface(Vector2 position, bool checkPlatforms = false)
+	{
+		if(Collision.SolidTiles(position, 1, 1, checkPlatforms))
+		{
+            while (Collision.SolidTiles(position, 1, 1, checkPlatforms))
+            {
+                position -= Vector2.UnitY;
+            }
+        }
+		else
+		{
+			position = Raycast(position, Vector2.UnitY, 640, checkPlatforms).Point;
+		}
+		return position;
+    }
 }

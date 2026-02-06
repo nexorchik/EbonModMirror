@@ -77,10 +77,10 @@ public class Belladonna : ModNPC
     {
         if (!NPC.IsABestiaryIconDummy)
         {
-            if (NPC.velocity.Y > .1f || NPC.velocity.Y < -.1f)
+            if (NPC.velocity.Y > 0.1f || NPC.velocity.Y < -0.1f)
             {
                 NPC.frameCounter = 1;
-                NPC.frame.Y = 1 * NPC.height;
+                NPC.frame.Y = NPC.height;
             }
             if (AIState == Idle)
                 NPC.frame.Y = 0;
@@ -141,15 +141,12 @@ public class Belladonna : ModNPC
     public override float SpawnChance(NPCSpawnInfo spawnInfo)
     {
         if (Main.invasionType > 0) return 0;
-        int num = 0;
-        for (int i = 0; i < Main.npc.Length; i++)
-        {
-            if (Main.npc[i].active && Main.npc[i].type == Type) num++;
-        }
-        float rate = (float)Math.Max(.05f, 1f / (num + 1));
-        if (spawnInfo.Player.ZonePurity)
-            return SpawnCondition.OverworldNight.Chance * rate * 0.1f;
-        return 0;
+        int number = 0;
+        for (int i = 0; i < Main.npc.Length; i++) 
+            if (Main.npc[i].active && Main.npc[i].type == Type) number++;
+        float rate = (float)Math.Max(0.05f, 1f / (number + 1));
+
+        return spawnInfo.Player.ZonePurity ? SpawnCondition.OverworldNight.Chance * rate / 10 : 0;
     }
     public override bool? CanFallThroughPlatforms()
     {
@@ -158,11 +155,10 @@ public class Belladonna : ModNPC
     }
     public override void AI()
     {
-        Lighting.AddLight(NPC.Center, ((MathF.Sin(Main.GlobalTimeWrappedHourly * 0.75f) + 1) * 0.5f) * 0.2f, ((MathF.Sin(Main.GlobalTimeWrappedHourly * 0.75f) + 1) * 0.5f) * 0.2f, ((MathF.Sin(Main.GlobalTimeWrappedHourly * 0.75f) + 1) * 0.5f) * 0.2f);
+        Lighting.AddLight(NPC.Center, (MathF.Sin(Main.GlobalTimeWrappedHourly * 0.75f) + 1) * 0.5f * 0.2f, (MathF.Sin(Main.GlobalTimeWrappedHourly * 0.75f) + 1) * 0.5f * 0.2f, (MathF.Sin(Main.GlobalTimeWrappedHourly * 0.75f) + 1) * 0.5f * 0.2f);
         NPC.TargetClosest();
         Player player = Main.player[NPC.target];
-        NPC.direction = player.Center.X > NPC.Center.X ? 1 : -1;
-        NPC.spriteDirection = NPC.direction;
+        NPC.spriteDirection = NPC.direction = player.Center.X > NPC.Center.X ? 1 : -1;
         if (AIState == Idle)
         {
             if (player.Center.DistanceSQ(NPC.Center) < MathF.Pow(1200, 2))
@@ -172,14 +168,14 @@ public class Belladonna : ModNPC
                 NPC.frame.Y = NPC.height * 2;
             }
         }
+
         else if (AIState == Move)
         {
             NPC.knockBackResist = 0.8f;
             AITimer++;
             NPC.GetGlobalNPC<FighterGlobalAI>().FighterAI(NPC, 4, 1);
 
-            if (player.Center.DistanceSQ(NPC.Center) < MathF.Pow(300, 2))
-                AITimer += 2;
+            if (player.Center.DistanceSQ(NPC.Center) < MathF.Pow(300, 2)) AITimer += 2;
             if (AITimer >= 400)
             {
                 AITimer = 0;
@@ -197,9 +193,9 @@ public class Belladonna : ModNPC
                 AITimer = 1;
                 for (int i = 0; i < 3; i++)
                 {
-                    Vector2 pos = NPC.Center - new Vector2(Main.rand.Next(-400, 400), 100f);
-                    Vector2 actualPos = Helper.Raycast(pos, Vector2.UnitY, 500f).Point;
-                    MPUtils.NewProjectile(NPC.GetSource_FromAI(), actualPos - Vector2.UnitY * 20, Vector2.Zero, ProjectileType<BelladonnaBush>(), 0, 0);
+                    Vector2 rawPosition = new Vector2(16 * (NPC.Center.X / 16 + Main.rand.Next(-25, 25)) + 4, NPC.Center.Y);
+                    Vector2 position = Helper.GetNearestSurface(rawPosition);
+                    MPUtils.NewProjectile(NPC.GetSource_FromAI(), position - Vector2.UnitY * 20, Vector2.Zero, ProjectileType<BelladonnaBush>(), 0, 0);
                 }
             }
         }
@@ -229,29 +225,23 @@ public class BelladonnaBush : ModProjectile
         SpriteEffects effects = Projectile.spriteDirection == -1 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
         if (Projectile.frame == 11 && Projectile.timeLeft > 60)
         {
-            if (Projectile.ai[1] < 1)
-                Projectile.ai[1] += 0.05f;
-            float f = (MathF.Sin(Main.GlobalTimeWrappedHourly * 2) + 1) * 0.08f;
-            if (Projectile.ai[0] == 0)
-                f = ((float)Math.Sin(Main.GlobalTimeWrappedHourly * 5) * 2);
+            if (Projectile.ai[1] < 1) Projectile.ai[1] += 0.05f;
+            float f = Projectile.ai[0] == 0 ? 
+                (MathF.Sin(Main.GlobalTimeWrappedHourly * 2) + 1) * 0.08f : 
+                (float)Math.Sin(Main.GlobalTimeWrappedHourly * 5) * 2;
 
-            Texture2D tex = (Projectile.ai[0] == 0 ? Assets.NPCs.Overworld.Belladonna.BushOverlay_0.Value : Assets.NPCs.Overworld.Belladonna.BushOverlay_1.Value);
-
-            Main.EntitySpriteDraw(tex, Projectile.Center - Main.screenPosition, null, Color.White * (1 + Projectile.ai[1] * f) * 0.5f, 0, tex.Size() / 2, 1, effects, 0);
+            Texture2D texture = Projectile.ai[0] == 0 ? Assets.NPCs.Overworld.Belladonna.BushOverlay_0.Value : Assets.NPCs.Overworld.Belladonna.BushOverlay_1.Value;
+            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, Color.White * (1 + Projectile.ai[1] * f) * 0.5f, 0, texture.Size() / 2, 1, effects, 0);
         }
     }
     public override void AI()
     {
         if (Projectile.timeLeft > 45)
         {
-            if (++Projectile.frameCounter % 5 == 0 && Projectile.frame < 11)
-                Projectile.frame++;
+            if (++Projectile.frameCounter % 5 == 0 && Projectile.frame < 11) Projectile.frame++;
         }
-        else
-        {
-            if (++Projectile.frameCounter % 5 == 0 && Projectile.frame > 0)
-                Projectile.frame--;
-        }
+        else if (++Projectile.frameCounter % 5 == 0 && Projectile.frame > 0) Projectile.frame--;
+
         if (Projectile.timeLeft == 60)
         {
             for (int i = 0; i < 3; ++i)
