@@ -25,7 +25,7 @@ public static partial class Helper
 			return true;
 		for (int i = 0; i < entity.width * offsetX; i += (int)(1 / (offsetX == 0 ? 1 : offsetX))) //full sprite check
 		{
-			bool isGrounded = Raycast(entity.BottomLeft + Vector2.UnitX * i, Vector2.UnitY, entity.height * offset * 2).Success;
+			bool isGrounded = Raycast(entity.BottomLeft + Vector2.UnitX * i, Vector2.UnitY, 2).Success;
 			if (isGrounded)
 				return true;
 		}
