@@ -10,7 +10,7 @@ public class Sounds : ModSystem
 
 
     public const string path = "EbonianMod/Assets/Sounds/";
-    public const string outroPath = "EbonianMod/Assets/Music/Outros";
+    public const string outroPath = "EbonianMod/Assets/Music/Outros/";
     public static SoundStyle None;
     public static SoundStyle bloodSpit => Default with
     {

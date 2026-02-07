@@ -76,6 +76,7 @@ public class Cryptid : CommonNPC
 	private Vector2 _visualOffset;
 	public override void AI()
 	{
+		NPC.noTileCollide = false;
 		Lighting.AddLight(NPC.Center, Color.Gold.ToVector3()*0.2f);
 		NPC.TargetClosest(false);
 		
@@ -145,10 +146,12 @@ public class Cryptid : CommonNPC
 					NPC.velocity.X *= 0.98f;
 				}
 
-				if (NPC.Grounded() && AITimer > 3 && NPC.velocity.Y > 0)
+				if (NPC.Center.Y < player.Center.Y - 32)
+					NPC.noTileCollide = true;
+
+				if (!NPC.noTileCollide && NPC.Grounded() && AITimer > 3 && NPC.velocity.Y > 0)
 				{
-					Projectile.NewProjectileDirect(NPC.GetSource_FromAI(),
-						Helper.Raycast(NPC.Center, Vector2.UnitY, 500).Point + new Vector2(NPC.direction * 18, 0), Vector2.Zero,
+					Projectile.NewProjectileDirect(NPC.GetSource_FromAI(), NPC.Bottom + new Vector2(NPC.direction * 18, 0), Vector2.Zero,
 						ProjectileType<CryptidLanding>(), 20, 0);
 					NPC.velocity.X *= 0;
 					AITimer = 0;
@@ -206,7 +209,7 @@ public class Cryptid : CommonNPC
 			{
 				if ((int)AITimer == 10)
 					Projectile.NewProjectileDirect(NPC.GetSource_FromAI(),
-						Helper.Raycast(NPC.Center, Vector2.UnitY, 100).Point + new Vector2(NPC.direction * 18, 0), Vector2.Zero,
+						NPC.Bottom + new Vector2(NPC.direction * 18, 0), Vector2.Zero,
 						ProjectileType<CryptidLanding>(), 40, 0, ai2: 1);
 				if (++AITimer > 25)
 					SwitchState((int)States.Walk);
