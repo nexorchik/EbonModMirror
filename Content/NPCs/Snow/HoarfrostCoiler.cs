@@ -54,8 +54,6 @@ public class HoarfrostCoiler : WormHead
     {
         if (Main.dedServ)
             return base.CheckDead();
-        Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Circular(7,7), Find<ModGore>("EbonianMod/HoarfrostCoiler0").Type, NPC.scale);
-        
         for (int i = 0; i < 4; i++)
             Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Circular(7,7), Find<ModGore>("EbonianMod/BorealDancer3").Type, NPC.scale);
         return base.CheckDead();
@@ -114,8 +112,6 @@ public class HoarfrostCoilerBody : WormBody
             return;
         if (hitinfo.Damage > NPC.life && NPC.life <= 0)
         {
-            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Circular(7,7), Find<ModGore>("EbonianMod/HoarfrostCoiler1").Type, NPC.scale);
-        
             for (int i = 0; i < 4; i++)
                 Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Circular(7,7), Find<ModGore>("EbonianMod/BorealDancer3").Type, NPC.scale);
         }
@@ -147,8 +143,6 @@ public class HoarfrostCoilerTail : WormTail
             return;
         if (hitinfo.Damage > NPC.life && NPC.life <= 0)
         {
-            Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Circular(7,7), Find<ModGore>("EbonianMod/HoarfrostCoiler2").Type, NPC.scale);
-        
             for (int i = 0; i < 4; i++)
                 Gore.NewGore(NPC.GetSource_Death(), NPC.Center, Main.rand.NextVector2Circular(7,7), Find<ModGore>("EbonianMod/BorealDancer3").Type, NPC.scale);
         }

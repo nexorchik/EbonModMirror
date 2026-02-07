@@ -29,7 +29,7 @@ public class Belladonna : ModNPC
         NPC.defense = 3;
         NPC.damage = 0;
         NPC.knockBackResist = 0.6f;
-        NPC.HitSound = SoundID.NPCHit1;
+        NPC.HitSound = SoundID.DD2_KoboldHurt with { Variants = [0, 1] };
         NPC.DeathSound = SoundID.NPCDeath1;
         NPC.aiStyle = -1;
     }
@@ -156,9 +156,11 @@ public class Belladonna : ModNPC
     public override void AI()
     {
         Lighting.AddLight(NPC.Center, (MathF.Sin(Main.GlobalTimeWrappedHourly * 0.75f) + 1) * 0.5f * 0.2f, (MathF.Sin(Main.GlobalTimeWrappedHourly * 0.75f) + 1) * 0.5f * 0.2f, (MathF.Sin(Main.GlobalTimeWrappedHourly * 0.75f) + 1) * 0.5f * 0.2f);
-        NPC.TargetClosest();
+        NPC.TargetClosest(false);
         Player player = Main.player[NPC.target];
-        NPC.spriteDirection = NPC.direction = player.Center.X > NPC.Center.X ? 1 : -1;
+        NPC.spriteDirection = NPC.direction;
+        if (MathF.Abs(NPC.Center.X - player.Center.X) > 20f)
+            NPC.direction = player.Center.X > NPC.Center.X ? 1 : -1;
         if (AIState == Idle)
         {
             if (player.Center.DistanceSQ(NPC.Center) < MathF.Pow(1200, 2))
@@ -226,16 +228,25 @@ public class BelladonnaBush : ModProjectile
         if (Projectile.frame == 11 && Projectile.timeLeft > 60)
         {
             if (Projectile.ai[1] < 1) Projectile.ai[1] += 0.05f;
-            float f = Projectile.ai[0] == 0 ? 
-                (MathF.Sin(Main.GlobalTimeWrappedHourly * 2) + 1) * 0.08f : 
-                (float)Math.Sin(Main.GlobalTimeWrappedHourly * 5) * 2;
+            float opacity = (1 + Projectile.ai[1]) * (Projectile.ai[0] == 0 ? (MathF.Sin(Main.GlobalTimeWrappedHourly * 2) + 1) * 0.08f : (float)Math.Sin(Main.GlobalTimeWrappedHourly * 5) * 2) * 0.5f;
 
             Texture2D texture = Projectile.ai[0] == 0 ? Assets.NPCs.Overworld.Belladonna.BushOverlay_0.Value : Assets.NPCs.Overworld.Belladonna.BushOverlay_1.Value;
-            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, Color.White * (1 + Projectile.ai[1] * f) * 0.5f, 0, texture.Size() / 2, 1, effects, 0);
+            Main.EntitySpriteDraw(texture, Projectile.Center - Main.screenPosition, null, Color.White * opacity, 0, texture.Size() / 2, Projectile.scale, effects, 0);
         }
     }
     public override void AI()
     {
+        if (Projectile.timeLeft == 165 && Projectile.ai[2] == 0)
+        {
+            SoundEngine.PlaySound(SoundID.Item45 with
+            {
+                Volume = 0.75f,
+                Pitch = 0.4f,
+                PitchVariance = 0.2f,
+                MaxInstances = 1
+            }, Projectile.Center);
+            Projectile.ai[2] = 1;
+        }
         if (Projectile.timeLeft > 45)
         {
             if (++Projectile.frameCounter % 5 == 0 && Projectile.frame < 11) Projectile.frame++;
@@ -275,10 +286,11 @@ public class Blueberry : ModProjectile
     {
         Color color = Color.White * ((float)Math.Sin(Main.GlobalTimeWrappedHourly * 5) * 2);
         Texture2D a = TextureAssets.Projectile[Type].Value;
-        Main.EntitySpriteDraw(a, Projectile.Center - Main.screenPosition, null, color, Projectile.rotation, a.Size() / 2, 1, SpriteEffects.None, 0);
+        Main.EntitySpriteDraw(a, Projectile.Center - Main.screenPosition, null, color, Projectile.rotation, a.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
     }
     public override void AI()
     {
+        if (Projectile.timeLeft < 10) Projectile.scale -= 0.1f;
         foreach (NPC npc in Main.npc)
         {
             if (npc.active)
@@ -317,7 +329,7 @@ public class Nightshade : ModProjectile
     {
         Color color = Color.White * ((float)Math.Cos(Main.GlobalTimeWrappedHourly * 10) * 2);
         Texture2D a = TextureAssets.Projectile[Type].Value;
-        Main.EntitySpriteDraw(a, Projectile.Center - Main.screenPosition, null, color, Projectile.rotation, a.Size() / 2, 1, SpriteEffects.None, 0);
+        Main.EntitySpriteDraw(a, Projectile.Center - Main.screenPosition, null, color, Projectile.rotation, a.Size() / 2, Projectile.scale, SpriteEffects.None, 0);
     }
     public override void OnKill(int timeLeft)
     {
@@ -325,8 +337,9 @@ public class Nightshade : ModProjectile
     }
     public override void AI()
     {
-        float f = (MathF.Sin(Main.GlobalTimeWrappedHourly * 2) + 1) * 0.08f;
-        Lighting.AddLight(Projectile.Center, f, f, f);
+        if (Projectile.timeLeft < 10) Projectile.scale -= 0.1f;
+        
+        Lighting.AddLight(Projectile.Center, new Vector3((MathF.Sin(Main.GlobalTimeWrappedHourly * 2) + 1) * 0.08f));
         foreach (Player npc in Main.player)
         {
             if (npc.active)

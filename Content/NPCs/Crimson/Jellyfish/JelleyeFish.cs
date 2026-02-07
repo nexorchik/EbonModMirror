@@ -22,6 +22,7 @@ public class JelleyeFish : ModNPC
         NPC.lavaImmune = true;
         NPC.noGravity = true;
         NPC.HitSound = SoundID.NPCHit1;
+        NPC.DeathSound = SoundID.NPCDeath1;
         NPC.netAlways = true;
         NPC.value = Item.buyPrice(0, 0, 20);
 

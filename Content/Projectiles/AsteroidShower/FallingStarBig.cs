@@ -240,7 +240,7 @@ public class FallingStar : ModNPC
     {
         Projectile projectile = Main.projectile[(int)NPC.ai[0]];
         projectile.Kill();
-        SoundEngine.PlaySound(SoundID.DD2_WitherBeastDeath, NPC.Center);
+        SoundEngine.PlaySound(SoundID.DD2_WitherBeastCrystalImpact, NPC.Center);
         SoundEngine.PlaySound(SoundID.NPCHit3, NPC.Center);
         for (int i = 0; i < 10; i++)
             Gore.NewGore(default, NPC.Center, Main.rand.NextVector2Circular(10, 10), Main.rand.Next(GoreTypes));
@@ -248,7 +248,7 @@ public class FallingStar : ModNPC
     }
     public override void HitEffect(NPC.HitInfo hit)
     {
-        SoundEngine.PlaySound(SoundID.DD2_WitherBeastHurt, NPC.Center);
+        SoundEngine.PlaySound(SoundID.DD2_CrystalCartImpact, NPC.Center);
         if (Main.rand.NextBool(3))
             Gore.NewGore(default, NPC.Center, Main.rand.NextVector2Circular(10, 10), Main.rand.Next(GoreTypes));
         Color newColor7 = Color.CornflowerBlue;
