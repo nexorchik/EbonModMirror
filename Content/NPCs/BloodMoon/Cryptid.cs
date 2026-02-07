@@ -63,6 +63,16 @@ public class Cryptid : CommonNPC
 		return false;
 	}
 
+	public override void HitEffect(NPC.HitInfo hit)
+	{
+		if (NPC.life <= 0)
+		{
+			for (int i = 0; i < 5; i++)
+				Gore.NewGorePerfect(null, NPC.Center + Main.rand.NextVector2Circular(15, 35),
+					Main.rand.NextVector2Circular(5, 5), Mod.Find<ModGore>("EbonianMod/Cryptid" + i).Type);
+		}
+	}
+
 	enum States
 	{
 		Walk,
