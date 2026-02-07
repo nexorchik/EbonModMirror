@@ -60,14 +60,9 @@ public class SerrationP : HeldSword
     }
     public override float Ease(float x)
     {
-        return x == 0
-? 0
-: x == 1
-? 1
-: x < 0.5 ? MathF.Pow(2, 20 * x - 10) / 2
-: (2 - MathF.Pow(2, -20 * x + 10)) / 2;
+        return x == 0 ? 0 : x == 1 ? 1 : x < 0.5 ? MathF.Pow(2, 20 * x - 10) / 2 : (2 - MathF.Pow(2, -20 * x + 10)) / 2;
     }
-    float lerpProg = 1, swingProgress, rotation;
+    float lerpProgress = 1, swingProgress, rotation;
     public override void OnKill(int timeLeft)
     {
         Player player = Main.player[Projectile.owner];
@@ -78,8 +73,8 @@ public class SerrationP : HeldSword
     public override void ExtraAI()
     {
         Player player = Main.player[Projectile.owner];
-        if (lerpProg != 1 && lerpProg != -1)
-            lerpProg = MathHelper.SmoothStep(lerpProg, 1, 0.1f);
+        if (lerpProgress != 1 && lerpProgress != -1)
+            lerpProgress = SmoothStep(lerpProgress, 1, 0.1f);
         if (swingProgress > 0.25f && swingProgress < 0.85f)
             if (Projectile.ai[0] == 0 && Helper.Raycast(Projectile.Center, Vector2.UnitY, 100).RayLength < 15)
             {
@@ -90,26 +85,24 @@ public class SerrationP : HeldSword
 
                 Projectile.NewProjectile(Projectile.GetSource_FromAI(), Helper.Raycast(Projectile.Center - Vector2.UnitY * 30, Vector2.UnitY, 500, true).Point, new Vector2((float)player.direction, 0), ProjectileType<SerrationSpike>(), Projectile.damage, Projectile.knockBack, Projectile.owner);
 
-                lerpProg = -1;
+                lerpProgress = -1;
             }
         int direction = (int)Projectile.ai[1];
-        if (lerpProg >= 0)
-            swingProgress = MathHelper.Lerp(swingProgress, Ease(Utils.GetLerpValue(0f, swingTime, Projectile.timeLeft)), lerpProg);
+        if (lerpProgress >= 0)
+            swingProgress = Lerp(swingProgress, Ease(Utils.GetLerpValue(0f, swingTime, Projectile.timeLeft)), lerpProgress);
         float defRot = Projectile.velocity.ToRotation();
-        float start = defRot - (MathHelper.PiOver2 + MathHelper.PiOver4);
-        float end = defRot + (MathHelper.PiOver2 + MathHelper.PiOver4);
-        if (lerpProg >= 0)
-            rotation = MathHelper.Lerp(rotation, direction == 1 ? start + MathHelper.Pi * 3 / 2 * swingProgress : end - MathHelper.Pi * 3 / 2 * swingProgress, lerpProg);
-        Vector2 position = player.GetFrontHandPosition(stretch, rotation - MathHelper.PiOver2) +
+        float start = defRot - (PiOver2 + PiOver4);
+        float end = defRot + (PiOver2 + PiOver4);
+        if (lerpProgress >= 0)
+            rotation = Lerp(rotation, direction == 1 ? start + Pi * 3 / 2 * swingProgress : end - Pi * 3 / 2 * swingProgress, lerpProgress);
+        Vector2 position = player.GetFrontHandPosition(stretch, rotation - PiOver2) +
             rotation.ToRotationVector2() * holdOffset * ScaleFunction(swingProgress);
         Projectile.Center = position;
-        Projectile.rotation = (position - player.Center).ToRotation() + MathHelper.PiOver4;
+        Projectile.rotation = (position - player.Center).ToRotation() + PiOver4;
         player.ChangeDir(Projectile.velocity.X < 0 ? -1 : 1);
         player.heldProj = Projectile.whoAmI;
         if (player.gravDir != -1)
-            player.SetCompositeArmFront(true, stretch, rotation - MathHelper.PiOver2);
-        if (player.gravDir != -1)
-            player.SetCompositeArmBack(true, stretch, rotation - MathHelper.PiOver2 - MathHelper.PiOver4);
+            player.SetCompositeArmFront(true, stretch, rotation - PiOver2);
     }
     public override bool? CanDamage()
     {
@@ -121,7 +114,7 @@ public class SerrationP : HeldSword
         Helper.AddCameraModifier(new PunchCameraModifier(Projectile.Center, Main.rand.NextVector2Unit(), 2, 6, 30, 1000));
         if (!_hit)
         {
-            lerpProg = -.25f;
+            lerpProgress = -.25f;
             _hit = true;
         }
     }

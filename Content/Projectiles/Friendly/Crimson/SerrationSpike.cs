@@ -22,18 +22,18 @@ internal class SerrationSpike : ModProjectile
     public override void DrawBehind(int index, List<int> behindNPCsAndTiles, List<int> behindNPCs, List<int> behindProjectiles, List<int> overPlayers, List<int> overWiresUI) => behindNPCsAndTiles.Add(index);
     public override bool PreDraw(ref Color lightColor)
     {
-        Texture2D tex = TextureAssets.Projectile[Type].Value;
-        Main.spriteBatch.Draw(tex, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(tex.Width / 2, tex.Height), new Vector2(Projectile.ai[2], MathHelper.Clamp(Projectile.ai[2] * 2, 0, (Projectile.ai[0] + 1) * 0.2f)), Projectile.direction == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
+        Texture2D texture = TextureAssets.Projectile[Type].Value;
+        Main.spriteBatch.Draw(texture, Projectile.Center - Main.screenPosition, null, lightColor, Projectile.rotation, new Vector2(texture.Width / 2, texture.Height * 0.75f), new Vector2(Projectile.ai[2], Projectile.ai[2]), Projectile.direction == -1 ? SpriteEffects.FlipHorizontally : SpriteEffects.None, 0f);
         return false;
     }
     public override void OnKill(int timeLeft)
     {
         SoundEngine.PlaySound(SoundID.NPCHit18, Projectile.position);
-        for (int num495 = 0; num495 < 15; num495++)
+        for (int i = 0; i < 15; i++)
         {
-            int num496 = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.Blood, Projectile.velocity.X, Projectile.velocity.Y, Main.rand.Next(0, 101), default(Color), 1f + (float)Main.rand.Next(40) * 0.01f);
-            Main.dust[num496].noGravity = true;
-            Dust dust2 = Main.dust[num496];
+            int dustType = Dust.NewDust(Projectile.Center - new Vector2(0, Projectile.height / 2 * Projectile.scale), Projectile.width, Projectile.height, DustID.Blood, Projectile.velocity.X, Projectile.velocity.Y, Main.rand.Next(0, 101), default(Color), 1f + Main.rand.NextFloat(1));
+            Main.dust[dustType].noGravity = true;
+            Dust dust2 = Main.dust[dustType];
             dust2.velocity *= 2f;
         }
     }
@@ -48,23 +48,22 @@ internal class SerrationSpike : ModProjectile
             SoundStyle style = SoundID.NPCHit18;
             style.Volume = 0.5f;
             SoundEngine.PlaySound(style, Projectile.Center);
-            for (int num495 = 0; num495 < 15; num495++)
+            for (int i = 0; i < 15; i++)
             {
-                int num496 = Dust.NewDust(Projectile.Center, Projectile.width, Projectile.height, DustID.Blood, Projectile.velocity.X, Projectile.velocity.Y, Main.rand.Next(0, 101), default(Color), 1f + (float)Main.rand.Next(40) * 0.01f);
-                Main.dust[num496].noGravity = true;
-                Dust dust2 = Main.dust[num496];
+                int dustType = Dust.NewDust(Projectile.Center - new Vector2(0, Projectile.height / 2 * Projectile.scale), Projectile.width, Projectile.height, DustID.Blood, Projectile.velocity.X, Projectile.velocity.Y, Main.rand.Next(0, 101), default(Color), 1 + Main.rand.NextFloat(1f));
+                Main.dust[dustType].noGravity = true;
+                Dust dust2 = Main.dust[dustType];
                 dust2.velocity *= 2f;
             }
 
             if (Projectile.ai[0] < 7 && Main.myPlayer == Projectile.owner)
             {
-                Projectile a = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), ((Projectile.ai[0] + 1) * 4) * Projectile.velocity + Helper.Raycast(Projectile.Center - Vector2.UnitY * 30, Vector2.UnitY, 500, true).Point + new Vector2(0, (Projectile.ai[0] + 1)), Projectile.velocity, ProjectileType<SerrationSpike>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.ai[0]);
-                a.ai[0] = Projectile.ai[0] + 1;
-                a.SyncProjectile();
+                Projectile projectile = Projectile.NewProjectileDirect(Projectile.GetSource_FromThis(), Helper.GetNearestSurface(Projectile.Center + Vector2.UnitX * (Projectile.ai[0] + 1) * 4 * Projectile.direction, true) + new Vector2(0, Projectile.ai[0] + 1), Projectile.velocity, ProjectileType<SerrationSpike>(), Projectile.damage, Projectile.knockBack, Projectile.owner, Projectile.ai[0]);
+                projectile.ai[0] = Projectile.ai[0] + 1;
+                projectile.SyncProjectile();
             }
         }
         Projectile.velocity.Normalize();
         Projectile.spriteDirection = Projectile.direction = Projectile.velocity.X < 0 ? -1 : 1;
-        Projectile.rotation = MathHelper.ToRadians(20 * Projectile.direction);
     }
 }

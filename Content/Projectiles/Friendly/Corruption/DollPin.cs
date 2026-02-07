@@ -10,7 +10,7 @@ public class DollPin : ModProjectile
     {
         Projectile.Size = new Vector2(42, 14);
         Projectile.friendly = true;
-        Projectile.hostile = true;
+        Projectile.hostile = false;
         Projectile.timeLeft = 3;
         Projectile.penetrate = -1;
         Projectile.tileCollide = false;
@@ -62,7 +62,7 @@ public class DollPin : ModProjectile
         if (Projectile.ai[1] == 0 && Projectile.localAI[0] < -15f)
         {
             Projectile.Kill();
-            Target.StrikeNPC(Target.townNPC ? 999999999 : Projectile.damage, Projectile.knockBack, Target.direction);
+            Target.StrikeNPC(Projectile.damage, Projectile.knockBack, Target.direction);
             Target.AddBuff(BuffID.CursedInferno, 400);
         }
     }

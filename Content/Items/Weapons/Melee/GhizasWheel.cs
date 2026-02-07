@@ -10,7 +10,7 @@ public class GhizasWheel : ModItem
     public override void SetDefaults()
     {
         Item.DamageType = DamageClass.Melee;
-        Item.damage = 8;
+        Item.damage = 6;
         Item.knockBack = 0;
         Item.useTime = 5;
         Item.useAnimation = 5;
