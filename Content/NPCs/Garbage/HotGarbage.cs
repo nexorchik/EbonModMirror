@@ -32,7 +32,6 @@ public partial class HotGarbage : ModNPC
 
     public enum State 
     {
-        ActualDeath = -2, 
         Death = -1, 
         Intro = 0,
         Idle, 
@@ -72,14 +71,13 @@ public partial class HotGarbage : ModNPC
 
         switch (AIState)
         {
-            
+            case State.Death:
+                DoDeath(); break;
+            case State.Intro: 
+                DoIntro(); break;
         }
         
-        if (AIState == State.Death)
-            DoDeath();
-        else if (AIState == State.Intro)
-            DoIntro();
-        else if (AIState == State.Idle)
+        if (AIState == State.Idle)
         {
             NPC.dontTakeDamage = false;
             NPC.damage = 0;
@@ -100,16 +98,11 @@ public partial class HotGarbage : ModNPC
                 if (NextAttack != State.WarningForDash)
                     NPC.velocity.X = 0;
                 AITimer = 0;
-                if (didAttacks)
+                if (PerformedFullMoveset)
                 {
-                    List<State> attacks = new List<State>()
-                    { State.WarningForDash, State.WarningForBigDash,  State.SlamPreperation, State.MailBoxes, State.PipeBombAirstrike, State.MassiveLaser,
-                        State.OpenLid, State.OpenLid, State.OpenLid, State.OpenLid, State.OpenLid, State.OpenLid, };
-                    List<State> openAttacks = new List<State>()
-                    { State.SpewFire, State.SpewFire2, State.GiantFireball, State.TrashBags, State.SodaMissiles, State.SateliteLightning };
-                    NextAttack = Main.rand.Next(attacks);
+                    NextAttack = Main.rand.Next(AttackPool);
                     if (NextAttack == State.OpenLid)
-                        NextAttack2 = Main.rand.Next(openAttacks);
+                        NextAttack2 = Main.rand.Next(OpenAttackPool);
                 }
                 AIState = NextAttack;
                 if (NextAttack == State.OpenLid)
@@ -120,7 +113,6 @@ public partial class HotGarbage : ModNPC
         {
             NPC.velocity.X *= 0.99f;
             AITimer++;
-            flameAlpha = Lerp(flameAlpha, 1, 0.1f);
             if (AITimer == 20)
             {
                 SoundEngine.PlaySound(SoundID.Zombie66, NPC.Center);
@@ -180,15 +172,12 @@ public partial class HotGarbage : ModNPC
             {
                 AITimer3 = 0;
             }
-            if (AITimer > 65 * 3 - 40)
-                flameAlpha = Lerp(flameAlpha, 0, 0.1f);
             if (AITimer >= 65 * 3)
             {
                 NPC.netUpdate = true;
                 NPC.velocity = Vector2.Zero;
                 NextAttack = State.OpenLid;
                 NextAttack2 = State.SpewFire;
-                flameAlpha = 0;
                 AIState = State.Idle;
                 AITimer = 0;
                 AITimer2 = 0;
@@ -200,7 +189,6 @@ public partial class HotGarbage : ModNPC
         else if (AIState == State.SlamPreperation)
         {
             AITimer++;
-            flameAlpha = Lerp(flameAlpha, 1, 0.1f);
             NPC.rotation += ToRadians(-0.9f * 4 * NPC.direction);
             if (AITimer >= 25)
             {
@@ -223,11 +211,11 @@ public partial class HotGarbage : ModNPC
             if (AITimer >= 50 && AITimer < 181)
             {
                 if (AITimer < 176)
-                    pos = player.Center - new Vector2(-player.velocity.X * 20, 500);
+                    DisposablePosition = player.Center - new Vector2(-player.velocity.X * 20, 500);
                 NPC.direction = NPC.spriteDirection = 1;
                 NPC.rotation = Lerp(NPC.rotation, ToRadians(90), 0.15f);
                 if (AITimer % 8 == 0)
-                    NPC.velocity = Helper.FromAToB(NPC.Center, pos, false) * 0.056f;
+                    NPC.velocity = Helper.FromAToB(NPC.Center, DisposablePosition, false) * 0.056f;
             }
             if (AITimer == 2)
                 SoundEngine.PlaySound(SoundID.Zombie67, NPC.Center);
@@ -263,7 +251,6 @@ public partial class HotGarbage : ModNPC
             }
             if (AITimer2 >= 1)
             {
-                flameAlpha = Lerp(flameAlpha, 0, 0.1f);
                 NPC.velocity.Y += 0.1f;
                 AITimer2++;
             }
@@ -273,7 +260,6 @@ public partial class HotGarbage : ModNPC
                 NPC.noGravity = false;
                 NPC.velocity = Vector2.Zero;
                 AITimer = 0;
-                flameAlpha = 0;
                 NPC.damage = 0;
                 NextAttack = State.WarningForBigDash;
                 AIState = State.Idle;
@@ -283,7 +269,6 @@ public partial class HotGarbage : ModNPC
         {
             AITimer++;
             NPC.velocity.X = Helper.FromAToB(NPC.Center, player.Center).X * -1;
-            flameAlpha = Lerp(flameAlpha, 1, 0.1f);
             if (AITimer == 10)
             {
                 SoundEngine.PlaySound(SoundID.Zombie66, NPC.Center);
@@ -316,12 +301,9 @@ public partial class HotGarbage : ModNPC
             {
                 MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(-NPC.direction * Main.rand.NextFloat(1, 3), Main.rand.NextFloat(-5, -1)), ProjectileType<GarbageFlame>(), 15, 0);
             }
-            if (AITimer > 80)
-                flameAlpha = Lerp(flameAlpha, 0, 0.1f);
             if (AITimer >= 110)
             {
                 NPC.netUpdate = true;
-                flameAlpha = 0;
                 NPC.velocity = Vector2.Zero;
                 AITimer = -50;
                 NPC.damage = 0;
@@ -562,7 +544,6 @@ public partial class HotGarbage : ModNPC
                 NPC.rotation += ToRadians(-0.9f * 4 * NPC.direction);
             if (AITimer < 75 && AITimer > 25)
             {
-                flameAlpha = Lerp(flameAlpha, 1, 0.1f);
                 NPC.noTileCollide = true;
                 NPC.velocity.Y--;
             }
@@ -570,10 +551,10 @@ public partial class HotGarbage : ModNPC
             {
                 NPC.damage = 60;
                 if (AITimer < 150)
-                    pos = player.Center;
+                    DisposablePosition = player.Center;
                 NPC.direction = NPC.spriteDirection = 1;
                 NPC.rotation = Lerp(NPC.rotation, ToRadians(90), 0.15f);
-                NPC.velocity = Helper.FromAToB(NPC.Center, pos - new Vector2(-player.velocity.X * 10, 700), false) * 0.05f;
+                NPC.velocity = Helper.FromAToB(NPC.Center, DisposablePosition - new Vector2(-player.velocity.X * 10, 700), false) * 0.05f;
             }
             if (AITimer == 150)
             {
@@ -604,7 +585,6 @@ public partial class HotGarbage : ModNPC
             }
             if (AITimer2 >= 1)
             {
-                flameAlpha = Lerp(flameAlpha, 0, 0.1f);
                 NPC.rotation = Utils.AngleLerp(NPC.rotation, 0, 0.1f);
                 NPC.velocity.Y += 0.1f;
                 AITimer2++;
@@ -614,7 +594,6 @@ public partial class HotGarbage : ModNPC
                 NPC.netUpdate = true;
                 AITimer2 = 0;
                 AITimer = 0;
-                flameAlpha = 0;
                 NPC.damage = 0;
                 AIState = State.Idle;
                 NextAttack = State.OpenLid;
@@ -640,14 +619,11 @@ public partial class HotGarbage : ModNPC
             if (AITimer > 60 && AITimer3 != 3)
             {
                 NPC.damage = 60;
-                flameAlpha = Lerp(flameAlpha, 1, 0.1f);
-                pos = NPC.Center;
+                DisposablePosition = NPC.Center;
                 if (NPC.velocity.Length() < 20)
                     NPC.velocity.Y += 1 + NPC.velocity.Y;
                 NPC.Center += Vector2.UnitY * NPC.velocity.Y;
             }
-            else
-                flameAlpha = Lerp(flameAlpha, 0, 0.2f);
             bool colliding = Helper.Raycast(NPC.Center, Vector2.UnitY, NPC.width * 0.6f).RayLength < NPC.width * 0.3f ||
                 Helper.Raycast(NPC.BottomRight, Vector2.UnitY, NPC.width * 0.6f).RayLength < NPC.width * 0.3f ||
                 Helper.Raycast(NPC.BottomLeft, Vector2.UnitY, NPC.width * 0.6f).RayLength < NPC.width * 0.3f;
@@ -655,7 +631,7 @@ public partial class HotGarbage : ModNPC
             {
                 if (AITimer3 != 3)
                 {
-                    pos = NPC.Center + new Vector2(0, NPC.height * 0.5f);
+                    DisposablePosition = NPC.Center + new Vector2(0, NPC.height * 0.5f);
                     AITimer3 = 3;
                     for (int i = 0; i < 4; i++)
                         MPUtils.NewProjectile(NPC.InheritSource(NPC), NPC.Center + Main.rand.NextVector2Circular(15, 15), Vector2.Zero, ProjectileType<FlameExplosionWSprite>(), 0, 0);
@@ -668,7 +644,7 @@ public partial class HotGarbage : ModNPC
                 }
                 else
                 {
-                    NPC.Center = Vector2.Lerp(NPC.Center, pos + Main.rand.NextVector2Circular(AITimer2 * 10f, AITimer2), 0.2f);
+                    NPC.Center = Vector2.Lerp(NPC.Center, DisposablePosition + Main.rand.NextVector2Circular(AITimer2 * 10f, AITimer2), 0.2f);
                     NPC.velocity = Vector2.Zero;
                 }
                 if (AITimer % 3 - (int)AITimer2 == 0)
@@ -701,7 +677,7 @@ public partial class HotGarbage : ModNPC
             {
                 SoundEngine.PlaySound(Sounds.eruption.WithVolumeScale(0.8f), NPC.Center);
                 if (!Main.dedServ)
-                    laserSlot = SoundEngine.PlaySound(Sounds.garbageLaser.WithVolumeScale(1.35f), NPC.Center);
+                    LaserSoundSlot = SoundEngine.PlaySound(Sounds.garbageLaser.WithVolumeScale(1.35f), NPC.Center);
                 CameraSystem.ScreenShakeAmount = 5;
                 AITimer2 = 1;
                 MPUtils.NewProjectile(NPC.InheritSource(NPC), NPC.Center - new Vector2(-6 * NPC.direction, NPC.height * 0.75f), -Vector2.UnitY, ProjectileType<HeatBlastVFX>(), 0, 0);
@@ -710,7 +686,7 @@ public partial class HotGarbage : ModNPC
             if (AITimer == 140)
             {
                 if (!Main.dedServ)
-                    if (SoundEngine.TryGetActiveSound(laserSlot, out var sound))
+                    if (SoundEngine.TryGetActiveSound(LaserSoundSlot, out var sound))
                     {
                         sound.Pitch += 0.3f;
                         sound.Volume += 0.3f;
@@ -723,7 +699,7 @@ public partial class HotGarbage : ModNPC
             if (AITimer == 200)
             {
                 if (!Main.dedServ)
-                    if (SoundEngine.TryGetActiveSound(laserSlot, out var sound))
+                    if (SoundEngine.TryGetActiveSound(LaserSoundSlot, out var sound))
                     {
                         sound.Pitch += 0.4f;
                         sound.Volume += 0.4f;
@@ -745,7 +721,7 @@ public partial class HotGarbage : ModNPC
 
                 NPC.netUpdate = true;
                 if (!Main.dedServ)
-                    if (SoundEngine.TryGetActiveSound(laserSlot, out var sound))
+                    if (SoundEngine.TryGetActiveSound(LaserSoundSlot, out var sound))
                     {
                         sound.Stop();
                     }
@@ -754,8 +730,7 @@ public partial class HotGarbage : ModNPC
                 AITimer = 0;
                 NPC.damage = 0;
                 AIState = State.Idle;
-                flameAlpha = 0;
-                didAttacks = true;
+                PerformedFullMoveset = true;
                 NextAttack = State.WarningForDash;
                 NPC.velocity = Vector2.Zero;
             }

@@ -1,10 +1,11 @@
 using System.Collections.Generic;
+using ReLogic.Utilities;
 
 namespace EbonianMod.Content.NPCs.Garbage;
 
 public partial class HotGarbage : ModNPC
 {
-    readonly List<Vector2> redFrames = new List<Vector2>
+    public readonly List<Vector2> RedFrames = new List<Vector2>
     {
         new Vector2(0, 76*8),new Vector2(0, 76*10),new Vector2(0, 76*11),new Vector2(0, 76*12),
 
@@ -12,20 +13,36 @@ public partial class HotGarbage : ModNPC
 
         new Vector2(80*2, 0),new Vector2(80*2, 76*1),new Vector2(80*2, 76*2),new Vector2(80*2, 76*3)
     };
-    readonly List<Vector2> yellowFrames = new List<Vector2>
+    public readonly List<Vector2> YellowFrames = new List<Vector2>
     {
         new Vector2(80, 76*3),new Vector2(80, 76*4),new Vector2(80, 76*5)
     };
-    readonly List<Vector2> greenFrames = new List<Vector2>
+    public readonly List<Vector2> GreenFrames = new List<Vector2>
     {
         new Vector2(80, 76*6),new Vector2(80, 76*7),new Vector2(80, 76*8),new Vector2(80, 76*9)
     };
+    
+    public readonly List<State> AttackPool = new List<State>() { 
+        State.WarningForDash, State.WarningForBigDash,  State.SlamPreperation, State.MailBoxes, State.PipeBombAirstrike, State.MassiveLaser,
+        
+        State.OpenLid, State.OpenLid, State.OpenLid, State.OpenLid, State.OpenLid, State.OpenLid, 
+    };
+    public readonly List<State> OpenAttackPool = new List<State>()
+    {
+        State.SpewFire, State.SpewFire2, State.GiantFireball, State.TrashBags, State.SodaMissiles, State.SateliteLightning
+    };
+    
+    public bool StruckDead;
+    public bool PerformedFullMoveset;
+    public Vector2 DisposablePosition;
+    public SlotId LaserSoundSlot;
+    
     void AmbientVFX() {
-        if (redFrames.Contains(new Vector2(NPC.frame.X, NPC.frame.Y)))
+        if (RedFrames.Contains(new Vector2(NPC.frame.X, NPC.frame.Y)))
             Lighting.AddLight(NPC.Center, TorchID.Red);
-        if (yellowFrames.Contains(new Vector2(NPC.frame.X, NPC.frame.Y)))
+        if (YellowFrames.Contains(new Vector2(NPC.frame.X, NPC.frame.Y)))
             Lighting.AddLight(NPC.Center, TorchID.Yellow);
-        if (greenFrames.Contains(new Vector2(NPC.frame.X, NPC.frame.Y)))
+        if (GreenFrames.Contains(new Vector2(NPC.frame.X, NPC.frame.Y)))
             Lighting.AddLight(NPC.Center, TorchID.Green);
         if (NPC.frame.X == 80 * 2 && NPC.frame.Y > 0)
         {

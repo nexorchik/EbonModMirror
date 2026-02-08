@@ -107,30 +107,25 @@ public partial class HotGarbage : ModNPC
         get => NPC.ai[3];
         set => NPC.ai[3] = value;
     }
-    bool ded;
-    bool didAttacks;
-    Vector2 pos;
-    SlotId laserSlot;
-    float flameAlpha;
     public override void SendExtraAI(BinaryWriter writer)
     {
         writer.Write((byte)NextAttack);
         writer.Write((byte)NextAttack2);
-        writer.Write(ded);
-        writer.Write(didAttacks);
-        writer.WriteVector2(pos);
+        writer.Write(StruckDead);
+        writer.Write(PerformedFullMoveset);
+        writer.WriteVector2(DisposablePosition);
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
         NextAttack = (State)reader.ReadByte();
         NextAttack2 = (State)reader.ReadByte();
-        ded = reader.ReadBoolean();
-        didAttacks = reader.ReadBoolean();
-        pos = reader.ReadVector2();
+        StruckDead = reader.ReadBoolean();
+        PerformedFullMoveset = reader.ReadBoolean();
+        DisposablePosition = reader.ReadVector2();
     }
     public override bool CheckDead()
     {
-        if (NPC.life <= 0 && !ded)
+        if (NPC.life <= 0 && !StruckDead)
         {
             NPC.life = 1;
             AIState = State.Death;
@@ -138,7 +133,7 @@ public partial class HotGarbage : ModNPC
             NPC.immortal = true;
             NPC.dontTakeDamage = true;
             CameraSystem.ScreenShakeAmount = 5;
-            ded = true;
+            StruckDead = true;
             AITimer = -75;
             AITimer2 = -110;
             NPC.velocity = Vector2.Zero;

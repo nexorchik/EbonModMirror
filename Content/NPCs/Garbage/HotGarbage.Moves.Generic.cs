@@ -44,11 +44,10 @@ public partial class HotGarbage : ModNPC
             if (NPC.Grounded())
             {
                 AITimer++;
-                flameAlpha = Lerp(flameAlpha, 1, 0.1f);
                 if (AITimer == -74)
                 {
                     NPC.netUpdate = true;
-                    pos = NPC.Center;
+                    DisposablePosition = NPC.Center;
                     if (!Main.dedServ)
                         Music = MusicLoader.GetMusicSlot(Mod, "Assets/Music/GarbageSiren");
                     CameraSystem.ChangeCameraPos(NPC.Center - new Vector2(0, 50), 130, null, 1.4f, InOutQuart);
@@ -150,15 +149,15 @@ public partial class HotGarbage : ModNPC
             }
             if (AITimer2 == 40 || AITimer2 < 0)
             {
-                if (player.Center.Distance(pos) < 650)
+                if (player.Center.Distance(DisposablePosition) < 650)
                 {
                     NPC.spriteDirection = Main.player[NPC.target].Center.X > NPC.Center.X ? 1 : -1;
                     NPC.direction = Main.player[NPC.target].Center.X > NPC.Center.X ? 1 : -1;
                 }
                 else
                 {
-                    NPC.spriteDirection = pos.X > NPC.Center.X ? 1 : -1;
-                    NPC.direction = pos.X > NPC.Center.X ? 1 : -1;
+                    NPC.spriteDirection = DisposablePosition.X > NPC.Center.X ? 1 : -1;
+                    NPC.direction = DisposablePosition.X > NPC.Center.X ? 1 : -1;
                 }
             }
             if (AITimer2 >= 65)
@@ -168,7 +167,7 @@ public partial class HotGarbage : ModNPC
             }
             if (AITimer % 20 == 0 && AITimer > 30 && AITimer < 630)
             {
-                MPUtils.NewProjectile(NPC.GetSource_FromThis(), pos - Vector2.UnitY * 1000, new Vector2(Main.rand.NextFloat(-30, 30) * Main.rand.NextFloat(1f, 2f), Main.rand.NextFloat(-5, 1)), ProjectileType<GarbageGiantFlame>(), 15, 0, ai0: 1);
+                MPUtils.NewProjectile(NPC.GetSource_FromThis(), DisposablePosition - Vector2.UnitY * 1000, new Vector2(Main.rand.NextFloat(-30, 30) * Main.rand.NextFloat(1f, 2f), Main.rand.NextFloat(-5, 1)), ProjectileType<GarbageGiantFlame>(), 15, 0, ai0: 1);
             }
     }
 

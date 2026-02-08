@@ -41,7 +41,7 @@ public class GarbageLaserSmall1 : ModProjectile
             if (npc.active && npc.type == NPCType<HotGarbage>())
             {
                 Projectile.Center = npc.Center + new Vector2(-7 * npc.direction, npc.height * 0.4f);
-                if ((int)npc.ai[0] == (int)HotGarbage.State.Death || (int)npc.ai[0] == (int)HotGarbage.State.ActualDeath)
+                if ((int)npc.ai[0] == (int)HotGarbage.State.Death)
                     Projectile.Kill();
             }
         float progress = Utils.GetLerpValue(0, maxTime, Projectile.timeLeft);
@@ -161,7 +161,7 @@ public class GarbageLaserSmall2 : ModProjectile
             if (npc.active && npc.type == NPCType<HotGarbage>())
             {
                 Projectile.Center = npc.Center + new Vector2(-7 * npc.direction, npc.height * 0.4f);
-                if ((int)npc.ai[0] == (int)HotGarbage.State.Death || (int)npc.ai[0] == (int)HotGarbage.State.ActualDeath)
+                if ((int)npc.ai[0] == (int)HotGarbage.State.Death)
                     Projectile.Kill();
             }
         float progress = Utils.GetLerpValue(0, maxTime, Projectile.timeLeft);
@@ -272,7 +272,7 @@ public class GarbageLaserSmall3 : ModProjectile
             if (npc.active && npc.type == NPCType<HotGarbage>())
             {
                 Projectile.Center = npc.Center + new Vector2(-7 * npc.direction, npc.height * 0.4f);
-                if ((int)npc.ai[0] == (int)HotGarbage.State.Death || (int)npc.ai[0] == (int)HotGarbage.State.ActualDeath)
+                if ((int)npc.ai[0] == (int)HotGarbage.State.Death)
                     Projectile.Kill();
             }
         float progress = Utils.GetLerpValue(0, maxTime, Projectile.timeLeft);
