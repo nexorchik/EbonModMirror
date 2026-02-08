@@ -35,7 +35,7 @@ public partial class HotGarbage : ModNPC
     
     void TargetingLogic() {
         NPC.TargetClosest(false);
-        if (AIState != Death)
+        if (AIState != State.Death)
         {
             bool shouldntDespawn = false;
             foreach (Player p in Main.ActivePlayers)
@@ -68,7 +68,7 @@ public partial class HotGarbage : ModNPC
             NPC.velocity.Y = -15;
         else if (NPC.Grounded(offsetX: 0.5f) && player.Center.Y < NPC.Center.Y - 100)
             NPC.velocity.Y = -10;
-        if (AIState == Idle)
+        if (AIState == State.Idle)
         {
             if (Helper.Raycast(NPC.Center, -Vector2.UnitY, NPC.height).RayLength < NPC.height - 1 && !Collision.CanHit(NPC, player))
             {

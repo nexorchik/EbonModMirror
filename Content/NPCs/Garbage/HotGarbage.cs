@@ -29,79 +29,57 @@ namespace EbonianMod.Content.NPCs.Garbage;
 public partial class HotGarbage : ModNPC
 {
     public Player player => Main.player[NPC.target];
-    public const int ActualDeath = -2, Death = -1, Intro = 0, Idle = 1, WarningForDash = 2, Dash = 3, SlamPreperation = 4, SlamSlamSlam = 5,
-        WarningForBigDash = 6, BigDash = 7, OpenLid = 8, SpewFire = 9, CloseLid = 10, FallOver = 11, SpewFire2 = 12, BouncingBarrels = 13, TrashBags = 14,
-        SodaMissiles = 15, PipeBombAirstrike = 16, SateliteLightning = 17, MassiveLaser = 18, MailBoxes = 19, GiantFireball = 20;
-    int NextAttack = OpenLid;
-    int NextAttack2 = TrashBags;
+
+    public enum State 
+    {
+        ActualDeath = -2, 
+        Death = -1, 
+        Intro = 0,
+        Idle, 
+        WarningForDash, 
+        Dash,
+        SlamPreperation,
+        SlamSlamSlam,
+        WarningForBigDash,
+        BigDash,
+        OpenLid,
+        SpewFire,
+        CloseLid,
+        FallOver,
+        SpewFire2, 
+        BouncingBarrels,
+        TrashBags,
+        SodaMissiles,
+        PipeBombAirstrike,
+        SateliteLightning,
+        MassiveLaser,
+        MailBoxes,
+        GiantFireball,
+        SummonDrones,
+    }
+    State NextAttack = State.OpenLid;
+    State NextAttack2 = State.TrashBags;
     public override void AI()
     {
         AmbientVFX();
         
-        if (AIState != Idle && AIState != SlamSlamSlam && AIState != PipeBombAirstrike)
+        if (AIState != State.Idle && AIState != State.SlamSlamSlam && AIState != State.PipeBombAirstrike)
             NPC.noTileCollide = false;
 
         TargetingLogic();
         
         HandleLidAI();
 
-        if (AIState == Death)
-            DoDeath();
-        else if (AIState == Intro)
+        switch (AIState)
         {
-            if (!NPC.collideY && AITimer2 < 150)
-            {
-                if (Helper.Raycast(NPC.Center, Vector2.UnitY, 80).RayLength > 50)
-                    NPC.position.Y += NPC.velocity.Y * 0.5f;
-                NPC.frameCounter = 0;
-            }
-            NPC.dontTakeDamage = true;
-            AITimer2++;
-            if (NPC.collideY || AITimer2 > 150)
-            {
-                AITimer++;
-                if (AITimer == 1)
-                {
-                    NPC.netUpdate = true;
-                    NPC.position.Y -= NPC.velocity.Y;
-                    foreach (Player p in Main.ActivePlayers)
-                        if (!p.dead && p.Distance(NPC.Center) < 3000)
-                        {
-                            player.JumpMovement();
-                            player.velocity.Y = -10;
-                        }
-                    MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + NPC.height * 0.5f * Vector2.UnitY, new Vector2(0, 0), ProjectileType<GarbageImpact>(), 0, 0, 0, 0);
-                    CameraSystem.ChangeCameraPos(NPC.Center - new Vector2(0, 50), 120, null, 1.5f, InOutQuart);
-                }
-                if (AITimer == 15)
-                {
-                    SoundEngine.PlaySound(Sounds.garbageAwaken);
-                }
-                if (AITimer == 45)
-                {
-                    CameraSystem.ChangeZoom(75, new ZoomInfo(2, 1f, InOutBounce, InOutCirc));
-                    for (int i = 0; i < 3; i++)
-                        MPUtils.NewProjectile(NPC.InheritSource(NPC), NPC.Center, Vector2.Zero, ProjectileType<BloodShockwave2>(), 0, 0);
-                }
-                if (AITimer < 30)
-                {
-                    NPC.frameCounter = 0;
-                }
-                if (AITimer > 100)
-                {
-                    NPC.Center += new Vector2(2 * NPC.direction, 0);
-                    NPC.frame.X = 80;
-                    NPC.frame.Y = 0;
-                    AIState = Idle;
-                    AITimer = 0;
-                    AITimer2 = 0;
-                    NextAttack = WarningForDash;
-
-                    NPC.netUpdate = true;
-                }
-            }
+            
         }
-        else if (AIState == Idle)
+        
+        if (AIState == State.Death)
+            DoDeath();
+        else if (AIState == State.Intro)
+            DoIntro();
+        else if (AIState == State.Idle)
         {
             NPC.dontTakeDamage = false;
             NPC.damage = 0;
@@ -109,7 +87,7 @@ public partial class HotGarbage : ModNPC
             NPC.rotation = Lerp(NPC.rotation, 0, 0.35f);
             NPC.spriteDirection = NPC.direction = player.Center.X > NPC.Center.X ? 1 : -1;
             JumpCheck();
-            if (AITimer == 50 && Main.rand.NextBool() && NextAttack2 != SpewFire)
+            if (AITimer == 50 && Main.rand.NextBool() && NextAttack2 != State.SpewFire)
                 MPUtils.NewProjectile(NPC.GetSource_FromThis(), Helper.Raycast(NPC.Center - new Vector2(Main.rand.NextFloat(-500, 500), 200), Vector2.UnitY, 600, true).Point, Vector2.Zero, ProjectileType<Mailbox>(), 15, 0);
             NPC.velocity.X = Lerp(NPC.velocity.X, Helper.FromAToB(NPC.Center, player.Center + Helper.FromAToB(player.Center, NPC.Center) * 70, false).X * 0.043f, 0.12f);
             if (player.Distance(NPC.Center) < 70)
@@ -119,26 +97,26 @@ public partial class HotGarbage : ModNPC
             if (AITimer >= 150)
             {
                 NPC.netUpdate = true;
-                if (NextAttack != WarningForDash)
+                if (NextAttack != State.WarningForDash)
                     NPC.velocity.X = 0;
                 AITimer = 0;
                 if (didAttacks)
                 {
-                    List<int> attacks = new List<int>()
-                    { WarningForDash, WarningForBigDash,  SlamPreperation, MailBoxes, PipeBombAirstrike, MassiveLaser,
-                        OpenLid, OpenLid, OpenLid, OpenLid, OpenLid, OpenLid, };
-                    List<int> openAttacks = new List<int>()
-                    { SpewFire, SpewFire2, GiantFireball, TrashBags, SodaMissiles, SateliteLightning };
+                    List<State> attacks = new List<State>()
+                    { State.WarningForDash, State.WarningForBigDash,  State.SlamPreperation, State.MailBoxes, State.PipeBombAirstrike, State.MassiveLaser,
+                        State.OpenLid, State.OpenLid, State.OpenLid, State.OpenLid, State.OpenLid, State.OpenLid, };
+                    List<State> openAttacks = new List<State>()
+                    { State.SpewFire, State.SpewFire2, State.GiantFireball, State.TrashBags, State.SodaMissiles, State.SateliteLightning };
                     NextAttack = Main.rand.Next(attacks);
-                    if (NextAttack == OpenLid)
+                    if (NextAttack == State.OpenLid)
                         NextAttack2 = Main.rand.Next(openAttacks);
                 }
                 AIState = NextAttack;
-                if (NextAttack == OpenLid)
+                if (NextAttack == State.OpenLid)
                     NPC.frame.Y = 0;
             }
         }
-        else if (AIState == WarningForDash)
+        else if (AIState == State.WarningForDash)
         {
             NPC.velocity.X *= 0.99f;
             AITimer++;
@@ -154,11 +132,11 @@ public partial class HotGarbage : ModNPC
                 NPC.velocity.X = 0;
                 AITimer = 0;
                 AITimer2 = 0;
-                AIState = Dash;
+                AIState = State.Dash;
             }
 
         }
-        else if (AIState == Dash)
+        else if (AIState == State.Dash)
         {
             //old code i refuse to even look at, it works.
             NPC.damage = 60;
@@ -208,10 +186,10 @@ public partial class HotGarbage : ModNPC
             {
                 NPC.netUpdate = true;
                 NPC.velocity = Vector2.Zero;
-                NextAttack = OpenLid;
-                NextAttack2 = SpewFire;
+                NextAttack = State.OpenLid;
+                NextAttack2 = State.SpewFire;
                 flameAlpha = 0;
-                AIState = Idle;
+                AIState = State.Idle;
                 AITimer = 0;
                 AITimer2 = 0;
                 NPC.damage = 0;
@@ -219,7 +197,7 @@ public partial class HotGarbage : ModNPC
                 NPC.direction = 1;
             }
         }
-        else if (AIState == SlamPreperation)
+        else if (AIState == State.SlamPreperation)
         {
             AITimer++;
             flameAlpha = Lerp(flameAlpha, 1, 0.1f);
@@ -230,10 +208,10 @@ public partial class HotGarbage : ModNPC
                 NPC.velocity.X = 0;
                 AITimer = 0;
                 AITimer2 = 0;
-                AIState = SlamSlamSlam;
+                AIState = State.SlamSlamSlam;
             }
         }
-        else if (AIState == SlamSlamSlam)
+        else if (AIState == State.SlamSlamSlam)
         {
             AITimer++;
             NPC.noGravity = true;
@@ -297,11 +275,11 @@ public partial class HotGarbage : ModNPC
                 AITimer = 0;
                 flameAlpha = 0;
                 NPC.damage = 0;
-                NextAttack = WarningForBigDash;
-                AIState = Idle;
+                NextAttack = State.WarningForBigDash;
+                AIState = State.Idle;
             }
         }
-        else if (AIState == WarningForBigDash)
+        else if (AIState == State.WarningForBigDash)
         {
             AITimer++;
             NPC.velocity.X = Helper.FromAToB(NPC.Center, player.Center).X * -1;
@@ -319,11 +297,11 @@ public partial class HotGarbage : ModNPC
                 NPC.velocity.X = 0;
                 AITimer = 0;
                 AITimer2 = 0;
-                AIState = BigDash;
+                AIState = State.BigDash;
                 NPC.velocity = Vector2.Zero;
             }
         }
-        else if (AIState == BigDash)
+        else if (AIState == State.BigDash)
         {
             AITimer++;
             NPC.damage = 90;
@@ -347,13 +325,13 @@ public partial class HotGarbage : ModNPC
                 NPC.velocity = Vector2.Zero;
                 AITimer = -50;
                 NPC.damage = 0;
-                NextAttack = OpenLid;
-                NextAttack2 = TrashBags;
+                NextAttack = State.OpenLid;
+                NextAttack2 = State.TrashBags;
                 NPC.velocity = Vector2.Zero;
-                AIState = Idle;
+                AIState = State.Idle;
             }
         }
-        else if (AIState == SpewFire)
+        else if (AIState == State.SpewFire)
         {
             JumpCheck();
             NPC.velocity.X = Lerp(NPC.velocity.X, Helper.FromAToB(NPC.Center, player.Center).X * 2.5f, 0.15f);
@@ -371,12 +349,12 @@ public partial class HotGarbage : ModNPC
                 NPC.netUpdate = true;
                 AITimer = 0;
                 NPC.damage = 0;
-                NextAttack = SlamPreperation;
+                NextAttack = State.SlamPreperation;
                 NPC.velocity = Vector2.Zero;
-                AIState = CloseLid;
+                AIState = State.CloseLid;
             }
         }
-        else if (AIState == SpewFire2)
+        else if (AIState == State.SpewFire2)
         {
             AITimer++;
             JumpCheck();
@@ -395,17 +373,17 @@ public partial class HotGarbage : ModNPC
                 AITimer = 0;
                 NPC.damage = 0;
                 NPC.velocity = Vector2.Zero;
-                NextAttack2 = SateliteLightning;
-                NextAttack = OpenLid;
-                AIState = CloseLid;
+                NextAttack2 = State.SateliteLightning;
+                NextAttack = State.OpenLid;
+                AIState = State.CloseLid;
             }
         }
-        else if (AIState == BouncingBarrels)
+        else if (AIState == State.BouncingBarrels)
         {
             NPC.netUpdate = true;
-            AIState = GiantFireball;
+            AIState = State.GiantFireball;
         }
-        else if (AIState == GiantFireball)
+        else if (AIState == State.GiantFireball)
         {
             JumpCheck();
             NPC.velocity.X = Lerp(NPC.velocity.X, Helper.FromAToB(NPC.Center, player.Center + Helper.FromAToB(player.Center, NPC.Center) * 70, false).X * 0.01f, 0.15f);
@@ -435,11 +413,11 @@ public partial class HotGarbage : ModNPC
                 AITimer = 0;
                 NPC.damage = 0;
                 NPC.velocity = Vector2.Zero;
-                NextAttack = MassiveLaser;
-                AIState = CloseLid;
+                NextAttack = State.MassiveLaser;
+                AIState = State.CloseLid;
             }
         }
-        else if (AIState == TrashBags)
+        else if (AIState == State.TrashBags)
         {
             if (AITimer == 1 && !MPUtils.NotMPClient)
             {
@@ -484,12 +462,12 @@ public partial class HotGarbage : ModNPC
                 AITimer3 = 0;
                 NPC.damage = 0;
                 NPC.velocity = Vector2.Zero;
-                NextAttack2 = SodaMissiles;
-                NextAttack = OpenLid;
-                AIState = Idle;
+                NextAttack2 = State.SodaMissiles;
+                NextAttack = State.OpenLid;
+                AIState = State.Idle;
             }
         }
-        else if (AIState == SodaMissiles)
+        else if (AIState == State.SodaMissiles)
         {
             if (AITimer == 1 && !MPUtils.NotMPClient)
             {
@@ -514,11 +492,11 @@ public partial class HotGarbage : ModNPC
                 AITimer = 0;
                 NPC.damage = 0;
                 NPC.velocity = Vector2.Zero;
-                NextAttack = MailBoxes;
-                AIState = CloseLid;
+                NextAttack = State.MailBoxes;
+                AIState = State.CloseLid;
             }
         }
-        else if (AIState == MailBoxes)
+        else if (AIState == State.MailBoxes)
         {
             JumpCheck();
             NPC.velocity.X = Lerp(NPC.velocity.X, Helper.FromAToB(NPC.Center, player.Center + Helper.FromAToB(player.Center, NPC.Center) * 70, false).X * 0.043f, 0.12f);
@@ -538,12 +516,12 @@ public partial class HotGarbage : ModNPC
                 AITimer = -80;
                 NPC.damage = 0;
                 NPC.velocity = Vector2.Zero;
-                NextAttack2 = SpewFire2;
-                NextAttack = OpenLid;
-                AIState = Idle;
+                NextAttack2 = State.SpewFire2;
+                NextAttack = State.OpenLid;
+                AIState = State.Idle;
             }
         }
-        else if (AIState == SateliteLightning)
+        else if (AIState == State.SateliteLightning)
         {
             AITimer++;
             if (AITimer == 1 && !MPUtils.NotMPClient)
@@ -570,12 +548,12 @@ public partial class HotGarbage : ModNPC
                 AITimer = 0;
                 AITimer3 = 0;
                 NPC.damage = 0;
-                AIState = CloseLid;
-                NextAttack = PipeBombAirstrike;
+                AIState = State.CloseLid;
+                NextAttack = State.PipeBombAirstrike;
                 NPC.velocity = Vector2.Zero;
             }
         }
-        else if (AIState == PipeBombAirstrike)
+        else if (AIState == State.PipeBombAirstrike)
         {
             AITimer++;
             if (AITimer == 2)
@@ -638,13 +616,13 @@ public partial class HotGarbage : ModNPC
                 AITimer = 0;
                 flameAlpha = 0;
                 NPC.damage = 0;
-                AIState = Idle;
-                NextAttack = OpenLid;
-                NextAttack2 = BouncingBarrels;
+                AIState = State.Idle;
+                NextAttack = State.OpenLid;
+                NextAttack2 = State.BouncingBarrels;
                 NPC.velocity = Vector2.Zero;
             }
         }
-        else if (AIState == MassiveLaser)
+        else if (AIState == State.MassiveLaser)
         {
             AITimer++;
             if (AITimer < 60)
@@ -775,11 +753,25 @@ public partial class HotGarbage : ModNPC
                 AITimer2 = 0;
                 AITimer = 0;
                 NPC.damage = 0;
-                AIState = Idle;
+                AIState = State.Idle;
                 flameAlpha = 0;
                 didAttacks = true;
-                NextAttack = WarningForDash;
+                NextAttack = State.WarningForDash;
                 NPC.velocity = Vector2.Zero;
+            }
+        }
+        else if (AIState == State.SummonDrones)
+        {
+            AITimer++;
+            if (AITimer == 10)
+                SoundEngine.PlaySound(SoundID.Zombie67.WithPitchOffset(-1f), NPC.Center);
+            
+            if (AITimer > 10 && AITimer < 30&& AITimer % 2 == 0)
+                MPUtils.NewProjectile(null, NPC.Center + Main.rand.NextVector2Circular(AITimer -10f, AITimer- 10f), Vector2.Zero, ProjectileType<GreenShockwave>(), 0, 0); 
+
+            if (AITimer > 45 && AITimer < 180 && AITimer % 7 == 0)
+            {
+                MPUtils.NewProjectile(null, NPC.Center - new Vector2(850, 600), new Vector2(7, 10) * Main.rand.NextFloat(0.9f, 1.1f), ProjectileType<LaserDrone>(), 10, 0);
             }
         }
     }

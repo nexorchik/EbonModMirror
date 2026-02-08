@@ -87,10 +87,10 @@ public partial class HotGarbage : ModNPC
             new FlavorTextBestiaryInfoElement("Mods.EbonianMod.NPCs.HotGarbage.Bestiary"),
         });
     }
-    public int AIState
+    public State AIState
     {
-        get => (int)NPC.ai[0];
-        set => NPC.ai[0] = value;
+        get => (State)NPC.ai[0];
+        set => NPC.ai[0] = (float)value;
     }
     public int AITimer
     {
@@ -122,8 +122,8 @@ public partial class HotGarbage : ModNPC
     }
     public override void ReceiveExtraAI(BinaryReader reader)
     {
-        NextAttack = (int)reader.ReadByte();
-        NextAttack2 = (int)reader.ReadByte();
+        NextAttack = (State)reader.ReadByte();
+        NextAttack2 = (State)reader.ReadByte();
         ded = reader.ReadBoolean();
         didAttacks = reader.ReadBoolean();
         pos = reader.ReadVector2();
@@ -133,7 +133,7 @@ public partial class HotGarbage : ModNPC
         if (NPC.life <= 0 && !ded)
         {
             NPC.life = 1;
-            AIState = Death;
+            AIState = State.Death;
             NPC.frameCounter = 0;
             NPC.immortal = true;
             NPC.dontTakeDamage = true;
@@ -155,6 +155,6 @@ public partial class HotGarbage : ModNPC
     public override bool? CanFallThroughPlatforms()
     {
         Player player = Main.player[NPC.target];
-        return (NPC.Center.Y <= player.Center.Y - 100) || AIState == MassiveLaser;
+        return (NPC.Center.Y <= player.Center.Y - 100) || AIState == State.MassiveLaser;
     }
 }

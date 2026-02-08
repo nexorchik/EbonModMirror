@@ -1,5 +1,6 @@
 namespace EbonianMod.Content.NPCs.Garbage;
 
+// TODO: clean this
 public partial class HotGarbage : ModNPC
 {
     public override bool PreDraw(SpriteBatch spriteBatch, Vector2 pos, Color lightColor)
@@ -18,7 +19,7 @@ public partial class HotGarbage : ModNPC
 
         spriteBatch.Draw(drawTexture, drawPos, NPC.frame, lightColor, NPC.rotation, origin, NPC.scale, effects, 0);
         spriteBatch.Draw(glow, drawPos, NPC.frame, Color.White, NPC.rotation, origin, NPC.scale, effects, 0);
-        if (AIState != Intro && AIState != Idle && AIState != OpenLid && AIState != SpewFire && AIState != CloseLid && AIState != ActualDeath && AIState != FallOver && AIState != SpewFire2 && AIState != BouncingBarrels && NPC.frame.X == 80)
+        if (AIState != State.Intro && AIState != State.Idle && AIState != State.OpenLid && AIState != State.SpewFire && AIState != State.CloseLid && AIState != State.ActualDeath && AIState != State.FallOver && AIState != State.SpewFire2 && AIState != State.BouncingBarrels && NPC.frame.X == 80)
             spriteBatch.Draw(fire, drawPos + new Vector2(NPC.width * -NPC.direction + (NPC.direction == 1 ? 9 : 0), 2).RotatedBy(NPC.rotation) * NPC.scale, new Rectangle(0, NPC.frame.Y - 76 * 3, 70, 76), Color.White, NPC.rotation, origin, NPC.scale, effects, 0);
 
         return false;
@@ -51,7 +52,7 @@ public partial class HotGarbage : ModNPC
         int frameHeight = 76;
         NPC.frame.Width = 80;
         NPC.frame.Height = 76;
-        //NPC.frame.X = AIState == Intro && !NPC.IsABestiaryIconDummy ? 0 : 80;
+        //NPC.frame.X = AIState == State.Intro && !NPC.IsABestiaryIconDummy ? 0 : 80;
         NPC.frameCounter++;
 
         if (NPC.IsABestiaryIconDummy)
@@ -70,7 +71,7 @@ public partial class HotGarbage : ModNPC
             }
         }
 
-        if (AIState == Intro && !NPC.IsABestiaryIconDummy)
+        if (AIState == State.Intro && !NPC.IsABestiaryIconDummy)
         {
             NPC.frame.X = 0;
             if (NPC.frameCounter < 5)
@@ -86,7 +87,7 @@ public partial class HotGarbage : ModNPC
                 }
             }
         }
-        else if (AIState == Idle || (AIState == TrashBags && AITimer > 120))
+        else if (AIState == State.Idle || (AIState == State.TrashBags && AITimer > 120))
         {
             NPC.frame.X = 80;
             if (NPC.frameCounter % 5 == 0)
@@ -101,7 +102,7 @@ public partial class HotGarbage : ModNPC
                 }
             }
         }
-        else if (AIState == WarningForDash || (AIState == Dash && (AITimer3 >= 22)) || AIState == SlamPreperation || AIState == WarningForBigDash || (AIState == PipeBombAirstrike && AITimer <= 25) || (AIState == MassiveLaser && AITimer <= 25))
+        else if (AIState == State.WarningForDash || (AIState == State.Dash && (AITimer3 >= 22)) || AIState == State.SlamPreperation || AIState == State.WarningForBigDash || (AIState == State.PipeBombAirstrike && AITimer <= 25) || (AIState == State.MassiveLaser && AITimer <= 25))
         {
             NPC.frame.X = 80;
             if (NPC.frameCounter % 5 == 0)
@@ -116,9 +117,9 @@ public partial class HotGarbage : ModNPC
                 }
             }
         }
-        else if ((AIState == Death && AITimer > 40) || AIState == SlamSlamSlam || (AIState == Dash && !(AITimer3 >= 22)) || AIState == BigDash || (AIState == PipeBombAirstrike && AITimer > 25) || (AIState == MassiveLaser && AITimer > 25))
+        else if ((AIState == State.Death && AITimer > 40) || AIState == State.SlamSlamSlam || (AIState == State.Dash && !(AITimer3 >= 22)) || AIState == State.BigDash || (AIState == State.PipeBombAirstrike && AITimer > 25) || (AIState == State.MassiveLaser && AITimer > 25))
         {
-            if ((AIState == PipeBombAirstrike || AIState == SlamSlamSlam ? AITimer > 200 : NPC.velocity.Length() > 4))
+            if ((AIState == State.PipeBombAirstrike || AIState == State.SlamSlamSlam ? AITimer > 200 : NPC.velocity.Length() > 4))
             {
                 NPC.frame.X = 80;
                 if (NPC.frameCounter % 5 == 0)
@@ -149,7 +150,7 @@ public partial class HotGarbage : ModNPC
                 }
             }
         }
-        else if (AIState == OpenLid)
+        else if (AIState == State.OpenLid)
         {
             NPC.frame.X = 160;
             if (NPC.frameCounter % 5 == 0)
@@ -160,7 +161,7 @@ public partial class HotGarbage : ModNPC
                 }
             }
         }
-        else if (AIState == CloseLid)
+        else if (AIState == State.CloseLid)
         {
             NPC.frame.X = 160;
             if (NPC.frameCounter % 5 == 0)

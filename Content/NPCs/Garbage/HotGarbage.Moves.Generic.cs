@@ -7,20 +7,20 @@ namespace EbonianMod.Content.NPCs.Garbage;
 public partial class HotGarbage : ModNPC
 {
 	void HandleLidAI() {
-		if (AIState == CloseLid)
+		if (AIState == State.CloseLid)
 		{
 			AITimer++;
 			if (AITimer > 20)
 			{
 				AITimer = 0;
-				AIState = Idle;
+				AIState = State.Idle;
 				NPC.netUpdate = true;
 			}
 		}
-		if (AIState == OpenLid)
+		if (AIState == State.OpenLid)
 		{
 			AITimer++;
-			if (NextAttack2 == FallOver)
+			if (NextAttack2 == State.FallOver)
 				NPC.rotation -= ToRadians(-0.9f * 5 * NPC.direction);
 			if (AITimer == 1)
 			{
@@ -169,6 +169,61 @@ public partial class HotGarbage : ModNPC
             if (AITimer % 20 == 0 && AITimer > 30 && AITimer < 630)
             {
                 MPUtils.NewProjectile(NPC.GetSource_FromThis(), pos - Vector2.UnitY * 1000, new Vector2(Main.rand.NextFloat(-30, 30) * Main.rand.NextFloat(1f, 2f), Main.rand.NextFloat(-5, 1)), ProjectileType<GarbageGiantFlame>(), 15, 0, ai0: 1);
+            }
+    }
+
+    void DoIntro()
+    {
+            if (!NPC.collideY && AITimer2 < 150)
+            {
+                if (Helper.Raycast(NPC.Center, Vector2.UnitY, 80).RayLength > 50)
+                    NPC.position.Y += NPC.velocity.Y * 0.5f;
+                NPC.frameCounter = 0;
+            }
+            NPC.dontTakeDamage = true;
+            AITimer2++;
+            if (NPC.collideY || AITimer2 > 150)
+            {
+                AITimer++;
+                if (AITimer == 1)
+                {
+                    NPC.netUpdate = true;
+                    NPC.position.Y -= NPC.velocity.Y;
+                    foreach (Player p in Main.ActivePlayers)
+                        if (!p.dead && p.Distance(NPC.Center) < 3000)
+                        {
+                            player.JumpMovement();
+                            player.velocity.Y = -10;
+                        }
+                    MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Center + NPC.height * 0.5f * Vector2.UnitY, new Vector2(0, 0), ProjectileType<GarbageImpact>(), 0, 0, 0, 0);
+                    CameraSystem.ChangeCameraPos(NPC.Center - new Vector2(0, 50), 120, null, 1.5f, InOutQuart);
+                }
+                if (AITimer == 15)
+                {
+                    SoundEngine.PlaySound(Sounds.garbageAwaken);
+                }
+                if (AITimer == 45)
+                {
+                    CameraSystem.ChangeZoom(75, new ZoomInfo(2, 1f, InOutBounce, InOutCirc));
+                    for (int i = 0; i < 3; i++)
+                        MPUtils.NewProjectile(NPC.InheritSource(NPC), NPC.Center, Vector2.Zero, ProjectileType<BloodShockwave2>(), 0, 0);
+                }
+                if (AITimer < 30)
+                {
+                    NPC.frameCounter = 0;
+                }
+                if (AITimer > 100)
+                {
+                    NPC.Center += new Vector2(2 * NPC.direction, 0);
+                    NPC.frame.X = 80;
+                    NPC.frame.Y = 0;
+                    AIState = State.Idle;
+                    AITimer = 0;
+                    AITimer2 = 0;
+                    NextAttack = State.SummonDrones;
+
+                    NPC.netUpdate = true;
+                }
             }
     }
 }

@@ -33,7 +33,7 @@ public class GarbageDrone : ModProjectile
     public override bool PreDraw(ref Color lightColor)
     {
         lightColor = Color.White * Projectile.Opacity;
-        Texture2D tex = Helper.GetTexture(Texture + "_Bloom").Value;
+        Texture2D tex = Assets.Projectiles.Garbage.GarbageDrone_Bloom.Value;
         Main.spriteBatch.Reload(BlendState.Additive);
         var fadeMult = 1f / Projectile.oldPos.Count();
         for (int i = 0; i < Projectile.oldPos.Count(); i++)
@@ -115,7 +115,7 @@ public class GarbageDroneF : ModProjectile
     public override bool PreDraw(ref Color lightColor)
     {
         lightColor = Color.White * Projectile.Opacity;
-        Texture2D tex = Helper.GetTexture(Texture + "_Bloom").Value;
+        Texture2D tex = Assets.Projectiles.Garbage.GarbageDrone_Bloom.Value;
         Main.spriteBatch.Reload(BlendState.Additive);
         var fadeMult = 1f / Projectile.oldPos.Count();
         for (int i = 0; i < Projectile.oldPos.Count(); i++)
