@@ -33,7 +33,7 @@ public partial class HotGarbage : ModNPC
     public enum State 
     {
         Death = -1, 
-        Intro = 0,
+        Intro,
         Idle, 
         WarningForDash, 
         Dash,
@@ -56,8 +56,10 @@ public partial class HotGarbage : ModNPC
         GiantFireball,
         SummonDrones,
     }
-    State NextAttack = State.OpenLid;
-    State NextAttack2 = State.TrashBags;
+    public State NextAttack = State.OpenLid;
+    public State NextAttack2 = State.TrashBags;
+    public override void PostAI() => NPC.spriteDirection = NPC.direction;
+
     public override void AI()
     {
         AmbientVFX();
@@ -75,41 +77,13 @@ public partial class HotGarbage : ModNPC
                 DoDeath(); break;
             case State.Intro: 
                 DoIntro(); break;
+            case State.Idle:
+                DoIdle(); break;
+            
+            
         }
         
-        if (AIState == State.Idle)
-        {
-            NPC.dontTakeDamage = false;
-            NPC.damage = 0;
-            AITimer++;
-            NPC.rotation = Lerp(NPC.rotation, 0, 0.35f);
-            NPC.spriteDirection = NPC.direction = player.Center.X > NPC.Center.X ? 1 : -1;
-            JumpCheck();
-            if (AITimer == 50 && Main.rand.NextBool() && NextAttack2 != State.SpewFire)
-                MPUtils.NewProjectile(NPC.GetSource_FromThis(), Helper.Raycast(NPC.Center - new Vector2(Main.rand.NextFloat(-500, 500), 200), Vector2.UnitY, 600, true).Point, Vector2.Zero, ProjectileType<Mailbox>(), 15, 0);
-            NPC.velocity.X = Lerp(NPC.velocity.X, Helper.FromAToB(NPC.Center, player.Center + Helper.FromAToB(player.Center, NPC.Center) * 70, false).X * 0.043f, 0.12f);
-            if (player.Distance(NPC.Center) < 70)
-                AITimer += 1;
-            if (player.Distance(NPC.Center) < 40)
-                AITimer += 1;
-            if (AITimer >= 150)
-            {
-                NPC.netUpdate = true;
-                if (NextAttack != State.WarningForDash)
-                    NPC.velocity.X = 0;
-                AITimer = 0;
-                if (PerformedFullMoveset)
-                {
-                    NextAttack = Main.rand.Next(AttackPool);
-                    if (NextAttack == State.OpenLid)
-                        NextAttack2 = Main.rand.Next(OpenAttackPool);
-                }
-                AIState = NextAttack;
-                if (NextAttack == State.OpenLid)
-                    NPC.frame.Y = 0;
-            }
-        }
-        else if (AIState == State.WarningForDash)
+        if (AIState == State.WarningForDash)
         {
             NPC.velocity.X *= 0.99f;
             AITimer++;
@@ -118,7 +92,7 @@ public partial class HotGarbage : ModNPC
                 SoundEngine.PlaySound(SoundID.Zombie66, NPC.Center);
                 MPUtils.NewProjectile(NPC.InheritSource(NPC), NPC.Center, Vector2.Zero, ProjectileType<CircleTelegraph>(), 0, 0);
             }
-            NPC.spriteDirection = NPC.direction = player.Center.X > NPC.Center.X ? 1 : -1;
+            FacePlayer();
             if (AITimer >= 55)
             {
                 NPC.velocity.X = 0;
@@ -174,16 +148,15 @@ public partial class HotGarbage : ModNPC
             }
             if (AITimer >= 65 * 3)
             {
-                NPC.netUpdate = true;
                 NPC.velocity = Vector2.Zero;
                 NextAttack = State.OpenLid;
                 NextAttack2 = State.SpewFire;
                 AIState = State.Idle;
                 AITimer = 0;
                 AITimer2 = 0;
-                NPC.damage = 0;
                 AITimer3 = 0;
-                NPC.direction = 1;
+                NPC.damage = 0;
+                NPC.netUpdate = true;
             }
         }
         else if (AIState == State.SlamPreperation)
@@ -275,7 +248,7 @@ public partial class HotGarbage : ModNPC
                 MPUtils.NewProjectile(NPC.InheritSource(NPC), NPC.Center, Vector2.Zero, ProjectileType<CircleTelegraph>(), 0, 0);
             }
             NPC.rotation += ToRadians(-0.2f * 2 * NPC.direction);
-            NPC.spriteDirection = NPC.direction = player.Center.X > NPC.Center.X ? 1 : -1;
+            FacePlayer();
             if (AITimer >= 50)
             {
                 NPC.netUpdate = true;
@@ -369,7 +342,7 @@ public partial class HotGarbage : ModNPC
         {
             JumpCheck();
             NPC.velocity.X = Lerp(NPC.velocity.X, Helper.FromAToB(NPC.Center, player.Center + Helper.FromAToB(player.Center, NPC.Center) * 70, false).X * 0.01f, 0.15f);
-            NPC.spriteDirection = NPC.direction = player.Center.X > NPC.Center.X ? 1 : -1;
+            FacePlayer();
             AITimer++;
             if (AITimer == 10)
             {
@@ -411,7 +384,7 @@ public partial class HotGarbage : ModNPC
             AITimer++;
             JumpCheck();
             NPC.velocity.X = Lerp(NPC.velocity.X, Helper.FromAToB(NPC.Center, player.Center + Helper.FromAToB(player.Center, NPC.Center) * 70, false).X * 0.043f, 0.12f);
-            NPC.spriteDirection = NPC.direction = player.Center.X > NPC.Center.X ? 1 : -1;
+            FacePlayer();
             if (AITimer <= 60 && AITimer % 5 == 0)
             {
                 Projectile a = MPUtils.NewProjectile(NPC.GetSource_FromThis(), NPC.Center, new Vector2(Main.rand.NextFloat(-2.5f, 2.5f), Main.rand.NextFloat(-15, -7)) * 0.5f, ProjectileType<GarbageBag>(), 15, 0, player.whoAmI);

@@ -7,19 +7,19 @@ public partial class HotGarbage : ModNPC
 {
     public readonly List<Vector2> RedFrames = new List<Vector2>
     {
-        new Vector2(0, 76*8),new Vector2(0, 76*10),new Vector2(0, 76*11),new Vector2(0, 76*12),
+        new(0, 76*8), new(0, 76*10), new(0, 76*11), new(0, 76*12),
 
-        new Vector2(80, 0),new Vector2(80, 76*1),new Vector2(80, 76*2),
+        new(80, 0), new(80, 76*1), new(80, 76*2),
 
-        new Vector2(80*2, 0),new Vector2(80*2, 76*1),new Vector2(80*2, 76*2),new Vector2(80*2, 76*3)
+        new(80*2, 0), new(80*2, 76*1), new(80*2, 76*2), new(80*2, 76*3)
     };
     public readonly List<Vector2> YellowFrames = new List<Vector2>
     {
-        new Vector2(80, 76*3),new Vector2(80, 76*4),new Vector2(80, 76*5)
+        new(80, 76*3), new(80, 76*4), new(80, 76*5)
     };
     public readonly List<Vector2> GreenFrames = new List<Vector2>
     {
-        new Vector2(80, 76*6),new Vector2(80, 76*7),new Vector2(80, 76*8),new Vector2(80, 76*9)
+        new(80, 76*6), new(80, 76*7), new(80, 76*8), new(80, 76*9)
     };
     
     public readonly List<State> AttackPool = new List<State>() { 
@@ -38,11 +38,11 @@ public partial class HotGarbage : ModNPC
     public SlotId LaserSoundSlot;
     
     void AmbientVFX() {
-        if (RedFrames.Contains(new Vector2(NPC.frame.X, NPC.frame.Y)))
+        if (RedFrames.Contains(new(NPC.frame.X, NPC.frame.Y)))
             Lighting.AddLight(NPC.Center, TorchID.Red);
-        if (YellowFrames.Contains(new Vector2(NPC.frame.X, NPC.frame.Y)))
+        if (YellowFrames.Contains(new(NPC.frame.X, NPC.frame.Y)))
             Lighting.AddLight(NPC.Center, TorchID.Yellow);
-        if (GreenFrames.Contains(new Vector2(NPC.frame.X, NPC.frame.Y)))
+        if (GreenFrames.Contains(new(NPC.frame.X, NPC.frame.Y)))
             Lighting.AddLight(NPC.Center, TorchID.Green);
         if (NPC.frame.X == 80 * 2 && NPC.frame.Y > 0)
         {
@@ -74,10 +74,26 @@ public partial class HotGarbage : ModNPC
         NPC.timeLeft = 10;
     }
     
+    void FacePlayer() => NPC.direction = player.Center.X > NPC.Center.X ? 1 : -1;
+
+    void ResetTo(State state, State? stateAfterOpenLid = null)
+    {
+        NextAttack = state;
+        if (stateAfterOpenLid != null)
+            NextAttack2 = stateAfterOpenLid.Value;
+        
+        AIState = State.Idle;
+        AITimer = 0;
+        AITimer2 = 0;
+        AITimer3 = 0;
+        NPC.damage = 0;
+        NPC.netUpdate = true;
+    }  
+    
     void JumpCheck()
     {
         Collision.StepUp(ref NPC.position, ref NPC.velocity, NPC.width, NPC.height, ref NPC.stepSpeed, ref NPC.gfxOffY, 1, false, 0);
-        if (NPC.Grounded(offsetX: 0.5f) && (NPC.collideX || Helper.Raycast(NPC.Center, Vector2.UnitX, 1000).RayLength < NPC.width || Helper.Raycast(NPC.Center, -Vector2.UnitX, 1000).RayLength < NPC.width))
+        if (NPC.Grounded(offsetX: 0.5f) && (NPC.collideX || Helper.Raycast(NPC.Center, Vector2.UnitX, 1000).RayLength < NPC.width*0.5f || Helper.Raycast(NPC.Center, -Vector2.UnitX,  NPC.width).RayLength < NPC.width*0.5f))
             NPC.velocity.Y = -10;
         if (NPC.Grounded(offsetX: 0.5f) && player.Center.Y < NPC.Center.Y - 300)
             NPC.velocity.Y = -20;

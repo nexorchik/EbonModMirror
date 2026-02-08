@@ -37,6 +37,38 @@ public partial class HotGarbage : ModNPC
 		}
 	}
 	
+    void DoIdle() {
+        NPC.dontTakeDamage = false;
+        NPC.damage = 0;
+        AITimer++;
+        NPC.rotation = Lerp(NPC.rotation, 0, 0.35f);
+        NPC.spriteDirection = NPC.direction = player.Center.X > NPC.Center.X ? 1 : -1;
+        JumpCheck();
+        if (AITimer == 50 && Main.rand.NextBool() && NextAttack2 != State.SpewFire)
+            MPUtils.NewProjectile(NPC.GetSource_FromThis(), Helper.Raycast(NPC.Center - new Vector2(Main.rand.NextFloat(-500, 500), 200), Vector2.UnitY, 600, true).Point, Vector2.Zero, ProjectileType<Mailbox>(), 15, 0);
+        NPC.velocity.X = Lerp(NPC.velocity.X, Helper.FromAToB(NPC.Center, player.Center + Helper.FromAToB(player.Center, NPC.Center) * 70, false).X * 0.043f, 0.12f);
+        if (player.Distance(NPC.Center) < 70)
+            AITimer += 1;
+        if (player.Distance(NPC.Center) < 40)
+            AITimer += 1;
+        if (AITimer >= 150)
+        {
+            NPC.netUpdate = true;
+            if (NextAttack != State.WarningForDash)
+                NPC.velocity.X = 0;
+            AITimer = 0;
+            if (PerformedFullMoveset)
+            {
+                NextAttack = Main.rand.Next(AttackPool);
+                if (NextAttack == State.OpenLid)
+                    NextAttack2 = Main.rand.Next(OpenAttackPool);
+            }
+            AIState = NextAttack;
+            if (NextAttack == State.OpenLid)
+                NPC.frame.Y = 0;
+        }
+    }
+    
 	void DoDeath() {
             NPC.rotation = Utils.AngleLerp(NPC.rotation, 0, 0.1f);
             NPC.noTileCollide = false;
