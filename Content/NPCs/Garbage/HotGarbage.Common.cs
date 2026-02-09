@@ -149,7 +149,6 @@ public partial class HotGarbage : ModNPC
     }
     public override bool? CanFallThroughPlatforms()
     {
-        Player player = Main.player[NPC.target];
         return (NPC.Center.Y <= player.Center.Y - 100) || AIState == State.MassiveLaser;
     }
 }
