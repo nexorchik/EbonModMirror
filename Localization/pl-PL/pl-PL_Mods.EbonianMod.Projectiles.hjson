@@ -389,6 +389,5 @@ StarcallerPortal.DisplayName: Portal Przywoływacza Gwiazd
 StarcallerShotVFX.DisplayName: Strzał Przywoływacza Gwiazd
 // FanaticFlame.DisplayName: Fanatic Flame
 // CryptidLanding.DisplayName: Cryptid Landing
-// LaserDrone.DisplayName: Laser Drone
-// LaserDroneLaer.DisplayName: Laser Drone Laer
-// LaserDroneLaser.DisplayName: Laser Drone Laser
+// LatcherProjectile.DisplayName: Latcher Projectile
+// LatcherProjectileCecitior.DisplayName: Latcher Projectile Cecitior
